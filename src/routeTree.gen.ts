@@ -20,6 +20,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
 import { Route as AuthenticatedDashboardDiagnosisRouteImport } from './routes/_authenticated/dashboard.diagnosis'
+import { Route as AuthenticatedDashboardCompassRouteImport } from './routes/_authenticated/dashboard.compass'
 import { Route as AuthenticatedDashboardCalendarRouteImport } from './routes/_authenticated/dashboard.calendar'
 
 const TermsRoute = TermsRouteImport.update({
@@ -78,6 +79,12 @@ const AuthenticatedDashboardDiagnosisRoute =
     path: '/diagnosis',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardCompassRoute =
+  AuthenticatedDashboardCompassRouteImport.update({
+    id: '/compass',
+    path: '/compass',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardCalendarRoute =
   AuthenticatedDashboardCalendarRouteImport.update({
     id: '/calendar',
@@ -94,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/share/$token': typeof ShareTokenRoute
   '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
+  '/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
   '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/share/$token': typeof ShareTokenRoute
   '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
+  '/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
   '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
@@ -121,6 +130,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/share/$token': typeof ShareTokenRoute
   '/_authenticated/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
+  '/_authenticated/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
   '/_authenticated/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/share/$token'
     | '/dashboard/calendar'
+    | '/dashboard/compass'
     | '/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/dashboard/'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/share/$token'
     | '/dashboard/calendar'
+    | '/dashboard/compass'
     | '/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/dashboard'
@@ -162,6 +174,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/share/$token'
     | '/_authenticated/dashboard/calendar'
+    | '/_authenticated/dashboard/compass'
     | '/_authenticated/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/_authenticated/dashboard/'
@@ -257,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardDiagnosisRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/compass': {
+      id: '/_authenticated/dashboard/compass'
+      path: '/compass'
+      fullPath: '/dashboard/compass'
+      preLoaderRoute: typeof AuthenticatedDashboardCompassRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/calendar': {
       id: '/_authenticated/dashboard/calendar'
       path: '/calendar'
@@ -269,6 +289,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardCalendarRoute: typeof AuthenticatedDashboardCalendarRoute
+  AuthenticatedDashboardCompassRoute: typeof AuthenticatedDashboardCompassRoute
   AuthenticatedDashboardDiagnosisRoute: typeof AuthenticatedDashboardDiagnosisRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
@@ -276,6 +297,7 @@ interface AuthenticatedDashboardRouteChildren {
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
     AuthenticatedDashboardCalendarRoute: AuthenticatedDashboardCalendarRoute,
+    AuthenticatedDashboardCompassRoute: AuthenticatedDashboardCompassRoute,
     AuthenticatedDashboardDiagnosisRoute: AuthenticatedDashboardDiagnosisRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
