@@ -156,7 +156,7 @@
 
   html { color-scheme: dark; }
 
-  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: 0; }
 
   [dir="rtl"] body { font-family: 'Noto Naskh Arabic', var(--font-sans); }
 }
@@ -180,5 +180,4 @@
 .mr-cursor::after {
   content: "▍"; margin-inline-start: 2px;
   color: var(--primary); animation: mr-blink 1s steps(1) infinite;
-  }
 }
