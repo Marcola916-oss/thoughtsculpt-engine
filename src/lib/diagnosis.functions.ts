@@ -29,7 +29,7 @@ const DiagnosisSchema = {
     ],
     additionalProperties: false,
   },
-} as const;
+};
 
 export const getDiagnosis = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
