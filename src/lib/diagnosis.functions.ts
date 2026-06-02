@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "../integrations/supabase/auth-middleware";
 import { callAIStructured } from "./ai/gateway.server";
+import type { JSONSchema7 } from "json-schema";
 import { ARCHETYPE_NAMES, type Archetype } from "./ai/archetypes";
 
 type DiagnosisJSON = {
@@ -10,7 +11,7 @@ type DiagnosisJSON = {
   personal_analysis: string;
 };
 
-const DiagnosisSchema = {
+const DiagnosisSchema: { name: string; description: string; schema: JSONSchema7 } = {
   name: "save_diagnosis",
   description: "Save the user's complete behavioral financial diagnosis.",
   schema: {
