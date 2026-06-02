@@ -20,6 +20,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
 import { Route as AuthenticatedDashboardDiagnosisRouteImport } from './routes/_authenticated/dashboard.diagnosis'
+import { Route as AuthenticatedDashboardCalendarRouteImport } from './routes/_authenticated/dashboard.calendar'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -77,6 +78,12 @@ const AuthenticatedDashboardDiagnosisRoute =
     path: '/diagnosis',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardCalendarRoute =
+  AuthenticatedDashboardCalendarRouteImport.update({
+    id: '/calendar',
+    path: '/calendar',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/share/$token': typeof ShareTokenRoute
+  '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
@@ -97,6 +105,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/share/$token': typeof ShareTokenRoute
+  '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
@@ -111,6 +120,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/share/$token': typeof ShareTokenRoute
+  '/_authenticated/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/_authenticated/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/dashboard'
     | '/share/$token'
+    | '/dashboard/calendar'
     | '/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/dashboard/'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/share/$token'
+    | '/dashboard/calendar'
     | '/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/dashboard'
@@ -149,6 +161,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/dashboard'
     | '/share/$token'
+    | '/_authenticated/dashboard/calendar'
     | '/_authenticated/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/_authenticated/dashboard/'
@@ -244,16 +257,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardDiagnosisRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/calendar': {
+      id: '/_authenticated/dashboard/calendar'
+      path: '/calendar'
+      fullPath: '/dashboard/calendar'
+      preLoaderRoute: typeof AuthenticatedDashboardCalendarRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
   }
 }
 
 interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardCalendarRoute: typeof AuthenticatedDashboardCalendarRoute
   AuthenticatedDashboardDiagnosisRoute: typeof AuthenticatedDashboardDiagnosisRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
+    AuthenticatedDashboardCalendarRoute: AuthenticatedDashboardCalendarRoute,
     AuthenticatedDashboardDiagnosisRoute: AuthenticatedDashboardDiagnosisRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
