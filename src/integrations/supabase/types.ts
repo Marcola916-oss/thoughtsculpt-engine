@@ -14,16 +14,200 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          country: string | null
+          created_at: string
+          currency: string
+          display_name: string | null
+          id: string
+          lang: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          currency?: string
+          display_name?: string | null
+          id?: string
+          lang?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          currency?: string
+          display_name?: string | null
+          id?: string
+          lang?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      quiz_leads: {
+        Row: {
+          answers: Json
+          country: string | null
+          created_at: string
+          currency: string
+          display_name: string | null
+          email: string | null
+          id: string
+          ip_hash: string | null
+          lang: string
+          scores: Json
+          share_token: string
+          updated_at: string
+          user_agent: string | null
+          user_id: string | null
+          winner: Database["public"]["Enums"]["archetype"] | null
+        }
+        Insert: {
+          answers?: Json
+          country?: string | null
+          created_at?: string
+          currency?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          ip_hash?: string | null
+          lang?: string
+          scores?: Json
+          share_token?: string
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+          winner?: Database["public"]["Enums"]["archetype"] | null
+        }
+        Update: {
+          answers?: Json
+          country?: string | null
+          created_at?: string
+          currency?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          ip_hash?: string | null
+          lang?: string
+          scores?: Json
+          share_token?: string
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+          winner?: Database["public"]["Enums"]["archetype"] | null
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          currency: string
+          current_period_end: string | null
+          current_period_start: string | null
+          id: string
+          plan: Database["public"]["Enums"]["plan_kind"]
+          status: Database["public"]["Enums"]["sub_status"]
+          stripe_checkout_session_id: string | null
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          currency: string
+          current_period_end?: string | null
+          current_period_start?: string | null
+          id?: string
+          plan: Database["public"]["Enums"]["plan_kind"]
+          status?: Database["public"]["Enums"]["sub_status"]
+          stripe_checkout_session_id?: string | null
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          current_period_end?: string | null
+          current_period_start?: string | null
+          id?: string
+          plan?: Database["public"]["Enums"]["plan_kind"]
+          status?: Database["public"]["Enums"]["sub_status"]
+          stripe_checkout_session_id?: string | null
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      viral_shares: {
+        Row: {
+          channel: Database["public"]["Enums"]["share_channel"]
+          created_at: string
+          id: string
+          ip_hash: string | null
+          lead_id: string | null
+          share_token: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          channel: Database["public"]["Enums"]["share_channel"]
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          lead_id?: string | null
+          share_token?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          channel?: Database["public"]["Enums"]["share_channel"]
+          created_at?: string
+          id?: string
+          ip_hash?: string | null
+          lead_id?: string | null
+          share_token?: string | null
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "viral_shares_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "quiz_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_shared_quiz: {
+        Args: { _token: string }
+        Returns: {
+          created_at: string
+          display_name: string
+          lang: string
+          scores: Json
+          winner: Database["public"]["Enums"]["archetype"]
+        }[]
+      }
     }
     Enums: {
-      [_ in never]: never
+      archetype: "AO" | "SS" | "EA" | "HI"
+      plan_kind: "p30d" | "p6m" | "p1y"
+      share_channel: "whatsapp" | "x" | "facebook" | "copy" | "other"
+      sub_status: "incomplete" | "active" | "past_due" | "canceled" | "expired"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +334,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      archetype: ["AO", "SS", "EA", "HI"],
+      plan_kind: ["p30d", "p6m", "p1y"],
+      share_channel: ["whatsapp", "x", "facebook", "copy", "other"],
+      sub_status: ["incomplete", "active", "past_due", "canceled", "expired"],
+    },
   },
 } as const
