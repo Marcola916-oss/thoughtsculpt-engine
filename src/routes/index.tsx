@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring";
 import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
+import { saveQuizLead } from "../lib/quiz.functions";
+import { createCheckoutSession } from "../lib/checkout.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,23 +31,55 @@ type Stage =
   | { kind: "plans" };
 
 function LandingAndQuiz() {
-  const { t, lang, currency } = useI18n();
+  const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
   const [name, setName] = useState("");
   const [gender, setGender] = useState<"m" | "f" | "n" | "">("");
   const [email, setEmail] = useState("");
   const [gdpr, setGdpr] = useState(false);
   const [answers, setAnswers] = useState<Answers>(() => Array(8).fill(null));
+  const [leadId, setLeadId] = useState<string | null>(null);
+  const [shareToken, setShareToken] = useState<string | null>(null);
+  const [leadError, setLeadError] = useState<string | null>(null);
+
+  const persistLead = useServerFn(saveQuizLead);
 
   const result = useMemo(() => scoreAnswers(answers), [answers]);
   const archCode: Archetype | null = answers.every((a) => a != null) ? result.winner : null;
 
-  // Loader → reveal
+  // Loader → persist lead → reveal
   useEffect(() => {
     if (stage.kind !== "loader") return;
-    const id = setTimeout(() => setStage({ kind: "reveal" }), 3200);
-    return () => clearTimeout(id);
-  }, [stage.kind]);
+    let cancelled = false;
+    const minDelay = new Promise((r) => setTimeout(r, 2400));
+    (async () => {
+      try {
+        const [row] = await Promise.all([
+          persistLead({
+            data: {
+              display_name: name,
+              gender: (gender || undefined) as "m" | "f" | "n" | undefined,
+              email,
+              lang,
+              country: country ?? null,
+              currency,
+              answers,
+              user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 500) : undefined,
+            },
+          }),
+          minDelay,
+        ]);
+        if (cancelled) return;
+        if (row) { setLeadId(row.id); setShareToken(row.share_token); }
+        setStage({ kind: "reveal" });
+      } catch (e) {
+        if (cancelled) return;
+        setLeadError((e as Error).message);
+        setStage({ kind: "reveal" });
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [stage.kind, persistLead, name, gender, email, lang, country, currency, answers]);
 
   function answerQuestion(optionIdx: number) {
     if (stage.kind !== "q") return;
@@ -95,7 +130,9 @@ function LandingAndQuiz() {
         {stage.kind === "sales" && archCode && (
           <Sales name={name} arch={archCode} onContinue={() => setStage({ kind: "plans" })} />
         )}
-        {stage.kind === "plans" && <Plans />}
+        {stage.kind === "plans" && (
+          <Plans email={email} displayName={name} leadId={leadId} />
+        )}
       </main>
       <Footer />
     </div>
