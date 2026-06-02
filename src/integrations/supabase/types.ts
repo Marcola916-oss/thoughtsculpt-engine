@@ -14,38 +14,220 @@ export type Database = {
   }
   public: {
     Tables: {
+      calendar_tasks: {
+        Row: {
+          action_task: string | null
+          completed_at: string | null
+          created_at: string
+          day_number: number
+          id: string
+          is_completed: boolean
+          is_milestone: boolean
+          notes: string | null
+          phase: string | null
+          reflective_task: string | null
+          user_id: string
+        }
+        Insert: {
+          action_task?: string | null
+          completed_at?: string | null
+          created_at?: string
+          day_number: number
+          id?: string
+          is_completed?: boolean
+          is_milestone?: boolean
+          notes?: string | null
+          phase?: string | null
+          reflective_task?: string | null
+          user_id: string
+        }
+        Update: {
+          action_task?: string | null
+          completed_at?: string | null
+          created_at?: string
+          day_number?: number
+          id?: string
+          is_completed?: boolean
+          is_milestone?: boolean
+          notes?: string | null
+          phase?: string | null
+          reflective_task?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      compass_analyses: {
+        Row: {
+          analysis_content: Json | null
+          context: string | null
+          created_at: string
+          id: string
+          observations: string | null
+          probable_archetype: string | null
+          relationship_type: string | null
+          target_name: string
+          user_id: string
+        }
+        Insert: {
+          analysis_content?: Json | null
+          context?: string | null
+          created_at?: string
+          id?: string
+          observations?: string | null
+          probable_archetype?: string | null
+          relationship_type?: string | null
+          target_name: string
+          user_id: string
+        }
+        Update: {
+          analysis_content?: Json | null
+          context?: string | null
+          created_at?: string
+          id?: string
+          observations?: string | null
+          probable_archetype?: string | null
+          relationship_type?: string | null
+          target_name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      diagnoses: {
+        Row: {
+          archetype: string
+          financial_analysis: string | null
+          generated_at: string
+          id: string
+          model_used: string
+          personal_analysis: string | null
+          professional_analysis: string | null
+          romantic_analysis: string | null
+          user_id: string
+          version: number
+        }
+        Insert: {
+          archetype: string
+          financial_analysis?: string | null
+          generated_at?: string
+          id?: string
+          model_used?: string
+          personal_analysis?: string | null
+          professional_analysis?: string | null
+          romantic_analysis?: string | null
+          user_id: string
+          version?: number
+        }
+        Update: {
+          archetype?: string
+          financial_analysis?: string | null
+          generated_at?: string
+          id?: string
+          model_used?: string
+          personal_analysis?: string | null
+          professional_analysis?: string | null
+          romantic_analysis?: string | null
+          user_id?: string
+          version?: number
+        }
+        Relationships: []
+      }
+      onboarding_answers: {
+        Row: {
+          completed_at: string
+          daily_minutes: number | null
+          discipline_style: string | null
+          emotional_trigger: string | null
+          financial_goal: string | null
+          id: string
+          mobile_os: string | null
+          sleep_time: string | null
+          user_id: string
+          wake_time: string | null
+        }
+        Insert: {
+          completed_at?: string
+          daily_minutes?: number | null
+          discipline_style?: string | null
+          emotional_trigger?: string | null
+          financial_goal?: string | null
+          id?: string
+          mobile_os?: string | null
+          sleep_time?: string | null
+          user_id: string
+          wake_time?: string | null
+        }
+        Update: {
+          completed_at?: string
+          daily_minutes?: number | null
+          discipline_style?: string | null
+          emotional_trigger?: string | null
+          financial_goal?: string | null
+          id?: string
+          mobile_os?: string | null
+          sleep_time?: string | null
+          user_id?: string
+          wake_time?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
+          archetype: string | null
           country: string | null
           created_at: string
           currency: string
           display_name: string | null
+          features_expires_at: string | null
           id: string
           lang: string
+          onboarding_completed: boolean
+          plan_started_at: string | null
+          plan_type: string | null
+          quiz_lead_id: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
+          archetype?: string | null
           country?: string | null
           created_at?: string
           currency?: string
           display_name?: string | null
+          features_expires_at?: string | null
           id?: string
           lang?: string
+          onboarding_completed?: boolean
+          plan_started_at?: string | null
+          plan_type?: string | null
+          quiz_lead_id?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
+          archetype?: string | null
           country?: string | null
           created_at?: string
           currency?: string
           display_name?: string | null
+          features_expires_at?: string | null
           id?: string
           lang?: string
+          onboarding_completed?: boolean
+          plan_started_at?: string | null
+          plan_type?: string | null
+          quiz_lead_id?: string | null
           updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_quiz_lead_id_fkey"
+            columns: ["quiz_lead_id"]
+            isOneToOne: false
+            referencedRelation: "quiz_leads"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       quiz_leads: {
         Row: {
@@ -144,6 +326,39 @@ export type Database = {
           stripe_checkout_session_id?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_progress: {
+        Row: {
+          id: string
+          last_checkin_date: string | null
+          longest_streak: number
+          streak_days: number
+          tasks_completed: number
+          total_points: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          last_checkin_date?: string | null
+          longest_streak?: number
+          streak_days?: number
+          tasks_completed?: number
+          total_points?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          last_checkin_date?: string | null
+          longest_streak?: number
+          streak_days?: number
+          tasks_completed?: number
+          total_points?: number
           updated_at?: string
           user_id?: string
         }
