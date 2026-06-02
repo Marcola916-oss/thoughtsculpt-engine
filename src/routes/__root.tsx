@@ -87,6 +87,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "Behavioral diagnosis that reveals why you earn, spend and lose money the way you do." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "MindReset — Discover your financial archetype" },
+      { name: "twitter:description", content: "Behavioral diagnosis that reveals why you earn, spend and lose money the way you do." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2da42380-f8c4-428d-9b43-97b6d3d262c0/id-preview-9b1fda34--3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8.lovable.app-1780370589695.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2da42380-f8c4-428d-9b43-97b6d3d262c0/id-preview-9b1fda34--3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8.lovable.app-1780370589695.png" },
     ],
     links: [
       {
