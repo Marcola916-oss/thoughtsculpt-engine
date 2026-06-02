@@ -392,9 +392,35 @@ function Sales({ name, arch, onContinue }: { name: string; arch: Archetype; onCo
   );
 }
 
-function Plans() {
-  const { t, currency } = useI18n();
+function Plans({ email, displayName, leadId }: { email: string; displayName: string; leadId: string | null }) {
+  const { t, currency, lang } = useI18n();
+  const startCheckout = useServerFn(createCheckoutSession);
+  const [busy, setBusy] = useState<PlanKey | null>(null);
+  const [err, setErr] = useState<string | null>(null);
   const plans: PlanKey[] = ["30d", "6m", "1y"];
+
+  async function choose(p: PlanKey) {
+    setErr(null); setBusy(p);
+    try {
+      const res = await startCheckout({
+        data: {
+          plan: p,
+          currency,
+          lead_id: leadId ?? undefined,
+          email,
+          display_name: displayName || undefined,
+          lang,
+          origin: window.location.origin,
+        },
+      });
+      if (res?.url) window.location.href = res.url;
+      else throw new Error("Stripe session has no URL");
+    } catch (e) {
+      setErr((e as Error).message);
+      setBusy(null);
+    }
+  }
+
   return (
     <section className="py-12">
       <h2 className="font-display text-3xl font-extrabold md:text-4xl">{t.plans.title}</h2>
@@ -419,18 +445,19 @@ function Plans() {
               <p className="mt-4 font-display text-4xl font-extrabold">{formatPrice(currency, total)}</p>
               <p className="text-xs text-muted-foreground">{t.plans.perDay(pricePerDay(currency, p))}</p>
               <button
-                disabled
-                title="Stripe BYOK — connect a Stripe secret key in Lovable settings to enable checkout"
+                disabled={busy !== null || !email}
+                onClick={() => choose(p)}
                 className={`mt-6 w-full rounded-full px-4 py-3 font-semibold transition ${
                   popular ? "bg-primary text-primary-foreground hover:bg-[oklch(0.41_0.22_27)]" : "border border-border bg-background text-foreground hover:border-primary"
                 } disabled:opacity-60`}
               >
-                {t.plans.chooseCta}
+                {busy === p ? "…" : t.plans.chooseCta}
               </button>
             </div>
           );
         })}
       </div>
+      {err && <p className="mt-4 text-center text-sm text-primary">{err}</p>}
       <p className="mt-6 text-center text-xs text-muted-foreground">{t.plans.guarantee}</p>
     </section>
   );
