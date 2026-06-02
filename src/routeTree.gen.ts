@@ -16,6 +16,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShareTokenRouteImport } from './routes/share.$token'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
@@ -56,6 +57,11 @@ const ShareTokenRoute = ShareTokenRouteImport.update({
   id: '/share/$token',
   path: '/share/$token',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/onboarding': typeof AuthenticatedOnboardingRoute
   '/share/$token': typeof ShareTokenRoute
   '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
   '/share/$token': typeof ShareTokenRoute
   '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/share/$token': typeof ShareTokenRoute
   '/_authenticated/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/_authenticated/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
@@ -144,6 +153,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/dashboard'
+    | '/onboarding'
     | '/share/$token'
     | '/dashboard/calendar'
     | '/dashboard/compass'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/reset-password'
     | '/terms'
+    | '/onboarding'
     | '/share/$token'
     | '/dashboard/calendar'
     | '/dashboard/compass'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/_authenticated/dashboard'
+    | '/_authenticated/onboarding'
     | '/share/$token'
     | '/_authenticated/dashboard/calendar'
     | '/_authenticated/dashboard/compass'
@@ -242,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShareTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -309,10 +328,12 @@ const AuthenticatedDashboardRouteWithChildren =
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
