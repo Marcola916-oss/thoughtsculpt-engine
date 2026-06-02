@@ -63,8 +63,7 @@ export const saveQuizLead = createServerFn({ method: "POST" })
         scores: result.scores,
         winner: result.winner,
         user_agent: data.user_agent ?? null,
-      })
-      .select(undefined, { head: true });
+      });
     if (error) throw new Error(error.message);
     return { id, share_token, winner: result.winner };
   });
@@ -88,7 +87,7 @@ export const trackShare = createServerFn({ method: "POST" })
     const { error } = await supabase.from("viral_shares").insert({
       share_token: data.share_token,
       channel: data.channel,
-    }).select(undefined, { head: true });
+    });
     if (error) throw new Error(error.message);
     return { ok: true };
   });
