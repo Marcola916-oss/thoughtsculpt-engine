@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring";
 import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
+import { saveQuizLead } from "../lib/quiz.functions";
+import { createCheckoutSession } from "../lib/checkout.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,23 +31,55 @@ type Stage =
   | { kind: "plans" };
 
 function LandingAndQuiz() {
-  const { t, lang, currency } = useI18n();
+  const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
   const [name, setName] = useState("");
   const [gender, setGender] = useState<"m" | "f" | "n" | "">("");
   const [email, setEmail] = useState("");
   const [gdpr, setGdpr] = useState(false);
   const [answers, setAnswers] = useState<Answers>(() => Array(8).fill(null));
+  const [leadId, setLeadId] = useState<string | null>(null);
+  const [shareToken, setShareToken] = useState<string | null>(null);
+  const [leadError, setLeadError] = useState<string | null>(null);
+
+  const persistLead = useServerFn(saveQuizLead);
 
   const result = useMemo(() => scoreAnswers(answers), [answers]);
   const archCode: Archetype | null = answers.every((a) => a != null) ? result.winner : null;
 
-  // Loader → reveal
+  // Loader → persist lead → reveal
   useEffect(() => {
     if (stage.kind !== "loader") return;
-    const id = setTimeout(() => setStage({ kind: "reveal" }), 3200);
-    return () => clearTimeout(id);
-  }, [stage.kind]);
+    let cancelled = false;
+    const minDelay = new Promise((r) => setTimeout(r, 2400));
+    (async () => {
+      try {
+        const [row] = await Promise.all([
+          persistLead({
+            data: {
+              display_name: name,
+              gender: (gender || undefined) as "m" | "f" | "n" | undefined,
+              email,
+              lang,
+              country: country ?? null,
+              currency,
+              answers,
+              user_agent: typeof navigator !== "undefined" ? navigator.userAgent.slice(0, 500) : undefined,
+            },
+          }),
+          minDelay,
+        ]);
+        if (cancelled) return;
+        if (row) { setLeadId(row.id); setShareToken(row.share_token); }
+        setStage({ kind: "reveal" });
+      } catch (e) {
+        if (cancelled) return;
+        setLeadError((e as Error).message);
+        setStage({ kind: "reveal" });
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [stage.kind, persistLead, name, gender, email, lang, country, currency, answers]);
 
   function answerQuestion(optionIdx: number) {
     if (stage.kind !== "q") return;
@@ -95,7 +130,9 @@ function LandingAndQuiz() {
         {stage.kind === "sales" && archCode && (
           <Sales name={name} arch={archCode} onContinue={() => setStage({ kind: "plans" })} />
         )}
-        {stage.kind === "plans" && <Plans />}
+        {stage.kind === "plans" && (
+          <Plans email={email} displayName={name} leadId={leadId} />
+        )}
       </main>
       <Footer />
     </div>
@@ -355,9 +392,35 @@ function Sales({ name, arch, onContinue }: { name: string; arch: Archetype; onCo
   );
 }
 
-function Plans() {
-  const { t, currency } = useI18n();
+function Plans({ email, displayName, leadId }: { email: string; displayName: string; leadId: string | null }) {
+  const { t, currency, lang } = useI18n();
+  const startCheckout = useServerFn(createCheckoutSession);
+  const [busy, setBusy] = useState<PlanKey | null>(null);
+  const [err, setErr] = useState<string | null>(null);
   const plans: PlanKey[] = ["30d", "6m", "1y"];
+
+  async function choose(p: PlanKey) {
+    setErr(null); setBusy(p);
+    try {
+      const res = await startCheckout({
+        data: {
+          plan: p,
+          currency,
+          lead_id: leadId ?? undefined,
+          email,
+          display_name: displayName || undefined,
+          lang,
+          origin: window.location.origin,
+        },
+      });
+      if (res?.url) window.location.href = res.url;
+      else throw new Error("Stripe session has no URL");
+    } catch (e) {
+      setErr((e as Error).message);
+      setBusy(null);
+    }
+  }
+
   return (
     <section className="py-12">
       <h2 className="font-display text-3xl font-extrabold md:text-4xl">{t.plans.title}</h2>
@@ -382,18 +445,19 @@ function Plans() {
               <p className="mt-4 font-display text-4xl font-extrabold">{formatPrice(currency, total)}</p>
               <p className="text-xs text-muted-foreground">{t.plans.perDay(pricePerDay(currency, p))}</p>
               <button
-                disabled
-                title="Stripe BYOK — connect a Stripe secret key in Lovable settings to enable checkout"
+                disabled={busy !== null || !email}
+                onClick={() => choose(p)}
                 className={`mt-6 w-full rounded-full px-4 py-3 font-semibold transition ${
                   popular ? "bg-primary text-primary-foreground hover:bg-[oklch(0.41_0.22_27)]" : "border border-border bg-background text-foreground hover:border-primary"
                 } disabled:opacity-60`}
               >
-                {t.plans.chooseCta}
+                {busy === p ? "…" : t.plans.chooseCta}
               </button>
             </div>
           );
         })}
       </div>
+      {err && <p className="mt-4 text-center text-sm text-primary">{err}</p>}
       <p className="mt-6 text-center text-xs text-muted-foreground">{t.plans.guarantee}</p>
     </section>
   );
