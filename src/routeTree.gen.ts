@@ -19,6 +19,7 @@ import { Route as ShareTokenRouteImport } from './routes/share.$token'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
+import { Route as AuthenticatedDashboardDiagnosisRouteImport } from './routes/_authenticated/dashboard.diagnosis'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -70,6 +71,12 @@ const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   path: '/api/public/stripe-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDashboardDiagnosisRoute =
+  AuthenticatedDashboardDiagnosisRouteImport.update({
+    id: '/diagnosis',
+    path: '/diagnosis',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/share/$token': typeof ShareTokenRoute
+  '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
@@ -89,6 +97,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/terms': typeof TermsRoute
   '/share/$token': typeof ShareTokenRoute
+  '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
@@ -102,6 +111,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/share/$token': typeof ShareTokenRoute
+  '/_authenticated/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/dashboard'
     | '/share/$token'
+    | '/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/terms'
     | '/share/$token'
+    | '/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/dashboard'
   id:
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/dashboard'
     | '/share/$token'
+    | '/_authenticated/dashboard/diagnosis'
     | '/api/public/stripe-webhook'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
@@ -224,15 +237,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard/diagnosis': {
+      id: '/_authenticated/dashboard/diagnosis'
+      path: '/diagnosis'
+      fullPath: '/dashboard/diagnosis'
+      preLoaderRoute: typeof AuthenticatedDashboardDiagnosisRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
   }
 }
 
 interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardDiagnosisRoute: typeof AuthenticatedDashboardDiagnosisRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
+    AuthenticatedDashboardDiagnosisRoute: AuthenticatedDashboardDiagnosisRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
 
