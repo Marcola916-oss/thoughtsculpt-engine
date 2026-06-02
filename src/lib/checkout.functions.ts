@@ -72,3 +72,14 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
 
     return { url: session.url, session_id: session.id };
   });
+
+export const createCustomerPortalSession = createServerFn({ method: "POST" })
+  .inputValidator((d) => z.object({ customer_id: z.string(), origin: z.string() }).parse(d))
+  .handler(async ({ data }) => {
+    const stripe = getStripe();
+    const session = await stripe.billingPortal.sessions.create({
+      customer: data.customer_id,
+      return_url: `${data.origin}/dashboard/settings`,
+    });
+    return { url: session.url };
+  });
