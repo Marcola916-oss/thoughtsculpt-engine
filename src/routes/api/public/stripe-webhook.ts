@@ -27,6 +27,45 @@ async function ensureUserForEmail(email: string, displayName?: string | null, la
   return created.data.user.id;
 }
 
+async function syncProfileSubscription(userId: string, plan: string, status: string, periodEnd: string | null) {
+  const planType = plan === "p30d" ? "30d" : plan === "p6m" ? "6m" : plan === "p1y" ? "1y" : null;
+  const start = new Date().toISOString();
+  
+  let featuresExpiresAt: string | null = null;
+  let accountExpiresAt: string | null = null;
+  let accessLevel = "active";
+  
+  if (periodEnd) {
+    featuresExpiresAt = periodEnd;
+    accountExpiresAt = new Date(new Date(periodEnd).getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
+  } else if (planType) {
+    const days = planType === "30d" ? 30 : planType === "6m" ? 180 : 365;
+    const expDate = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+    featuresExpiresAt = expDate.toISOString();
+    accountExpiresAt = new Date(expDate.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
+  }
+
+  if (status === "active" || status === "trialing") {
+    accessLevel = "active";
+  } else if (status === "past_due") {
+    accessLevel = "grace";
+  } else if (status === "unpaid" || status === "incomplete_expired") {
+    accessLevel = "locked";
+  } else if (status === "canceled") {
+    accessLevel = "locked";
+  }
+
+  await supabaseAdmin
+    .from("profiles")
+    .update({
+      plan_type: planType,
+      plan_started_at: start,
+      features_expires_at: featuresExpiresAt,
+      access_level: accessLevel,
+    })
+    .eq("user_id", userId);
+}
+
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const email = session.customer_details?.email ?? (session.metadata?.email as string | undefined);
   if (!email) return;
@@ -74,6 +113,110 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     current_period_start: currentPeriodStart,
     current_period_end: currentPeriodEnd,
   }, { onConflict: "stripe_subscription_id" });
+
+  // Sync profile metadata
+  await syncProfileSubscription(userId, planMeta, "active", currentPeriodEnd);
+}
+
+async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
+  const subId = invoice.subscription as string;
+  if (!subId) return;
+
+  const stripe = getStripe();
+  const sub = await stripe.subscriptions.retrieve(subId);
+  const item = sub.items.data[0];
+  const periodEnd = item?.current_period_end ? new Date(item.current_period_end * 1000).toISOString() : null;
+  const periodStart = item?.current_period_start ? new Date(item.current_period_start * 1000).toISOString() : null;
+
+  const { data: existingSub } = await supabaseAdmin
+    .from("subscriptions")
+    .select("user_id, plan")
+    .eq("stripe_subscription_id", subId)
+    .maybeSingle();
+
+  if (!existingSub) return;
+
+  await supabaseAdmin
+    .from("subscriptions")
+    .update({
+      status: "active",
+      current_period_start: periodStart,
+      current_period_end: periodEnd,
+    })
+    .eq("stripe_subscription_id", subId);
+
+  await syncProfileSubscription(existingSub.user_id, existingSub.plan, "active", periodEnd);
+
+  await supabaseAdmin
+    .from("notifications")
+    .insert({
+      user_id: existingSub.user_id,
+      type: "system",
+      title: "💳 Pagamento Confirmado",
+      body: "Sua assinatura foi renovada com sucesso! Continue aproveitando o MindReset.",
+      icon: "💳",
+    });
+}
+
+async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
+  const subId = invoice.subscription as string;
+  if (!subId) return;
+
+  const { data: existingSub } = await supabaseAdmin
+    .from("subscriptions")
+    .select("user_id, plan")
+    .eq("stripe_subscription_id", subId)
+    .maybeSingle();
+
+  if (!existingSub) return;
+
+  await supabaseAdmin
+    .from("subscriptions")
+    .update({ status: "past_due" })
+    .eq("stripe_subscription_id", subId);
+
+  await syncProfileSubscription(existingSub.user_id, existingSub.plan, "past_due", null);
+
+  await supabaseAdmin
+    .from("notifications")
+    .insert({
+      user_id: existingSub.user_id,
+      type: "expiry",
+      title: "⚠️ Falha no Pagamento",
+      body: "Não conseguimos processar sua cobrança. Seu acesso continuará ativo em período de tolerância enquanto tentamos cobrar novamente.",
+      icon: "⚠️",
+    });
+}
+
+async function handleChargeRefunded(charge: Stripe.Charge) {
+  const customerId = charge.customer as string;
+  if (!customerId) return;
+
+  const { data: sub } = await supabaseAdmin
+    .from("subscriptions")
+    .select("user_id")
+    .eq("stripe_customer_id", customerId)
+    .maybeSingle();
+
+  if (!sub) return;
+
+  await supabaseAdmin
+    .from("profiles")
+    .update({
+      access_level: "revoked",
+      features_expires_at: new Date().toISOString(),
+    })
+    .eq("user_id", sub.user_id);
+
+  await supabaseAdmin
+    .from("notifications")
+    .insert({
+      user_id: sub.user_id,
+      type: "expiry",
+      title: "🚫 Acesso Revogado",
+      body: "Sua assinatura foi reembolsada e seu acesso foi encerrado.",
+      icon: "🚫",
+    });
 }
 
 async function handleSubscriptionUpdated(s: Stripe.Subscription) {
@@ -92,6 +235,37 @@ async function handleSubscriptionUpdated(s: Stripe.Subscription) {
     current_period_start: periodStart,
     current_period_end: periodEnd,
   }).eq("stripe_subscription_id", s.id);
+
+  const { data: sub } = await supabaseAdmin
+    .from("subscriptions")
+    .select("user_id, plan")
+    .eq("stripe_subscription_id", s.id)
+    .maybeSingle();
+
+  if (sub) {
+    const accessLevel =
+      status === "active" ? "active"
+      : status === "past_due" ? "grace"
+      : "locked";
+
+    await supabaseAdmin
+      .from("profiles")
+      .update({
+        access_level: accessLevel,
+        features_expires_at: periodEnd,
+      })
+      .eq("user_id", sub.user_id);
+
+    if (s.status === "canceled") {
+      await supabaseAdmin.from("notifications").insert({
+        user_id: sub.user_id,
+        type: "expiry",
+        title: "🔒 Acesso Bloqueado",
+        body: "Sua assinatura foi encerrada. Seus dados estão salvos e você pode reativá-la a qualquer momento.",
+        icon: "🔒",
+      });
+    }
+  }
 }
 
 export const Route = createFileRoute("/api/public/stripe-webhook")({
@@ -115,6 +289,15 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
           switch (event.type) {
             case "checkout.session.completed":
               await handleCheckoutCompleted(event.data.object as Stripe.Checkout.Session);
+              break;
+            case "invoice.payment_succeeded":
+              await handleInvoicePaymentSucceeded(event.data.object as Stripe.Invoice);
+              break;
+            case "invoice.payment_failed":
+              await handleInvoicePaymentFailed(event.data.object as Stripe.Invoice);
+              break;
+            case "charge.refunded":
+              await handleChargeRefunded(event.data.object as Stripe.Charge);
               break;
             case "customer.subscription.updated":
             case "customer.subscription.deleted":

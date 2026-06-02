@@ -24,8 +24,14 @@ export function scoreAnswers(answers: Answers): {
   const scores: Record<Archetype, number> = { AO: 0, SS: 0, EA: 0, HI: 0 };
   answers.forEach((opt, i) => {
     if (opt == null) return;
-    const arch = OPTION_ARCHETYPE[i]?.[opt];
-    if (arch) scores[arch] += 2;
+    if (i === 1 && opt === 2) {
+      // Q2 Option C: EA +2, HI +1
+      scores.EA += 2;
+      scores.HI += 1;
+    } else {
+      const arch = OPTION_ARCHETYPE[i]?.[opt];
+      if (arch) scores[arch] += 2;
+    }
   });
 
   const ranked = (Object.keys(scores) as Archetype[]).sort((a, b) => scores[b] - scores[a]);

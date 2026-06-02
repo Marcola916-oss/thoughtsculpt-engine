@@ -40,16 +40,54 @@ const CalendarSchema: { name: string; description: string; schema: JSONSchema7 }
   },
 };
 
+import { checkAndIncrementLimit } from "./limits.server";
+
 export const listCalendar = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { supabase, userId } = context;
-    const { data } = await supabase
-      .from("calendar_tasks")
-      .select("*")
-      .eq("user_id", userId)
-      .order("day_number");
-    return data ?? [];
+    const [{ data: profile }, { data: tasks }] = await Promise.all([
+      supabase
+        .from("profiles")
+        .select("plan_started_at, plan_type, created_at")
+        .eq("user_id", userId)
+        .maybeSingle(),
+      supabase
+        .from("calendar_tasks")
+        .select("*")
+        .eq("user_id", userId)
+        .order("day_number"),
+    ]);
+
+    if (!tasks) return [];
+
+    const planStartedAt = profile?.plan_started_at || profile?.created_at || new Date().toISOString();
+    const elapsedMs = Date.now() - new Date(planStartedAt).getTime();
+    const elapsedHours = elapsedMs / (1000 * 60 * 60);
+    const elapsedDays = Math.floor(elapsedHours / 24);
+
+    // +5 days unlocked every 24h during Month 1
+    const month1UnlockedDays = Math.min(30, 5 * (elapsedDays + 1));
+
+    return tasks.map((t) => {
+      let isUnlocked = false;
+      if (t.day_number <= 30) {
+        isUnlocked = t.day_number <= month1UnlockedDays;
+      } else {
+        // Days > 30 (only on 6m/1y plans) unlock instantly after Month 1 (720 hours / 30 days)
+        isUnlocked = elapsedHours >= 720;
+      }
+
+      // Keep task unlocked if it's already completed
+      if (t.is_completed) {
+        isUnlocked = true;
+      }
+
+      return {
+        ...t,
+        is_unlocked: isUnlocked,
+      };
+    });
   });
 
 export const generateCalendar = createServerFn({ method: "POST" })
@@ -77,8 +115,10 @@ export const generateCalendar = createServerFn({ method: "POST" })
     if (!archetype) throw new Error("Missing archetype.");
     if (!onboarding) throw new Error("Complete onboarding first.");
 
-    // For sane token usage we generate the first 30 days now.
-    // Longer plans get topped up on Day 31 by a follow-up call (out of scope here).
+    // Check anti-abuse daily limits for 1-year plan
+    const planType = profile?.plan_type || "30d";
+    await checkAndIncrementLimit(supabase, userId, "calendar", planType);
+
     const totalDays = 30;
     const name = profile?.display_name ?? "you";
     const archName = ARCHETYPE_NAMES[archetype]?.en ?? archetype;
@@ -134,6 +174,40 @@ export const toggleTaskComplete = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+
+    // Safety verification: task must be unlocked to mark completed
+    const { data: task } = await supabase
+      .from("calendar_tasks")
+      .select("day_number")
+      .eq("id", data.task_id)
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    if (!task) throw new Error("Task not found");
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("plan_started_at, plan_type, created_at")
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    const planStartedAt = profile?.plan_started_at || profile?.created_at || new Date().toISOString();
+    const elapsedMs = Date.now() - new Date(planStartedAt).getTime();
+    const elapsedHours = elapsedMs / (1000 * 60 * 60);
+    const elapsedDays = Math.floor(elapsedHours / 24);
+    const month1UnlockedDays = Math.min(30, 5 * (elapsedDays + 1));
+
+    let isUnlocked = false;
+    if (task.day_number <= 30) {
+      isUnlocked = task.day_number <= month1UnlockedDays;
+    } else {
+      isUnlocked = elapsedHours >= 720;
+    }
+
+    if (!isUnlocked && data.is_completed) {
+      throw new Error("This day is currently locked.");
+    }
+
     const { error } = await supabase
       .from("calendar_tasks")
       .update({

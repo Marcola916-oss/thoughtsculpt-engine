@@ -124,27 +124,31 @@ function CalendarPage() {
 
         <div className="grid grid-cols-5 gap-3 md:grid-cols-7">
           {tasks.map((t) => {
+            const isUnlocked = (t as any).is_unlocked !== false;
             const isActive = t.day_number === selectedDay;
             return (
               <button
                 key={t.id}
-                onClick={() => setSelectedDay(t.day_number)}
-                className={`relative aspect-square flex flex-col items-center justify-center rounded-xl border transition-all duration-300 hover:scale-[1.05] ${
-                  isActive
-                    ? "border-primary bg-primary/20 shadow-[0_0_15px_var(--accent-glow)]"
+                disabled={!isUnlocked}
+                onClick={() => isUnlocked && setSelectedDay(t.day_number)}
+                className={`relative aspect-square flex flex-col items-center justify-center rounded-xl border transition-all duration-300 ${
+                  !isUnlocked
+                    ? "border-border bg-card/50 opacity-40 blur-[1px] cursor-not-allowed"
+                    : isActive
+                    ? "border-primary bg-primary/20 shadow-[0_0_15px_var(--accent-glow)] hover:scale-[1.05]"
                     : t.is_completed
-                    ? "border-success/40 bg-success/10 text-success"
+                    ? "border-success/40 bg-success/10 text-success hover:scale-[1.05]"
                     : t.is_milestone
-                    ? "border-primary/50 bg-primary/5"
-                    : "border-border bg-card hover:border-primary/60"
+                    ? "border-primary/50 bg-primary/5 hover:scale-[1.05]"
+                    : "border-border bg-card hover:border-primary/60 hover:scale-[1.05]"
                 }`}
               >
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Dia</div>
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{isUnlocked ? "Dia" : "Bloqueado"}</div>
                 <div className={`font-display text-2xl font-bold ${isActive || t.is_completed ? "text-foreground" : ""}`}>
-                  {t.day_number}
+                  {isUnlocked ? t.day_number : "🔒"}
                 </div>
-                {t.is_milestone && <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] shadow-lg">⭐</div>}
-                {t.is_completed && <div className="absolute bottom-1 right-1 text-success text-xs">✓</div>}
+                {isUnlocked && t.is_milestone && <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] shadow-lg">⭐</div>}
+                {isUnlocked && t.is_completed && <div className="absolute bottom-1 right-1 text-success text-xs">✓</div>}
               </button>
             );
           })}
