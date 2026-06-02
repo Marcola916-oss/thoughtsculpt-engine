@@ -112,7 +112,7 @@ Factor in the dynamic between the analyst's archetype and the analyzed person's 
         context: data.context,
         observations: data.observations,
         probable_archetype: result.probable_archetype,
-        analysis_content: result as unknown as Record<string, unknown>,
+        analysis_content: result as never,
       })
       .select("*")
       .single();
