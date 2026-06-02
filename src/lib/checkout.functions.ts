@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import type Stripe from "stripe";
 import { getStripe, PLAN_INTERVAL, PLAN_PRICES } from "./stripe.server";
-import { supabaseAdmin } from "../integrations/supabase/client.server";
 
 const Input = z.object({
   plan: z.enum(["30d", "6m", "1y"]),
@@ -70,23 +70,5 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       },
     });
 
-    // Pre-insert a pending subscription record so we can correlate after webhook
-    if (data.lead_id) {
-      await supabaseAdmin.from("subscriptions").insert({
-        user_id: null as unknown as string, // user is created later by webhook → auth user
-        plan: data.plan === "30d" ? "p30d" : data.plan === "6m" ? "p6m" : "p1y",
-        currency: data.currency,
-        amount_cents: amount * 100,
-        status: "incomplete",
-        stripe_customer_id: customer.id,
-        stripe_checkout_session_id: session.id,
-      }).select("id").maybeSingle();
-      // Note: this insert may fail because user_id is NOT NULL — we'll rely
-      // on webhook to persist subscriptions; ignore error here.
-    }
-
     return { url: session.url, session_id: session.id };
   });
-
-// Local Stripe type import for locale typing
-import type Stripe from "stripe";
