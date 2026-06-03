@@ -20,6 +20,8 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
+import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard.settings'
+import { Route as AuthenticatedDashboardProgressRouteImport } from './routes/_authenticated/dashboard.progress'
 import { Route as AuthenticatedDashboardDiagnosisRouteImport } from './routes/_authenticated/dashboard.diagnosis'
 import { Route as AuthenticatedDashboardCompassRouteImport } from './routes/_authenticated/dashboard.compass'
 import { Route as AuthenticatedDashboardCalendarRouteImport } from './routes/_authenticated/dashboard.calendar'
@@ -79,6 +81,18 @@ const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   path: '/api/public/stripe-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDashboardSettingsRoute =
+  AuthenticatedDashboardSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardProgressRoute =
+  AuthenticatedDashboardProgressRouteImport.update({
+    id: '/progress',
+    path: '/progress',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardDiagnosisRoute =
   AuthenticatedDashboardDiagnosisRouteImport.update({
     id: '/diagnosis',
@@ -110,6 +124,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
   '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
+  '/dashboard/progress': typeof AuthenticatedDashboardProgressRoute
+  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
@@ -124,6 +140,8 @@ export interface FileRoutesByTo {
   '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
   '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
+  '/dashboard/progress': typeof AuthenticatedDashboardProgressRoute
+  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
@@ -141,6 +159,8 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
   '/_authenticated/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
   '/_authenticated/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
+  '/_authenticated/dashboard/progress': typeof AuthenticatedDashboardProgressRoute
+  '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
@@ -158,6 +178,8 @@ export interface FileRouteTypes {
     | '/dashboard/calendar'
     | '/dashboard/compass'
     | '/dashboard/diagnosis'
+    | '/dashboard/progress'
+    | '/dashboard/settings'
     | '/api/public/stripe-webhook'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -172,6 +194,8 @@ export interface FileRouteTypes {
     | '/dashboard/calendar'
     | '/dashboard/compass'
     | '/dashboard/diagnosis'
+    | '/dashboard/progress'
+    | '/dashboard/settings'
     | '/api/public/stripe-webhook'
     | '/dashboard'
   id:
@@ -188,6 +212,8 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/calendar'
     | '/_authenticated/dashboard/compass'
     | '/_authenticated/dashboard/diagnosis'
+    | '/_authenticated/dashboard/progress'
+    | '/_authenticated/dashboard/settings'
     | '/api/public/stripe-webhook'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
@@ -282,6 +308,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard/settings': {
+      id: '/_authenticated/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof AuthenticatedDashboardSettingsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/progress': {
+      id: '/_authenticated/dashboard/progress'
+      path: '/progress'
+      fullPath: '/dashboard/progress'
+      preLoaderRoute: typeof AuthenticatedDashboardProgressRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/diagnosis': {
       id: '/_authenticated/dashboard/diagnosis'
       path: '/diagnosis'
@@ -310,6 +350,8 @@ interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardCalendarRoute: typeof AuthenticatedDashboardCalendarRoute
   AuthenticatedDashboardCompassRoute: typeof AuthenticatedDashboardCompassRoute
   AuthenticatedDashboardDiagnosisRoute: typeof AuthenticatedDashboardDiagnosisRoute
+  AuthenticatedDashboardProgressRoute: typeof AuthenticatedDashboardProgressRoute
+  AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
   AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
@@ -318,6 +360,8 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
     AuthenticatedDashboardCalendarRoute: AuthenticatedDashboardCalendarRoute,
     AuthenticatedDashboardCompassRoute: AuthenticatedDashboardCompassRoute,
     AuthenticatedDashboardDiagnosisRoute: AuthenticatedDashboardDiagnosisRoute,
+    AuthenticatedDashboardProgressRoute: AuthenticatedDashboardProgressRoute,
+    AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
     AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
   }
 
@@ -353,3 +397,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
