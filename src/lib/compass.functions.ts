@@ -4,6 +4,7 @@ import type { JSONSchema7 } from "json-schema";
 import { requireSupabaseAuth } from "../integrations/supabase/auth-middleware";
 import { callAIStructured } from "./ai/gateway.server";
 import { ARCHETYPE_NAMES, type Archetype } from "./ai/archetypes";
+import { checkAndIncrementLimit } from "./limits.server";
 
 type CompassResult = {
   probable_archetype: Archetype;
@@ -72,12 +73,16 @@ export const analyzeCompass = createServerFn({ method: "POST" })
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("display_name, archetype, lang")
+      .select("display_name, archetype, lang, plan_type")
       .eq("user_id", userId)
       .maybeSingle();
     const userArch = (profile?.archetype as Archetype | undefined) ?? "AO";
     const userName = profile?.display_name ?? "the user";
     const lang = profile?.lang ?? "en";
+
+    // Enforce daily generation limit on 1-year plans
+    const planType = profile?.plan_type ?? "unknown";
+    await checkAndIncrementLimit(supabase, userId, "generation", planType);
 
     const result = await callAIStructured<CompassResult>({
       model: "google/gemini-2.5-flash",

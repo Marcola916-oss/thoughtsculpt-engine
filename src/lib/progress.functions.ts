@@ -13,6 +13,13 @@ export const getProgressData = createServerFn({ method: "GET" })
       .eq("user_id", userId)
       .maybeSingle();
 
+    // Fetch profile plan metadata
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("plan_started_at, created_at")
+      .eq("user_id", userId)
+      .maybeSingle();
+
     // Fetch task history for the consistency grid
     const { data: tasks } = await supabase
       .from("calendar_tasks")
@@ -29,7 +36,7 @@ export const getProgressData = createServerFn({ method: "GET" })
       .limit(1)
       .maybeSingle();
 
-    return { progress, tasks, report };
+    return { progress, tasks, report, profile };
   });
 
 export const getAchievements = createServerFn({ method: "GET" })

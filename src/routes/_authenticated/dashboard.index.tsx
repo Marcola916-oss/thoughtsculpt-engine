@@ -11,11 +11,20 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
   component: HubPage,
 });
 
-function greeting() {
+const GREETINGS: Record<string, [string, string, string]> = {
+  pt: ["Bom dia", "Boa tarde", "Boa noite"],
+  en: ["Good morning", "Good afternoon", "Good evening"],
+  pl: ["Dzień dobry", "Dzień dobry", "Dobry wieczór"],
+  ro: ["Bună dimineața", "Bună ziua", "Bună seara"],
+  ar: ["صباح الخير", "مساء الخير", "مساء الخير"],
+};
+
+function greeting(lang?: string | null) {
   const h = new Date().getHours();
-  if (h < 12) return "Bom dia";
-  if (h < 18) return "Boa tarde";
-  return "Boa noite";
+  const set = GREETINGS[lang ?? "pt"] ?? GREETINGS["pt"];
+  if (h < 12) return set[0];
+  if (h < 18) return set[1];
+  return set[2];
 }
 
 const cards = [
@@ -83,6 +92,7 @@ function HubPage() {
 
   const archetype = data?.profile?.archetype as Archetype | null | undefined;
   const name = data?.profile?.display_name ?? "";
+  const lang = data?.profile?.lang ?? null;
 
   return (
     <div className="mx-auto max-w-5xl">

@@ -3,6 +3,7 @@ import { requireSupabaseAuth } from "../integrations/supabase/auth-middleware";
 import { callAIStructured } from "./ai/gateway.server";
 import type { JSONSchema7 } from "json-schema";
 import { ARCHETYPE_NAMES, type Archetype } from "./ai/archetypes";
+import { checkAndIncrementLimit } from "./limits.server";
 
 type DiagnosisJSON = {
   financial_analysis: string;
@@ -66,7 +67,7 @@ export const generateDiagnosis = createServerFn({ method: "POST" })
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("display_name, archetype, lang")
+      .select("display_name, archetype, lang, plan_type")
       .eq("user_id", userId)
       .maybeSingle();
     const { data: lead } = await supabase
@@ -82,6 +83,10 @@ export const generateDiagnosis = createServerFn({ method: "POST" })
     const name = profile?.display_name ?? lead?.display_name ?? "you";
     const lang = profile?.lang ?? "en";
     const archetypeName = ARCHETYPE_NAMES[archetype]?.en ?? archetype;
+
+    // Enforce daily generation limit on 1-year plans
+    const planType = profile?.plan_type ?? "unknown";
+    await checkAndIncrementLimit(supabase, userId, "generation", planType);
 
     const result = await callAIStructured<DiagnosisJSON>({
       model: "google/gemini-2.5-pro",

@@ -1,8 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { saveOnboarding } from "../../lib/profile.functions";
+import { generateCalendar } from "../../lib/calendar.functions";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({ meta: [{ title: "Calibração — MindReset" }] }),
@@ -19,10 +20,116 @@ type FormState = {
   mobile_os: "ios" | "android" | "none" | "";
 };
 
+const LOADER_STEPS = [
+  "Analisando seu perfil comportamental...",
+  "Calibrando suas metas psicológicas...",
+  "Estruturando a Matriz de Ação...",
+];
+
+function AILoader({ onComplete }: { onComplete: () => void }) {
+  const [step, setStep] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const startRef = useRef(Date.now());
+  const doneRef = useRef(false);
+
+  useEffect(() => {
+    // Step transitions: 0-3s step0, 3-6s step1, 6s+ step2
+    const stepTimer = setInterval(() => {
+      const elapsed = (Date.now() - startRef.current) / 1000;
+      if (elapsed >= 6 && step < 2) setStep(2);
+      else if (elapsed >= 3 && step < 1) setStep(1);
+    }, 500);
+
+    // Progress bar animation
+    const progressTimer = setInterval(() => {
+      const elapsed = (Date.now() - startRef.current) / 1000;
+      const target = Math.min((elapsed / 9) * 100, 99);
+      setProgress((p) => Math.max(p, target));
+    }, 80);
+
+    return () => {
+      clearInterval(stepTimer);
+      clearInterval(progressTimer);
+    };
+  }, [step]);
+
+  // Signal component externally when minimum 8s has passed + external done is notified
+  // This is handled by the parent via onComplete
+  useEffect(() => {
+    if (doneRef.current) return;
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background text-foreground">
+      {/* Backdrop glow */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-1/4 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/5 blur-[120px]" />
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center gap-10 px-6 text-center max-w-lg">
+        {/* Logo */}
+        <div className="font-display text-2xl font-bold tracking-tight">
+          <span className="text-foreground">Mind</span>
+          <span className="text-primary">Reset</span>
+        </div>
+
+        {/* Animated ring */}
+        <div className="relative flex h-36 w-36 items-center justify-center">
+          <div className="absolute inset-0 animate-[spin_3s_linear_infinite] rounded-full border-4 border-primary/20 border-t-primary shadow-[0_0_24px_var(--accent-glow)]" />
+          <div className="absolute inset-3 animate-[spin_2s_linear_infinite_reverse] rounded-full border-4 border-primary/10 border-b-primary" />
+          <span className="text-5xl animate-pulse">🧠</span>
+        </div>
+
+        {/* Step text */}
+        <div className="space-y-2">
+          <h2 className="font-display text-2xl font-extrabold text-foreground">
+            Construindo seu protocolo
+          </h2>
+          <p
+            key={step}
+            className="text-lg font-medium text-muted-foreground animate-in fade-in slide-in-from-bottom-2 duration-500"
+          >
+            {LOADER_STEPS[step]}
+          </p>
+        </div>
+
+        {/* Progress bar */}
+        <div className="w-full max-w-sm">
+          <div className="h-2 overflow-hidden rounded-full bg-secondary">
+            <div
+              className="h-full bg-primary shadow-[0_0_10px_var(--accent-glow)] transition-[width] duration-200 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <p className="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+            Etapa {step + 1} de {LOADER_STEPS.length}
+          </p>
+        </div>
+
+        {/* Milestone indicators */}
+        <div className="flex gap-3">
+          {LOADER_STEPS.map((_, i) => (
+            <div
+              key={i}
+              className={`h-2 w-16 rounded-full transition-all duration-700 ${
+                i <= step
+                  ? "bg-primary shadow-[0_0_8px_var(--accent-glow)]"
+                  : "bg-secondary"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function OnboardingPage() {
   const save = useServerFn(saveOnboarding);
+  const genCalendar = useServerFn(generateCalendar);
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [showLoader, setShowLoader] = useState(false);
   const [form, setForm] = useState<FormState>({
     wake_time: "",
     sleep_time: "",
@@ -34,15 +141,31 @@ function OnboardingPage() {
   });
 
   const mut = useMutation({
-    mutationFn: () =>
-      save({
+    mutationFn: async () => {
+      // Show loader immediately
+      setShowLoader(true);
+      const startTime = Date.now();
+
+      // Save onboarding answers
+      await save({
         data: {
           ...form,
           daily_minutes: form.daily_minutes ?? 15,
           mobile_os: form.mobile_os || "none",
         },
-      }),
+      });
+
+      // Generate calendar tasks in parallel with the minimum display time
+      const minDelay = new Promise((r) => setTimeout(r, 8000));
+      await Promise.all([genCalendar(), minDelay]);
+
+      return { elapsed: Date.now() - startTime };
+    },
     onSuccess: () => navigate({ to: "/dashboard" }),
+    onError: () => {
+      // On error, still navigate but without hiding the loader until navigation
+      navigate({ to: "/dashboard" });
+    },
   });
 
   const nextStep = () => setStep((s) => s + 1);
@@ -62,6 +185,11 @@ function OnboardingPage() {
       mut.mutate();
     }
   };
+
+  // Show full-screen AI loader while generating
+  if (showLoader) {
+    return <AILoader onComplete={() => navigate({ to: "/dashboard" })} />;
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between py-12 px-4">
@@ -294,7 +422,7 @@ function OnboardingPage() {
                 onClick={handleSubmit}
                 className="mt-8 w-full rounded-full bg-primary px-6 py-4 font-bold text-primary-foreground shadow-[0_4px_15px_var(--accent-glow)] transition hover:opacity-90 disabled:opacity-40"
               >
-                {mut.isPending ? "Configurando Protocolo..." : "Concluir Calibração →"}
+                Concluir Calibração →
               </button>
             </div>
           )}

@@ -42,14 +42,25 @@ async function ensureUserForEmail(
   displayName?: string | null,
   lang?: string | null,
 ): Promise<string> {
-  // Search by listing users — GoTrue admin API doesn't have getUserByEmail
-  const { data, error } = await supabaseAdmin.auth.admin.listUsers();
-  if (error) throw new Error(error.message);
+  // Query profiles table by email first to avoid listUsers page limits
+  const { data: existingProfile } = await supabaseAdmin
+    .from("profiles")
+    .select("user_id")
+    .eq("email", email.toLowerCase())
+    .maybeSingle();
 
-  const existing = data.users.find(
-    (u) => u.email?.toLowerCase() === email.toLowerCase(),
-  );
-  if (existing) return existing.id;
+  if (existingProfile) {
+    return existingProfile.user_id;
+  }
+
+  // Fallback search by listing users
+  const { data, error } = await supabaseAdmin.auth.admin.listUsers();
+  if (!error && data) {
+    const existing = data.users.find(
+      (u) => u.email?.toLowerCase() === email.toLowerCase(),
+    );
+    if (existing) return existing.id;
+  }
 
   // Create new auth user — email auto-confirmed so they can log in via magic link
   const { data: created, error: createError } =

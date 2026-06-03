@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import confetti from "canvas-confetti";
 import {
   listCalendar,
   generateCalendar,
@@ -15,6 +16,24 @@ export const Route = createFileRoute("/_authenticated/dashboard/calendar")({
   component: CalendarPage,
 });
 
+// In-memory store for pending per-task checkbox states (resets on page refresh)
+type CheckState = { reflective: boolean; action: boolean };
+const pendingChecks: Record<string, CheckState> = {};
+
+function fireConfetti() {
+  const count = 180;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 80, zIndex: 100 };
+  function randomInRange(min: number, max: number) {
+    return Math.random() * (max - min) + min;
+  }
+  confetti({ ...defaults, particleCount: Math.floor(count * 0.25), origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ["#CC0000", "#ff4444", "#ffffff"] });
+  confetti({ ...defaults, particleCount: Math.floor(count * 0.25), origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ["#CC0000", "#ff4444", "#ffffff"] });
+  setTimeout(() => {
+    confetti({ ...defaults, particleCount: Math.floor(count * 0.2), origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ["#ff8800", "#ffcc00", "#ffffff"] });
+    confetti({ ...defaults, particleCount: Math.floor(count * 0.2), origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ["#ff8800", "#ffcc00", "#ffffff"] });
+  }, 200);
+}
+
 function CalendarPage() {
   const list = useServerFn(listCalendar);
   const gen = useServerFn(generateCalendar);
@@ -25,6 +44,8 @@ function CalendarPage() {
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState(1);
   const [showExportMenu, setShowExportMenu] = useState(false);
+  // Per-task checkbox states (in-memory)
+  const [checks, setChecks] = useState<Record<string, CheckState>>({});
 
   const { data: tasks = [], isLoading } = useQuery({
     queryKey: ["calendar"],
@@ -66,6 +87,33 @@ function CalendarPage() {
     mutationFn: (format: "csv" | "md" | "ics") => markExported({ data: { format } }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["calendar"] }),
   });
+
+  // Handle checkbox change — only commit to DB when both are checked
+  const handleCheck = useCallback(
+    (taskId: string, field: "reflective" | "action", wasCompleted: boolean) => {
+      if (wasCompleted) {
+        // Already completed — unmark via the DB toggle
+        toggleMut.mutate({ task_id: taskId, is_completed: false });
+        setChecks((prev) => ({ ...prev, [taskId]: { reflective: false, action: false } }));
+        return;
+      }
+
+      setChecks((prev) => {
+        const current = prev[taskId] ?? { reflective: false, action: false };
+        const next = { ...current, [field]: !current[field] };
+
+        // If both are now checked → mark complete in DB and fire confetti
+        if (next.reflective && next.action) {
+          setTimeout(() => {
+            toggleMut.mutate({ task_id: taskId, is_completed: true });
+            fireConfetti();
+          }, 300);
+        }
+        return { ...prev, [taskId]: next };
+      });
+    },
+    [toggleMut],
+  );
 
   // Auto-select first uncompleted unlocked day when tasks load
   useEffect(() => {
@@ -122,6 +170,7 @@ function CalendarPage() {
   const active = tasks.find((t) => t.day_number === selectedDay);
   const totalMonths = Math.ceil(tasks.length / 30);
   const visibleTasks = tasks.filter((t) => Math.ceil(t.day_number / 30) === selectedMonth);
+  const activeChecks = active ? (checks[active.id] ?? { reflective: false, action: false }) : null;
 
   const exportCSV = () => {
     const header = "Dia,Fase,Marco,Tarefa Reflexiva,Tarefa de Ação,Concluído\n";
@@ -282,20 +331,98 @@ function CalendarPage() {
               )}
             </div>
 
+            {/* Task content */}
             <div className="space-y-4">
-              <Task
-                label="🧠 Reflexão"
-                text={active.reflective_task ?? ""}
-                done={active.is_completed}
-              />
-              <Task
-                label="⚡ Ação Prática"
-                text={active.action_task ?? ""}
-                done={active.is_completed}
-              />
+              <div className={`rounded-xl border p-4 transition-all ${active.is_completed || activeChecks?.reflective ? "border-success/30 bg-success/5" : "border-border bg-background"}`}>
+                <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">🧠 Reflexão</div>
+                <p className={`text-sm leading-relaxed ${active.is_completed || activeChecks?.reflective ? "text-foreground line-through opacity-70" : "text-foreground"}`}>
+                  {active.reflective_task ?? ""}
+                </p>
+              </div>
+              <div className={`rounded-xl border p-4 transition-all ${active.is_completed || activeChecks?.action ? "border-success/30 bg-success/5" : "border-border bg-background"}`}>
+                <div className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">⚡ Ação Prática</div>
+                <p className={`text-sm leading-relaxed ${active.is_completed || activeChecks?.action ? "text-foreground line-through opacity-70" : "text-foreground"}`}>
+                  {active.action_task ?? ""}
+                </p>
+              </div>
             </div>
 
-            <div className="mt-8 border-t border-border pt-6">
+            {/* Dual checkboxes */}
+            {!active.is_completed && (
+              <div className="mt-6 space-y-3 border-t border-border pt-5">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
+                  Marque o que você concluiu hoje:
+                </p>
+
+                {/* Reflective checkbox */}
+                <label
+                  className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-all hover:scale-[1.01] ${
+                    activeChecks?.reflective
+                      ? "border-success/40 bg-success/10 shadow-[0_0_10px_rgba(34,197,94,0.2)]"
+                      : "border-border bg-background hover:border-primary/40"
+                  }`}
+                >
+                  <div
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                      activeChecks?.reflective
+                        ? "border-success bg-success text-white"
+                        : "border-border"
+                    }`}
+                    onClick={() => handleCheck(active.id, "reflective", false)}
+                  >
+                    {activeChecks?.reflective && <span className="text-xs font-bold">✓</span>}
+                  </div>
+                  <span className={`text-sm font-semibold ${activeChecks?.reflective ? "text-success" : "text-foreground"}`}>
+                    🧠 Tarefa Reflexiva Concluída
+                  </span>
+                </label>
+
+                {/* Action checkbox */}
+                <label
+                  className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-all hover:scale-[1.01] ${
+                    activeChecks?.action
+                      ? "border-success/40 bg-success/10 shadow-[0_0_10px_rgba(34,197,94,0.2)]"
+                      : "border-border bg-background hover:border-primary/40"
+                  }`}
+                >
+                  <div
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                      activeChecks?.action
+                        ? "border-success bg-success text-white"
+                        : "border-border"
+                    }`}
+                    onClick={() => handleCheck(active.id, "action", false)}
+                  >
+                    {activeChecks?.action && <span className="text-xs font-bold">✓</span>}
+                  </div>
+                  <span className={`text-sm font-semibold ${activeChecks?.action ? "text-success" : "text-foreground"}`}>
+                    ⚡ Tarefa de Ação Concluída
+                  </span>
+                </label>
+
+                {/* Progress indicator */}
+                {(activeChecks?.reflective || activeChecks?.action) && !(activeChecks?.reflective && activeChecks?.action) && (
+                  <p className="text-xs text-muted-foreground text-center animate-pulse">
+                    ✨ Quase lá! Complete a outra tarefa para registrar o dia.
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Already completed — show undo */}
+            {active.is_completed && (
+              <button
+                onClick={() => {
+                  toggleMut.mutate({ task_id: active.id, is_completed: false });
+                  setChecks((prev) => ({ ...prev, [active.id]: { reflective: false, action: false } }));
+                }}
+                className="mt-6 w-full rounded-xl border border-border bg-background py-3 text-sm font-semibold text-muted-foreground transition hover:bg-secondary"
+              >
+                Desmarcar Conclusão
+              </button>
+            )}
+
+            <div className="mt-6 border-t border-border pt-6">
               <label className="mb-2 block text-sm font-bold text-foreground">
                 Diário de Bordo
               </label>
@@ -306,25 +433,6 @@ function CalendarPage() {
                 onBlur={(e) => saveNoteMut.mutate({ task_id: active.id, notes: e.target.value })}
               />
             </div>
-
-            <button
-              onClick={() => {
-                if (!active.is_completed) {
-                  document
-                    .getElementById(`btn-complete-${active.id}`)
-                    ?.classList.add("animate-bounce");
-                }
-                toggleMut.mutate({ task_id: active.id, is_completed: !active.is_completed });
-              }}
-              id={`btn-complete-${active.id}`}
-              className={`mt-6 w-full rounded-xl py-4 font-bold transition-all ${
-                active.is_completed
-                  ? "bg-background border border-border text-muted-foreground hover:bg-secondary"
-                  : "bg-success text-success-foreground hover:bg-success/90 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)]"
-              }`}
-            >
-              {active.is_completed ? "Desmarcar Conclusão" : "✓ Marcar Dia como Concluído"}
-            </button>
           </>
         ) : (
           <div className="flex h-full flex-col items-center justify-center text-center text-muted-foreground py-12 opacity-50">
@@ -333,25 +441,6 @@ function CalendarPage() {
           </div>
         )}
       </aside>
-    </div>
-  );
-}
-
-function Task({ label, text, done }: { label: string; text: string; done: boolean }) {
-  return (
-    <div
-      className={`rounded-xl border p-4 transition-all ${done ? "border-success/30 bg-success/5" : "border-border bg-background"}`}
-    >
-      <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-          {label}
-        </span>
-      </div>
-      <p
-        className={`text-sm leading-relaxed ${done ? "text-foreground line-through opacity-70" : "text-foreground"}`}
-      >
-        {text}
-      </p>
     </div>
   );
 }
