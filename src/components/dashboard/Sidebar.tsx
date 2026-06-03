@@ -1,22 +1,14 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { supabase } from "../../integrations/supabase/client";
-
-const navItems = [
-  { to: "/dashboard",            label: "Home",         icon: "🏠", exact: true },
-  { to: "/dashboard/diagnosis",  label: "Diagnosis",    icon: "🧠", exact: false },
-  { to: "/dashboard/calendar",   label: "Action Matrix",icon: "📅", exact: false },
-  { to: "/dashboard/compass",    label: "Compass",      icon: "🧭", exact: false },
-  { to: "/dashboard/progress",   label: "Progress",     icon: "📈", exact: false },
-  { to: "/dashboard/settings",   label: "Settings",     icon: "⚙️", exact: false },
-] as const;
 
 interface SidebarProps {
   streak?: number;
   unreadCount?: number;
+  onOpenNotifications: () => void;
 }
 
-function SidebarContent({ streak, unreadCount, onClose }: SidebarProps & { onClose?: () => void }) {
+function SidebarContent({ streak, unreadCount, onOpenNotifications, onClose }: SidebarProps & { onClose?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   async function logout() {
@@ -69,7 +61,10 @@ function SidebarContent({ streak, unreadCount, onClose }: SidebarProps & { onClo
         {/* Notifications */}
         <button
           className="group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-all duration-150 hover:bg-secondary hover:text-foreground"
-          onClick={onClose}
+          onClick={() => {
+            onOpenNotifications();
+            if (onClose) onClose();
+          }}
         >
           <span className="text-base" aria-hidden>🔔</span>
           <span className="flex-1 text-start">Notifications</span>
@@ -92,23 +87,52 @@ function SidebarContent({ streak, unreadCount, onClose }: SidebarProps & { onClo
   );
 }
 
+const navItems = [
+  { to: "/dashboard",            label: "Home",         icon: "🏠", exact: true },
+  { to: "/dashboard/diagnosis",  label: "Diagnosis",    icon: "🧠", exact: false },
+  { to: "/dashboard/calendar",   label: "Action Matrix",icon: "📅", exact: false },
+  { to: "/dashboard/compass",    label: "Compass",      icon: "🧭", exact: false },
+  { to: "/dashboard/progress",   label: "Progress",     icon: "📈", exact: false },
+  { to: "/dashboard/settings",   label: "Settings",     icon: "⚙️", exact: false },
+] as const;
+
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [streak, setStreak] = useState<number | undefined>(undefined);
   const [unread, setUnread] = useState<number | undefined>(undefined);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [loadingNotifs, setLoadingNotifs] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
 
   // Close drawer on route change
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu or notification modal is open
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    document.body.style.overflow = (mobileOpen || notifOpen) ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
+  }, [mobileOpen, notifOpen]);
+
+  // Fetch notifications
+  const fetchNotifications = async () => {
+    setLoadingNotifs(true);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data } = await supabase
+        .from("notifications")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(20);
+      setNotifications(data || []);
+    }
+    setLoadingNotifs(false);
+  };
 
   // Fetch streak + unread count (lightweight)
-  useEffect(() => {
+  const refreshUnreadAndStreak = () => {
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (!user) return;
       // Streak
@@ -126,13 +150,58 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         .eq("is_read", false)
         .then(({ count }) => { if (count != null) setUnread(count); });
     });
+  };
+
+  useEffect(() => {
+    refreshUnreadAndStreak();
   }, []);
+
+  const handleMarkAllRead = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    await supabase
+      .from("notifications")
+      .update({ is_read: true })
+      .eq("user_id", user.id)
+      .eq("is_read", false);
+    setNotifications((prev) => prev.map((n) => ({ ...n, is_read: true })));
+    setUnread(0);
+  };
+
+  const handleMarkSingleRead = async (id: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    await supabase
+      .from("notifications")
+      .update({ is_read: true })
+      .eq("id", id)
+      .eq("user_id", user.id);
+    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, is_read: true } : n)));
+    setUnread((prev) => (prev && prev > 0 ? prev - 1 : 0));
+  };
+
+  const handleNotificationClick = async (notif: any) => {
+    if (!notif.is_read) {
+      await handleMarkSingleRead(notif.id);
+    }
+    setNotifOpen(false);
+    if (notif.action_url) {
+      navigate({ to: notif.action_url });
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-background">
       {/* Desktop Sidebar */}
       <aside className="sticky top-0 hidden h-screen w-56 shrink-0 flex-col border-r border-border bg-secondary md:flex">
-        <SidebarContent streak={streak} unreadCount={unread} />
+        <SidebarContent
+          streak={streak}
+          unreadCount={unread}
+          onOpenNotifications={() => {
+            setNotifOpen(true);
+            fetchNotifications();
+          }}
+        />
       </aside>
 
       {/* Mobile overlay */}
@@ -152,6 +221,10 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         <SidebarContent
           streak={streak}
           unreadCount={unread}
+          onOpenNotifications={() => {
+            setNotifOpen(true);
+            fetchNotifications();
+          }}
           onClose={() => setMobileOpen(false)}
         />
       </aside>
@@ -177,6 +250,120 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
         <main className="flex-1 px-4 py-6 md:px-10 md:py-10">{children}</main>
       </div>
+
+      {/* Notifications Modal */}
+      {notifOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+          onClick={() => setNotifOpen(false)}
+        >
+          <div 
+            className="relative w-full max-w-md overflow-hidden rounded-2xl border border-border bg-[#0D0D0D] p-6 shadow-2xl animate-in scale-in duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="mb-4 flex items-center justify-between border-b border-border pb-4">
+              <div>
+                <h2 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
+                  <span>🔔</span> Notificações
+                </h2>
+                <p className="text-xs text-muted-foreground">Últimas atualizações da sua jornada</p>
+              </div>
+              <button 
+                onClick={() => setNotifOpen(false)}
+                className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-secondary transition text-muted-foreground hover:text-foreground font-bold text-lg"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Actions */}
+            {notifications.some(n => !n.is_read) && (
+              <div className="mb-4 flex justify-end">
+                <button
+                  onClick={handleMarkAllRead}
+                  className="text-xs font-semibold text-primary hover:underline"
+                >
+                  Limpar todas como lidas
+                </button>
+              </div>
+            )}
+
+            {/* List */}
+            <div className="max-h-[350px] overflow-y-auto pr-1 space-y-3 custom-scrollbar">
+              {loadingNotifs ? (
+                <div className="space-y-3 py-6">
+                  <div className="h-12 w-full animate-pulse rounded-xl bg-card" />
+                  <div className="h-12 w-full animate-pulse rounded-xl bg-card" />
+                  <div className="h-12 w-full animate-pulse rounded-xl bg-card" />
+                </div>
+              ) : notifications.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground">
+                  <span className="text-3xl mb-2">📭</span>
+                  <p className="text-sm">Você não tem notificações no momento.</p>
+                </div>
+              ) : (
+                notifications.map((n) => {
+                  const typeColors: Record<string, string> = {
+                    achievement: "text-amber-500 bg-amber-500/10 border-amber-500/20",
+                    streak: "text-orange-500 bg-orange-500/10 border-orange-500/20",
+                    expiry: "text-red-500 bg-red-500/10 border-red-500/20",
+                    system: "text-blue-500 bg-blue-500/10 border-blue-500/20",
+                    tip: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
+                  };
+                  const colorClass = typeColors[n.type] || "text-primary bg-primary/10 border-primary/20";
+                  
+                  return (
+                    <div
+                      key={n.id}
+                      onClick={() => handleNotificationClick(n)}
+                      className={`relative flex gap-3 rounded-xl border p-4 cursor-pointer transition-all hover:scale-[1.01] ${
+                        n.is_read
+                          ? "border-border bg-card/40 opacity-70 hover:opacity-100"
+                          : "border-primary/30 bg-primary/5 hover:bg-primary/10 shadow-[0_0_10px_var(--accent-glow)]"
+                      }`}
+                    >
+                      {/* Left Dot for unread */}
+                      {!n.is_read && (
+                        <div className="absolute top-4 right-4 h-2 w-2 rounded-full bg-primary" />
+                      )}
+                      
+                      {/* Icon */}
+                      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border text-lg ${colorClass}`}>
+                        {n.icon || "🔔"}
+                      </div>
+                      
+                      {/* Details */}
+                      <div className="flex-1 min-w-0 pr-4">
+                        <h4 className="font-semibold text-sm text-foreground truncate">{n.title}</h4>
+                        <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{n.body}</p>
+                        <span className="mt-2 block text-[10px] text-muted-foreground/60">
+                          {new Date(n.created_at).toLocaleDateString("pt-BR", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit"
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {/* Footer */}
+            <div className="mt-4 border-t border-border pt-4 text-center">
+              <button
+                onClick={() => setNotifOpen(false)}
+                className="w-full rounded-xl bg-secondary py-2.5 text-xs font-semibold text-foreground hover:bg-secondary/80 transition"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          achievement_code: string
+          id: string
+          is_claimed: boolean
+          reward_expires_at: string | null
+          reward_type: string | null
+          reward_value: string | null
+          unlocked_at: string
+          user_id: string
+        }
+        Insert: {
+          achievement_code: string
+          id?: string
+          is_claimed?: boolean
+          reward_expires_at?: string | null
+          reward_type?: string | null
+          reward_value?: string | null
+          unlocked_at?: string
+          user_id: string
+        }
+        Update: {
+          achievement_code?: string
+          id?: string
+          is_claimed?: boolean
+          reward_expires_at?: string | null
+          reward_type?: string | null
+          reward_value?: string | null
+          unlocked_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       calendar_tasks: {
         Row: {
           action_task: string | null
@@ -92,6 +125,33 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_limits: {
+        Row: {
+          calendars_count: number
+          date: string
+          generations_count: number
+          id: string
+          pdfs_count: number
+          user_id: string
+        }
+        Insert: {
+          calendars_count?: number
+          date?: string
+          generations_count?: number
+          id?: string
+          pdfs_count?: number
+          user_id: string
+        }
+        Update: {
+          calendars_count?: number
+          date?: string
+          generations_count?: number
+          id?: string
+          pdfs_count?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       diagnoses: {
         Row: {
           archetype: string
@@ -128,6 +188,87 @@ export type Database = {
           romantic_analysis?: string | null
           user_id?: string
           version?: number
+        }
+        Relationships: []
+      }
+      monthly_reports: {
+        Row: {
+          behavioral_insight: string | null
+          consistency_score: number | null
+          generated_at: string
+          id: string
+          month_headline: string | null
+          month_number: number
+          month_summary: string | null
+          motivational_close: string | null
+          next_month_challenge: string | null
+          performance_badge: string | null
+          raw_data: Json | null
+          user_id: string
+        }
+        Insert: {
+          behavioral_insight?: string | null
+          consistency_score?: number | null
+          generated_at?: string
+          id?: string
+          month_headline?: string | null
+          month_number: number
+          month_summary?: string | null
+          motivational_close?: string | null
+          next_month_challenge?: string | null
+          performance_badge?: string | null
+          raw_data?: Json | null
+          user_id: string
+        }
+        Update: {
+          behavioral_insight?: string | null
+          consistency_score?: number | null
+          generated_at?: string
+          id?: string
+          month_headline?: string | null
+          month_number?: number
+          month_summary?: string | null
+          motivational_close?: string | null
+          next_month_challenge?: string | null
+          performance_badge?: string | null
+          raw_data?: Json | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          action_url: string | null
+          body: string
+          created_at: string
+          icon: string | null
+          id: string
+          is_read: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          action_url?: string | null
+          body: string
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_read?: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          action_url?: string | null
+          body?: string
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_read?: boolean
+          title?: string
+          type?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -172,6 +313,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          access_level: string
           archetype: string | null
           country: string | null
           created_at: string
@@ -184,10 +326,12 @@ export type Database = {
           plan_started_at: string | null
           plan_type: string | null
           quiz_lead_id: string | null
+          theme: string
           updated_at: string
           user_id: string
         }
         Insert: {
+          access_level?: string
           archetype?: string | null
           country?: string | null
           created_at?: string
@@ -200,10 +344,12 @@ export type Database = {
           plan_started_at?: string | null
           plan_type?: string | null
           quiz_lead_id?: string | null
+          theme?: string
           updated_at?: string
           user_id: string
         }
         Update: {
+          access_level?: string
           archetype?: string | null
           country?: string | null
           created_at?: string
@@ -216,6 +362,7 @@ export type Database = {
           plan_started_at?: string | null
           plan_type?: string | null
           quiz_lead_id?: string | null
+          theme?: string
           updated_at?: string
           user_id?: string
         }
@@ -333,7 +480,11 @@ export type Database = {
       }
       user_progress: {
         Row: {
+          calendar_exported: boolean
+          compass_used: number
+          extra_days_earned: number
           id: string
+          last_activity_at: string | null
           last_checkin_date: string | null
           longest_streak: number
           streak_days: number
@@ -343,7 +494,11 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          calendar_exported?: boolean
+          compass_used?: number
+          extra_days_earned?: number
           id?: string
+          last_activity_at?: string | null
           last_checkin_date?: string | null
           longest_streak?: number
           streak_days?: number
@@ -353,7 +508,11 @@ export type Database = {
           user_id: string
         }
         Update: {
+          calendar_exported?: boolean
+          compass_used?: number
+          extra_days_earned?: number
           id?: string
+          last_activity_at?: string | null
           last_checkin_date?: string | null
           longest_streak?: number
           streak_days?: number
@@ -407,6 +566,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_and_unlock_achievements: {
+        Args: {
+          user_uuid: string
+          v_calendar_exported: boolean
+          v_compass_count: number
+          v_max_streak: number
+          v_tasks_completed: number
+        }
+        Returns: undefined
+      }
       get_shared_quiz: {
         Args: { _token: string }
         Returns: {
@@ -416,6 +585,23 @@ export type Database = {
           scores: Json
           winner: Database["public"]["Enums"]["archetype"]
         }[]
+      }
+      mark_calendar_exported: {
+        Args: { user_uuid: string }
+        Returns: undefined
+      }
+      recalculate_user_stats: {
+        Args: { user_uuid: string }
+        Returns: undefined
+      }
+      unlock_achievement: {
+        Args: {
+          ach_code: string
+          rew_type: string
+          rew_value: string
+          user_uuid: string
+        }
+        Returns: undefined
       }
     }
     Enums: {

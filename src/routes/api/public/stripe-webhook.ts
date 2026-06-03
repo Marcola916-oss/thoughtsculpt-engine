@@ -119,7 +119,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 }
 
 async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
-  const subId = invoice.subscription as string;
+  const subId = (invoice as any).subscription as string;
   if (!subId) return;
 
   const stripe = getStripe();
@@ -159,7 +159,7 @@ async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
 }
 
 async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
-  const subId = invoice.subscription as string;
+  const subId = (invoice as any).subscription as string;
   if (!subId) return;
 
   const { data: existingSub } = await supabaseAdmin

@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { useState, FormEvent, useEffect } from "react";
-import { getMyProfile } from "../../lib/profile.functions";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { getMyProfile, updateProfileSettings } from "../../lib/profile.functions";
 import { createCustomerPortalSession } from "../../lib/checkout.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
@@ -14,8 +14,10 @@ export const Route = createFileRoute("/_authenticated/dashboard/settings")({
 
 function SettingsPage() {
   const fetchProfile = useServerFn(getMyProfile);
+  const updateSettings = useServerFn(updateProfileSettings);
   const getPortal = useServerFn(createCustomerPortalSession);
   const { lang, setLang } = useI18n();
+  const qc = useQueryClient();
 
   const { data, isLoading } = useQuery({
     queryKey: ["my-profile"],
@@ -26,14 +28,24 @@ function SettingsPage() {
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
 
-  // Initialize theme from HTML element
+  const updateMutation = useMutation({
+    mutationFn: (vars: { display_name?: string; lang?: "pl" | "ro" | "ar" | "pt" | "en"; theme?: "dark" | "light" }) =>
+      updateSettings({ data: vars }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["my-profile"] });
+    },
+  });
+
+  // Initialize theme from profile or HTML element
   useEffect(() => {
-    if (document.documentElement.classList.contains("dark")) {
+    if (data?.profile?.theme) {
+      setTheme(data.profile.theme as "dark" | "light");
+    } else if (document.documentElement.classList.contains("dark")) {
       setTheme("dark");
     } else {
       setTheme("light");
     }
-  }, []);
+  }, [data]);
 
   const handleThemeChange = (newTheme: "dark" | "light") => {
     setTheme(newTheme);
@@ -44,6 +56,12 @@ function SettingsPage() {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
+    updateMutation.mutate({ theme: newTheme });
+  };
+
+  const handleLangChange = (newLang: any) => {
+    setLang(newLang);
+    updateMutation.mutate({ lang: newLang });
   };
 
   const handlePortalRedirect = async () => {
@@ -84,7 +102,18 @@ function SettingsPage() {
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Nome</label>
-              <div className="rounded-lg border border-border bg-background px-4 py-3 text-sm">{p?.display_name || "—"}</div>
+              <input
+                type="text"
+                defaultValue={p?.display_name || ""}
+                placeholder="Seu nome"
+                onBlur={(e) => {
+                  const val = e.target.value.trim();
+                  if (val && val !== p?.display_name) {
+                    updateMutation.mutate({ display_name: val });
+                  }
+                }}
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+              />
             </div>
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Arquétipo</label>
@@ -103,7 +132,7 @@ function SettingsPage() {
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Idioma</label>
               <select
                 value={lang}
-                onChange={(e) => setLang(e.target.value as any)}
+                onChange={(e) => handleLangChange(e.target.value as any)}
                 className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               >
                 <option value="pt">Português (BR)</option>

@@ -44,18 +44,45 @@ export const getMyProfile = createServerFn({ method: "GET" })
           .maybeSingle();
         if (updated) Object.assign(profile, updated);
       }
+    let shareToken: string | null = null;
+    if (profile?.quiz_lead_id) {
+      const { data: lead } = await supabase
+        .from("quiz_leads")
+        .select("share_token")
+        .eq("id", profile.quiz_lead_id)
+        .maybeSingle();
+      if (lead) {
+        shareToken = lead.share_token;
+      }
+    } else if (profile) {
+      const { data: lead } = await supabase
+        .from("quiz_leads")
+        .select("id, share_token")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (lead) {
+        shareToken = lead.share_token;
+        await supabase
+          .from("profiles")
+          .update({ quiz_lead_id: lead.id })
+          .eq("user_id", userId);
+        profile.quiz_lead_id = lead.id;
+      }
     }
 
     return {
       profile,
       subscription: sub,
       onboarding,
+      shareToken,
     };
   });
 
 const OnboardingInput = z.object({
-  wake_time: z.string().max(8),
-  sleep_time: z.string().max(8),
+  wake_time: z.string().max(30),
+  sleep_time: z.string().max(30),
   daily_minutes: z.number().int().min(5).max(120),
   emotional_trigger: z.string().min(1).max(200),
   financial_goal: z.string().min(1).max(200),
@@ -79,5 +106,24 @@ export const saveOnboarding = createServerFn({ method: "POST" })
       .eq("user_id", userId);
     if (pErr) throw new Error(pErr.message);
 
+    return { ok: true };
+  });
+
+const UpdateProfileInput = z.object({
+  display_name: z.string().min(1).max(50).optional(),
+  lang: z.enum(["pl", "ro", "ar", "pt", "en"]).optional(),
+  theme: z.enum(["dark", "light"]).optional(),
+});
+
+export const updateProfileSettings = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) => UpdateProfileInput.parse(d))
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { error } = await supabase
+      .from("profiles")
+      .update(data)
+      .eq("user_id", userId);
+    if (error) throw new Error(error.message);
     return { ok: true };
   });

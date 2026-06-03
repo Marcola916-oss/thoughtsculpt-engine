@@ -119,23 +119,38 @@ export const generateCalendar = createServerFn({ method: "POST" })
     const planType = profile?.plan_type || "30d";
     await checkAndIncrementLimit(supabase, userId, "calendar", planType);
 
-    const totalDays = 30;
+    const totalDays = planType === "30d" ? 30 : planType === "6m" ? 180 : 365;
     const name = profile?.display_name ?? "you";
     const archName = ARCHETYPE_NAMES[archetype]?.en ?? archetype;
     const lang = profile?.lang ?? "en";
 
-    const result = await callAIStructured<{ days: CalendarDay[] }>({
-      model: "google/gemini-2.5-flash",
-      jsonSchema: CalendarSchema,
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are the behavioral calendar engine of MindReset. Build daily action plans grounded in behavioral psychology and applied stoicism. Each task must be specific, executable, and emotionally relevant.",
-        },
-        {
-          role: "user",
-          content: `Generate a ${totalDays}-day calendar for:
+    const allRows = [];
+    const batchSize = 30;
+
+    for (let startDay = 1; startDay <= totalDays; startDay += batchSize) {
+      const endDay = Math.min(totalDays, startDay + batchSize - 1);
+      const batchDays = endDay - startDay + 1;
+      const currentMonth = Math.floor((startDay - 1) / 30) + 1;
+
+      let phasePrompt = "";
+      if (startDay === 1) {
+        phasePrompt = `Phases: days 1-7 "recognition", 8-14 "interruption", 15-21 "substitution", 22-30 "consolidation".`;
+      } else {
+        phasePrompt = `Phases: use "integration" (for days 31-90) and "mastery" (for days 91-365).`;
+      }
+
+      const result = await callAIStructured<{ days: CalendarDay[] }>({
+        model: "google/gemini-2.5-flash",
+        jsonSchema: CalendarSchema,
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are the behavioral calendar engine of MindReset. Build daily action plans grounded in behavioral psychology and applied stoicism. Each task must be specific, executable, and emotionally relevant.",
+          },
+          {
+            role: "user",
+            content: `Generate days ${startDay} to ${endDay} (total ${batchDays} days) of a ${totalDays}-day calendar for:
 - Name: ${name} | Archetype: ${archName} | Language: ${lang}
 - Minutes/day: ${onboarding.daily_minutes}
 - Wake: ${onboarding.wake_time} | Sleep: ${onboarding.sleep_time}
@@ -143,28 +158,34 @@ export const generateCalendar = createServerFn({ method: "POST" })
 - Priority financial goal: ${onboarding.financial_goal}
 - Discipline style: ${onboarding.discipline_style}
 
-Phases: days 1-7 "recognition", 8-14 "interruption", 15-21 "substitution", 22-30 "consolidation".
-Milestones (is_milestone: true): days 7, 14, 21, 30.
-Each day MUST have a reflective_task (mindset/journaling, ~15s reading) AND an action_task (concrete physical action). Output exactly ${totalDays} days, numbered 1..${totalDays}.`,
-        },
-      ],
-    });
+${phasePrompt}
+Milestones (is_milestone: true): any of the following days if they fall in this batch: 7, 14, 21, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360.
+Each day MUST have a reflective_task (mindset/journaling, ~15s reading) AND an action_task (concrete physical action). Output exactly ${batchDays} days, numbered ${startDay}..${endDay}.`,
+          },
+        ],
+      });
 
-    if (!Array.isArray(result.days) || result.days.length === 0) {
-      throw new Error("AI returned no calendar days.");
+      if (!Array.isArray(result.days) || result.days.length === 0) {
+        throw new Error(`AI returned no calendar days for batch ${startDay}-${endDay}.`);
+      }
+
+      result.days.slice(0, batchDays).forEach((d, index) => {
+        const actualDay = startDay + index;
+        const isMilestone = [7, 14, 21, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360].includes(actualDay);
+        allRows.push({
+          user_id: userId,
+          day_number: actualDay,
+          phase: d.phase || (actualDay <= 30 ? "consolidation" : actualDay <= 90 ? "integration" : "mastery"),
+          reflective_task: d.reflective_task,
+          action_task: d.action_task,
+          is_milestone: isMilestone,
+        });
+      });
     }
 
-    const rows = result.days.slice(0, totalDays).map((d) => ({
-      user_id: userId,
-      day_number: d.day,
-      phase: d.phase,
-      reflective_task: d.reflective_task,
-      action_task: d.action_task,
-      is_milestone: d.is_milestone,
-    }));
-    const { error } = await supabase.from("calendar_tasks").insert(rows);
+    const { error } = await supabase.from("calendar_tasks").insert(allRows);
     if (error) throw new Error(error.message);
-    return { generated: true, count: rows.length };
+    return { generated: true, count: allRows.length };
   });
 
 export const toggleTaskComplete = createServerFn({ method: "POST" })

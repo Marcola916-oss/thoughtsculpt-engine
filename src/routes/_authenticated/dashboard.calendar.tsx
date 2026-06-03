@@ -16,7 +16,24 @@ function CalendarPage() {
   const saveNoteFn = useServerFn(saveTaskNote);
   const qc = useQueryClient();
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [selectedMonth, setSelectedMonth] = useState(1);
   const [showExportMenu, setShowExportMenu] = useState(false);
+
+  const handleMonthChange = (m: number) => {
+    setSelectedMonth(m);
+    const monthTasks = tasks.filter((t) => Math.ceil(t.day_number / 30) === m);
+    const unlockedMonthTasks = monthTasks.filter((t) => (t as any).is_unlocked);
+    if (unlockedMonthTasks.length > 0) {
+      const uncompleted = unlockedMonthTasks.find((t) => !t.is_completed);
+      if (uncompleted) {
+        setSelectedDay(uncompleted.day_number);
+      } else {
+        setSelectedDay(unlockedMonthTasks[unlockedMonthTasks.length - 1].day_number);
+      }
+    } else {
+      setSelectedDay(null);
+    }
+  };
 
   const { data: tasks = [], isLoading } = useQuery({
     queryKey: ["calendar"],
@@ -37,6 +54,26 @@ function CalendarPage() {
     mutationFn: (vars: { task_id: string; notes: string }) => saveNoteFn({ data: vars }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["calendar"] }),
   });
+
+  // Auto-select first uncompleted unlocked day when tasks load
+  useEffect(() => {
+    if (tasks.length > 0 && selectedDay === null) {
+      const firstUncompletedUnlocked = tasks.find(
+        (t) => (t as any).is_unlocked && !t.is_completed
+      );
+      if (firstUncompletedUnlocked) {
+        setSelectedDay(firstUncompletedUnlocked.day_number);
+        setSelectedMonth(Math.ceil(firstUncompletedUnlocked.day_number / 30));
+      } else {
+        const unlocked = tasks.filter((t) => (t as any).is_unlocked);
+        if (unlocked.length > 0) {
+          const lastUnlocked = unlocked[unlocked.length - 1];
+          setSelectedDay(lastUnlocked.day_number);
+          setSelectedMonth(Math.ceil(lastUnlocked.day_number / 30));
+        }
+      }
+    }
+  }, [tasks, selectedDay]);
 
   if (isLoading) return <div className="h-64 max-w-4xl animate-pulse rounded-2xl bg-card" />;
 
@@ -60,8 +97,8 @@ function CalendarPage() {
         >
           {generate.isPending ? (
             <span className="flex items-center gap-2">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
-              Construindo matriz (≈ 30s)...
+               <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
+               Construindo matriz (Pode levar até 1 minuto)...
             </span>
           ) : (
             "Gerar Minha Matriz de Ação"
@@ -72,11 +109,19 @@ function CalendarPage() {
   }
 
   const active = tasks.find((t) => t.day_number === selectedDay);
+  const totalMonths = Math.ceil(tasks.length / 30);
+  const visibleTasks = tasks.filter((t) => Math.ceil(t.day_number / 30) === selectedMonth);
 
   const exportCSV = () => {
     const header = "Dia,Fase,Marco,Tarefa Reflexiva,Tarefa de Ação,Concluído\n";
-    const rows = tasks.map(t => `${t.day_number},${t.phase},${t.is_milestone ? 'Sim' : 'Não'},"${t.reflective_task.replace(/"/g, '""')}","${t.action_task.replace(/"/g, '""')}",${t.is_completed ? 'Sim' : 'Não'}`).join("\n");
-    const blob = new Blob([header + rows], { type: "text/csv;charset=utf-8;" });
+    const rows = tasks
+      .filter((t) => (t as any).is_unlocked)
+      .map(
+        (t) =>
+          `${t.day_number},${t.phase},${t.is_milestone ? "Sim" : "Não"},"${t.reflective_task?.replace(/"/g, '""') || ""}","${t.action_task?.replace(/"/g, '""') || ""}",${t.is_completed ? "Sim" : "Não"}`
+      )
+      .join("\n");
+    const blob = new Blob([new Uint8Array([0xef, 0xbb, 0xbf]), header + rows], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -88,7 +133,15 @@ function CalendarPage() {
   };
 
   const exportMD = () => {
-    const md = `# MindReset Action Matrix\n\n` + tasks.map(t => `## Dia ${t.day_number} (${t.phase})${t.is_milestone ? ' ⭐' : ''}\n- [${t.is_completed ? 'x' : ' '}] **Reflexão:** ${t.reflective_task}\n- [${t.is_completed ? 'x' : ' '}] **Ação:** ${t.action_task}\n`).join("\n");
+    const md =
+      `# MindReset Action Matrix\n\n` +
+      tasks
+        .filter((t) => (t as any).is_unlocked)
+        .map(
+          (t) =>
+            `## Dia ${t.day_number} (${t.phase})${t.is_milestone ? " ⭐" : ""}\n- [${t.is_completed ? "x" : " "}] **Reflexão:** ${t.reflective_task}\n- [${t.is_completed ? "x" : " "}] **Ação:** ${t.action_task}\n`
+        )
+        .join("\n");
     const blob = new Blob([md], { type: "text/markdown;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -103,13 +156,13 @@ function CalendarPage() {
   return (
     <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_400px]">
       <section>
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="font-display text-3xl font-extrabold">Matriz de Ação</h1>
           
           <div className="relative">
             <button 
               onClick={() => setShowExportMenu(!showExportMenu)}
-              className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-1.5 text-sm font-semibold hover:border-primary transition"
+              className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold hover:border-primary transition"
             >
               📥 Exportar
             </button>
@@ -122,8 +175,30 @@ function CalendarPage() {
           </div>
         </div>
 
+        {/* Month Tabs pagination */}
+        {totalMonths > 1 && (
+          <div className="mb-6 flex flex-wrap gap-2 border-b border-border pb-3">
+            {Array.from({ length: totalMonths }).map((_, idx) => {
+              const m = idx + 1;
+              return (
+                <button
+                  key={m}
+                  onClick={() => handleMonthChange(m)}
+                  className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
+                    selectedMonth === m
+                      ? "bg-primary text-primary-foreground shadow-[0_0_10px_var(--accent-glow)] font-bold"
+                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  }`}
+                >
+                  Mês {m}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         <div className="grid grid-cols-5 gap-3 md:grid-cols-7">
-          {tasks.map((t) => {
+          {visibleTasks.map((t) => {
             const isUnlocked = (t as any).is_unlocked !== false;
             const isActive = t.day_number === selectedDay;
             return (
@@ -196,7 +271,6 @@ function CalendarPage() {
             <button
               onClick={() => {
                 if (!active.is_completed) {
-                  // Simula confetti trigger (apenas class CSS visual, no app real poderia usar canvas-confetti)
                   document.getElementById(`btn-complete-${active.id}`)?.classList.add("animate-bounce");
                 }
                 toggleMut.mutate({ task_id: active.id, is_completed: !active.is_completed });
