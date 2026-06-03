@@ -2,7 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { listCalendar, generateCalendar, toggleTaskComplete, saveTaskNote } from "../../lib/calendar.functions";
+import {
+  listCalendar,
+  generateCalendar,
+  toggleTaskComplete,
+  saveTaskNote,
+  markCalendarExported,
+} from "../../lib/calendar.functions";
 
 export const Route = createFileRoute("/_authenticated/dashboard/calendar")({
   head: () => ({ meta: [{ title: "Matriz de Ação — MindReset" }] }),
@@ -14,10 +20,16 @@ function CalendarPage() {
   const gen = useServerFn(generateCalendar);
   const toggle = useServerFn(toggleTaskComplete);
   const saveNoteFn = useServerFn(saveTaskNote);
+  const markExported = useServerFn(markCalendarExported);
   const qc = useQueryClient();
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState(1);
   const [showExportMenu, setShowExportMenu] = useState(false);
+
+  const { data: tasks = [], isLoading } = useQuery({
+    queryKey: ["calendar"],
+    queryFn: () => list(),
+  });
 
   const handleMonthChange = (m: number) => {
     setSelectedMonth(m);
@@ -35,11 +47,6 @@ function CalendarPage() {
     }
   };
 
-  const { data: tasks = [], isLoading } = useQuery({
-    queryKey: ["calendar"],
-    queryFn: () => list(),
-  });
-
   const generate = useMutation({
     mutationFn: () => gen(),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["calendar"] }),
@@ -55,12 +62,15 @@ function CalendarPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ["calendar"] }),
   });
 
+  const markExportedMut = useMutation({
+    mutationFn: (format: "csv" | "md" | "ics") => markExported({ data: { format } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["calendar"] }),
+  });
+
   // Auto-select first uncompleted unlocked day when tasks load
   useEffect(() => {
     if (tasks.length > 0 && selectedDay === null) {
-      const firstUncompletedUnlocked = tasks.find(
-        (t) => (t as any).is_unlocked && !t.is_completed
-      );
+      const firstUncompletedUnlocked = tasks.find((t) => (t as any).is_unlocked && !t.is_completed);
       if (firstUncompletedUnlocked) {
         setSelectedDay(firstUncompletedUnlocked.day_number);
         setSelectedMonth(Math.ceil(firstUncompletedUnlocked.day_number / 30));
@@ -85,7 +95,8 @@ function CalendarPage() {
         </div>
         <h1 className="font-display text-3xl font-bold">Sua Matriz de Ação está vazia.</h1>
         <p className="mt-3 text-muted-foreground leading-relaxed">
-          Gere agora seu protocolo de 30 dias. Ele é desenhado especificamente para quebrar as reações automáticas do seu arquétipo.
+          Gere agora seu protocolo de 30 dias. Ele é desenhado especificamente para quebrar as
+          reações automáticas do seu arquétipo.
         </p>
         {generate.error && (
           <p className="mt-4 text-sm text-primary">{(generate.error as Error).message}</p>
@@ -97,8 +108,8 @@ function CalendarPage() {
         >
           {generate.isPending ? (
             <span className="flex items-center gap-2">
-               <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
-               Construindo matriz (Pode levar até 1 minuto)...
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
+              Construindo matriz (Pode levar até 1 minuto)...
             </span>
           ) : (
             "Gerar Minha Matriz de Ação"
@@ -118,10 +129,12 @@ function CalendarPage() {
       .filter((t) => (t as any).is_unlocked)
       .map(
         (t) =>
-          `${t.day_number},${t.phase},${t.is_milestone ? "Sim" : "Não"},"${t.reflective_task?.replace(/"/g, '""') || ""}","${t.action_task?.replace(/"/g, '""') || ""}",${t.is_completed ? "Sim" : "Não"}`
+          `${t.day_number},${t.phase},${t.is_milestone ? "Sim" : "Não"},"${t.reflective_task?.replace(/"/g, '""') || ""}","${t.action_task?.replace(/"/g, '""') || ""}",${t.is_completed ? "Sim" : "Não"}`,
       )
       .join("\n");
-    const blob = new Blob([new Uint8Array([0xef, 0xbb, 0xbf]), header + rows], { type: "text/csv;charset=utf-8;" });
+    const blob = new Blob([new Uint8Array([0xef, 0xbb, 0xbf]), header + rows], {
+      type: "text/csv;charset=utf-8;",
+    });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -130,6 +143,7 @@ function CalendarPage() {
     link.click();
     document.body.removeChild(link);
     setShowExportMenu(false);
+    markExportedMut.mutate("csv");
   };
 
   const exportMD = () => {
@@ -139,7 +153,7 @@ function CalendarPage() {
         .filter((t) => (t as any).is_unlocked)
         .map(
           (t) =>
-            `## Dia ${t.day_number} (${t.phase})${t.is_milestone ? " ⭐" : ""}\n- [${t.is_completed ? "x" : " "}] **Reflexão:** ${t.reflective_task}\n- [${t.is_completed ? "x" : " "}] **Ação:** ${t.action_task}\n`
+            `## Dia ${t.day_number} (${t.phase})${t.is_milestone ? " ⭐" : ""}\n- [${t.is_completed ? "x" : " "}] **Reflexão:** ${t.reflective_task}\n- [${t.is_completed ? "x" : " "}] **Ação:** ${t.action_task}\n`,
         )
         .join("\n");
     const blob = new Blob([md], { type: "text/markdown;charset=utf-8;" });
@@ -151,6 +165,7 @@ function CalendarPage() {
     link.click();
     document.body.removeChild(link);
     setShowExportMenu(false);
+    markExportedMut.mutate("md");
   };
 
   return (
@@ -158,9 +173,9 @@ function CalendarPage() {
       <section>
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="font-display text-3xl font-extrabold">Matriz de Ação</h1>
-          
+
           <div className="relative">
-            <button 
+            <button
               onClick={() => setShowExportMenu(!showExportMenu)}
               className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold hover:border-primary transition"
             >
@@ -168,8 +183,18 @@ function CalendarPage() {
             </button>
             {showExportMenu && (
               <div className="absolute right-0 top-full mt-2 w-48 rounded-xl border border-border bg-card p-2 shadow-xl z-10">
-                <button onClick={exportCSV} className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-secondary">CSV (Planilha)</button>
-                <button onClick={exportMD} className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-secondary">Markdown (.md)</button>
+                <button
+                  onClick={exportCSV}
+                  className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-secondary"
+                >
+                  CSV (Planilha)
+                </button>
+                <button
+                  onClick={exportMD}
+                  className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-secondary"
+                >
+                  Markdown (.md)
+                </button>
               </div>
             )}
           </div>
@@ -210,20 +235,30 @@ function CalendarPage() {
                   !isUnlocked
                     ? "border-border bg-card/50 opacity-40 blur-[1px] cursor-not-allowed"
                     : isActive
-                    ? "border-primary bg-primary/20 shadow-[0_0_15px_var(--accent-glow)] hover:scale-[1.05]"
-                    : t.is_completed
-                    ? "border-success/40 bg-success/10 text-success hover:scale-[1.05]"
-                    : t.is_milestone
-                    ? "border-primary/50 bg-primary/5 hover:scale-[1.05]"
-                    : "border-border bg-card hover:border-primary/60 hover:scale-[1.05]"
+                      ? "border-primary bg-primary/20 shadow-[0_0_15px_var(--accent-glow)] hover:scale-[1.05]"
+                      : t.is_completed
+                        ? "border-success/40 bg-success/10 text-success hover:scale-[1.05]"
+                        : t.is_milestone
+                          ? "border-primary/50 bg-primary/5 hover:scale-[1.05]"
+                          : "border-border bg-card hover:border-primary/60 hover:scale-[1.05]"
                 }`}
               >
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{isUnlocked ? "Dia" : "Bloqueado"}</div>
-                <div className={`font-display text-2xl font-bold ${isActive || t.is_completed ? "text-foreground" : ""}`}>
+                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  {isUnlocked ? "Dia" : "Bloqueado"}
+                </div>
+                <div
+                  className={`font-display text-2xl font-bold ${isActive || t.is_completed ? "text-foreground" : ""}`}
+                >
                   {isUnlocked ? t.day_number : "🔒"}
                 </div>
-                {isUnlocked && t.is_milestone && <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] shadow-lg">⭐</div>}
-                {isUnlocked && t.is_completed && <div className="absolute bottom-1 right-1 text-success text-xs">✓</div>}
+                {isUnlocked && t.is_milestone && (
+                  <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] shadow-lg">
+                    ⭐
+                  </div>
+                )}
+                {isUnlocked && t.is_completed && (
+                  <div className="absolute bottom-1 right-1 text-success text-xs">✓</div>
+                )}
               </button>
             );
           })}
@@ -241,7 +276,9 @@ function CalendarPage() {
                 <h2 className="mt-1 font-display text-2xl font-bold">Dia {active.day_number}</h2>
               </div>
               {active.is_milestone && (
-                <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary">MARCO</span>
+                <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary">
+                  MARCO
+                </span>
               )}
             </div>
 
@@ -259,8 +296,10 @@ function CalendarPage() {
             </div>
 
             <div className="mt-8 border-t border-border pt-6">
-              <label className="mb-2 block text-sm font-bold text-foreground">Diário de Bordo</label>
-              <textarea 
+              <label className="mb-2 block text-sm font-bold text-foreground">
+                Diário de Bordo
+              </label>
+              <textarea
                 className="w-full min-h-[120px] rounded-xl border border-border bg-background p-3 text-sm outline-none transition focus:border-primary resize-y"
                 placeholder="Como você se sentiu fazendo isso? (Salvo automaticamente)"
                 defaultValue={active.notes ?? ""}
@@ -271,15 +310,17 @@ function CalendarPage() {
             <button
               onClick={() => {
                 if (!active.is_completed) {
-                  document.getElementById(`btn-complete-${active.id}`)?.classList.add("animate-bounce");
+                  document
+                    .getElementById(`btn-complete-${active.id}`)
+                    ?.classList.add("animate-bounce");
                 }
                 toggleMut.mutate({ task_id: active.id, is_completed: !active.is_completed });
               }}
               id={`btn-complete-${active.id}`}
               className={`mt-6 w-full rounded-xl py-4 font-bold transition-all ${
-                active.is_completed 
-                ? "bg-background border border-border text-muted-foreground hover:bg-secondary" 
-                : "bg-success text-success-foreground hover:bg-success/90 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)]"
+                active.is_completed
+                  ? "bg-background border border-border text-muted-foreground hover:bg-secondary"
+                  : "bg-success text-success-foreground hover:bg-success/90 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)]"
               }`}
             >
               {active.is_completed ? "Desmarcar Conclusão" : "✓ Marcar Dia como Concluído"}
@@ -298,11 +339,19 @@ function CalendarPage() {
 
 function Task({ label, text, done }: { label: string; text: string; done: boolean }) {
   return (
-    <div className={`rounded-xl border p-4 transition-all ${done ? "border-success/30 bg-success/5" : "border-border bg-background"}`}>
+    <div
+      className={`rounded-xl border p-4 transition-all ${done ? "border-success/30 bg-success/5" : "border-border bg-background"}`}
+    >
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{label}</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+          {label}
+        </span>
       </div>
-      <p className={`text-sm leading-relaxed ${done ? "text-foreground line-through opacity-70" : "text-foreground"}`}>{text}</p>
+      <p
+        className={`text-sm leading-relaxed ${done ? "text-foreground line-through opacity-70" : "text-foreground"}`}
+      >
+        {text}
+      </p>
     </div>
   );
 }

@@ -10,6 +10,18 @@ export const Route = createFileRoute("/_authenticated/dashboard/compass")({
   component: CompassPage,
 });
 
+// Type for the stored analysis row
+type CompassAnalysis = {
+  id: string;
+  target_name: string;
+  relationship_type: string | null;
+  probable_archetype: string | null;
+  analysis_content: any;
+  created_at: string;
+  context?: string | null;
+  observations?: string | null;
+};
+
 function CompassPage() {
   const list = useServerFn(listCompass);
   const run = useServerFn(analyzeCompass);
@@ -23,13 +35,17 @@ function CompassPage() {
     observations: "",
   });
 
+  // The analysis currently being viewed (could be a past one or the new one)
+  const [activeAnalysis, setActiveAnalysis] = useState<CompassAnalysis | null>(null);
+
   const { data: history = [] } = useQuery({ queryKey: ["compass"], queryFn: () => list() });
 
   const mut = useMutation({
     mutationFn: () => run({ data: form }),
-    onSuccess: () => {
+    onSuccess: (data) => {
       qc.invalidateQueries({ queryKey: ["compass"] });
-      setStep(3); // Result view
+      setActiveAnalysis(data as unknown as CompassAnalysis);
+      setStep(3);
     },
   });
 
@@ -45,6 +61,20 @@ function CompassPage() {
   function handleReset() {
     setForm({ target_name: "", relationship_type: "professional", context: "", observations: "" });
     setStep(1);
+    setActiveAnalysis(null);
+    mut.reset();
+  }
+
+  // Load a historical analysis into view
+  function handleLoadHistory(entry: CompassAnalysis) {
+    setActiveAnalysis(entry);
+    setForm({
+      target_name: entry.target_name,
+      relationship_type: (entry.relationship_type ?? "general") as any,
+      context: entry.context ?? "",
+      observations: entry.observations ?? "",
+    });
+    setStep(3);
     mut.reset();
   }
 
@@ -60,7 +90,7 @@ function CompassPage() {
         </header>
 
         {/* --- FORM STEPS --- */}
-        {step < 3 && !mut.isPending && !mut.data && (
+        {step < 3 && !mut.isPending && (
           <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-sm">
             {/* Progress Bar */}
             <div className="mb-8 flex items-center justify-between gap-4">
@@ -98,7 +128,7 @@ function CompassPage() {
                       </select>
                     </div>
                   </div>
-                  <button type="submit" className="mt-8 w-full rounded-xl bg-primary px-6 py-4 font-bold text-primary-foreground transition hover:opacity-90">
+                  <button type="submit" className="mt-8 w-full rounded-xl bg-primary px-6 py-4 font-bold text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_15px_var(--accent-glow)]">
                     Continuar →
                   </button>
                 </div>
@@ -157,23 +187,37 @@ function CompassPage() {
         )}
 
         {/* --- RESULT STATE --- */}
-        {mut.data?.analysis_content && step === 3 && (
+        {step === 3 && activeAnalysis?.analysis_content && !mut.isPending && (
           <div className="animate-in slide-in-from-bottom-8 duration-700">
             <article className="overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-[0_8px_30px_var(--accent-glow)]">
               <div className="bg-primary/10 p-6 md:p-8">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">Arquétipo Provável</p>
                 <h2 className="mt-1 font-display text-3xl font-extrabold text-foreground">
-                  {ARCHETYPE_NAMES[(mut.data.probable_archetype ?? "AO") as Archetype]?.pt}
+                  {ARCHETYPE_NAMES[(activeAnalysis.probable_archetype ?? "AO") as Archetype]?.pt}
                 </h2>
+                <p className="mt-1 text-sm font-bold text-primary">
+                  {activeAnalysis.probable_archetype}
+                </p>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Análise focada na relação: {form.relationship_type === "romantic" ? "Romântica" : form.relationship_type === "professional" ? "Profissional" : "Familiar/Geral"}
+                  {activeAnalysis.target_name} — {
+                    activeAnalysis.relationship_type === "romantic"
+                      ? "Relação Romântica"
+                      : activeAnalysis.relationship_type === "professional"
+                      ? "Relação Profissional"
+                      : activeAnalysis.relationship_type === "family"
+                      ? "Relação Familiar"
+                      : "Relação Geral"
+                  }
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Análise de {new Date(activeAnalysis.created_at).toLocaleDateString("pt-BR")}
                 </p>
               </div>
               <div className="p-6 md:p-8">
-                <CompassReport data={mut.data.analysis_content as never} />
-                
-                <button onClick={handleReset} className="mt-8 w-full rounded-xl border border-border py-4 font-bold text-muted-foreground hover:text-foreground hover:bg-secondary">
-                  Fazer nova análise
+                <CompassReport data={activeAnalysis.analysis_content as never} />
+
+                <button onClick={handleReset} className="mt-8 w-full rounded-xl border border-border py-4 font-bold text-muted-foreground hover:text-foreground hover:bg-secondary transition">
+                  ＋ Fazer nova análise
                 </button>
               </div>
             </article>
@@ -190,24 +234,49 @@ function CompassPage() {
 
       {/* --- SIDEBAR HISTORY --- */}
       <aside>
-        <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Análises Anteriores</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Análises Anteriores</h2>
+          {history.length > 0 && (
+            <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold text-muted-foreground">
+              {history.length}
+            </span>
+          )}
+        </div>
         <ul className="space-y-3">
           {history.length === 0 && (
             <li className="rounded-xl border border-border border-dashed bg-card/50 p-4 text-center text-xs text-muted-foreground">
               Nenhuma análise feita ainda.
             </li>
           )}
-          {history.map((h) => (
-            <li key={h.id} className="group cursor-pointer rounded-xl border border-border bg-card p-4 transition-all hover:border-primary hover:shadow-sm">
-              <div className="flex items-center justify-between">
-                <div className="font-display font-bold">{h.target_name}</div>
-                <div className="text-xs text-primary">{h.probable_archetype}</div>
-              </div>
-              <div className="mt-1 text-[10px] uppercase text-muted-foreground">
-                {h.relationship_type}
-              </div>
-            </li>
-          ))}
+          {(history as unknown as CompassAnalysis[]).map((h) => {
+            const isActive = activeAnalysis?.id === h.id;
+            return (
+              <li
+                key={h.id}
+                onClick={() => handleLoadHistory(h)}
+                className={`group cursor-pointer rounded-xl border p-4 transition-all hover:border-primary hover:shadow-sm ${
+                  isActive
+                    ? "border-primary bg-primary/10 shadow-[0_0_10px_var(--accent-glow)]"
+                    : "border-border bg-card"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="font-display font-bold truncate flex-1 mr-2">{h.target_name}</div>
+                  <div className="shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
+                    {h.probable_archetype}
+                  </div>
+                </div>
+                <div className="mt-1.5 flex items-center gap-2 text-[10px] text-muted-foreground">
+                  <span className="uppercase">{h.relationship_type}</span>
+                  <span>•</span>
+                  <span>{new Date(h.created_at).toLocaleDateString("pt-BR")}</span>
+                </div>
+                {isActive && (
+                  <div className="mt-1.5 text-[10px] font-semibold text-primary">▶ Visualizando agora</div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </aside>
     </div>
@@ -222,21 +291,21 @@ function CompassReport({ data }: { data: { archetype_in_context?: string; dynami
           ⚠️ {data.perception_disclaimer}
         </div>
       )}
-      
+
       {data.archetype_in_context && (
         <section>
           <h4 className="mb-2 font-bold text-foreground">Como o arquétipo se manifesta</h4>
           <p className="text-muted-foreground">{data.archetype_in_context}</p>
         </section>
       )}
-      
+
       {data.dynamic_analysis && (
         <section>
           <h4 className="mb-2 font-bold text-foreground">Dinâmica com você</h4>
           <p className="text-muted-foreground">{data.dynamic_analysis}</p>
         </section>
       )}
-      
+
       {data.interaction_strategies && (
         <section>
           <h4 className="mb-2 font-bold text-foreground">Estratégias de Interação</h4>
@@ -249,7 +318,7 @@ function CompassReport({ data }: { data: { archetype_in_context?: string; dynami
           </ul>
         </section>
       )}
-      
+
       {data.communication_script && (
         <section>
           <h4 className="mb-2 font-bold text-foreground">O que dizer (Script Sugerido)</h4>
@@ -260,7 +329,7 @@ function CompassReport({ data }: { data: { archetype_in_context?: string; dynami
           </p>
         </section>
       )}
-      
+
       {data.what_to_avoid && (
         <section>
           <h4 className="mb-2 font-bold text-primary">O que NÃO dizer/fazer</h4>

@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { getDiagnosis, generateDiagnosis } from "../../lib/diagnosis.functions";
+import { getMyProfile } from "../../lib/profile.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 
 export const Route = createFileRoute("/_authenticated/dashboard/diagnosis")({
@@ -20,6 +21,7 @@ const tabs = [
 function DiagnosisPage() {
   const fetchDx = useServerFn(getDiagnosis);
   const genDx = useServerFn(generateDiagnosis);
+  const fetchProfile = useServerFn(getMyProfile);
   const qc = useQueryClient();
   const [tab, setTab] = useState<(typeof tabs)[number]["key"]>("financial_analysis");
   const [copied, setCopied] = useState(false);
@@ -27,6 +29,12 @@ function DiagnosisPage() {
   const { data: diagnosis, isLoading } = useQuery({
     queryKey: ["diagnosis"],
     queryFn: () => fetchDx(),
+  });
+
+  const { data: profileData } = useQuery({
+    queryKey: ["my-profile"],
+    queryFn: () => fetchProfile(),
+    staleTime: 5 * 60 * 1000,
   });
 
   const mutation = useMutation({
@@ -74,13 +82,23 @@ function DiagnosisPage() {
   const content = diagnosis[tab];
   const archetypeName = ARCHETYPE_NAMES[diagnosis.archetype as Archetype]?.pt ?? diagnosis.archetype;
 
+  const shareToken = profileData?.shareToken;
+  const shareUrl = shareToken
+    ? `${window.location.origin}/share/${shareToken}`
+    : window.location.origin;
+
   const handleShare = () => {
-    // Basic share copying the URL to the share token if available, or just the root
-    // In a real app we'd fetch the exact share token for this lead
-    const url = `${window.location.origin}/`;
-    navigator.clipboard.writeText(`Eu sou o arquétipo ${archetypeName}! Descubra o seu no MindReset: ${url}`);
+    const msg = `Descobri que meu arquétipo financeiro é ${archetypeName}! 🧠\nDescubra o seu gratuitamente: ${shareUrl}`;
+    navigator.clipboard.writeText(msg);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  const handleShareWhatsApp = () => {
+    const msg = encodeURIComponent(
+      `Descobri que meu arquétipo financeiro é *${archetypeName}*! 🧠\nDescubra o seu gratuitamente: ${shareUrl}`
+    );
+    window.open(`https://wa.me/?text=${msg}`, "_blank");
   };
 
   return (
@@ -98,18 +116,24 @@ function DiagnosisPage() {
             </p>
           </div>
           
-          <div className="flex gap-2 print:hidden">
+          <div className="flex flex-wrap gap-2 print:hidden">
             <button 
               onClick={() => window.print()}
               className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold transition hover:bg-secondary"
             >
-              Baixar PDF
+              📄 Baixar PDF
+            </button>
+            <button 
+              onClick={handleShareWhatsApp}
+              className="rounded-lg bg-[#25D366] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+            >
+              🟢 WhatsApp
             </button>
             <button 
               onClick={handleShare}
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+              className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_10px_var(--accent-glow)]"
             >
-              {copied ? "Copiado!" : "Compartilhar"}
+              {copied ? "✓ Copiado!" : "🔗 Copiar Link"}
             </button>
           </div>
         </div>

@@ -10,7 +10,7 @@ export const getMyProfile = createServerFn({ method: "GET" })
       supabase.from("profiles").select("*").eq("user_id", userId).maybeSingle(),
       supabase
         .from("subscriptions")
-        .select("plan, status, current_period_end")
+        .select("plan, status, current_period_end, stripe_customer_id")
         .eq("user_id", userId)
         .order("created_at", { ascending: false })
         .limit(1)
@@ -29,7 +29,13 @@ export const getMyProfile = createServerFn({ method: "GET" })
         .maybeSingle();
       if (lead?.winner) {
         const planType =
-          sub?.plan === "p30d" ? "30d" : sub?.plan === "p6m" ? "6m" : sub?.plan === "p1y" ? "1y" : null;
+          sub?.plan === "p30d"
+            ? "30d"
+            : sub?.plan === "p6m"
+              ? "6m"
+              : sub?.plan === "p1y"
+                ? "1y"
+                : null;
         const { data: updated } = await supabase
           .from("profiles")
           .update({
@@ -44,6 +50,8 @@ export const getMyProfile = createServerFn({ method: "GET" })
           .maybeSingle();
         if (updated) Object.assign(profile, updated);
       }
+    }
+
     let shareToken: string | null = null;
     if (profile?.quiz_lead_id) {
       const { data: lead } = await supabase
@@ -64,10 +72,7 @@ export const getMyProfile = createServerFn({ method: "GET" })
         .maybeSingle();
       if (lead) {
         shareToken = lead.share_token;
-        await supabase
-          .from("profiles")
-          .update({ quiz_lead_id: lead.id })
-          .eq("user_id", userId);
+        await supabase.from("profiles").update({ quiz_lead_id: lead.id }).eq("user_id", userId);
         profile.quiz_lead_id = lead.id;
       }
     }
@@ -120,10 +125,7 @@ export const updateProfileSettings = createServerFn({ method: "POST" })
   .inputValidator((d) => UpdateProfileInput.parse(d))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    const { error } = await supabase
-      .from("profiles")
-      .update(data)
-      .eq("user_id", userId);
+    const { error } = await supabase.from("profiles").update(data).eq("user_id", userId);
     if (error) throw new Error(error.message);
     return { ok: true };
   });

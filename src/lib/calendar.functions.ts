@@ -52,16 +52,13 @@ export const listCalendar = createServerFn({ method: "GET" })
         .select("plan_started_at, plan_type, created_at")
         .eq("user_id", userId)
         .maybeSingle(),
-      supabase
-        .from("calendar_tasks")
-        .select("*")
-        .eq("user_id", userId)
-        .order("day_number"),
+      supabase.from("calendar_tasks").select("*").eq("user_id", userId).order("day_number"),
     ]);
 
     if (!tasks) return [];
 
-    const planStartedAt = profile?.plan_started_at || profile?.created_at || new Date().toISOString();
+    const planStartedAt =
+      profile?.plan_started_at || profile?.created_at || new Date().toISOString();
     const elapsedMs = Date.now() - new Date(planStartedAt).getTime();
     const elapsedHours = elapsedMs / (1000 * 60 * 60);
     const elapsedDays = Math.floor(elapsedHours / 24);
@@ -124,7 +121,14 @@ export const generateCalendar = createServerFn({ method: "POST" })
     const archName = ARCHETYPE_NAMES[archetype]?.en ?? archetype;
     const lang = profile?.lang ?? "en";
 
-    const allRows = [];
+    const allRows: Array<{
+      user_id: string;
+      day_number: number;
+      phase: string;
+      reflective_task: string;
+      action_task: string;
+      is_milestone: boolean;
+    }> = [];
     const batchSize = 30;
 
     for (let startDay = 1; startDay <= totalDays; startDay += batchSize) {
@@ -171,11 +175,15 @@ Each day MUST have a reflective_task (mindset/journaling, ~15s reading) AND an a
 
       result.days.slice(0, batchDays).forEach((d, index) => {
         const actualDay = startDay + index;
-        const isMilestone = [7, 14, 21, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360].includes(actualDay);
+        const isMilestone = [
+          7, 14, 21, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360,
+        ].includes(actualDay);
         allRows.push({
           user_id: userId,
           day_number: actualDay,
-          phase: d.phase || (actualDay <= 30 ? "consolidation" : actualDay <= 90 ? "integration" : "mastery"),
+          phase:
+            d.phase ||
+            (actualDay <= 30 ? "consolidation" : actualDay <= 90 ? "integration" : "mastery"),
           reflective_task: d.reflective_task,
           action_task: d.action_task,
           is_milestone: isMilestone,
@@ -212,7 +220,8 @@ export const toggleTaskComplete = createServerFn({ method: "POST" })
       .eq("user_id", userId)
       .maybeSingle();
 
-    const planStartedAt = profile?.plan_started_at || profile?.created_at || new Date().toISOString();
+    const planStartedAt =
+      profile?.plan_started_at || profile?.created_at || new Date().toISOString();
     const elapsedMs = Date.now() - new Date(planStartedAt).getTime();
     const elapsedHours = elapsedMs / (1000 * 60 * 60);
     const elapsedDays = Math.floor(elapsedHours / 24);
@@ -243,9 +252,7 @@ export const toggleTaskComplete = createServerFn({ method: "POST" })
 
 export const saveTaskNote = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) =>
-    z.object({ task_id: z.string().uuid(), notes: z.string() }).parse(d),
-  )
+  .inputValidator((d) => z.object({ task_id: z.string().uuid(), notes: z.string() }).parse(d))
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const { error } = await supabase
@@ -255,4 +262,16 @@ export const saveTaskNote = createServerFn({ method: "POST" })
       .eq("user_id", userId);
     if (error) throw new Error(error.message);
     return { ok: true };
+  });
+
+export const markCalendarExported = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) => z.object({ format: z.enum(["csv", "md", "ics"]) }).parse(d))
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const { error } = await supabase.rpc("mark_calendar_exported", {
+      user_uuid: userId,
+    });
+    if (error) throw new Error(error.message);
+    return { ok: true, format: data.format };
   });

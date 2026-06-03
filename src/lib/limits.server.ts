@@ -1,60 +1,51 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+const MAX_LIMITS = {
+  generations: 10,
+  calendars: 15,
+  pdfs: 15,
+} as const;
+
+type LimitType = "generation" | "calendar" | "pdf";
+
+const FIELD_MAP: Record<LimitType, "generations_count" | "calendars_count" | "pdfs_count"> = {
+  generation: "generations_count",
+  calendar: "calendars_count",
+  pdf: "pdfs_count",
+};
+
+const MAX_MAP: Record<LimitType, number> = {
+  generation: MAX_LIMITS.generations,
+  calendar: MAX_LIMITS.calendars,
+  pdf: MAX_LIMITS.pdfs,
+};
+
 export async function checkAndIncrementLimit(
   supabase: SupabaseClient,
   userId: string,
-  limitType: "generation" | "calendar" | "pdf",
-  planType: string
+  limitType: LimitType,
+  planType: string,
 ) {
   if (planType !== "1y") return; // Limit checks only apply to 1-year plan per specifications
 
-  const today = new Date().toISOString().split("T")[0];
-  const maxLimits = {
-    generations: 10,
-    calendars: 15,
-    pdfs: 15,
-  };
-  const fieldMap = {
-    generation: "generations_count",
-    calendar: "calendars_count",
-    pdf: "pdfs_count",
-  } as const;
-  const field = fieldMap[limitType];
-  const limitMax = maxLimits[`${limitType}s` as "generations" | "calendars" | "pdfs"];
+  const field = FIELD_MAP[limitType];
+  const max = MAX_MAP[limitType];
 
-  // Fetch daily limit row
-  const { data, error } = await supabase
-    .from("daily_limits")
-    .select("*")
-    .eq("user_id", userId)
-    .eq("date", today)
-    .maybeSingle();
+  // Single atomic RPC. Throws 'DAILY_LIMIT_REACHED' if cap is hit.
+  // Race-free: the UPDATE acquires a row lock and the WHERE clause enforces the cap.
+  const { error } = await supabase.rpc("check_and_increment_daily_limit", {
+    p_user_id: userId,
+    p_field: field,
+    p_max: max,
+  });
 
-  if (error) throw new Error(error.message);
-
-  let currentCount = 0;
-  if (data) {
-    currentCount = data[field] || 0;
-  } else {
-    // Insert new row
-    const { error: insertErr } = await supabase
-      .from("daily_limits")
-      .insert({ user_id: userId, date: today, generations_count: 0, calendars_count: 0, pdfs_count: 0 });
-    // If conflict, we will fetch again
-    if (insertErr && insertErr.code !== "23505") { // Ignore unique constraint conflict
-      throw new Error(insertErr.message);
+  if (error) {
+    if (error.message?.includes("DAILY_LIMIT_REACHED")) {
+      throw new Error("DAILY_LIMIT_REACHED");
     }
+    if (error.message?.includes("FORBIDDEN")) {
+      throw new Error("FORBIDDEN");
+    }
+    throw new Error(error.message);
   }
-
-  if (currentCount >= limitMax) {
-    throw new Error("DAILY_LIMIT_REACHED");
-  }
-
-  const { error: updateErr } = await supabase
-    .from("daily_limits")
-    .update({ [field]: currentCount + 1 })
-    .eq("user_id", userId)
-    .eq("date", today);
-
-  if (updateErr) throw new Error(updateErr.message);
 }

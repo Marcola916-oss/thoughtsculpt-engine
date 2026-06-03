@@ -53,7 +53,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         },
       ],
       allow_promotion_codes: true,
-      success_url: `${data.origin}/dashboard?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${data.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${data.origin}/?checkout=cancel`,
       metadata: {
         lead_id: data.lead_id ?? "",
