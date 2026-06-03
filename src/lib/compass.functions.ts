@@ -124,3 +124,106 @@ Factor in the dynamic between the analyst's archetype and the analyzed person's 
     if (error) throw new Error(error.message);
     return inserted;
   });
+
+type CommCalendarDay = {
+  day: number;
+  focus: string;
+  suggested_action: string;
+  what_to_say: string;
+  what_to_avoid: string;
+};
+
+const CommCalendarSchema: { name: string; description: string; schema: JSONSchema7 } = {
+  name: "comm_calendar",
+  description: "Generate a 7-day communication improvement calendar.",
+  schema: {
+    type: "object",
+    properties: {
+      days: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            day: { type: "integer", minimum: 1, maximum: 7 },
+            focus: { type: "string" },
+            suggested_action: { type: "string" },
+            what_to_say: { type: "string" },
+            what_to_avoid: { type: "string" },
+          },
+          required: ["day", "focus", "suggested_action", "what_to_say", "what_to_avoid"],
+          additionalProperties: false,
+        },
+        minItems: 7,
+        maxItems: 7,
+      },
+    },
+    required: ["days"],
+    additionalProperties: false,
+  },
+};
+
+export const generateCompassCalendar = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) =>
+    z
+      .object({
+        analysis_id: z.string().uuid(),
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+
+    const { data: analysis } = await supabase
+      .from("compass_analyses")
+      .select("*")
+      .eq("id", data.analysis_id)
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    if (!analysis) throw new Error("Analysis not found.");
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("display_name, archetype, lang")
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    const lang = profile?.lang ?? "en";
+    const userName = profile?.display_name ?? "User";
+    const content = analysis.analysis_content as Record<string, unknown>;
+
+    const result = await callAIStructured<{ days: CommCalendarDay[] }>({
+      model: "google/gemini-2.5-flash",
+      jsonSchema: CommCalendarSchema,
+      messages: [
+        {
+          role: "system",
+          content: `You are the COMPASS relationship calendar engine. Generate a 7-day plan to improve communication with someone. Be specific, actionable, and empathetic. Output in ${lang}.`,
+        },
+        {
+          role: "user",
+          content: `Generate a 7-day communication calendar:
+- Person analyzed: ${analysis.target_name}
+- Relationship: ${analysis.relationship_type}
+- Probable archetype: ${content.probable_archetype}
+- Dynamic analysis: ${content.dynamic_analysis}
+- Strategies: ${JSON.stringify(content.interaction_strategies)}
+- Script: ${content.communication_script}
+- Avoid: ${JSON.stringify(content.what_to_avoid)}
+
+Each day should have:
+1. focus: What to focus on that day
+2. suggested_action: A concrete action
+3. what_to_say: Example phrasing
+4. what_to_avoid: What NOT to do/say`,
+        },
+      ],
+    });
+
+    return {
+      calendar: result.days,
+      target_name: analysis.target_name,
+      probable_archetype: content.probable_archetype as string,
+    };
+  });

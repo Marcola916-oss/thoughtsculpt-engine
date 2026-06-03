@@ -1,6 +1,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { supabase } from "../../integrations/supabase/client";
+import { useI18n } from "../../lib/i18n/LanguageProvider";
 
 interface SidebarProps {
   streak?: number;
@@ -9,7 +10,17 @@ interface SidebarProps {
 }
 
 function SidebarContent({ streak, unreadCount, onOpenNotifications, onClose }: SidebarProps & { onClose?: () => void }) {
+  const { t, locale } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const navItems = [
+    { to: "/dashboard",            label: t.common.nav.home,         icon: "🏠", exact: true },
+    { to: "/dashboard/diagnosis",  label: t.common.nav.diagnosis,    icon: "🧠", exact: false },
+    { to: "/dashboard/calendar",   label: t.common.nav.actionMatrix, icon: "📅", exact: false },
+    { to: "/dashboard/compass",    label: t.common.nav.compass,      icon: "🧭", exact: false },
+    { to: "/dashboard/progress",   label: t.common.nav.progress,     icon: "📈", exact: false },
+    { to: "/dashboard/settings",   label: t.common.nav.settings,     icon: "⚙️", exact: false },
+  ];
 
   async function logout() {
     await supabase.auth.signOut();
@@ -67,7 +78,7 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, onClose }: S
           }}
         >
           <span className="text-base" aria-hidden>🔔</span>
-          <span className="flex-1 text-start">Notifications</span>
+          <span className="flex-1 text-start">{t.common.nav.notifications}</span>
           {unreadCount != null && unreadCount > 0 && (
             <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
               {unreadCount > 9 ? "9+" : unreadCount}
@@ -81,22 +92,14 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, onClose }: S
         onClick={logout}
         className="mt-6 flex items-center gap-2 text-left text-xs text-muted-foreground transition hover:text-foreground"
       >
-        <span>↩</span> Log out
+        <span>↩</span> {t.common.logout}
       </button>
     </div>
   );
 }
 
-const navItems = [
-  { to: "/dashboard",            label: "Home",         icon: "🏠", exact: true },
-  { to: "/dashboard/diagnosis",  label: "Diagnosis",    icon: "🧠", exact: false },
-  { to: "/dashboard/calendar",   label: "Action Matrix",icon: "📅", exact: false },
-  { to: "/dashboard/compass",    label: "Compass",      icon: "🧭", exact: false },
-  { to: "/dashboard/progress",   label: "Progress",     icon: "📈", exact: false },
-  { to: "/dashboard/settings",   label: "Settings",     icon: "⚙️", exact: false },
-] as const;
-
 export function DashboardShell({ children }: { children: React.ReactNode }) {
+  const { t, locale } = useI18n();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [streak, setStreak] = useState<number | undefined>(undefined);
   const [unread, setUnread] = useState<number | undefined>(undefined);
@@ -265,9 +268,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             <div className="mb-4 flex items-center justify-between border-b border-border pb-4">
               <div>
                 <h2 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
-                  <span>🔔</span> Notificações
+                  <span>🔔</span> {t.dashboard.sidebar.notifications.title}
                 </h2>
-                <p className="text-xs text-muted-foreground">Últimas atualizações da sua jornada</p>
+                <p className="text-xs text-muted-foreground">{t.dashboard.sidebar.notifications.subtitle}</p>
               </div>
               <button 
                 onClick={() => setNotifOpen(false)}
@@ -284,7 +287,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                   onClick={handleMarkAllRead}
                   className="text-xs font-semibold text-primary hover:underline"
                 >
-                  Limpar todas como lidas
+                  {t.dashboard.sidebar.notifications.markAllRead}
                 </button>
               </div>
             )}
@@ -300,7 +303,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               ) : notifications.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground">
                   <span className="text-3xl mb-2">📭</span>
-                  <p className="text-sm">Você não tem notificações no momento.</p>
+                  <p className="text-sm">{t.dashboard.sidebar.notifications.empty}</p>
                 </div>
               ) : (
                 notifications.map((n) => {
@@ -338,7 +341,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                         <h4 className="font-semibold text-sm text-foreground truncate">{n.title}</h4>
                         <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{n.body}</p>
                         <span className="mt-2 block text-[10px] text-muted-foreground/60">
-                          {new Date(n.created_at).toLocaleDateString("pt-BR", {
+                          {new Date(n.created_at).toLocaleDateString(locale, {
                             day: "2-digit",
                             month: "2-digit",
                             hour: "2-digit",
@@ -358,7 +361,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 onClick={() => setNotifOpen(false)}
                 className="w-full rounded-xl bg-secondary py-2.5 text-xs font-semibold text-foreground hover:bg-secondary/80 transition"
               >
-                Fechar
+                {t.dashboard.sidebar.notifications.close}
               </button>
             </div>
           </div>

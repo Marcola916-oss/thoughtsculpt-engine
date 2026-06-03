@@ -11,12 +11,17 @@ type Ctx = {
   currency: Currency;
   consent: "all" | "essential" | null;
   setConsent: (c: "all" | "essential") => void;
+  locale: string;
 };
 
 const LanguageContext = createContext<Ctx | null>(null);
 
 const STORAGE_LANG = "mindreset_lang";
 const STORAGE_CONSENT = "mindreset_cookie_consent";
+
+const LOCALE_MAP: Record<Lang, string> = {
+  pt: "pt-BR", en: "en-US", pl: "pl-PL", ro: "ro-RO", ar: "ar-SA",
+};
 
 function safeGet(key: string): string | null {
   try { return typeof window !== "undefined" ? window.localStorage.getItem(key) : null; } catch { return null; }
@@ -100,6 +105,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     currency,
     consent,
     setConsent: (c) => { safeSet(STORAGE_CONSENT, c); setConsentState(c); },
+    locale: LOCALE_MAP[lang],
   }), [lang, country, currency, consent]);
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

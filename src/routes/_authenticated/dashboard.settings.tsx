@@ -16,7 +16,7 @@ function SettingsPage() {
   const fetchProfile = useServerFn(getMyProfile);
   const updateSettings = useServerFn(updateProfileSettings);
   const getPortal = useServerFn(createCustomerPortalSession);
-  const { lang, setLang } = useI18n();
+  const { t, lang, setLang } = useI18n();
   const qc = useQueryClient();
 
   const { data, isLoading } = useQuery({
@@ -91,21 +91,21 @@ function SettingsPage() {
   return (
     <div className="mx-auto max-w-3xl">
       <header className="mb-8">
-        <h1 className="font-display text-3xl font-extrabold">Configurações</h1>
-        <p className="mt-2 text-muted-foreground">Gerencie seu perfil, preferências e assinatura.</p>
+        <h1 className="font-display text-3xl font-extrabold">{t.dashboard.settings.pageTitle}</h1>
+        <p className="mt-2 text-muted-foreground">{t.dashboard.settings.pageSubtitle}</p>
       </header>
 
       <div className="space-y-6">
         {/* Profile Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-xl font-bold">Perfil</h2>
+          <h2 className="mb-4 font-display text-xl font-bold">{t.dashboard.settings.profile.title}</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Nome</label>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.profile.nameLabel}</label>
               <input
                 type="text"
                 defaultValue={p?.display_name || ""}
-                placeholder="Seu nome"
+                placeholder={t.dashboard.settings.profile.namePlaceholder}
                 onBlur={(e) => {
                   const val = e.target.value.trim();
                   if (val && val !== p?.display_name) {
@@ -116,9 +116,9 @@ function SettingsPage() {
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Arquétipo</label>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.profile.archetypeLabel}</label>
               <div className="rounded-lg border border-border bg-background px-4 py-3 text-sm">
-                {p?.archetype ? ARCHETYPE_NAMES[p.archetype as Archetype].pt : "Não definido"}
+                {p?.archetype ? ARCHETYPE_NAMES[p.archetype as Archetype][lang] : t.dashboard.settings.profile.archetypeUndefined}
               </div>
             </div>
           </div>
@@ -126,16 +126,16 @@ function SettingsPage() {
 
         {/* Preferences Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-xl font-bold">Preferências</h2>
+          <h2 className="mb-4 font-display text-xl font-bold">{t.dashboard.settings.preferences.title}</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Idioma</label>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.preferences.languageLabel}</label>
               <select
                 value={lang}
                 onChange={(e) => handleLangChange(e.target.value as any)}
                 className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               >
-                <option value="pt">Português (BR)</option>
+                <option value="pt">{t.dashboard.settings.preferences.langPt}</option>
                 <option value="en">English</option>
                 <option value="pl">Polski</option>
                 <option value="ro">Română</option>
@@ -143,14 +143,14 @@ function SettingsPage() {
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Tema Visual</label>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.preferences.themeLabel}</label>
               <select
                 value={theme}
                 onChange={(e) => handleThemeChange(e.target.value as "dark" | "light")}
                 className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               >
-                <option value="dark">Escuro (Dark Mode)</option>
-                <option value="light">Claro (Light Mode)</option>
+                <option value="dark">{t.dashboard.settings.preferences.themeDark}</option>
+                <option value="light">{t.dashboard.settings.preferences.themeLight}</option>
               </select>
             </div>
           </div>
@@ -158,18 +158,18 @@ function SettingsPage() {
 
         {/* Subscription Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-xl font-bold">Assinatura e Cobrança</h2>
+          <h2 className="mb-4 font-display text-xl font-bold">{t.dashboard.settings.subscription.title}</h2>
           {sub ? (
             <div>
               <div className="mb-6 grid gap-4 md:grid-cols-2">
                 <div>
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Plano Atual</label>
+                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.subscription.currentPlan}</label>
                   <p className="mt-1 text-lg font-bold">
-                    {sub.plan === "p30d" ? "30 Dias" : sub.plan === "p6m" ? "6 Meses" : "1 Ano"}
+                    {sub.plan === "p30d" ? t.dashboard.settings.subscription.plan30d : sub.plan === "p6m" ? t.dashboard.settings.subscription.plan6m : t.dashboard.settings.subscription.plan1y}
                   </p>
                 </div>
                 <div>
-                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Status</label>
+                  <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.subscription.status}</label>
                   <p className="mt-1 text-sm">
                     <span className={`inline-block rounded-full px-2 py-1 font-bold ${
                       sub.status === "active" ? "bg-success/20 text-success" : "bg-warning/20 text-warning"
@@ -180,7 +180,7 @@ function SettingsPage() {
                 </div>
                 {sub.current_period_end && (
                   <div className="md:col-span-2">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Próxima Renovação</label>
+                    <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.subscription.nextRenewal}</label>
                     <p className="mt-1 text-sm">{new Date(sub.current_period_end).toLocaleDateString()}</p>
                   </div>
                 )}
@@ -192,18 +192,18 @@ function SettingsPage() {
                   disabled={portalLoading}
                   className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold hover:border-primary"
                 >
-                  {portalLoading ? "Acessando..." : "Gerenciar no Stripe"}
+                  {portalLoading ? t.dashboard.settings.subscription.accessingPortal : t.dashboard.settings.subscription.manageStripe}
                 </button>
                 <button
                   onClick={() => setShowCancelModal(true)}
                   className="rounded-lg px-4 py-2 text-sm font-semibold text-primary hover:bg-primary/10"
                 >
-                  Cancelar assinatura
+                  {t.dashboard.settings.subscription.cancel}
                 </button>
               </div>
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground">Nenhuma assinatura ativa encontrada.</p>
+            <p className="text-sm text-muted-foreground">{t.dashboard.settings.subscription.noneFound}</p>
           )}
         </section>
       </div>
@@ -212,22 +212,22 @@ function SettingsPage() {
       {showCancelModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-xl">
-            <h3 className="font-display text-xl font-bold">Espera! Antes de cancelar, {p?.display_name}...</h3>
+            <h3 className="font-display text-xl font-bold">{t.dashboard.settings.cancelModal.heading(p?.display_name ?? "")}</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Você começou seu protocolo e interromper agora significa perder seu progresso diário e o acesso à sua matriz de ação personalizada.
+              {t.dashboard.settings.cancelModal.body}
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <button
                 onClick={() => setShowCancelModal(false)}
                 className="w-full rounded-lg bg-primary px-4 py-3 font-semibold text-primary-foreground hover:bg-primary/90"
               >
-                Voltar e manter progresso
+                {t.dashboard.settings.cancelModal.keepProgress}
               </button>
               <button
                 onClick={handlePortalRedirect}
                 className="w-full rounded-lg border border-border bg-background px-4 py-3 font-semibold hover:border-primary"
               >
-                Continuar para o cancelamento
+                {t.dashboard.settings.cancelModal.proceedCancel}
               </button>
             </div>
           </div>

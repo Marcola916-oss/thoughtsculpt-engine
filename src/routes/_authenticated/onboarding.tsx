@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useRef } from "react";
 import { saveOnboarding } from "../../lib/profile.functions";
 import { generateCalendar } from "../../lib/calendar.functions";
+import { useI18n } from "../../lib/i18n/LanguageProvider";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({ meta: [{ title: "Calibração — MindReset" }] }),
@@ -20,17 +21,13 @@ type FormState = {
   mobile_os: "ios" | "android" | "none" | "";
 };
 
-const LOADER_STEPS = [
-  "Analisando seu perfil comportamental...",
-  "Calibrando suas metas psicológicas...",
-  "Estruturando a Matriz de Ação...",
-];
-
 function AILoader({ onComplete }: { onComplete: () => void }) {
+  const { t } = useI18n();
   const [step, setStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const startRef = useRef(Date.now());
-  const doneRef = useRef(false);
+
+  const loaderSteps = [t.onboarding.loader.step0, t.onboarding.loader.step1, t.onboarding.loader.step2];
 
   useEffect(() => {
     // Step transitions: 0-3s step0, 3-6s step1, 6s+ step2
@@ -52,12 +49,6 @@ function AILoader({ onComplete }: { onComplete: () => void }) {
       clearInterval(progressTimer);
     };
   }, [step]);
-
-  // Signal component externally when minimum 8s has passed + external done is notified
-  // This is handled by the parent via onComplete
-  useEffect(() => {
-    if (doneRef.current) return;
-  }, []);
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background text-foreground">
@@ -83,13 +74,13 @@ function AILoader({ onComplete }: { onComplete: () => void }) {
         {/* Step text */}
         <div className="space-y-2">
           <h2 className="font-display text-2xl font-extrabold text-foreground">
-            Construindo seu protocolo
+            {t.onboarding.loader.heading}
           </h2>
           <p
             key={step}
             className="text-lg font-medium text-muted-foreground animate-in fade-in slide-in-from-bottom-2 duration-500"
           >
-            {LOADER_STEPS[step]}
+            {loaderSteps[step]}
           </p>
         </div>
 
@@ -102,13 +93,13 @@ function AILoader({ onComplete }: { onComplete: () => void }) {
             />
           </div>
           <p className="mt-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-            Etapa {step + 1} de {LOADER_STEPS.length}
+            {t.onboarding.loader.progressLabel(step + 1, loaderSteps.length)}
           </p>
         </div>
 
         {/* Milestone indicators */}
         <div className="flex gap-3">
-          {LOADER_STEPS.map((_, i) => (
+          {loaderSteps.map((_, i) => (
             <div
               key={i}
               className={`h-2 w-16 rounded-full transition-all duration-700 ${
@@ -125,6 +116,7 @@ function AILoader({ onComplete }: { onComplete: () => void }) {
 }
 
 function OnboardingPage() {
+  const { t } = useI18n();
   const save = useServerFn(saveOnboarding);
   const genCalendar = useServerFn(generateCalendar);
   const navigate = useNavigate();
@@ -204,7 +196,7 @@ function OnboardingPage() {
           />
         </div>
         <p className="mt-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-          Calibração: Etapa {step} de 7
+          {t.onboarding.progress(step)}
         </p>
       </header>
 
@@ -213,14 +205,14 @@ function OnboardingPage() {
           {/* Step 1: Wake Time */}
           {step === 1 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="font-display text-2xl font-extrabold md:text-3xl">A que horas você costuma acordar?</h2>
-              <p className="mt-2 text-sm text-muted-foreground mb-8">Isso ajuda a calibrar o melhor horário para suas tarefas reflexivas matinais.</p>
+              <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step1.heading}</h2>
+              <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step1.description}</p>
               <div className="grid gap-3">
                 {[
-                  { value: "before-6am", label: "Antes das 6:00" },
-                  { value: "6am-7am", label: "Entre 6:00 e 7:00" },
-                  { value: "7am-8am", label: "Entre 7:00 e 8:00" },
-                  { value: "after-8am", label: "Após as 8:00" },
+                  { value: "before-6am", label: t.onboarding.step1.option.before6am },
+                  { value: "6am-7am", label: t.onboarding.step1.option.between6am7am },
+                  { value: "7am-8am", label: t.onboarding.step1.option.between7am8am },
+                  { value: "after-8am", label: t.onboarding.step1.option.after8am },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -244,14 +236,14 @@ function OnboardingPage() {
           {/* Step 2: Sleep Time */}
           {step === 2 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="font-display text-2xl font-extrabold md:text-3xl">A que horas você costuma dormir?</h2>
-              <p className="mt-2 text-sm text-muted-foreground mb-8">Isso nos ajuda a evitar perturbar você com lembretes à noite.</p>
+              <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step2.heading}</h2>
+              <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step2.description}</p>
               <div className="grid gap-3">
                 {[
-                  { value: "before-10pm", label: "Antes das 22:00" },
-                  { value: "10pm-11pm", label: "Entre 22:00 e 23:00" },
-                  { value: "11pm-midnight", label: "Entre 23:00 e Meia-noite" },
-                  { value: "after-midnight", label: "Após a Meia-noite" },
+                  { value: "before-10pm", label: t.onboarding.step2.option.before10pm },
+                  { value: "10pm-11pm", label: t.onboarding.step2.option.between10pm11pm },
+                  { value: "11pm-midnight", label: t.onboarding.step2.option.between11pmMidnight },
+                  { value: "after-midnight", label: t.onboarding.step2.option.afterMidnight },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -275,14 +267,14 @@ function OnboardingPage() {
           {/* Step 3: Daily Minutes */}
           {step === 3 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="font-display text-2xl font-extrabold md:text-3xl">Quanto tempo você pode dedicar por dia?</h2>
-              <p className="mt-2 text-sm text-muted-foreground mb-8">Mesmo poucos minutos por dia geram mudanças consistentes.</p>
+              <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step3.heading}</h2>
+              <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step3.description}</p>
               <div className="grid gap-3">
                 {[
-                  { value: 15, label: "15 minutos" },
-                  { value: 30, label: "30 minutos" },
-                  { value: 45, label: "45 minutos" },
-                  { value: 60, label: "60+ minutos" },
+                  { value: 15, label: t.onboarding.step3.option.min15 },
+                  { value: 30, label: t.onboarding.step3.option.min30 },
+                  { value: 45, label: t.onboarding.step3.option.min45 },
+                  { value: 60, label: t.onboarding.step3.option.min60 },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -306,14 +298,14 @@ function OnboardingPage() {
           {/* Step 4: Emotional Trigger */}
           {step === 4 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="font-display text-2xl font-extrabold md:text-3xl">Qual emoção mais ativa seus impulsos de gasto?</h2>
-              <p className="mt-2 text-sm text-muted-foreground mb-8">Seja específico. Ansiedade, tédio, desejo de comemoração ou busca por aceitação.</p>
+              <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step4.heading}</h2>
+              <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step4.description}</p>
               <input
                 required
                 autoFocus
                 type="text"
                 maxLength={200}
-                placeholder="Ex: ansiedade devido ao trabalho, tédio nos finais de semana"
+                placeholder={t.onboarding.step4.placeholder}
                 value={form.emotional_trigger}
                 onChange={(e) => setForm({ ...form, emotional_trigger: e.target.value })}
                 className="w-full rounded-2xl border border-border bg-background px-5 py-4 text-lg outline-none transition focus:border-primary focus:ring-1 focus:ring-primary shadow-sm"
@@ -323,7 +315,7 @@ function OnboardingPage() {
                 onClick={nextStep}
                 className="mt-8 w-full rounded-xl bg-primary px-6 py-4 font-bold text-primary-foreground transition hover:opacity-90 disabled:opacity-40"
               >
-                Continuar →
+                {t.onboarding.continue} →
               </button>
             </div>
           )}
@@ -331,14 +323,14 @@ function OnboardingPage() {
           {/* Step 5: Financial Priority */}
           {step === 5 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="font-display text-2xl font-extrabold md:text-3xl">Qual seu foco financeiro prioritário?</h2>
-              <p className="mt-2 text-sm text-muted-foreground mb-8">Nós desenharemos as tarefas de ação prática em torno deste objetivo.</p>
+              <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step5.heading}</h2>
+              <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step5.description}</p>
               <div className="grid gap-3">
                 {[
-                  { value: "debt", label: "Pagar dívidas pendentes" },
-                  { value: "emergency", label: "Construir reserva de emergência" },
-                  { value: "invest", label: "Começar a investir" },
-                  { value: "organize", label: "Organizar e planejar finanças" },
+                  { value: "debt", label: t.onboarding.step5.option.debt },
+                  { value: "emergency", label: t.onboarding.step5.option.emergency },
+                  { value: "invest", label: t.onboarding.step5.option.invest },
+                  { value: "organize", label: t.onboarding.step5.option.organize },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -362,12 +354,12 @@ function OnboardingPage() {
           {/* Step 6: Discipline Style */}
           {step === 6 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="font-display text-2xl font-extrabold md:text-3xl">Qual seu estilo preferido de disciplina?</h2>
-              <p className="mt-2 text-sm text-muted-foreground mb-8">Você prefere ser desafiado de forma estrita ou conduzido gradualmente?</p>
+              <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step6.heading}</h2>
+              <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step6.description}</p>
               <div className="grid gap-3">
                 {[
-                  { value: "hardcore", label: "Estilo Hardcore (Regras estritas e desafios)" },
-                  { value: "gradual", label: "Estilo Gradual (Nudges lentos e hábitos)" },
+                  { value: "hardcore", label: t.onboarding.step6.option.hardcore },
+                  { value: "gradual", label: t.onboarding.step6.option.gradual },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -391,13 +383,13 @@ function OnboardingPage() {
           {/* Step 7: Mobile OS */}
           {step === 7 && (
             <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-              <h2 className="font-display text-2xl font-extrabold md:text-3xl">Qual o sistema do seu celular?</h2>
-              <p className="mt-2 text-sm text-muted-foreground mb-8">Utilizaremos isso para otimizar os formatos de exportação de agenda (.ics).</p>
+              <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step7.heading}</h2>
+              <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step7.description}</p>
               <div className="grid gap-3">
                 {[
-                  { value: "ios", label: "iOS (iPhone)" },
-                  { value: "android", label: "Android" },
-                  { value: "none", label: "Apenas Desktop / Não uso agenda" },
+                  { value: "ios", label: t.onboarding.step7.option.ios },
+                  { value: "android", label: t.onboarding.step7.option.android },
+                  { value: "none", label: t.onboarding.step7.option.none },
                 ].map((opt) => (
                   <button
                     key={opt.value}
@@ -422,7 +414,7 @@ function OnboardingPage() {
                 onClick={handleSubmit}
                 className="mt-8 w-full rounded-full bg-primary px-6 py-4 font-bold text-primary-foreground shadow-[0_4px_15px_var(--accent-glow)] transition hover:opacity-90 disabled:opacity-40"
               >
-                Concluir Calibração →
+                {t.onboarding.step7.submit} →
               </button>
             </div>
           )}
@@ -431,7 +423,7 @@ function OnboardingPage() {
           <div className="mt-8 flex justify-between border-t border-border pt-4 text-sm font-semibold text-muted-foreground">
             {step > 1 ? (
               <button onClick={prevStep} className="hover:text-foreground transition flex items-center gap-1">
-                <span>←</span> Voltar
+                <span>←</span> {t.onboarding.back}
               </button>
             ) : (
               <div />
@@ -441,7 +433,7 @@ function OnboardingPage() {
       </main>
 
       <footer className="text-center text-xs text-muted-foreground">
-        MindReset respeita as diretrizes de privacidade e segurança do GDPR/LGPD.
+        {t.onboarding.footer.privacy}
       </footer>
     </div>
   );

@@ -25,33 +25,22 @@ export const getCheckoutSessionStatus = createServerFn({ method: "GET" })
     // Ensure Supabase auth user exists (create if needed)
     let userId: string;
     
-    // 1. Query profiles table by email first to avoid listUsers page limits
-    const { data: existingProfile } = await supabaseAdmin
-      .from("profiles")
-      .select("user_id")
-      .eq("email", email.toLowerCase())
-      .maybeSingle();
-
-    if (existingProfile) {
-      userId = existingProfile.user_id;
+    // Find or create auth user by email
+    const list = await supabaseAdmin.auth.admin.listUsers();
+    if (list.error) throw new Error(list.error.message);
+    const existing = list.data.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
+    
+    if (existing) {
+      userId = existing.id;
     } else {
-      // 2. Fallback to listUsers search if profile lookup failed
-      const list = await supabaseAdmin.auth.admin.listUsers();
-      if (list.error) throw new Error(list.error.message);
-      const existing = list.data.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
-      
-      if (existing) {
-        userId = existing.id;
-      } else {
-        const { data: created, error: createError } = await supabaseAdmin.auth.admin.createUser({
-          email,
-          email_confirm: true,
-        });
-        if (createError || !created.user) {
-          throw new Error(createError?.message ?? "Failed to create user");
-        }
-        userId = created.user.id;
+      const { data: created, error: createError } = await supabaseAdmin.auth.admin.createUser({
+        email,
+        email_confirm: true,
+      });
+      if (createError || !created.user) {
+        throw new Error(createError?.message ?? "Failed to create user");
       }
+      userId = created.user.id;
     }
 
     const leadId = session.metadata?.lead_id as string | undefined;
@@ -147,8 +136,8 @@ export const getCheckoutSessionStatus = createServerFn({ method: "GET" })
           await supabaseAdmin.from("notifications").insert({
             user_id: userId,
             type: "system",
-            title: "🎉 Bem-vindo ao MindReset!",
-            body: "Sua assinatura está ativa. Clique aqui para começar seu diagnóstico.",
+            title: "🎉 Welcome to MindReset!",
+            body: "Your subscription is active. Click here to start your diagnosis.",
             icon: "🎉",
             action_url: "/dashboard/diagnosis",
           });
@@ -183,7 +172,7 @@ export const getCheckoutSessionStatus = createServerFn({ method: "GET" })
       type: "magiclink",
       email,
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard`,
+        redirectTo: `${(typeof process !== 'undefined' ? process.env?.APP_URL : null) || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_APP_URL : null) || 'http://localhost:5173'}/dashboard`,
       },
     });
     if (linkErr) throw new Error(linkErr.message);

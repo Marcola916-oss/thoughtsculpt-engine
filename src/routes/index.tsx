@@ -106,7 +106,6 @@ function LandingAndQuiz() {
     }
   }
 
-  // Auto scroll to top on stage change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [stage.kind]);
@@ -171,7 +170,10 @@ function LandingAndQuiz() {
   );
 }
 
+/* ─── TopBar ──────────────────────────────────────────────── */
+
 function TopBar() {
+  const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -194,13 +196,15 @@ function TopBar() {
             to="/login"
             className="rounded-full px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-secondary hover:text-foreground transition"
           >
-            Log in
+            {t.common.login}
           </Link>
         </div>
       </div>
     </header>
   );
 }
+
+/* ─── Hero ────────────────────────────────────────────────── */
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
@@ -215,12 +219,11 @@ function Hero({ onStart }: { onStart: () => void }) {
       </div>
 
       <h1 className="mx-auto max-w-3xl font-display text-5xl font-extrabold leading-[1.1] tracking-tight md:text-7xl">
-        Descubra o arquétipo que controla o seu <span className="text-primary">dinheiro</span>.
+        {t.hero.headline}
       </h1>
 
       <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl leading-relaxed">
-        {t.hero.sub} O primeiro diagnóstico comportamental impulsionado por IA que reconfigura sua
-        forma de pensar. Sem planilhas, sem orçamentos chatos.
+        {t.hero.sub}
       </p>
 
       <div className="mt-12 flex flex-col items-center gap-4">
@@ -235,12 +238,14 @@ function Hero({ onStart }: { onStart: () => void }) {
         </button>
         <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
           <span>🔒</span>
-          <span>Pagamento seguro via Stripe</span>
+          <span>{t.common.securePayment}</span>
         </div>
       </div>
     </section>
   );
 }
+
+/* ─── Identity ────────────────────────────────────────────── */
 
 function Identity(props: {
   name: string;
@@ -302,6 +307,8 @@ function Identity(props: {
     </section>
   );
 }
+
+/* ─── QuestionScreen ──────────────────────────────────────── */
 
 function QuestionScreen(props: {
   index: number;
@@ -369,6 +376,8 @@ function QuestionScreen(props: {
   );
 }
 
+/* ─── EmailCapture ────────────────────────────────────────── */
+
 function EmailCapture(props: {
   name: string;
   email: string;
@@ -432,6 +441,8 @@ function EmailCapture(props: {
   );
 }
 
+/* ─── LoaderScreen ────────────────────────────────────────── */
+
 function LoaderScreen() {
   const { t } = useI18n();
   const [step, setStep] = useState(0);
@@ -447,7 +458,7 @@ function LoaderScreen() {
         <span className="text-4xl animate-pulse">🧠</span>
       </div>
       <h2 className="mt-10 font-display text-2xl font-bold text-foreground">
-        Processando suas respostas
+        {t.loader.title}
       </h2>
       <p className="mt-3 text-lg font-medium text-muted-foreground transition-opacity animate-pulse">
         {t.loader.steps[step]}
@@ -455,6 +466,8 @@ function LoaderScreen() {
     </section>
   );
 }
+
+/* ─── Reveal ──────────────────────────────────────────────── */
 
 function Reveal({
   name,
@@ -503,16 +516,15 @@ function Reveal({
           role="alert"
           className="mx-auto mt-8 max-w-2xl rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-left text-sm"
         >
-          <p className="font-semibold text-primary">⚠️ Não conseguimos salvar seu diagnóstico.</p>
+          <p className="font-semibold text-primary">⚠️ {t.reveal.errorTitle}</p>
           <p className="mt-1 text-muted-foreground">
-            {leadError}. Sua revelação ainda aparece abaixo, mas o link de compartilhamento não está
-            disponível.
+            {leadError}. {t.reveal.errorBody}
           </p>
           <button
             onClick={onRetry}
             className="mt-3 inline-flex items-center gap-1 rounded-full border border-primary/40 px-3 py-1.5 text-xs font-semibold text-primary transition hover:bg-primary/10"
           >
-            🔄 Tentar novamente
+            🔄 {t.reveal.errorRetry}
           </button>
         </div>
       )}
@@ -544,6 +556,8 @@ function Reveal({
   );
 }
 
+/* ─── Sales (9-Block VSL) ────────────────────────────────── */
+
 function Sales({
   name,
   arch,
@@ -555,29 +569,30 @@ function Sales({
 }) {
   const { t } = useI18n();
   const a = t.archetypes[arch];
+  const s = t.sales;
+
   return (
     <section className="py-12 md:py-20 animate-in fade-in duration-700 max-w-3xl mx-auto">
-      {/* VSL / Sales letter style */}
-      <div className="space-y-12">
+      <div className="space-y-16">
+
+        {/* ── Block 1: H1 + Promise ────────────────────── */}
         <div className="text-center">
           <h1 className="font-display text-4xl font-extrabold leading-tight md:text-6xl">
-            {t.sales.h1(name, a.name)}
+            {s.h1(name, a.name)}
           </h1>
-          <p className="mt-6 text-xl font-medium text-primary">{t.sales.promise}</p>
+          <p className="mt-6 text-xl font-bold text-primary">{s.promise}</p>
         </div>
 
-        {/* The Pain Block */}
+        {/* ── Block 2: Pain Mirror ─────────────────────── */}
         <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
           <h2 className="font-display text-2xl font-bold text-foreground mb-4">
-            Você já tentou de tudo, certo?
+            {s.painBlock.title}
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
-            Planilhas do Excel. Aplicativos de orçamento. Promessas de ano novo. Mas o padrão do{" "}
-            {a.name} sempre volta a assumir o controle nas horas de estresse, ansiedade ou euforia.
-            Isso acontece porque o problema não é matemático, é comportamental.
+            {s.painBlock.body}
           </p>
           <ul className="space-y-4">
-            {t.sales.bullets.map((b, i) => (
+            {s.painBlock.bullets.map((b, i) => (
               <li key={i} className="flex items-start gap-4">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary text-xs font-bold mt-1">
                   ✓
@@ -586,61 +601,117 @@ function Sales({
               </li>
             ))}
           </ul>
-        </div>
-
-        {/* The Science Block */}
-        <div className="text-center max-w-2xl mx-auto">
-          <h3 className="font-display text-3xl font-bold">A Revelação Científica</h3>
-          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-            {t.sales.whyBody} O MindReset utiliza TCC (Terapia Cognitivo-Comportamental) adaptada
-            para finanças, combinada com IA para mapear seus gatilhos invisíveis.
+          <p className="mt-6 text-lg font-semibold text-primary/80">
+            {s.painBlock.conclusion}
           </p>
         </div>
 
-        {/* How it Works Grid */}
+        {/* ── Block 3: Scientific Proof ────────────────── */}
+        <div className="text-center max-w-2xl mx-auto">
+          <h3 className="font-display text-3xl font-bold">{s.science.title}</h3>
+          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+            {s.science.body}
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground/80 italic">
+            {s.science.references}
+          </p>
+          <p className="mt-4 text-lg font-medium text-foreground">
+            {s.science.pivot}
+          </p>
+          <p className="mt-2 text-primary font-bold">
+            {s.science.solution}
+          </p>
+        </div>
+
+        {/* ── Block 4: Product Grid (4D Features) ──────── */}
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-border bg-card p-6">
-            <div className="text-4xl mb-4">🧠</div>
-            <h4 className="font-bold text-xl mb-2">Diagnóstico Profundo</h4>
-            <p className="text-muted-foreground text-sm">
-              Um dossiê de 4 dimensões (Finanças, Profissional, Pessoal, Amor) detalhando seus
-              pontos cegos.
-            </p>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-6">
-            <div className="text-4xl mb-4">📅</div>
-            <h4 className="font-bold text-xl mb-2">Matriz de Ação</h4>
-            <p className="text-muted-foreground text-sm">
-              Protocolo diário de 30 dias gerado por IA com micro-tarefas para religar seu cérebro.
-            </p>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-6">
-            <div className="text-4xl mb-4">🧭</div>
-            <h4 className="font-bold text-xl mb-2">Compass</h4>
-            <p className="text-muted-foreground text-sm">
-              Decodifique as pessoas da sua vida e saiba exatamente o que dizer para evitar
-              conflitos.
-            </p>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-6">
-            <div className="text-4xl mb-4">📈</div>
-            <h4 className="font-bold text-xl mb-2">Gamificação Real</h4>
-            <p className="text-muted-foreground text-sm">
-              Ganhe pontos, mantenha o streak e gere relatórios mensais para provar sua evolução.
-            </p>
+          {s.features.map((f, i) => (
+            <div key={i} className="rounded-xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="text-4xl mb-4">{f.icon}</div>
+              <h4 className="font-bold text-xl mb-2">{f.title}</h4>
+              <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Block 5: How It Works ────────────────────── */}
+        <div className="text-center">
+          <h3 className="font-display text-3xl font-bold mb-10">{s.howItWorks.title}</h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            {s.howItWorks.steps.map((step, i) => (
+              <div key={i} className="flex flex-col items-center text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-[0_0_20px_var(--accent-glow)] mb-4">
+                  {step.num}
+                </div>
+                <h4 className="font-bold text-lg mb-2">{step.title}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+              </div>
+            ))}
           </div>
         </div>
 
-        <button
-          onClick={onContinue}
-          className="mx-auto block w-full max-w-md rounded-full bg-primary px-8 py-5 text-xl font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-105"
-        >
-          {t.sales.cta} →
-        </button>
+        {/* ── Block 6: Social Proof ────────────────────── */}
+        <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
+          <p className="text-center text-lg font-bold text-primary mb-8">
+            {s.socialProof.counterText}
+          </p>
+          <div className="space-y-6">
+            {s.socialProof.testimonials.map((test, i) => (
+              <div key={i} className="rounded-xl border border-border bg-background p-5">
+                <p className="text-foreground leading-relaxed italic">"{test.quote}"</p>
+                <p className="mt-3 text-sm font-semibold text-muted-foreground">
+                  — {test.author}, {test.country}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center mt-6 text-sm font-medium text-muted-foreground">
+            ⭐ {s.socialProof.ratingText}
+          </p>
+        </div>
+
+        {/* ── Block 7: Pricing Plans ──────────────────── */}
+        <div className="text-center">
+          <button
+            onClick={onContinue}
+            className="mx-auto block w-full max-w-md rounded-full bg-primary px-8 py-5 text-xl font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-105"
+          >
+            {s.cta} →
+          </button>
+        </div>
+
+        {/* ── Block 8: FAQ ────────────────────────────── */}
+        <div className="max-w-3xl mx-auto text-left">
+          <h3 className="font-display text-3xl font-bold text-center mb-10">FAQ</h3>
+          <div className="space-y-4">
+            {s.faq.map((item, i) => (
+              <div key={i} className="rounded-xl border border-border bg-card p-6">
+                <h4 className="font-bold text-lg">{item.q}</h4>
+                <p className="text-muted-foreground mt-2 leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Block 9: Final CTA ───────────────────────── */}
+        <div className="text-center rounded-2xl border border-primary/30 bg-primary/5 p-10 shadow-[0_0_40px_var(--accent-glow)]">
+          <h3 className="font-display text-3xl font-bold text-foreground">{s.ctaFinal.title}</h3>
+          <p className="mt-3 text-lg text-muted-foreground">{s.ctaFinal.subtitle}</p>
+          <button
+            onClick={onContinue}
+            className="mt-8 inline-block rounded-full bg-primary px-10 py-5 text-lg font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-105"
+          >
+            {s.ctaFinal.cta}
+          </button>
+          <p className="mt-4 text-xs text-muted-foreground">{s.ctaFinal.trust}</p>
+        </div>
+
       </div>
     </section>
   );
 }
+
+/* ─── Plans ───────────────────────────────────────────────── */
 
 function Plans({
   email,
@@ -656,6 +727,7 @@ function Plans({
   const [busy, setBusy] = useState<PlanKey | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const plans: PlanKey[] = ["30d", "6m", "1y"];
+  const f = t.plans.features;
 
   async function choose(p: PlanKey) {
     setErr(null);
@@ -680,7 +752,6 @@ function Plans({
     }
   }
 
-  // Calculate discount dynamically based on pricing
   const baseMonthlyPrice = PRICES[currency]["30d"];
 
   return (
@@ -695,14 +766,13 @@ function Plans({
           const total = PRICES[currency][p];
           const popular = p === "6m";
 
-          // Discount calculation
           let discountStr = null;
           if (p === "6m") {
             const savings = Math.round((1 - total / (baseMonthlyPrice * 6)) * 100);
-            discountStr = `ECONOMIZE ${savings}%`;
+            discountStr = `${t.plans.mostPopular} · −${savings}%`;
           } else if (p === "1y") {
             const savings = Math.round((1 - total / (baseMonthlyPrice * 12)) * 100);
-            discountStr = `ECONOMIZE ${savings}%`;
+            discountStr = `−${savings}%`;
           }
 
           return (
@@ -743,17 +813,17 @@ function Plans({
 
               <div className="mb-8 space-y-3 border-t border-border pt-6">
                 <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> Diagnóstico Completo AI
+                  <span className="mr-2 text-primary">✓</span> {f.diagnosis}
                 </div>
                 <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> Matriz de Ação Diária
+                  <span className="mr-2 text-primary">✓</span> {f.matrix}
                 </div>
                 <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> Compass (Acessos ilimitados)
+                  <span className="mr-2 text-primary">✓</span> {f.compass}
                 </div>
                 {p !== "30d" && (
                   <div className="flex text-sm font-semibold text-foreground">
-                    <span className="mr-2 text-primary">✓</span> Gamificação & Relatórios de IA
+                    <span className="mr-2 text-primary">✓</span> {f.gamification}
                   </div>
                 )}
               </div>
@@ -767,7 +837,7 @@ function Plans({
                     : "border-2 border-primary/20 bg-background text-foreground hover:border-primary"
                 } disabled:opacity-50 disabled:scale-100`}
               >
-                {busy === p ? "Processando..." : t.plans.chooseCta}
+                {busy === p ? t.common.processing : t.plans.chooseCta}
               </button>
             </div>
           );
@@ -776,42 +846,15 @@ function Plans({
 
       <div className="mt-16 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm">
-          <span className="text-lg">🔒</span> Pagamento 100% Seguro via Stripe
+          <span className="text-lg">🔒</span> {t.plans.secureBadge}
         </div>
         <p className="mt-4 text-sm text-muted-foreground">{t.plans.guarantee}</p>
-      </div>
-
-      {/* FAQ Block */}
-      <div className="mt-24 max-w-3xl mx-auto text-left">
-        <h3 className="font-display text-3xl font-bold text-center mb-10">Perguntas Frequentes</h3>
-        <div className="space-y-4">
-          <div className="rounded-xl border border-border bg-card p-6">
-            <h4 className="font-bold text-lg">Isso é um aplicativo de finanças comum?</h4>
-            <p className="text-muted-foreground mt-2">
-              Não. Não pedimos senhas de banco nem mandamos você cortar o cafezinho. O MindReset
-              foca na origem do problema: seu comportamento invisível e emocional com o dinheiro.
-            </p>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-6">
-            <h4 className="font-bold text-lg">Posso cancelar a qualquer momento?</h4>
-            <p className="text-muted-foreground mt-2">
-              Sim. Direto pelo painel, com 2 cliques. Sem perguntas chatas ou ligações para
-              retenção.
-            </p>
-          </div>
-          <div className="rounded-xl border border-border bg-card p-6">
-            <h4 className="font-bold text-lg">Como funciona a Inteligência Artificial?</h4>
-            <p className="text-muted-foreground mt-2">
-              A nossa IA usa as regras da TCC (Terapia Cognitivo-Comportamental) cruzadas com o seu
-              arquétipo. Ela não escreve textos genéricos, ela desenha tarefas reais, como "Hoje,
-              você vai atrasar essa compra impulsiva por 24h anotando-a neste espaço".
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );
 }
+
+/* ─── Footer ──────────────────────────────────────────────── */
 
 function Footer() {
   const { t } = useI18n();
@@ -821,10 +864,10 @@ function Footer() {
         <p className="font-semibold text-foreground">© {new Date().getFullYear()} MindReset Inc.</p>
         <div className="flex gap-6">
           <Link to="/privacy" className="hover:text-primary transition">
-            Política de Privacidade
+            {t.common.privacy}
           </Link>
           <Link to="/terms" className="hover:text-primary transition">
-            Termos de Uso
+            {t.common.terms}
           </Link>
         </div>
       </div>

@@ -2,29 +2,32 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { jsPDF } from "jspdf";
 import { getDiagnosis, generateDiagnosis } from "../../lib/diagnosis.functions";
 import { getMyProfile } from "../../lib/profile.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
+import { useI18n } from "../../lib/i18n/LanguageProvider";
 
 export const Route = createFileRoute("/_authenticated/dashboard/diagnosis")({
   head: () => ({ meta: [{ title: "Diagnóstico — MindReset" }] }),
   component: DiagnosisPage,
 });
 
-const tabs = [
-  { key: "financial_analysis", label: "Finanças" },
-  { key: "professional_analysis", label: "Profissional" },
-  { key: "romantic_analysis", label: "Relacionamentos" },
-  { key: "personal_analysis", label: "Pessoal" },
-] as const;
-
 function DiagnosisPage() {
+  const { t, lang } = useI18n();
   const fetchDx = useServerFn(getDiagnosis);
   const genDx = useServerFn(generateDiagnosis);
   const fetchProfile = useServerFn(getMyProfile);
   const qc = useQueryClient();
-  const [tab, setTab] = useState<(typeof tabs)[number]["key"]>("financial_analysis");
+  const [tab, setTab] = useState<string>("financial_analysis");
   const [copied, setCopied] = useState(false);
+
+  const tabs = [
+    { key: "financial_analysis", label: t.dashboard.diagnosis.tabs.financial },
+    { key: "professional_analysis", label: t.dashboard.diagnosis.tabs.professional },
+    { key: "romantic_analysis", label: t.dashboard.diagnosis.tabs.romantic },
+    { key: "personal_analysis", label: t.dashboard.diagnosis.tabs.personal },
+  ];
 
   const { data: diagnosis, isLoading } = useQuery({
     queryKey: ["diagnosis"],
@@ -50,9 +53,9 @@ function DiagnosisPage() {
         <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_40px_var(--accent-glow)]">
           <span className="text-6xl animate-pulse">🧠</span>
         </div>
-        <h1 className="font-display text-3xl font-extrabold md:text-4xl">Seu diagnóstico está pronto para ser revelado.</h1>
+        <h1 className="font-display text-3xl font-extrabold md:text-4xl">{t.dashboard.diagnosis.empty.heading}</h1>
         <p className="mt-4 max-w-lg text-muted-foreground leading-relaxed">
-          Nossa IA estruturou uma análise psicológica profunda de 4 dimensões sobre como o seu arquétipo toma decisões invisíveis diariamente.
+          {t.dashboard.diagnosis.empty.description}
         </p>
         
         {mutation.error && (
@@ -69,18 +72,18 @@ function DiagnosisPage() {
           {mutation.isPending ? (
             <span className="flex items-center gap-2">
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
-              Gerando análise (≈ 20s)...
+              {t.dashboard.diagnosis.generating}
             </span>
           ) : (
-            "Desbloquear Meu Diagnóstico"
+            t.dashboard.diagnosis.unlockButton
           )}
         </button>
       </div>
     );
   }
 
-  const content = diagnosis[tab];
-  const archetypeName = ARCHETYPE_NAMES[diagnosis.archetype as Archetype]?.pt ?? diagnosis.archetype;
+  const content = diagnosis[tab as keyof typeof diagnosis];
+  const archetypeName = ARCHETYPE_NAMES[diagnosis.archetype as Archetype]?.[lang] ?? diagnosis.archetype;
 
   const shareToken = profileData?.shareToken;
   const shareUrl = shareToken
@@ -88,86 +91,148 @@ function DiagnosisPage() {
     : window.location.origin;
 
   const handleShare = () => {
-    const msg = `Descobri que meu arquétipo financeiro é ${archetypeName}! 🧠\nDescubra o seu gratuitamente: ${shareUrl}`;
-    navigator.clipboard.writeText(msg);
+    navigator.clipboard.writeText(t.dashboard.diagnosis.share.clipboardMessage(archetypeName, shareUrl));
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
   const handleShareWhatsApp = () => {
-    const msg = encodeURIComponent(
-      `Descobri que meu arquétipo financeiro é *${archetypeName}*! 🧠\nDescubra o seu gratuitamente: ${shareUrl}`
-    );
+    const msg = encodeURIComponent(t.dashboard.diagnosis.share.whatsappMessage(archetypeName, shareUrl));
     window.open(`https://wa.me/?text=${msg}`, "_blank");
+  };
+
+  const handleDownloadPdf = () => {
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    const pageW = doc.internal.pageSize.getWidth();
+    const margin = 15;
+    const maxW = pageW - margin * 2;
+    let y = 20;
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(204, 0, 0);
+    doc.text("MindReset — Dossiê Comportamental", margin, y);
+    y += 10;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.setTextColor(80, 80, 80);
+    doc.text(`${archetypeName} — ${new Date().toLocaleDateString()}`, margin, y);
+    y += 12;
+
+    const sections = [
+      { key: "financial_analysis", label: t.dashboard.diagnosis.tabs.financial },
+      { key: "professional_analysis", label: t.dashboard.diagnosis.tabs.professional },
+      { key: "personal_analysis", label: t.dashboard.diagnosis.tabs.personal },
+      { key: "romantic_analysis", label: t.dashboard.diagnosis.tabs.romantic },
+    ];
+
+    for (const section of sections) {
+      const text = diagnosis[section.key as keyof typeof diagnosis];
+      if (!text || typeof text !== "string") continue;
+
+      if (y > 260) {
+        doc.addPage();
+        y = 20;
+      }
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(13);
+      doc.setTextColor(30, 30, 30);
+      doc.text(section.label, margin, y);
+      y += 8;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      doc.setTextColor(60, 60, 60);
+
+      const lines = doc.splitTextToSize(text, maxW);
+      for (const line of lines) {
+        if (y > 280) {
+          doc.addPage();
+          y = 20;
+        }
+        doc.text(line, margin, y);
+        y += 5;
+      }
+      y += 6;
+    }
+
+    doc.setFont("helvetica", "italic");
+    doc.setFontSize(8);
+    doc.setTextColor(140, 140, 140);
+    doc.text(
+      "MindReset — Análise comportamental. Não constitui aconselhamento profissional.",
+      margin,
+      y
+    );
+
+    doc.save(`MindReset_Diagnostico_${archetypeName.replace(/\s+/g, "_")}.pdf`);
   };
 
   return (
     <div className="mx-auto max-w-3xl pb-12">
-      {/* Header Premium */}
       <header className="mb-8 rounded-2xl bg-card p-6 border border-border shadow-sm print:shadow-none print:border-none">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1">
               <span className="text-sm font-bold text-primary">{archetypeName}</span>
             </div>
-            <h1 className="font-display text-3xl font-extrabold md:text-4xl">Dossiê Comportamental</h1>
+            <h1 className="font-display text-3xl font-extrabold md:text-4xl">{t.dashboard.diagnosis.result.heading}</h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Análise gerada por IA em {new Date(diagnosis.generated_at).toLocaleDateString()}
+              {t.dashboard.diagnosis.result.generatedOn} {new Date(diagnosis.generated_at).toLocaleDateString()}
             </p>
           </div>
           
           <div className="flex flex-wrap gap-2 print:hidden">
             <button 
-              onClick={() => window.print()}
+              onClick={handleDownloadPdf}
               className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold transition hover:bg-secondary"
             >
-              📄 Baixar PDF
+              {t.dashboard.diagnosis.actions.downloadPdf}
             </button>
             <button 
               onClick={handleShareWhatsApp}
               className="rounded-lg bg-[#25D366] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
             >
-              🟢 WhatsApp
+              🟢 {t.dashboard.diagnosis.actions.whatsapp}
             </button>
             <button 
               onClick={handleShare}
               className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_10px_var(--accent-glow)]"
             >
-              {copied ? "✓ Copiado!" : "🔗 Copiar Link"}
+              {copied ? t.dashboard.diagnosis.actions.copied : t.dashboard.diagnosis.actions.copyLink}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Tabs animadas */}
       <div className="mb-8 flex flex-wrap gap-2 border-b border-border print:hidden">
-        {tabs.map((t) => (
+        {tabs.map((tabItem) => (
           <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
+            key={tabItem.key}
+            onClick={() => setTab(tabItem.key)}
             className={`relative px-4 py-3 text-sm font-semibold transition-colors ${
-              tab === t.key ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              tab === tabItem.key ? "text-foreground" : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            {t.label}
-            {tab === t.key && (
+            {tabItem.label}
+            {tab === tabItem.key && (
               <span className="absolute bottom-[-1px] left-0 h-[2px] w-full bg-primary" />
             )}
           </button>
         ))}
       </div>
 
-      {/* Conteúdo com tipografia premium */}
       <article className="prose prose-invert max-w-none whitespace-pre-wrap rounded-2xl border border-border bg-card p-6 md:p-8 leading-relaxed shadow-sm print:border-none print:shadow-none print:p-0">
         <h2 className="font-display text-2xl text-primary mb-6 hidden print:block">
-          {tabs.find((t) => t.key === tab)?.label}
+          {tabs.find((tabItem) => tabItem.key === tab)?.label}
         </h2>
         {content}
       </article>
 
       <p className="mt-8 text-center text-xs text-muted-foreground print:text-left">
-        Isenção de responsabilidade: Esta análise é baseada em padrões comportamentais identificados em suas respostas. 
-        Não constitui aconselhamento financeiro, psicológico ou médico profissional.
+        {t.dashboard.diagnosis.disclaimer}
       </p>
     </div>
   );
