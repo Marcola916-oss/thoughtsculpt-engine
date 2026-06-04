@@ -897,13 +897,14 @@ function Reveal({
   }, [a.name]);
 
   return (
-    <section className="py-12 md:py-32 overflow-hidden">
-      <div className="text-center relative">
+    <section className="py-12 md:py-40 overflow-hidden relative">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-arch-glow blur-[160px] opacity-20 -z-10" />
+      <div className="text-center relative z-10">
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", damping: 15 }}
-          className="mb-8 inline-block rounded-full bg-primary/10 px-6 py-2 text-xs font-black uppercase tracking-[0.3em] text-primary shadow-[0_0_20px_var(--accent-glow)]"
+          initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ type: "spring", damping: 15, stiffness: 150 }}
+          className="mb-10 inline-block rounded-full bg-white/5 border border-white/10 px-8 py-3 text-xs font-black uppercase tracking-[0.5em] text-arch-primary shadow-2xl backdrop-blur-xl"
         >
           {t.reveal.kicker(name)}
         </motion.div>
