@@ -1,6 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { 
+  CheckCircle2, 
+  Lock, 
+  ArrowRight, 
+  Brain, 
+  Calendar as CalendarIcon, 
+  Compass as CompassIcon, 
+  LineChart, 
+  Star,
+  ShieldCheck,
+  ChevronDown
+} from "lucide-react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring";
@@ -111,62 +124,174 @@ function LandingAndQuiz() {
   }, [stage.kind]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden">
       <TopBar />
-      <main className="mx-auto max-w-4xl px-4 pb-24 pt-8 md:pt-16">
-        {stage.kind === "hero" && <Hero onStart={() => setStage({ kind: "identity" })} />}
-        {stage.kind === "identity" && (
-          <Identity
-            name={name}
-            setName={setName}
-            gender={gender}
-            setGender={setGender}
-            onContinue={() => setStage({ kind: "q", index: 0 })}
-          />
-        )}
-        {stage.kind === "q" && (
-          <QuestionScreen
-            index={stage.index}
-            name={name}
-            selected={answers[stage.index]}
-            onSelect={answerQuestion}
-            onBack={() =>
-              stage.index === 0
-                ? setStage({ kind: "identity" })
-                : setStage({ kind: "q", index: stage.index - 1 })
-            }
-          />
-        )}
-        {stage.kind === "email" && (
-          <EmailCapture
-            name={name}
-            email={email}
-            setEmail={setEmail}
-            gdpr={gdpr}
-            setGdpr={setGdpr}
-            onSubmit={() => setStage({ kind: "loader" })}
-          />
-        )}
-        {stage.kind === "loader" && <LoaderScreen />}
-        {stage.kind === "reveal" && archCode && (
-          <Reveal
-            name={name}
-            arch={archCode}
-            onContinue={() => setStage({ kind: "sales" })}
-            leadError={leadError}
-            onRetry={() => {
-              setLeadError(null);
-              setStage({ kind: "loader" });
-            }}
-          />
-        )}
-        {stage.kind === "sales" && archCode && (
-          <Sales name={name} arch={archCode} onContinue={() => setStage({ kind: "plans" })} />
-        )}
-        {stage.kind === "plans" && <Plans email={email} displayName={name} leadId={leadId} />}
+      
+      <main className="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-12">
+        <AnimatePresence mode="wait">
+          {stage.kind === "hero" && (
+            <motion.div
+              key="hero"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Hero onStart={() => setStage({ kind: "identity" })} />
+            </motion.div>
+          )}
+
+          {stage.kind === "identity" && (
+            <motion.div
+              key="identity"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Identity
+                name={name}
+                setName={setName}
+                gender={gender}
+                setGender={setGender}
+                onContinue={() => setStage({ kind: "q", index: 0 })}
+              />
+            </motion.div>
+          )}
+
+          {stage.kind === "q" && (
+            <motion.div
+              key={`q-${stage.index}`}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -30 }}
+              transition={{ duration: 0.3 }}
+            >
+              <QuestionScreen
+                index={stage.index}
+                name={name}
+                selected={answers[stage.index]}
+                onSelect={answerQuestion}
+                onBack={() =>
+                  stage.index === 0
+                    ? setStage({ kind: "identity" })
+                    : setStage({ kind: "q", index: stage.index - 1 })
+                }
+              />
+            </motion.div>
+          )}
+
+          {stage.kind === "email" && (
+            <motion.div
+              key="email"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 0.4 }}
+            >
+              <EmailCapture
+                name={name}
+                email={email}
+                setEmail={setEmail}
+                gdpr={gdpr}
+                setGdpr={setGdpr}
+                onSubmit={() => setStage({ kind: "loader" })}
+              />
+            </motion.div>
+          )}
+
+          {stage.kind === "loader" && (
+            <motion.div
+              key="loader"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <LoaderScreen />
+            </motion.div>
+          )}
+
+          {stage.kind === "reveal" && archCode && (
+            <motion.div
+              key="reveal"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ type: "spring", damping: 20, stiffness: 100 }}
+            >
+              <Reveal
+                name={name}
+                arch={archCode}
+                onContinue={() => setStage({ kind: "sales" })}
+                leadError={leadError}
+                onRetry={() => {
+                  setLeadError(null);
+                  setStage({ kind: "loader" });
+                }}
+              />
+            </motion.div>
+          )}
+
+          {stage.kind === "sales" && archCode && (
+            <motion.div
+              key="sales"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Sales name={name} arch={archCode} onContinue={() => setStage({ kind: "plans" })} />
+            </motion.div>
+          )}
+
+          {stage.kind === "plans" && (
+            <motion.div
+              key="plans"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Plans email={email} displayName={name} leadId={leadId} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
+
+      {stage.kind === "sales" && <StickyCTA onClick={() => setStage({ kind: "plans" })} />}
       <Footer />
     </div>
+  );
+}
+
+function StickyCTA({ onClick }: { onClick: () => void }) {
+  const { t } = useI18n();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 1200);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          exit={{ y: 100 }}
+          className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 p-4 backdrop-blur-lg md:hidden"
+        >
+          <button
+            onClick={onClick}
+            className="w-full rounded-full bg-primary py-4 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--accent-glow)]"
+          >
+            {t.sales.cta}
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -206,41 +331,92 @@ function TopBar() {
 
 /* ─── Hero ────────────────────────────────────────────────── */
 
+/* ─── Hero ────────────────────────────────────────────────── */
+
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="py-12 md:py-24 text-center animate-in fade-in slide-in-from-bottom-8 duration-700">
-      <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary shadow-[0_0_15px_var(--accent-glow)]">
+    <section className="relative py-12 md:py-32 text-center">
+      {/* Background glow effect */}
+      <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[120px]" />
+      
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-primary shadow-[0_0_20px_var(--accent-glow)]"
+      >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
           <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
         </span>
         {t.hero.kicker}
-      </div>
+      </motion.div>
 
-      <h1 className="mx-auto max-w-3xl font-display text-5xl font-extrabold leading-[1.1] tracking-tight md:text-7xl">
+      <motion.h1 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+        className="mx-auto max-w-4xl font-display text-5xl font-extrabold leading-[1.05] tracking-tight md:text-8xl"
+      >
         {t.hero.headline}
-      </h1>
+      </motion.h1>
 
-      <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl leading-relaxed">
+      <motion.p 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.8 }}
+        className="mx-auto mt-10 max-w-2xl text-lg text-muted-foreground md:text-2xl leading-relaxed"
+      >
         {t.hero.sub}
-      </p>
+      </motion.p>
 
-      <div className="mt-12 flex flex-col items-center gap-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+        className="mt-16 flex flex-col items-center gap-6"
+      >
         <button
           onClick={onStart}
-          className="group relative overflow-hidden rounded-full bg-primary px-10 py-5 text-lg font-bold text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_30px_var(--accent-glow)]"
+          className="group relative overflow-hidden rounded-full bg-primary px-12 py-6 text-xl font-black text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_40px_var(--accent-glow)] active:scale-95"
         >
-          {t.hero.cta}
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
-            →
+          <span className="relative z-10 flex items-center gap-2">
+            {t.hero.cta}
+            <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
           </span>
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary to-accent-dark opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
-          <span>🔒</span>
-          <span>{t.common.securePayment}</span>
+        
+        <div className="flex flex-col items-center gap-3">
+          <div className="flex -space-x-2">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-8 w-8 rounded-full border-2 border-background bg-secondary flex items-center justify-center overflow-hidden">
+                <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="user" className="h-full w-full object-cover grayscale opacity-70" />
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="flex text-primary">
+              <Star className="h-3 w-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
+            </span>
+            <span>{t.hero.trust}</span>
+          </div>
         </div>
-      </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 1 }}
+        className="mt-24 animate-bounce"
+      >
+        <ChevronDown className="mx-auto h-8 w-8 text-muted-foreground/30" />
+      </motion.div>
     </section>
   );
 }
@@ -485,6 +661,7 @@ function Reveal({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const [text, setText] = useState("");
+  
   useEffect(() => {
     let i = 0;
     setText("");
@@ -492,71 +669,109 @@ function Reveal({
       i++;
       setText(a.name.slice(0, i));
       if (i >= a.name.length) clearInterval(id);
-    }, 55);
+    }, 80);
     return () => clearInterval(id);
   }, [a.name]);
 
   return (
-    <section className="py-12 md:py-20 animate-in zoom-in-95 duration-700">
-      <div className="text-center">
-        <p className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold uppercase tracking-widest text-primary shadow-[0_0_15px_var(--accent-glow)]">
+    <section className="py-12 md:py-32 overflow-hidden">
+      <div className="text-center relative">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", damping: 15 }}
+          className="mb-8 inline-block rounded-full bg-primary/10 px-6 py-2 text-xs font-black uppercase tracking-[0.3em] text-primary shadow-[0_0_20px_var(--accent-glow)]"
+        >
           {t.reveal.kicker(name)}
-        </p>
-        <h1 className="mt-2 font-display text-5xl font-extrabold leading-tight text-foreground md:text-7xl">
+        </motion.div>
+        
+        <h1 className="mt-4 font-display text-6xl font-black leading-none text-foreground md:text-[10rem] tracking-tighter">
           <span className="text-primary">{text}</span>
-          <span className="animate-pulse text-primary">|</span>
+          <motion.span 
+            animate={{ opacity: [1, 0] }}
+            transition={{ repeat: Infinity, duration: 0.8 }}
+            className="text-primary"
+          >
+            |
+          </motion.span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-xl font-medium text-muted-foreground">
+        
+        <motion.p 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="mx-auto mt-10 max-w-2xl text-2xl font-bold text-muted-foreground leading-relaxed"
+        >
           {a.tagline}
-        </p>
+        </motion.p>
       </div>
 
       {leadError && (
-        <div
-          role="alert"
-          className="mx-auto mt-8 max-w-2xl rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-left text-sm"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-auto mt-12 max-w-2xl rounded-2xl border border-primary/40 bg-primary/5 p-6 backdrop-blur-md"
         >
-          <p className="font-semibold text-primary">⚠️ {t.reveal.errorTitle}</p>
-          <p className="mt-1 text-muted-foreground">
-            {leadError}. {t.reveal.errorBody}
-          </p>
-          <button
-            onClick={onRetry}
-            className="mt-3 inline-flex items-center gap-1 rounded-full border border-primary/40 px-3 py-1.5 text-xs font-semibold text-primary transition hover:bg-primary/10"
-          >
-            🔄 {t.reveal.errorRetry}
-          </button>
-        </div>
+          <div className="flex gap-4">
+            <div className="h-10 w-10 shrink-0 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">!</div>
+            <div>
+              <p className="font-black uppercase tracking-wider text-primary">{t.reveal.errorTitle}</p>
+              <p className="mt-1 text-muted-foreground leading-relaxed">{leadError}. {t.reveal.errorBody}</p>
+              <button
+                onClick={onRetry}
+                className="mt-4 flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-xs font-bold text-primary transition hover:bg-primary/20"
+              >
+                <ArrowRight className="h-4 w-4 rotate-180" /> {t.reveal.errorRetry}
+              </button>
+            </div>
+          </div>
+        </motion.div>
       )}
 
-      <div className="mx-auto mt-16 max-w-3xl rounded-3xl border border-border bg-card p-8 md:p-12 shadow-xl">
-        <p className="mb-6 font-display text-2xl font-bold">{t.reveal.sub}</p>
-        <ul className="space-y-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+        className="mx-auto mt-24 max-w-4xl rounded-[3rem] border border-border bg-card p-8 md:p-20 shadow-2xl relative"
+      >
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 h-24 w-24 rounded-full bg-background border border-border flex items-center justify-center text-4xl shadow-xl">
+          🎯
+        </div>
+        
+        <p className="mb-12 text-center font-display text-3xl font-black leading-tight">{t.reveal.sub}</p>
+        
+        <div className="grid gap-4">
           {a.hooks.map((h, i) => (
-            <li
+            <motion.div
               key={i}
-              className="flex gap-4 rounded-xl border border-border bg-background p-5 text-lg transition-transform hover:scale-[1.02]"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 2 + i * 0.2 }}
+              className="flex gap-6 rounded-3xl border border-border bg-background p-6 md:p-8 transition-all hover:border-primary/30 group"
             >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-bold">
-                !
-              </span>
-              <span className="text-foreground leading-relaxed">{h}</span>
-            </li>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary font-black group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                {i + 1}
+              </div>
+              <p className="text-xl text-foreground font-medium leading-relaxed">{h}</p>
+            </motion.div>
           ))}
-        </ul>
+        </div>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={onContinue}
-          className="mt-10 w-full rounded-xl bg-primary px-6 py-5 text-xl font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-[1.02]"
+          className="mt-16 w-full rounded-2xl bg-primary px-8 py-6 text-2xl font-black text-primary-foreground shadow-[0_0_40px_var(--accent-glow)] transition-all flex items-center justify-center gap-4"
         >
-          {t.reveal.cta} →
-        </button>
-      </div>
+          {t.reveal.cta} <ArrowRight size={28} />
+        </motion.button>
+      </motion.div>
     </section>
   );
 }
 
 /* ─── Sales (9-Block VSL) ────────────────────────────────── */
+
 
 function Sales({
   name,
@@ -571,140 +786,248 @@ function Sales({
   const a = t.archetypes[arch];
   const s = t.sales;
 
+  const featureIcons = [
+    <Brain className="h-8 w-8 text-primary" />,
+    <CalendarIcon className="h-8 w-8 text-primary" />,
+    <CompassIcon className="h-8 w-8 text-primary" />,
+    <LineChart className="h-8 w-8 text-primary" />
+  ];
+
   return (
-    <section className="py-12 md:py-20 animate-in fade-in duration-700 max-w-3xl mx-auto">
-      <div className="space-y-16">
+    <section className="py-12 md:py-24 animate-in fade-in duration-1000">
+      <div className="space-y-32">
 
         {/* ── Block 1: H1 + Promise ────────────────────── */}
-        <div className="text-center">
-          <h1 className="font-display text-4xl font-extrabold leading-tight md:text-6xl">
-            {s.h1(name, a.name)}
-          </h1>
-          <p className="mt-6 text-xl font-bold text-primary">{s.promise}</p>
+        <div className="text-center max-w-4xl mx-auto">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-display text-4xl font-extrabold leading-tight md:text-7xl"
+          >
+            {s.h1(name, <span className="text-primary underline decoration-primary/30 underline-offset-8">{a.name}</span> as any)}
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 text-xl md:text-2xl font-black uppercase tracking-wider text-primary"
+          >
+            {s.promise}
+          </motion.p>
         </div>
 
         {/* ── Block 2: Pain Mirror ─────────────────────── */}
-        <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-          <h2 className="font-display text-2xl font-bold text-foreground mb-4">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="rounded-[2.5rem] border border-border bg-card p-8 md:p-16 shadow-2xl relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 p-8 opacity-10">
+            <Brain size={120} />
+          </div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-8">
             {s.painBlock.title}
           </h2>
-          <p className="text-muted-foreground leading-relaxed mb-6">
+          <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl">
             {s.painBlock.body}
           </p>
-          <ul className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-6">
             {s.painBlock.bullets.map((b, i) => (
-              <li key={i} className="flex items-start gap-4">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary text-xs font-bold mt-1">
-                  ✓
-                </span>
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-start gap-4 p-4 rounded-2xl bg-background/50 border border-border/50"
+              >
+                <CheckCircle2 className="h-6 w-6 shrink-0 text-primary mt-0.5" />
                 <span className="text-lg font-medium text-foreground">{b}</span>
-              </li>
+              </motion.div>
             ))}
-          </ul>
-          <p className="mt-6 text-lg font-semibold text-primary/80">
+          </div>
+          <p className="mt-12 text-xl font-bold text-primary italic border-l-4 border-primary pl-6">
             {s.painBlock.conclusion}
           </p>
-        </div>
+        </motion.div>
 
         {/* ── Block 3: Scientific Proof ────────────────── */}
-        <div className="text-center max-w-2xl mx-auto">
-          <h3 className="font-display text-3xl font-bold">{s.science.title}</h3>
-          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-            {s.science.body}
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground/80 italic">
-            {s.science.references}
-          </p>
-          <p className="mt-4 text-lg font-medium text-foreground">
-            {s.science.pivot}
-          </p>
-          <p className="mt-2 text-primary font-bold">
-            {s.science.solution}
-          </p>
+        <div className="text-center max-w-3xl mx-auto">
+          <div className="inline-flex items-center justify-center h-20 w-20 rounded-full bg-primary/10 mb-8">
+            <ShieldCheck className="h-10 w-10 text-primary" />
+          </div>
+          <h3 className="font-display text-3xl md:text-5xl font-bold mb-8">{s.science.title}</h3>
+          <div className="space-y-6 text-xl text-muted-foreground leading-relaxed">
+            <p>{s.science.body}</p>
+            <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground/50">
+              {s.science.references}
+            </p>
+            <p className="text-foreground font-bold text-2xl pt-4">
+              {s.science.pivot}
+            </p>
+            <motion.p 
+              animate={{ scale: [1, 1.02, 1] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              className="text-primary font-black text-3xl"
+            >
+              {s.science.solution}
+            </motion.p>
+          </div>
         </div>
 
         {/* ── Block 4: Product Grid (4D Features) ──────── */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-8">
           {s.features.map((f, i) => (
-            <div key={i} className="rounded-xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:shadow-lg">
-              <div className="text-4xl mb-4">{f.icon}</div>
-              <h4 className="font-bold text-xl mb-2">{f.title}</h4>
-              <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
-            </div>
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group rounded-3xl border border-border bg-card p-10 transition-all hover:border-primary/50 hover:shadow-[0_20px_40px_rgba(204,0,0,0.1)]"
+            >
+              <div className="mb-8 p-4 rounded-2xl bg-background border border-border inline-block transition-transform group-hover:scale-110 group-hover:bg-primary/5">
+                {featureIcons[i]}
+              </div>
+              <h4 className="font-display text-2xl font-bold mb-4">{f.title}</h4>
+              <p className="text-muted-foreground text-lg leading-relaxed">{f.description}</p>
+            </motion.div>
           ))}
         </div>
 
         {/* ── Block 5: How It Works ────────────────────── */}
         <div className="text-center">
-          <h3 className="font-display text-3xl font-bold mb-10">{s.howItWorks.title}</h3>
-          <div className="grid md:grid-cols-3 gap-8">
+          <h3 className="font-display text-3xl md:text-5xl font-bold mb-20">{s.howItWorks.title}</h3>
+          <div className="grid md:grid-cols-3 gap-12 relative">
+            {/* Desktop Connector Line */}
+            <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-border -z-10" />
+            
             {s.howItWorks.steps.map((step, i) => (
-              <div key={i} className="flex flex-col items-center text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-[0_0_20px_var(--accent-glow)] mb-4">
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                className="flex flex-col items-center text-center group"
+              >
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-background border-4 border-border group-hover:border-primary text-foreground group-hover:text-primary transition-all duration-500 font-display text-4xl font-black mb-8 relative">
                   {step.num}
+                  {i < 2 && <div className="md:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 h-10 w-0.5 bg-border" />}
                 </div>
-                <h4 className="font-bold text-lg mb-2">{step.title}</h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
-              </div>
+                <h4 className="font-bold text-2xl mb-4">{step.title}</h4>
+                <p className="text-muted-foreground text-lg leading-relaxed">{step.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
 
         {/* ── Block 6: Social Proof ────────────────────── */}
-        <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-          <p className="text-center text-lg font-bold text-primary mb-8">
+        <div className="rounded-[3rem] border border-border bg-card p-10 md:p-20 shadow-2xl overflow-hidden relative">
+          <div className="absolute -top-24 -left-24 h-64 w-64 bg-primary/5 blur-3xl rounded-full" />
+          <div className="absolute -bottom-24 -right-24 h-64 w-64 bg-primary/5 blur-3xl rounded-full" />
+          
+          <p className="text-center text-2xl font-black text-primary mb-16 uppercase tracking-[0.2em]">
             {s.socialProof.counterText}
           </p>
-          <div className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {s.socialProof.testimonials.map((test, i) => (
-              <div key={i} className="rounded-xl border border-border bg-background p-5">
-                <p className="text-foreground leading-relaxed italic">"{test.quote}"</p>
-                <p className="mt-3 text-sm font-semibold text-muted-foreground">
-                  — {test.author}, {test.country}
-                </p>
-              </div>
+              <motion.div 
+                key={i}
+                whileHover={{ scale: 1.02 }}
+                className="rounded-3xl border border-border bg-background p-8 flex flex-col justify-between"
+              >
+                <div className="flex gap-1 text-primary mb-6">
+                  {[...Array(5)].map((_, star) => <Star key={star} size={16} fill="currentColor" />)}
+                </div>
+                <p className="text-xl text-foreground leading-relaxed italic mb-8">"{test.quote}"</p>
+                <div className="flex items-center gap-4 border-t border-border pt-6">
+                  <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center font-bold text-primary">
+                    {test.author[0]}
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">{test.author}</p>
+                    <p className="text-sm text-muted-foreground uppercase tracking-widest">{test.country}</p>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
-          <p className="text-center mt-6 text-sm font-medium text-muted-foreground">
-            ⭐ {s.socialProof.ratingText}
-          </p>
+          <div className="mt-16 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-2 text-2xl font-bold">
+              <span className="text-primary">4.9/5</span>
+              <div className="flex text-primary">
+                {[...Array(5)].map((_, i) => <Star key={i} size={20} fill="currentColor" />)}
+              </div>
+            </div>
+            <p className="text-muted-foreground font-medium uppercase tracking-widest text-xs">
+              {s.socialProof.ratingText}
+            </p>
+          </div>
         </div>
 
-        {/* ── Block 7: Pricing Plans ──────────────────── */}
-        <div className="text-center">
-          <button
+        {/* ── Block 7: CTA Mid ────────────────────────── */}
+        <div className="text-center py-10">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onContinue}
-            className="mx-auto block w-full max-w-md rounded-full bg-primary px-8 py-5 text-xl font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-105"
+            className="group inline-flex items-center gap-4 rounded-full bg-primary px-12 py-8 text-2xl font-black text-primary-foreground shadow-[0_0_50px_var(--accent-glow)] transition-all"
           >
-            {s.cta} →
-          </button>
+            {s.cta}
+            <ArrowRight size={28} className="transition-transform group-hover:translate-x-2" />
+          </motion.button>
+          <div className="mt-8 flex items-center justify-center gap-4 text-muted-foreground opacity-50">
+            <Lock size={16} />
+            <span className="text-xs font-bold uppercase tracking-[0.2em]">{t.common.securePayment}</span>
+          </div>
         </div>
 
         {/* ── Block 8: FAQ ────────────────────────────── */}
-        <div className="max-w-3xl mx-auto text-left">
-          <h3 className="font-display text-3xl font-bold text-center mb-10">FAQ</h3>
-          <div className="space-y-4">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="font-display text-3xl md:text-5xl font-bold text-center mb-16">FAQ</h3>
+          <div className="grid gap-4">
             {s.faq.map((item, i) => (
-              <div key={i} className="rounded-xl border border-border bg-card p-6">
-                <h4 className="font-bold text-lg">{item.q}</h4>
-                <p className="text-muted-foreground mt-2 leading-relaxed">{item.a}</p>
-              </div>
+              <details key={i} className="group rounded-2xl border border-border bg-card overflow-hidden transition-all hover:border-primary/30">
+                <summary className="flex items-center justify-between p-8 cursor-pointer font-bold text-xl list-none">
+                  {item.q}
+                  <ChevronDown size={20} className="transition-transform group-open:rotate-180 text-primary" />
+                </summary>
+                <div className="px-8 pb-8 text-lg text-muted-foreground leading-relaxed border-t border-border pt-6">
+                  {item.a}
+                </div>
+              </details>
             ))}
           </div>
         </div>
 
         {/* ── Block 9: Final CTA ───────────────────────── */}
-        <div className="text-center rounded-2xl border border-primary/30 bg-primary/5 p-10 shadow-[0_0_40px_var(--accent-glow)]">
-          <h3 className="font-display text-3xl font-bold text-foreground">{s.ctaFinal.title}</h3>
-          <p className="mt-3 text-lg text-muted-foreground">{s.ctaFinal.subtitle}</p>
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center rounded-[3rem] border border-primary/30 bg-primary/5 p-12 md:p-24 shadow-[0_0_60px_var(--accent-glow)] relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
+          <h3 className="font-display text-4xl md:text-6xl font-black text-foreground mb-6">{s.ctaFinal.title}</h3>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto">{s.ctaFinal.subtitle}</p>
           <button
             onClick={onContinue}
-            className="mt-8 inline-block rounded-full bg-primary px-10 py-5 text-lg font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-105"
+            className="group inline-flex items-center gap-4 rounded-full bg-primary px-12 py-8 text-2xl font-black text-primary-foreground shadow-[0_0_50px_var(--accent-glow)] transition-all hover:scale-105"
           >
             {s.ctaFinal.cta}
+            <ArrowRight size={28} className="transition-transform group-hover:translate-x-2" />
           </button>
-          <p className="mt-4 text-xs text-muted-foreground">{s.ctaFinal.trust}</p>
-        </div>
+          <div className="mt-12 flex items-center justify-center gap-8">
+             <div className="flex items-center gap-2 grayscale opacity-50 transition-opacity hover:opacity-100 cursor-default">
+               <ShieldCheck size={20} className="text-primary" />
+               <span className="text-[10px] font-bold uppercase tracking-[0.2em]">{s.ctaFinal.trust}</span>
+             </div>
+          </div>
+        </motion.div>
 
       </div>
     </section>
@@ -745,7 +1068,7 @@ function Plans({
         },
       });
       if (res?.url) window.location.href = res.url;
-      else throw new Error("Stripe session has no URL");
+      else throw new Error("Stripe session creation failed");
     } catch (e) {
       setErr((e as Error).message);
       setBusy(null);
@@ -755,14 +1078,39 @@ function Plans({
   const baseMonthlyPrice = PRICES[currency]["30d"];
 
   return (
-    <section className="py-12 md:py-24 animate-in slide-in-from-bottom-8 duration-700 max-w-5xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="font-display text-4xl font-extrabold md:text-5xl">{t.plans.title}</h2>
-        <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">{t.plans.sub}</p>
+    <section className="py-12 md:py-32 max-w-7xl mx-auto px-4">
+      <div className="text-center mb-20">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="font-display text-4xl font-extrabold md:text-7xl mb-6"
+        >
+          {t.plans.title}
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+        >
+          {t.plans.sub}
+        </motion.p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {plans.map((p) => {
+      {err && (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="mb-10 p-6 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-center font-bold"
+        >
+          {err}
+        </motion.div>
+      )}
+
+      <div className="grid gap-8 md:grid-cols-3">
+        {plans.map((p, i) => {
           const total = PRICES[currency][p];
           const popular = p === "6m";
 
@@ -776,79 +1124,88 @@ function Plans({
           }
 
           return (
-            <div
+            <motion.div
               key={p}
-              className={`relative flex flex-col rounded-3xl border bg-card p-8 transition-all hover:-translate-y-2 ${
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15 }}
+              className={`relative flex flex-col rounded-[2.5rem] border bg-card p-10 transition-all ${
                 popular
-                  ? "border-primary shadow-[0_0_40px_var(--accent-glow)] md:scale-105 z-10"
-                  : "border-border"
+                  ? "border-primary shadow-[0_0_60px_var(--accent-glow)] md:scale-110 z-10"
+                  : "border-border hover:border-primary/30"
               }`}
             >
               {popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-lg">
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 rounded-full bg-primary px-6 py-2 text-xs font-black uppercase tracking-[0.2em] text-primary-foreground shadow-xl">
                   {t.plans.mostPopular}
                 </div>
               )}
 
-              <div className="mb-6 flex-1 text-center">
-                <h3 className="font-display text-2xl font-bold">
+              <div className="mb-10 flex-1 text-center">
+                <h3 className="font-display text-3xl font-black mb-4">
                   {p === "30d" ? t.plans.p30 : p === "6m" ? t.plans.p6m : t.plans.p1y}
                 </h3>
 
                 {discountStr && (
-                  <div className="mt-2 inline-block rounded border border-success/30 bg-success/10 px-2 py-0.5 text-xs font-bold text-success">
+                  <div className="inline-block rounded-lg border border-success/30 bg-success/10 px-3 py-1 text-xs font-black text-success uppercase tracking-widest">
                     {discountStr}
                   </div>
                 )}
 
-                <div className="mt-6 flex items-baseline justify-center gap-1">
-                  <span className="font-display text-5xl font-extrabold">
+                <div className="mt-8 flex items-baseline justify-center gap-1">
+                  <span className="font-display text-6xl font-black tracking-tighter">
                     {formatPrice(currency, total)}
                   </span>
                 </div>
-                <p className="mt-2 text-sm font-semibold text-primary">
+                <p className="mt-4 text-sm font-bold uppercase tracking-widest text-primary">
                   {t.plans.perDay(pricePerDay(currency, p))}
                 </p>
               </div>
 
-              <div className="mb-8 space-y-3 border-t border-border pt-6">
-                <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> {f.diagnosis}
-                </div>
-                <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> {f.matrix}
-                </div>
-                <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> {f.compass}
-                </div>
-                {p !== "30d" && (
-                  <div className="flex text-sm font-semibold text-foreground">
-                    <span className="mr-2 text-primary">✓</span> {f.gamification}
+              <div className="mb-12 space-y-4 border-t border-border/50 pt-10">
+                {[
+                  { label: f.diagnosis, check: true },
+                  { label: f.matrix, check: true },
+                  { label: f.compass, check: true },
+                  { label: f.gamification, check: p !== "30d" }
+                ].map((item, idx) => (
+                  <div key={idx} className={`flex items-center gap-3 text-sm ${item.check ? "text-foreground font-medium" : "text-muted-foreground line-through opacity-40"}`}>
+                    <CheckCircle2 className={`h-5 w-5 shrink-0 ${item.check ? "text-primary" : "text-muted-foreground"}`} />
+                    {item.label}
                   </div>
-                )}
+                ))}
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 disabled={busy !== null || !email}
                 onClick={() => choose(p)}
-                className={`w-full rounded-xl px-6 py-4 font-bold transition-all ${
+                className={`w-full rounded-2xl px-6 py-6 text-xl font-black transition-all ${
                   popular
-                    ? "bg-primary text-primary-foreground shadow-[0_4px_20px_var(--accent-glow)] hover:scale-105"
-                    : "border-2 border-primary/20 bg-background text-foreground hover:border-primary"
-                } disabled:opacity-50 disabled:scale-100`}
+                    ? "bg-primary text-primary-foreground shadow-[0_10px_30px_var(--accent-glow)]"
+                    : "border-2 border-primary/20 bg-background text-foreground hover:border-primary/50"
+                } disabled:opacity-50 disabled:scale-100 uppercase tracking-widest`}
               >
-                {busy === p ? t.common.processing : t.plans.chooseCta}
-              </button>
-            </div>
+                {busy === p ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    {t.common.processing}
+                  </span>
+                ) : t.plans.chooseCta}
+              </motion.button>
+            </motion.div>
           );
         })}
       </div>
 
-      <div className="mt-16 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm">
-          <span className="text-lg">🔒</span> {t.plans.secureBadge}
+      <div className="mt-24 text-center">
+        <div className="inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-6 py-4 text-sm font-bold text-muted-foreground shadow-sm">
+          <ShieldCheck className="h-6 w-6 text-primary" />
+          <span className="uppercase tracking-[0.1em]">{t.plans.secureBadge}</span>
         </div>
-        <p className="mt-4 text-sm text-muted-foreground">{t.plans.guarantee}</p>
+        <p className="mt-8 text-lg text-muted-foreground max-w-xl mx-auto italic">{t.plans.guarantee}</p>
       </div>
     </section>
   );
