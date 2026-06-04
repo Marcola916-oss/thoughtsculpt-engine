@@ -294,6 +294,10 @@ const PT: Dict = {
       { q: "A IA substitui um psicólogo?", a: "Não. O MindReset é uma ferramenta de autoconhecimento comportamental. Não substitui aconselhamento profissional. Mas ajuda a identificar padrões que muitas vezes passam despercebidos." },
       { q: "Como funciona o reembolso?", a: "Você tem 7 dias para solicitar reembolso integral após a primeira compra. Sem perguntas. Acesse o portal do cliente ou entre em contato." },
     ],
+    guarantee: {
+      title: "Garantia Incondicional",
+      body: "Se em 7 dias não sentires que o teu protocolo está a mudar a tua percepção sobre dinheiro, devolvemos 100% do teu investimento. Sem perguntas."
+    },
     ctaFinal: {
       title: "Chega de repetir os mesmos padrões.",
       subtitle: "O seu arquétipo não é um destino. É um ponto de partida.",
