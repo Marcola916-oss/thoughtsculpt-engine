@@ -576,16 +576,6 @@ function QuestionScreen(props: {
       </motion.div>
     </section>
   );
-}
-            >
-              {props.selected === i && <span className="h-2 w-2 rounded-full bg-background" />}
-            </div>
-          </button>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 /* ─── EmailCapture ────────────────────────────────────────── */
 
@@ -601,7 +591,7 @@ function EmailCapture(props: {
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(props.email) && props.gdpr;
   return (
     <section className="py-12 max-w-xl mx-auto animate-in slide-in-from-bottom-8 duration-700">
-      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_30px_var(--accent-glow)] mx-auto">
+      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-arch-primary/10 shadow-[0_0_30px_var(--arch-glow)] mx-auto">
         <span className="text-4xl">🔐</span>
       </div>
       <h2 className="text-center font-display text-3xl font-extrabold md:text-5xl">
