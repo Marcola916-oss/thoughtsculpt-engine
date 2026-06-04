@@ -331,41 +331,92 @@ function TopBar() {
 
 /* ─── Hero ────────────────────────────────────────────────── */
 
+/* ─── Hero ────────────────────────────────────────────────── */
+
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="py-12 md:py-24 text-center animate-in fade-in slide-in-from-bottom-8 duration-700">
-      <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary shadow-[0_0_15px_var(--accent-glow)]">
+    <section className="relative py-12 md:py-32 text-center">
+      {/* Background glow effect */}
+      <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[120px]" />
+      
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-primary shadow-[0_0_20px_var(--accent-glow)]"
+      >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
           <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
         </span>
         {t.hero.kicker}
-      </div>
+      </motion.div>
 
-      <h1 className="mx-auto max-w-3xl font-display text-5xl font-extrabold leading-[1.1] tracking-tight md:text-7xl">
+      <motion.h1 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+        className="mx-auto max-w-4xl font-display text-5xl font-extrabold leading-[1.05] tracking-tight md:text-8xl"
+      >
         {t.hero.headline}
-      </h1>
+      </motion.h1>
 
-      <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground md:text-xl leading-relaxed">
+      <motion.p 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.8 }}
+        className="mx-auto mt-10 max-w-2xl text-lg text-muted-foreground md:text-2xl leading-relaxed"
+      >
         {t.hero.sub}
-      </p>
+      </motion.p>
 
-      <div className="mt-12 flex flex-col items-center gap-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+        className="mt-16 flex flex-col items-center gap-6"
+      >
         <button
           onClick={onStart}
-          className="group relative overflow-hidden rounded-full bg-primary px-10 py-5 text-lg font-bold text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_30px_var(--accent-glow)]"
+          className="group relative overflow-hidden rounded-full bg-primary px-12 py-6 text-xl font-black text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_40px_var(--accent-glow)] active:scale-95"
         >
-          {t.hero.cta}
-          <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
-            →
+          <span className="relative z-10 flex items-center gap-2">
+            {t.hero.cta}
+            <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
           </span>
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary to-accent-dark opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mt-2">
-          <span>🔒</span>
-          <span>{t.common.securePayment}</span>
+        
+        <div className="flex flex-col items-center gap-3">
+          <div className="flex -space-x-2">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-8 w-8 rounded-full border-2 border-background bg-secondary flex items-center justify-center overflow-hidden">
+                <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="user" className="h-full w-full object-cover grayscale opacity-70" />
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="flex text-primary">
+              <Star className="h-3 w-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
+              <Star className="h-3 w-3 fill-current" />
+            </span>
+            <span>{t.hero.trust}</span>
+          </div>
         </div>
-      </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 1 }}
+        className="mt-24 animate-bounce"
+      >
+        <ChevronDown className="mx-auto h-8 w-8 text-muted-foreground/30" />
+      </motion.div>
     </section>
   );
 }
