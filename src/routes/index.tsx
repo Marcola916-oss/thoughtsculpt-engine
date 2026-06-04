@@ -1128,27 +1128,31 @@ function Sales({
         </motion.div>
 
         {/* ── Block 3: Scientific Proof ────────────────── */}
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center justify-center h-24 w-24 rounded-full bg-arch-primary/10 mb-8">
-            <ShieldCheck className="h-12 w-12 text-arch-primary" />
+        <div className="text-center max-w-5xl mx-auto relative px-6">
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-full h-[600px] bg-arch-glow blur-[140px] opacity-10 -z-10" />
+          <div className="inline-flex items-center justify-center h-32 w-32 rounded-[2.5rem] bg-white/5 border border-white/10 mb-12 shadow-2xl backdrop-blur-xl">
+            <ShieldCheck className="h-16 w-16 text-arch-primary animate-pulse" />
           </div>
-          <h3 className="font-display text-3xl md:text-6xl font-bold mb-8 leading-tight">{s.science.title}</h3>
-          <div className="space-y-10 text-xl md:text-2xl text-muted-foreground leading-relaxed">
+          <h3 className="font-display text-4xl md:text-8xl font-black mb-12 leading-[0.95] tracking-tighter uppercase italic">{s.science.title}</h3>
+          <div className="space-y-12 text-2xl md:text-3xl text-muted-foreground leading-relaxed font-medium tracking-tight">
             <p>{s.science.body}</p>
-            <p className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+            <p className="text-sm font-black uppercase tracking-[0.5em] text-arch-primary/40">
               {s.science.references}
             </p>
-            <div className="pt-8 border-t border-border/50">
-              <p className="text-foreground font-black text-3xl md:text-4xl mb-6">
+            <div className="pt-16 border-t border-white/5">
+              <p className="text-foreground font-black text-4xl md:text-6xl mb-10 tracking-tighter italic uppercase">
                 {s.science.pivot}
               </p>
-              <motion.p 
-                animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }}
-                transition={{ repeat: Infinity, duration: 3 }}
-                className="text-arch-primary font-black text-4xl md:text-6xl tracking-tighter"
-              >
-                {s.science.solution}
-              </motion.p>
+              <div className="relative inline-block">
+                <motion.p 
+                  animate={{ scale: [1, 1.02, 1], filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"] }}
+                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                  className="text-arch-primary font-black text-5xl md:text-9xl tracking-[ -0.05em] uppercase italic"
+                >
+                  {s.science.solution}
+                </motion.p>
+                <div className="absolute -inset-4 bg-arch-primary/10 blur-3xl -z-10" />
+              </div>
             </div>
           </div>
         </div>
@@ -1162,13 +1166,16 @@ function Sales({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group rounded-[2.5rem] border border-border bg-card p-12 transition-all hover:border-arch-primary/50 hover:shadow-[0_20px_60px_rgba(var(--arch-primary-rgb),0.1)]"
+              className="group rounded-[3rem] border border-white/5 bg-card/40 p-12 transition-all backdrop-blur-xl hover:border-arch-primary/30 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden"
             >
-              <div className="mb-10 p-5 rounded-2xl bg-background border border-border inline-block transition-all group-hover:scale-110 group-hover:bg-arch-primary/5 group-hover:border-arch-primary/30">
+              <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover:scale-125 transition-transform duration-700">
                 {featureIcons[i]}
               </div>
-              <h4 className="font-display text-3xl font-bold mb-6">{f.title}</h4>
-              <p className="text-muted-foreground text-xl leading-relaxed">{f.description}</p>
+              <div className="mb-10 h-20 w-20 rounded-2xl bg-background border border-border flex items-center justify-center transition-all group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground group-hover:border-arch-primary shadow-xl">
+                {featureIcons[i]}
+              </div>
+              <h4 className="font-display text-3xl font-black mb-6 tracking-tight uppercase italic">{f.title}</h4>
+              <p className="text-muted-foreground text-xl leading-relaxed font-medium">{f.description}</p>
             </motion.div>
           ))}
         </div>
@@ -1283,19 +1290,20 @@ function Sales({
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center rounded-[4rem] border border-arch-primary/30 bg-foreground p-12 md:p-32 shadow-[0_40px_80px_rgba(0,0,0,0.4)] relative overflow-hidden"
+            className="text-center rounded-[4rem] border border-white/10 bg-white/5 p-12 md:p-32 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden backdrop-blur-3xl"
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/20 via-transparent to-transparent opacity-50" />
             <div className="relative z-10">
-              <h3 className="font-display text-4xl md:text-8xl font-black text-background mb-8 tracking-tighter leading-none">{s.ctaFinal.title}</h3>
-              <p className="text-xl md:text-3xl text-background/60 mb-16 max-w-3xl mx-auto font-medium">{s.ctaFinal.subtitle}</p>
+              <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">{s.ctaFinal.title}</h3>
+              <p className="text-xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">{s.ctaFinal.subtitle}</p>
               
               <button
                 onClick={onContinue}
-                className="group relative inline-flex items-center gap-4 rounded-2xl bg-background px-12 py-8 text-2xl md:text-3xl font-black text-foreground transition-all hover:scale-[1.03] hover:shadow-[0_0_60px_var(--arch-glow)] active:scale-95"
+                className="group relative inline-flex items-center gap-6 rounded-2xl bg-foreground px-16 py-8 text-2xl md:text-3xl font-black italic text-background transition-all hover:scale-[1.05] hover:shadow-[0_40px_80px_-20px_var(--arch-glow)] active:scale-95"
               >
-                {s.ctaFinal.cta.toUpperCase()}
-                <ArrowRight size={32} className="transition-transform group-hover:translate-x-3 text-arch-primary" />
+                <span className="relative z-10">{s.ctaFinal.cta.toUpperCase()}</span>
+                <ArrowRight size={36} className="relative z-10 transition-transform duration-500 group-hover:translate-x-4 text-arch-primary" />
+                <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               </button>
               
               <div className="mt-16 flex items-center justify-center gap-8">
