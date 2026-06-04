@@ -1,11 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { motion, AnimatePresence } from "framer-motion";
+
 import { getProgressData, getAchievements } from "../../lib/progress.functions";
+import { claimAchievementReward } from "../../lib/rewards.functions";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import type { Dict } from "../../lib/i18n/translations";
+import { StreakCounter } from "../../components/gamification/StreakCounter";
+import { AchievementUnlock } from "../../components/gamification/AchievementUnlock";
+import { numberRollUp, achievementPop } from "../../lib/animations";
 
 export const Route = createFileRoute("/_authenticated/dashboard/progress")({
   head: () => ({ meta: [{ title: "Progresso — MindReset" }] }),
@@ -130,9 +136,13 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
 
 function ProgressPage() {
   const { t, locale } = useI18n();
+  const queryClient = useQueryClient();
   const fetchProgress = useServerFn(getProgressData);
   const fetchAchievs = useServerFn(getAchievements);
+  const claimReward = useServerFn(claimAchievementReward);
+
   const [showReport, setShowReport] = useState(false);
+  const [unclaimedAch, setUnclaimedAch] = useState<any | null>(null);
 
   const { data: progData, isLoading: isLoadingProg } = useQuery({
     queryKey: ["progress-data"],
@@ -144,12 +154,23 @@ function ProgressPage() {
     queryFn: () => fetchAchievs(),
   });
 
+  // Detect unclaimed achievements on page load or achievs update
+  useEffect(() => {
+    if (achievs) {
+      const unclaimed = achievs.find((a) => !a.is_claimed);
+      if (unclaimed) {
+        setUnclaimedAch(unclaimed);
+      }
+    }
+  }, [achievs]);
+
   if (isLoadingProg || isLoadingAchievs) {
     return <div className="h-64 animate-pulse rounded-2xl bg-card" />;
   }
 
   const p = progData?.progress;
   const streak = p?.streak_days || 0;
+  const longestStreak = p?.longest_streak || 0;
   const points = p?.total_points || 0;
   const tasks = progData?.tasks || [];
   const report = progData?.report as Report | null | undefined;
@@ -163,6 +184,21 @@ function ProgressPage() {
     { code: "ACH_006", name: t.dashboard.progress.achievements.ACH_006.name, desc: t.dashboard.progress.achievements.ACH_006.desc, icon: "👑", points: 200 },
   ];
 
+  const unclaimedDetails = unclaimedAch
+    ? ALL_ACHIEVEMENTS.find((aa) => aa.code === unclaimedAch.achievement_code)
+    : null;
+
+  const handleClaimReward = async (id: string) => {
+    try {
+      await claimReward({ data: { achievement_id: id } });
+      queryClient.invalidateQueries({ queryKey: ["achievements"] });
+      queryClient.invalidateQueries({ queryKey: ["progress-data"] });
+      setUnclaimedAch(null);
+    } catch (e) {
+      console.error("Error claiming reward:", e);
+    }
+  };
+
   // Donut chart
   const nextRewardTier = Math.ceil((points + 1) / 500) * 500;
   const chartData = [
@@ -171,15 +207,14 @@ function ProgressPage() {
   ];
   const COLORS = ["var(--color-primary)", "var(--color-border)"];
 
-  // Improved GitHub-style consistency grid
-  // We display all tasks for a full overview, adding locked/unlocked visual states
+  // Consistency grid cell mapper
   const gridCells = Array.from({ length: Math.max(30, tasks.length) }, (_, i) => {
     const day = i + 1;
     const task = tasks.find((task) => task.day_number === day);
-    if (!task) return { state: "locked", day }; // No task entry = locked/not yet generated
+    if (!task) return { state: "locked", day };
     if (task.is_completed && task.is_milestone) return { state: "milestone", day };
     if (task.is_completed) return { state: "complete", day };
-    return { state: "pending", day }; // unlocked but not completed
+    return { state: "pending", day };
   });
 
   function cellClass(state: string) {
@@ -198,6 +233,19 @@ function ProgressPage() {
 
   return (
     <div className="mx-auto max-w-5xl">
+      {/* Achievement Unlock Modal */}
+      <AnimatePresence>
+        {unclaimedAch && unclaimedDetails && (
+          <AchievementUnlock
+            achievementName={unclaimedDetails.name}
+            achievementDescription={unclaimedDetails.desc}
+            rewardText={unclaimedAch.reward_value ? `${unclaimedAch.reward_value} ${unclaimedAch.reward_type === "extra_days" ? "dias extras de acesso" : "pontos"}` : undefined}
+            onClose={() => setUnclaimedAch(null)}
+            onClaim={() => handleClaimReward(unclaimedAch.id)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Report Modal */}
       {showReport && report && (
         <ReportModal report={report} onClose={() => setShowReport(false)} />
@@ -210,19 +258,10 @@ function ProgressPage() {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Widget 1: Streak */}
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-border bg-card p-6 text-center shadow-sm">
-          <div className="mb-2 text-5xl">🔥</div>
-          <h2 className="font-display text-4xl font-extrabold">{t.dashboard.progress.streak.daysCount(streak)}</h2>
-          <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.progress.streak.currentLabel}</p>
-          {streak === 0 && (
-            <p className="mt-4 rounded bg-warning/10 px-3 py-2 text-xs font-semibold text-warning">
-              {t.dashboard.progress.streak.emptyPrompt}
-            </p>
-          )}
-        </div>
+        <StreakCounter streak={streak} longestStreak={longestStreak} />
 
         {/* Widget 2: Points donut */}
-        <div className="relative flex flex-col items-center justify-center rounded-2xl border border-border bg-card p-6 shadow-sm">
+        <div className="relative flex flex-col items-center justify-center rounded-2xl border border-border bg-card p-6 shadow-sm overflow-hidden">
           <div className="h-32 w-32">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -244,8 +283,18 @@ function ProgressPage() {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="font-display text-2xl font-bold">{points}</span>
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <AnimatePresence mode="popLayout">
+              <motion.span
+                key={points}
+                variants={numberRollUp}
+                initial="hidden"
+                animate="visible"
+                className="font-display text-2xl font-bold"
+              >
+                {points}
+              </motion.span>
+            </AnimatePresence>
             <span className="text-[10px] uppercase text-muted-foreground">{t.dashboard.progress.points.label}</span>
           </div>
           <p className="mt-2 text-center text-xs text-muted-foreground">
@@ -304,10 +353,11 @@ function ProgressPage() {
           </p>
           <div className="grid grid-cols-6 gap-2 sm:grid-cols-10">
             {gridCells.map(({ state, day }) => (
-              <div
+              <motion.div
                 key={day}
+                whileHover={{ scale: 1.15 }}
                 title={`${t.dashboard.progress.consistencyGrid.dayLabel} ${day} — ${state === "complete" ? t.dashboard.progress.consistencyGrid.stateCompleted : state === "milestone" ? t.dashboard.progress.consistencyGrid.stateMilestone : state === "pending" ? t.dashboard.progress.consistencyGrid.statePending : t.dashboard.progress.consistencyGrid.stateLocked}`}
-                className={`aspect-square rounded-sm border transition-all duration-300 ${cellClass(state)}`}
+                className={`aspect-square rounded-sm border cursor-help transition-all duration-300 ${cellClass(state)}`}
               />
             ))}
           </div>
@@ -336,11 +386,14 @@ function ProgressPage() {
         <section className="rounded-2xl border border-border bg-card p-6">
           <h3 className="mb-4 font-display text-lg font-bold">{t.dashboard.progress.achievements.title}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            {ALL_ACHIEVEMENTS.map((a) => {
+            {ALL_ACHIEVEMENTS.map((a, i) => {
               const unlocked = achievs?.find((dbA) => dbA.achievement_code === a.code);
               return (
-                <div
+                <motion.div
                   key={a.code}
+                  variants={achievementPop}
+                  initial={unlocked ? "hidden" : "visible"}
+                  animate="visible"
                   className={`flex items-start gap-3 rounded-xl border p-3 transition-all ${
                     unlocked
                       ? "border-primary/30 bg-primary/5 shadow-[0_0_15px_var(--accent-glow)]"
@@ -356,7 +409,7 @@ function ProgressPage() {
                       {unlocked ? t.dashboard.progress.achievements.unlocked : a.desc}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>

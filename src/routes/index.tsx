@@ -24,6 +24,11 @@ import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
 import { saveQuizLead } from "../lib/quiz.functions";
 import { createCheckoutSession } from "../lib/checkout.functions";
 
+import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
+import { QuizOption } from "../components/quiz/QuizOption";
+import { NeuralLoader } from "../components/quiz/NeuralLoader";
+import { staggerContainer, staggerItem } from "../lib/animations";
+
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   return (
@@ -173,82 +178,75 @@ function LandingAndQuiz() {
               <Hero onStart={() => setStage({ kind: "identity" })} />
               <Features />
             </motion.div>
-
           )}
 
-          {stage.kind === "identity" && (
-            <motion.div
-              key="identity"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4 }}
+          {["identity", "q", "email"].includes(stage.kind) && (
+            <QuizScreenWrapper
+              stepKey={stage.kind === "q" ? `q-${stage.index}` : stage.kind}
+              progress={
+                stage.kind === "identity"
+                  ? 0
+                  : stage.kind === "email"
+                    ? 90
+                    : ((stage.index + 1) / 8) * 85
+              }
+              onBack={
+                stage.kind === "identity"
+                  ? undefined
+                  : stage.kind === "email"
+                    ? () => setStage({ kind: "q", index: 7 })
+                    : () =>
+                        stage.index === 0
+                          ? setStage({ kind: "identity" })
+                          : setStage({ kind: "q", index: stage.index - 1 })
+              }
+              progressTitle={
+                stage.kind === "q"
+                  ? t.questions.title(stage.index + 1, 8)
+                  : stage.kind === "email"
+                    ? t.emailCapture.progressTitle || "Finalização"
+                    : t.identity.progressTitle || "Identificação"
+              }
             >
-              <Identity
-                name={name}
-                setName={setName}
-                gender={gender}
-                setGender={setGender}
-                onContinue={() => setStage({ kind: "q", index: 0 })}
-              />
-            </motion.div>
-          )}
+              {stage.kind === "identity" && (
+                <Identity
+                  name={name}
+                  setName={setName}
+                  gender={gender}
+                  setGender={setGender}
+                  onContinue={() => setStage({ kind: "q", index: 0 })}
+                />
+              )}
 
-          {stage.kind === "q" && (
-            <motion.div
-              key={`q-${stage.index}`}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              transition={{ duration: 0.3 }}
-            >
-              <QuestionScreen
-                index={stage.index}
-                total={8}
-                name={name}
-                selected={answers[stage.index]}
-                onSelect={answerQuestion}
-                onBack={() =>
-                  stage.index === 0
-                    ? setStage({ kind: "identity" })
-                    : setStage({ kind: "q", index: stage.index - 1 })
-                }
-              />
-            </motion.div>
-          )}
+              {stage.kind === "q" && (
+                <QuestionScreen
+                  index={stage.index}
+                  total={8}
+                  name={name}
+                  selected={answers[stage.index]}
+                  onSelect={answerQuestion}
+                />
+              )}
 
-          {stage.kind === "email" && (
-            <motion.div
-              key="email"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.4 }}
-            >
-              <EmailCapture
-                name={name}
-                email={email}
-                setEmail={setEmail}
-                gdpr={gdpr}
-                setGdpr={setGdpr}
-                onSubmit={() => setStage({ kind: "loader" })}
-              />
-            </motion.div>
+              {stage.kind === "email" && (
+                <EmailCapture
+                  name={name}
+                  email={email}
+                  setEmail={setEmail}
+                  gdpr={gdpr}
+                  setGdpr={setGdpr}
+                  onSubmit={() => setStage({ kind: "loader" })}
+                />
+              )}
+            </QuizScreenWrapper>
           )}
 
           {stage.kind === "loader" && (
-            <motion.div
+            <NeuralLoader
               key="loader"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex min-h-[70vh] flex-col items-center justify-center text-center relative overflow-hidden"
-            >
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-arch-glow blur-[120px] opacity-20" />
-              </div>
-              <LoaderScreen />
-            </motion.div>
+              onComplete={() => setStage({ kind: "reveal" })}
+              durationMs={3000}
+            />
           )}
 
           {stage.kind === "reveal" && archCode && (
@@ -393,6 +391,49 @@ function Hero({ onStart }: { onStart: () => void }) {
       <div className="hero-glow" />
       <div className="absolute left-1/2 top-1/2 -z-10 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[160px] opacity-30" />
       
+      {/* Decorative Animated Lines */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10 opacity-30">
+        <div className="absolute top-[20%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-[50%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-[80%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-0 left-[30%] w-[1px] h-full bg-gradient-to-b from-transparent via-white/5 to-transparent rotate-12 origin-top" />
+        <div className="absolute top-0 right-[30%] w-[1px] h-full bg-gradient-to-b from-transparent via-white/5 to-transparent -rotate-12 origin-top" />
+      </div>
+
+      {/* Floating Archetype Badges */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 0.8, y: [0, -12, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        className="hidden lg:flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-950/20 px-4 py-2 text-xs font-bold text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.15)] backdrop-blur-md absolute left-[8%] top-[25%] pointer-events-none select-none"
+      >
+        🛡️ {t.archetypes?.AO?.name || "Accumulator"}
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 0.8, y: [0, -18, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        className="hidden lg:flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-950/20 px-4 py-2 text-xs font-bold text-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
+      >
+        👑 {t.archetypes?.SS?.name || "Status Seeker"}
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 0.8, y: [0, -15, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="hidden lg:flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-bold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
+      >
+        🌌 {t.archetypes?.EA?.name || "Escapist"}
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 0.8, y: [0, -20, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        className="hidden lg:flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none"
+      >
+        ⚡ {t.archetypes?.HI?.name || "Hedonist"}
+      </motion.div>
+      
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -536,61 +577,62 @@ function Identity(props: {
   const { t } = useI18n();
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
-    <section className="py-12 md:py-24 animate-in fade-in slide-in-from-right-8 duration-700 max-w-2xl mx-auto px-6">
-      <div className="glass-panel p-10 md:p-16 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary to-transparent" />
-        <h2 className="font-display text-4xl font-black md:text-5xl tracking-tighter uppercase italic">{t.identity.title}</h2>
-        <p className="mt-4 text-xl text-muted-foreground leading-relaxed font-medium tracking-tight">{t.identity.sub}</p>
+    <div className="w-full">
+      <h2 className="font-display text-3xl font-black md:text-4xl tracking-tighter uppercase italic">{t.identity.title}</h2>
+      <p className="mt-3 text-lg text-muted-foreground leading-relaxed font-medium tracking-tight">{t.identity.sub}</p>
 
-        <div className="mt-12 space-y-10">
-          <div>
-            <label className="mb-3 block text-xs font-black uppercase tracking-[0.2em] text-arch-primary">
-              {t.common.yourName}
-            </label>
-            <input
-              autoFocus
-              value={props.name}
-              onChange={(e) => props.setName(e.target.value)}
-              placeholder={t.common.yourNamePlaceholder}
-              className="w-full rounded-2xl border border-white/10 bg-background/50 px-6 py-5 text-2xl outline-none transition-all focus:border-arch-primary focus:ring-4 focus:ring-arch-primary/10 shadow-2xl font-bold tracking-tight"
-            />
-          </div>
-
-          <div>
-            <label className="mb-3 block text-xs font-black uppercase tracking-[0.2em] text-arch-primary">
-              {t.common.selectGender}
-            </label>
-            <div className="grid grid-cols-3 gap-4">
-              {(["m", "f", "n"] as const).map((g) => (
-                <button
-                  key={g}
-                  onClick={() => props.setGender(g)}
-                  className={`rounded-2xl border px-6 py-5 text-lg font-black uppercase tracking-tighter italic transition-all ${
-                    props.gender === g
-                      ? "border-arch-primary bg-arch-primary text-primary-foreground shadow-[0_20px_40px_-10px_var(--arch-glow)] scale-105 z-10"
-                      : "border-white/10 bg-background/50 text-muted-foreground hover:border-foreground/30 hover:bg-white/5"
-                  }`}
-                >
-                  {g === "m" ? t.common.male : g === "f" ? t.common.female : t.common.neutral}
-                </button>
-              ))}
-            </div>
-          </div>
+      <div className="mt-10 space-y-8">
+        <div>
+          <label className="mb-2 block text-xs font-black uppercase tracking-[0.2em] text-primary">
+            {t.common.yourName}
+          </label>
+          <input
+            autoFocus
+            value={props.name}
+            onChange={(e) => props.setName(e.target.value)}
+            placeholder={t.common.yourNamePlaceholder}
+            className="w-full rounded-2xl border border-border bg-card/50 px-5 py-4 text-xl outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-lg font-bold tracking-tight"
+          />
         </div>
 
-        <button
-          disabled={!ok}
-          onClick={props.onContinue}
-          className="group relative mt-16 w-full overflow-hidden rounded-2xl bg-foreground py-6 text-2xl font-black italic tracking-tighter text-background transition-all hover:scale-[1.02] active:scale-[0.98] disabled:scale-100 disabled:opacity-20 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
-        >
-          <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-          <span className="relative z-10 flex items-center justify-center gap-3">
-            {t.common.continue.toUpperCase()}
-            <ArrowRight size={28} className="transition-transform duration-500 group-hover:translate-x-3" />
-          </span>
-        </button>
+        <div>
+          <label className="mb-2 block text-xs font-black uppercase tracking-[0.2em] text-primary">
+            {t.common.selectGender}
+          </label>
+          <div className="grid grid-cols-3 gap-3">
+            {(["m", "f", "n"] as const).map((g) => (
+              <motion.button
+                key={g}
+                onClick={() => props.setGender(g)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`rounded-2xl border px-4 py-4 text-base font-black uppercase tracking-tighter italic transition-all ${
+                  props.gender === g
+                    ? "border-primary bg-primary text-primary-foreground shadow-[0_15px_30px_-10px_var(--accent-glow)] scale-105 z-10"
+                    : "border-border bg-card text-muted-foreground hover:border-foreground/30 hover:bg-secondary/40"
+                }`}
+              >
+                {g === "m" ? t.common.male : g === "f" ? t.common.female : t.common.neutral}
+              </motion.button>
+            ))}
+          </div>
+        </div>
       </div>
-    </section>
+
+      <motion.button
+        disabled={!ok}
+        onClick={props.onContinue}
+        whileHover={ok ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
+        whileTap={ok ? { scale: 0.98 } : {}}
+        className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-black italic tracking-tighter text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
+      >
+        <div className="absolute inset-0 bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-primary-foreground">
+          {t.common.continue.toUpperCase()}
+          <ArrowRight size={22} className="transition-transform duration-500 group-hover:translate-x-2" />
+        </span>
+      </motion.button>
+    </div>
   );
 }
 
@@ -602,83 +644,31 @@ function QuestionScreen(props: {
   name: string;
   selected: number | null;
   onSelect: (idx: number) => void;
-  onBack: () => void;
 }) {
   const { t } = useI18n();
   const q = t.q[props.index];
-  
-  // Strategic progress bar with Zeigarnik effect
-  const progress = ((props.index + 1) / props.total) * 100;
-  // Accelerate progress visual after 80% to create urgency
-  const visualProgress = progress >= 80 ? 95 : progress;
 
   return (
-    <section className="py-8 max-w-2xl mx-auto">
-      {/* Strategic Progress Bar */}
-      <div className="mb-12">
-        <div className="flex justify-between items-end mb-3">
-          <span className="text-xs font-black uppercase tracking-[0.2em] text-arch-primary">
-            {t.questions.title(props.index + 1, props.total)}
-          </span>
-          <span className="text-sm font-bold text-muted-foreground">
-            {Math.round(progress)}%
-          </span>
-        </div>
-        <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-          <motion.div 
-            initial={{ width: 0 }}
-            animate={{ width: `${visualProgress}%` }}
-            transition={{ type: "spring", damping: 20, stiffness: 100 }}
-            className="h-full bg-arch-primary shadow-[0_0_15px_var(--arch-glow)]" 
+    <div className="w-full">
+      <h2 className="font-display text-2xl font-bold leading-tight md:text-3xl mb-3">
+        {q.q.replace("[NOME]", props.name)}
+      </h2>
+      <p className="text-muted-foreground mb-8 text-base">
+        {t.questions.intro(props.name)}
+      </p>
+
+      <div className="grid gap-3.5">
+        {q.options.map((opt, i) => (
+          <QuizOption
+            key={i}
+            letter={["A", "B", "C", "D"][i]}
+            label={opt}
+            selected={props.selected === i}
+            onClick={() => props.onSelect(i)}
           />
-        </div>
+        ))}
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        key={props.index}
-      >
-        <h2 className="font-display text-3xl font-bold leading-tight md:text-4xl mb-4">
-          {q.q.replace("[NOME]", props.name)}
-        </h2>
-        <p className="text-muted-foreground mb-10 text-lg">
-          {t.questions.intro(props.name)}
-        </p>
-
-        <div className="grid gap-4">
-          {q.options.map((opt, i) => (
-            <button
-              key={i}
-              onClick={() => props.onSelect(i)}
-              className={`group flex items-center justify-between rounded-2xl border p-6 text-left transition-all duration-300 ${
-                props.selected === i
-                  ? "border-arch-primary bg-arch-primary/10 shadow-[0_0_20px_var(--arch-glow)]"
-                  : "border-border bg-card hover:border-arch-primary/50 hover:bg-secondary/50"
-              }`}
-            >
-              <span className={`text-lg font-medium transition-colors ${props.selected === i ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"}`}>
-                {opt}
-              </span>
-              <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                props.selected === i 
-                  ? "border-arch-primary bg-arch-primary shadow-[0_0_10px_var(--arch-glow)]" 
-                  : "border-border group-hover:border-arch-primary/50"
-              }`}>
-                {props.selected === i && <div className="h-2 w-2 rounded-full bg-primary-foreground" />}
-              </div>
-            </button>
-          ))}
-        </div>
-
-        <button
-          onClick={props.onBack}
-          className="mt-12 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition"
-        >
-          ← {t.common.back}
-        </button>
-      </motion.div>
-    </section>
+    </div>
   );
 }
 
@@ -695,14 +685,14 @@ function EmailCapture(props: {
   const { t } = useI18n();
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(props.email) && props.gdpr;
   return (
-    <section className="py-12 max-w-xl mx-auto animate-in slide-in-from-bottom-8 duration-700">
-      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-arch-primary/10 shadow-[0_0_30px_var(--arch-glow)] mx-auto">
-        <span className="text-4xl">🔐</span>
+    <div className="w-full text-center">
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_20px_var(--accent-glow)] mx-auto">
+        <Lock className="h-7 w-7 text-primary animate-pulse" />
       </div>
-      <h2 className="text-center font-display text-3xl font-extrabold md:text-5xl">
+      <h2 className="font-display text-2xl font-extrabold md:text-4xl">
         {t.emailCapture.title(props.name)}
       </h2>
-      <p className="mt-4 text-center text-lg text-muted-foreground leading-relaxed">
+      <p className="mt-3 text-base text-muted-foreground leading-relaxed">
         {t.emailCapture.sub}
       </p>
 
@@ -711,7 +701,7 @@ function EmailCapture(props: {
           e.preventDefault();
           if (valid) props.onSubmit();
         }}
-        className="mt-10 space-y-6"
+        className="mt-8 space-y-5 text-left"
       >
         <div>
           <input
@@ -721,148 +711,31 @@ function EmailCapture(props: {
             value={props.email}
             onChange={(e) => props.setEmail(e.target.value)}
             placeholder={t.common.emailPlaceholder}
-            className="w-full rounded-2xl border border-border bg-card px-6 py-5 text-xl outline-none transition focus:border-primary focus:ring-1 focus:ring-primary shadow-sm"
+            className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-lg outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-md font-medium"
           />
         </div>
 
-        <label className="flex items-start gap-3 rounded-xl border border-border bg-card/50 p-4 text-sm text-muted-foreground transition hover:bg-card cursor-pointer">
+        <label className="flex items-start gap-3 rounded-2xl border border-border bg-card/30 p-4 text-xs text-muted-foreground transition hover:bg-card/60 cursor-pointer">
           <input
             type="checkbox"
             checked={props.gdpr}
             onChange={(e) => props.setGdpr(e.target.checked)}
-            className="mt-1 h-5 w-5 shrink-0 accent-primary"
+            className="mt-0.5 h-4 w-4 shrink-0 accent-primary"
           />
           <span className="leading-relaxed">{t.common.gdpr}</span>
         </label>
 
-        <button
+        <motion.button
           type="submit"
           disabled={!valid}
-          className="w-full rounded-full bg-arch-primary px-6 py-5 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--arch-glow)] transition-all hover:scale-[1.02] disabled:scale-100 disabled:opacity-40 disabled:shadow-none"
+          whileHover={valid ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
+          whileTap={valid ? { scale: 0.98 } : {}}
+          className="w-full rounded-2xl bg-primary px-5 py-4 text-lg font-bold text-primary-foreground shadow-lg transition-all disabled:opacity-20 disabled:scale-100"
         >
           {t.emailCapture.cta} →
-        </button>
+        </motion.button>
       </form>
-    </section>
-  );
-}
-
-/* ─── LoaderScreen ────────────────────────────────────────── */
-
-function LoaderScreen() {
-  const { t } = useI18n();
-  const [step, setStep] = useState(0);
-  const [analysisStep, setAnalysisStep] = useState(0);
-
-  useEffect(() => {
-    const stepInterval = setInterval(() => {
-      setStep((s) => (s + 1) % t.loader.steps.length);
-    }, 2000);
-    
-    const analysisInterval = setInterval(() => {
-      setAnalysisStep((s) => (s + 1) % t.loader.analysis.length);
-    }, 800);
-
-    return () => {
-      clearInterval(stepInterval);
-      clearInterval(analysisInterval);
-    };
-  }, [t]);
-
-  return (
-    <section className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-700 relative overflow-hidden min-h-[70vh]">
-      {/* Dynamic Scan Line Effect */}
-      <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-        <div className="w-full h-[1px] bg-arch-primary opacity-20 shadow-[0_0_20px_var(--arch-glow)] animate-[scan-line_4s_linear_infinite]" />
-      </div>
-
-      <div className="relative flex h-52 w-52 items-center justify-center">
-        {/* Abstract Data Visualization */}
-        <div className="absolute h-full w-full rounded-full border border-arch-primary/10 animate-[spin_10s_linear_infinite]" />
-        <div className="absolute h-[90%] w-[90%] rounded-full border border-dashed border-arch-primary/20 animate-[spin_15s_linear_infinite_reverse]" />
-        
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative">
-            <Brain size={64} className="text-arch-primary animate-pulse relative z-20" />
-            <div className="absolute inset-0 bg-arch-primary/20 blur-2xl animate-pulse rounded-full" />
-          </div>
-        </div>
-        
-        {/* Revolving Data Nodes */}
-        {[0, 60, 120, 180, 240, 300].map((angle, i) => (
-          <motion.div
-            key={i}
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 8, ease: "linear", delay: i * 0.5 }}
-            className="absolute inset-0"
-          >
-            <div 
-              className="h-1.5 w-1.5 rounded-full bg-arch-primary shadow-[0_0_10px_var(--arch-glow)]"
-              style={{ transform: `translate(104px, 104px) rotate(${angle}deg) translate(90px)` }}
-            />
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="mt-16 z-20 space-y-8 max-w-lg w-full">
-        <div className="space-y-2">
-          <h2 className="font-display text-4xl font-black text-foreground tracking-tight">
-            {t.loader.title}
-            <span className="animate-pulse">...</span>
-          </h2>
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={step}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="text-xl font-bold text-arch-primary"
-            >
-              {t.loader.steps[step]}
-            </motion.p>
-          </AnimatePresence>
-        </div>
-
-        {/* Technical Data Stream */}
-        <div className="bg-card/50 border border-border rounded-2xl p-6 backdrop-blur-md shadow-inner">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="flex gap-1">
-              <div className="h-1.5 w-1.5 rounded-full bg-red-500/50" />
-              <div className="h-1.5 w-1.5 rounded-full bg-yellow-500/50" />
-              <div className="h-1.5 w-1.5 rounded-full bg-green-500/50" />
-            </div>
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Behavioral Engine v2.4</span>
-          </div>
-          
-          <div className="h-20 overflow-hidden relative">
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={analysisStep}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-                className="text-left font-mono text-[11px] text-muted-foreground leading-relaxed"
-              >
-                <span className="text-arch-primary/80 mr-2"> [SYSTEM_ANALYSIS] </span>
-                {t.loader.analysis[analysisStep]}
-                <br />
-                <span className="opacity-40">TIMESTAMP: {new Date().toISOString()}</span>
-                <br />
-                <span className="opacity-40">MEMORY_ALLOCATION: 0x4F2A1...</span>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-          
-          <div className="mt-4 h-1 w-full bg-secondary rounded-full overflow-hidden">
-            <motion.div 
-              animate={{ width: ["0%", "100%"] }} 
-              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              className="h-full bg-arch-primary shadow-[0_0_15px_var(--arch-glow)]" 
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }
 
@@ -892,7 +765,7 @@ function Reveal({
       i++;
       setText(a.name.slice(0, i));
       if (i >= a.name.length) clearInterval(id);
-    }, 80);
+    }, 50);
     return () => clearInterval(id);
   }, [a.name]);
 
@@ -967,13 +840,17 @@ function Reveal({
         
         <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">{t.reveal.sub}</p>
         
-        <div className="grid gap-6">
+        <motion.div 
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid gap-6"
+        >
           {a.hooks.map((h, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 2 + i * 0.2, duration: 0.8 }}
+              variants={staggerItem}
               className="flex gap-8 rounded-[2.5rem] border border-white/5 bg-background/50 p-8 md:p-12 transition-all hover:border-arch-primary/40 group relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 p-8 opacity-[0.02] text-8xl font-black italic pointer-events-none">{i+1}</div>
@@ -983,7 +860,7 @@ function Reveal({
               <p className="text-2xl text-foreground font-medium leading-relaxed tracking-tight self-center">{h}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <motion.button
           whileHover={{ scale: 1.03 }}
