@@ -457,6 +457,11 @@ const EN: Dict = {
     cta: "Take the free diagnosis",
     trust: "+12,000 diagnoses • No card to start",
   },
+  features: {
+    title: "Engineered for deep transformation",
+    subtitle: "More than a test. A precision instrument for your subconscious."
+  },
+
   identity: { title: "Before we start — who are you?", sub: "We'll use your name throughout the diagnosis to make it personal." },
   questions: {
     title: (n, total) => `Question ${n} of ${total}`,
