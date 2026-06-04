@@ -209,6 +209,10 @@
   50% { opacity: 1; }
   100% { transform: translateY(100%); opacity: 0; }
 }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
 .mr-ring {
   width: 64px; height: 64px;
@@ -225,24 +229,38 @@
 
 .bento-grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .bento-card {
   position: relative;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 1.5rem;
+  border-radius: var(--radius-2xl);
+  padding: 2rem;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+.bento-card:hover::before {
+  opacity: 1;
 }
 
 .bento-card:hover {
   border-color: var(--arch-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px -10px var(--arch-glow);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px -20px var(--arch-glow);
 }
 
 .mesh-gradient {
@@ -251,4 +269,38 @@
     radial-gradient(at 0% 0%, var(--arch-glow) 0, transparent 50%), 
     radial-gradient(at 100% 100%, var(--arch-glow) 0, transparent 50%);
   background-attachment: fixed;
+}
+
+.glass-panel {
+  background: rgba(13, 13, 13, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-2xl);
+}
+
+.text-gradient {
+  background: linear-gradient(to bottom right, var(--foreground), var(--muted-foreground));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
 }
