@@ -206,8 +206,13 @@
 @keyframes mr-blink { 50% { opacity: 0; } }
 @keyframes scan-line {
   0% { transform: translateY(-100%); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(100%); opacity: 0; }
+  20% { opacity: 0.5; }
+  80% { opacity: 0.5; }
+  100% { transform: translateY(1000%); opacity: 0; }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -267,29 +272,49 @@
   background-color: #000;
   background-image: 
     radial-gradient(at 0% 0%, var(--arch-glow) 0, transparent 50%), 
-    radial-gradient(at 100% 100%, var(--arch-glow) 0, transparent 50%);
+    radial-gradient(at 100% 100%, var(--arch-glow) 0, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(255, 255, 255, 0.02) 0, transparent 80%);
   background-attachment: fixed;
 }
 
 .glass-panel {
-  background: rgba(13, 13, 13, 0.7);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(13, 13, 13, 0.6);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-2xl);
+  box-shadow: 
+    0 4px 24px -1px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
 }
 
 .text-gradient {
-  background: linear-gradient(to bottom right, var(--foreground), var(--muted-foreground));
+  background: linear-gradient(135deg, var(--foreground) 0%, oklch(0.7 0 0) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
 }
 
-.float {
-  animation: float 6s ease-in-out infinite;
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 0%, var(--arch-glow), transparent 70%);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: -1;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -297,10 +322,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-foreground);
+  background: rgba(255, 255, 255, 0.2);
 }

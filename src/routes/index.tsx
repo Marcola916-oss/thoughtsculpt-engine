@@ -152,14 +152,15 @@ function LandingAndQuiz() {
 
   return (
     <div 
-      className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden"
+      className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
+      <div className="noise-overlay" />
       <ScrollProgress />
       <TopBar />
 
       
-      <main className="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-12">
+      <main className="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
           {stage.kind === "hero" && (
             <motion.div
@@ -372,14 +373,16 @@ function TopBar() {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative py-12 md:py-32 text-center overflow-hidden">
+    <section className="relative py-12 md:py-40 text-center overflow-hidden">
       {/* Background elements */}
-      <div className="absolute left-1/2 top-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[140px] opacity-50" />
+      <div className="hero-glow" />
+      <div className="absolute left-1/2 top-1/2 -z-10 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[160px] opacity-30" />
       
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8 inline-flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-arch-primary shadow-[0_0_30px_rgba(var(--arch-primary-rgb),0.1)] backdrop-blur-sm"
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/80 shadow-2xl backdrop-blur-xl"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
@@ -415,13 +418,14 @@ function Hero({ onStart }: { onStart: () => void }) {
         <Magnetic>
           <button
             onClick={onStart}
-            className="group relative h-20 w-full max-w-md overflow-hidden rounded-2xl bg-foreground text-background transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] active:scale-95"
+            className="group relative h-24 w-full max-w-lg overflow-hidden rounded-3xl bg-foreground text-background transition-all hover:shadow-[0_40px_80px_-20px_rgba(255,255,255,0.15)] active:scale-95"
           >
-            <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center gap-3 text-2xl font-black italic tracking-tight group-hover:text-primary-foreground">
+            <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <span className="relative z-10 flex items-center justify-center gap-4 text-3xl font-black italic tracking-tighter group-hover:text-primary-foreground">
               {t.hero.cta.toUpperCase()}
-              <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-2" />
+              <ArrowRight className="h-8 w-8 transition-transform duration-500 group-hover:translate-x-3" />
             </span>
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
           </button>
         </Magnetic>
         

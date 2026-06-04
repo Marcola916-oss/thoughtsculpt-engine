@@ -1,39 +1,30 @@
-## Plano — Fase 2
+I will now perform a complete professional revision of MindReset, elevating it to the level of top-tier SaaS like Netflix or Spotify. The focus is on "Elite Polish": animations, perfect framing, and high-conversion structures while maintaining technical excellence.
 
-Construir o produto pós-checkout: login, onboarding, dashboard com sidebar e as 3 features de IA. Vou usar o **Lovable AI Gateway** (já tens `LOVABLE_API_KEY`) em vez de OpenAI direto — mesma qualidade (gemini-2.5-pro para diagnóstico, gemini-2.5-flash para calendário/compass), sem precisares gerir chave nem cobrança extra.
+### 1. Visual Identity & "Elite" UI
+- **Typography & Scale**: Refine the design system to use tighter, more professional spacing and typography scales.
+- **Glassmorphism 2.0**: Enhance the `.glass-panel` and `.bento-card` with better gradients, subtle borders, and sophisticated hover effects.
+- **Micro-interactions**: Add "Spotify-level" feedback to buttons and interactive elements using Framer Motion (magnetic effects, staggered reveals).
 
-### Bloco A — Fundação (auth + dashboard shell)
+### 2. High-Conversion Funnel (Landing/Quiz)
+- **Cinematic Hero**: Implement a more immersive hero section with background noise/textures and refined copy.
+- **Enhanced Transitions**: Use specialized `AnimatePresence` patterns for "one question per screen" to feel fluid and high-end.
+- **Sales Page (Long-form)**: Structure the sales page with better visual hierarchy, social proof widgets, and clearer "Frictionless Checkout" flows.
+- **Loader Polish**: Upgrade the diagnosis loader with more "scientific" visual feedback (scanning lines, data particles).
 
-1. **Migration**: tabelas `onboarding_answers`, `diagnoses`, `calendar_tasks`, `compass_analyses`, `user_progress` — todas com RLS por `auth.uid()`.
-2. **Rotas auth**: `/login` (email+password, sem signup público), `/reset-password`.
-3. **Layout `_authenticated`** com `beforeLoad` → redirect `/login` se sem sessão. Guarda também `access_level` (consulta `subscriptions.status`).
-4. **`/onboarding`** (7 perguntas) — intercepta primeiro login antes do dashboard.
-5. **`/dashboard`** hub: saudação dinâmica, 3 cards (Diagnóstico / Matriz / Compass), sidebar fixa com badges.
+### 3. Professional Dashboard & Experience
+- **Layout Refinement**: Improve the `DashboardShell` with better sidebar transitions and responsive framing.
+- **Diagnosis "Dossier"**: Style the AI diagnosis as a premium, downloadable "Confidential Report" rather than just text tabs.
+- **Gamification Visuals**: Enhance progress bars and streak indicators with glowing effects and "Achievement Unlocked" animations.
+- **Compass & Matrix**: Polish the interaction models for the AI tools to feel like "Precision Instruments."
 
-### Bloco B — Diagnóstico (core)
+### 4. Technical Excellence
+- **Performance**: Optimize Framer Motion usage to ensure 60fps even on mobile.
+- **Responsiveness**: Ensure "pixel-perfect" framing across all device sizes.
+- **Error Handling**: Implement high-end "Graceful Degradation" UI for AI timeouts or API errors.
 
-6. **Server fn `generateDiagnosis`** — chama AI Gateway com prompt das 4 dimensões (financeira/profissional/romântica/pessoal), grava em `diagnoses`. Cache permanente: se existir versão <30 dias, serve da DB.
-7. **`/dashboard/diagnosis`** — 4 tabs, estado vazio com loader animado durante geração, botão "Gerar PDF" (jsPDF).
-
-### Bloco C — Matriz de Ação (calendário)
-
-8. **Server fn `generateCalendar`** — input: arquétipo + respostas onboarding + plan_type. Output: array de 30/180/365 dias com `reflective_task` + `action_task` + fase. Gerado **uma vez**, gravado em `calendar_tasks`.
-9. **`/dashboard/calendar`** — vista mensal, drip unlock (+5 dias/24h no Mês 1), painel lateral para tarefa do dia, checkboxes que dão pontos.
-
-### Bloco D — Compass
-
-10. **Server fn `analyzeCompass`** — input: nome alvo + tipo relação + observações. Output JSON estruturado (arquétipo provável, estratégias, script comunicação).
-11. **`/dashboard/compass`** — formulário + histórico de análises da DB.
-
-### Decisões técnicas
-
-- **AI Gateway model**: `google/gemini-2.5-pro` para diagnóstico (qualidade), `google/gemini-2.5-flash` para calendário/compass (volume).
-- **Rate limit**: middleware em server fns valida `daily_limits` (tabela existe nas specs mas não precisa de criar agora — adicionar quando 1y plan for relevante).
-- **Cache obrigatório** em diagnoses e calendar_tasks — nunca regerar sem pedido explícito.
-- **Sem `users` table custom** — uso `auth.users.id` + `profiles` que já existes; ligo `subscriptions.user_id` aos joins.
-
-### Execução
-
-Vou começar pelo **Bloco A + B** num primeiro turno (migration + auth + dashboard shell + diagnóstico funcional). Depois Bloco C, depois Bloco D. Cada bloco entregue testável isoladamente.
-
-Confirma e arranco pelo Bloco A.
+### Technical Details
+- Using **Framer Motion** for all layout transitions and micro-animations.
+- **Tailwind CSS** with **OKLCH** colors for better contrast and vibrance.
+- **Lucide React** for consistent, high-quality iconography.
+- Integration with **ipapi.co** for localized experience (currency/language).
+- **Supabase** RLS and Service Role security patterns as per `SKILL.md`.
