@@ -291,7 +291,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
         >
           <button
             onClick={onClick}
-            className="w-full rounded-full bg-primary py-4 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--accent-glow)]"
+            className="w-full rounded-full bg-arch-primary py-4 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--arch-glow)]"
           >
             {t.sales.cta}
           </button>
