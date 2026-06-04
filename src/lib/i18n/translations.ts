@@ -184,10 +184,6 @@ const PT: Dict = {
     subtitle: "Mais que um teste. Um instrumento de precisão para o teu subconsciente."
   },
 
-  features: {
-    title: "Engenharia para transformação profunda",
-    subtitle: "Mais que um teste. Um instrumento de precisão para o teu subconsciente."
-  },
 
   identity: { title: "Antes de começar, quem és tu?", sub: "Vamos usar o teu nome ao longo do diagnóstico para o tornar pessoal." },
   questions: {
@@ -467,10 +463,6 @@ const EN: Dict = {
     subtitle: "More than a test. A precision instrument for your subconscious."
   },
 
-  features: {
-    title: "Engineered for deep transformation",
-    subtitle: "More than a test. A precision instrument for your subconscious."
-  },
 
   identity: { title: "Before we start — who are you?", sub: "We'll use your name throughout the diagnosis to make it personal." },
   questions: {
