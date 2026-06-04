@@ -3,6 +3,8 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { Database } from "../integrations/supabase/types";
 import { scoreAnswers } from "./quiz/scoring";
+import { callAI } from "./ai/gateway.server";
+import { ARCHETYPE_NAMES } from "./ai/archetypes";
 
 function createPublicSupabaseClient() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -49,6 +51,30 @@ export const saveQuizLead = createServerFn({ method: "POST" })
     const result = scoreAnswers(data.answers as Array<number | null>);
     const id = crypto.randomUUID();
     const share_token = createShareToken();
+
+    // Generate a quick AI insight preview to hook the user
+    // This makes the transition to the paywall much more effective
+    let insightPreview = "";
+    try {
+      const archetypeName = ARCHETYPE_NAMES[result.winner as keyof typeof ARCHETYPE_NAMES]?.en || result.winner;
+      insightPreview = await callAI({
+        model: "google/gemini-flash-1.5",
+        messages: [
+          {
+            role: "system",
+            content: "You are the MindReset behavioral engine. Generate a single, short, extremely intriguing sentence (max 20 words) that describes a hidden truth about someone's financial behavior based on their archetype. Be provocative but accurate. Tone: Antigravity / Deep Psychology.",
+          },
+          {
+            role: "user",
+            content: `Archetype: ${archetypeName}. Target language: ${data.lang}. Context: This person just finished a behavioral quiz.`,
+          },
+        ],
+      });
+    } catch (aiError) {
+      console.error("AI Insight Error:", aiError);
+      // Fallback insight if AI fails
+    }
+
     const { error } = await supabase
       .from("quiz_leads")
       .insert({
@@ -63,9 +89,11 @@ export const saveQuizLead = createServerFn({ method: "POST" })
         scores: result.scores,
         winner: result.winner,
         user_agent: data.user_agent ?? null,
+        insight_preview: insightPreview,
       });
+
     if (error) throw new Error(error.message);
-    return { id, share_token, winner: result.winner };
+    return { id, share_token, winner: result.winner, insight_preview: insightPreview };
   });
 
 export const getSharedQuiz = createServerFn({ method: "GET" })
