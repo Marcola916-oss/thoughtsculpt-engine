@@ -1068,7 +1068,7 @@ function Plans({
         },
       });
       if (res?.url) window.location.href = res.url;
-      else throw new Error("Stripe session has no URL");
+      else throw new Error("Stripe session creation failed");
     } catch (e) {
       setErr((e as Error).message);
       setBusy(null);
@@ -1078,14 +1078,39 @@ function Plans({
   const baseMonthlyPrice = PRICES[currency]["30d"];
 
   return (
-    <section className="py-12 md:py-24 animate-in slide-in-from-bottom-8 duration-700 max-w-5xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="font-display text-4xl font-extrabold md:text-5xl">{t.plans.title}</h2>
-        <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">{t.plans.sub}</p>
+    <section className="py-12 md:py-32 max-w-7xl mx-auto px-4">
+      <div className="text-center mb-20">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="font-display text-4xl font-extrabold md:text-7xl mb-6"
+        >
+          {t.plans.title}
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+        >
+          {t.plans.sub}
+        </motion.p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {plans.map((p) => {
+      {err && (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="mb-10 p-6 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-center font-bold"
+        >
+          {err}
+        </motion.div>
+      )}
+
+      <div className="grid gap-8 md:grid-cols-3">
+        {plans.map((p, i) => {
           const total = PRICES[currency][p];
           const popular = p === "6m";
 
@@ -1099,79 +1124,88 @@ function Plans({
           }
 
           return (
-            <div
+            <motion.div
               key={p}
-              className={`relative flex flex-col rounded-3xl border bg-card p-8 transition-all hover:-translate-y-2 ${
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15 }}
+              className={`relative flex flex-col rounded-[2.5rem] border bg-card p-10 transition-all ${
                 popular
-                  ? "border-primary shadow-[0_0_40px_var(--accent-glow)] md:scale-105 z-10"
-                  : "border-border"
+                  ? "border-primary shadow-[0_0_60px_var(--accent-glow)] md:scale-110 z-10"
+                  : "border-border hover:border-primary/30"
               }`}
             >
               {popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-bold uppercase tracking-widest text-primary-foreground shadow-lg">
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 rounded-full bg-primary px-6 py-2 text-xs font-black uppercase tracking-[0.2em] text-primary-foreground shadow-xl">
                   {t.plans.mostPopular}
                 </div>
               )}
 
-              <div className="mb-6 flex-1 text-center">
-                <h3 className="font-display text-2xl font-bold">
+              <div className="mb-10 flex-1 text-center">
+                <h3 className="font-display text-3xl font-black mb-4">
                   {p === "30d" ? t.plans.p30 : p === "6m" ? t.plans.p6m : t.plans.p1y}
                 </h3>
 
                 {discountStr && (
-                  <div className="mt-2 inline-block rounded border border-success/30 bg-success/10 px-2 py-0.5 text-xs font-bold text-success">
+                  <div className="inline-block rounded-lg border border-success/30 bg-success/10 px-3 py-1 text-xs font-black text-success uppercase tracking-widest">
                     {discountStr}
                   </div>
                 )}
 
-                <div className="mt-6 flex items-baseline justify-center gap-1">
-                  <span className="font-display text-5xl font-extrabold">
+                <div className="mt-8 flex items-baseline justify-center gap-1">
+                  <span className="font-display text-6xl font-black tracking-tighter">
                     {formatPrice(currency, total)}
                   </span>
                 </div>
-                <p className="mt-2 text-sm font-semibold text-primary">
+                <p className="mt-4 text-sm font-bold uppercase tracking-widest text-primary">
                   {t.plans.perDay(pricePerDay(currency, p))}
                 </p>
               </div>
 
-              <div className="mb-8 space-y-3 border-t border-border pt-6">
-                <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> {f.diagnosis}
-                </div>
-                <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> {f.matrix}
-                </div>
-                <div className="flex text-sm text-muted-foreground">
-                  <span className="mr-2 text-primary">✓</span> {f.compass}
-                </div>
-                {p !== "30d" && (
-                  <div className="flex text-sm font-semibold text-foreground">
-                    <span className="mr-2 text-primary">✓</span> {f.gamification}
+              <div className="mb-12 space-y-4 border-t border-border/50 pt-10">
+                {[
+                  { label: f.diagnosis, check: true },
+                  { label: f.matrix, check: true },
+                  { label: f.compass, check: true },
+                  { label: f.gamification, check: p !== "30d" }
+                ].map((item, idx) => (
+                  <div key={idx} className={`flex items-center gap-3 text-sm ${item.check ? "text-foreground font-medium" : "text-muted-foreground line-through opacity-40"}`}>
+                    <CheckCircle2 className={`h-5 w-5 shrink-0 ${item.check ? "text-primary" : "text-muted-foreground"}`} />
+                    {item.label}
                   </div>
-                )}
+                ))}
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 disabled={busy !== null || !email}
                 onClick={() => choose(p)}
-                className={`w-full rounded-xl px-6 py-4 font-bold transition-all ${
+                className={`w-full rounded-2xl px-6 py-6 text-xl font-black transition-all ${
                   popular
-                    ? "bg-primary text-primary-foreground shadow-[0_4px_20px_var(--accent-glow)] hover:scale-105"
-                    : "border-2 border-primary/20 bg-background text-foreground hover:border-primary"
-                } disabled:opacity-50 disabled:scale-100`}
+                    ? "bg-primary text-primary-foreground shadow-[0_10px_30px_var(--accent-glow)]"
+                    : "border-2 border-primary/20 bg-background text-foreground hover:border-primary/50"
+                } disabled:opacity-50 disabled:scale-100 uppercase tracking-widest`}
               >
-                {busy === p ? t.common.processing : t.plans.chooseCta}
-              </button>
-            </div>
+                {busy === p ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                    {t.common.processing}
+                  </span>
+                ) : t.plans.chooseCta}
+              </motion.button>
+            </motion.div>
           );
         })}
       </div>
 
-      <div className="mt-16 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm">
-          <span className="text-lg">🔒</span> {t.plans.secureBadge}
+      <div className="mt-24 text-center">
+        <div className="inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-6 py-4 text-sm font-bold text-muted-foreground shadow-sm">
+          <ShieldCheck className="h-6 w-6 text-primary" />
+          <span className="uppercase tracking-[0.1em]">{t.plans.secureBadge}</span>
         </div>
-        <p className="mt-4 text-sm text-muted-foreground">{t.plans.guarantee}</p>
+        <p className="mt-8 text-lg text-muted-foreground max-w-xl mx-auto italic">{t.plans.guarantee}</p>
       </div>
     </section>
   );
