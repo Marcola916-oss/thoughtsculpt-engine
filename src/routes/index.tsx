@@ -661,6 +661,7 @@ function Reveal({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const [text, setText] = useState("");
+  
   useEffect(() => {
     let i = 0;
     setText("");
@@ -668,66 +669,103 @@ function Reveal({
       i++;
       setText(a.name.slice(0, i));
       if (i >= a.name.length) clearInterval(id);
-    }, 55);
+    }, 80);
     return () => clearInterval(id);
   }, [a.name]);
 
   return (
-    <section className="py-12 md:py-20 animate-in zoom-in-95 duration-700">
-      <div className="text-center">
-        <p className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold uppercase tracking-widest text-primary shadow-[0_0_15px_var(--accent-glow)]">
+    <section className="py-12 md:py-32 overflow-hidden">
+      <div className="text-center relative">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", damping: 15 }}
+          className="mb-8 inline-block rounded-full bg-primary/10 px-6 py-2 text-xs font-black uppercase tracking-[0.3em] text-primary shadow-[0_0_20px_var(--accent-glow)]"
+        >
           {t.reveal.kicker(name)}
-        </p>
-        <h1 className="mt-2 font-display text-5xl font-extrabold leading-tight text-foreground md:text-7xl">
+        </motion.div>
+        
+        <h1 className="mt-4 font-display text-6xl font-black leading-none text-foreground md:text-[10rem] tracking-tighter">
           <span className="text-primary">{text}</span>
-          <span className="animate-pulse text-primary">|</span>
+          <motion.span 
+            animate={{ opacity: [1, 0] }}
+            transition={{ repeat: Infinity, duration: 0.8 }}
+            className="text-primary"
+          >
+            |
+          </motion.span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-xl font-medium text-muted-foreground">
+        
+        <motion.p 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          className="mx-auto mt-10 max-w-2xl text-2xl font-bold text-muted-foreground leading-relaxed"
+        >
           {a.tagline}
-        </p>
+        </motion.p>
       </div>
 
       {leadError && (
-        <div
-          role="alert"
-          className="mx-auto mt-8 max-w-2xl rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-left text-sm"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-auto mt-12 max-w-2xl rounded-2xl border border-primary/40 bg-primary/5 p-6 backdrop-blur-md"
         >
-          <p className="font-semibold text-primary">⚠️ {t.reveal.errorTitle}</p>
-          <p className="mt-1 text-muted-foreground">
-            {leadError}. {t.reveal.errorBody}
-          </p>
-          <button
-            onClick={onRetry}
-            className="mt-3 inline-flex items-center gap-1 rounded-full border border-primary/40 px-3 py-1.5 text-xs font-semibold text-primary transition hover:bg-primary/10"
-          >
-            🔄 {t.reveal.errorRetry}
-          </button>
-        </div>
+          <div className="flex gap-4">
+            <div className="h-10 w-10 shrink-0 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">!</div>
+            <div>
+              <p className="font-black uppercase tracking-wider text-primary">{t.reveal.errorTitle}</p>
+              <p className="mt-1 text-muted-foreground leading-relaxed">{leadError}. {t.reveal.errorBody}</p>
+              <button
+                onClick={onRetry}
+                className="mt-4 flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-xs font-bold text-primary transition hover:bg-primary/20"
+              >
+                <ArrowRight className="h-4 w-4 rotate-180" /> {t.reveal.errorRetry}
+              </button>
+            </div>
+          </div>
+        </motion.div>
       )}
 
-      <div className="mx-auto mt-16 max-w-3xl rounded-3xl border border-border bg-card p-8 md:p-12 shadow-xl">
-        <p className="mb-6 font-display text-2xl font-bold">{t.reveal.sub}</p>
-        <ul className="space-y-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+        className="mx-auto mt-24 max-w-4xl rounded-[3rem] border border-border bg-card p-8 md:p-20 shadow-2xl relative"
+      >
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 h-24 w-24 rounded-full bg-background border border-border flex items-center justify-center text-4xl shadow-xl">
+          🎯
+        </div>
+        
+        <p className="mb-12 text-center font-display text-3xl font-black leading-tight">{t.reveal.sub}</p>
+        
+        <div className="grid gap-4">
           {a.hooks.map((h, i) => (
-            <li
+            <motion.div
               key={i}
-              className="flex gap-4 rounded-xl border border-border bg-background p-5 text-lg transition-transform hover:scale-[1.02]"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 2 + i * 0.2 }}
+              className="flex gap-6 rounded-3xl border border-border bg-background p-6 md:p-8 transition-all hover:border-primary/30 group"
             >
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-bold">
-                !
-              </span>
-              <span className="text-foreground leading-relaxed">{h}</span>
-            </li>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary font-black group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                {i + 1}
+              </div>
+              <p className="text-xl text-foreground font-medium leading-relaxed">{h}</p>
+            </motion.div>
           ))}
-        </ul>
+        </div>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={onContinue}
-          className="mt-10 w-full rounded-xl bg-primary px-6 py-5 text-xl font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-[1.02]"
+          className="mt-16 w-full rounded-2xl bg-primary px-8 py-6 text-2xl font-black text-primary-foreground shadow-[0_0_40px_var(--accent-glow)] transition-all flex items-center justify-center gap-4"
         >
-          {t.reveal.cta} →
-        </button>
-      </div>
+          {t.reveal.cta} <ArrowRight size={28} />
+        </motion.button>
+      </motion.div>
     </section>
   );
 }
