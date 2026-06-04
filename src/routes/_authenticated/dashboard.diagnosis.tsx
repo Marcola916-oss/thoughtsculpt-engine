@@ -246,19 +246,21 @@ function DiagnosisPage() {
         <AnimatePresence mode="wait">
           <motion.article
             key={tab}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="prose prose-invert max-w-none whitespace-pre-wrap glass-panel p-8 md:p-12 leading-relaxed shadow-2xl relative overflow-hidden"
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="prose prose-invert max-w-none whitespace-pre-wrap glass-panel p-10 md:p-16 leading-relaxed shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden border-white/5"
           >
-            <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none">
-              <span className="text-[12rem]">🧠</span>
+            <div className="absolute top-0 right-0 p-16 opacity-[0.02] pointer-events-none select-none">
+              <span className="text-[15rem] leading-none">🧠</span>
             </div>
-            <h2 className="font-display text-3xl font-black text-arch-primary mb-8 tracking-tight">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary/20 to-transparent" />
+            
+            <h2 className="font-display text-4xl font-black text-arch-primary mb-12 tracking-tighter uppercase italic">
               {tabs.find((tabItem) => tabItem.key === tab)?.label}
             </h2>
-            <div className="relative z-10 text-lg md:text-xl font-medium text-foreground/90 selection:bg-arch-primary/30">
+            <div className="relative z-10 text-xl md:text-2xl font-medium text-foreground/80 selection:bg-arch-primary/30 tracking-tight leading-relaxed">
               {content}
             </div>
           </motion.article>
