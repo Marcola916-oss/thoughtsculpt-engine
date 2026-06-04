@@ -349,11 +349,11 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-primary shadow-[0_0_20px_var(--accent-glow)]"
+        className="mb-8 inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-arch-primary shadow-[0_0_20px_var(--arch-glow)]"
       >
         <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-arch-primary"></span>
         </span>
         {t.hero.kicker}
       </motion.div>
@@ -384,13 +384,13 @@ function Hero({ onStart }: { onStart: () => void }) {
       >
         <button
           onClick={onStart}
-          className="group relative overflow-hidden rounded-full bg-primary px-12 py-6 text-xl font-black text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_40px_var(--accent-glow)] active:scale-95"
+          className="group relative overflow-hidden rounded-full bg-arch-primary px-12 py-6 text-xl font-black text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_40px_var(--arch-glow)] active:scale-95"
         >
           <span className="relative z-10 flex items-center gap-2">
             {t.hero.cta}
             <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
           </span>
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary to-accent-dark opacity-0 transition-opacity group-hover:opacity-100" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-arch-primary to-arch-accent opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
         
         <div className="flex flex-col items-center gap-3">
@@ -452,7 +452,7 @@ function Identity(props: {
             value={props.name}
             onChange={(e) => props.setName(e.target.value)}
             placeholder={t.common.yourNamePlaceholder}
-            className="w-full rounded-xl border border-border bg-card px-5 py-4 text-xl outline-none transition focus:border-primary focus:ring-1 focus:ring-primary shadow-sm"
+            className="w-full rounded-xl border border-border bg-card px-5 py-4 text-xl outline-none transition focus:border-arch-primary focus:ring-1 focus:ring-arch-primary shadow-sm"
           />
         </div>
 
@@ -467,7 +467,7 @@ function Identity(props: {
                 onClick={() => props.setGender(g)}
                 className={`rounded-xl border px-4 py-4 text-base font-semibold transition-all ${
                   props.gender === g
-                    ? "border-primary bg-primary text-primary-foreground shadow-[0_0_15px_var(--accent-glow)]"
+                    ? "border-arch-primary bg-arch-primary text-primary-foreground shadow-[0_0_15px_var(--arch-glow)]"
                     : "border-border bg-card text-muted-foreground hover:border-foreground hover:bg-secondary"
                 }`}
               >
@@ -628,22 +628,77 @@ function LoaderScreen() {
   const { t } = useI18n();
   const [step, setStep] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setStep((s) => (s + 1) % t.loader.steps.length), 900);
+    const id = setInterval(() => setStep((s) => (s + 1) % t.loader.steps.length), 1200);
     return () => clearInterval(id);
   }, [t]);
+
   return (
-    <section className="flex flex-col items-center justify-center py-32 text-center animate-in fade-in">
-      <div className="relative flex h-32 w-32 items-center justify-center">
-        <div className="absolute h-full w-full animate-[spin_3s_linear_infinite] rounded-full border-4 border-primary/20 border-t-primary" />
-        <div className="absolute h-24 w-24 animate-[spin_2s_linear_infinite_reverse] rounded-full border-4 border-primary/10 border-b-primary" />
-        <span className="text-4xl animate-pulse">🧠</span>
+    <section className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-700 relative overflow-hidden">
+      {/* Dynamic Scan Line Effect */}
+      <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-arch-primary to-transparent opacity-50 shadow-[0_0_15px_var(--arch-glow)] animate-[scan-line_2.5s_ease-in-out_infinite]" />
       </div>
-      <h2 className="mt-10 font-display text-2xl font-bold text-foreground">
-        {t.loader.title}
-      </h2>
-      <p className="mt-3 text-lg font-medium text-muted-foreground transition-opacity animate-pulse">
-        {t.loader.steps[step]}
-      </p>
+
+      <div className="relative flex h-40 w-40 items-center justify-center">
+        {/* Modern Concentric Loaders */}
+        <div className="absolute h-full w-full animate-[spin_3s_linear_infinite] rounded-full border-[3px] border-arch-glow border-t-arch-primary" />
+        <div className="absolute h-[80%] w-[80%] animate-[spin_2s_linear_infinite_reverse] rounded-full border-[3px] border-arch-glow/30 border-b-arch-primary/60" />
+        <div className="absolute h-[60%] w-[60%] animate-[pulse_2s_ease-in-out_infinite] rounded-full bg-arch-primary/10 flex items-center justify-center">
+          <Brain size={48} className="text-arch-primary animate-pulse" />
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-12 z-20"
+      >
+        <h2 className="font-display text-3xl font-black text-foreground tracking-tight">
+          {t.loader.title}
+          <span className="mr-cursor" />
+        </h2>
+        
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={step}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            className="mt-4 text-xl font-medium text-muted-foreground max-w-md"
+          >
+            {t.loader.steps[step]}
+          </motion.p>
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Perceived value text */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="mt-12 grid grid-cols-2 gap-8"
+      >
+        <div className="text-left">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary/60 mb-1">Data Stream</p>
+          <div className="h-1 w-24 bg-secondary rounded-full overflow-hidden">
+            <motion.div 
+              animate={{ x: ["-100%", "100%"] }} 
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+              className="h-full w-1/2 bg-arch-primary" 
+            />
+          </div>
+        </div>
+        <div className="text-left">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary/60 mb-1">Neural Mapping</p>
+          <div className="h-1 w-24 bg-secondary rounded-full overflow-hidden">
+            <motion.div 
+              animate={{ x: ["-100%", "100%"] }} 
+              transition={{ repeat: Infinity, duration: 1.8, ease: "linear", delay: 0.3 }}
+              className="h-full w-1/2 bg-arch-primary" 
+            />
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
