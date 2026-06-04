@@ -734,7 +734,6 @@ function Reveal({
 
 /* ─── Sales (9-Block VSL) ────────────────────────────────── */
 
-/* ─── Sales (9-Block VSL) ────────────────────────────────── */
 
 function Sales({
   name,
