@@ -481,6 +481,13 @@ const EN: Dict = {
       "Identifying your dominant pattern…",
       "Preparing your reveal…",
     ],
+    analysis: [
+      "Analyzing impulsivity flows...",
+      "Mapping security triggers...",
+      "Cross-referencing with 12,000+ diagnoses...",
+      "Calculating relapse probability...",
+      "Building 30-day protocol..."
+    ]
   },
   archetypes: {
     AO: { name: "Obsessive Accumulator", tagline: "You live in scarcity mode — even when there's plenty.",
@@ -500,10 +507,13 @@ const EN: Dict = {
     errorTitle: "We couldn't save your diagnosis.",
     errorBody: "Your reveal still appears below, but the share link isn't available.",
     errorRetry: "Try again",
+    comparison: (name, arch) => `Comparison: ${name} vs. ${arch} average`,
   },
   sales: {
     h1: (name, arch) => `${name}, this is why nothing you tried before worked.`,
     promise: "In 30 days you'll recognize the trigger before it happens.",
+    videoPlaceholder: "Watch this brief explanation of your archetype",
+    timer: "Offer ends in:",
     painBlock: {
       title: "You've tried everything, haven't you?",
       body: "Excel spreadsheets. Budgeting apps. New Year's resolutions. But the pattern always takes over during stress, anxiety, or excitement. That's because the problem isn't mathematical — it's behavioral.",
@@ -553,6 +563,10 @@ const EN: Dict = {
       { q: "Does AI replace a psychologist?", a: "No. MindReset is a behavioral self-awareness tool. It doesn't replace professional advice. But it helps identify patterns that often go unnoticed." },
       { q: "How does the refund work?", a: "You have 7 days to request a full refund after your first purchase. No questions asked. Access the customer portal or contact us." },
     ],
+    guarantee: {
+      title: "Unconditional Guarantee",
+      body: "If in 7 days you don't feel that your protocol is changing your perception of money, we refund 100% of your investment. No questions asked."
+    },
     ctaFinal: {
       title: "Stop repeating the same patterns.",
       subtitle: "Your archetype isn't a destination. It's a starting point.",
