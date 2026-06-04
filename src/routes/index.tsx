@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+
 import { useServerFn } from "@tanstack/react-start";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { 
@@ -53,6 +54,18 @@ export const Route = createFileRoute("/")({
   }),
   component: LandingAndQuiz,
 });
+
+function BentoCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  useMousePosition(ref);
+
+  return (
+    <div ref={ref} className={`bento-card ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 
 type Stage =
   | { kind: "hero" }
@@ -157,7 +170,9 @@ function LandingAndQuiz() {
               transition={{ duration: 0.5 }}
             >
               <Hero onStart={() => setStage({ kind: "identity" })} />
+              <Features />
             </motion.div>
+
           )}
 
           {stage.kind === "identity" && (
