@@ -173,6 +173,7 @@ function LandingAndQuiz() {
             >
               <QuestionScreen
                 index={stage.index}
+                total={8}
                 name={name}
                 selected={answers[stage.index]}
                 onSelect={answerQuestion}
@@ -318,7 +319,7 @@ function TopBar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
         <Link to="/" className="font-display text-2xl font-bold tracking-tight">
           <span className="text-foreground">Mind</span>
-          <span className="text-primary">Reset</span>
+          <span className="text-arch-primary transition-colors duration-500">Reset</span>
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
@@ -613,7 +614,7 @@ function EmailCapture(props: {
         <button
           type="submit"
           disabled={!valid}
-          className="w-full rounded-full bg-primary px-6 py-5 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--accent-glow)] transition-all hover:scale-[1.02] disabled:scale-100 disabled:opacity-40 disabled:shadow-none"
+          className="w-full rounded-full bg-arch-primary px-6 py-5 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--arch-glow)] transition-all hover:scale-[1.02] disabled:scale-100 disabled:opacity-40 disabled:shadow-none"
         >
           {t.emailCapture.cta} →
         </button>
