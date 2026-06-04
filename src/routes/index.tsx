@@ -909,14 +909,14 @@ function Reveal({
           {t.reveal.kicker(name)}
         </motion.div>
         
-        <h1 className="mt-4 font-display text-6xl font-black leading-none text-foreground md:text-[10rem] tracking-tighter">
-          <span className="text-primary">{text}</span>
+        <h1 className="mt-4 font-display text-7xl font-black leading-[0.85] text-foreground md:text-[14rem] tracking-tighter uppercase italic">
+          <span className="text-arch-primary text-gradient">{text}</span>
           <motion.span 
             animate={{ opacity: [1, 0] }}
             transition={{ repeat: Infinity, duration: 0.8 }}
-            className="text-primary"
+            className="text-arch-primary ml-[-0.05em]"
           >
-            |
+            _
           </motion.span>
         </h1>
         
@@ -924,7 +924,7 @@ function Reveal({
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
-          className="mx-auto mt-10 max-w-2xl text-2xl font-bold text-muted-foreground leading-relaxed"
+          className="mx-auto mt-12 max-w-3xl text-3xl md:text-5xl font-black text-foreground tracking-tighter uppercase italic"
         >
           {a.tagline}
         </motion.p>
@@ -955,39 +955,47 @@ function Reveal({
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-        className="mx-auto mt-24 max-w-4xl rounded-[3rem] border border-border bg-card p-8 md:p-20 shadow-2xl relative"
+        transition={{ delay: 1.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="mx-auto mt-32 max-w-5xl rounded-[4rem] border border-white/5 bg-card/40 p-10 md:p-24 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden backdrop-blur-3xl"
       >
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 h-24 w-24 rounded-full bg-background border border-border flex items-center justify-center text-4xl shadow-xl">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary to-transparent" />
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[100px]" />
+        
+        <div className="absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-32 rounded-[2.5rem] bg-background border-2 border-arch-primary flex items-center justify-center text-5xl shadow-[0_20px_40px_-10px_var(--arch-glow)] z-20">
           🎯
         </div>
         
-        <p className="mb-12 text-center font-display text-3xl font-black leading-tight">{t.reveal.sub}</p>
+        <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">{t.reveal.sub}</p>
         
-        <div className="grid gap-4">
+        <div className="grid gap-6">
           {a.hooks.map((h, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 2 + i * 0.2 }}
-              className="flex gap-6 rounded-3xl border border-border bg-background p-6 md:p-8 transition-all hover:border-primary/30 group"
+              transition={{ delay: 2 + i * 0.2, duration: 0.8 }}
+              className="flex gap-8 rounded-[2.5rem] border border-white/5 bg-background/50 p-8 md:p-12 transition-all hover:border-arch-primary/40 group relative overflow-hidden"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary font-black group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <div className="absolute top-0 right-0 p-8 opacity-[0.02] text-8xl font-black italic pointer-events-none">{i+1}</div>
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-arch-primary/10 text-arch-primary font-black text-2xl group-hover:bg-arch-primary group-hover:text-primary-foreground transition-all duration-500 shadow-xl border border-arch-primary/20">
                 {i + 1}
               </div>
-              <p className="text-xl text-foreground font-medium leading-relaxed">{h}</p>
+              <p className="text-2xl text-foreground font-medium leading-relaxed tracking-tight self-center">{h}</p>
             </motion.div>
           ))}
         </div>
 
         <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{ scale: 1.03, shadow: "0 0 80px -10px var(--arch-glow)" }}
+          whileTap={{ scale: 0.97 }}
           onClick={onContinue}
-          className="mt-16 w-full rounded-2xl bg-primary px-8 py-6 text-2xl font-black text-primary-foreground shadow-[0_0_40px_var(--accent-glow)] transition-all flex items-center justify-center gap-4"
+          className="group relative mt-24 w-full overflow-hidden rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
         >
-          {t.reveal.cta} <ArrowRight size={28} />
+          <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <span className="relative z-10 flex items-center justify-center gap-6">
+            {t.reveal.cta.toUpperCase()} 
+            <ArrowRight size={40} className="transition-transform duration-500 group-hover:translate-x-4" />
+          </span>
         </motion.button>
       </motion.div>
     </section>
