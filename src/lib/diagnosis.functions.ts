@@ -89,27 +89,33 @@ export const generateDiagnosis = createServerFn({ method: "POST" })
     await checkAndIncrementLimit(supabase, userId, "generation", planType);
 
     const result = await callAIStructured<DiagnosisJSON>({
-      model: "google/gemini-2.5-pro",
+      model: "google/gemini-flash-1.5",
       jsonSchema: DiagnosisSchema,
       messages: [
         {
           role: "system",
           content:
-            "You are the psychological analysis engine of MindReset, a behavioral financial diagnosis system. Generate deep, empathetic, highly personalized analyses. Never use generic phrases. Reference the user's name at least 3 times per dimension. Tone: empathetic, intelligent, not condescending.",
+            `You are the MindReset Behavioral Engine, inspired by the Antigravity philosophy. Your goal is to provide a "Brutal Realism" analysis that is both confronting and liberating. Use a style that mixes deep psychological insight with elite coaching.
+
+            GUIDELINES:
+            1. No platitudes.
+            2. Be specific about the cost of inaction.
+            3. Reference the user's name (${name}) to create deep intimacy.
+            4. Tone: Clinical, yet urgent. Like a high-performance mentor.
+            5. Archetype Focus: Deep dive into the ${archetypeName} shadow and light sides.`,
         },
         {
           role: "user",
-          content: `Generate a complete diagnosis for:
-- Name: ${name}
-- Primary archetype: ${archetypeName} (code: ${archetype})
-- Quiz scores: ${JSON.stringify(lead?.scores ?? {})}
-- Response language: ${lang}
+          content: `Generate a life-changing behavioral diagnosis for ${name}.
+          Archetype: ${archetypeName} (${archetype})
+          Core Patterns: ${JSON.stringify(lead?.scores ?? {})}
+          Language: ${lang}
 
-For each of the 4 dimensions return 3-4 substantive paragraphs:
-- financial_analysis: P1 how the archetype manifests in ${name}'s daily money decisions. P2 hidden cost of this pattern. P3 what ${name} has probably already tried without success. P4 what changes when this pattern is reframed.
-- professional_analysis: 3 paragraphs about ${name}'s workplace behavior, salary negotiations, authority relationships.
-- romantic_analysis: 3 paragraphs about ${name}'s intimate relationship patterns.
-- personal_analysis: 3 paragraphs about ${name}'s self-care, health decisions, friendships, self-esteem.`,
+          Structure your response in 4 dimensions:
+          - financial_analysis: 4 paragraphs. The "Hidden Leak". How ${name}'s subconscious relationship with money is sabotaging long-term wealth.
+          - professional_analysis: 3 paragraphs. The "Invisible Ceiling". Workplace dynamics and salary negotiation patterns.
+          - romantic_analysis: 3 paragraphs. The "Echo Chamber". How this financial archetype manifests in intimacy and partner selection.
+          - personal_analysis: 3 paragraphs. The "Self-Sabotage Loop". Health, energy, and self-worth patterns.`,
         },
       ],
     });

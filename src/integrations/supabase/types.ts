@@ -47,6 +47,36 @@ export type Database = {
         }
         Relationships: []
       }
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string | null
+          entity_id: string | null
+          entity_type: string
+          id: string
+          metadata: Json | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string | null
+          entity_id?: string | null
+          entity_type: string
+          id?: string
+          metadata?: Json | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string | null
+          entity_id?: string | null
+          entity_type?: string
+          id?: string
+          metadata?: Json | null
+        }
+        Relationships: []
+      }
       calendar_tasks: {
         Row: {
           action_task: string | null
@@ -385,6 +415,7 @@ export type Database = {
           display_name: string | null
           email: string | null
           id: string
+          insight_preview: string | null
           ip_hash: string | null
           lang: string
           scores: Json
@@ -402,6 +433,7 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           id?: string
+          insight_preview?: string | null
           ip_hash?: string | null
           lang?: string
           scores?: Json
@@ -419,6 +451,7 @@ export type Database = {
           display_name?: string | null
           email?: string | null
           id?: string
+          insight_preview?: string | null
           ip_hash?: string | null
           lang?: string
           scores?: Json
@@ -475,6 +508,30 @@ export type Database = {
           stripe_subscription_id?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      user_events: {
+        Row: {
+          created_at: string | null
+          event_name: string
+          id: string
+          properties: Json | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_name: string
+          id?: string
+          properties?: Json | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_name?: string
+          id?: string
+          properties?: Json | null
+          user_id?: string | null
         }
         Relationships: []
       }
