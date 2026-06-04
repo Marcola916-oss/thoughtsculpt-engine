@@ -1,6 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { 
+  CheckCircle2, 
+  Lock, 
+  ArrowRight, 
+  Brain, 
+  Calendar as CalendarIcon, 
+  Compass as CompassIcon, 
+  LineChart, 
+  Star,
+  ShieldCheck,
+  ChevronDown
+} from "lucide-react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring";
