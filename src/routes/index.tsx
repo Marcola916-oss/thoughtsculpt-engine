@@ -536,53 +536,60 @@ function Identity(props: {
   const { t } = useI18n();
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
-    <section className="py-12 animate-in fade-in slide-in-from-right-8 duration-500 max-w-xl mx-auto">
-      <h2 className="font-display text-3xl font-bold md:text-4xl">{t.identity.title}</h2>
-      <p className="mt-3 text-lg text-muted-foreground leading-relaxed">{t.identity.sub}</p>
+    <section className="py-12 md:py-24 animate-in fade-in slide-in-from-right-8 duration-700 max-w-2xl mx-auto px-6">
+      <div className="glass-panel p-10 md:p-16 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary to-transparent" />
+        <h2 className="font-display text-4xl font-black md:text-5xl tracking-tighter uppercase italic">{t.identity.title}</h2>
+        <p className="mt-4 text-xl text-muted-foreground leading-relaxed font-medium tracking-tight">{t.identity.sub}</p>
 
-      <div className="mt-10 space-y-8">
-        <div>
-          <label className="mb-2 block text-sm font-bold uppercase tracking-wider text-muted-foreground">
-            {t.common.yourName}
-          </label>
-          <input
-            autoFocus
-            value={props.name}
-            onChange={(e) => props.setName(e.target.value)}
-            placeholder={t.common.yourNamePlaceholder}
-            className="w-full rounded-xl border border-border bg-card px-5 py-4 text-xl outline-none transition focus:border-arch-primary focus:ring-1 focus:ring-arch-primary shadow-sm"
-          />
-        </div>
+        <div className="mt-12 space-y-10">
+          <div>
+            <label className="mb-3 block text-xs font-black uppercase tracking-[0.2em] text-arch-primary">
+              {t.common.yourName}
+            </label>
+            <input
+              autoFocus
+              value={props.name}
+              onChange={(e) => props.setName(e.target.value)}
+              placeholder={t.common.yourNamePlaceholder}
+              className="w-full rounded-2xl border border-white/10 bg-background/50 px-6 py-5 text-2xl outline-none transition-all focus:border-arch-primary focus:ring-4 focus:ring-arch-primary/10 shadow-2xl font-bold tracking-tight"
+            />
+          </div>
 
-        <div>
-          <label className="mb-2 block text-sm font-bold uppercase tracking-wider text-muted-foreground">
-            {t.common.selectGender}
-          </label>
-          <div className="grid grid-cols-3 gap-3">
-            {(["m", "f", "n"] as const).map((g) => (
-              <button
-                key={g}
-                onClick={() => props.setGender(g)}
-                className={`rounded-xl border px-4 py-4 text-base font-semibold transition-all ${
-                  props.gender === g
-                    ? "border-arch-primary bg-arch-primary text-primary-foreground shadow-[0_0_15px_var(--arch-glow)]"
-                    : "border-border bg-card text-muted-foreground hover:border-foreground hover:bg-secondary"
-                }`}
-              >
-                {g === "m" ? t.common.male : g === "f" ? t.common.female : t.common.neutral}
-              </button>
-            ))}
+          <div>
+            <label className="mb-3 block text-xs font-black uppercase tracking-[0.2em] text-arch-primary">
+              {t.common.selectGender}
+            </label>
+            <div className="grid grid-cols-3 gap-4">
+              {(["m", "f", "n"] as const).map((g) => (
+                <button
+                  key={g}
+                  onClick={() => props.setGender(g)}
+                  className={`rounded-2xl border px-6 py-5 text-lg font-black uppercase tracking-tighter italic transition-all ${
+                    props.gender === g
+                      ? "border-arch-primary bg-arch-primary text-primary-foreground shadow-[0_20px_40px_-10px_var(--arch-glow)] scale-105 z-10"
+                      : "border-white/10 bg-background/50 text-muted-foreground hover:border-foreground/30 hover:bg-white/5"
+                  }`}
+                >
+                  {g === "m" ? t.common.male : g === "f" ? t.common.female : t.common.neutral}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      <button
-        disabled={!ok}
-        onClick={props.onContinue}
-        className="mt-12 w-full rounded-full bg-arch-primary py-5 text-xl font-black text-primary-foreground shadow-[0_0_20px_var(--arch-glow)] transition-all hover:scale-[1.02] active:scale-[0.98] disabled:scale-100 disabled:opacity-30 disabled:shadow-none"
-      >
-        {t.common.continue}
-      </button>
+        <button
+          disabled={!ok}
+          onClick={props.onContinue}
+          className="group relative mt-16 w-full overflow-hidden rounded-2xl bg-foreground py-6 text-2xl font-black italic tracking-tighter text-background transition-all hover:scale-[1.02] active:scale-[0.98] disabled:scale-100 disabled:opacity-20 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
+        >
+          <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <span className="relative z-10 flex items-center justify-center gap-3">
+            {t.common.continue.toUpperCase()}
+            <ArrowRight size={28} className="transition-transform duration-500 group-hover:translate-x-3" />
+          </span>
+        </button>
+      </div>
     </section>
   );
 }
