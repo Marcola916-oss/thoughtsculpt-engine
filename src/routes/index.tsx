@@ -899,37 +899,86 @@ function Sales({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const s = t.sales;
+  
+  const [timeLeft, setTimeLeft] = useState(900); // 15 minutes in seconds
+
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+    const interval = setInterval(() => setTimeLeft(t => t - 1), 1000);
+    return () => clearInterval(interval);
+  }, [timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const featureIcons = [
-    <Brain className="h-8 w-8 text-primary" />,
-    <CalendarIcon className="h-8 w-8 text-primary" />,
-    <CompassIcon className="h-8 w-8 text-primary" />,
-    <LineChart className="h-8 w-8 text-primary" />
+    <Brain className="h-8 w-8 text-arch-primary" />,
+    <CalendarIcon className="h-8 w-8 text-arch-primary" />,
+    <CompassIcon className="h-8 w-8 text-arch-primary" />,
+    <LineChart className="h-8 w-8 text-arch-primary" />
   ];
 
   return (
     <section className="py-12 md:py-24 animate-in fade-in duration-1000">
-      <div className="space-y-32">
+      <div className="space-y-40">
 
-        {/* ── Block 1: H1 + Promise ────────────────────── */}
-        <div className="text-center max-w-4xl mx-auto">
+        {/* ── Block 1: H1 + Promise + Video Placeholder ────────────────────── */}
+        <div className="text-center max-w-5xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="mb-8 inline-flex items-center gap-3 rounded-xl bg-arch-primary/10 px-4 py-2 border border-arch-primary/20"
+          >
+            <span className="text-sm font-black uppercase tracking-widest text-arch-primary">
+              {s.timer} <span className="font-mono text-xl ml-2">{formatTime(timeLeft)}</span>
+            </span>
+          </motion.div>
+
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display text-4xl font-extrabold leading-tight md:text-7xl"
+            className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter"
           >
-            {s.h1(name, <span className="text-primary underline decoration-primary/30 underline-offset-8">{a.name}</span> as any)}
+            {s.h1(name, <span className="text-arch-primary underline decoration-arch-primary/30 underline-offset-8 italic">{a.name}</span> as any)}
           </motion.h1>
+          
           <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
-            className="mt-8 text-xl md:text-2xl font-black uppercase tracking-wider text-primary"
+            className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto"
           >
             {s.promise}
           </motion.p>
+
+          {/* Video Placeholder Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8 }}
+            className="mt-20 relative aspect-video w-full rounded-[2.5rem] bg-card border border-border shadow-2xl overflow-hidden group cursor-pointer"
+          >
+            <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/10 to-transparent" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
+              <div className="h-24 w-24 rounded-full bg-arch-primary flex items-center justify-center shadow-[0_0_50px_var(--arch-glow)] transition-transform group-hover:scale-110">
+                <div className="ml-2 h-0 w-0 border-y-[15px] border-y-transparent border-l-[25px] border-l-primary-foreground" />
+              </div>
+              <span className="text-xl font-black uppercase tracking-[0.2em] text-foreground/80">{s.videoPlaceholder}</span>
+            </div>
+            {/* Visual sound waves decor */}
+            <div className="absolute bottom-10 left-10 flex items-end gap-1 opacity-20">
+              {[1, 2, 3, 4, 5, 6, 7].map(i => (
+                <div key={i} className="w-1 bg-arch-primary rounded-full animate-pulse" style={{ height: `${Math.random() * 40 + 10}px`, animationDelay: `${i * 0.2}s` }} />
+              ))}
+            </div>
+          </motion.div>
         </div>
 
         {/* ── Block 2: Pain Mirror ─────────────────────── */}
@@ -937,25 +986,44 @@ function Sales({
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="rounded-[2.5rem] border border-border bg-card p-8 md:p-16 shadow-2xl relative overflow-hidden"
+          className="rounded-[3rem] border border-border bg-card/30 backdrop-blur-sm p-8 md:p-24 shadow-2xl relative overflow-hidden max-w-6xl mx-auto"
         >
-          <div className="absolute top-0 right-0 p-8 opacity-10">
-            <Brain size={120} />
+          <div className="absolute top-0 right-0 p-12 opacity-[0.03] -rotate-12 translate-x-12 -translate-y-12">
+            <Brain size={400} />
           </div>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-8">
-            {s.painBlock.title}
-          </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-            {s.painBlock.body}
-          </p>
-          <div className="grid md:grid-cols-2 gap-6">
-            {s.painBlock.bullets.map((b, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+          <div className="relative z-10 grid md:grid-cols-2 gap-16">
+            <div>
+              <h2 className="font-display text-4xl md:text-6xl font-black text-foreground mb-8 leading-tight tracking-tighter">
+                {s.painBlock.title}
+              </h2>
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
+                {s.painBlock.body}
+              </p>
+              <div className="flex items-center gap-4 text-sm font-black uppercase tracking-widest text-arch-primary">
+                <div className="h-px flex-1 bg-arch-primary/30" />
+                <span>{s.painBlock.conclusion}</span>
+                <div className="h-px flex-1 bg-arch-primary/30" />
+              </div>
+            </div>
+            <div className="grid gap-4">
+              {s.painBlock.bullets.map((b, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex gap-4 items-start p-6 rounded-2xl bg-background/50 border border-border/50"
+                >
+                  <div className="h-6 w-6 rounded-full bg-arch-primary/10 flex items-center justify-center shrink-0 mt-1">
+                    <CheckCircle2 size={14} className="text-arch-primary" />
+                  </div>
+                  <span className="text-lg font-medium leading-tight">{b}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
                 className="flex items-start gap-4 p-4 rounded-2xl bg-background/50 border border-border/50"
               >
                 <CheckCircle2 className="h-6 w-6 shrink-0 text-primary mt-0.5" />
