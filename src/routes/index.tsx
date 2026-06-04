@@ -986,7 +986,7 @@ function Reveal({
         </div>
 
         <motion.button
-          whileHover={{ scale: 1.03, shadow: "0 0 80px -10px var(--arch-glow)" }}
+          whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={onContinue}
           className="group relative mt-24 w-full overflow-hidden rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
