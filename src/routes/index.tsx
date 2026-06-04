@@ -1024,44 +1024,35 @@ function Sales({
             </div>
           </div>
         </motion.div>
-                className="flex items-start gap-4 p-4 rounded-2xl bg-background/50 border border-border/50"
-              >
-                <CheckCircle2 className="h-6 w-6 shrink-0 text-primary mt-0.5" />
-                <span className="text-lg font-medium text-foreground">{b}</span>
-              </motion.div>
-            ))}
-          </div>
-          <p className="mt-12 text-xl font-bold text-primary italic border-l-4 border-primary pl-6">
-            {s.painBlock.conclusion}
-          </p>
-        </motion.div>
 
         {/* ── Block 3: Scientific Proof ────────────────── */}
-        <div className="text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center justify-center h-20 w-20 rounded-full bg-primary/10 mb-8">
-            <ShieldCheck className="h-10 w-10 text-primary" />
+        <div className="text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center justify-center h-24 w-24 rounded-full bg-arch-primary/10 mb-8">
+            <ShieldCheck className="h-12 w-12 text-arch-primary" />
           </div>
-          <h3 className="font-display text-3xl md:text-5xl font-bold mb-8">{s.science.title}</h3>
-          <div className="space-y-6 text-xl text-muted-foreground leading-relaxed">
+          <h3 className="font-display text-3xl md:text-6xl font-bold mb-8 leading-tight">{s.science.title}</h3>
+          <div className="space-y-10 text-xl md:text-2xl text-muted-foreground leading-relaxed">
             <p>{s.science.body}</p>
-            <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground/50">
+            <p className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground/40">
               {s.science.references}
             </p>
-            <p className="text-foreground font-bold text-2xl pt-4">
-              {s.science.pivot}
-            </p>
-            <motion.p 
-              animate={{ scale: [1, 1.02, 1] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              className="text-primary font-black text-3xl"
-            >
-              {s.science.solution}
-            </motion.p>
+            <div className="pt-8 border-t border-border/50">
+              <p className="text-foreground font-black text-3xl md:text-4xl mb-6">
+                {s.science.pivot}
+              </p>
+              <motion.p 
+                animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }}
+                transition={{ repeat: Infinity, duration: 3 }}
+                className="text-arch-primary font-black text-4xl md:text-6xl tracking-tighter"
+              >
+                {s.science.solution}
+              </motion.p>
+            </div>
           </div>
         </div>
 
         {/* ── Block 4: Product Grid (4D Features) ──────── */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {s.features.map((f, i) => (
             <motion.div 
               key={i}
@@ -1069,23 +1060,22 @@ function Sales({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group rounded-3xl border border-border bg-card p-10 transition-all hover:border-primary/50 hover:shadow-[0_20px_40px_rgba(204,0,0,0.1)]"
+              className="group rounded-[2.5rem] border border-border bg-card p-12 transition-all hover:border-arch-primary/50 hover:shadow-[0_20px_60px_rgba(var(--arch-primary-rgb),0.1)]"
             >
-              <div className="mb-8 p-4 rounded-2xl bg-background border border-border inline-block transition-transform group-hover:scale-110 group-hover:bg-primary/5">
+              <div className="mb-10 p-5 rounded-2xl bg-background border border-border inline-block transition-all group-hover:scale-110 group-hover:bg-arch-primary/5 group-hover:border-arch-primary/30">
                 {featureIcons[i]}
               </div>
-              <h4 className="font-display text-2xl font-bold mb-4">{f.title}</h4>
-              <p className="text-muted-foreground text-lg leading-relaxed">{f.description}</p>
+              <h4 className="font-display text-3xl font-bold mb-6">{f.title}</h4>
+              <p className="text-muted-foreground text-xl leading-relaxed">{f.description}</p>
             </motion.div>
           ))}
         </div>
 
         {/* ── Block 5: How It Works ────────────────────── */}
-        <div className="text-center">
-          <h3 className="font-display text-3xl md:text-5xl font-bold mb-20">{s.howItWorks.title}</h3>
-          <div className="grid md:grid-cols-3 gap-12 relative">
-            {/* Desktop Connector Line */}
-            <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-border -z-10" />
+        <div className="text-center max-w-7xl mx-auto">
+          <h3 className="font-display text-4xl md:text-7xl font-black mb-24 tracking-tighter">{s.howItWorks.title}</h3>
+          <div className="grid md:grid-cols-3 gap-16 relative">
+            <div className="hidden md:block absolute top-16 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-border to-transparent -z-10" />
             
             {s.howItWorks.steps.map((step, i) => (
               <motion.div 
@@ -1096,89 +1086,72 @@ function Sales({
                 transition={{ delay: i * 0.2 }}
                 className="flex flex-col items-center text-center group"
               >
-                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-background border-4 border-border group-hover:border-primary text-foreground group-hover:text-primary transition-all duration-500 font-display text-4xl font-black mb-8 relative">
+                <div className="flex h-32 w-32 items-center justify-center rounded-3xl bg-background border-2 border-border group-hover:border-arch-primary group-hover:text-arch-primary transition-all duration-500 font-display text-5xl font-black mb-10 relative shadow-xl">
                   {step.num}
-                  {i < 2 && <div className="md:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 h-10 w-0.5 bg-border" />}
+                  {i < 2 && <div className="md:hidden absolute -bottom-12 left-1/2 -translate-x-1/2 h-12 w-px bg-border" />}
                 </div>
-                <h4 className="font-bold text-2xl mb-4">{step.title}</h4>
-                <p className="text-muted-foreground text-lg leading-relaxed">{step.description}</p>
+                <h4 className="font-bold text-3xl mb-4 tracking-tight">{step.title}</h4>
+                <p className="text-muted-foreground text-lg leading-relaxed px-4">{step.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
 
         {/* ── Block 6: Social Proof ────────────────────── */}
-        <div className="rounded-[3rem] border border-border bg-card p-10 md:p-20 shadow-2xl overflow-hidden relative">
-          <div className="absolute -top-24 -left-24 h-64 w-64 bg-primary/5 blur-3xl rounded-full" />
-          <div className="absolute -bottom-24 -right-24 h-64 w-64 bg-primary/5 blur-3xl rounded-full" />
+        <div className="rounded-[4rem] border border-border bg-card p-12 md:p-32 shadow-2xl overflow-hidden relative max-w-7xl mx-auto">
+          <div className="absolute -top-32 -left-32 h-96 w-96 bg-arch-primary/5 blur-[120px] rounded-full" />
+          <div className="absolute -bottom-32 -right-32 h-96 w-96 bg-arch-primary/5 blur-[120px] rounded-full" />
           
-          <p className="text-center text-2xl font-black text-primary mb-16 uppercase tracking-[0.2em]">
+          <p className="text-center text-2xl font-black text-arch-primary mb-24 uppercase tracking-[0.3em]">
             {s.socialProof.counterText}
           </p>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-12">
             {s.socialProof.testimonials.map((test, i) => (
               <motion.div 
                 key={i}
-                whileHover={{ scale: 1.02 }}
-                className="rounded-3xl border border-border bg-background p-8 flex flex-col justify-between"
+                whileHover={{ y: -5 }}
+                className="rounded-[2.5rem] border border-border bg-background p-10 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all"
               >
-                <div className="flex gap-1 text-primary mb-6">
-                  {[...Array(5)].map((_, star) => <Star key={star} size={16} fill="currentColor" />)}
+                <div className="flex gap-1 text-arch-primary mb-8">
+                  {[...Array(5)].map((_, star) => <Star key={star} size={20} fill="currentColor" />)}
                 </div>
-                <p className="text-xl text-foreground leading-relaxed italic mb-8">"{test.quote}"</p>
-                <div className="flex items-center gap-4 border-t border-border pt-6">
-                  <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center font-bold text-primary">
+                <p className="text-2xl text-foreground leading-relaxed font-medium mb-12 italic">"{test.quote}"</p>
+                <div className="flex items-center gap-5 border-t border-border pt-8">
+                  <div className="h-16 w-16 rounded-2xl bg-secondary flex items-center justify-center font-black text-2xl text-arch-primary shadow-inner">
                     {test.author[0]}
                   </div>
                   <div>
-                    <p className="font-bold text-foreground">{test.author}</p>
-                    <p className="text-sm text-muted-foreground uppercase tracking-widest">{test.country}</p>
+                    <p className="font-bold text-xl text-foreground">{test.author}</p>
+                    <p className="text-sm text-muted-foreground font-black uppercase tracking-widest">{test.country}</p>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
-          <div className="mt-16 flex flex-col items-center gap-4">
-            <div className="flex items-center gap-2 text-2xl font-bold">
-              <span className="text-primary">4.9/5</span>
-              <div className="flex text-primary">
-                {[...Array(5)].map((_, i) => <Star key={i} size={20} fill="currentColor" />)}
+          <div className="mt-24 flex flex-col items-center gap-6">
+            <div className="flex items-center gap-4 text-4xl font-black tracking-tighter">
+              <span className="text-arch-primary">4.9/5</span>
+              <div className="flex text-arch-primary gap-1">
+                {[...Array(5)].map((_, i) => <Star key={i} size={32} fill="currentColor" />)}
               </div>
             </div>
-            <p className="text-muted-foreground font-medium uppercase tracking-widest text-xs">
+            <p className="text-muted-foreground font-black uppercase tracking-[0.2em] text-sm">
               {s.socialProof.ratingText}
             </p>
           </div>
         </div>
 
-        {/* ── Block 7: CTA Mid ────────────────────────── */}
-        <div className="text-center py-10">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onContinue}
-            className="group inline-flex items-center gap-4 rounded-full bg-primary px-12 py-8 text-2xl font-black text-primary-foreground shadow-[0_0_50px_var(--accent-glow)] transition-all"
-          >
-            {s.cta}
-            <ArrowRight size={28} className="transition-transform group-hover:translate-x-2" />
-          </motion.button>
-          <div className="mt-8 flex items-center justify-center gap-4 text-muted-foreground opacity-50">
-            <Lock size={16} />
-            <span className="text-xs font-bold uppercase tracking-[0.2em]">{t.common.securePayment}</span>
-          </div>
-        </div>
-
-        {/* ── Block 8: FAQ ────────────────────────────── */}
-        <div className="max-w-4xl mx-auto">
-          <h3 className="font-display text-3xl md:text-5xl font-bold text-center mb-16">FAQ</h3>
-          <div className="grid gap-4">
+        {/* ── Block 7: FAQ ────────────────────────────── */}
+        <div className="max-w-4xl mx-auto px-4">
+          <h3 className="font-display text-4xl md:text-7xl font-black text-center mb-24 tracking-tighter">FAQ</h3>
+          <div className="grid gap-6">
             {s.faq.map((item, i) => (
-              <details key={i} className="group rounded-2xl border border-border bg-card overflow-hidden transition-all hover:border-primary/30">
-                <summary className="flex items-center justify-between p-8 cursor-pointer font-bold text-xl list-none">
+              <details key={i} className="group rounded-3xl border border-border bg-card overflow-hidden transition-all hover:border-arch-primary/30 shadow-sm">
+                <summary className="flex items-center justify-between p-10 cursor-pointer font-bold text-2xl list-none select-none">
                   {item.q}
-                  <ChevronDown size={20} className="transition-transform group-open:rotate-180 text-primary" />
+                  <ChevronDown size={28} className="transition-transform group-open:rotate-180 text-arch-primary" />
                 </summary>
-                <div className="px-8 pb-8 text-lg text-muted-foreground leading-relaxed border-t border-border pt-6">
+                <div className="px-10 pb-10 text-xl text-muted-foreground leading-relaxed border-t border-border pt-8">
                   {item.a}
                 </div>
               </details>
@@ -1186,30 +1159,57 @@ function Sales({
           </div>
         </div>
 
-        {/* ── Block 9: Final CTA ───────────────────────── */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center rounded-[3rem] border border-primary/30 bg-primary/5 p-12 md:p-24 shadow-[0_0_60px_var(--accent-glow)] relative overflow-hidden"
-        >
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
-          <h3 className="font-display text-4xl md:text-6xl font-black text-foreground mb-6">{s.ctaFinal.title}</h3>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto">{s.ctaFinal.subtitle}</p>
-          <button
-            onClick={onContinue}
-            className="group inline-flex items-center gap-4 rounded-full bg-primary px-12 py-8 text-2xl font-black text-primary-foreground shadow-[0_0_50px_var(--accent-glow)] transition-all hover:scale-105"
+        {/* ── Block 8: Final CTA + Guarantee ───────────────────────── */}
+        <div className="max-w-6xl mx-auto space-y-12">
+          {/* Guarantee Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row items-center gap-10 p-10 md:p-16 rounded-[3rem] border border-border bg-background shadow-xl"
           >
-            {s.ctaFinal.cta}
-            <ArrowRight size={28} className="transition-transform group-hover:translate-x-2" />
-          </button>
-          <div className="mt-12 flex items-center justify-center gap-8">
-             <div className="flex items-center gap-2 grayscale opacity-50 transition-opacity hover:opacity-100 cursor-default">
-               <ShieldCheck size={20} className="text-primary" />
-               <span className="text-[10px] font-bold uppercase tracking-[0.2em]">{s.ctaFinal.trust}</span>
-             </div>
-          </div>
-        </motion.div>
+            <div className="h-32 w-32 shrink-0 bg-arch-primary/10 rounded-full flex items-center justify-center">
+              <ShieldCheck size={64} className="text-arch-primary" />
+            </div>
+            <div className="text-center md:text-left">
+              <h4 className="text-3xl font-black mb-4 tracking-tight">{s.guarantee.title}</h4>
+              <p className="text-xl text-muted-foreground leading-relaxed font-medium">{s.guarantee.body}</p>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center rounded-[4rem] border border-arch-primary/30 bg-foreground p-12 md:p-32 shadow-[0_40px_80px_rgba(0,0,0,0.4)] relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/20 to-transparent" />
+            <div className="relative z-10">
+              <h3 className="font-display text-4xl md:text-8xl font-black text-background mb-8 tracking-tighter leading-none">{s.ctaFinal.title}</h3>
+              <p className="text-xl md:text-3xl text-background/60 mb-16 max-w-3xl mx-auto font-medium">{s.ctaFinal.subtitle}</p>
+              
+              <button
+                onClick={onContinue}
+                className="group relative inline-flex items-center gap-4 rounded-2xl bg-background px-12 py-8 text-2xl md:text-3xl font-black text-foreground transition-all hover:scale-[1.03] hover:shadow-[0_0_60px_var(--arch-glow)] active:scale-95"
+              >
+                {s.ctaFinal.cta.toUpperCase()}
+                <ArrowRight size={32} className="transition-transform group-hover:translate-x-3 text-arch-primary" />
+              </button>
+              
+              <div className="mt-16 flex items-center justify-center gap-8">
+                <div className="flex items-center gap-3 text-background/40 font-black uppercase tracking-[0.3em] text-xs">
+                  <Lock size={14} />
+                  <span>{s.ctaFinal.trust}</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
 
       </div>
     </section>
