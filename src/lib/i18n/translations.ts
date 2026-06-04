@@ -22,15 +22,17 @@ export type Dict = {
   questions: { title: (n: number, total: number) => string; intro: (name: string) => string };
   q: Array<{ q: string; options: string[] }>;
   emailCapture: { title: (name: string) => string; sub: string; cta: string };
-  loader: { title: string; steps: string[] };
+  loader: { title: string; steps: string[]; analysis: string[] };
   archetypes: Record<"AO" | "SS" | "EA" | "HI", { name: string; tagline: string; hooks: string[] }>;
   reveal: {
     kicker: (name: string) => string; sub: string; cta: string; share: string;
     errorTitle: string; errorBody: string; errorRetry: string;
+    comparison: (name: string, arch: string) => string;
   };
   sales: {
     h1: (name: string, arch: string) => string;
     promise: string;
+    videoPlaceholder: string;
     painBlock: { title: string; body: string; bullets: string[]; conclusion: string };
     science: { title: string; body: string; references: string; pivot: string; solution: string };
     features: Array<{ icon: string; title: string; description: string }>;
@@ -41,8 +43,10 @@ export type Dict = {
       ratingText: string;
     };
     faq: Array<{ q: string; a: string }>;
+    guarantee: { title: string; body: string };
     ctaFinal: { title: string; subtitle: string; cta: string; trust: string };
     cta: string;
+    timer: string;
   };
   plans: {
     title: string; sub: string; mostPopular: string; perDay: (v: string) => string;
@@ -208,6 +212,13 @@ const PT: Dict = {
       "A identificar o teu padrão dominante…",
       "A preparar a tua revelação…",
     ],
+    analysis: [
+      "Analizando fluxos de impulsividade...",
+      "Mapeando gatilhos de segurança...",
+      "Cruzando dados com 12.000 diagnósticos...",
+      "Calculando probabilidade de recidiva...",
+      "Construindo protocolo de 30 dias..."
+    ]
   },
   archetypes: {
     AO: { name: "Acumulador Obsessivo", tagline: "Vives em modo escassez — mesmo quando há.",
@@ -227,10 +238,13 @@ const PT: Dict = {
     errorTitle: "Não conseguimos salvar o teu diagnóstico.",
     errorBody: "A tua revelação ainda aparece abaixo, mas o link de partilha não está disponível.",
     errorRetry: "Tentar novamente",
+    comparison: (name, arch) => `Comparação: ${name} vs. Média do ${arch}`,
   },
   sales: {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
     promise: "Em 30 dias, vais reconhecer o gatilho antes de ele acontecer.",
+    videoPlaceholder: "Assista a esta breve explicação do seu arquétipo",
+    timer: "Oferta termina em:",
     painBlock: {
       title: "Você já tentou de tudo, certo?",
       body: "Planilhas do Excel. Aplicativos de orçamento. Promessas de ano novo. Mas o padrão sempre volta a assumir o controle nas horas de estresse, ansiedade ou euforia. Isso acontece porque o problema não é matemático — é comportamental.",
