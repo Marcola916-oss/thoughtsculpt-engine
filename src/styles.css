@@ -66,6 +66,12 @@
   --color-accent-glow: var(--accent-glow);
   --color-success: var(--success);
   --color-warning: var(--warning);
+
+  /* Archetype Mapping */
+  --color-arch-primary: var(--arch-primary);
+  --color-arch-accent: var(--arch-accent);
+  --color-arch-glow: var(--arch-glow);
+
   --font-display: 'Syne', 'Inter', system-ui, sans-serif;
   --font-sans: 'Inter', system-ui, sans-serif;
 }
@@ -109,6 +115,11 @@
   --sidebar-accent-foreground: oklch(0.97 0.003 250);
   --sidebar-border: oklch(0.24 0 0);
   --sidebar-ring: oklch(0.52 0.24 27);
+
+  /* Archetype Specific Colors (Dynamic) */
+  --arch-primary: var(--primary);
+  --arch-accent: var(--accent);
+  --arch-glow: var(--accent-glow);
 }
 
 .dark {
@@ -142,6 +153,31 @@
   --sidebar-ring: oklch(0.52 0.24 27);
 }
 
+/* Archetype Variations */
+[data-arch="AO"] { /* Acumulador (Segurança/Estabilidade) - Teal/Blue */
+  --arch-primary: oklch(0.64 0.12 210);
+  --arch-accent: oklch(0.55 0.15 220);
+  --arch-glow: oklch(0.64 0.12 210 / 0.3);
+}
+
+[data-arch="SS"] { /* Status Seeker (Luxo/Exclusividade) - Gold/Platinum */
+  --arch-primary: oklch(0.75 0.12 85);
+  --arch-accent: oklch(0.85 0.1 95);
+  --arch-glow: oklch(0.75 0.12 85 / 0.4);
+}
+
+[data-arch="EA"] { /* Evasivo (Zen/Minimalista) - Lavender/Slate */
+  --arch-primary: oklch(0.7 0.05 280);
+  --arch-accent: oklch(0.6 0.04 290);
+  --arch-glow: oklch(0.7 0.05 280 / 0.25);
+}
+
+[data-arch="HI"] { /* Hedonista (Energia/Vibrante) - Sunset/Orange */
+  --arch-primary: oklch(0.65 0.25 35);
+  --arch-accent: oklch(0.75 0.2 45);
+  --arch-glow: oklch(0.65 0.25 35 / 0.4);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
@@ -164,20 +200,55 @@
 /* MindReset utility animations */
 @keyframes mr-spin { to { transform: rotate(360deg); } }
 @keyframes mr-pulse-glow {
-  0%, 100% { box-shadow: 0 0 24px var(--accent-glow); }
-  50% { box-shadow: 0 0 40px var(--accent-glow); }
+  0%, 100% { box-shadow: 0 0 24px var(--arch-glow); }
+  50% { box-shadow: 0 0 40px var(--arch-glow); }
 }
 @keyframes mr-blink { 50% { opacity: 0; } }
+@keyframes scan-line {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
 
 .mr-ring {
   width: 64px; height: 64px;
   border: 4px solid var(--border);
-  border-top-color: var(--primary);
+  border-top-color: var(--arch-primary);
   border-radius: 9999px;
   animation: mr-spin 0.9s linear infinite;
 }
 .mr-glow { animation: mr-pulse-glow 2.4s ease-in-out infinite; }
 .mr-cursor::after {
   content: "▍"; margin-inline-start: 2px;
-  color: var(--primary); animation: mr-blink 1s steps(1) infinite;
+  color: var(--arch-primary); animation: mr-blink 1s steps(1) infinite;
+}
+
+.bento-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.bento-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+  border-color: var(--arch-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px -10px var(--arch-glow);
+}
+
+.mesh-gradient {
+  background-color: #000;
+  background-image: 
+    radial-gradient(at 0% 0%, var(--arch-glow) 0, transparent 50%), 
+    radial-gradient(at 100% 100%, var(--arch-glow) 0, transparent 50%);
+  background-attachment: fixed;
 }

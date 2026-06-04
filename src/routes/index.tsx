@@ -112,11 +112,12 @@ function LandingAndQuiz() {
     const next = [...answers];
     next[stage.index] = optionIdx;
     setAnswers(next);
-    if (stage.index < 7) {
-      setTimeout(() => setStage({ kind: "q", index: stage.index + 1 }), 180);
-    } else {
-      setTimeout(() => setStage({ kind: "email" }), 180);
-    }
+    
+    // Smooth transition with staggered feel
+    const isLast = stage.index === 7;
+    setTimeout(() => {
+      setStage(isLast ? { kind: "email" } : { kind: "q", index: stage.index + 1 });
+    }, 250);
   }
 
   useEffect(() => {
@@ -124,7 +125,10 @@ function LandingAndQuiz() {
   }, [stage.kind]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden">
+    <div 
+      className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden"
+      data-arch={archCode || undefined}
+    >
       <TopBar />
       
       <main className="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-12">
@@ -206,6 +210,7 @@ function LandingAndQuiz() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              className="flex min-h-[60vh] flex-col items-center justify-center text-center"
             >
               <LoaderScreen />
             </motion.div>
