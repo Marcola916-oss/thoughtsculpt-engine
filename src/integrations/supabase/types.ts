@@ -566,16 +566,18 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      check_and_unlock_achievements: {
-        Args: {
-          user_uuid: string
-          v_calendar_exported: boolean
-          v_compass_count: number
-          v_max_streak: number
-          v_tasks_completed: number
-        }
-        Returns: undefined
-      }
+      check_and_unlock_achievements:
+        | { Args: { user_uuid: string }; Returns: undefined }
+        | {
+            Args: {
+              user_uuid: string
+              v_calendar_exported: boolean
+              v_compass_count: number
+              v_max_streak: number
+              v_tasks_completed: number
+            }
+            Returns: undefined
+          }
       get_shared_quiz: {
         Args: { _token: string }
         Returns: {
