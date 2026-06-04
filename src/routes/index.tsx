@@ -124,62 +124,174 @@ function LandingAndQuiz() {
   }, [stage.kind]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden">
       <TopBar />
-      <main className="mx-auto max-w-4xl px-4 pb-24 pt-8 md:pt-16">
-        {stage.kind === "hero" && <Hero onStart={() => setStage({ kind: "identity" })} />}
-        {stage.kind === "identity" && (
-          <Identity
-            name={name}
-            setName={setName}
-            gender={gender}
-            setGender={setGender}
-            onContinue={() => setStage({ kind: "q", index: 0 })}
-          />
-        )}
-        {stage.kind === "q" && (
-          <QuestionScreen
-            index={stage.index}
-            name={name}
-            selected={answers[stage.index]}
-            onSelect={answerQuestion}
-            onBack={() =>
-              stage.index === 0
-                ? setStage({ kind: "identity" })
-                : setStage({ kind: "q", index: stage.index - 1 })
-            }
-          />
-        )}
-        {stage.kind === "email" && (
-          <EmailCapture
-            name={name}
-            email={email}
-            setEmail={setEmail}
-            gdpr={gdpr}
-            setGdpr={setGdpr}
-            onSubmit={() => setStage({ kind: "loader" })}
-          />
-        )}
-        {stage.kind === "loader" && <LoaderScreen />}
-        {stage.kind === "reveal" && archCode && (
-          <Reveal
-            name={name}
-            arch={archCode}
-            onContinue={() => setStage({ kind: "sales" })}
-            leadError={leadError}
-            onRetry={() => {
-              setLeadError(null);
-              setStage({ kind: "loader" });
-            }}
-          />
-        )}
-        {stage.kind === "sales" && archCode && (
-          <Sales name={name} arch={archCode} onContinue={() => setStage({ kind: "plans" })} />
-        )}
-        {stage.kind === "plans" && <Plans email={email} displayName={name} leadId={leadId} />}
+      
+      <main className="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-12">
+        <AnimatePresence mode="wait">
+          {stage.kind === "hero" && (
+            <motion.div
+              key="hero"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Hero onStart={() => setStage({ kind: "identity" })} />
+            </motion.div>
+          )}
+
+          {stage.kind === "identity" && (
+            <motion.div
+              key="identity"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Identity
+                name={name}
+                setName={setName}
+                gender={gender}
+                setGender={setGender}
+                onContinue={() => setStage({ kind: "q", index: 0 })}
+              />
+            </motion.div>
+          )}
+
+          {stage.kind === "q" && (
+            <motion.div
+              key={`q-${stage.index}`}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -30 }}
+              transition={{ duration: 0.3 }}
+            >
+              <QuestionScreen
+                index={stage.index}
+                name={name}
+                selected={answers[stage.index]}
+                onSelect={answerQuestion}
+                onBack={() =>
+                  stage.index === 0
+                    ? setStage({ kind: "identity" })
+                    : setStage({ kind: "q", index: stage.index - 1 })
+                }
+              />
+            </motion.div>
+          )}
+
+          {stage.kind === "email" && (
+            <motion.div
+              key="email"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 0.4 }}
+            >
+              <EmailCapture
+                name={name}
+                email={email}
+                setEmail={setEmail}
+                gdpr={gdpr}
+                setGdpr={setGdpr}
+                onSubmit={() => setStage({ kind: "loader" })}
+              />
+            </motion.div>
+          )}
+
+          {stage.kind === "loader" && (
+            <motion.div
+              key="loader"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <LoaderScreen />
+            </motion.div>
+          )}
+
+          {stage.kind === "reveal" && archCode && (
+            <motion.div
+              key="reveal"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ type: "spring", damping: 20, stiffness: 100 }}
+            >
+              <Reveal
+                name={name}
+                arch={archCode}
+                onContinue={() => setStage({ kind: "sales" })}
+                leadError={leadError}
+                onRetry={() => {
+                  setLeadError(null);
+                  setStage({ kind: "loader" });
+                }}
+              />
+            </motion.div>
+          )}
+
+          {stage.kind === "sales" && archCode && (
+            <motion.div
+              key="sales"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Sales name={name} arch={archCode} onContinue={() => setStage({ kind: "plans" })} />
+            </motion.div>
+          )}
+
+          {stage.kind === "plans" && (
+            <motion.div
+              key="plans"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Plans email={email} displayName={name} leadId={leadId} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
+
+      {stage.kind === "sales" && <StickyCTA onClick={() => setStage({ kind: "plans" })} />}
       <Footer />
     </div>
+  );
+}
+
+function StickyCTA({ onClick }: { onClick: () => void }) {
+  const { t } = useI18n();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 1200);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          exit={{ y: 100 }}
+          className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 p-4 backdrop-blur-lg md:hidden"
+        >
+          <button
+            onClick={onClick}
+            className="w-full rounded-full bg-primary py-4 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--accent-glow)]"
+          >
+            {t.sales.cta}
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
