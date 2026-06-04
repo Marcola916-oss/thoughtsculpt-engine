@@ -184,6 +184,11 @@ const PT: Dict = {
     subtitle: "Mais que um teste. Um instrumento de precisão para o teu subconsciente."
   },
 
+  features: {
+    title: "Engenharia para transformação profunda",
+    subtitle: "Mais que um teste. Um instrumento de precisão para o teu subconsciente."
+  },
+
   identity: { title: "Antes de começar, quem és tu?", sub: "Vamos usar o teu nome ao longo do diagnóstico para o tornar pessoal." },
   questions: {
     title: (n, total) => `Pergunta ${n} de ${total}`,
@@ -457,6 +462,11 @@ const EN: Dict = {
     cta: "Take the free diagnosis",
     trust: "+12,000 diagnoses • No card to start",
   },
+  features: {
+    title: "Engineered for deep transformation",
+    subtitle: "More than a test. A precision instrument for your subconscious."
+  },
+
   features: {
     title: "Engineered for deep transformation",
     subtitle: "More than a test. A precision instrument for your subconscious."
