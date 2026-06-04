@@ -242,8 +242,11 @@ function LandingAndQuiz() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex min-h-[60vh] flex-col items-center justify-center text-center"
+              className="flex min-h-[70vh] flex-col items-center justify-center text-center relative overflow-hidden"
             >
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-arch-glow blur-[120px] opacity-20" />
+              </div>
               <LoaderScreen />
             </motion.div>
           )}
@@ -339,26 +342,38 @@ function TopBar() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", fn);
+    window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-all duration-300 ${scrolled ? "bg-background/90 backdrop-blur-md border-b border-border shadow-sm py-2" : "bg-transparent py-4"}`}
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
+        scrolled 
+          ? "bg-background/60 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]" 
+          : "bg-transparent py-6"
+      }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
-        <Link to="/" className="font-display text-2xl font-bold tracking-tight">
-          <span className="text-foreground">Mind</span>
-          <span className="text-arch-primary transition-colors duration-500">Reset</span>
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+        <Link to="/" className="group flex items-center gap-2 font-display text-2xl font-black tracking-tighter">
+          <div className="h-8 w-8 rounded-lg bg-arch-primary flex items-center justify-center transition-transform group-hover:rotate-12">
+            <span className="text-background text-xl italic font-black">M</span>
+          </div>
+          <div className="flex items-baseline">
+            <span className="text-foreground transition-colors group-hover:text-arch-primary">Mind</span>
+            <span className="text-arch-primary/60 transition-colors group-hover:text-foreground">Reset</span>
+          </div>
         </Link>
-        <div className="flex items-center gap-4">
-          <LanguageSwitcher />
+        <div className="flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-8">
+            <LanguageSwitcher />
+          </div>
           <Link
             to="/login"
-            className="rounded-full px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-secondary hover:text-foreground transition"
+            className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10"
           >
-            {t.common.login}
+            <span className="relative z-10">{t.common.login}</span>
+            <div className="absolute inset-0 translate-y-[100%] bg-arch-primary transition-transform duration-300 group-hover:translate-y-0" />
           </Link>
         </div>
       </div>
