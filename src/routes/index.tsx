@@ -734,6 +734,8 @@ function Reveal({
 
 /* ─── Sales (9-Block VSL) ────────────────────────────────── */
 
+/* ─── Sales (9-Block VSL) ────────────────────────────────── */
+
 function Sales({
   name,
   arch,
@@ -747,140 +749,248 @@ function Sales({
   const a = t.archetypes[arch];
   const s = t.sales;
 
+  const featureIcons = [
+    <Brain className="h-8 w-8 text-primary" />,
+    <CalendarIcon className="h-8 w-8 text-primary" />,
+    <CompassIcon className="h-8 w-8 text-primary" />,
+    <LineChart className="h-8 w-8 text-primary" />
+  ];
+
   return (
-    <section className="py-12 md:py-20 animate-in fade-in duration-700 max-w-3xl mx-auto">
-      <div className="space-y-16">
+    <section className="py-12 md:py-24 animate-in fade-in duration-1000">
+      <div className="space-y-32">
 
         {/* ── Block 1: H1 + Promise ────────────────────── */}
-        <div className="text-center">
-          <h1 className="font-display text-4xl font-extrabold leading-tight md:text-6xl">
-            {s.h1(name, a.name)}
-          </h1>
-          <p className="mt-6 text-xl font-bold text-primary">{s.promise}</p>
+        <div className="text-center max-w-4xl mx-auto">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-display text-4xl font-extrabold leading-tight md:text-7xl"
+          >
+            {s.h1(name, <span className="text-primary underline decoration-primary/30 underline-offset-8">{a.name}</span> as any)}
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 text-xl md:text-2xl font-black uppercase tracking-wider text-primary"
+          >
+            {s.promise}
+          </motion.p>
         </div>
 
         {/* ── Block 2: Pain Mirror ─────────────────────── */}
-        <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-          <h2 className="font-display text-2xl font-bold text-foreground mb-4">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="rounded-[2.5rem] border border-border bg-card p-8 md:p-16 shadow-2xl relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 p-8 opacity-10">
+            <Brain size={120} />
+          </div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-8">
             {s.painBlock.title}
           </h2>
-          <p className="text-muted-foreground leading-relaxed mb-6">
+          <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl">
             {s.painBlock.body}
           </p>
-          <ul className="space-y-4">
+          <div className="grid md:grid-cols-2 gap-6">
             {s.painBlock.bullets.map((b, i) => (
-              <li key={i} className="flex items-start gap-4">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary text-xs font-bold mt-1">
-                  ✓
-                </span>
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-start gap-4 p-4 rounded-2xl bg-background/50 border border-border/50"
+              >
+                <CheckCircle2 className="h-6 w-6 shrink-0 text-primary mt-0.5" />
                 <span className="text-lg font-medium text-foreground">{b}</span>
-              </li>
+              </motion.div>
             ))}
-          </ul>
-          <p className="mt-6 text-lg font-semibold text-primary/80">
+          </div>
+          <p className="mt-12 text-xl font-bold text-primary italic border-l-4 border-primary pl-6">
             {s.painBlock.conclusion}
           </p>
-        </div>
+        </motion.div>
 
         {/* ── Block 3: Scientific Proof ────────────────── */}
-        <div className="text-center max-w-2xl mx-auto">
-          <h3 className="font-display text-3xl font-bold">{s.science.title}</h3>
-          <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-            {s.science.body}
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground/80 italic">
-            {s.science.references}
-          </p>
-          <p className="mt-4 text-lg font-medium text-foreground">
-            {s.science.pivot}
-          </p>
-          <p className="mt-2 text-primary font-bold">
-            {s.science.solution}
-          </p>
+        <div className="text-center max-w-3xl mx-auto">
+          <div className="inline-flex items-center justify-center h-20 w-20 rounded-full bg-primary/10 mb-8">
+            <ShieldCheck className="h-10 w-10 text-primary" />
+          </div>
+          <h3 className="font-display text-3xl md:text-5xl font-bold mb-8">{s.science.title}</h3>
+          <div className="space-y-6 text-xl text-muted-foreground leading-relaxed">
+            <p>{s.science.body}</p>
+            <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground/50">
+              {s.science.references}
+            </p>
+            <p className="text-foreground font-bold text-2xl pt-4">
+              {s.science.pivot}
+            </p>
+            <motion.p 
+              animate={{ scale: [1, 1.02, 1] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              className="text-primary font-black text-3xl"
+            >
+              {s.science.solution}
+            </motion.p>
+          </div>
         </div>
 
         {/* ── Block 4: Product Grid (4D Features) ──────── */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-8">
           {s.features.map((f, i) => (
-            <div key={i} className="rounded-xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:shadow-lg">
-              <div className="text-4xl mb-4">{f.icon}</div>
-              <h4 className="font-bold text-xl mb-2">{f.title}</h4>
-              <p className="text-muted-foreground text-sm leading-relaxed">{f.description}</p>
-            </div>
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group rounded-3xl border border-border bg-card p-10 transition-all hover:border-primary/50 hover:shadow-[0_20px_40px_rgba(204,0,0,0.1)]"
+            >
+              <div className="mb-8 p-4 rounded-2xl bg-background border border-border inline-block transition-transform group-hover:scale-110 group-hover:bg-primary/5">
+                {featureIcons[i]}
+              </div>
+              <h4 className="font-display text-2xl font-bold mb-4">{f.title}</h4>
+              <p className="text-muted-foreground text-lg leading-relaxed">{f.description}</p>
+            </motion.div>
           ))}
         </div>
 
         {/* ── Block 5: How It Works ────────────────────── */}
         <div className="text-center">
-          <h3 className="font-display text-3xl font-bold mb-10">{s.howItWorks.title}</h3>
-          <div className="grid md:grid-cols-3 gap-8">
+          <h3 className="font-display text-3xl md:text-5xl font-bold mb-20">{s.howItWorks.title}</h3>
+          <div className="grid md:grid-cols-3 gap-12 relative">
+            {/* Desktop Connector Line */}
+            <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-border -z-10" />
+            
             {s.howItWorks.steps.map((step, i) => (
-              <div key={i} className="flex flex-col items-center text-center">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground font-display text-2xl font-bold shadow-[0_0_20px_var(--accent-glow)] mb-4">
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                className="flex flex-col items-center text-center group"
+              >
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-background border-4 border-border group-hover:border-primary text-foreground group-hover:text-primary transition-all duration-500 font-display text-4xl font-black mb-8 relative">
                   {step.num}
+                  {i < 2 && <div className="md:hidden absolute -bottom-10 left-1/2 -translate-x-1/2 h-10 w-0.5 bg-border" />}
                 </div>
-                <h4 className="font-bold text-lg mb-2">{step.title}</h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
-              </div>
+                <h4 className="font-bold text-2xl mb-4">{step.title}</h4>
+                <p className="text-muted-foreground text-lg leading-relaxed">{step.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
 
         {/* ── Block 6: Social Proof ────────────────────── */}
-        <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-          <p className="text-center text-lg font-bold text-primary mb-8">
+        <div className="rounded-[3rem] border border-border bg-card p-10 md:p-20 shadow-2xl overflow-hidden relative">
+          <div className="absolute -top-24 -left-24 h-64 w-64 bg-primary/5 blur-3xl rounded-full" />
+          <div className="absolute -bottom-24 -right-24 h-64 w-64 bg-primary/5 blur-3xl rounded-full" />
+          
+          <p className="text-center text-2xl font-black text-primary mb-16 uppercase tracking-[0.2em]">
             {s.socialProof.counterText}
           </p>
-          <div className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {s.socialProof.testimonials.map((test, i) => (
-              <div key={i} className="rounded-xl border border-border bg-background p-5">
-                <p className="text-foreground leading-relaxed italic">"{test.quote}"</p>
-                <p className="mt-3 text-sm font-semibold text-muted-foreground">
-                  — {test.author}, {test.country}
-                </p>
-              </div>
+              <motion.div 
+                key={i}
+                whileHover={{ scale: 1.02 }}
+                className="rounded-3xl border border-border bg-background p-8 flex flex-col justify-between"
+              >
+                <div className="flex gap-1 text-primary mb-6">
+                  {[...Array(5)].map((_, star) => <Star key={star} size={16} fill="currentColor" />)}
+                </div>
+                <p className="text-xl text-foreground leading-relaxed italic mb-8">"{test.quote}"</p>
+                <div className="flex items-center gap-4 border-t border-border pt-6">
+                  <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center font-bold text-primary">
+                    {test.author[0]}
+                  </div>
+                  <div>
+                    <p className="font-bold text-foreground">{test.author}</p>
+                    <p className="text-sm text-muted-foreground uppercase tracking-widest">{test.country}</p>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
-          <p className="text-center mt-6 text-sm font-medium text-muted-foreground">
-            ⭐ {s.socialProof.ratingText}
-          </p>
+          <div className="mt-16 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-2 text-2xl font-bold">
+              <span className="text-primary">4.9/5</span>
+              <div className="flex text-primary">
+                {[...Array(5)].map((_, i) => <Star key={i} size={20} fill="currentColor" />)}
+              </div>
+            </div>
+            <p className="text-muted-foreground font-medium uppercase tracking-widest text-xs">
+              {s.socialProof.ratingText}
+            </p>
+          </div>
         </div>
 
-        {/* ── Block 7: Pricing Plans ──────────────────── */}
-        <div className="text-center">
-          <button
+        {/* ── Block 7: CTA Mid ────────────────────────── */}
+        <div className="text-center py-10">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onContinue}
-            className="mx-auto block w-full max-w-md rounded-full bg-primary px-8 py-5 text-xl font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-105"
+            className="group inline-flex items-center gap-4 rounded-full bg-primary px-12 py-8 text-2xl font-black text-primary-foreground shadow-[0_0_50px_var(--accent-glow)] transition-all"
           >
-            {s.cta} →
-          </button>
+            {s.cta}
+            <ArrowRight size={28} className="transition-transform group-hover:translate-x-2" />
+          </motion.button>
+          <div className="mt-8 flex items-center justify-center gap-4 text-muted-foreground opacity-50">
+            <Lock size={16} />
+            <span className="text-xs font-bold uppercase tracking-[0.2em]">{t.common.securePayment}</span>
+          </div>
         </div>
 
         {/* ── Block 8: FAQ ────────────────────────────── */}
-        <div className="max-w-3xl mx-auto text-left">
-          <h3 className="font-display text-3xl font-bold text-center mb-10">FAQ</h3>
-          <div className="space-y-4">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="font-display text-3xl md:text-5xl font-bold text-center mb-16">FAQ</h3>
+          <div className="grid gap-4">
             {s.faq.map((item, i) => (
-              <div key={i} className="rounded-xl border border-border bg-card p-6">
-                <h4 className="font-bold text-lg">{item.q}</h4>
-                <p className="text-muted-foreground mt-2 leading-relaxed">{item.a}</p>
-              </div>
+              <details key={i} className="group rounded-2xl border border-border bg-card overflow-hidden transition-all hover:border-primary/30">
+                <summary className="flex items-center justify-between p-8 cursor-pointer font-bold text-xl list-none">
+                  {item.q}
+                  <ChevronDown size={20} className="transition-transform group-open:rotate-180 text-primary" />
+                </summary>
+                <div className="px-8 pb-8 text-lg text-muted-foreground leading-relaxed border-t border-border pt-6">
+                  {item.a}
+                </div>
+              </details>
             ))}
           </div>
         </div>
 
         {/* ── Block 9: Final CTA ───────────────────────── */}
-        <div className="text-center rounded-2xl border border-primary/30 bg-primary/5 p-10 shadow-[0_0_40px_var(--accent-glow)]">
-          <h3 className="font-display text-3xl font-bold text-foreground">{s.ctaFinal.title}</h3>
-          <p className="mt-3 text-lg text-muted-foreground">{s.ctaFinal.subtitle}</p>
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center rounded-[3rem] border border-primary/30 bg-primary/5 p-12 md:p-24 shadow-[0_0_60px_var(--accent-glow)] relative overflow-hidden"
+        >
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent" />
+          <h3 className="font-display text-4xl md:text-6xl font-black text-foreground mb-6">{s.ctaFinal.title}</h3>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto">{s.ctaFinal.subtitle}</p>
           <button
             onClick={onContinue}
-            className="mt-8 inline-block rounded-full bg-primary px-10 py-5 text-lg font-bold text-primary-foreground shadow-[0_0_30px_var(--accent-glow)] transition-all hover:scale-105"
+            className="group inline-flex items-center gap-4 rounded-full bg-primary px-12 py-8 text-2xl font-black text-primary-foreground shadow-[0_0_50px_var(--accent-glow)] transition-all hover:scale-105"
           >
             {s.ctaFinal.cta}
+            <ArrowRight size={28} className="transition-transform group-hover:translate-x-2" />
           </button>
-          <p className="mt-4 text-xs text-muted-foreground">{s.ctaFinal.trust}</p>
-        </div>
+          <div className="mt-12 flex items-center justify-center gap-8">
+             <div className="flex items-center gap-2 grayscale opacity-50 transition-opacity hover:opacity-100 cursor-default">
+               <ShieldCheck size={20} className="text-primary" />
+               <span className="text-[10px] font-bold uppercase tracking-[0.2em]">{s.ctaFinal.trust}</span>
+             </div>
+          </div>
+        </motion.div>
 
       </div>
     </section>
