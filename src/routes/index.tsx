@@ -482,9 +482,9 @@ function Identity(props: {
       <button
         disabled={!ok}
         onClick={props.onContinue}
-        className="mt-12 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-5 text-lg font-bold text-primary-foreground transition-all hover:opacity-90 disabled:opacity-30 disabled:hover:scale-100 hover:shadow-[0_0_20px_var(--accent-glow)]"
+        className="mt-12 w-full rounded-full bg-arch-primary py-5 text-xl font-black text-primary-foreground shadow-[0_0_20px_var(--arch-glow)] transition-all hover:scale-[1.02] active:scale-[0.98] disabled:scale-100 disabled:opacity-30 disabled:shadow-none"
       >
-        {t.common.continue} <span>→</span>
+        {t.common.continue}
       </button>
     </section>
   );
@@ -494,60 +494,89 @@ function Identity(props: {
 
 function QuestionScreen(props: {
   index: number;
+  total: number;
   name: string;
   selected: number | null;
-  onSelect: (i: number) => void;
+  onSelect: (idx: number) => void;
   onBack: () => void;
 }) {
   const { t } = useI18n();
   const q = t.q[props.index];
-  const progress = ((props.index + 1) / 8) * 100;
+  
+  // Strategic progress bar with Zeigarnik effect
+  const progress = ((props.index + 1) / props.total) * 100;
+  // Accelerate progress visual after 80% to create urgency
+  const visualProgress = progress >= 80 ? 95 : progress;
 
   return (
-    <section className="py-8 max-w-2xl mx-auto animate-in fade-in duration-300">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-3">
-          <button
-            onClick={props.onBack}
-            className="flex items-center gap-1 text-sm font-semibold text-muted-foreground hover:text-foreground transition"
-          >
-            <span>←</span> {t.common.back}
-          </button>
-          <span className="text-xs font-bold uppercase tracking-wider text-primary">
-            {t.questions.title(props.index + 1, 8)}
+    <section className="py-8 max-w-2xl mx-auto">
+      {/* Strategic Progress Bar */}
+      <div className="mb-12">
+        <div className="flex justify-between items-end mb-3">
+          <span className="text-xs font-black uppercase tracking-[0.2em] text-arch-primary">
+            {t.questions.title(props.index + 1, props.total)}
+          </span>
+          <span className="text-sm font-bold text-muted-foreground">
+            {Math.round(progress)}%
           </span>
         </div>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-          <div
-            className="h-full bg-primary transition-[width] duration-500 ease-out shadow-[0_0_10px_var(--accent-glow)]"
-            style={{ width: `${progress}%` }}
+        <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={{ width: `${visualProgress}%` }}
+            transition={{ type: "spring", damping: 20, stiffness: 100 }}
+            className="h-full bg-arch-primary shadow-[0_0_15px_var(--arch-glow)]" 
           />
         </div>
       </div>
 
-      <h2 className="font-display text-3xl font-extrabold leading-tight md:text-4xl">
-        {q.q.replace("[NOME]", props.name)}
-      </h2>
-      <p className="mt-3 text-lg text-muted-foreground">{t.questions.intro(props.name || "")}</p>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        key={props.index}
+      >
+        <h2 className="font-display text-3xl font-bold leading-tight md:text-4xl mb-4">
+          {q.q.replace("[NOME]", props.name)}
+        </h2>
+        <p className="text-muted-foreground mb-10 text-lg">
+          {t.questions.intro(props.name)}
+        </p>
 
-      <div className="mt-10 space-y-4">
-        {q.options.map((opt, i) => (
-          <button
-            key={i}
-            onClick={() => props.onSelect(i)}
-            className={`group relative flex w-full items-center justify-between overflow-hidden rounded-2xl border p-5 text-start transition-all duration-300 hover:scale-[1.01] ${
-              props.selected === i
-                ? "border-primary bg-primary/10 text-foreground shadow-[0_0_15px_var(--accent-glow)]"
-                : "border-border bg-card text-foreground hover:border-primary/50 hover:bg-secondary"
-            }`}
-          >
-            <span className="text-lg md:text-xl">{opt}</span>
-            <div
-              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+        <div className="grid gap-4">
+          {q.options.map((opt, i) => (
+            <button
+              key={i}
+              onClick={() => props.onSelect(i)}
+              className={`group flex items-center justify-between rounded-2xl border p-6 text-left transition-all duration-300 ${
                 props.selected === i
-                  ? "border-primary bg-primary"
-                  : "border-border bg-background group-hover:border-primary/50"
+                  ? "border-arch-primary bg-arch-primary/10 shadow-[0_0_20px_var(--arch-glow)]"
+                  : "border-border bg-card hover:border-arch-primary/50 hover:bg-secondary/50"
               }`}
+            >
+              <span className={`text-lg font-medium transition-colors ${props.selected === i ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"}`}>
+                {opt}
+              </span>
+              <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                props.selected === i 
+                  ? "border-arch-primary bg-arch-primary shadow-[0_0_10px_var(--arch-glow)]" 
+                  : "border-border group-hover:border-arch-primary/50"
+              }`}>
+                {props.selected === i && <div className="h-2 w-2 rounded-full bg-primary-foreground" />}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={props.onBack}
+          className="mt-12 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition"
+        >
+          ← {t.common.back}
+        </button>
+      </motion.div>
+    </section>
+  );
+}
             >
               {props.selected === i && <span className="h-2 w-2 rounded-full bg-background" />}
             </div>
