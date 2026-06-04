@@ -576,6 +576,7 @@ function QuestionScreen(props: {
       </motion.div>
     </section>
   );
+}
 
 /* ─── EmailCapture ────────────────────────────────────────── */
 
