@@ -643,78 +643,116 @@ function EmailCapture(props: {
 function LoaderScreen() {
   const { t } = useI18n();
   const [step, setStep] = useState(0);
+  const [analysisStep, setAnalysisStep] = useState(0);
+
   useEffect(() => {
-    const id = setInterval(() => setStep((s) => (s + 1) % t.loader.steps.length), 1200);
-    return () => clearInterval(id);
+    const stepInterval = setInterval(() => {
+      setStep((s) => (s + 1) % t.loader.steps.length);
+    }, 2000);
+    
+    const analysisInterval = setInterval(() => {
+      setAnalysisStep((s) => (s + 1) % t.loader.analysis.length);
+    }, 800);
+
+    return () => {
+      clearInterval(stepInterval);
+      clearInterval(analysisInterval);
+    };
   }, [t]);
 
   return (
-    <section className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-700 relative overflow-hidden">
+    <section className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-700 relative overflow-hidden min-h-[70vh]">
       {/* Dynamic Scan Line Effect */}
       <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
-        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-arch-primary to-transparent opacity-50 shadow-[0_0_15px_var(--arch-glow)] animate-[scan-line_2.5s_ease-in-out_infinite]" />
+        <div className="w-full h-[1px] bg-arch-primary opacity-20 shadow-[0_0_20px_var(--arch-glow)] animate-[scan-line_4s_linear_infinite]" />
       </div>
 
-      <div className="relative flex h-40 w-40 items-center justify-center">
-        {/* Modern Concentric Loaders */}
-        <div className="absolute h-full w-full animate-[spin_3s_linear_infinite] rounded-full border-[3px] border-arch-glow border-t-arch-primary" />
-        <div className="absolute h-[80%] w-[80%] animate-[spin_2s_linear_infinite_reverse] rounded-full border-[3px] border-arch-glow/30 border-b-arch-primary/60" />
-        <div className="absolute h-[60%] w-[60%] animate-[pulse_2s_ease-in-out_infinite] rounded-full bg-arch-primary/10 flex items-center justify-center">
-          <Brain size={48} className="text-arch-primary animate-pulse" />
-        </div>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mt-12 z-20"
-      >
-        <h2 className="font-display text-3xl font-black text-foreground tracking-tight">
-          {t.loader.title}
-          <span className="mr-cursor" />
-        </h2>
+      <div className="relative flex h-52 w-52 items-center justify-center">
+        {/* Abstract Data Visualization */}
+        <div className="absolute h-full w-full rounded-full border border-arch-primary/10 animate-[spin_10s_linear_infinite]" />
+        <div className="absolute h-[90%] w-[90%] rounded-full border border-dashed border-arch-primary/20 animate-[spin_15s_linear_infinite_reverse]" />
         
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={step}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            className="mt-4 text-xl font-medium text-muted-foreground max-w-md"
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative">
+            <Brain size={64} className="text-arch-primary animate-pulse relative z-20" />
+            <div className="absolute inset-0 bg-arch-primary/20 blur-2xl animate-pulse rounded-full" />
+          </div>
+        </div>
+        
+        {/* Revolving Data Nodes */}
+        {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+          <motion.div
+            key={i}
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 8, ease: "linear", delay: i * 0.5 }}
+            className="absolute inset-0"
           >
-            {t.loader.steps[step]}
-          </motion.p>
-        </AnimatePresence>
-      </motion.div>
+            <div 
+              className="h-1.5 w-1.5 rounded-full bg-arch-primary shadow-[0_0_10px_var(--arch-glow)]"
+              style={{ transform: `translate(104px, 104px) rotate(${angle}deg) translate(90px)` }}
+            />
+          </motion.div>
+        ))}
+      </div>
 
-      {/* Perceived value text */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="mt-12 grid grid-cols-2 gap-8"
-      >
-        <div className="text-left">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary/60 mb-1">Data Stream</p>
-          <div className="h-1 w-24 bg-secondary rounded-full overflow-hidden">
+      <div className="mt-16 z-20 space-y-8 max-w-lg w-full">
+        <div className="space-y-2">
+          <h2 className="font-display text-4xl font-black text-foreground tracking-tight">
+            {t.loader.title}
+            <span className="animate-pulse">...</span>
+          </h2>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={step}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="text-xl font-bold text-arch-primary"
+            >
+              {t.loader.steps[step]}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+
+        {/* Technical Data Stream */}
+        <div className="bg-card/50 border border-border rounded-2xl p-6 backdrop-blur-md shadow-inner">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex gap-1">
+              <div className="h-1.5 w-1.5 rounded-full bg-red-500/50" />
+              <div className="h-1.5 w-1.5 rounded-full bg-yellow-500/50" />
+              <div className="h-1.5 w-1.5 rounded-full bg-green-500/50" />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Behavioral Engine v2.4</span>
+          </div>
+          
+          <div className="h-20 overflow-hidden relative">
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={analysisStep}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                className="text-left font-mono text-[11px] text-muted-foreground leading-relaxed"
+              >
+                <span className="text-arch-primary/80 mr-2"> [SYSTEM_ANALYSIS] </span>
+                {t.loader.analysis[analysisStep]}
+                <br />
+                <span className="opacity-40">TIMESTAMP: {new Date().toISOString()}</span>
+                <br />
+                <span className="opacity-40">MEMORY_ALLOCATION: 0x4F2A1...</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          
+          <div className="mt-4 h-1 w-full bg-secondary rounded-full overflow-hidden">
             <motion.div 
-              animate={{ x: ["-100%", "100%"] }} 
-              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-              className="h-full w-1/2 bg-arch-primary" 
+              animate={{ width: ["0%", "100%"] }} 
+              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+              className="h-full bg-arch-primary shadow-[0_0_15px_var(--arch-glow)]" 
             />
           </div>
         </div>
-        <div className="text-left">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary/60 mb-1">Neural Mapping</p>
-          <div className="h-1 w-24 bg-secondary rounded-full overflow-hidden">
-            <motion.div 
-              animate={{ x: ["-100%", "100%"] }} 
-              transition={{ repeat: Infinity, duration: 1.8, ease: "linear", delay: 0.3 }}
-              className="h-full w-1/2 bg-arch-primary" 
-            />
-          </div>
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
