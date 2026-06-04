@@ -155,9 +155,9 @@ function ProgressPage() {
   const report = progData?.report as Report | null | undefined;
 
   const ALL_ACHIEVEMENTS = [
-    { code: "ACH_001", name: t.dashboard.progress.achievements.ACH_001.name, desc: t.dashboard.progress.achievements.ACH_001.desc, icon: "🏆", points: 50 },
-    { code: "ACH_002", name: t.dashboard.progress.achievements.ACH_002.name, desc: t.dashboard.progress.achievements.ACH_002.desc, icon: "🔥", points: 50 },
-    { code: "ACH_003", name: t.dashboard.progress.achievements.ACH_003.name, desc: t.dashboard.progress.achievements.ACH_003.desc, icon: "📥", points: 25 },
+    { code: "ACH_001", name: t.dashboard.progress.achievements.ACH_001.name, desc: t.dashboard.progress.achievements.ACH_001.desc, icon: "🏆", points: 25 },
+    { code: "ACH_002", name: t.dashboard.progress.achievements.ACH_002.name, desc: t.dashboard.progress.achievements.ACH_002.desc, icon: "🔥", points: 75 },
+    { code: "ACH_003", name: t.dashboard.progress.achievements.ACH_003.name, desc: t.dashboard.progress.achievements.ACH_003.desc, icon: "📤", points: 25 },
     { code: "ACH_004", name: t.dashboard.progress.achievements.ACH_004.name, desc: t.dashboard.progress.achievements.ACH_004.desc, icon: "⚡", points: 100 },
     { code: "ACH_005", name: t.dashboard.progress.achievements.ACH_005.name, desc: t.dashboard.progress.achievements.ACH_005.desc, icon: "⚖️", points: 80 },
     { code: "ACH_006", name: t.dashboard.progress.achievements.ACH_006.name, desc: t.dashboard.progress.achievements.ACH_006.desc, icon: "👑", points: 200 },
