@@ -112,11 +112,12 @@ function LandingAndQuiz() {
     const next = [...answers];
     next[stage.index] = optionIdx;
     setAnswers(next);
-    if (stage.index < 7) {
-      setTimeout(() => setStage({ kind: "q", index: stage.index + 1 }), 180);
-    } else {
-      setTimeout(() => setStage({ kind: "email" }), 180);
-    }
+    
+    // Smooth transition with staggered feel
+    const isLast = stage.index === 7;
+    setTimeout(() => {
+      setStage(isLast ? { kind: "email" } : { kind: "q", index: stage.index + 1 });
+    }, 250);
   }
 
   useEffect(() => {
@@ -124,7 +125,10 @@ function LandingAndQuiz() {
   }, [stage.kind]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden">
+    <div 
+      className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden"
+      data-arch={archCode || undefined}
+    >
       <TopBar />
       
       <main className="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-12">
@@ -169,6 +173,7 @@ function LandingAndQuiz() {
             >
               <QuestionScreen
                 index={stage.index}
+                total={8}
                 name={name}
                 selected={answers[stage.index]}
                 onSelect={answerQuestion}
@@ -206,6 +211,7 @@ function LandingAndQuiz() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              className="flex min-h-[60vh] flex-col items-center justify-center text-center"
             >
               <LoaderScreen />
             </motion.div>
@@ -285,7 +291,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
         >
           <button
             onClick={onClick}
-            className="w-full rounded-full bg-primary py-4 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--accent-glow)]"
+            className="w-full rounded-full bg-arch-primary py-4 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--arch-glow)]"
           >
             {t.sales.cta}
           </button>
@@ -313,7 +319,7 @@ function TopBar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
         <Link to="/" className="font-display text-2xl font-bold tracking-tight">
           <span className="text-foreground">Mind</span>
-          <span className="text-primary">Reset</span>
+          <span className="text-arch-primary transition-colors duration-500">Reset</span>
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
@@ -338,17 +344,17 @@ function Hero({ onStart }: { onStart: () => void }) {
   return (
     <section className="relative py-12 md:py-32 text-center">
       {/* Background glow effect */}
-      <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[120px]" />
+      <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[120px]" />
       
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-primary shadow-[0_0_20px_var(--accent-glow)]"
+        className="mb-8 inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-arch-primary shadow-[0_0_20px_var(--arch-glow)]"
       >
         <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-arch-primary"></span>
         </span>
         {t.hero.kicker}
       </motion.div>
@@ -379,13 +385,13 @@ function Hero({ onStart }: { onStart: () => void }) {
       >
         <button
           onClick={onStart}
-          className="group relative overflow-hidden rounded-full bg-primary px-12 py-6 text-xl font-black text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_40px_var(--accent-glow)] active:scale-95"
+          className="group relative overflow-hidden rounded-full bg-arch-primary px-12 py-6 text-xl font-black text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_40px_var(--arch-glow)] active:scale-95"
         >
           <span className="relative z-10 flex items-center gap-2">
             {t.hero.cta}
             <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
           </span>
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary to-accent-dark opacity-0 transition-opacity group-hover:opacity-100" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-arch-primary to-arch-accent opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
         
         <div className="flex flex-col items-center gap-3">
@@ -447,7 +453,7 @@ function Identity(props: {
             value={props.name}
             onChange={(e) => props.setName(e.target.value)}
             placeholder={t.common.yourNamePlaceholder}
-            className="w-full rounded-xl border border-border bg-card px-5 py-4 text-xl outline-none transition focus:border-primary focus:ring-1 focus:ring-primary shadow-sm"
+            className="w-full rounded-xl border border-border bg-card px-5 py-4 text-xl outline-none transition focus:border-arch-primary focus:ring-1 focus:ring-arch-primary shadow-sm"
           />
         </div>
 
@@ -462,7 +468,7 @@ function Identity(props: {
                 onClick={() => props.setGender(g)}
                 className={`rounded-xl border px-4 py-4 text-base font-semibold transition-all ${
                   props.gender === g
-                    ? "border-primary bg-primary text-primary-foreground shadow-[0_0_15px_var(--accent-glow)]"
+                    ? "border-arch-primary bg-arch-primary text-primary-foreground shadow-[0_0_15px_var(--arch-glow)]"
                     : "border-border bg-card text-muted-foreground hover:border-foreground hover:bg-secondary"
                 }`}
               >
@@ -476,9 +482,9 @@ function Identity(props: {
       <button
         disabled={!ok}
         onClick={props.onContinue}
-        className="mt-12 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-5 text-lg font-bold text-primary-foreground transition-all hover:opacity-90 disabled:opacity-30 disabled:hover:scale-100 hover:shadow-[0_0_20px_var(--accent-glow)]"
+        className="mt-12 w-full rounded-full bg-arch-primary py-5 text-xl font-black text-primary-foreground shadow-[0_0_20px_var(--arch-glow)] transition-all hover:scale-[1.02] active:scale-[0.98] disabled:scale-100 disabled:opacity-30 disabled:shadow-none"
       >
-        {t.common.continue} <span>→</span>
+        {t.common.continue}
       </button>
     </section>
   );
@@ -488,66 +494,86 @@ function Identity(props: {
 
 function QuestionScreen(props: {
   index: number;
+  total: number;
   name: string;
   selected: number | null;
-  onSelect: (i: number) => void;
+  onSelect: (idx: number) => void;
   onBack: () => void;
 }) {
   const { t } = useI18n();
   const q = t.q[props.index];
-  const progress = ((props.index + 1) / 8) * 100;
+  
+  // Strategic progress bar with Zeigarnik effect
+  const progress = ((props.index + 1) / props.total) * 100;
+  // Accelerate progress visual after 80% to create urgency
+  const visualProgress = progress >= 80 ? 95 : progress;
 
   return (
-    <section className="py-8 max-w-2xl mx-auto animate-in fade-in duration-300">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-3">
-          <button
-            onClick={props.onBack}
-            className="flex items-center gap-1 text-sm font-semibold text-muted-foreground hover:text-foreground transition"
-          >
-            <span>←</span> {t.common.back}
-          </button>
-          <span className="text-xs font-bold uppercase tracking-wider text-primary">
-            {t.questions.title(props.index + 1, 8)}
+    <section className="py-8 max-w-2xl mx-auto">
+      {/* Strategic Progress Bar */}
+      <div className="mb-12">
+        <div className="flex justify-between items-end mb-3">
+          <span className="text-xs font-black uppercase tracking-[0.2em] text-arch-primary">
+            {t.questions.title(props.index + 1, props.total)}
+          </span>
+          <span className="text-sm font-bold text-muted-foreground">
+            {Math.round(progress)}%
           </span>
         </div>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-          <div
-            className="h-full bg-primary transition-[width] duration-500 ease-out shadow-[0_0_10px_var(--accent-glow)]"
-            style={{ width: `${progress}%` }}
+        <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={{ width: `${visualProgress}%` }}
+            transition={{ type: "spring", damping: 20, stiffness: 100 }}
+            className="h-full bg-arch-primary shadow-[0_0_15px_var(--arch-glow)]" 
           />
         </div>
       </div>
 
-      <h2 className="font-display text-3xl font-extrabold leading-tight md:text-4xl">
-        {q.q.replace("[NOME]", props.name)}
-      </h2>
-      <p className="mt-3 text-lg text-muted-foreground">{t.questions.intro(props.name || "")}</p>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        key={props.index}
+      >
+        <h2 className="font-display text-3xl font-bold leading-tight md:text-4xl mb-4">
+          {q.q.replace("[NOME]", props.name)}
+        </h2>
+        <p className="text-muted-foreground mb-10 text-lg">
+          {t.questions.intro(props.name)}
+        </p>
 
-      <div className="mt-10 space-y-4">
-        {q.options.map((opt, i) => (
-          <button
-            key={i}
-            onClick={() => props.onSelect(i)}
-            className={`group relative flex w-full items-center justify-between overflow-hidden rounded-2xl border p-5 text-start transition-all duration-300 hover:scale-[1.01] ${
-              props.selected === i
-                ? "border-primary bg-primary/10 text-foreground shadow-[0_0_15px_var(--accent-glow)]"
-                : "border-border bg-card text-foreground hover:border-primary/50 hover:bg-secondary"
-            }`}
-          >
-            <span className="text-lg md:text-xl">{opt}</span>
-            <div
-              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${
+        <div className="grid gap-4">
+          {q.options.map((opt, i) => (
+            <button
+              key={i}
+              onClick={() => props.onSelect(i)}
+              className={`group flex items-center justify-between rounded-2xl border p-6 text-left transition-all duration-300 ${
                 props.selected === i
-                  ? "border-primary bg-primary"
-                  : "border-border bg-background group-hover:border-primary/50"
+                  ? "border-arch-primary bg-arch-primary/10 shadow-[0_0_20px_var(--arch-glow)]"
+                  : "border-border bg-card hover:border-arch-primary/50 hover:bg-secondary/50"
               }`}
             >
-              {props.selected === i && <span className="h-2 w-2 rounded-full bg-background" />}
-            </div>
-          </button>
-        ))}
-      </div>
+              <span className={`text-lg font-medium transition-colors ${props.selected === i ? "text-foreground" : "text-muted-foreground group-hover:text-foreground"}`}>
+                {opt}
+              </span>
+              <div className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                props.selected === i 
+                  ? "border-arch-primary bg-arch-primary shadow-[0_0_10px_var(--arch-glow)]" 
+                  : "border-border group-hover:border-arch-primary/50"
+              }`}>
+                {props.selected === i && <div className="h-2 w-2 rounded-full bg-primary-foreground" />}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={props.onBack}
+          className="mt-12 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition"
+        >
+          ← {t.common.back}
+        </button>
+      </motion.div>
     </section>
   );
 }
@@ -566,7 +592,7 @@ function EmailCapture(props: {
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(props.email) && props.gdpr;
   return (
     <section className="py-12 max-w-xl mx-auto animate-in slide-in-from-bottom-8 duration-700">
-      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_30px_var(--accent-glow)] mx-auto">
+      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-arch-primary/10 shadow-[0_0_30px_var(--arch-glow)] mx-auto">
         <span className="text-4xl">🔐</span>
       </div>
       <h2 className="text-center font-display text-3xl font-extrabold md:text-5xl">
@@ -608,7 +634,7 @@ function EmailCapture(props: {
         <button
           type="submit"
           disabled={!valid}
-          className="w-full rounded-full bg-primary px-6 py-5 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--accent-glow)] transition-all hover:scale-[1.02] disabled:scale-100 disabled:opacity-40 disabled:shadow-none"
+          className="w-full rounded-full bg-arch-primary px-6 py-5 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--arch-glow)] transition-all hover:scale-[1.02] disabled:scale-100 disabled:opacity-40 disabled:shadow-none"
         >
           {t.emailCapture.cta} →
         </button>
@@ -623,22 +649,77 @@ function LoaderScreen() {
   const { t } = useI18n();
   const [step, setStep] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setStep((s) => (s + 1) % t.loader.steps.length), 900);
+    const id = setInterval(() => setStep((s) => (s + 1) % t.loader.steps.length), 1200);
     return () => clearInterval(id);
   }, [t]);
+
   return (
-    <section className="flex flex-col items-center justify-center py-32 text-center animate-in fade-in">
-      <div className="relative flex h-32 w-32 items-center justify-center">
-        <div className="absolute h-full w-full animate-[spin_3s_linear_infinite] rounded-full border-4 border-primary/20 border-t-primary" />
-        <div className="absolute h-24 w-24 animate-[spin_2s_linear_infinite_reverse] rounded-full border-4 border-primary/10 border-b-primary" />
-        <span className="text-4xl animate-pulse">🧠</span>
+    <section className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-700 relative overflow-hidden">
+      {/* Dynamic Scan Line Effect */}
+      <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
+        <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-arch-primary to-transparent opacity-50 shadow-[0_0_15px_var(--arch-glow)] animate-[scan-line_2.5s_ease-in-out_infinite]" />
       </div>
-      <h2 className="mt-10 font-display text-2xl font-bold text-foreground">
-        {t.loader.title}
-      </h2>
-      <p className="mt-3 text-lg font-medium text-muted-foreground transition-opacity animate-pulse">
-        {t.loader.steps[step]}
-      </p>
+
+      <div className="relative flex h-40 w-40 items-center justify-center">
+        {/* Modern Concentric Loaders */}
+        <div className="absolute h-full w-full animate-[spin_3s_linear_infinite] rounded-full border-[3px] border-arch-glow border-t-arch-primary" />
+        <div className="absolute h-[80%] w-[80%] animate-[spin_2s_linear_infinite_reverse] rounded-full border-[3px] border-arch-glow/30 border-b-arch-primary/60" />
+        <div className="absolute h-[60%] w-[60%] animate-[pulse_2s_ease-in-out_infinite] rounded-full bg-arch-primary/10 flex items-center justify-center">
+          <Brain size={48} className="text-arch-primary animate-pulse" />
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mt-12 z-20"
+      >
+        <h2 className="font-display text-3xl font-black text-foreground tracking-tight">
+          {t.loader.title}
+          <span className="mr-cursor" />
+        </h2>
+        
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={step}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            className="mt-4 text-xl font-medium text-muted-foreground max-w-md"
+          >
+            {t.loader.steps[step]}
+          </motion.p>
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Perceived value text */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="mt-12 grid grid-cols-2 gap-8"
+      >
+        <div className="text-left">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary/60 mb-1">Data Stream</p>
+          <div className="h-1 w-24 bg-secondary rounded-full overflow-hidden">
+            <motion.div 
+              animate={{ x: ["-100%", "100%"] }} 
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+              className="h-full w-1/2 bg-arch-primary" 
+            />
+          </div>
+        </div>
+        <div className="text-left">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary/60 mb-1">Neural Mapping</p>
+          <div className="h-1 w-24 bg-secondary rounded-full overflow-hidden">
+            <motion.div 
+              animate={{ x: ["-100%", "100%"] }} 
+              transition={{ repeat: Infinity, duration: 1.8, ease: "linear", delay: 0.3 }}
+              className="h-full w-1/2 bg-arch-primary" 
+            />
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
