@@ -342,15 +342,14 @@ function TopBar() {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative py-12 md:py-32 text-center">
-      {/* Background glow effect */}
-      <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[120px]" />
+    <section className="relative py-12 md:py-32 text-center overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute left-1/2 top-1/2 -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[140px] opacity-50" />
       
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="mb-8 inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-[0.2em] text-arch-primary shadow-[0_0_20px_var(--arch-glow)]"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-8 inline-flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-arch-primary shadow-[0_0_30px_rgba(var(--arch-primary-rgb),0.1)] backdrop-blur-sm"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
@@ -360,10 +359,10 @@ function Hero({ onStart }: { onStart: () => void }) {
       </motion.div>
 
       <motion.h1 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.8 }}
-        className="mx-auto max-w-4xl font-display text-5xl font-extrabold leading-[1.05] tracking-tight md:text-8xl"
+        transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="mx-auto max-w-5xl font-display text-5xl font-extrabold leading-[0.95] tracking-tighter md:text-9xl bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent"
       >
         {t.hero.headline}
       </motion.h1>
@@ -371,45 +370,40 @@ function Hero({ onStart }: { onStart: () => void }) {
       <motion.p 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.8 }}
-        className="mx-auto mt-10 max-w-2xl text-lg text-muted-foreground md:text-2xl leading-relaxed"
+        transition={{ delay: 0.4, duration: 1 }}
+        className="mx-auto mt-12 max-w-2xl text-lg text-muted-foreground md:text-2xl leading-relaxed font-medium"
       >
         {t.hero.sub}
       </motion.p>
 
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
-        className="mt-16 flex flex-col items-center gap-6"
+        transition={{ delay: 0.6, duration: 1 }}
+        className="mt-20 flex flex-col items-center gap-8"
       >
         <button
           onClick={onStart}
-          className="group relative overflow-hidden rounded-full bg-arch-primary px-12 py-6 text-xl font-black text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_40px_var(--arch-glow)] active:scale-95"
+          className="group relative h-20 w-full max-w-md overflow-hidden rounded-2xl bg-foreground text-background transition-all hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] active:scale-95"
         >
-          <span className="relative z-10 flex items-center gap-2">
-            {t.hero.cta}
-            <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-1" />
+          <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity group-hover:opacity-100" />
+          <span className="relative z-10 flex items-center justify-center gap-3 text-2xl font-black italic tracking-tight group-hover:text-primary-foreground">
+            {t.hero.cta.toUpperCase()}
+            <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-2" />
           </span>
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-arch-primary to-arch-accent opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
         
-        <div className="flex flex-col items-center gap-3">
-          <div className="flex -space-x-2">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-8 w-8 rounded-full border-2 border-background bg-secondary flex items-center justify-center overflow-hidden">
-                <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="user" className="h-full w-full object-cover grayscale opacity-70" />
-              </div>
-            ))}
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex items-center gap-6 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div className="h-6 w-auto flex items-center justify-center font-black italic tracking-tighter text-xl">Forbes</div>
+            <div className="h-6 w-auto flex items-center justify-center font-black italic tracking-tighter text-xl">Wired</div>
+            <div className="h-6 w-auto flex items-center justify-center font-black italic tracking-tighter text-xl">Bloomberg</div>
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="flex text-primary">
-              <Star className="h-3 w-3 fill-current" />
-              <Star className="h-3 w-3 fill-current" />
-              <Star className="h-3 w-3 fill-current" />
-              <Star className="h-3 w-3 fill-current" />
-              <Star className="h-3 w-3 fill-current" />
-            </span>
+          
+          <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+            <div className="flex text-arch-primary gap-0.5">
+              {[1, 2, 3, 4, 5].map(i => <Star key={i} className="h-3 w-3 fill-current" />)}
+            </div>
             <span>{t.hero.trust}</span>
           </div>
         </div>
@@ -418,10 +412,11 @@ function Hero({ onStart }: { onStart: () => void }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
-        className="mt-24 animate-bounce"
+        transition={{ delay: 1.5, duration: 1 }}
+        className="mt-32 opacity-20"
       >
-        <ChevronDown className="mx-auto h-8 w-8 text-muted-foreground/30" />
+        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-foreground to-transparent mx-auto mb-8" />
+        <ChevronDown className="mx-auto h-6 w-6 animate-bounce" />
       </motion.div>
     </section>
   );
