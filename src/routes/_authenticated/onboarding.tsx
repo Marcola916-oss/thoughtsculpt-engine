@@ -2,9 +2,12 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { saveOnboarding } from "../../lib/profile.functions";
 import { generateCalendar } from "../../lib/calendar.functions";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
+import { PageTransition } from "../../components/PageTransition";
+
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({ meta: [{ title: "Calibração — MindReset" }] }),
@@ -201,10 +204,18 @@ function OnboardingPage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center my-8">
-        <div className="w-full max-w-xl bg-card border border-border rounded-3xl p-6 md:p-10 shadow-xl min-h-[400px] flex flex-col justify-between">
+        <div className="w-full max-w-xl glass-panel p-6 md:p-10 shadow-2xl min-h-[500px] flex flex-col justify-between overflow-hidden relative">
+          <AnimatePresence mode="wait">
+
           {/* Step 1: Wake Time */}
           {step === 1 && (
-            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
               <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step1.heading}</h2>
               <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step1.description}</p>
               <div className="grid gap-3">
@@ -230,7 +241,7 @@ function OnboardingPage() {
                   </button>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Step 2: Sleep Time */}
