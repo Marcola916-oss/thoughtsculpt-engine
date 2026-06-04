@@ -344,7 +344,7 @@ function Hero({ onStart }: { onStart: () => void }) {
   return (
     <section className="relative py-12 md:py-32 text-center">
       {/* Background glow effect */}
-      <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[120px]" />
+      <div className="absolute left-1/2 top-1/2 -z-10 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[120px]" />
       
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
