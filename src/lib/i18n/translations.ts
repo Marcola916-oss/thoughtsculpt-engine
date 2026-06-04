@@ -22,15 +22,17 @@ export type Dict = {
   questions: { title: (n: number, total: number) => string; intro: (name: string) => string };
   q: Array<{ q: string; options: string[] }>;
   emailCapture: { title: (name: string) => string; sub: string; cta: string };
-  loader: { title: string; steps: string[] };
+  loader: { title: string; steps: string[]; analysis: string[] };
   archetypes: Record<"AO" | "SS" | "EA" | "HI", { name: string; tagline: string; hooks: string[] }>;
   reveal: {
     kicker: (name: string) => string; sub: string; cta: string; share: string;
     errorTitle: string; errorBody: string; errorRetry: string;
+    comparison: (name: string, arch: string) => string;
   };
   sales: {
     h1: (name: string, arch: string) => string;
     promise: string;
+    videoPlaceholder: string;
     painBlock: { title: string; body: string; bullets: string[]; conclusion: string };
     science: { title: string; body: string; references: string; pivot: string; solution: string };
     features: Array<{ icon: string; title: string; description: string }>;
@@ -41,8 +43,10 @@ export type Dict = {
       ratingText: string;
     };
     faq: Array<{ q: string; a: string }>;
+    guarantee: { title: string; body: string };
     ctaFinal: { title: string; subtitle: string; cta: string; trust: string };
     cta: string;
+    timer: string;
   };
   plans: {
     title: string; sub: string; mostPopular: string; perDay: (v: string) => string;
@@ -208,6 +212,13 @@ const PT: Dict = {
       "A identificar o teu padrão dominante…",
       "A preparar a tua revelação…",
     ],
+    analysis: [
+      "Analizando fluxos de impulsividade...",
+      "Mapeando gatilhos de segurança...",
+      "Cruzando dados com 12.000 diagnósticos...",
+      "Calculando probabilidade de recidiva...",
+      "Construindo protocolo de 30 dias..."
+    ]
   },
   archetypes: {
     AO: { name: "Acumulador Obsessivo", tagline: "Vives em modo escassez — mesmo quando há.",
@@ -227,10 +238,13 @@ const PT: Dict = {
     errorTitle: "Não conseguimos salvar o teu diagnóstico.",
     errorBody: "A tua revelação ainda aparece abaixo, mas o link de partilha não está disponível.",
     errorRetry: "Tentar novamente",
+    comparison: (name, arch) => `Comparação: ${name} vs. Média do ${arch}`,
   },
   sales: {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
     promise: "Em 30 dias, vais reconhecer o gatilho antes de ele acontecer.",
+    videoPlaceholder: "Assista a esta breve explicação do seu arquétipo",
+    timer: "Oferta termina em:",
     painBlock: {
       title: "Você já tentou de tudo, certo?",
       body: "Planilhas do Excel. Aplicativos de orçamento. Promessas de ano novo. Mas o padrão sempre volta a assumir o controle nas horas de estresse, ansiedade ou euforia. Isso acontece porque o problema não é matemático — é comportamental.",
@@ -280,6 +294,10 @@ const PT: Dict = {
       { q: "A IA substitui um psicólogo?", a: "Não. O MindReset é uma ferramenta de autoconhecimento comportamental. Não substitui aconselhamento profissional. Mas ajuda a identificar padrões que muitas vezes passam despercebidos." },
       { q: "Como funciona o reembolso?", a: "Você tem 7 dias para solicitar reembolso integral após a primeira compra. Sem perguntas. Acesse o portal do cliente ou entre em contato." },
     ],
+    guarantee: {
+      title: "Garantia Incondicional",
+      body: "Se em 7 dias não sentires que o teu protocolo está a mudar a tua percepção sobre dinheiro, devolvemos 100% do teu investimento. Sem perguntas."
+    },
     ctaFinal: {
       title: "Chega de repetir os mesmos padrões.",
       subtitle: "O seu arquétipo não é um destino. É um ponto de partida.",
@@ -467,6 +485,13 @@ const EN: Dict = {
       "Identifying your dominant pattern…",
       "Preparing your reveal…",
     ],
+    analysis: [
+      "Analyzing impulsivity flows...",
+      "Mapping security triggers...",
+      "Cross-referencing with 12,000+ diagnoses...",
+      "Calculating relapse probability...",
+      "Building 30-day protocol..."
+    ]
   },
   archetypes: {
     AO: { name: "Obsessive Accumulator", tagline: "You live in scarcity mode — even when there's plenty.",
@@ -486,10 +511,13 @@ const EN: Dict = {
     errorTitle: "We couldn't save your diagnosis.",
     errorBody: "Your reveal still appears below, but the share link isn't available.",
     errorRetry: "Try again",
+    comparison: (name, arch) => `Comparison: ${name} vs. ${arch} average`,
   },
   sales: {
     h1: (name, arch) => `${name}, this is why nothing you tried before worked.`,
     promise: "In 30 days you'll recognize the trigger before it happens.",
+    videoPlaceholder: "Watch this brief explanation of your archetype",
+    timer: "Offer ends in:",
     painBlock: {
       title: "You've tried everything, haven't you?",
       body: "Excel spreadsheets. Budgeting apps. New Year's resolutions. But the pattern always takes over during stress, anxiety, or excitement. That's because the problem isn't mathematical — it's behavioral.",
@@ -539,6 +567,10 @@ const EN: Dict = {
       { q: "Does AI replace a psychologist?", a: "No. MindReset is a behavioral self-awareness tool. It doesn't replace professional advice. But it helps identify patterns that often go unnoticed." },
       { q: "How does the refund work?", a: "You have 7 days to request a full refund after your first purchase. No questions asked. Access the customer portal or contact us." },
     ],
+    guarantee: {
+      title: "Unconditional Guarantee",
+      body: "If in 7 days you don't feel that your protocol is changing your perception of money, we refund 100% of your investment. No questions asked."
+    },
     ctaFinal: {
       title: "Stop repeating the same patterns.",
       subtitle: "Your archetype isn't a destination. It's a starting point.",
@@ -691,8 +723,8 @@ const PL: Dict = {
   identity: { title: "Zanim zaczniemy — kim jesteś?", sub: "Użyjemy Twojego imienia w całej diagnozie, żeby była osobista." },
   questions: { title: (n, total) => `Pytanie ${n} z ${total}`, intro: (name) => `${name}, wybierz odpowiedź najbliższą Tobie — nie ma złych.` },
   emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp" },
-  loader: { title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…"] },
-  reveal: { kicker: (name) => `${name}, Twój archetyp to:`, sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.", cta: "Chcę swój protokół", share: "Udostępnij mój archetyp", errorTitle: "Nie udało się zapisać diagnozy.", errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.", errorRetry: "Spróbuj ponownie" },
+  loader: { ...EN.loader, title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…"] },
+  reveal: { ...EN.reveal, kicker: (name) => `${name}, Twój archetyp to:`, sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.", cta: "Chcę swój protokół", share: "Udostępnij mój archetyp", errorTitle: "Nie udało się zapisać diagnozy.", errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.", errorRetry: "Spróbuj ponownie" },
   plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Zacznij teraz", guarantee: "7 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
 };
@@ -719,8 +751,8 @@ const RO: Dict = {
   identity: { title: "Înainte să începem — cine ești?", sub: "Vom folosi prenumele tău în toată diagnoza ca să fie personală." },
   questions: { title: (n, total) => `Întrebarea ${n} din ${total}`, intro: (name) => `${name}, alege opțiunea care îți seamănă cel mai mult — nu există răspunsuri greșite.` },
   emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul" },
-  loader: { title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…"] },
-  reveal: { kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
+  loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…"] },
+  reveal: { ...EN.reveal, kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
   plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Începe acum", guarantee: "7 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
 };
@@ -748,8 +780,8 @@ const AR: Dict = {
   identity: { title: "قبل أن نبدأ — من أنت؟", sub: "سنستخدم اسمك خلال التشخيص ليكون شخصياً." },
   questions: { title: (n, total) => `السؤال ${n} من ${total}`, intro: (name) => `${name}، اختر الإجابة الأقرب لك — لا توجد إجابة خاطئة.` },
   emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي" },
-  loader: { title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…"] },
-  reveal: { kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
+  loader: { ...EN.loader, title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…"] },
+  reveal: { ...EN.reveal, kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
   plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "ابدأ الآن", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
 };
