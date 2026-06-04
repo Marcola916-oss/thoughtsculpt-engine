@@ -1429,74 +1429,77 @@ function Plans({
           return (
             <motion.div
               key={p}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className={`relative flex flex-col rounded-[2.5rem] border bg-card p-10 transition-all ${
+              transition={{ delay: i * 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className={`relative flex flex-col rounded-[3.5rem] border bg-card/50 p-12 transition-all backdrop-blur-3xl ${
                 popular
-                  ? "border-primary shadow-[0_0_60px_var(--accent-glow)] md:scale-110 z-10"
-                  : "border-border hover:border-primary/30"
+                  ? "border-arch-primary shadow-[0_40px_100px_-20px_var(--arch-glow)] md:scale-110 z-10"
+                  : "border-white/5 hover:border-arch-primary/30"
               }`}
             >
               {popular && (
-                <div className="absolute -top-5 left-1/2 -translate-x-1/2 rounded-full bg-primary px-6 py-2 text-xs font-black uppercase tracking-[0.2em] text-primary-foreground shadow-xl">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 rounded-full bg-arch-primary px-8 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-primary-foreground shadow-2xl">
                   {t.plans.mostPopular}
                 </div>
               )}
 
-              <div className="mb-10 flex-1 text-center">
-                <h3 className="font-display text-3xl font-black mb-4">
+              <div className="mb-12 flex-1 text-center">
+                <h3 className="font-display text-4xl font-black mb-6 uppercase italic tracking-tighter">
                   {p === "30d" ? t.plans.p30 : p === "6m" ? t.plans.p6m : t.plans.p1y}
                 </h3>
 
                 {discountStr && (
-                  <div className="inline-block rounded-lg border border-success/30 bg-success/10 px-3 py-1 text-xs font-black text-success uppercase tracking-widest">
+                  <div className="inline-block rounded-xl border border-success/30 bg-success/10 px-4 py-1.5 text-xs font-black text-success uppercase tracking-[0.2em] mb-8">
                     {discountStr}
                   </div>
                 )}
 
-                <div className="mt-8 flex items-baseline justify-center gap-1">
-                  <span className="font-display text-6xl font-black tracking-tighter">
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="font-display text-7xl font-black tracking-tighter text-gradient leading-none">
                     {formatPrice(currency, total)}
                   </span>
                 </div>
-                <p className="mt-4 text-sm font-bold uppercase tracking-widest text-primary">
+                <p className="mt-6 text-xs font-black uppercase tracking-[0.3em] text-arch-primary">
                   {t.plans.perDay(pricePerDay(currency, p))}
                 </p>
               </div>
 
-              <div className="mb-12 space-y-4 border-t border-border/50 pt-10">
+              <div className="mb-12 space-y-5 border-t border-white/5 pt-12">
                 {[
                   { label: f.diagnosis, check: true },
                   { label: f.matrix, check: true },
                   { label: f.compass, check: true },
                   { label: f.gamification, check: p !== "30d" }
                 ].map((item, idx) => (
-                  <div key={idx} className={`flex items-center gap-3 text-sm ${item.check ? "text-foreground font-medium" : "text-muted-foreground line-through opacity-40"}`}>
-                    <CheckCircle2 className={`h-5 w-5 shrink-0 ${item.check ? "text-primary" : "text-muted-foreground"}`} />
-                    {item.label}
+                  <div key={idx} className={`flex items-center gap-4 text-lg ${item.check ? "text-foreground font-medium" : "text-muted-foreground line-through opacity-20"}`}>
+                    <CheckCircle2 className={`h-6 w-6 shrink-0 ${item.check ? "text-arch-primary" : "text-muted-foreground"}`} />
+                    <span className="tracking-tight">{item.label}</span>
                   </div>
                 ))}
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 disabled={busy !== null || !email}
                 onClick={() => choose(p)}
-                className={`w-full rounded-2xl px-6 py-6 text-xl font-black transition-all ${
+                className={`group relative w-full overflow-hidden rounded-3xl py-8 text-2xl font-black italic tracking-tighter transition-all shadow-2xl ${
                   popular
-                    ? "bg-primary text-primary-foreground shadow-[0_10px_30px_var(--accent-glow)]"
-                    : "border-2 border-primary/20 bg-background text-foreground hover:border-primary/50"
-                } disabled:opacity-50 disabled:scale-100 uppercase tracking-widest`}
+                    ? "bg-foreground text-background"
+                    : "border border-white/10 bg-white/5 text-foreground hover:bg-white/10"
+                } disabled:opacity-20 disabled:scale-100 uppercase`}
               >
-                {busy === p ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                    {t.common.processing}
-                  </span>
-                ) : t.plans.chooseCta}
+                <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="relative z-10">
+                  {busy === p ? (
+                    <span className="flex items-center justify-center gap-3">
+                      <span className="h-6 w-6 animate-spin rounded-full border-3 border-current border-t-transparent" />
+                      {t.common.processing}
+                    </span>
+                  ) : t.plans.chooseCta.toUpperCase()}
+                </span>
               </motion.button>
             </motion.div>
           );
