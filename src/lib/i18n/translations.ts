@@ -747,8 +747,8 @@ const RO: Dict = {
   identity: { title: "Înainte să începem — cine ești?", sub: "Vom folosi prenumele tău în toată diagnoza ca să fie personală." },
   questions: { title: (n, total) => `Întrebarea ${n} din ${total}`, intro: (name) => `${name}, alege opțiunea care îți seamănă cel mai mult — nu există răspunsuri greșite.` },
   emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul" },
-  loader: { title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…"] },
-  reveal: { kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
+  loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…"] },
+  reveal: { ...EN.reveal, kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
   plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Începe acum", guarantee: "7 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
 };
@@ -776,8 +776,8 @@ const AR: Dict = {
   identity: { title: "قبل أن نبدأ — من أنت؟", sub: "سنستخدم اسمك خلال التشخيص ليكون شخصياً." },
   questions: { title: (n, total) => `السؤال ${n} من ${total}`, intro: (name) => `${name}، اختر الإجابة الأقرب لك — لا توجد إجابة خاطئة.` },
   emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي" },
-  loader: { title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…"] },
-  reveal: { kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
+  loader: { ...EN.loader, title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…"] },
+  reveal: { ...EN.reveal, kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
   plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "ابدأ الآن", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
 };
