@@ -1,12 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { jsPDF } from "jspdf";
 import { getDiagnosis, generateDiagnosis } from "../../lib/diagnosis.functions";
 import { getMyProfile } from "../../lib/profile.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
+import { useMousePosition } from "../../hooks/use-mouse-position";
+
+function BentoCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  useMousePosition(ref);
+
+  return (
+    <div ref={ref} className={`bento-card ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 
 export const Route = createFileRoute("/_authenticated/dashboard/diagnosis")({
   head: () => ({ meta: [{ title: "Diagnóstico — MindReset" }] }),
@@ -171,18 +185,21 @@ function DiagnosisPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl pb-12">
-      <header className="mb-8 rounded-2xl bg-card p-6 border border-border shadow-sm print:shadow-none print:border-none">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div className="mx-auto max-w-4xl pb-12 relative">
+      <div className="absolute inset-0 mesh-gradient opacity-10 pointer-events-none" />
+      
+      <header className="mb-8 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1">
-              <span className="text-sm font-bold text-primary">{archetypeName}</span>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-4 py-1.5 shadow-[0_0_15px_var(--arch-glow)]">
+              <span className="text-sm font-black uppercase tracking-widest text-arch-primary">{archetypeName}</span>
             </div>
-            <h1 className="font-display text-3xl font-extrabold md:text-4xl">{t.dashboard.diagnosis.result.heading}</h1>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <h1 className="font-display text-4xl font-black md:text-5xl tracking-tighter text-gradient">{t.dashboard.diagnosis.result.heading}</h1>
+            <p className="mt-2 text-sm text-muted-foreground font-medium">
               {t.dashboard.diagnosis.result.generatedOn} {new Date(diagnosis.generated_at).toLocaleDateString()}
             </p>
           </div>
+
           
           <div className="flex flex-wrap gap-2 print:hidden">
             <button 
@@ -207,7 +224,8 @@ function DiagnosisPage() {
         </div>
       </header>
 
-      <div className="mb-8 flex flex-wrap gap-2 border-b border-border print:hidden">
+      <div className="mb-8 flex flex-wrap gap-2 border-b border-border/50 relative z-10 overflow-x-auto scrollbar-none">
+
         {tabs.map((tabItem) => (
           <button
             key={tabItem.key}
@@ -224,12 +242,29 @@ function DiagnosisPage() {
         ))}
       </div>
 
-      <article className="prose prose-invert max-w-none whitespace-pre-wrap rounded-2xl border border-border bg-card p-6 md:p-8 leading-relaxed shadow-sm print:border-none print:shadow-none print:p-0">
-        <h2 className="font-display text-2xl text-primary mb-6 hidden print:block">
-          {tabs.find((tabItem) => tabItem.key === tab)?.label}
-        </h2>
-        {content}
-      </article>
+      <div className="relative z-10">
+        <AnimatePresence mode="wait">
+          <motion.article
+            key={tab}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="prose prose-invert max-w-none whitespace-pre-wrap glass-panel p-8 md:p-12 leading-relaxed shadow-2xl relative overflow-hidden"
+          >
+            <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none">
+              <span className="text-[12rem]">🧠</span>
+            </div>
+            <h2 className="font-display text-3xl font-black text-arch-primary mb-8 tracking-tight">
+              {tabs.find((tabItem) => tabItem.key === tab)?.label}
+            </h2>
+            <div className="relative z-10 text-lg md:text-xl font-medium text-foreground/90 selection:bg-arch-primary/30">
+              {content}
+            </div>
+          </motion.article>
+        </AnimatePresence>
+      </div>
+
 
       <p className="mt-8 text-center text-xs text-muted-foreground print:text-left">
         {t.dashboard.diagnosis.disclaimer}

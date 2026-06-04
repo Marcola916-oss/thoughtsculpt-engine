@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+
 import { useServerFn } from "@tanstack/react-start";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { 
@@ -16,10 +17,23 @@ import {
 } from "lucide-react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
+import { Magnetic } from "../components/PageTransition";
+import { useMousePosition } from "../hooks/use-mouse-position";
 import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring";
 import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
 import { saveQuizLead } from "../lib/quiz.functions";
 import { createCheckoutSession } from "../lib/checkout.functions";
+
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 z-50 h-1 bg-arch-primary origin-left shadow-[0_0_10px_var(--arch-glow)]"
+      style={{ scaleX: scrollYProgress }}
+    />
+  );
+}
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,6 +54,18 @@ export const Route = createFileRoute("/")({
   }),
   component: LandingAndQuiz,
 });
+
+function BentoCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+  useMousePosition(ref);
+
+  return (
+    <div ref={ref} className={`bento-card ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 
 type Stage =
   | { kind: "hero" }
@@ -129,7 +155,9 @@ function LandingAndQuiz() {
       className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden"
       data-arch={archCode || undefined}
     >
+      <ScrollProgress />
       <TopBar />
+
       
       <main className="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-12">
         <AnimatePresence mode="wait">
@@ -142,7 +170,9 @@ function LandingAndQuiz() {
               transition={{ duration: 0.5 }}
             >
               <Hero onStart={() => setStage({ kind: "identity" })} />
+              <Features />
             </motion.div>
+
           )}
 
           {stage.kind === "identity" && (
@@ -382,16 +412,18 @@ function Hero({ onStart }: { onStart: () => void }) {
         transition={{ delay: 0.6, duration: 1 }}
         className="mt-20 flex flex-col items-center gap-8"
       >
-        <button
-          onClick={onStart}
-          className="group relative h-20 w-full max-w-md overflow-hidden rounded-2xl bg-foreground text-background transition-all hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] active:scale-95"
-        >
-          <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity group-hover:opacity-100" />
-          <span className="relative z-10 flex items-center justify-center gap-3 text-2xl font-black italic tracking-tight group-hover:text-primary-foreground">
-            {t.hero.cta.toUpperCase()}
-            <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-2" />
-          </span>
-        </button>
+        <Magnetic>
+          <button
+            onClick={onStart}
+            className="group relative h-20 w-full max-w-md overflow-hidden rounded-2xl bg-foreground text-background transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)] active:scale-95"
+          >
+            <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity group-hover:opacity-100" />
+            <span className="relative z-10 flex items-center justify-center gap-3 text-2xl font-black italic tracking-tight group-hover:text-primary-foreground">
+              {t.hero.cta.toUpperCase()}
+              <ArrowRight className="h-6 w-6 transition-transform group-hover:translate-x-2" />
+            </span>
+          </button>
+        </Magnetic>
         
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-6 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
@@ -421,6 +453,57 @@ function Hero({ onStart }: { onStart: () => void }) {
     </section>
   );
 }
+
+function Features() {
+  const { t } = useI18n();
+  return (
+    <section className="py-24">
+      <div className="text-center mb-16">
+        <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-6xl text-gradient">
+          {t.features?.title || "Engineered for deep transformation"}
+        </h2>
+        <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">
+          {t.features?.subtitle || "More than a test. A precision instrument for your subconscious."}
+        </p>
+      </div>
+
+      <div className="bento-grid">
+        <BentoCard className="md:col-span-2">
+          <Brain className="h-10 w-10 text-arch-primary mb-4" />
+          <h3 className="text-2xl font-bold mb-2">Neural Pattern Analysis</h3>
+          <p className="text-muted-foreground">
+            Our AI engine decodes the microscopic language patterns in your choices to map your financial identity with 98% accuracy.
+          </p>
+        </BentoCard>
+
+        <BentoCard>
+          <ShieldCheck className="h-10 w-10 text-arch-primary mb-4" />
+          <h3 className="text-2xl font-bold mb-2">Privacy First</h3>
+          <p className="text-muted-foreground">
+            No bank linking. No data selling. Your psychological profile is encrypted and remains yours.
+          </p>
+        </BentoCard>
+
+        <BentoCard>
+          <LineChart className="h-10 w-10 text-arch-primary mb-4" />
+          <h3 className="text-2xl font-bold mb-2">Real-time Evolution</h3>
+          <p className="text-muted-foreground">
+            Track how your patterns change as you implement the personalized resets.
+          </p>
+        </BentoCard>
+
+        <BentoCard className="md:col-span-2">
+          <CompassIcon className="h-10 w-10 text-arch-primary mb-4" />
+          <h3 className="text-2xl font-bold mb-2">Life Path Mapping</h3>
+          <p className="text-muted-foreground">
+            Go beyond money. Understand how your archetype influences your career, relationships, and health.
+          </p>
+        </BentoCard>
+      </div>
+    </section>
+  );
+}
+
 
 /* ─── Identity ────────────────────────────────────────────── */
 

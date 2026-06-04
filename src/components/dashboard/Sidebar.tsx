@@ -1,5 +1,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
 import { supabase } from "../../integrations/supabase/client";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 
@@ -28,16 +30,20 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, onClose }: S
   }
 
   return (
-    <div className="flex h-full flex-col p-5">
+    <div className="flex h-full flex-col p-5 relative">
+      {/* Mesh background effect for sidebar */}
+      <div className="absolute inset-0 mesh-gradient opacity-5 pointer-events-none" />
+      
       {/* Logo */}
       <Link
         to="/dashboard"
         onClick={onClose}
-        className="mb-8 font-display text-xl font-bold tracking-tight"
+        className="mb-10 font-display text-2xl font-black tracking-tighter relative z-10"
       >
         <span className="text-foreground">Mind</span>
-        <span className="text-primary">Reset</span>
+        <span className="text-arch-primary transition-colors duration-500">Reset</span>
       </Link>
+
 
       {/* Nav */}
       <nav className="flex flex-1 flex-col gap-0.5">
@@ -50,12 +56,20 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, onClose }: S
               key={it.to}
               to={it.to}
               onClick={onClose}
-              className={`group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-150 ${
+              className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ${
                 active
-                  ? "border-l-[3px] border-primary bg-primary/10 text-foreground pl-[calc(0.75rem-3px)]"
-                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  ? "bg-arch-primary/10 text-foreground shadow-[0_0_15px_var(--arch-glow)]"
+                  : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:translate-x-1"
               }`}
             >
+              {active && (
+                <motion.div
+                  layoutId="active-nav"
+                  className="absolute left-0 h-6 w-1 rounded-full bg-arch-primary shadow-[0_0_10px_var(--arch-glow)]"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+
               <span className="text-base" aria-hidden>{it.icon}</span>
               <span className="flex-1">{it.label}</span>
 
@@ -196,7 +210,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen bg-background">
       {/* Desktop Sidebar */}
-      <aside className="sticky top-0 hidden h-screen w-56 shrink-0 flex-col border-r border-border bg-secondary md:flex">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border bg-card md:flex">
         <SidebarContent
           streak={streak}
           unreadCount={unread}
@@ -261,7 +275,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           onClick={() => setNotifOpen(false)}
         >
           <div 
-            className="relative w-full max-w-md overflow-hidden rounded-2xl border border-border bg-[#0D0D0D] p-6 shadow-2xl animate-in scale-in duration-200"
+            className="relative w-full max-w-md overflow-hidden glass-panel p-6 shadow-2xl animate-in scale-in duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}

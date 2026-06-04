@@ -18,6 +18,8 @@ export type Dict = {
     success: { loading: string; errorTitle: string };
   };
   hero: { kicker: string; headline: string; sub: string; cta: string; trust: string };
+  features: { title: string; subtitle: string };
+
   identity: { title: string; sub: string };
   questions: { title: (n: number, total: number) => string; intro: (name: string) => string };
   q: Array<{ q: string; options: string[] }>;
@@ -177,6 +179,12 @@ const PT: Dict = {
     cta: "Fazer o diagnóstico grátis",
     trust: "+12.000 diagnósticos • Sem cartão para começar",
   },
+  features: {
+    title: "Engenharia para transformação profunda",
+    subtitle: "Mais que um teste. Um instrumento de precisão para o teu subconsciente."
+  },
+
+
   identity: { title: "Antes de começar, quem és tu?", sub: "Vamos usar o teu nome ao longo do diagnóstico para o tornar pessoal." },
   questions: {
     title: (n, total) => `Pergunta ${n} de ${total}`,
@@ -450,6 +458,12 @@ const EN: Dict = {
     cta: "Take the free diagnosis",
     trust: "+12,000 diagnoses • No card to start",
   },
+  features: {
+    title: "Engineered for deep transformation",
+    subtitle: "More than a test. A precision instrument for your subconscious."
+  },
+
+
   identity: { title: "Before we start — who are you?", sub: "We'll use your name throughout the diagnosis to make it personal." },
   questions: {
     title: (n, total) => `Question ${n} of ${total}`,

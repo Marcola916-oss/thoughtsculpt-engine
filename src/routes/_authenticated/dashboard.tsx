@@ -5,6 +5,8 @@ import { DashboardShell } from "../../components/dashboard/Sidebar";
 import { getMyProfile } from "../../lib/profile.functions";
 import { supabase } from "../../integrations/supabase/client";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
+import { useEffect } from "react";
+
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — MindReset" }] }),
@@ -31,6 +33,16 @@ function DashboardLayout() {
   }
 
   const profile = data?.profile;
+
+  useEffect(() => {
+    if (profile?.archetype) {
+      document.body.setAttribute("data-arch", profile.archetype);
+    }
+    return () => {
+      document.body.removeAttribute("data-arch");
+    };
+  }, [profile?.archetype]);
+
   const accessLevel = profile?.access_level ?? "active";
   const expiresAt = profile?.features_expires_at;
 
