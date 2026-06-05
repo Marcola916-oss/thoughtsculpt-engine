@@ -157,10 +157,11 @@ function LandingAndQuiz() {
 
   return (
     <div 
-      className="min-h-screen bg-background text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay" />
+      <div className="fixed inset-0 mesh-gradient opacity-40 pointer-events-none" />
       <ScrollProgress />
       <TopBar />
 
@@ -474,14 +475,14 @@ function Hero({ onStart }: { onStart: () => void }) {
         <Magnetic>
           <button
             onClick={onStart}
-            className="group relative h-24 w-full max-w-lg overflow-hidden rounded-3xl bg-foreground text-background transition-all hover:shadow-[0_40px_80px_-20px_rgba(255,255,255,0.15)] active:scale-95"
+            className="group relative h-28 w-full max-w-xl overflow-hidden rounded-[2.5rem] bg-foreground text-background transition-all hover:shadow-[0_50px_100px_-20px_rgba(255,255,255,0.2)] active:scale-95"
           >
-            <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center gap-4 text-3xl font-black italic tracking-tighter group-hover:text-primary-foreground">
+            <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+            <span className="relative z-10 flex items-center justify-center gap-6 text-4xl font-black italic tracking-tighter group-hover:text-primary-foreground">
               {t.hero.cta.toUpperCase()}
-              <ArrowRight className="h-8 w-8 transition-transform duration-500 group-hover:translate-x-3" />
+              <ArrowRight className="h-10 w-10 transition-transform duration-700 group-hover:translate-x-5" />
             </span>
-            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
           </button>
         </Magnetic>
         
