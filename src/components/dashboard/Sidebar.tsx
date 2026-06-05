@@ -15,7 +15,7 @@ interface SidebarProps {
 }
 
 function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onClose, hasDiagnosis }: SidebarProps & { onClose?: () => void; hasDiagnosis?: boolean }) {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   const navItems = [
@@ -144,7 +144,7 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
 }
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [streak, setStreak] = useState<number | undefined>(undefined);
   const [unread, setUnread] = useState<number | undefined>(undefined);

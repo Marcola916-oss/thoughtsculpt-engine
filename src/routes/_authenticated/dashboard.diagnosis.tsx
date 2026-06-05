@@ -1,25 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { jsPDF } from "jspdf";
 import { getDiagnosis, generateDiagnosis } from "../../lib/diagnosis.functions";
 import { getMyProfile } from "../../lib/profile.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
-import { useMousePosition } from "../../hooks/use-mouse-position";
-
-function BentoCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  useMousePosition(ref);
-
-  return (
-    <div ref={ref} className={`bento-card ${className}`}>
-      {children}
-    </div>
-  );
-}
 
 
 export const Route = createFileRoute("/_authenticated/dashboard/diagnosis")({
@@ -283,9 +271,11 @@ function Skeleton() {
   return (
     <div className="mx-auto max-w-3xl animate-pulse">
       <div className="h-32 rounded-2xl bg-card mb-8" />
-      <div className="flex gap-4 border-b border-border mb-8 pb-4">
-        <div className="h-4 w-20 bg-card rounded" />
-        <div className="h-4 w-20 bg-card rounded" />
+      <div className="flex gap-1 p-1 bg-secondary/50 rounded-xl border border-border/50 mb-8">
+        <div className="flex-1 h-10 bg-card rounded-lg" />
+        <div className="flex-1 h-10 bg-card/50 rounded-lg" />
+        <div className="flex-1 h-10 bg-card/50 rounded-lg" />
+        <div className="flex-1 h-10 bg-card/50 rounded-lg" />
       </div>
       <div className="h-96 rounded-2xl bg-card" />
     </div>

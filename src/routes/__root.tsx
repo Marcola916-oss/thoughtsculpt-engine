@@ -128,9 +128,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           applicationCategory: "FinanceApplication",
           operatingSystem: "Web",
           offers: {
-            "@type": "Offer",
-            price: "0",
+            "@type": "AggregateOffer",
+            lowPrice: "0",
+            highPrice: "29.99",
             priceCurrency: "USD",
+            offerCount: 3,
           },
           author: {
             "@type": "Organization",

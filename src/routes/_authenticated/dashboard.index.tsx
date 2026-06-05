@@ -2,14 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getMyProfile } from "../../lib/profile.functions";
-import { ARCHETYPE_NAMES, ARCHETYPE_TAGLINES, type Archetype } from "../../lib/ai/archetypes";
+import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 import { supabase } from "../../integrations/supabase/client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
-import { useMousePosition } from "../../hooks/use-mouse-position";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { staggerContainer, staggerItem } from "../../lib/animations";
 import { StreakCounter } from "../../components/gamification/StreakCounter";
+import { BentoCard } from "../../components/ui/BentoCard";
 
 const ARCHETYPE_QUOTES: Record<Archetype, string> = {
   AO: "Segurança real não vem de acumular — vem de confiar.",
@@ -24,17 +24,6 @@ const ARCHETYPE_GRADIENTS: Record<Archetype, string> = {
   EA: "from-amber-950/40",
   HI: "from-pink-950/40",
 };
-
-function BentoCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  useMousePosition(ref);
-
-  return (
-    <div ref={ref} className={`bento-card ${className}`}>
-      {children}
-    </div>
-  );
-}
 
 
 export const Route = createFileRoute("/_authenticated/dashboard/")({
