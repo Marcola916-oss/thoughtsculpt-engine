@@ -21,6 +21,7 @@ export function QuizOption({ label, letter, selected = false, onClick }: QuizOpt
   return (
     <motion.button
       onClick={onClick}
+      data-cursor="hover"
       className={[
         "w-full text-left rounded-2xl border p-5 flex items-start gap-4",
         "relative overflow-hidden cursor-pointer outline-none",

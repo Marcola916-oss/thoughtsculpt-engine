@@ -15,6 +15,8 @@ import { LanguageProvider } from "../lib/i18n/LanguageProvider";
 import { CookieBanner } from "../components/LanguageSwitcher";
 import { PageTransition } from "../components/PageTransition";
 import { AnimatePresence } from "framer-motion";
+import { ScanLines } from "@/components/atmosphere/ScanLines";
+import { MagneticCursor } from "@/components/interaction/MagneticCursor";
 
 
 function NotFoundComponent() {
@@ -169,6 +171,8 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
+        <ScanLines intensity="subtle" />
+        <MagneticCursor />
         <AnimatePresence mode="wait">
           <PageTransition key={useRouter().state.location.pathname}>
             <Outlet />

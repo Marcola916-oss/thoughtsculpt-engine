@@ -29,6 +29,7 @@ import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
+import { Atmosphere } from "@/components/atmosphere/Atmosphere";
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -183,44 +184,21 @@ function LandingAndQuiz() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <Hero onStart={() => setStage({ kind: "identity" })} />
-              <Features />
+              <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
+                <Hero onStart={() => setStage({ kind: "identity" })} />
+                <Features />
+              </Atmosphere>
             </motion.div>
           )}
 
-          {["identity", "q", "email"].includes(stage.kind) && (
-            <QuizScreenWrapper
-              stepKey={stage.kind === "q" ? `q-${stage.index}` : stage.kind}
-              progress={
-                stage.kind === "identity"
-                  ? 0
-                  : stage.kind === "email"
-                    ? 90
-                    : stage.kind === "q"
-                      ? ((stage.index + 1) / 8) * 85
-                      : 0
-              }
-              onBack={
-                stage.kind === "identity"
-                  ? undefined
-                  : stage.kind === "email"
-                    ? () => setStage({ kind: "q", index: 7 })
-                    : stage.kind === "q"
-                      ? () =>
-                          stage.index === 0
-                            ? setStage({ kind: "identity" })
-                            : setStage({ kind: "q", index: stage.index - 1 })
-                      : undefined
-              }
-              progressTitle={
-                stage.kind === "q"
-                  ? t.questions.title(stage.index + 1, 8)
-                  : stage.kind === "email"
-                    ? "Finalização"
-                    : "Identificação"
-              }
-            >
-              {stage.kind === "identity" && (
+          {stage.kind === "identity" && (
+            <Atmosphere fog="subtle" symbols="off" scan="subtle" pinned>
+              <QuizScreenWrapper
+                stepKey="identity"
+                progress={0}
+                onBack={undefined}
+                progressTitle="Identificação"
+              >
                 <Identity
                   name={name}
                   setName={setName}
@@ -228,9 +206,22 @@ function LandingAndQuiz() {
                   setGender={setGender}
                   onContinue={() => setStage({ kind: "q", index: 0 })}
                 />
-              )}
+              </QuizScreenWrapper>
+            </Atmosphere>
+          )}
 
-              {stage.kind === "q" && (
+          {stage.kind === "q" && (
+            <Atmosphere fog="subtle" symbols="sparse" scan="subtle" pinned>
+              <QuizScreenWrapper
+                stepKey={`q-${stage.index}`}
+                progress={((stage.index + 1) / 8) * 85}
+                onBack={() =>
+                  stage.index === 0
+                    ? setStage({ kind: "identity" })
+                    : setStage({ kind: "q", index: stage.index - 1 })
+                }
+                progressTitle={t.questions.title(stage.index + 1, 8)}
+              >
                 <QuestionScreen
                   index={stage.index}
                   total={8}
@@ -238,9 +229,18 @@ function LandingAndQuiz() {
                   selected={answers[stage.index]}
                   onSelect={answerQuestion}
                 />
-              )}
+              </QuizScreenWrapper>
+            </Atmosphere>
+          )}
 
-              {stage.kind === "email" && (
+          {stage.kind === "email" && (
+            <Atmosphere fog="normal" symbols="off" scan="subtle" pinned>
+              <QuizScreenWrapper
+                stepKey="email"
+                progress={90}
+                onBack={() => setStage({ kind: "q", index: 7 })}
+                progressTitle="Finalização"
+              >
                 <EmailCapture
                   name={name}
                   email={email}
@@ -249,37 +249,41 @@ function LandingAndQuiz() {
                   setGdpr={setGdpr}
                   onSubmit={() => setStage({ kind: "loader" })}
                 />
-              )}
-            </QuizScreenWrapper>
+              </QuizScreenWrapper>
+            </Atmosphere>
           )}
 
           {stage.kind === "loader" && (
-            <NeuralLoader
-              key="loader"
-              onComplete={() => setStage({ kind: "reveal" })}
-              durationMs={3000}
-            />
+            <Atmosphere fog="dramatic" symbols="off" scan="subtle" pinned>
+              <NeuralLoader
+                key="loader"
+                onComplete={() => setStage({ kind: "reveal" })}
+                durationMs={3000}
+              />
+            </Atmosphere>
           )}
 
           {stage.kind === "reveal" && archCode && (
-            <motion.div
-              key="reveal"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ type: "spring", damping: 20, stiffness: 100 }}
-            >
-              <Reveal
-                name={name}
-                arch={archCode}
-                onContinue={() => setStage({ kind: "sales" })}
-                leadError={leadError}
-                onRetry={() => {
-                  setLeadError(null);
-                  setStage({ kind: "loader" });
-                }}
-              />
-            </motion.div>
+            <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
+              <motion.div
+                key="reveal"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ type: "spring", damping: 20, stiffness: 100 }}
+              >
+                <Reveal
+                  name={name}
+                  arch={archCode}
+                  onContinue={() => setStage({ kind: "sales" })}
+                  leadError={leadError}
+                  onRetry={() => {
+                    setLeadError(null);
+                    setStage({ kind: "loader" });
+                  }}
+                />
+              </motion.div>
+            </Atmosphere>
           )}
 
           {stage.kind === "sales" && archCode && (
@@ -380,6 +384,7 @@ function TopBar() {
           </div>
           <Link
             to="/login"
+            data-cursor="hover"
             className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10"
           >
             <span className="relative z-10">{t.common.login}</span>
@@ -477,6 +482,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         <Magnetic>
           <button
             onClick={onStart}
+            data-cursor="hover"
             className="group relative h-28 w-full max-w-xl overflow-hidden rounded-[2.5rem] bg-foreground text-background transition-all hover:shadow-[0_50px_100px_-20px_rgba(255,255,255,0.2)] active:scale-95"
           >
             <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
@@ -615,6 +621,7 @@ function Identity(props: {
             {(["m", "f", "n"] as const).map((g) => (
               <motion.button
                 key={g}
+                data-cursor="hover"
                 onClick={() => props.setGender(g)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -633,6 +640,7 @@ function Identity(props: {
 
       <motion.button
         disabled={!ok}
+        data-cursor="hover"
         onClick={props.onContinue}
         whileHover={ok ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
         whileTap={ok ? { scale: 0.98 } : {}}
@@ -739,6 +747,7 @@ function EmailCapture(props: {
 
         <motion.button
           type="submit"
+          data-cursor="hover"
           disabled={!valid}
           whileHover={valid ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
           whileTap={valid ? { scale: 0.98 } : {}}

@@ -1,0 +1,214 @@
+{
+  "meta_ai_animation_prompt": {
+    "title": "Cyberpunk Philosopher Resurrection",
+    "version": "1.0",
+    "target_platform": "Meta AI Image Animation",
+    "render_settings": {
+      "duration_seconds": 8,
+      "loop": true,
+      "loop_type": "seamless",
+      "fps": 30,
+      "resolution": "1080x1080",
+      "aspect_ratio": "1:1",
+      "quality": "cinematic"
+    },
+    "main_prompt": "Animate a cracked marble philosopher bust infused with glowing red cyberpunk technology. The red power button on the chest pulses slowly like a heartbeat, emitting a rhythmic neon glow. Red electric energy flows upward through the cracks like liquid fire, traveling from the chest to the forehead in looping pulses. Circuit board traces on the face and torso flicker with data streams and binary code. Currency symbols (dollar, euro, yen) float and dissolve within the circuits. The eyes emit a slow pulsating red light synced to the power button. Dark volumetric smoke swirls organically around the base and sides of the figure, rising slowly with subtle red tint. The overall atmosphere breathes with dark technological awakening — an ancient philosopher being reborn as a machine. Cyberpunk aesthetic, cinematic lighting, dramatic red ambience, high contrast.",
+    "negative_prompt": "blur, motion blur, distortion, face morphing, color shifting, object displacement, style change, bright white light, blue tones, cheerful mood, cartoonish",
+    "animation_layers": [
+      {
+        "layer_id": "L01",
+        "name": "Power Button Pulse",
+        "element": "Red power symbol on the chest",
+        "animation_type": "radial_glow_pulse",
+        "description": "Slow heartbeat-like pulsation of the red power button. Light blooms outward and fades in a 2-second breathing cycle. Occasional bright flash as if the system is rebooting.",
+        "timing": {
+          "cycle_duration_seconds": 2,
+          "easing": "ease_in_out",
+          "delay_seconds": 0
+        },
+        "visual_effect": {
+          "glow_color": "#FF0000",
+          "glow_radius_min": "10px",
+          "glow_radius_max": "35px",
+          "opacity_min": 0.6,
+          "opacity_max": 1.0,
+          "flicker_probability": "occasional"
+        },
+        "priority": "high"
+      },
+      {
+        "layer_id": "L02",
+        "name": "Energy Cracks Flow",
+        "element": "Red lightning cracks through the marble body and face",
+        "animation_type": "electric_plasma_flow",
+        "description": "Red electric energy pulses travel upward through the cracks like veins carrying digital blood. Movement goes from chest power button up through torso, neck, jaw, cheeks, and forehead. Sparks emit at crack intersections. Occasionally a full surge runs the entire path.",
+        "timing": {
+          "cycle_duration_seconds": 3,
+          "easing": "linear",
+          "delay_seconds": 0.5,
+          "surge_interval_seconds": 6
+        },
+        "visual_effect": {
+          "energy_color": "#FF1111",
+          "secondary_color": "#FF6666",
+          "particle_sparks": true,
+          "spark_color": "#FFFFFF",
+          "flow_direction": "bottom_to_top",
+          "path": "chest -> neck -> jaw -> right_cheek -> forehead",
+          "intensity_variation": "rhythmic_with_surges"
+        },
+        "priority": "high"
+      },
+      {
+        "layer_id": "L03",
+        "name": "Circuit Board Data Stream",
+        "element": "Red circuit board pattern on face and torso",
+        "animation_type": "data_trace_scan",
+        "description": "Bright red trace lines travel along the circuit paths on the face and chest. Binary code (0s and 1s) flickers in and out along the traces. Currency symbols (€, $, ¥, ₿) appear and dissolve with a digital fade. A faint horizontal scan line moves slowly across the circuit area.",
+        "timing": {
+          "cycle_duration_seconds": 4,
+          "easing": "linear",
+          "delay_seconds": 0.2
+        },
+        "visual_effect": {
+          "trace_color": "#FF2222",
+          "data_text_color": "#FF8888",
+          "scan_line_opacity": 0.3,
+          "binary_flicker_rate": "fast",
+          "symbol_fade_duration_seconds": 1.5,
+          "symbols_visible": ["$", "€", "¥", "₿", "0", "1"]
+        },
+        "priority": "medium"
+      },
+      {
+        "layer_id": "L04",
+        "name": "Glowing Eyes Pulse",
+        "element": "Red glowing eyes of the marble bust",
+        "animation_type": "iris_glow_sync",
+        "description": "Both eyes emit a slow deep red glow, perfectly synchronized with the power button pulse on the chest. During each pulse peak, the eyes flare slightly brighter. Between pulses they dim to a low ember glow, never fully turning off — always alive.",
+        "timing": {
+          "cycle_duration_seconds": 2,
+          "easing": "ease_in_out",
+          "delay_seconds": 0,
+          "sync_with_layer": "L01"
+        },
+        "visual_effect": {
+          "glow_color": "#CC0000",
+          "peak_color": "#FF4444",
+          "min_intensity": 0.3,
+          "max_intensity": 1.0,
+          "ray_emission": true,
+          "ray_length": "subtle"
+        },
+        "priority": "high"
+      },
+      {
+        "layer_id": "L05",
+        "name": "Smoke and Atmosphere",
+        "element": "Dark volumetric smoke surrounding the bust",
+        "animation_type": "volumetric_particle_flow",
+        "description": "Thick dark smoke rises slowly from the lower sides of the bust, curling organically around the figure. Wisps drift inward and upward in a slow, almost meditative movement. The smoke near the body has a faint red tint from the circuit light reflection.",
+        "timing": {
+          "cycle_duration_seconds": 12,
+          "easing": "organic_noise",
+          "delay_seconds": 0
+        },
+        "visual_effect": {
+          "smoke_base_color": "#1A0000",
+          "smoke_edge_color": "#3D0000",
+          "red_tint_zone": "near_body",
+          "opacity_range": "0.4_to_0.85",
+          "particle_count": "dense",
+          "rise_speed": "very_slow",
+          "turbulence": "low",
+          "wind_drift": "subtle_lateral"
+        },
+        "priority": "medium"
+      },
+      {
+        "layer_id": "L06",
+        "name": "Background Pulse",
+        "element": "Dark red atmospheric background and dollar bill silhouettes",
+        "animation_type": "ambient_breathe",
+        "description": "The deep red background subtly pulses in luminance, as if breathing. Dollar bill silhouettes in the background barely shift in opacity — appearing and dissolving very slowly, like ghosts of value. Chromatic aberration flickers briefly at the edges during energy surges.",
+        "timing": {
+          "cycle_duration_seconds": 5,
+          "easing": "ease_in_out",
+          "delay_seconds": 1
+        },
+        "visual_effect": {
+          "background_pulse_intensity": "subtle",
+          "vignette_breathe": true,
+          "bill_silhouette_opacity_min": 0.05,
+          "bill_silhouette_opacity_max": 0.2,
+          "chromatic_aberration": "brief_flicker_on_surge"
+        },
+        "priority": "low"
+      },
+      {
+        "layer_id": "L07",
+        "name": "Marble Micro-Tremors",
+        "element": "Cracked marble surface texture",
+        "animation_type": "subtle_vibration",
+        "description": "During energy surge peaks, the marble surface micro-vibrates as if struggling to contain the power within. Tiny stone dust particles fall occasionally from the crack edges. The cracks' edges brighten briefly at each surge, as if the marble is about to shatter further.",
+        "timing": {
+          "trigger": "energy_surge",
+          "duration_seconds": 0.3,
+          "easing": "fast_out"
+        },
+        "visual_effect": {
+          "vibration_amplitude_px": 1.5,
+          "dust_particles": true,
+          "dust_color": "#D0C8C0",
+          "crack_edge_flash": "#FF2222",
+          "flash_duration_seconds": 0.1
+        },
+        "priority": "low"
+      }
+    ],
+    "global_sync_events": [
+      {
+        "event_id": "SURGE_CYCLE",
+        "trigger_interval_seconds": 6,
+        "description": "Every 6 seconds, all layers synchronize into a full-body energy surge. Power button flares, energy runs the full crack path, eyes peak brightness, background pulses, marble trembles. A 0.5s event that resets the loop energy.",
+        "affected_layers": ["L01", "L02", "L03", "L04", "L05", "L06", "L07"]
+      }
+    ],
+    "color_palette": {
+      "primary_energy": "#FF0000",
+      "secondary_energy": "#CC0000",
+      "highlight_spark": "#FFFFFF",
+      "marble_base": "#E8E4E0",
+      "marble_shadow": "#A0988F",
+      "smoke_dark": "#0D0000",
+      "background_red": "#2B0000",
+      "circuit_mid": "#FF4444",
+      "data_trace": "#FF8888"
+    },
+    "mood_keywords": [
+      "cyberpunk",
+      "dark awakening",
+      "technological resurrection",
+      "machine consciousness",
+      "stoic power",
+      "ancient meets digital",
+      "ominous",
+      "powerful",
+      "cinematic",
+      "neon noir"
+    ],
+    "style_references": [
+      "Ghost in the Shell aesthetic",
+      "Blade Runner 2049 color grading",
+      "Ex Machina machine awakening",
+      "Stoic philosophy meets transhumanism"
+    ],
+    "website_use_notes": {
+      "placement": "full_screen_background",
+      "recommended_overlay": "semi-transparent dark gradient over content area for text readability",
+      "overlay_suggestion": "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.7) 100%)",
+      "z_index_recommendation": "place animated image at z-index: -1 behind content",
+      "performance_tip": "use video format (mp4/webm) output from Meta AI for smooth web playback"
+    }
+  }
+}
