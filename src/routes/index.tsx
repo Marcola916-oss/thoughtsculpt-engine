@@ -35,7 +35,7 @@ function ScrollProgress() {
   return (
     <motion.div
       className="fixed top-0 left-0 right-0 z-50 h-1 bg-arch-primary origin-left shadow-[0_0_10px_var(--arch-glow)]"
-      style={{ scaleX: scrollYProgress }}
+      style={{ scaleX: scrollYProgress, opacity: scrollYProgress }}
     />
   );
 }
@@ -529,8 +529,8 @@ function Hero({ onStart }: { onStart: () => void }) {
 function Features() {
   const { t } = useI18n();
   return (
-    <section className="py-24">
-      <div className="text-center mb-16">
+    <section className="py-12">
+      <div className="text-center mb-8">
         <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-6xl text-gradient">
           {t.features?.title || "Engineered for deep transformation"}
         </h2>
