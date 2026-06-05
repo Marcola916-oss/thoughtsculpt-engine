@@ -22,23 +22,31 @@ export function QuizOption({ label, letter, selected = false, onClick }: QuizOpt
     <motion.button
       onClick={onClick}
       className={[
-        "w-full text-left rounded-2xl border p-4 flex items-start gap-3",
+        "w-full text-left rounded-2xl border p-5 flex items-start gap-4",
         "relative overflow-hidden cursor-pointer outline-none",
-        "transition-colors duration-200",
+        "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
         selected
-          ? "border-primary bg-primary/10 shadow-[0_0_18px_var(--accent-glow)]"
-          : "border-border bg-card",
+          ? "border-primary bg-primary/5 shadow-[0_0_25px_var(--accent-glow)] scale-[1.01] z-10"
+          : "border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10",
       ].join(" ")}
-      initial={{ opacity: 0, x: -16 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       whileHover={
         !selected
-          ? { borderColor: "var(--color-primary)", backgroundColor: "rgba(204,0,0,0.04)", x: 4 }
+          ? { x: 8, borderColor: "rgba(255,255,255,0.2)" }
           : {}
       }
       whileTap={{ scale: 0.98 }}
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
     >
+      {/* Background glow on hover/selected */}
+      <div 
+        className={[
+          "absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none bg-gradient-to-r from-primary/10 to-transparent",
+          selected ? "opacity-100" : "group-hover:opacity-100"
+        ].join(" ")} 
+      />
       {/* Letter badge */}
       <span
         className={[
