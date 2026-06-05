@@ -169,7 +169,6 @@ function LandingAndQuiz() {
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay" />
-      <div className="fixed inset-0 mesh-gradient opacity-40 pointer-events-none" />
       <ScrollProgress />
       <TopBar />
 
@@ -402,16 +401,7 @@ function Hero({ onStart }: { onStart: () => void }) {
     <section className="relative py-12 md:py-40 text-center">
       {/* Background elements */}
       <div className="hero-glow" />
-      <div className="absolute left-1/2 top-1/2 -z-10 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[160px] opacity-30" />
-      
-      {/* Decorative Animated Lines */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10 opacity-30">
-        <div className="absolute top-[20%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="absolute top-[50%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="absolute top-[80%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="absolute top-0 left-[30%] w-[1px] h-full bg-gradient-to-b from-transparent via-white/5 to-transparent rotate-12 origin-top" />
-        <div className="absolute top-0 right-[30%] w-[1px] h-full bg-gradient-to-b from-transparent via-white/5 to-transparent -rotate-12 origin-top" />
-      </div>
+
 
       {/* Floating Archetype Badges */}
       <motion.div
