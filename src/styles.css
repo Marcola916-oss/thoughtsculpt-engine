@@ -296,11 +296,17 @@
 
 /* ─── Base layer ─────────────────────────────────────────── */
 @layer base {
-  * {
-    border-color: var(--color-border);
+  html {
+    margin: 0;
+    padding: 0;
+    color-scheme: dark;
   }
 
   body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
@@ -309,7 +315,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  html { color-scheme: dark; }
+  * {
+    border-color: var(--color-border);
+  }
 
   h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: 0; }
 

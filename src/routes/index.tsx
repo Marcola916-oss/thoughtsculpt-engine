@@ -165,7 +165,7 @@ function LandingAndQuiz() {
 
   return (
     <div 
-      className="min-h-screen bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay" />
@@ -173,7 +173,7 @@ function LandingAndQuiz() {
       <TopBar />
 
       
-      <main className="mx-auto max-w-6xl px-4 pb-24 pt-4 md:pt-12 relative z-10">
+      <main className="w-full px-4 pb-24 pt-4 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
           {stage.kind === "hero" && (
             <motion.div
