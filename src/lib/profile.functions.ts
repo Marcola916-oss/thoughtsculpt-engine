@@ -129,3 +129,17 @@ export const updateProfileSettings = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+const ChangePasswordInput = z.object({
+  newPassword: z.string().min(8, "Senha deve ter pelo menos 8 caracteres"),
+});
+
+export const changePassword = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) => ChangePasswordInput.parse(d))
+  .handler(async ({ data, context }) => {
+    const { supabase } = context;
+    const { error } = await supabase.auth.updateUser({ password: data.newPassword });
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });

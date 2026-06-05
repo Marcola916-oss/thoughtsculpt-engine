@@ -24,7 +24,7 @@ export function QuizScreenWrapper({
   const visualProgress = progress >= 80 ? 95 : progress;
 
   return (
-    <div className="relative min-h-[70vh] flex flex-col justify-center items-center py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px]">
+    <div className="relative min-h-[70vh] flex flex-col justify-center items-center py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px] overflow-hidden">
       {/* Ambient backgrounds inside wrapper */}
       <div className="absolute inset-0 grid-pattern opacity-[0.03] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary opacity-[0.07] blur-[120px] rounded-full pointer-events-none" />

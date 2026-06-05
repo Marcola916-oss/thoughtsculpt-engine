@@ -34,7 +34,7 @@ export function QuizOption({ label, letter, selected = false, onClick }: QuizOpt
       viewport={{ once: true }}
       whileHover={
         !selected
-          ? { x: 8, borderColor: "rgba(255,255,255,0.2)" }
+          ? { scale: 1.02, borderColor: "rgba(255,255,255,0.2)" }
           : {}
       }
       whileTap={{ scale: 0.98 }}

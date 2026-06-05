@@ -8,6 +8,8 @@ import { supabaseAdmin } from "../integrations/supabase/client.server";
  * Retrieves a Stripe Checkout Session and generates a Supabase magic‑link login URL.
  * Called from the client after Stripe redirects to the success page.
  */
+const DEFAULT_PASSWORD = "MindReset2026!";
+
 export const getCheckoutSessionStatus = createServerFn({ method: "GET" })
   .inputValidator((d) =>
     z.object({ session_id: z.string().min(1) }).parse(d)
@@ -22,6 +24,9 @@ export const getCheckoutSessionStatus = createServerFn({ method: "GET" })
     const email = session.customer_details?.email ?? session.customer_email;
     if (!email) throw new Error("Email not found in checkout session");
 
+    // Extract display name from session
+    const displayName = session.customer_details?.name ?? (session.metadata as any)?.display_name ?? null;
+
     // Ensure Supabase auth user exists (create if needed)
     let userId: string;
     
@@ -32,9 +37,17 @@ export const getCheckoutSessionStatus = createServerFn({ method: "GET" })
     
     if (existing) {
       userId = existing.id;
+      // Ensure the user has the default password set (update if needed)
+      const { error: updateErr } = await supabaseAdmin.auth.admin.updateUserById(userId, {
+        password: DEFAULT_PASSWORD,
+      });
+      if (updateErr) {
+        console.error("Failed to set default password:", updateErr.message);
+      }
     } else {
       const { data: created, error: createError } = await supabaseAdmin.auth.admin.createUser({
         email,
+        password: DEFAULT_PASSWORD,
         email_confirm: true,
       });
       if (createError || !created.user) {
@@ -188,5 +201,5 @@ export const getCheckoutSessionStatus = createServerFn({ method: "GET" })
       console.error("Failed to send welcome email", e);
     }
 
-    return { magicLink };
+    return { magicLink, email, displayName };
   });

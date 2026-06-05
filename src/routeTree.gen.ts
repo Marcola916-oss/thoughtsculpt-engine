@@ -13,6 +13,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SuccessRouteImport } from './routes/success'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
@@ -44,6 +45,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ObrigadoRoute = ObrigadoRouteImport.update({
+  id: '/obrigado',
+  path: '/obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -115,6 +121,7 @@ const AuthenticatedDashboardCalendarRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/obrigado': typeof ObrigadoRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/success': typeof SuccessRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/obrigado': typeof ObrigadoRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/success': typeof SuccessRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
+  '/obrigado': typeof ObrigadoRoute
   '/privacy': typeof PrivacyRoute
   '/reset-password': typeof ResetPasswordRoute
   '/success': typeof SuccessRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/obrigado'
     | '/privacy'
     | '/reset-password'
     | '/success'
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/obrigado'
     | '/privacy'
     | '/reset-password'
     | '/success'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/login'
+    | '/obrigado'
     | '/privacy'
     | '/reset-password'
     | '/success'
@@ -222,6 +234,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
+  ObrigadoRoute: typeof ObrigadoRoute
   PrivacyRoute: typeof PrivacyRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SuccessRoute: typeof SuccessRoute
@@ -257,6 +270,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/obrigado': {
+      id: '/obrigado'
+      path: '/obrigado'
+      fullPath: '/obrigado'
+      preLoaderRoute: typeof ObrigadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -388,6 +408,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
+  ObrigadoRoute: ObrigadoRoute,
   PrivacyRoute: PrivacyRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SuccessRoute: SuccessRoute,

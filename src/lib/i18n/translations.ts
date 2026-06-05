@@ -176,7 +176,7 @@ const PT: Dict = {
     kicker: "Finanças comportamentais • 8 perguntas • 3 minutos",
     headline: "O dinheiro não te falta. Falta-te conhecer o teu padrão.",
     sub: "MindReset diagnostica o teu arquétipo financeiro e entrega um protocolo personalizado de ação. Sem orçamentos. Sem ligação bancária. Só psicologia que muda comportamento.",
-    cta: "Fazer o diagnóstico grátis",
+    cta: "Quero meu diagnóstico grátis",
     trust: "+12.000 diagnósticos • Sem cartão para começar",
   },
   features: {
@@ -211,7 +211,7 @@ const PT: Dict = {
   emailCapture: {
     title: (name) => `${name}, o teu diagnóstico está pronto.`,
     sub: "Indica o teu e-mail para receberes o relatório completo e desbloquear a tua página de arquétipo.",
-    cta: "Ver o meu arquétipo",
+    cta: "Revelar meu arquétipo agora",
   },
   loader: {
     title: "Processando as tuas respostas",
@@ -241,7 +241,7 @@ const PT: Dict = {
   reveal: {
     kicker: (name) => `${name}, o teu arquétipo é:`,
     sub: "Isto não é sorte. É um padrão — e padrões mudam-se.",
-    cta: "Quero o meu protocolo",
+    cta: "Quero meu protocolo agora",
     share: "Partilhar o meu arquétipo",
     errorTitle: "Não conseguimos salvar o teu diagnóstico.",
     errorBody: "A tua revelação ainda aparece abaixo, mas o link de partilha não está disponível.",
@@ -309,16 +309,16 @@ const PT: Dict = {
     ctaFinal: {
       title: "Chega de repetir os mesmos padrões.",
       subtitle: "O seu arquétipo não é um destino. É um ponto de partida.",
-      cta: "Iniciar Meu MindReset Agora →",
+      cta: "Começar Meu MindReset Agora →",
       trust: "🔒 Stripe • 🛡️ SSL • Cancelar a qualquer momento",
     },
-    cta: "Escolher o meu plano",
+    cta: "Ver meus planos",
   },
   plans: {
     title: "Escolhe a duração do teu Reset", sub: "Subscrição recorrente. Cancelas quando quiseres.",
     mostPopular: "MAIS POPULAR", perDay: (v) => `${v} / dia`,
     p30: "30 dias", p6m: "6 meses", p1y: "1 ano",
-    chooseCta: "Começar agora",
+    chooseCta: "Quero esse plano agora",
     guarantee: "7 dias de reembolso integral — sem perguntas.",
     features: {
       diagnosis: "Diagnóstico Completo AI",
@@ -455,7 +455,7 @@ const EN: Dict = {
     kicker: "Behavioral finance • 8 questions • 3 minutes",
     headline: "It's not the money. It's the pattern you can't see.",
     sub: "MindReset diagnoses your financial archetype and ships a personalized action protocol. No budgets. No bank linking. Just psychology that changes behavior.",
-    cta: "Take the free diagnosis",
+    cta: "I want my free diagnosis",
     trust: "+12,000 diagnoses • No card to start",
   },
   features: {
@@ -490,7 +490,7 @@ const EN: Dict = {
   emailCapture: {
     title: (name) => `${name}, your diagnosis is ready.`,
     sub: "Drop your email to receive the full report and unlock your archetype page.",
-    cta: "Reveal my archetype",
+    cta: "Reveal my archetype now",
   },
   loader: {
     title: "Processing your answers",
@@ -520,7 +520,7 @@ const EN: Dict = {
   reveal: {
     kicker: (name) => `${name}, your archetype is:`,
     sub: "This isn't luck. It's a pattern — and patterns can change.",
-    cta: "I want my protocol",
+    cta: "I want my protocol now",
     share: "Share my archetype",
     errorTitle: "We couldn't save your diagnosis.",
     errorBody: "Your reveal still appears below, but the share link isn't available.",
@@ -591,13 +591,13 @@ const EN: Dict = {
       cta: "Start My MindReset Now →",
       trust: "🔒 Stripe • 🛡️ SSL • Cancel anytime",
     },
-    cta: "Choose my plan",
+    cta: "See my plans",
   },
   plans: {
     title: "Choose your Reset length", sub: "Recurring subscription. Cancel anytime.",
     mostPopular: "MOST POPULAR", perDay: (v) => `${v} / day`,
     p30: "30 days", p6m: "6 months", p1y: "1 year",
-    chooseCta: "Start now",
+    chooseCta: "I want this plan",
     guarantee: "7-day full refund — no questions asked.",
     features: {
       diagnosis: "Full AI Diagnosis",
@@ -731,15 +731,15 @@ const PL: Dict = {
     kicker: "Finanse behawioralne • 14 pytań • 3 minuty",
     headline: "To nie pieniądze. To wzorzec, którego nie widzisz.",
     sub: "MindReset diagnozuje Twój finansowy archetyp i dostarcza spersonalizowany protokół działania. Bez budżetów. Bez łączenia z bankiem. Tylko psychologia, która zmienia zachowanie.",
-    cta: "Zrób darmową diagnozę",
+    cta: "Chcę darmową diagnozę",
     trust: "+12 000 diagnoz • Bez karty na start",
   },
   identity: { title: "Zanim zaczniemy — kim jesteś?", sub: "Użyjemy Twojego imienia w całej diagnozie, żeby była osobista." },
   questions: { title: (n, total) => `Pytanie ${n} z ${total}`, intro: (name) => `${name}, wybierz odpowiedź najbliższą Tobie — nie ma złych.` },
-  emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp" },
+  emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp teraz" },
   loader: { ...EN.loader, title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…"] },
-  reveal: { ...EN.reveal, kicker: (name) => `${name}, Twój archetyp to:`, sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.", cta: "Chcę swój protokół", share: "Udostępnij mój archetyp", errorTitle: "Nie udało się zapisać diagnozy.", errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.", errorRetry: "Spróbuj ponownie" },
-  plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Zacznij teraz", guarantee: "7 dni pełnego zwrotu — bez pytań." },
+  reveal: { ...EN.reveal, kicker: (name) => `${name}, Twój archetyp to:`, sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.", cta: "Chcę swój protokół teraz", share: "Udostępnij mój archetyp", errorTitle: "Nie udało się zapisać diagnozy.", errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.", errorRetry: "Spróbuj ponownie" },
+  plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan", guarantee: "7 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
 };
 
@@ -759,15 +759,15 @@ const RO: Dict = {
     kicker: "Finanțe comportamentale • 14 întrebări • 3 minute",
     headline: "Nu sunt banii. E tiparul pe care nu-l vezi.",
     sub: "MindReset îți diagnostichează arhetipul financiar și îți livrează un protocol personalizat. Fără bugete. Fără cont bancar. Doar psihologie care schimbă comportamentul.",
-    cta: "Fă diagnoza gratuită",
+    cta: "Vreau diagnoza gratuită",
     trust: "+12.000 de diagnoze • Fără card pentru a începe",
   },
   identity: { title: "Înainte să începem — cine ești?", sub: "Vom folosi prenumele tău în toată diagnoza ca să fie personală." },
   questions: { title: (n, total) => `Întrebarea ${n} din ${total}`, intro: (name) => `${name}, alege opțiunea care îți seamănă cel mai mult — nu există răspunsuri greșite.` },
-  emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul" },
+  emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul acum" },
   loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…"] },
-  reveal: { ...EN.reveal, kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
-  plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Începe acum", guarantee: "7 zile rambursare integrală — fără întrebări." },
+  reveal: { ...EN.reveal, kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu acum", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
+  plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan", guarantee: "7 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
 };
 
@@ -788,15 +788,15 @@ const AR: Dict = {
     kicker: "السلوك المالي • ٨ أسئلة • ٣ دقائق",
     headline: "ليست المشكلة في المال. المشكلة في النمط الذي لا تراه.",
     sub: "MindReset يشخّص نمطك المالي ويقدّم بروتوكول عمل مخصّصاً لك. بدون ميزانيات. بدون ربط بنكي. علم نفس يغيّر السلوك.",
-    cta: "ابدأ التشخيص المجاني",
+    cta: "أريد تشخيصي المجاني",
     trust: "+12,000 تشخيص • بدون بطاقة للبدء",
   },
   identity: { title: "قبل أن نبدأ — من أنت؟", sub: "سنستخدم اسمك خلال التشخيص ليكون شخصياً." },
   questions: { title: (n, total) => `السؤال ${n} من ${total}`, intro: (name) => `${name}، اختر الإجابة الأقرب لك — لا توجد إجابة خاطئة.` },
-  emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي" },
+  emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي الآن" },
   loader: { ...EN.loader, title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…"] },
-  reveal: { ...EN.reveal, kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
-  plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "ابدأ الآن", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
+  reveal: { ...EN.reveal, kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي الآن", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
+  plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد هذا الخطة", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
 };
 

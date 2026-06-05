@@ -29,9 +29,10 @@ function SuccessPage() {
     getMagicLink({ data: { session_id: sessionId } })
       .then((res) => {
         if (res?.magicLink) {
-          window.location.href = res.magicLink;
+          // Redirect to the thank-you page instead of directly to the magic link
+          window.location.href = `/obrigado?session_id=${sessionId}`;
         } else {
-          setError("Failed to obtain magic link.");
+          setError("Failed to obtain access credentials.");
         }
       })
       .catch((e) => {
@@ -63,4 +64,3 @@ function SuccessPage() {
 
   return null;
 }
-

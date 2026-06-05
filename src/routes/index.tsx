@@ -93,6 +93,13 @@ function LandingAndQuiz() {
   const [leadId, setLeadId] = useState<string | null>(null);
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [leadError, setLeadError] = useState<string | null>(null);
+  const [timerLeft, setTimerLeft] = useState(900); // 15 minutes shared across Sales + Plans
+
+  useEffect(() => {
+    if (timerLeft <= 0) return;
+    const interval = setInterval(() => setTimerLeft(t => t - 1), 1000);
+    return () => clearInterval(interval);
+  }, [timerLeft]);
 
   const persistLead = useServerFn(saveQuizLead);
 
@@ -282,7 +289,7 @@ function LandingAndQuiz() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
-              <Sales name={name} arch={archCode} onContinue={() => setStage({ kind: "plans" })} />
+              <Sales name={name} arch={archCode} timeLeft={timerLeft} onContinue={() => setStage({ kind: "plans" })} />
             </motion.div>
           )}
 
@@ -293,7 +300,7 @@ function LandingAndQuiz() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Plans email={email} displayName={name} leadId={leadId} />
+              <Plans email={email} displayName={name} leadId={leadId} timeLeft={timerLeft} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -324,7 +331,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
           initial={{ y: 100 }}
           animate={{ y: 0 }}
           exit={{ y: 100 }}
-          className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 p-4 backdrop-blur-lg md:hidden"
+          className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 p-4 backdrop-blur-lg"
         >
           <button
             onClick={onClick}
@@ -391,7 +398,7 @@ function TopBar() {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative py-12 md:py-40 text-center overflow-hidden">
+    <section className="relative py-12 md:py-40 text-center">
       {/* Background elements */}
       <div className="hero-glow" />
       <div className="absolute left-1/2 top-1/2 -z-10 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-arch-glow blur-[160px] opacity-30" />
@@ -479,22 +486,31 @@ function Hero({ onStart }: { onStart: () => void }) {
         <Magnetic>
           <button
             onClick={onStart}
-            className="group relative h-28 w-full max-w-xl overflow-hidden rounded-[2.5rem] bg-foreground text-background transition-all hover:shadow-[0_50px_100px_-20px_rgba(255,255,255,0.2)] active:scale-95"
+            className="group relative h-28 w-full max-w-xl overflow-visible rounded-[2.5rem] bg-foreground text-background transition-all hover:shadow-[0_50px_100px_-20px_rgba(255,255,255,0.2)] active:scale-95"
           >
-            <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
             <span className="relative z-10 flex items-center justify-center gap-6 text-4xl font-black italic tracking-tighter group-hover:text-primary-foreground">
               {t.hero.cta.toUpperCase()}
               <ArrowRight className="h-10 w-10 transition-transform duration-700 group-hover:translate-x-5" />
             </span>
-            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
+            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] translate-x-[-100%] bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
           </button>
         </Magnetic>
         
         <div className="flex flex-col items-center gap-4">
-          <div className="flex items-center gap-6 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-            <div className="h-6 w-auto flex items-center justify-center font-black italic tracking-tighter text-xl">Forbes</div>
-            <div className="h-6 w-auto flex items-center justify-center font-black italic tracking-tighter text-xl">Wired</div>
-            <div className="h-6 w-auto flex items-center justify-center font-black italic tracking-tighter text-xl">Bloomberg</div>
+          <div className="flex items-center gap-6 text-muted-foreground/60">
+            <div className="flex items-center gap-2 text-sm font-bold">
+              <ShieldCheck className="h-4 w-4" />
+              <span>SSL Seguro</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm font-bold">
+              <Lock className="h-4 w-4" />
+              <span>Dados Protegidos</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm font-bold">
+              <Clock className="h-4 w-4" />
+              <span>7 dias garantia</span>
+            </div>
           </div>
           
           <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
@@ -629,9 +645,9 @@ function Identity(props: {
         onClick={props.onContinue}
         whileHover={ok ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
         whileTap={ok ? { scale: 0.98 } : {}}
-        className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-black italic tracking-tighter text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
+        className="group relative mt-12 w-full overflow-visible rounded-2xl bg-foreground py-5 text-xl font-black italic tracking-tighter text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
       >
-        <div className="absolute inset-0 bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute inset-0 overflow-hidden rounded-2xl bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-primary-foreground">
           {t.common.continue.toUpperCase()}
           <ArrowRight size={22} className="transition-transform duration-500 group-hover:translate-x-2" />
@@ -776,7 +792,7 @@ function Reveal({
 
   return (
     <section className="py-12 md:py-40 overflow-hidden relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-arch-glow blur-[160px] opacity-20 -z-10" />
+      <div className="absolute inset-0 bg-arch-glow blur-[160px] opacity-20 -z-10" />
       <div className="text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
@@ -871,9 +887,9 @@ function Reveal({
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={onContinue}
-          className="group relative mt-24 w-full overflow-hidden rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
+          className="group relative mt-24 w-full overflow-visible rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
         >
-          <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <div className="absolute inset-0 overflow-hidden rounded-3xl bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           <span className="relative z-10 flex items-center justify-center gap-6">
             {t.reveal.cta.toUpperCase()} 
             <ArrowRight size={40} className="transition-transform duration-500 group-hover:translate-x-4" />
@@ -890,23 +906,17 @@ function Reveal({
 function Sales({
   name,
   arch,
+  timeLeft,
   onContinue,
 }: {
   name: string;
   arch: Archetype;
+  timeLeft: number;
   onContinue: () => void;
 }) {
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const s = t.sales;
-  
-  const [timeLeft, setTimeLeft] = useState(900); // 15 minutes in seconds
-
-  useEffect(() => {
-    if (timeLeft <= 0) return;
-    const interval = setInterval(() => setTimeLeft(t => t - 1), 1000);
-    return () => clearInterval(interval);
-  }, [timeLeft]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -1025,6 +1035,19 @@ function Sales({
           </div>
         </motion.div>
 
+        {/* Mid-CTA after Pain Mirror */}
+        <div className="text-center">
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={onContinue}
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-arch-primary px-8 py-4 text-lg font-black text-white transition-all hover:shadow-[0_20px_60px_-15px_var(--arch-glow)]"
+          >
+            <span className="relative z-10">{t.plans.chooseCta}</span>
+            <ArrowRight size={20} className="relative z-10 transition-transform group-hover:translate-x-1" />
+          </motion.button>
+        </div>
+
         {/* ── Block 3: Scientific Proof ────────────────── */}
         <div className="text-center max-w-5xl mx-auto relative px-6">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-full h-[600px] bg-arch-glow blur-[140px] opacity-10 -z-10" />
@@ -1106,8 +1129,8 @@ function Sales({
 
         {/* ── Block 6: Social Proof ────────────────────── */}
         <div className="rounded-[4rem] border border-border bg-card p-12 md:p-32 shadow-2xl overflow-hidden relative max-w-7xl mx-auto">
-          <div className="absolute -top-32 -left-32 h-96 w-96 bg-arch-primary/5 blur-[120px] rounded-full" />
-          <div className="absolute -bottom-32 -right-32 h-96 w-96 bg-arch-primary/5 blur-[120px] rounded-full" />
+          <div className="absolute top-0 left-0 h-96 w-96 bg-arch-primary/5 blur-[120px] rounded-full" />
+          <div className="absolute bottom-0 right-0 h-96 w-96 bg-arch-primary/5 blur-[120px] rounded-full" />
           
           <p className="text-center text-2xl font-black text-arch-primary mb-24 uppercase tracking-[0.3em]">
             {s.socialProof.counterText}
@@ -1119,17 +1142,30 @@ function Sales({
                 whileHover={{ y: -5 }}
                 className="rounded-[2.5rem] border border-border bg-background p-10 flex flex-col justify-between shadow-sm hover:shadow-xl transition-all"
               >
-                <div className="flex gap-1 text-arch-primary mb-8">
-                  {[...Array(5)].map((_, star) => <Star key={star} size={20} fill="currentColor" />)}
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex gap-1 text-arch-primary">
+                    {[...Array(5)].map((_, star) => <Star key={star} size={20} fill="currentColor" />)}
+                  </div>
+                  <span className="text-xs font-bold text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full flex items-center gap-1">
+                    <CheckCircle2 size={12} /> Verificado
+                  </span>
                 </div>
                 <p className="text-2xl text-foreground leading-relaxed font-medium mb-12 italic">"{test.quote}"</p>
                 <div className="flex items-center gap-5 border-t border-border pt-8">
-                  <div className="h-16 w-16 rounded-2xl bg-secondary flex items-center justify-center font-black text-2xl text-arch-primary shadow-inner">
+                  <div className={`h-16 w-16 rounded-2xl flex items-center justify-center font-black text-2xl text-white shadow-lg ${
+                    i === 0 ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+                    i === 1 ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
+                    'bg-gradient-to-br from-amber-500 to-amber-600'
+                  }`}>
                     {test.author[0]}
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <p className="font-bold text-xl text-foreground">{test.author}</p>
-                    <p className="text-sm text-muted-foreground font-black uppercase tracking-widest">{test.country}</p>
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm text-muted-foreground">{test.country}</p>
+                      <span className="text-muted-foreground">·</span>
+                      <p className="text-xs font-bold text-arch-primary">Google Reviews</p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -1146,6 +1182,19 @@ function Sales({
               {s.socialProof.ratingText}
             </p>
           </div>
+        </div>
+
+        {/* Mid-CTA after Social Proof */}
+        <div className="text-center">
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={onContinue}
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-arch-primary px-8 py-4 text-lg font-black text-white transition-all hover:shadow-[0_20px_60px_-15px_var(--arch-glow)]"
+          >
+            <span className="relative z-10">{t.plans.chooseCta}</span>
+            <ArrowRight size={20} className="relative z-10 transition-transform group-hover:translate-x-1" />
+          </motion.button>
         </div>
 
         {/* ── Block 7: FAQ ────────────────────────────── */}
@@ -1197,7 +1246,7 @@ function Sales({
               
               <button
                 onClick={onContinue}
-                className="group relative inline-flex items-center gap-6 rounded-2xl bg-foreground px-16 py-8 text-2xl md:text-3xl font-black italic text-background transition-all hover:scale-[1.05] hover:shadow-[0_40px_80px_-20px_var(--arch-glow)] active:scale-95"
+                className="group relative inline-flex items-center gap-6 overflow-hidden rounded-2xl bg-foreground px-16 py-8 text-2xl md:text-3xl font-black italic text-background transition-all hover:scale-[1.05] hover:shadow-[0_40px_80px_-20px_var(--arch-glow)] active:scale-95"
               >
                 <span className="relative z-10">{s.ctaFinal.cta.toUpperCase()}</span>
                 <ArrowRight size={36} className="relative z-10 transition-transform duration-500 group-hover:translate-x-4 text-arch-primary" />
@@ -1225,10 +1274,12 @@ function Plans({
   email,
   displayName,
   leadId,
+  timeLeft,
 }: {
   email: string;
   displayName: string;
   leadId: string | null;
+  timeLeft: number;
 }) {
   const { t, currency, lang } = useI18n();
   const startCheckout = useServerFn(createCheckoutSession);
@@ -1236,6 +1287,12 @@ function Plans({
   const [err, setErr] = useState<string | null>(null);
   const plans: PlanKey[] = ["30d", "6m", "1y"];
   const f = t.plans.features;
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   async function choose(p: PlanKey) {
     setErr(null);
@@ -1265,6 +1322,17 @@ function Plans({
   return (
     <section className="py-12 md:py-32 max-w-7xl mx-auto px-4">
       <div className="text-center mb-20">
+        {timeLeft > 0 && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mb-8 inline-flex items-center gap-3 rounded-xl bg-arch-primary/10 px-5 py-2.5 border border-arch-primary/20"
+          >
+            <span className="text-sm font-black uppercase tracking-widest text-arch-primary">
+              {t.sales.timer} <span className="font-mono text-xl ml-2">{formatTime(timeLeft)}</span>
+            </span>
+          </motion.div>
+        )}
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -1389,11 +1457,38 @@ function Plans({
       </div>
 
       <div className="mt-24 text-center">
-        <div className="inline-flex items-center gap-4 rounded-2xl border border-border bg-card px-6 py-4 text-sm font-bold text-muted-foreground shadow-sm">
-          <ShieldCheck className="h-6 w-6 text-primary" />
+        {/* Guarantee Card */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-10 inline-flex flex-col items-center gap-4 rounded-3xl border border-arch-primary/20 bg-arch-primary/5 px-10 py-8"
+        >
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-arch-primary/10">
+            <ShieldCheck className="h-8 w-8 text-arch-primary" />
+          </div>
+          <p className="text-xl font-bold text-foreground">7 Dias de Garantia</p>
+          <p className="text-sm text-muted-foreground max-w-md">{t.plans.guarantee}</p>
+        </motion.div>
+
+        {/* Secure Badge */}
+        <div className="flex items-center justify-center gap-4 text-sm font-bold text-muted-foreground">
+          <ShieldCheck className="h-5 w-5 text-primary" />
           <span className="uppercase tracking-[0.1em]">{t.plans.secureBadge}</span>
         </div>
-        <p className="mt-8 text-lg text-muted-foreground max-w-xl mx-auto italic">{t.plans.guarantee}</p>
+
+        {/* Payment Logos */}
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-card/50 px-4 py-2">
+            <span className="text-xs font-bold text-muted-foreground">Visa</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-card/50 px-4 py-2">
+            <span className="text-xs font-bold text-muted-foreground">Mastercard</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-card/50 px-4 py-2">
+            <span className="text-xs font-bold text-muted-foreground">Stripe</span>
+          </div>
+        </div>
       </div>
     </section>
   );

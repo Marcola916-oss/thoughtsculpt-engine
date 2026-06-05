@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { getMyProfile, updateProfileSettings } from "../../lib/profile.functions";
+import { getMyProfile, updateProfileSettings, changePassword } from "../../lib/profile.functions";
 import { createCustomerPortalSession } from "../../lib/checkout.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
@@ -27,6 +27,38 @@ function SettingsPage() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
+
+  // Password change state
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [passwordSuccess, setPasswordSuccess] = useState(false);
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const changePasswordFn = useServerFn(changePassword);
+
+  const handlePasswordChange = async () => {
+    setPasswordError(null);
+    setPasswordSuccess(false);
+    if (newPassword.length < 8) {
+      setPasswordError("A senha deve ter pelo menos 8 caracteres.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setPasswordError("As senhas não coincidem.");
+      return;
+    }
+    setPasswordLoading(true);
+    try {
+      await changePasswordFn({ data: { newPassword } });
+      setPasswordSuccess(true);
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (e) {
+      setPasswordError((e as Error).message || "Erro ao alterar senha.");
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
 
   const updateMutation = useMutation({
     mutationFn: (vars: { display_name?: string; lang?: "pl" | "ro" | "ar" | "pt" | "en"; theme?: "dark" | "light" }) =>
@@ -205,6 +237,45 @@ function SettingsPage() {
           ) : (
             <p className="text-sm text-muted-foreground">{t.dashboard.settings.subscription.noneFound}</p>
           )}
+        </section>
+
+        {/* Security Section - Password Change */}
+        <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+          <h2 className="mb-4 font-display text-xl font-bold">Segurança</h2>
+          <p className="mb-4 text-sm text-muted-foreground">
+            Altere sua senha de acesso. Recomendamos usar uma senha forte e única.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Nova senha</label>
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Mínimo 8 caracteres"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+              />
+            </div>
+            <div>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Confirmar nova senha</label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Repita a nova senha"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+              />
+            </div>
+          </div>
+          {passwordError && <p className="mt-3 text-sm text-primary">{passwordError}</p>}
+          {passwordSuccess && <p className="mt-3 text-sm text-success">Senha alterada com sucesso!</p>}
+          <button
+            onClick={handlePasswordChange}
+            disabled={passwordLoading || !newPassword || !confirmPassword}
+            className="mt-4 rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-40"
+          >
+            {passwordLoading ? "Alterando..." : "Alterar Senha"}
+          </button>
         </section>
       </div>
 
