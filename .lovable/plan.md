@@ -1,30 +1,32 @@
-I will now perform a complete professional revision of MindReset, elevating it to the level of top-tier SaaS like Netflix or Spotify. The focus is on "Elite Polish": animations, perfect framing, and high-conversion structures while maintaining technical excellence.
+Build a world-class, premium behavioral finance SaaS (MindReset) that rivals top-tier products like Spotify or Netflix. The project will strictly follow the "MindReset Protocol" specification, focusing on immersive animations, perfect framing, and conversion-optimized funnels.
 
-### 1. Visual Identity & "Elite" UI
-- **Typography & Scale**: Refine the design system to use tighter, more professional spacing and typography scales.
-- **Glassmorphism 2.0**: Enhance the `.glass-panel` and `.bento-card` with better gradients, subtle borders, and sophisticated hover effects.
-- **Micro-interactions**: Add "Spotify-level" feedback to buttons and interactive elements using Framer Motion (magnetic effects, staggered reveals).
+### Design System & Visuals
+- Refine the existing theme in `src/styles.css` to ensure ultra-sharp typography (Syne for headings, Inter for body).
+- Implement a deep dark aesthetic using #000000 background with selective "Arch-Glow" accents (Red for primary).
+- Enhance the Bento grid layout for the hub and diagnosis areas with subtle glassmorphism and animated borders.
+- Add advanced motion effects using Framer Motion (staggered entries, magnetic buttons, parallax scrolling).
 
-### 2. High-Conversion Funnel (Landing/Quiz)
-- **Cinematic Hero**: Implement a more immersive hero section with background noise/textures and refined copy.
-- **Enhanced Transitions**: Use specialized `AnimatePresence` patterns for "one question per screen" to feel fluid and high-end.
-- **Sales Page (Long-form)**: Structure the sales page with better visual hierarchy, social proof widgets, and clearer "Frictionless Checkout" flows.
-- **Loader Polish**: Upgrade the diagnosis loader with more "scientific" visual feedback (scanning lines, data particles).
+### Quiz & Conversion Funnel
+- Transform the 14-screen quiz funnel for maximum conversion.
+- Implement 1-question-per-screen logic with auto-advance and per-screen progress logic.
+- Enhance the "Identity" screen with gender-fluid options and premium input fields.
+- Create a cinematic archetype reveal using typewriter effects and neural pulse animations.
+- Polish the long-form sales page (9 blocks) with high-authority trust signals and aggressive CTAs.
 
-### 3. Professional Dashboard & Experience
-- **Layout Refinement**: Improve the `DashboardShell` with better sidebar transitions and responsive framing.
-- **Diagnosis "Dossier"**: Style the AI diagnosis as a premium, downloadable "Confidential Report" rather than just text tabs.
-- **Gamification Visuals**: Enhance progress bars and streak indicators with glowing effects and "Achievement Unlocked" animations.
-- **Compass & Matrix**: Polish the interaction models for the AI tools to feel like "Precision Instruments."
+### Core Product Experience
+- **Diagnosis:** Build a high-fidelity 4-tab psychological dossier with PDF export and viral sharing capabilities.
+- **Action Matrix:** Implement a gamified calendar with progressive drip unlocking (5 days every 24h).
+- **Compass:** Create a relationship analyzer that maps external archetypes and generates scripts.
+- **Progress:** Finalize the dashboard with streak counters, achievement medals, and AI-generated monthly evolution reports.
 
-### 4. Technical Excellence
-- **Performance**: Optimize Framer Motion usage to ensure 60fps even on mobile.
-- **Responsiveness**: Ensure "pixel-perfect" framing across all device sizes.
-- **Error Handling**: Implement high-end "Graceful Degradation" UI for AI timeouts or API errors.
+### Technical Excellence
+- Standardize all server functions for robust data handling and AI integration.
+- Ensure strict Row Level Security (RLS) across all Supabase tables.
+- Refine the multi-market pricing logic (PLN, RON, SAR, USD, EUR) with IP-based auto-detection.
+- Implement a comprehensive internationalization system (pt, en, pl, ro, ar) including RTL support.
 
-### Technical Details
-- Using **Framer Motion** for all layout transitions and micro-animations.
-- **Tailwind CSS** with **OKLCH** colors for better contrast and vibrance.
-- **Lucide React** for consistent, high-quality iconography.
-- Integration with **ipapi.co** for localized experience (currency/language).
-- **Supabase** RLS and Service Role security patterns as per `SKILL.md`.
+### Next Steps
+1. Standardize and fix any existing UI inconsistencies in the dashboard layout.
+2. Complete the missing translations for Romanian and Polish to match the specification.
+3. Enhance the AI prompts in the diagnosis and calendar engines for "Brutal Realism" tone.
+4. Implement the viral sharing logic and public share pages.
