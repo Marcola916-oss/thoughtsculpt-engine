@@ -189,24 +189,28 @@ function LandingAndQuiz() {
                   ? 0
                   : stage.kind === "email"
                     ? 90
-                    : ((stage.index + 1) / 8) * 85
+                    : stage.kind === "q"
+                      ? ((stage.index + 1) / 8) * 85
+                      : 0
               }
               onBack={
                 stage.kind === "identity"
                   ? undefined
                   : stage.kind === "email"
                     ? () => setStage({ kind: "q", index: 7 })
-                    : () =>
-                        stage.index === 0
-                          ? setStage({ kind: "identity" })
-                          : setStage({ kind: "q", index: stage.index - 1 })
+                    : stage.kind === "q"
+                      ? () =>
+                          stage.index === 0
+                            ? setStage({ kind: "identity" })
+                            : setStage({ kind: "q", index: stage.index - 1 })
+                      : undefined
               }
               progressTitle={
                 stage.kind === "q"
                   ? t.questions.title(stage.index + 1, 8)
                   : stage.kind === "email"
-                    ? t.emailCapture.progressTitle || "Finalização"
-                    : t.identity.progressTitle || "Identificação"
+                    ? "Finalização"
+                    : "Identificação"
               }
             >
               {stage.kind === "identity" && (
