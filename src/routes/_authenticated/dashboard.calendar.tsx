@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import {
   listCalendar,
@@ -11,6 +12,7 @@ import {
   markCalendarExported,
 } from "../../lib/calendar.functions";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
+import { TaskCheckbox } from "../../components/calendar/TaskCheckbox";
 
 export const Route = createFileRoute("/_authenticated/dashboard/calendar")({
   head: () => ({ meta: [{ title: "Matriz de Ação — MindReset" }] }),
@@ -347,43 +349,59 @@ function CalendarPage() {
         )}
 
         <div className="grid grid-cols-5 gap-3 md:grid-cols-7">
-          {visibleTasks.map((task) => {
+          {visibleTasks.map((task, i) => {
             const taskUnlocked = isUnlocked(task);
             const isActive = task.day_number === selectedDay;
             return (
-              <button
+              <motion.button
                 key={task.id}
                 disabled={!taskUnlocked}
                 onClick={() => taskUnlocked && setSelectedDay(task.day_number)}
-                className={`relative aspect-square flex flex-col items-center justify-center rounded-xl border transition-all duration-300 ${
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.01, duration: 0.2, ease: "easeOut" }}
+                whileHover={taskUnlocked ? { scale: 1.08, y: -2 } : {}}
+                whileTap={taskUnlocked ? { scale: 0.95 } : {}}
+                className={`relative aspect-square flex flex-col items-center justify-center rounded-xl border transition-colors duration-300 ${
                   !taskUnlocked
                     ? "border-border bg-card/50 opacity-40 blur-[1px] cursor-not-allowed"
                     : isActive
-                      ? "border-primary bg-primary/20 shadow-[0_0_15px_var(--accent-glow)] hover:scale-[1.05]"
+                      ? "border-primary bg-primary/20 shadow-[0_0_15px_var(--accent-glow)]"
                       : task.is_completed
-                        ? "border-success/40 bg-success/10 text-success hover:scale-[1.05]"
+                        ? "border-success/40 bg-success/10 text-success"
                         : task.is_milestone
-                          ? "border-primary/50 bg-primary/5 hover:scale-[1.05]"
-                          : "border-border bg-card hover:border-primary/60 hover:scale-[1.05]"
+                          ? "border-gold/50 bg-gold-surface"
+                          : "border-border bg-card hover:border-primary/60"
                 }`}
               >
-                <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                {taskUnlocked && task.is_milestone && (
+                  <motion.div
+                    className="absolute inset-0 rounded-xl bg-gradient-to-br from-gold/20 via-transparent to-gold/10 pointer-events-none"
+                    animate={{ opacity: [0.3, 0.6, 0.3] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                )}
+                <div className="relative z-10 text-[10px] uppercase tracking-wider text-muted-foreground">
                   {taskUnlocked ? t.dashboard.calendar.grid.dayLabel : t.dashboard.calendar.grid.lockedLabel}
                 </div>
                 <div
-                  className={`font-display text-2xl font-bold ${isActive || task.is_completed ? "text-foreground" : ""}`}
+                  className={`relative z-10 font-display text-2xl font-bold ${isActive || task.is_completed ? "text-foreground" : ""}`}
                 >
                   {taskUnlocked ? task.day_number : "🔒"}
                 </div>
                 {taskUnlocked && task.is_milestone && (
-                  <div className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] shadow-lg">
+                  <motion.div
+                    className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gold text-[10px] shadow-lg"
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
                     ⭐
-                  </div>
+                  </motion.div>
                 )}
                 {taskUnlocked && task.is_completed && (
                   <div className="absolute bottom-1 right-1 text-success text-xs">✓</div>
                 )}
-              </button>
+              </motion.button>
             );
           })}
         </div>
@@ -430,50 +448,32 @@ function CalendarPage() {
                 </p>
 
                 {/* Reflective checkbox */}
-                <label
-                  className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-all hover:scale-[1.01] ${
-                    activeChecks?.reflective
-                      ? "border-success/40 bg-success/10 shadow-[0_0_10px_rgba(34,197,94,0.2)]"
-                      : "border-border bg-background hover:border-primary/40"
-                  }`}
-                >
-                  <div
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
-                      activeChecks?.reflective
-                        ? "border-success bg-success text-white"
-                        : "border-border"
-                    }`}
-                    onClick={() => handleCheck(active.id, "reflective", false)}
-                  >
-                    {activeChecks?.reflective && <span className="text-xs font-bold">✓</span>}
-                  </div>
-                  <span className={`text-sm font-semibold ${activeChecks?.reflective ? "text-success" : "text-foreground"}`}>
-                    🧠 {t.dashboard.calendar.checkboxes.reflectiveCompleted}
-                  </span>
-                </label>
+                <div className={`rounded-xl border p-4 transition-all ${
+                  activeChecks?.reflective
+                    ? "border-success/40 bg-success/10 shadow-[0_0_10px_rgba(34,197,94,0.2)]"
+                    : "border-border bg-background hover:border-primary/40"
+                }`}>
+                  <TaskCheckbox
+                    checked={activeChecks?.reflective ?? false}
+                    onChange={() => handleCheck(active.id, "reflective", false)}
+                    label={t.dashboard.calendar.checkboxes.reflectiveCompleted}
+                    type="reflective"
+                  />
+                </div>
 
                 {/* Action checkbox */}
-                <label
-                  className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-all hover:scale-[1.01] ${
-                    activeChecks?.action
-                      ? "border-success/40 bg-success/10 shadow-[0_0_10px_rgba(34,197,94,0.2)]"
-                      : "border-border bg-background hover:border-primary/40"
-                  }`}
-                >
-                  <div
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
-                      activeChecks?.action
-                        ? "border-success bg-success text-white"
-                        : "border-border"
-                    }`}
-                    onClick={() => handleCheck(active.id, "action", false)}
-                  >
-                    {activeChecks?.action && <span className="text-xs font-bold">✓</span>}
-                  </div>
-                  <span className={`text-sm font-semibold ${activeChecks?.action ? "text-success" : "text-foreground"}`}>
-                    ⚡ {t.dashboard.calendar.checkboxes.actionCompleted}
-                  </span>
-                </label>
+                <div className={`rounded-xl border p-4 transition-all ${
+                  activeChecks?.action
+                    ? "border-success/40 bg-success/10 shadow-[0_0_10px_rgba(34,197,94,0.2)]"
+                    : "border-border bg-background hover:border-primary/40"
+                }`}>
+                  <TaskCheckbox
+                    checked={activeChecks?.action ?? false}
+                    onChange={() => handleCheck(active.id, "action", false)}
+                    label={t.dashboard.calendar.checkboxes.actionCompleted}
+                    type="action"
+                  />
+                </div>
 
                 {/* Progress indicator */}
                 {(activeChecks?.reflective || activeChecks?.action) && !(activeChecks?.reflective && activeChecks?.action) && (

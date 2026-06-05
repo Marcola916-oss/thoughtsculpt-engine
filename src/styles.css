@@ -64,10 +64,28 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-accent-glow: var(--accent-glow);
+  --color-accent-glow-strong: var(--accent-glow-strong);
+  --color-accent-deeper: var(--accent-deeper);
+  --color-accent-surface: var(--accent-surface);
   --color-success: var(--success);
+  --color-success-surface: var(--success-surface);
   --color-warning: var(--warning);
+  --color-warning-surface: var(--warning-surface);
+  --color-info: var(--info);
+  --color-info-surface: var(--info-surface);
   --color-gold: var(--gold);
   --color-gold-surface: var(--gold-surface);
+  --color-bg-hover: var(--bg-hover);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-inverse: var(--text-inverse);
+  --color-shadow-sm: var(--shadow-sm);
+  --color-shadow-md: var(--shadow-md);
+  --color-shadow-lg: var(--shadow-lg);
+  --color-shadow-accent: var(--shadow-accent);
+  --color-shadow-accent-strong: var(--shadow-accent-strong);
 
   /* Archetype Mapping */
   --color-arch-primary: var(--arch-primary);
@@ -96,14 +114,36 @@
   --accent: oklch(0.52 0.24 27);
   --accent-foreground: oklch(0.99 0 0);
   --accent-dark: oklch(0.41 0.22 27);           /* #990000 */
+  --accent-deeper: oklch(0.35 0.22 27);         /* #660000 */
   --accent-glow: oklch(0.52 0.24 27 / 0.35);
+  --accent-glow-strong: oklch(0.52 0.24 27 / 0.5);
+  --accent-surface: oklch(0.52 0.24 27 / 0.08);
   --destructive: oklch(0.52 0.24 27);
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.24 0 0);                    /* #2A2A2A */
+  --border-subtle: oklch(0.18 0 0);             /* #1A1A1A */
+  --border-strong: oklch(0.28 0 0);             /* #333333 */
   --input: oklch(0.24 0 0);
   --ring: oklch(0.52 0.24 27);
+  --bg-hover: oklch(0.15 0 0);                  /* #1C1C1C */
+  --bg-overlay: oklch(0 0 0 / 0.85);
+  --text-tertiary: oklch(0.35 0.01 250);        /* #48484A */
+  --text-inverse: oklch(0% 0 0);                /* #000000 */
+  --info: oklch(0.62 0.18 250);                 /* #3B82F6 */
+  --info-surface: oklch(0.62 0.18 250 / 0.1);
   --success: oklch(0.72 0.17 150);              /* #22C55E */
+  --success-surface: oklch(0.72 0.17 150 / 0.1);
   --warning: oklch(0.78 0.16 70);               /* #F59E0B */
+  --warning-surface: oklch(0.78 0.16 70 / 0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.7);
+  --shadow-accent: 0 0 24px rgba(204,0,0,0.25);
+  --shadow-accent-strong: 0 0 48px rgba(204,0,0,0.40);
+  --transition-fast: all 0.15s cubic-bezier(0.4,0,0.2,1);
+  --transition-base: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  --transition-slow: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  --transition-spring: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
   --gold: oklch(0.80 0.12 85);                  /* #D4AF37 */
   --gold-surface: oklch(0.80 0.12 85 / 0.1);
   --chart-1: oklch(0.52 0.24 27);
@@ -142,15 +182,39 @@
   --muted-foreground: oklch(0.65 0.01 250);
   --accent: oklch(0.52 0.24 27);
   --accent-foreground: oklch(0.99 0 0);
+  --accent-dark: oklch(0.41 0.22 27);
+  --accent-deeper: oklch(0.35 0.22 27);
+  --accent-glow: oklch(0.52 0.24 27 / 0.35);
+  --accent-glow-strong: oklch(0.52 0.24 27 / 0.5);
+  --accent-surface: oklch(0.52 0.24 27 / 0.08);
   --destructive: oklch(0.52 0.24 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.24 0 0);
-  --input: oklch(0.24 0 0);
   --border: oklch(0.22 0 0);
+  --border-subtle: oklch(0.18 0 0);
+  --border-strong: oklch(0.28 0 0);
   --input: oklch(0.22 0 0);
   --ring: oklch(0.52 0.24 27);
+  --bg-hover: oklch(0.15 0 0);
+  --bg-overlay: oklch(0 0 0 / 0.85);
+  --text-tertiary: oklch(0.35 0.01 250);
+  --text-inverse: oklch(0% 0 0);
+  --info: oklch(0.62 0.18 250);
+  --info-surface: oklch(0.62 0.18 250 / 0.1);
+  --success: oklch(0.72 0.17 150);
+  --success-surface: oklch(0.72 0.17 150 / 0.1);
+  --warning: oklch(0.78 0.16 70);
+  --warning-surface: oklch(0.78 0.16 70 / 0.1);
   --gold: oklch(0.80 0.12 85);
   --gold-surface: oklch(0.80 0.12 85 / 0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.7);
+  --shadow-accent: 0 0 24px rgba(204,0,0,0.25);
+  --shadow-accent-strong: 0 0 48px rgba(204,0,0,0.40);
+  --transition-fast: all 0.15s cubic-bezier(0.4,0,0.2,1);
+  --transition-base: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  --transition-slow: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  --transition-spring: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
   --sidebar: oklch(0.18 0 0);
   --sidebar-foreground: oklch(0.97 0.003 250);
   --sidebar-primary: oklch(0.52 0.24 27);
@@ -177,13 +241,35 @@
   --muted-foreground: oklch(0.55 0.01 250);
   --secondary: oklch(0.95 0 0);
   --secondary-foreground: oklch(0.10 0.005 250);
+  --accent: oklch(0.52 0.24 27);
+  --accent-dark: oklch(0.41 0.22 27);
+  --accent-deeper: oklch(0.35 0.22 27);
   --accent-glow: oklch(0.52 0.24 27 / 0.15);
+  --accent-glow-strong: oklch(0.52 0.24 27 / 0.25);
   --accent-surface: oklch(0.52 0.24 27 / 0.06);
+  --bg-hover: oklch(0.92 0 0);
+  --bg-overlay: oklch(0 0 0 / 0.5);
+  --text-tertiary: oklch(0.45 0.01 250);
+  --text-inverse: oklch(1.00 0 0);
+  --info: oklch(0.55 0.18 250);
+  --info-surface: oklch(0.55 0.18 250 / 0.08);
+  --success: oklch(0.65 0.17 150);
+  --success-surface: oklch(0.65 0.17 150 / 0.08);
+  --warning: oklch(0.72 0.16 70);
+  --warning-surface: oklch(0.72 0.16 70 / 0.08);
+  --gold: oklch(0.75 0.12 85);
+  --gold-surface: oklch(0.75 0.12 85 / 0.08);
   --sidebar: oklch(0.98 0 0);
   --sidebar-border: oklch(0.88 0 0);
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
   --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --shadow-accent: 0 0 20px rgba(204,0,0,0.15);
+  --shadow-accent-strong: 0 0 40px rgba(204,0,0,0.25);
+  --transition-fast: all 0.15s cubic-bezier(0.4,0,0.2,1);
+  --transition-base: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  --transition-slow: all 0.4s cubic-bezier(0.4,0,0.2,1);
+  --transition-spring: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
 }
 
 /* ─── Archetype Variations ───────────────────────────────── */

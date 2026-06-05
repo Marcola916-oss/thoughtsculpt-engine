@@ -1,0 +1,2826 @@
+{
+  "meta": {
+    "documento": "MindReset SaaS — Prompt Mestre Ultra-Profissional V3.0",
+    "criado_em": "2025",
+    "destino": "Lovable.dev",
+    "instrucao_de_uso": "Cole este documento inteiro no chat do Lovable como primeiro prompt de uma nova sessão. É uma revisão e upgrade completo do projeto existente. NÃO quebre funcionalidades existentes — apenas melhore, refine e adicione.",
+    "filosofia": "Nível Netflix/Spotify/Linear — cada pixel tem intenção, cada animação tem propósito, cada texto converte. Zero genérico. Zero amador."
+  },
+
+  "PROMPT_MASTER_V3": {
+
+    "DIRECTIVE": "[MINDRESET SAAS — ULTRA-PROFESSIONAL UPGRADE V3.0 — COMPLETE REVISION]",
+
+    "missao": "Você está fazendo uma revisão completa e upgrade de nível premium do MindReset — um SaaS de diagnóstico comportamental financeiro já funcional. O objetivo é elevar cada aspecto do produto ao nível de uma empresa de 300 pessoas: Spotify, Netflix, Linear, Headspace. Revise TODO o código existente, corrija bugs, elimine código genérico, implemente animações cinematográficas, micro-interações precisas e um funil de conversão de máxima performance. NÃO quebre o que já funciona — apenas melhore e adicione.",
+
+    "SECAO_1_IDENTIDADE_VISUAL_SUPREMA": {
+
+      "design_philosophy": "O MindReset tem uma identidade visual única: noir psicológico + premium tech. Fundo negro absoluto, tipografia cirúrgica, vermelho carmesim como único acento de cor. Inspiração: Linear.app (precisão), Spotify (dark premium), Apple (espaço em branco intencional), e a estética visual dos canais MindZloty/BaniMind/MindRiyal (noir cinematográfico com estátuas clássicas fragmentadas).",
+
+      "css_variables_completas": {
+        "instrucao": "Substituir TODAS as variáveis CSS existentes por este sistema expandido. Definir em :root e [data-theme='light'].",
+        "dark_mode": {
+          "--bg-canvas": "#000000",
+          "--bg-surface": "#0A0A0A",
+          "--bg-elevated": "#111111",
+          "--bg-card": "#141414",
+          "--bg-hover": "#1C1C1C",
+          "--bg-overlay": "rgba(0,0,0,0.85)",
+          "--border-default": "#222222",
+          "--border-subtle": "#1A1A1A",
+          "--border-strong": "#333333",
+          "--text-primary": "#F5F5F7",
+          "--text-secondary": "#8E8E93",
+          "--text-tertiary": "#48484A",
+          "--text-inverse": "#000000",
+          "--accent": "#CC0000",
+          "--accent-dark": "#990000",
+          "--accent-deeper": "#660000",
+          "--accent-glow": "rgba(204,0,0,0.20)",
+          "--accent-glow-strong": "rgba(204,0,0,0.40)",
+          "--accent-surface": "rgba(204,0,0,0.08)",
+          "--success": "#22C55E",
+          "--success-surface": "rgba(34,197,94,0.10)",
+          "--warning": "#F59E0B",
+          "--warning-surface": "rgba(245,158,11,0.10)",
+          "--info": "#3B82F6",
+          "--info-surface": "rgba(59,130,246,0.10)",
+          "--gold": "#D4AF37",
+          "--gold-surface": "rgba(212,175,55,0.12)",
+          "--shadow-sm": "0 1px 3px rgba(0,0,0,0.5)",
+          "--shadow-md": "0 4px 16px rgba(0,0,0,0.6)",
+          "--shadow-lg": "0 8px 32px rgba(0,0,0,0.7)",
+          "--shadow-accent": "0 0 24px rgba(204,0,0,0.25)",
+          "--shadow-accent-strong": "0 0 48px rgba(204,0,0,0.40)",
+          "--radius-sm": "6px",
+          "--radius-md": "10px",
+          "--radius-lg": "16px",
+          "--radius-xl": "24px",
+          "--radius-full": "9999px",
+          "--transition-fast": "all 0.15s cubic-bezier(0.4,0,0.2,1)",
+          "--transition-base": "all 0.25s cubic-bezier(0.4,0,0.2,1)",
+          "--transition-slow": "all 0.4s cubic-bezier(0.4,0,0.2,1)",
+          "--transition-spring": "all 0.3s cubic-bezier(0.34,1.56,0.64,1)"
+        },
+        "light_mode": {
+          "--bg-canvas": "#F2F2F7",
+          "--bg-surface": "#FFFFFF",
+          "--bg-elevated": "#F8F8FA",
+          "--bg-card": "#FFFFFF",
+          "--bg-hover": "#F0F0F5",
+          "--border-default": "#E0E0E5",
+          "--border-subtle": "#EBEBF0",
+          "--text-primary": "#1A1A1E",
+          "--text-secondary": "#6E6E73",
+          "--text-tertiary": "#AEAEB2",
+          "--accent": "#CC0000",
+          "--accent-dark": "#990000",
+          "--accent-glow": "rgba(204,0,0,0.15)",
+          "--accent-surface": "rgba(204,0,0,0.06)",
+          "--shadow-sm": "0 1px 3px rgba(0,0,0,0.08)",
+          "--shadow-md": "0 4px 16px rgba(0,0,0,0.10)",
+          "--shadow-lg": "0 8px 32px rgba(0,0,0,0.12)"
+        }
+      },
+
+      "tipografia_sistema": {
+        "instrucao": "Implementar hierarquia tipográfica completa. Carregar via Google Fonts com preconnect para performance.",
+        "google_fonts_link": "<link rel='preconnect' href='https://fonts.googleapis.com'><link rel='preconnect' href='https://fonts.gstatic.com' crossorigin><link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Syne:wght@700;800&display=swap' rel='stylesheet'>",
+        "escala": {
+          "display_xl": { "font": "Syne", "size": "clamp(48px,6vw,80px)", "weight": "800", "line-height": "1.05", "letter-spacing": "-0.03em", "uso": "Hero headline principal do quiz/landing" },
+          "display_lg": { "font": "Syne", "size": "clamp(36px,4.5vw,60px)", "weight": "800", "line-height": "1.08", "letter-spacing": "-0.025em", "uso": "Títulos de seção da landing page" },
+          "display_md": { "font": "Inter", "size": "clamp(28px,3.5vw,42px)", "weight": "700", "line-height": "1.15", "letter-spacing": "-0.02em", "uso": "Títulos de páginas do dashboard" },
+          "heading_lg": { "font": "Inter", "size": "clamp(22px,2.5vw,28px)", "weight": "700", "line-height": "1.3", "letter-spacing": "-0.01em", "uso": "Subtítulos de seção" },
+          "heading_md": { "font": "Inter", "size": "20px", "weight": "600", "line-height": "1.35", "uso": "Títulos de cards" },
+          "heading_sm": { "font": "Inter", "size": "17px", "weight": "600", "line-height": "1.4", "uso": "Títulos menores, labels de seção" },
+          "body_lg": { "font": "Inter", "size": "18px", "weight": "400", "line-height": "1.65", "uso": "Texto de diagnóstico, conteúdo longo" },
+          "body_md": { "font": "Inter", "size": "15px", "weight": "400", "line-height": "1.6", "uso": "Texto de interface geral" },
+          "body_sm": { "font": "Inter", "size": "13px", "weight": "400", "line-height": "1.5", "uso": "Labels, meta-informações" },
+          "caption": { "font": "Inter", "size": "11px", "weight": "500", "line-height": "1.4", "letter-spacing": "0.04em", "text-transform": "uppercase", "uso": "Categorias, badges, rótulos de seção" },
+          "mono": { "font": "'SF Mono', 'Fira Code', monospace", "size": "14px", "weight": "400", "uso": "Nunca exibido ao usuário final" }
+        }
+      },
+
+      "glassmorphism_system": {
+        "instrucao": "Implementar glassmorphism sutil e premium — não exagerado. Usar apenas em elementos flutuantes sobre backgrounds escuros.",
+        "glass_card": "background: rgba(255,255,255,0.03); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255,255,255,0.06);",
+        "glass_modal": "background: rgba(10,10,10,0.95); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.08);",
+        "glass_navbar": "background: rgba(0,0,0,0.80); backdrop-filter: blur(24px) saturate(180%); border-bottom: 1px solid rgba(255,255,255,0.05);"
+      }
+    },
+
+    "SECAO_2_MICRO_INTERACOES_CINEMA": {
+
+      "instrucao_geral": "Micro-interações são a ALMA do produto premium. Cada clique, hover, transição deve ser intencional e satisfatório. Usar Framer Motion para animações React. NUNCA usar CSS transitions simples em elementos críticos.",
+
+      "framer_motion_variants": {
+        "instrucao": "Criar arquivo src/lib/animations.ts com todos os variants abaixo. Importar em todos os componentes.",
+        "codigo": "
+// src/lib/animations.ts
+import { Variants } from 'framer-motion';
+
+export const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+};
+
+export const fadeInDown: Variants = {
+  hidden: { opacity: 0, y: -16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
+};
+
+export const scaleIn: Variants = {
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.35, ease: [0.34, 1.56, 0.64, 1] } }
+};
+
+export const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -32 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
+};
+
+export const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 32 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
+};
+
+export const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } }
+};
+
+export const staggerItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
+};
+
+export const achievementPop: Variants = {
+  hidden: { scale: 0, opacity: 0, rotate: -10 },
+  visible: { scale: 1, opacity: 1, rotate: 0, transition: { type: 'spring', stiffness: 500, damping: 25 } }
+};
+
+export const streakBounce: Variants = {
+  idle: { scale: 1 },
+  animate: { scale: [1, 1.3, 0.9, 1.05, 1], transition: { duration: 0.5, times: [0, 0.3, 0.6, 0.8, 1] } }
+};
+
+export const pageTransition: Variants = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
+  exit: { opacity: 0, y: -8, transition: { duration: 0.25 } }
+};
+
+export const drawerSlide: Variants = {
+  hidden: { x: '-100%', opacity: 0 },
+  visible: { x: 0, opacity: 1, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } },
+  exit: { x: '-100%', opacity: 0, transition: { duration: 0.25 } }
+};
+
+export const bottomSheetSlide: Variants = {
+  hidden: { y: '100%', opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
+  exit: { y: '100%', opacity: 0, transition: { duration: 0.3 } }
+};
+
+export const modalScale: Variants = {
+  hidden: { scale: 0.94, opacity: 0, y: 16 },
+  visible: { scale: 1, opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.34, 1.56, 0.64, 1] } },
+  exit: { scale: 0.94, opacity: 0, y: 16, transition: { duration: 0.2 } }
+};
+
+export const typewriterChar = (index: number) => ({
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { delay: index * 0.05, duration: 0.01 } }
+});
+
+export const numberRollUp: Variants = {
+  hidden: { y: '100%', opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 300, damping: 20 } }
+};
+
+export const glowPulse = {
+  animate: {
+    boxShadow: [
+      '0 0 20px rgba(204,0,0,0.2)',
+      '0 0 40px rgba(204,0,0,0.4)',
+      '0 0 20px rgba(204,0,0,0.2)'
+    ],
+    transition: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
+  }
+};
+
+export const shimmer = {
+  animate: {
+    backgroundPosition: ['200% 0', '-200% 0'],
+    transition: { duration: 2.5, repeat: Infinity, ease: 'linear' }
+  }
+};
+        "
+      },
+
+      "componentes_animados": {
+        "PrimaryButton": {
+          "instrucao": "Reescrever TODOS os botões primários com este componente. Substituir todos os <button> com bg-red genérico.",
+          "codigo": "
+// src/components/ui/PrimaryButton.tsx
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
+
+interface Props {
+  children: ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  fullWidth?: boolean;
+  loading?: boolean;
+  icon?: ReactNode;
+  className?: string;
+}
+
+export function PrimaryButton({ children, onClick, disabled, size = 'md', fullWidth, loading, icon, className }: Props) {
+  const sizes = {
+    sm: 'px-4 py-2 text-sm',
+    md: 'px-6 py-3 text-base',
+    lg: 'px-8 py-4 text-lg',
+    xl: 'px-10 py-5 text-xl'
+  };
+
+  return (
+    <motion.button
+      onClick={onClick}
+      disabled={disabled || loading}
+      className={`
+        relative overflow-hidden rounded-[var(--radius-md)] font-semibold
+        bg-[var(--accent)] text-white
+        flex items-center justify-center gap-2
+        ${sizes[size]} ${fullWidth ? 'w-full' : ''} ${className || ''}
+        disabled:opacity-40 disabled:cursor-not-allowed
+        focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2 focus:ring-offset-[var(--bg-canvas)]
+      `}
+      whileHover={!disabled && !loading ? {
+        y: -2,
+        boxShadow: '0 8px 32px rgba(204,0,0,0.45)',
+        backgroundColor: '#B30000'
+      } : {}}
+      whileTap={!disabled && !loading ? { scale: 0.97 } : {}}
+      transition={{ duration: 0.15 }}
+    >
+      {/* Shimmer effect on hover */}
+      <motion.div
+        className='absolute inset-0 opacity-0'
+        style={{
+          background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%)',
+          backgroundSize: '200% 100%'
+        }}
+        whileHover={{ opacity: 1, backgroundPosition: ['-200% 0', '200% 0'] }}
+        transition={{ duration: 0.6 }}
+      />
+      {loading ? (
+        <motion.div
+          className='w-5 h-5 border-2 border-white border-t-transparent rounded-full'
+          animate={{ rotate: 360 }}
+          transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+        />
+      ) : (
+        <>
+          {icon && <span>{icon}</span>}
+          <span className='relative z-10'>{children}</span>
+        </>
+      )}
+    </motion.button>
+  );
+}
+          "
+        },
+
+        "QuizOption": {
+          "instrucao": "Reescrever TODAS as opções de resposta do quiz com este componente premium.",
+          "codigo": "
+// src/components/quiz/QuizOption.tsx
+import { motion } from 'framer-motion';
+
+interface Props {
+  label: string;
+  letter: string;
+  selected?: boolean;
+  onClick: () => void;
+}
+
+export function QuizOption({ label, letter, selected, onClick }: Props) {
+  return (
+    <motion.button
+      onClick={onClick}
+      className={`
+        w-full text-left rounded-[var(--radius-md)] border p-4 flex items-start gap-3
+        relative overflow-hidden cursor-pointer
+        ${selected
+          ? 'border-[var(--accent)] bg-[var(--accent-surface)]'
+          : 'border-[var(--border-default)] bg-[var(--bg-card)]'
+        }
+        focus:outline-none
+      `}
+      initial={{ opacity: 0, x: -16 }}
+      animate={{ opacity: 1, x: 0 }}
+      whileHover={!selected ? {
+        borderColor: 'var(--accent)',
+        backgroundColor: 'rgba(204,0,0,0.04)',
+        x: 4
+      } : {}}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {/* Letter badge */}
+      <span className={`
+        flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold mt-0.5
+        ${selected ? 'bg-[var(--accent)] text-white' : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)]'}
+        transition-all duration-200
+      `}>
+        {letter}
+      </span>
+      <span className={`text-[15px] leading-relaxed ${selected ? 'text-[var(--text-primary)] font-medium' : 'text-[var(--text-secondary)]'}`}>
+        {label}
+      </span>
+      {selected && (
+        <motion.div
+          className='absolute right-4 top-1/2 -translate-y-1/2'
+          initial={{ scale: 0, rotate: -90 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+        >
+          <svg className='w-5 h-5 text-[var(--accent)]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2.5} d='M5 13l4 4L19 7' />
+          </svg>
+        </motion.div>
+      )}
+      {/* Red glow line on bottom when selected */}
+      {selected && (
+        <motion.div
+          className='absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--accent)]'
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        />
+      )}
+    </motion.button>
+  );
+}
+          "
+        },
+
+        "TaskCheckbox": {
+          "instrucao": "Substituir TODOS os checkboxes de tarefas do calendário. Inclui confetti e bounce.",
+          "codigo": "
+// src/components/calendar/TaskCheckbox.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import confetti from 'canvas-confetti';
+
+interface Props {
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label: string;
+  type: 'reflective' | 'action';
+}
+
+export function TaskCheckbox({ checked, onChange, label, type }: Props) {
+  const [justChecked, setJustChecked] = useState(false);
+
+  const handleCheck = () => {
+    if (!checked) {
+      setJustChecked(true);
+      confetti({
+        particleCount: 30,
+        spread: 50,
+        origin: { y: 0.6 },
+        colors: ['#CC0000', '#FF4444', '#FFD700', '#22C55E'],
+        scalar: 0.8,
+        gravity: 1.2
+      });
+      setTimeout(() => setJustChecked(false), 600);
+    }
+    onChange(!checked);
+  };
+
+  return (
+    <motion.label
+      className='flex items-start gap-3 cursor-pointer group select-none'
+      whileTap={{ scale: 0.98 }}
+    >
+      <div className='relative flex-shrink-0 mt-0.5'>
+        <motion.div
+          onClick={handleCheck}
+          className={`
+            w-6 h-6 rounded-[5px] border-2 flex items-center justify-center
+            transition-colors duration-200
+            ${checked
+              ? 'bg-[var(--success)] border-[var(--success)]'
+              : 'border-[var(--border-strong)] bg-transparent group-hover:border-[var(--success)]'
+            }
+          `}
+          animate={justChecked ? {
+            scale: [1, 1.4, 0.85, 1.1, 1],
+            transition: { duration: 0.5, times: [0, 0.3, 0.55, 0.75, 1] }
+          } : {}}
+        >
+          <AnimatePresence>
+            {checked && (
+              <motion.svg
+                className='w-3.5 h-3.5 text-white'
+                fill='none' viewBox='0 0 24 24' stroke='currentColor'
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                exit={{ pathLength: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+              >
+                <motion.path
+                  strokeLinecap='round' strokeLinejoin='round' strokeWidth={3}
+                  d='M5 13l4 4L19 7'
+                />
+              </motion.svg>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+      <div className='flex-1'>
+        <span className={`
+          text-sm leading-relaxed flex items-center gap-1.5
+          ${checked ? 'text-[var(--text-tertiary)] line-through' : 'text-[var(--text-primary)]'}
+          transition-all duration-300
+        `}>
+          <span className='text-base'>
+            {type === 'reflective' ? '🧠' : '⚡'}
+          </span>
+          {label}
+        </span>
+      </div>
+    </motion.label>
+  );
+}
+          "
+        },
+
+        "StreakCounter": {
+          "instrucao": "Widget de streak animado para a sidebar e dashboard. Instalar canvas-confetti como dependência.",
+          "codigo": "
+// src/components/gamification/StreakCounter.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+
+interface Props {
+  days: number;
+  compact?: boolean;
+}
+
+export function StreakCounter({ days, compact = false }: Props) {
+  const prevDays = useRef(days);
+  const isIncremented = days > prevDays.current;
+
+  useEffect(() => { prevDays.current = days; }, [days]);
+
+  const isAtRisk = days === 0;
+  const isMilestone = [7, 14, 21, 30, 60, 90, 180, 365].includes(days);
+
+  if (compact) {
+    return (
+      <motion.div
+        className='flex items-center gap-1'
+        animate={isIncremented ? { scale: [1, 1.3, 1] } : {}}
+        transition={{ duration: 0.4, type: 'spring' }}
+      >
+        <span className='text-base'>{isAtRisk ? '💀' : '🔥'}</span>
+        <span className={`font-bold text-sm ${isAtRisk ? 'text-[var(--warning)]' : 'text-[var(--text-primary)]'}`}>
+          {days}
+        </span>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      className={`
+        relative rounded-[var(--radius-lg)] p-5 flex flex-col items-center gap-2
+        ${isMilestone ? 'bg-gradient-to-b from-[var(--gold-surface)] to-[var(--bg-card)]' : 'bg-[var(--bg-card)]'}
+        border border-[var(--border-default)]
+        overflow-hidden
+      `}
+      whileHover={{ y: -2, borderColor: 'var(--accent)', boxShadow: 'var(--shadow-accent)' }}
+      transition={{ duration: 0.2 }}
+    >
+      {isMilestone && (
+        <motion.div
+          className='absolute inset-0 opacity-20'
+          style={{
+            background: 'radial-gradient(circle at 50% 0%, var(--gold), transparent 70%)'
+          }}
+          animate={{ opacity: [0.1, 0.3, 0.1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+      )}
+      <motion.span
+        className='text-4xl'
+        animate={isAtRisk
+          ? { scale: [1, 1.1, 1], opacity: [1, 0.5, 1] }
+          : { rotate: [-5, 5, -5] }
+        }
+        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        {isAtRisk ? '💀' : isMilestone ? '🏆' : '🔥'}
+      </motion.span>
+      <div className='text-center'>
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={days}
+            className={`text-4xl font-extrabold ${isMilestone ? 'text-[var(--gold)]' : isAtRisk ? 'text-[var(--warning)]' : 'text-[var(--text-primary)]'}`}
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          >
+            {days}
+          </motion.div>
+        </AnimatePresence>
+        <p className='text-xs text-[var(--text-secondary)] uppercase tracking-wider mt-1'>
+          {days === 1 ? 'dia' : 'dias'}
+        </p>
+      </div>
+      {isAtRisk && (
+        <motion.p
+          className='text-xs text-[var(--warning)] text-center font-medium'
+          animate={{ opacity: [1, 0.5, 1] }}
+          transition={{ duration: 1, repeat: Infinity }}
+        >
+          Complete hoje para não perder!
+        </motion.p>
+      )}
+      {isMilestone && (
+        <motion.span
+          className='text-xs font-bold text-[var(--gold)] bg-[var(--gold-surface)] px-2 py-0.5 rounded-full'
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+        >
+          🎉 Marco!
+        </motion.span>
+      )}
+    </motion.div>
+  );
+}
+          "
+        },
+
+        "AchievementUnlock": {
+          "instrucao": "Modal de conquista desbloqueada. Exibir automaticamente quando achievement é detectado.",
+          "codigo": "
+// src/components/gamification/AchievementUnlock.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
+import { useEffect } from 'react';
+
+interface Props {
+  open: boolean;
+  onClose: () => void;
+  achievement: { name: string; description: string; reward: string; icon: string; };
+}
+
+export function AchievementUnlock({ open, onClose, achievement }: Props) {
+  useEffect(() => {
+    if (open) {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.4 },
+        colors: ['#D4AF37', '#FFD700', '#FFC107', '#CC0000', '#FF6B6B'],
+        gravity: 0.9,
+        scalar: 1.1
+      });
+    }
+  }, [open]);
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div
+            className='fixed inset-0 z-50 bg-black/70 backdrop-blur-sm'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
+          <motion.div
+            className='fixed inset-0 z-50 flex items-center justify-center p-4'
+            initial={{ scale: 0.5, opacity: 0, y: 40 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          >
+            <div className='bg-[var(--bg-surface)] border border-[var(--gold)] rounded-[var(--radius-xl)] p-8 max-w-sm w-full text-center shadow-2xl relative overflow-hidden'>
+              {/* Gold glow */}
+              <div className='absolute inset-0 bg-gradient-to-b from-[var(--gold-surface)] to-transparent opacity-50' />
+              <motion.div
+                className='text-7xl mb-4 relative z-10'
+                animate={{ rotate: [-5, 5, -5, 5, 0], scale: [1, 1.1, 1] }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                {achievement.icon}
+              </motion.div>
+              <p className='text-xs uppercase tracking-widest text-[var(--gold)] font-bold mb-2 relative z-10'>
+                🏆 Conquista Desbloqueada!
+              </p>
+              <h2 className='text-2xl font-bold text-[var(--text-primary)] mb-2 relative z-10'>
+                {achievement.name}
+              </h2>
+              <p className='text-[var(--text-secondary)] text-sm mb-4 relative z-10'>
+                {achievement.description}
+              </p>
+              <div className='bg-[var(--gold-surface)] border border-[var(--gold)] rounded-[var(--radius-md)] p-3 mb-6 relative z-10'>
+                <p className='text-xs text-[var(--gold)] font-semibold'>🎁 Recompensa</p>
+                <p className='text-sm text-[var(--text-primary)] mt-1'>{achievement.reward}</p>
+              </div>
+              <button
+                onClick={onClose}
+                className='relative z-10 w-full bg-[var(--gold)] text-black font-bold py-3 rounded-[var(--radius-md)] hover:brightness-110 transition-all'
+              >
+                Resgatar Recompensa →
+              </button>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+          "
+        }
+      }
+    },
+
+    "SECAO_3_QUIZ_CONVERSAO_MAXIMA": {
+
+      "instrucao_geral": "Reescrever o quiz do zero com design cinematográfico inspirado nos canais (noir, estátua clássica, vermelho). Cada tela deve ser uma experiência visual única. Meta de conversão: >40% de visitantes chegam à página de vendas.",
+
+      "hero_section_antes_do_quiz": {
+        "instrucao": "Adicionar uma seção hero ANTES da Tela 0 do quiz — quando o usuário chega no site. Dura 3-4 segundos e then faz auto-scroll ou clique para começar.",
+        "codigo": "
+// src/components/quiz/QuizHero.tsx
+import { motion } from 'framer-motion';
+import { staggerContainer, staggerItem } from '@/lib/animations';
+
+interface Props { onStart: () => void; }
+
+export function QuizHero({ onStart }: Props) {
+  return (
+    <div className='min-h-screen bg-[var(--bg-canvas)] flex flex-col items-center justify-center px-4 relative overflow-hidden'>
+      {/* Animated background — distopian particles */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className='absolute w-px bg-gradient-to-b from-transparent via-[var(--accent)] to-transparent opacity-20'
+            style={{
+              left: `${(i * 5) + Math.random() * 3}%`,
+              height: `${Math.random() * 30 + 10}%`,
+              top: `${Math.random() * 80}%`
+            }}
+            animate={{ opacity: [0, 0.2, 0], scaleY: [0, 1, 0] }}
+            transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 4 }}
+          />
+        ))}
+        {/* Red gradient orb */}
+        <div className='absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-[var(--accent)] opacity-5 blur-[120px] rounded-full' />
+      </div>
+
+      <motion.div
+        className='max-w-2xl mx-auto text-center relative z-10'
+        variants={staggerContainer}
+        initial='hidden'
+        animate='visible'
+      >
+        {/* Logo */}
+        <motion.div variants={staggerItem} className='mb-12'>
+          <span className='text-xs font-bold tracking-[0.3em] uppercase text-[var(--text-tertiary)]'>
+            MindReset Protocol
+          </span>
+        </motion.div>
+
+        {/* Main headline */}
+        <motion.h1
+          variants={staggerItem}
+          className='font-[Syne] font-black text-[clamp(40px,7vw,72px)] leading-[1.05] tracking-tight text-[var(--text-primary)] mb-6'
+        >
+          Seu dinheiro conta{' '}
+          <span className='text-[var(--accent)] relative'>
+            uma história
+            <motion.div
+              className='absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--accent)]'
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </span>
+          <br />sobre quem você é.
+        </motion.h1>
+
+        <motion.p
+          variants={staggerItem}
+          className='text-[18px] text-[var(--text-secondary)] leading-relaxed mb-10 max-w-xl mx-auto'
+        >
+          Em 3 minutos, o MindReset revela o padrão psicológico que está 
+          sabotando suas decisões financeiras — sem planilhas, sem banco, 
+          sem julgamentos.
+        </motion.p>
+
+        {/* Social proof mini */}
+        <motion.div variants={staggerItem} className='flex items-center justify-center gap-3 mb-10'>
+          <div className='flex -space-x-2'>
+            {['👨🏻', '👩🏽', '👨🏿', '👩🏼', '👨🏾'].map((emoji, i) => (
+              <div key={i} className='w-8 h-8 rounded-full bg-[var(--bg-elevated)] border-2 border-[var(--bg-canvas)] flex items-center justify-center text-sm'>
+                {emoji}
+              </div>
+            ))}
+          </div>
+          <p className='text-sm text-[var(--text-secondary)]'>
+            <span className='text-[var(--text-primary)] font-semibold'>+12.400</span> diagnósticos gerados
+          </p>
+        </motion.div>
+
+        {/* CTA Button */}
+        <motion.div variants={staggerItem}>
+          <motion.button
+            onClick={onStart}
+            className='bg-[var(--accent)] text-white font-bold text-lg px-10 py-5 rounded-[var(--radius-md)] relative overflow-hidden'
+            whileHover={{ y: -3, boxShadow: '0 12px 40px rgba(204,0,0,0.5)' }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div
+              className='absolute inset-0 bg-white opacity-0'
+              whileHover={{ opacity: 0.05 }}
+            />
+            Descobrir meu arquétipo — Gratuito →
+          </motion.button>
+          <p className='text-xs text-[var(--text-tertiary)] mt-3'>
+            Sem cadastro • 3 minutos • Resultado imediato
+          </p>
+        </motion.div>
+
+        {/* Archetype preview badges */}
+        <motion.div variants={staggerItem} className='mt-12 flex flex-wrap gap-2 justify-center'>
+          {[
+            { code: 'AO', name: 'Acumulador Obsessivo', color: '#3B82F6' },
+            { code: 'SS', name: 'Buscador de Status', color: '#8B5CF6' },
+            { code: 'EA', name: 'Alienado Financeiro', color: '#F59E0B' },
+            { code: 'HI', name: 'Hedonista Impulsivo', color: '#EC4899' }
+          ].map((arch) => (
+            <motion.div
+              key={arch.code}
+              className='px-3 py-1.5 rounded-full border text-xs font-medium'
+              style={{ borderColor: arch.color + '40', color: arch.color, backgroundColor: arch.color + '10' }}
+              whileHover={{ scale: 1.05 }}
+            >
+              {arch.code} — {arch.name}
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+        "
+      },
+
+      "quiz_screen_wrapper": {
+        "instrucao": "Wrapper cinematográfico para TODAS as telas do quiz.",
+        "codigo": "
+// src/components/quiz/QuizScreenWrapper.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import { ReactNode } from 'react';
+
+interface Props {
+  children: ReactNode;
+  currentStep: number;
+  totalSteps: number;
+  showProgress?: boolean;
+}
+
+export function QuizScreenWrapper({ children, currentStep, totalSteps, showProgress = true }: Props) {
+  const progress = showProgress ? (currentStep / totalSteps) * 100 : 0;
+
+  return (
+    <div className='min-h-screen bg-[var(--bg-canvas)] flex flex-col relative overflow-hidden'>
+      {/* Subtle background texture */}
+      <div
+        className='absolute inset-0 opacity-[0.015] pointer-events-none'
+        style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)',
+          backgroundSize: '32px 32px'
+        }}
+      />
+
+      {/* Red ambient glow — subtle */}
+      <div className='absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--accent)] opacity-[0.04] blur-[100px] rounded-full pointer-events-none' />
+
+      {/* Progress bar */}
+      {showProgress && (
+        <div className='fixed top-0 left-0 right-0 z-50 h-[3px] bg-[var(--border-default)]'>
+          <motion.div
+            className='h-full bg-[var(--accent)]'
+            style={{ boxShadow: '0 0 8px var(--accent)' }}
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </div>
+      )}
+
+      {/* Logo */}
+      <div className='relative z-10 px-6 py-5 flex items-center justify-between'>
+        <span className='text-sm font-bold tracking-[0.2em] uppercase text-[var(--text-tertiary)]'>
+          MindReset
+        </span>
+        {showProgress && currentStep > 0 && currentStep <= 8 && (
+          <span className='text-xs text-[var(--text-tertiary)]'>
+            {currentStep} / 8
+          </span>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className='flex-1 flex flex-col items-center justify-center px-4 py-8 relative z-10'>
+        <div className='w-full max-w-lg'>
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 30, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, x: -30, filter: 'blur(4px)' }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
+}
+        "
+      },
+
+      "archetype_reveal_screen": {
+        "instrucao": "Tela de revelação do arquétipo — a mais importante do funil. Design noir premium com animação de entrada cinematográfica.",
+        "codigo": "
+// src/components/quiz/ArchetypeReveal.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { PrimaryButton } from '@/components/ui/PrimaryButton';
+
+const ARCHETYPE_DATA = {
+  AO: {
+    name: 'ACUMULADOR OBSESSIVO',
+    shortName: 'Acumulador',
+    emoji: '🏛️',
+    color: '#3B82F6',
+    bgGradient: 'from-blue-900/20 to-transparent',
+    lines: [
+      (name: string) => `${name}, você não tem problema com dinheiro. Você tem um problema com segurança — e esse medo invisível está sabotando sua liberdade.`,
+      'O Acumulador guarda, mas nunca sente que é o suficiente. Esse ciclo custa mais do que qualquer gasto impulsivo.',
+      'Esse padrão também está afetando sua vida profissional, seus relacionamentos e sua saúde. Descubra o mapa completo →'
+    ],
+    cta: 'Entender e curar esse padrão de uma vez por todas →'
+  },
+  SS: {
+    name: 'BUSCADOR DE STATUS',
+    shortName: 'Status Seeker',
+    emoji: '👑',
+    color: '#8B5CF6',
+    bgGradient: 'from-purple-900/20 to-transparent',
+    lines: [
+      (name: string) => `${name}, você não gasta por prazer — você gasta para ser visto(a) de uma certa forma. Esse ciclo de aprovação está drenando seu patrimônio.`,
+      'Cada compra é uma mensagem enviada ao mundo. Mas esse padrão vem com um preço silencioso: uma dívida que não aparece no extrato.',
+      'Esse padrão molda como você age no trabalho, como escolhe relacionamentos e as decisões que toma sobre si mesmo(a). Descubra →'
+    ],
+    cta: 'Quero parar de comprar aprovação e construir riqueza real →'
+  },
+  EA: {
+    name: 'ALIENADO FINANCEIRO',
+    shortName: 'Alienado',
+    emoji: '🌫️',
+    color: '#F59E0B',
+    bgGradient: 'from-amber-900/20 to-transparent',
+    lines: [
+      (name: string) => `${name}, você não ignora o dinheiro por preguiça. Você evita porque, em algum momento, o dinheiro virou sinônimo de dor.`,
+      'O Alienado usa o presente — compras, experiências, distração — como escudo contra uma realidade que prefere não encarar.',
+      'Esse padrão aparece nos seus relacionamentos, na sua carreira e nas decisões mais importantes da sua vida. Descubra o mapa →'
+    ],
+    cta: 'Quero finalmente encarar e transformar esse padrão →'
+  },
+  HI: {
+    name: 'HEDONISTA IMPULSIVO',
+    shortName: 'Hedonista',
+    emoji: '⚡',
+    color: '#EC4899',
+    bgGradient: 'from-pink-900/20 to-transparent',
+    lines: [
+      (name: string) => `${name}, você não tem falta de vontade — você tem um sistema nervoso programado para priorizar o agora acima de tudo.`,
+      'O Hedonista vive com intensidade. E paga o preço depois. Essa programação não é um defeito de caráter — é uma arquitetura mental que pode ser atualizada.',
+      'Esse padrão afeta como você decide no trabalho, nos relacionamentos e na construção do seu futuro. Veja o impacto completo →'
+    ],
+    cta: 'Quero atualizar essa arquitetura mental e assumir o controle →'
+  }
+};
+
+interface Props {
+  archetype: 'AO' | 'SS' | 'EA' | 'HI';
+  userName: string;
+  onContinue: () => void;
+  onShare: () => void;
+}
+
+export function ArchetypeReveal({ archetype, userName, onContinue, onShare }: Props) {
+  const data = ARCHETYPE_DATA[archetype];
+  const [displayName, setDisplayName] = useState('');
+  const [showLines, setShowLines] = useState(false);
+  const [showCTA, setShowCTA] = useState(false);
+
+  // Typewriter for archetype name
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setDisplayName(data.name.slice(0, i + 1));
+      i++;
+      if (i >= data.name.length) {
+        clearInterval(interval);
+        setTimeout(() => setShowLines(true), 400);
+        setTimeout(() => setShowCTA(true), 1200);
+      }
+    }, 45);
+    return () => clearInterval(interval);
+  }, [archetype]);
+
+  return (
+    <div className='min-h-screen bg-[var(--bg-canvas)] flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden'>
+      {/* Ambient color glow based on archetype */}
+      <div
+        className='absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none opacity-10'
+        style={{ backgroundColor: data.color }}
+      />
+
+      {/* Background gradient */}
+      <div className={`absolute inset-0 bg-gradient-to-b ${data.bgGradient} pointer-events-none`} />
+
+      <div className='max-w-2xl mx-auto text-center relative z-10'>
+        {/* Small label */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className='mb-6'
+        >
+          <span className='text-xs font-bold tracking-[0.3em] uppercase text-[var(--text-tertiary)]'>
+            Seu Arquétipo Financeiro
+          </span>
+        </motion.div>
+
+        {/* Emoji icon */}
+        <motion.div
+          className='text-6xl mb-6'
+          initial={{ scale: 0, rotate: -20 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.2 }}
+        >
+          {data.emoji}
+        </motion.div>
+
+        {/* Archetype name — typewriter */}
+        <div className='mb-8'>
+          <h1
+            className='font-[Syne] font-black text-[clamp(32px,6vw,56px)] leading-tight'
+            style={{ color: data.color }}
+          >
+            {displayName}
+            <motion.span
+              className='inline-block w-0.5 h-[0.9em] ml-1 align-middle'
+              style={{ backgroundColor: data.color }}
+              animate={{ opacity: [1, 0, 1] }}
+              transition={{ duration: 0.8, repeat: displayName.length < data.name.length ? Infinity : 3 }}
+            />
+          </h1>
+        </div>
+
+        {/* Description lines — staggered reveal */}
+        <AnimatePresence>
+          {showLines && (
+            <motion.div
+              className='space-y-4 mb-10 text-left'
+              initial='hidden'
+              animate='visible'
+              variants={{
+                visible: { transition: { staggerChildren: 0.25 } }
+              }}
+            >
+              {data.lines.map((line, i) => (
+                <motion.div
+                  key={i}
+                  className={`
+                    p-4 rounded-[var(--radius-md)] border
+                    ${i === 0 ? 'bg-[var(--bg-card)] border-[var(--border-strong)]' : 'bg-[var(--bg-surface)] border-[var(--border-default)]'}
+                  `}
+                  variants={{
+                    hidden: { opacity: 0, x: -20 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
+                  }}
+                >
+                  <p className={`
+                    leading-relaxed
+                    ${i === 0 ? 'text-[var(--text-primary)] text-[16px] font-medium' : 'text-[var(--text-secondary)] text-sm'}
+                  `}>
+                    {typeof line === 'function' ? line(userName) : line}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* CTAs */}
+        <AnimatePresence>
+          {showCTA && (
+            <motion.div
+              className='space-y-3'
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <PrimaryButton onClick={onContinue} fullWidth size='lg'>
+                {data.cta}
+              </PrimaryButton>
+              <button
+                onClick={onShare}
+                className='w-full py-3 px-6 rounded-[var(--radius-md)] border border-[var(--border-default)] text-[var(--text-secondary)] text-sm hover:border-[var(--border-strong)] hover:text-[var(--text-primary)] transition-all duration-200'
+              >
+                🔗 Compartilhar meu arquétipo
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+        "
+      },
+
+      "quiz_loader_screen": {
+        "instrucao": "Loader neurológico entre a captura de email e a revelação. 3 segundos. Cinematográfico.",
+        "codigo": "
+// src/components/quiz/NeuralLoader.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+
+const MESSAGES = [
+  'Mapeando padrões neurais...',
+  'Analisando comportamento financeiro...',
+  'Identificando gatilhos emocionais...',
+  'Calculando arquétipo dominante...',
+  'Seu diagnóstico está pronto.'
+];
+
+interface Props { onComplete: () => void; }
+
+export function NeuralLoader({ onComplete }: Props) {
+  const [msgIndex, setMsgIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const totalDuration = 3000;
+    const startTime = Date.now();
+
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min((elapsed / totalDuration) * 100, 100);
+      setProgress(pct);
+      if (pct >= 100) {
+        clearInterval(progressInterval);
+        setTimeout(onComplete, 400);
+      }
+    }, 30);
+
+    const msgInterval = setInterval(() => {
+      setMsgIndex(prev => Math.min(prev + 1, MESSAGES.length - 1));
+    }, 600);
+
+    return () => { clearInterval(progressInterval); clearInterval(msgInterval); };
+  }, [onComplete]);
+
+  return (
+    <div className='min-h-screen bg-[var(--bg-canvas)] flex flex-col items-center justify-center px-4'>
+      {/* Animated brain/neural visualization */}
+      <div className='relative w-32 h-32 mb-12'>
+        {/* Outer ring */}
+        <svg className='w-full h-full -rotate-90' viewBox='0 0 100 100'>
+          <circle cx='50' cy='50' r='44' fill='none' stroke='var(--border-default)' strokeWidth='4' />
+          <motion.circle
+            cx='50' cy='50' r='44'
+            fill='none'
+            stroke='var(--accent)'
+            strokeWidth='4'
+            strokeLinecap='round'
+            strokeDasharray={`${2 * Math.PI * 44}`}
+            strokeDashoffset={`${2 * Math.PI * 44 * (1 - progress / 100)}`}
+            style={{ filter: 'drop-shadow(0 0 8px var(--accent))' }}
+          />
+        </svg>
+        {/* Pulsing center */}
+        <div className='absolute inset-0 flex items-center justify-center'>
+          <motion.div
+            className='text-4xl'
+            animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            🧠
+          </motion.div>
+        </div>
+        {/* Orbital particles */}
+        {[0, 60, 120, 180, 240, 300].map((deg, i) => (
+          <motion.div
+            key={i}
+            className='absolute w-2 h-2 rounded-full bg-[var(--accent)]'
+            style={{
+              top: '50%', left: '50%',
+              transformOrigin: '0 0',
+              opacity: 0.6
+            }}
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 2 + i * 0.2,
+              repeat: Infinity,
+              ease: 'linear',
+              delay: i * 0.1
+            }}
+            initial={{ x: Math.cos((deg * Math.PI) / 180) * 52, y: Math.sin((deg * Math.PI) / 180) * 52 }}
+          />
+        ))}
+      </div>
+
+      {/* Progress percentage */}
+      <p className='text-3xl font-bold text-[var(--text-primary)] mb-4 tabular-nums'>
+        {Math.round(progress)}%
+      </p>
+
+      {/* Rotating message */}
+      <div className='h-6 overflow-hidden'>
+        <AnimatePresence mode='wait'>
+          <motion.p
+            key={msgIndex}
+            className='text-sm text-[var(--text-secondary)] text-center'
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {MESSAGES[msgIndex]}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+        "
+      }
+    },
+
+    "SECAO_4_LANDING_PAGE_VENDAS": {
+
+      "instrucao_geral": "Reescrever a página de vendas completa. Baseada nos princípios de Gary Halbert, Russell Brunson e Alex Hormozi. Cada bloco tem uma função psicológica específica. Implementar com Framer Motion scroll animations.",
+
+      "sticky_navbar": {
+        "instrucao": "Navbar que aparece após 200px de scroll com animação slide-down. Contém logo + CTA vermelho.",
+        "codigo": "
+// src/components/landing/StickyNavbar.tsx
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useState } from 'react';
+
+interface Props { onCTA: () => void; archetype?: string; }
+
+export function StickyNavbar({ onCTA, archetype }: Props) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setVisible(window.scrollY > 200);
+    window.addEventListener('scroll', handler, { passive: true });
+    return () => window.removeEventListener('scroll', handler);
+  }, []);
+
+  return (
+    <motion.nav
+      className='fixed top-0 left-0 right-0 z-50 px-6 py-3 flex items-center justify-between'
+      style={{ background: 'rgba(0,0,0,0.90)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+      initial={{ y: -80, opacity: 0 }}
+      animate={visible ? { y: 0, opacity: 1 } : { y: -80, opacity: 0 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <span className='font-bold text-sm tracking-[0.2em] uppercase text-[var(--text-primary)]'>
+        MindReset
+      </span>
+      {archetype && (
+        <span className='text-xs text-[var(--text-secondary)] hidden sm:block'>
+          Arquétipo: <span className='text-[var(--accent)] font-semibold'>{archetype}</span>
+        </span>
+      )}
+      <motion.button
+        onClick={onCTA}
+        className='bg-[var(--accent)] text-white text-sm font-semibold px-5 py-2 rounded-[var(--radius-sm)]'
+        whileHover={{ boxShadow: '0 4px 20px rgba(204,0,0,0.4)', y: -1 }}
+        whileTap={{ scale: 0.97 }}
+      >
+        Iniciar Agora →
+      </motion.button>
+    </motion.nav>
+  );
+}
+        "
+      },
+
+      "blocos_pagina_vendas": {
+        "instrucao": "Implementar TODOS os blocos abaixo em sequência na página de vendas. Cada bloco usa scroll-triggered animations com Framer Motion useInView.",
+
+        "bloco_hero": {
+          "descricao": "Hero âncora emocional — primeiro impacto",
+          "codigo": "
+// Dentro do componente de Sales Page
+// Bloco 1: HERO
+<section className='min-h-screen flex flex-col items-center justify-center px-4 py-24 relative overflow-hidden'>
+  {/* Marble statue visual — SVG/CSS art */}
+  <div className='absolute right-0 top-1/2 -translate-y-1/2 w-1/3 h-full opacity-5 pointer-events-none'>
+    {/* Abstract geometric shape representing the marble statue */}
+    <div className='w-full h-full bg-gradient-to-l from-white to-transparent' />
+  </div>
+
+  <motion.div
+    className='max-w-3xl mx-auto text-center'
+    initial='hidden'
+    whileInView='visible'
+    viewport={{ once: true, amount: 0.3 }}
+    variants={staggerContainer}
+  >
+    <motion.div variants={staggerItem}>
+      <span className='inline-block bg-[var(--accent-surface)] border border-[var(--accent)] text-[var(--accent)] text-xs font-bold px-4 py-1.5 rounded-full mb-8 tracking-wider uppercase'>
+        🧠 Diagnóstico Comportamental por IA
+      </span>
+    </motion.div>
+
+    <motion.h1
+      variants={staggerItem}
+      className='font-[Syne] font-black text-[clamp(36px,6vw,64px)] leading-[1.05] tracking-tight text-[var(--text-primary)] mb-6'
+    >
+      Você acabou de descobrir<br />
+      <span className='text-[var(--accent)]'>por que está travado(a)</span><br />
+      financeiramente.
+    </motion.h1>
+
+    <motion.p variants={staggerItem} className='text-xl text-[var(--text-secondary)] mb-4'>
+      Não é falta de disciplina. Não é falta de renda.
+    </motion.p>
+    <motion.p variants={staggerItem} className='text-xl text-[var(--text-secondary)] mb-10'>
+      É um padrão mental instalado profundamente — e que o MindReset foi construído especificamente para resetar.
+    </motion.p>
+
+    <motion.div variants={staggerItem}>
+      <PrimaryButton onClick={scrollToPlans} size='xl'>
+        Iniciar Meu Reset →
+      </PrimaryButton>
+    </motion.div>
+  </motion.div>
+</section>
+          "
+        },
+
+        "bloco_espelho_de_dor": {
+          "descricao": "Identificação de dor — usuário se reconhece",
+          "codigo": "
+// Bloco 2: ESPELHO DE DOR
+<section className='py-24 px-4 bg-[var(--bg-surface)]'>
+  <div className='max-w-3xl mx-auto'>
+    <motion.h2
+      className='font-[Syne] font-bold text-[clamp(28px,4vw,40px)] text-[var(--text-primary)] mb-12 text-center'
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      Você se identifica com alguma<br />
+      <span className='text-[var(--accent)]'>dessas situações?</span>
+    </motion.h2>
+
+    <div className='space-y-3'>
+      {[
+        'O dinheiro some antes do fim do mês e você não sabe exatamente para onde foi',
+        'Você toma decisões financeiras que sabe que são erradas... e continua tomando',
+        'Mesmo quando a situação melhora, a sensação de insegurança não passa',
+        'Você já tentou planilhas, apps, métodos — e nenhum durou mais de 30 dias',
+        'No fundo, você sente que tem um padrão que se repete mas não consegue quebrar'
+      ].map((item, i) => (
+        <motion.div
+          key={i}
+          className='flex items-start gap-4 p-4 rounded-[var(--radius-md)] bg-[var(--bg-card)] border border-[var(--border-default)]'
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.08, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          whileHover={{ borderColor: 'var(--accent)', x: 4 }}
+        >
+          <span className='text-[var(--accent)] font-bold text-lg mt-0.5'>✗</span>
+          <p className='text-[var(--text-secondary)] leading-relaxed'>{item}</p>
+        </motion.div>
+      ))}
+    </div>
+
+    <motion.div
+      className='mt-10 p-6 rounded-[var(--radius-lg)] border border-[var(--accent)] bg-[var(--accent-surface)] text-center'
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.4 }}
+    >
+      <p className='text-[var(--text-primary)] font-semibold text-lg'>
+        Isso não é fraqueza.
+      </p>
+      <p className='text-[var(--text-secondary)] mt-2'>
+        É o seu arquétipo financeiro operando no piloto automático — há anos, sem que ninguém tivesse te dado o mapa para sair.
+      </p>
+    </motion.div>
+  </div>
+</section>
+          "
+        },
+
+        "bloco_revelacao_cientifica": {
+          "descricao": "Credibilidade científica + quebra de crença",
+          "codigo": "
+// Bloco 3: REVELAÇÃO CIENTÍFICA
+<section className='py-24 px-4'>
+  <div className='max-w-3xl mx-auto'>
+    <motion.div
+      className='text-center mb-16'
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <h2 className='font-[Syne] font-bold text-[clamp(28px,4vw,40px)] text-[var(--text-primary)] mb-6'>
+        O problema não está no que<br />
+        você <span className='text-[var(--accent)]'>sabe</span> sobre dinheiro.
+      </h2>
+    </motion.div>
+
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-4 mb-12'>
+      {[
+        { stat: '95%', desc: 'das decisões financeiras são tomadas pelo sistema emocional do cérebro', source: 'Kahneman, 2011' },
+        { stat: '30', desc: 'dias — tempo médio antes de abandonar apps de finanças tradicionais', source: 'BestMoney, 2025' },
+        { stat: '74%', desc: 'mais conversão em protocolos personalizados por arquétipo vs. genéricos', source: 'Focus Digital, 2025' }
+      ].map((item, i) => (
+        <motion.div
+          key={i}
+          className='p-6 rounded-[var(--radius-lg)] bg-[var(--bg-card)] border border-[var(--border-default)] text-center'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.1 }}
+          whileHover={{ borderColor: 'var(--accent)', y: -4, boxShadow: 'var(--shadow-accent)' }}
+        >
+          <div className='text-4xl font-black text-[var(--accent)] mb-2'>{item.stat}</div>
+          <p className='text-sm text-[var(--text-secondary)] leading-relaxed mb-3'>{item.desc}</p>
+          <span className='text-xs text-[var(--text-tertiary)] italic'>{item.source}</span>
+        </motion.div>
+      ))}
+    </div>
+
+    <motion.blockquote
+      className='border-l-4 border-[var(--accent)] pl-6 py-2'
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+    >
+      <p className='text-[var(--text-primary)] text-lg leading-relaxed italic'>
+        'Planilhas não resolvem um problema que não é de planilha. O MindReset foi construído para trabalhar onde o problema realmente existe: na mente.'
+      </p>
+    </motion.blockquote>
+  </div>
+</section>
+          "
+        },
+
+        "bloco_features_4": {
+          "descricao": "As 4 áreas do produto — apresentação visual premium",
+          "codigo": "
+// Bloco 4: FEATURES DO PRODUTO
+<section className='py-24 px-4 bg-[var(--bg-surface)]'>
+  <div className='max-w-4xl mx-auto'>
+    <motion.div
+      className='text-center mb-16'
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <span className='text-xs uppercase tracking-widest text-[var(--text-tertiary)] font-semibold'>O Protocolo</span>
+      <h2 className='font-[Syne] font-bold text-[clamp(28px,4vw,40px)] text-[var(--text-primary)] mt-4'>
+        O MindReset Protocol
+      </h2>
+      <p className='text-[var(--text-secondary)] mt-4 max-w-xl mx-auto'>
+        O único sistema que combina diagnóstico psicológico profundo com um plano de ação diário gerado por IA — personalizado para o SEU arquétipo.
+      </p>
+    </motion.div>
+
+    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+      {[
+        {
+          icon: '🧠',
+          title: 'Meu Diagnóstico',
+          desc: 'Análise psicológica em 4 dimensões: Financeiro, Profissional, Amoroso e Pessoal. Gerado por GPT-4o especificamente para o seu padrão.',
+          badge: 'IA Premium',
+          badgeColor: 'blue'
+        },
+        {
+          icon: '📅',
+          title: 'Matriz de Ação',
+          desc: 'Calendário diário personalizado criado pela IA com base na sua rotina real, seus gatilhos emocionais e seus objetivos específicos.',
+          badge: '30d / 6m / 1 ano',
+          badgeColor: 'green'
+        },
+        {
+          icon: '🧭',
+          title: 'COMPASS',
+          desc: 'Analise o arquétipo de outras pessoas. Aprenda a se comunicar e se relacionar melhor no trabalho, na família e nos relacionamentos.',
+          badge: 'Exclusivo',
+          badgeColor: 'purple'
+        },
+        {
+          icon: '📈',
+          title: 'Progresso Real',
+          desc: 'Dashboard gamificado com pontos, streaks, conquistas e recompensas. Relatórios mensais automáticos gerados por IA.',
+          badge: 'Gamificado',
+          badgeColor: 'orange'
+        }
+      ].map((feature, i) => (
+        <motion.div
+          key={i}
+          className='p-6 rounded-[var(--radius-lg)] bg-[var(--bg-card)] border border-[var(--border-default)] relative overflow-hidden group'
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.08 }}
+          whileHover={{ borderColor: 'var(--accent)', y: -4, boxShadow: 'var(--shadow-accent)' }}
+        >
+          {/* Hover glow */}
+          <div className='absolute inset-0 bg-gradient-to-br from-[var(--accent-surface)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+          <div className='relative z-10'>
+            <div className='flex items-start justify-between mb-4'>
+              <span className='text-4xl'>{feature.icon}</span>
+              <span className='text-xs font-semibold px-2 py-1 rounded-full bg-[var(--bg-elevated)] text-[var(--text-secondary)]'>
+                {feature.badge}
+              </span>
+            </div>
+            <h3 className='text-lg font-bold text-[var(--text-primary)] mb-2'>{feature.title}</h3>
+            <p className='text-sm text-[var(--text-secondary)] leading-relaxed'>{feature.desc}</p>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+          "
+        },
+
+        "bloco_como_funciona": {
+          "descricao": "3 passos — timeline visual",
+          "codigo": "
+// Bloco 5: COMO FUNCIONA
+<section className='py-24 px-4'>
+  <div className='max-w-2xl mx-auto'>
+    <motion.h2
+      className='font-[Syne] font-bold text-[clamp(28px,4vw,40px)] text-[var(--text-primary)] text-center mb-16'
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      Como funciona
+    </motion.h2>
+
+    <div className='relative'>
+      {/* Timeline line */}
+      <div className='absolute left-6 top-6 bottom-6 w-px bg-[var(--border-default)]' />
+
+      <div className='space-y-8'>
+        {[
+          {
+            step: '01',
+            title: 'Responda o Onboarding',
+            desc: 'Depois de assinar, 7 perguntas rápidas sobre sua rotina real calibram a IA para gerar um protocolo verdadeiramente seu.',
+            time: '2 min'
+          },
+          {
+            step: '02',
+            title: 'Receba Seu Protocolo',
+            desc: 'Em minutos, um calendário personalizado de 30 dias é criado exclusivamente para você — baseado no seu arquétipo e rotina.',
+            time: 'Imediato'
+          },
+          {
+            step: '03',
+            title: 'Execute e Evolua',
+            desc: 'Marque suas tarefas diárias, acumule pontos, mantenha sua sequência e acompanhe sua transformação com dados reais.',
+            time: 'Diário'
+          }
+        ].map((step, i) => (
+          <motion.div
+            key={i}
+            className='flex gap-8 relative'
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Step number circle */}
+            <div className='flex-shrink-0 w-12 h-12 rounded-full bg-[var(--bg-card)] border-2 border-[var(--accent)] flex items-center justify-center relative z-10'>
+              <span className='text-sm font-bold text-[var(--accent)]'>{step.step}</span>
+            </div>
+            <div className='flex-1 pb-8'>
+              <div className='flex items-center justify-between mb-2'>
+                <h3 className='text-lg font-bold text-[var(--text-primary)]'>{step.title}</h3>
+                <span className='text-xs text-[var(--accent)] font-semibold bg-[var(--accent-surface)] px-2 py-0.5 rounded-full'>
+                  {step.time}
+                </span>
+              </div>
+              <p className='text-[var(--text-secondary)] text-sm leading-relaxed'>{step.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+          "
+        },
+
+        "bloco_planos": {
+          "descricao": "Grade de planos com preços locais — seção mais crítica",
+          "codigo": "
+// Bloco 6: PLANOS
+// Este bloco usa o hook useCurrency que detecta a moeda por IP
+<section id='plans' className='py-24 px-4 bg-[var(--bg-surface)]'>
+  <div className='max-w-4xl mx-auto'>
+    <motion.div
+      className='text-center mb-12'
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <h2 className='font-[Syne] font-bold text-[clamp(28px,4vw,40px)] text-[var(--text-primary)] mb-4'>
+        Escolha seu protocolo
+      </h2>
+      <p className='text-[var(--text-secondary)]'>
+        Preços em <span className='text-[var(--text-primary)] font-semibold'>{currencyLabel}</span> • Detectado automaticamente pelo seu IP
+      </p>
+    </motion.div>
+
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+      {plans.map((plan, i) => (
+        <motion.div
+          key={plan.id}
+          className={`
+            rounded-[var(--radius-xl)] p-6 border relative overflow-hidden
+            ${plan.popular
+              ? 'bg-[var(--bg-card)] border-[var(--accent)]'
+              : 'bg-[var(--bg-card)] border-[var(--border-default)]'
+            }
+          `}
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: plan.popular ? -8 : 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: i * 0.1, duration: 0.5 }}
+          whileHover={{
+            y: plan.popular ? -12 : -4,
+            borderColor: 'var(--accent)',
+            boxShadow: plan.popular ? 'var(--shadow-accent-strong)' : 'var(--shadow-accent)'
+          }}
+        >
+          {plan.popular && (
+            <div className='absolute top-0 left-0 right-0 h-1 bg-[var(--accent)]' />
+          )}
+          {plan.popular && (
+            <motion.div
+              className='absolute -top-px left-1/2 -translate-x-1/2 bg-[var(--accent)] text-white text-xs font-bold px-4 py-1 rounded-b-full'
+              initial={{ y: -10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              MAIS POPULAR
+            </motion.div>
+          )}
+
+          <div className='mt-4'>
+            <h3 className='text-sm font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-1'>
+              {plan.duration}
+            </h3>
+            <div className='flex items-end gap-1 mb-1'>
+              <span className='text-4xl font-black text-[var(--text-primary)]'>{plan.price}</span>
+              <span className='text-[var(--text-tertiary)] text-sm mb-1.5'>{plan.period}</span>
+            </div>
+            {plan.savings && (
+              <span className='inline-block bg-[var(--success-surface)] text-[var(--success)] text-xs font-bold px-2 py-0.5 rounded-full mb-4'>
+                Economize {plan.savings}%
+              </span>
+            )}
+          </div>
+
+          <div className='space-y-2 mb-6'>
+            {plan.features.map((feature, fi) => (
+              <div key={fi} className='flex items-center gap-2'>
+                <svg className='w-4 h-4 text-[var(--success)] flex-shrink-0' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2.5} d='M5 13l4 4L19 7' />
+                </svg>
+                <span className='text-sm text-[var(--text-secondary)]'>{feature}</span>
+              </div>
+            ))}
+          </div>
+
+          <PrimaryButton
+            onClick={() => handleCheckout(plan.priceId)}
+            fullWidth
+            size={plan.popular ? 'md' : 'sm'}
+          >
+            {plan.popular ? 'Começar Agora →' : 'Escolher Plano'}
+          </PrimaryButton>
+        </motion.div>
+      ))}
+    </div>
+
+    {/* Trust badges */}
+    <motion.div
+      className='flex items-center justify-center gap-6 mt-8 flex-wrap'
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.4 }}
+    >
+      {['🔒 Stripe Secure', '🛡️ SSL', '↩️ Cancelar a qualquer momento', '🌍 5 idiomas'].map((badge, i) => (
+        <span key={i} className='text-xs text-[var(--text-tertiary)] flex items-center gap-1'>
+          {badge}
+        </span>
+      ))}
+    </motion.div>
+  </div>
+</section>
+          "
+        }
+      }
+    },
+
+    "SECAO_5_DASHBOARD_PREMIUM": {
+
+      "instrucao_geral": "Transformar o dashboard de amador para nível Linear/Notion. Cada widget deve ser uma obra de arte funcional. Fundo negro absoluto, cards com glassmorphism sutil, animações de entrada com stagger.",
+
+      "dashboard_hub": {
+        "instrucao": "Reescrever o hub principal /dashboard com greeting animado, mini-stats, cards de navegação premium e feed de notificações.",
+        "codigo": "
+// src/pages/dashboard/DashboardHub.tsx
+import { motion } from 'framer-motion';
+import { staggerContainer, staggerItem, fadeInUp } from '@/lib/animations';
+import { StreakCounter } from '@/components/gamification/StreakCounter';
+import { useUser, useProgress } from '@/hooks';
+
+export function DashboardHub() {
+  const { user } = useUser();
+  const { progress } = useProgress();
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 6 && hour < 12) return 'Bom dia';
+    if (hour >= 12 && hour < 18) return 'Boa tarde';
+    return 'Boa noite';
+  };
+
+  const ARCHETYPE_BANNERS = {
+    AO: { gradient: 'from-blue-950 to-[var(--bg-canvas)]', accent: '#3B82F6', quote: 'Segurança real não vem de acumular — vem de confiar.' },
+    SS: { gradient: 'from-purple-950 to-[var(--bg-canvas)]', accent: '#8B5CF6', quote: 'Sua riqueza real não precisa de aprovação.' },
+    EA: { gradient: 'from-amber-950 to-[var(--bg-canvas)]', accent: '#F59E0B', quote: 'Cada passo em direção à clareza é uma vitória.' },
+    HI: { gradient: 'from-pink-950 to-[var(--bg-canvas)]', accent: '#EC4899', quote: 'A melhor recompensa vem de quem espera.' }
+  };
+
+  const banner = ARCHETYPE_BANNERS[user.archetype] || ARCHETYPE_BANNERS.HI;
+
+  return (
+    <div className='min-h-screen bg-[var(--bg-canvas)] p-6 md:p-8'>
+      {/* Header greeting */}
+      <motion.div
+        className='mb-10'
+        variants={staggerContainer}
+        initial='hidden'
+        animate='visible'
+      >
+        <motion.p
+          variants={staggerItem}
+          className='text-[var(--text-secondary)] text-sm mb-1'
+        >
+          {getGreeting()},
+        </motion.p>
+        <motion.h1
+          variants={staggerItem}
+          className='font-[Syne] font-black text-[clamp(28px,4vw,40px)] text-[var(--text-primary)] leading-tight'
+        >
+          {user.name}.
+        </motion.h1>
+
+        {/* Archetype banner quote */}
+        <motion.div
+          variants={staggerItem}
+          className={`mt-6 p-4 rounded-[var(--radius-lg)] bg-gradient-to-r ${banner.gradient} border border-[var(--border-subtle)]`}
+        >
+          <p className='text-sm italic' style={{ color: banner.accent }}>
+            &ldquo;{banner.quote}&rdquo;
+          </p>
+          <p className='text-xs text-[var(--text-tertiary)] mt-1'>
+            {user.archetype} — {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}
+          </p>
+        </motion.div>
+      </motion.div>
+
+      {/* Quick stats row */}
+      <motion.div
+        className='grid grid-cols-3 gap-3 mb-8'
+        variants={staggerContainer}
+        initial='hidden'
+        animate='visible'
+      >
+        {[
+          { label: 'Pontos', value: progress.total_points.toLocaleString(), icon: '⭐' },
+          { label: 'Streak', value: `${progress.streak_days}d`, icon: '🔥' },
+          { label: 'Tarefas', value: progress.tasks_completed, icon: '✅' }
+        ].map((stat, i) => (
+          <motion.div
+            key={i}
+            variants={staggerItem}
+            className='bg-[var(--bg-card)] border border-[var(--border-default)] rounded-[var(--radius-md)] p-4 text-center'
+            whileHover={{ borderColor: 'var(--accent)', y: -2 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className='text-2xl mb-1'>{stat.icon}</div>
+            <div className='text-xl font-bold text-[var(--text-primary)] tabular-nums'>{stat.value}</div>
+            <div className='text-xs text-[var(--text-tertiary)] mt-0.5'>{stat.label}</div>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Main navigation cards */}
+      <motion.div
+        className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8'
+        variants={staggerContainer}
+        initial='hidden'
+        animate='visible'
+      >
+        {[
+          {
+            icon: '🧠',
+            title: 'Meu Diagnóstico',
+            subtitle: 'Ver análise completa',
+            route: '/dashboard/diagnosis',
+            badge: null,
+            highlight: false
+          },
+          {
+            icon: '📅',
+            title: 'Matriz de Ação',
+            subtitle: `Dia ${progress.current_day} em andamento`,
+            route: '/dashboard/calendar',
+            badge: 'Hoje',
+            highlight: true
+          },
+          {
+            icon: '🧭',
+            title: 'Compass',
+            subtitle: 'Analisar outra pessoa',
+            route: '/dashboard/compass',
+            badge: null,
+            highlight: false
+          },
+          {
+            icon: '📈',
+            title: 'Progresso',
+            subtitle: `${progress.total_points} pts acumulados`,
+            route: '/dashboard/progress',
+            badge: null,
+            highlight: false
+          }
+        ].map((card, i) => (
+          <motion.a
+            key={i}
+            href={card.route}
+            variants={staggerItem}
+            className={`
+              block p-5 rounded-[var(--radius-lg)] border relative overflow-hidden group cursor-pointer
+              ${card.highlight
+                ? 'bg-[var(--accent-surface)] border-[var(--accent)]'
+                : 'bg-[var(--bg-card)] border-[var(--border-default)]'
+              }
+            `}
+            whileHover={{
+              y: -4,
+              borderColor: 'var(--accent)',
+              boxShadow: 'var(--shadow-accent)'
+            }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className='absolute inset-0 bg-gradient-to-br from-[var(--accent-surface)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+            <div className='relative z-10'>
+              <div className='flex items-center justify-between mb-4'>
+                <span className='text-3xl'>{card.icon}</span>
+                {card.badge && (
+                  <span className='text-xs font-bold text-[var(--accent)] bg-[var(--accent-surface)] px-2 py-0.5 rounded-full border border-[var(--accent)]'>
+                    {card.badge}
+                  </span>
+                )}
+              </div>
+              <h3 className='font-semibold text-[var(--text-primary)] mb-1'>{card.title}</h3>
+              <p className='text-xs text-[var(--text-secondary)]'>{card.subtitle}</p>
+            </div>
+          </motion.a>
+        ))}
+      </motion.div>
+
+      {/* Recent notifications preview */}
+      <NotificationsFeed limit={3} />
+    </div>
+  );
+}
+        "
+      },
+
+      "sidebar_premium": {
+        "instrucao": "Reescrever a sidebar com design Linear-inspired: icons nítidos, estados ativos precisos, badges animados, footer com user info.",
+        "codigo": "
+// src/components/layout/Sidebar.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from '@tanstack/react-router';
+import { StreakCounter } from '@/components/gamification/StreakCounter';
+import { useProgress, useNotifications } from '@/hooks';
+
+const NAV_ITEMS = [
+  { icon: '⌂', label: 'Início', route: '/dashboard', exact: true },
+  { icon: '🧠', label: 'Diagnóstico', route: '/dashboard/diagnosis', badge: 'NOVO' },
+  { icon: '📅', label: 'Matriz de Ação', route: '/dashboard/calendar', badgeType: 'days' },
+  { icon: '🧭', label: 'Compass', route: '/dashboard/compass', badgeType: 'analyses' },
+  { icon: '📈', label: 'Progresso', route: '/dashboard/progress', badgeType: 'streak' },
+  { icon: '⚙️', label: 'Configurações', route: '/dashboard/settings' }
+];
+
+interface Props { isOpen: boolean; onClose: () => void; }
+
+export function Sidebar({ isOpen, onClose }: Props) {
+  const location = useLocation();
+  const { progress } = useProgress();
+  const { unreadCount } = useNotifications();
+
+  const isActive = (route: string, exact = false) => {
+    if (exact) return location.pathname === route;
+    return location.pathname.startsWith(route);
+  };
+
+  const SidebarContent = () => (
+    <div className='h-full flex flex-col bg-[var(--bg-elevated)] border-r border-[var(--border-default)]'>
+      {/* Logo */}
+      <div className='px-4 py-5 border-b border-[var(--border-subtle)]'>
+        <h1 className='font-bold text-sm tracking-[0.2em] uppercase text-[var(--text-primary)]'>
+          MindReset
+        </h1>
+        <p className='text-xs text-[var(--text-tertiary)] mt-0.5'>Protocol v2.0</p>
+      </div>
+
+      {/* Navigation */}
+      <nav className='flex-1 px-2 py-4 space-y-0.5 overflow-y-auto'>
+        {NAV_ITEMS.map((item) => {
+          const active = isActive(item.route, item.exact);
+
+          return (
+            <motion.a
+              key={item.route}
+              href={item.route}
+              className={`
+                flex items-center gap-3 px-3 py-2.5 rounded-[var(--radius-sm)] relative group
+                transition-colors duration-150
+                ${active
+                  ? 'bg-[var(--accent-surface)] text-[var(--text-primary)]'
+                  : 'text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
+                }
+              `}
+              whileHover={!active ? { x: 2 } : {}}
+              whileTap={{ scale: 0.98 }}
+            >
+              {/* Active indicator */}
+              {active && (
+                <motion.div
+                  className='absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-[var(--accent)] rounded-full'
+                  layoutId='activeIndicator'
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
+
+              <span className='text-base w-5 text-center'>{item.icon}</span>
+              <span className='text-sm font-medium flex-1'>{item.label}</span>
+
+              {/* Badges */}
+              {item.badgeType === 'streak' && progress.streak_days > 0 && (
+                <span className='text-xs font-bold text-[var(--warning)] flex items-center gap-0.5'>
+                  🔥{progress.streak_days}
+                </span>
+              )}
+              {item.badge === 'NOVO' && !progress.diagnosis_generated && (
+                <motion.span
+                  className='text-[10px] font-bold text-[var(--accent)] bg-[var(--accent-surface)] px-1.5 py-0.5 rounded-full'
+                  animate={{ opacity: [1, 0.5, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  NOVO
+                </motion.span>
+              )}
+            </motion.a>
+          );
+        })}
+
+        {/* Notifications */}
+        <motion.button
+          className='w-full flex items-center gap-3 px-3 py-2.5 rounded-[var(--radius-sm)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)] transition-colors duration-150 relative'
+          whileHover={{ x: 2 }}
+        >
+          <span className='text-base w-5 text-center'>🔔</span>
+          <span className='text-sm font-medium flex-1 text-left'>Notificações</span>
+          {unreadCount > 0 && (
+            <motion.span
+              className='w-5 h-5 rounded-full bg-[var(--accent)] text-white text-[10px] font-bold flex items-center justify-center'
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            >
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </motion.span>
+          )}
+        </motion.button>
+      </nav>
+
+      {/* User info footer */}
+      <div className='border-t border-[var(--border-subtle)] p-4'>
+        <StreakCounter days={progress.streak_days} compact />
+        <div className='mt-3 flex items-center gap-2'>
+          <div className='w-7 h-7 rounded-full bg-[var(--accent-surface)] border border-[var(--accent)] flex items-center justify-center text-xs font-bold text-[var(--accent)]'>
+            {user?.name?.[0]?.toUpperCase()}
+          </div>
+          <div className='flex-1 min-w-0'>
+            <p className='text-xs font-medium text-[var(--text-primary)] truncate'>{user?.name}</p>
+            <p className='text-[10px] text-[var(--text-tertiary)] truncate'>{user?.archetype} • {user?.plan_type}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <div className='hidden md:block w-[220px] flex-shrink-0 fixed left-0 top-0 bottom-0 z-30'>
+        <SidebarContent />
+      </div>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              className='fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={onClose}
+            />
+            <motion.div
+              className='fixed left-0 top-0 bottom-0 z-50 w-[280px] md:hidden'
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <SidebarContent />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+        "
+      },
+
+      "calendario_premium": {
+        "instrucao": "Redesenhar o calendário com células visuais ricas — dias bloqueados com blur, milestones em dourado, animação ao marcar tarefa.",
+        "codigo": "
+// src/components/calendar/CalendarGrid.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+
+interface DayCell {
+  day: number;
+  date: string;
+  isUnlocked: boolean;
+  isCompleted: boolean;
+  isMilestone: boolean;
+  isToday: boolean;
+  isPast: boolean;
+}
+
+interface Props {
+  days: DayCell[];
+  onDayClick: (day: DayCell) => void;
+  planType: '30d' | '6m' | '1y';
+}
+
+export function CalendarGrid({ days, onDayClick, planType }: Props) {
+  return (
+    <div className='grid grid-cols-5 sm:grid-cols-7 gap-2'>
+      {days.map((day, i) => (
+        <motion.button
+          key={day.day}
+          onClick={() => day.isUnlocked && onDayClick(day)}
+          disabled={!day.isUnlocked}
+          className={`
+            aspect-square rounded-[var(--radius-md)] border flex flex-col items-center justify-center gap-0.5 relative overflow-hidden
+            ${day.isUnlocked ? 'cursor-pointer' : 'cursor-not-allowed'}
+            ${day.isMilestone && day.isUnlocked ? 'border-[var(--gold)]' : ''}
+            ${day.isCompleted ? 'bg-[var(--success-surface)] border-[var(--success)]' : ''}
+            ${day.isToday && day.isUnlocked && !day.isCompleted ? 'border-[var(--accent)] bg-[var(--accent-surface)]' : ''}
+            ${!day.isUnlocked ? 'bg-[var(--bg-surface)] border-[var(--border-subtle)]' : ''}
+            ${day.isUnlocked && !day.isCompleted && !day.isToday ? 'bg-[var(--bg-card)] border-[var(--border-default)]' : ''}
+          `}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: i * 0.01, duration: 0.2 }}
+          whileHover={day.isUnlocked ? {
+            scale: 1.08,
+            borderColor: day.isMilestone ? 'var(--gold)' : 'var(--accent)',
+            boxShadow: day.isMilestone ? '0 0 16px rgba(212,175,55,0.3)' : 'var(--shadow-accent)'
+          } : {}}
+          whileTap={day.isUnlocked ? { scale: 0.95 } : {}}
+        >
+          {/* Milestone golden glow */}
+          {day.isMilestone && day.isUnlocked && (
+            <motion.div
+              className='absolute inset-0 bg-gradient-to-b from-[var(--gold-surface)] to-transparent'
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          )}
+
+          {/* Locked overlay */}
+          {!day.isUnlocked && (
+            <div className='absolute inset-0 flex items-center justify-center'>
+              <div className='relative'>
+                {/* Blurred content preview */}
+                <div className='absolute inset-0 bg-[var(--bg-surface)] opacity-60 backdrop-blur-sm' />
+                <span className='text-[var(--text-tertiary)] text-xs opacity-40'>🔒</span>
+              </div>
+            </div>
+          )}
+
+          {day.isUnlocked && (
+            <>
+              <span className={`
+                text-xs font-bold relative z-10
+                ${day.isCompleted ? 'text-[var(--success)]' : ''}
+                ${day.isToday ? 'text-[var(--accent)]' : ''}
+                ${day.isMilestone && !day.isCompleted && !day.isToday ? 'text-[var(--gold)]' : ''}
+                ${!day.isCompleted && !day.isToday && !day.isMilestone ? 'text-[var(--text-primary)]' : ''}
+              `}>
+                {day.day}
+              </span>
+              {day.isCompleted && (
+                <motion.span
+                  className='text-[10px] relative z-10'
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
+                >
+                  ✓
+                </motion.span>
+              )}
+              {day.isMilestone && (
+                <span className='text-[10px] relative z-10'>⭐</span>
+              )}
+            </>
+          )}
+        </motion.button>
+      ))}
+    </div>
+  );
+}
+        "
+      },
+
+      "progress_dashboard": {
+        "instrucao": "Dashboard de progresso gamificado. GitHub contribution grid + Donut chart de pontos + conquistas animadas.",
+        "codigo": "
+// src/components/progress/ContributionGrid.tsx
+// Estilo GitHub contributions — widget principal da tela de progresso
+
+import { motion } from 'framer-motion';
+import { Tooltip } from '@/components/ui/Tooltip';
+
+interface GridDay { date: string; status: 'complete' | 'partial' | 'missed' | 'milestone' | 'future'; }
+
+interface Props { days: GridDay[]; }
+
+const STATUS_STYLES = {
+  complete: { bg: 'bg-[var(--success)]', opacity: 'opacity-90', label: 'Completo' },
+  partial: { bg: 'bg-[var(--warning)]', opacity: 'opacity-70', label: 'Parcial' },
+  missed: { bg: 'bg-[var(--border-strong)]', opacity: 'opacity-40', label: 'Perdido' },
+  milestone: { bg: 'bg-[var(--accent)]', opacity: 'opacity-90', label: 'Marco!' },
+  future: { bg: 'bg-[var(--bg-elevated)]', opacity: 'opacity-30', label: 'Futuro' }
+};
+
+export function ContributionGrid({ days }: Props) {
+  return (
+    <div>
+      <div className='flex items-center justify-between mb-4'>
+        <h3 className='text-sm font-semibold text-[var(--text-secondary)] uppercase tracking-wider'>
+          Consistência
+        </h3>
+        <div className='flex items-center gap-3 text-xs text-[var(--text-tertiary)]'>
+          <span className='flex items-center gap-1'><span className='w-3 h-3 rounded-sm bg-[var(--border-strong)] opacity-40 inline-block' />Perdido</span>
+          <span className='flex items-center gap-1'><span className='w-3 h-3 rounded-sm bg-[var(--warning)] inline-block' />Parcial</span>
+          <span className='flex items-center gap-1'><span className='w-3 h-3 rounded-sm bg-[var(--success)] inline-block' />Completo</span>
+        </div>
+      </div>
+      <div className='grid gap-1' style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(14px, 1fr))' }}>
+        {days.map((day, i) => {
+          const style = STATUS_STYLES[day.status];
+          return (
+            <Tooltip key={i} content={`${day.date} — ${style.label}`}>
+              <motion.div
+                className={`w-3.5 h-3.5 rounded-sm ${style.bg} ${style.opacity}`}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: i * 0.003, duration: 0.2 }}
+                whileHover={{ scale: 1.5, opacity: 1 }}
+              />
+            </Tooltip>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+        "
+      }
+    },
+
+    "SECAO_6_DIAGNOSE_PAGE_PREMIUM": {
+
+      "instrucao": "Reescrever a página de diagnóstico como um 'documento psicológico premium' — estilo Apple Intelligence report. 4 abas com conteúdo gerado por IA, rich typography, PDF export button.",
+
+      "codigo": "
+// src/pages/dashboard/DiagnosisPage.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+
+const TABS = [
+  { id: 'financial', label: 'Financeiro', icon: '💰', color: '#22C55E' },
+  { id: 'professional', label: 'Profissional', icon: '💼', color: '#3B82F6' },
+  { id: 'romantic', label: 'Amoroso', icon: '❤️', color: '#EC4899' },
+  { id: 'personal', label: 'Pessoal', icon: '🧘', color: '#8B5CF6' }
+];
+
+export function DiagnosisPage() {
+  const [activeTab, setActiveTab] = useState('financial');
+
+  return (
+    <div className='min-h-screen bg-[var(--bg-canvas)] p-6 md:p-8'>
+      {/* Header */}
+      <motion.div
+        className='mb-8'
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <div className='flex items-center justify-between flex-wrap gap-4'>
+          <div>
+            <span className='text-xs uppercase tracking-widest text-[var(--text-tertiary)] font-semibold'>Diagnóstico Psicológico</span>
+            <h1 className='font-[Syne] font-black text-3xl text-[var(--text-primary)] mt-1'>
+              Meu Diagnóstico
+            </h1>
+          </div>
+          <div className='flex gap-3'>
+            <motion.button
+              className='flex items-center gap-2 px-4 py-2 rounded-[var(--radius-md)] bg-[var(--bg-card)] border border-[var(--border-default)] text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-strong)]'
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              🔗 Compartilhar
+            </motion.button>
+            <motion.button
+              className='flex items-center gap-2 px-4 py-2 rounded-[var(--radius-md)] bg-[var(--accent)] text-white text-sm font-semibold'
+              whileHover={{ y: -1, boxShadow: 'var(--shadow-accent)' }}
+              whileTap={{ scale: 0.97 }}
+            >
+              ⬇️ Baixar PDF
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Archetype badge */}
+        <div className='mt-6 flex items-center gap-3'>
+          <div className='w-12 h-12 rounded-full bg-[var(--accent-surface)] border-2 border-[var(--accent)] flex items-center justify-center text-2xl'>
+            🏛️
+          </div>
+          <div>
+            <p className='text-sm text-[var(--text-secondary)]'>Arquétipo Identificado</p>
+            <p className='font-bold text-[var(--text-primary)] text-lg'>Acumulador Obsessivo (AO)</p>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Tabs */}
+      <div className='flex gap-1 mb-8 p-1 bg-[var(--bg-surface)] rounded-[var(--radius-md)] border border-[var(--border-subtle)]'>
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`
+              flex-1 flex items-center justify-center gap-2 py-2.5 rounded-[var(--radius-sm)] text-sm font-medium
+              transition-all duration-200 relative
+              ${activeTab === tab.id
+                ? 'text-[var(--text-primary)]'
+                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+              }
+            `}
+          >
+            {activeTab === tab.id && (
+              <motion.div
+                className='absolute inset-0 rounded-[var(--radius-sm)] bg-[var(--bg-card)] border border-[var(--border-default)]'
+                layoutId='activeTab'
+                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              />
+            )}
+            <span className='relative z-10'>{tab.icon}</span>
+            <span className='relative z-10 hidden sm:inline'>{tab.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Content area */}
+      <AnimatePresence mode='wait'>
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: -16, filter: 'blur(4px)' }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className='bg-[var(--bg-card)] rounded-[var(--radius-xl)] border border-[var(--border-default)] p-8'
+        >
+          {/* Diagnosis content renders here with rich typography */}
+          <DiagnosisContent tabId={activeTab} />
+
+          {/* Disclaimer footer */}
+          <div className='mt-10 pt-6 border-t border-[var(--border-subtle)]'>
+            <p className='text-xs text-[var(--text-tertiary)] leading-relaxed'>
+              ⚠️ Este diagnóstico é uma análise comportamental baseada em suas respostas ao quiz. Não constitui aconselhamento médico, psicológico ou financeiro profissional.
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+      "
+    },
+
+    "SECAO_7_LOADING_ESTADOS": {
+
+      "instrucao": "Implementar estados de carregamento cinematográficos. Nunca usar spinners genéricos. Cada estado loading deve contar uma história.",
+
+      "skeleton_loader": {
+        "instrucao": "Substituir TODOS os loading states por skeletons animados com shimmer.",
+        "codigo": "
+// src/components/ui/Skeleton.tsx
+import { motion } from 'framer-motion';
+
+interface Props { className?: string; }
+
+export function Skeleton({ className }: Props) {
+  return (
+    <motion.div
+      className={`rounded-[var(--radius-sm)] overflow-hidden relative ${className}`}
+      style={{ background: 'var(--bg-elevated)' }}
+    >
+      <motion.div
+        className='absolute inset-0'
+        style={{
+          background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%)',
+          backgroundSize: '200% 100%'
+        }}
+        animate={{ backgroundPosition: ['200% 0', '-200% 0'] }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+      />
+    </motion.div>
+  );
+}
+
+// Usage examples:
+export function DiagnosisLoadingSkeleton() {
+  return (
+    <div className='space-y-4 p-8'>
+      <Skeleton className='h-8 w-2/3' />
+      <Skeleton className='h-4 w-full' />
+      <Skeleton className='h-4 w-4/5' />
+      <Skeleton className='h-4 w-full' />
+      <Skeleton className='h-32 w-full mt-8' />
+    </div>
+  );
+}
+
+export function CalendarLoadingSkeleton() {
+  return (
+    <div className='grid grid-cols-7 gap-2'>
+      {[...Array(30)].map((_, i) => (
+        <Skeleton key={i} className='aspect-square' />
+      ))}
+    </div>
+  );
+}
+        "
+      },
+
+      "ai_generation_loader": {
+        "instrucao": "Loader específico para geração de IA — usado no onboarding após responder as 7 perguntas.",
+        "codigo": "
+// src/components/onboarding/AIGenerationLoader.tsx
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+
+const STEPS = [
+  { label: 'Lendo seu perfil...', icon: '📖', duration: 1500 },
+  { label: 'Analisando seu arquétipo...', icon: '🧠', duration: 1500 },
+  { label: 'Calibrando sua rotina...', icon: '⏰', duration: 1500 },
+  { label: 'Identificando seus gatilhos...', icon: '🎯', duration: 1500 },
+  { label: 'Construindo seu calendário...', icon: '📅', duration: 2000 },
+  { label: 'Personalizando tarefas...', icon: '✍️', duration: 2000 },
+  { label: 'Seu protocolo está pronto!', icon: '🚀', duration: 800 }
+];
+
+interface Props { onComplete: () => void; }
+
+export function AIGenerationLoader({ onComplete }: Props) {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [totalProgress, setTotalProgress] = useState(0);
+
+  useEffect(() => {
+    let step = 0;
+    const totalTime = STEPS.reduce((acc, s) => acc + s.duration, 0);
+    let elapsed = 0;
+
+    const runStep = () => {
+      if (step >= STEPS.length) { onComplete(); return; }
+      setCurrentStep(step);
+      elapsed += STEPS[step].duration;
+      setTotalProgress((elapsed / totalTime) * 100);
+      step++;
+      if (step < STEPS.length) setTimeout(runStep, STEPS[step - 1].duration);
+      else setTimeout(onComplete, STEPS[step - 1].duration + 500);
+    };
+
+    setTimeout(runStep, 300);
+  }, [onComplete]);
+
+  return (
+    <div className='fixed inset-0 bg-[var(--bg-canvas)] z-50 flex flex-col items-center justify-center px-4'>
+      {/* Ambient red glow */}
+      <div className='absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-[var(--accent)] opacity-[0.06] blur-[120px] rounded-full pointer-events-none' />
+
+      <motion.div
+        className='max-w-md w-full text-center relative z-10'
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Icon */}
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={currentStep}
+            className='text-6xl mb-8'
+            initial={{ scale: 0, opacity: 0, rotate: -20 }}
+            animate={{ scale: 1, opacity: 1, rotate: 0 }}
+            exit={{ scale: 0, opacity: 0, rotate: 20 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          >
+            {STEPS[currentStep]?.icon}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Progress bar */}
+        <div className='w-full bg-[var(--border-default)] rounded-full h-1.5 mb-6 overflow-hidden'>
+          <motion.div
+            className='h-full bg-[var(--accent)] rounded-full'
+            style={{ boxShadow: '0 0 12px var(--accent)' }}
+            animate={{ width: `${totalProgress}%` }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          />
+        </div>
+
+        {/* Step label */}
+        <AnimatePresence mode='wait'>
+          <motion.p
+            key={currentStep}
+            className='text-[var(--text-secondary)] text-base'
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            {STEPS[currentStep]?.label}
+          </motion.p>
+        </AnimatePresence>
+
+        {/* Step indicators */}
+        <div className='flex justify-center gap-1.5 mt-8'>
+          {STEPS.map((_, i) => (
+            <motion.div
+              key={i}
+              className={`h-1 rounded-full transition-all duration-300 ${i <= currentStep ? 'bg-[var(--accent)]' : 'bg-[var(--border-strong)]'}`}
+              animate={{ width: i === currentStep ? 24 : 6 }}
+            />
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+        "
+      }
+    },
+
+    "SECAO_8_ONBOARDING_REDESIGN": {
+
+      "instrucao": "Reescrever o onboarding como uma experiência cinematográfica — não um formulário. Cada pergunta em tela cheia, transições suaves, contexto emocional para cada pergunta.",
+
+      "codigo": "
+// src/components/onboarding/OnboardingQuestion.tsx
+import { motion } from 'framer-motion';
+
+const QUESTIONS = [
+  {
+    id: 'wake_time',
+    question: (name: string) => `${name}, a que horas você normalmente acorda?`,
+    context: 'Vamos calibrar seu calendário para o seu ritmo real.',
+    icon: '🌅',
+    options: [
+      { value: 'before_6am', label: 'Antes das 6h', emoji: '🌙' },
+      { value: '6_7am', label: 'Entre 6h e 7h', emoji: '⭐' },
+      { value: '7_8am', label: 'Entre 7h e 8h', emoji: '☀️' },
+      { value: 'after_8am', label: 'Depois das 8h', emoji: '🌤️' }
+    ]
+  },
+  {
+    id: 'sleep_time',
+    question: (name: string) => `E você dorme por volta de que horas, ${name}?`,
+    context: 'Tarefas noturnas são diferentes de tarefas matinais.',
+    icon: '🌙',
+    options: [
+      { value: 'before_10pm', label: 'Antes das 22h', emoji: '🌙' },
+      { value: '10_11pm', label: 'Entre 22h e 23h', emoji: '⭐' },
+      { value: '11pm_midnight', label: 'Entre 23h e meia-noite', emoji: '🌟' },
+      { value: 'after_midnight', label: 'Depois da meia-noite', emoji: '🌌' }
+    ]
+  },
+  {
+    id: 'daily_minutes',
+    question: () => 'Quantos minutos por dia você consegue dedicar ao seu protocolo?',
+    context: 'Seja honesto. Um protocolo de 15 min cumprido supera 60 min abandonado.',
+    icon: '⏱️',
+    options: [
+      { value: '15', label: '15 minutos', emoji: '⚡' },
+      { value: '30', label: '30 minutos', emoji: '🎯' },
+      { value: '45', label: '45 minutos', emoji: '🔥' },
+      { value: '60', label: '60 minutos ou mais', emoji: '💪' }
+    ]
+  },
+  {
+    id: 'financial_goal',
+    question: (name: string) => `Qual é a sua prioridade financeira principal agora, ${name}?`,
+    context: 'Isso define o foco das suas tarefas diárias.',
+    icon: '🎯',
+    options: [
+      { value: 'debt', label: 'Sair das dívidas', emoji: '🔗' },
+      { value: 'emergency', label: 'Criar reserva de emergência', emoji: '🛡️' },
+      { value: 'invest', label: 'Começar a investir', emoji: '📈' },
+      { value: 'organize', label: 'Organizar as finanças', emoji: '📋' }
+    ]
+  },
+  {
+    id: 'discipline_style',
+    question: () => 'Como você prefere trabalhar sua mudança de comportamento?',
+    context: 'Não existe resposta certa — apenas o que funciona para você.',
+    icon: '⚖️',
+    options: [
+      { value: 'hardcore', label: 'Intenso — prefiro mudanças grandes e rápidas', emoji: '🔥' },
+      { value: 'gradual', label: 'Gradual — prefiro passos pequenos e consistentes', emoji: '🌱' }
+    ]
+  },
+  {
+    id: 'mobile_os',
+    question: () => 'Você usa qual sistema no celular?',
+    context: 'Para sincronizar com sua agenda pessoal depois.',
+    icon: '📱',
+    options: [
+      { value: 'ios', label: 'iPhone (iOS)', emoji: '🍎' },
+      { value: 'android', label: 'Android', emoji: '🤖' },
+      { value: 'none', label: 'Prefiro não sincronizar', emoji: '🔒' }
+    ]
+  }
+];
+
+// Note: Question 4 (emotional_trigger) is a free-text input, handled separately
+      "
+    },
+
+    "SECAO_9_ERROS_BUGFIXES": {
+
+      "instrucao": "Revisar e corrigir os problemas mais comuns encontrados em projetos Lovable com esta stack.",
+
+      "bugs_criticos_corrigir": [
+        {
+          "bug": "Quiz scoring não persiste entre recarregamentos",
+          "fix": "Usar sessionStorage como backup além do React state. Limpar sessionStorage ao completar o quiz.",
+          "codigo": "
+// No hook useQuiz:
+const saveProgress = (scores: Record<string, number>, step: number) => {
+  sessionStorage.setItem('quiz_scores', JSON.stringify(scores));
+  sessionStorage.setItem('quiz_step', String(step));
+};
+
+const loadProgress = () => {
+  const scores = sessionStorage.getItem('quiz_scores');
+  const step = sessionStorage.getItem('quiz_step');
+  return { scores: scores ? JSON.parse(scores) : {AO:0,SS:0,EA:0,HI:0}, step: step ? Number(step) : 0 };
+};
+          "
+        },
+        {
+          "bug": "Sidebar não fecha em mobile após navegação",
+          "fix": "Adicionar listener no useEffect que monitora mudanças de rota.",
+          "codigo": "
+useEffect(() => {
+  setIsOpen(false); // fechar sidebar em cada mudança de rota
+}, [location.pathname]);
+          "
+        },
+        {
+          "bug": "Animações Framer Motion causam layout shift no SSR/hydration",
+          "fix": "Usar AnimatePresence com mode='wait' e initial={false} no layout root.",
+          "codigo": "
+// No root layout:
+<AnimatePresence mode='wait' initial={false}>
+  {children}
+</AnimatePresence>
+          "
+        },
+        {
+          "bug": "Webhook Stripe processa eventos duplicados",
+          "fix": "Verificar idempotency usando event.id antes de processar.",
+          "codigo": "
+// No stripe-webhook Edge Function:
+const eventId = event.id;
+const { data: existing } = await supabase
+  .from('processed_webhook_events')
+  .select('id')
+  .eq('event_id', eventId)
+  .single();
+
+if (existing) {
+  return new Response(JSON.stringify({ received: true, duplicate: true }), { status: 200 });
+}
+
+await supabase.from('processed_webhook_events').insert({ event_id: eventId });
+// ... rest of processing
+          "
+        },
+        {
+          "bug": "Diagnóstico regenerado desnecessariamente ao navegar entre abas",
+          "fix": "Cache no React Query/TanStack Query com staleTime alto.",
+          "codigo": "
+const { data: diagnosis } = useQuery({
+  queryKey: ['diagnosis', user.id],
+  queryFn: () => fetchDiagnosis(user.id),
+  staleTime: 1000 * 60 * 30, // 30 minutos antes de considerar stale
+  gcTime: 1000 * 60 * 60, // manter em cache por 1 hora
+});
+          "
+        },
+        {
+          "bug": "RTL árabe quebra layout da sidebar",
+          "fix": "Usar CSS logical properties em todos os componentes.",
+          "codigo": "
+// ERRADO:
+.sidebar { left: 0; margin-left: 220px; }
+
+// CORRETO:
+.sidebar { inset-inline-start: 0; }
+.main-content { margin-inline-start: 220px; }
+.text-align { text-align: start; } // ao invés de text-left
+          "
+        },
+        {
+          "bug": "Canvas confetti dispara em SSR causando erro",
+          "fix": "Importar canvas-confetti dinamicamente.",
+          "codigo": "
+const fireConfetti = async () => {
+  const confetti = (await import('canvas-confetti')).default;
+  confetti({ particleCount: 30, spread: 50 });
+};
+          "
+        },
+        {
+          "bug": "Tipos TypeScript ausentes causando erros silenciosos",
+          "fix": "Adicionar tipos completos para todas as entidades do banco.",
+          "codigo": "
+// src/types/database.ts
+export type Archetype = 'AO' | 'SS' | 'EA' | 'HI';
+export type PlanType = '30d' | '6m' | '1y';
+export type AccessLevel = 'active' | 'grace' | 'locked' | 'revoked';
+export type Language = 'en' | 'pt' | 'pl' | 'ro' | 'ar';
+export type Theme = 'dark' | 'light';
+
+export interface User {
+  id: string;
+  auth_user_id: string;
+  email: string;
+  name: string;
+  gender: 'm' | 'f' | 'n';
+  archetype: Archetype;
+  quiz_scores: Record<Archetype, number>;
+  language: Language;
+  theme: Theme;
+  plan_type: PlanType;
+  plan_started_at: string;
+  features_expires_at: string;
+  account_expires_at: string;
+  access_level: AccessLevel;
+  stripe_customer_id: string;
+  stripe_subscription_id: string;
+  onboarding_completed: boolean;
+  total_extra_days: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CalendarTask {
+  id: string;
+  user_id: string;
+  day_number: number;
+  scheduled_date: string;
+  reflective_task: string;
+  action_task: string;
+  is_unlocked: boolean;
+  is_completed: boolean;
+  completed_at?: string;
+  is_milestone: boolean;
+  notes?: string;
+}
+
+export interface UserProgress {
+  id: string;
+  user_id: string;
+  total_points: number;
+  streak_days: number;
+  longest_streak: number;
+  last_checkin_date?: string;
+  tasks_completed: number;
+  compass_used: number;
+  calendar_exported: boolean;
+  extra_days_earned: number;
+  last_activity_at?: string;
+}
+          "
+        }
+      ]
+    },
+
+    "SECAO_10_DEPENDENCIAS": {
+
+      "instrucao": "Adicionar/verificar estas dependências no projeto.",
+
+      "package_additions": {
+        "instrucao": "Instalar estas dependências que são necessárias para os componentes premium.",
+        "deps": [
+          "framer-motion@^11",
+          "canvas-confetti@^1.9",
+          "@types/canvas-confetti",
+          "date-fns@^3",
+          "recharts@^2",
+          "lucide-react@^0.400",
+          "clsx@^2",
+          "tailwind-merge@^2"
+        ],
+        "codigo_cn_utility": "
+// src/lib/utils.ts
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+        "
+      }
+    },
+
+    "SECAO_11_SEO_PERFORMANCE": {
+
+      "meta_tags_completas": {
+        "instrucao": "Implementar TODAS as meta tags na página do quiz para SEO máximo e Open Graph rico.",
+        "codigo": "
+<!-- Para cada idioma, implementar as versões locais das meta tags -->
+
+<!-- Versão English (default) -->
+<title>Discover Your Financial Archetype | MindReset Protocol</title>
+<meta name='description' content='3-minute quiz reveals the psychological pattern sabotaging your finances. AI-powered diagnosis across 4 life dimensions. Free.' />
+<meta property='og:title' content='What is Your Financial Archetype? — MindReset' />
+<meta property='og:description' content='80% of financial decisions are emotional. Discover your behavioral pattern in 8 questions. 12,000+ diagnoses generated.' />
+<meta property='og:image' content='/og/og-quiz-en.png' />
+<meta property='og:type' content='website' />
+<meta property='og:url' content='https://mindreset.app/' />
+<meta name='twitter:card' content='summary_large_image' />
+<meta name='twitter:title' content='Discover Your Financial Archetype | MindReset' />
+<meta name='twitter:image' content='/og/og-quiz-en.png' />
+<link rel='canonical' href='https://mindreset.app/' />
+
+<!-- Polish (pl) -->
+<title>Odkryj swój Archetyp Finansowy | MindReset Protocol</title>
+<meta name='description' content='Quiz 3-minutowy ujawnia wzorzec psychologiczny sabotujący Twoje finanse. Diagnoza AI w 4 wymiarach życia. Bezpłatnie.' />
+
+<!-- Romanian (ro) -->
+<title>Descoperă-ți Arhetipul Financiar | MindReset Protocol</title>
+<meta name='description' content='Quiz de 3 minute dezvăluie tiparul psihologic care îți sabotează finanțele. Diagnostic AI în 4 dimensiuni. Gratuit.' />
+
+<!-- Arabic (ar) -->
+<title>اكتشف نمطك المالي | MindReset Protocol</title>
+<meta name='description' content='اختبار 3 دقائق يكشف النمط النفسي الذي يعيق قراراتك المالية. تشخيص بالذكاء الاصطناعي في 4 أبعاد. مجاني.' />
+        "
+      }
+    },
+
+    "SECAO_12_INSTRUCOES_FINAIS_LOVABLE": {
+
+      "ordem_de_execucao": [
+        "1. Instalar dependências: framer-motion, canvas-confetti, date-fns, recharts, lucide-react, clsx, tailwind-merge",
+        "2. Criar src/lib/animations.ts com todos os variants Framer Motion definidos na Seção 2",
+        "3. Criar src/lib/utils.ts com função cn()",
+        "4. Criar src/types/database.ts com todos os tipos TypeScript da Seção 9",
+        "5. Implementar CSS variables completas na Seção 1 no arquivo globals.css ou index.css",
+        "6. Criar componente PrimaryButton e substituir TODOS os botões primários",
+        "7. Criar componente QuizOption e substituir todas as opções de resposta do quiz",
+        "8. Criar componente TaskCheckbox e substituir todos os checkboxes de tarefas",
+        "9. Criar componente StreakCounter e integrar na sidebar e no dashboard",
+        "10. Criar componente AchievementUnlock e integrar no sistema de gamificação",
+        "11. Reescrever o QuizHero (seção antes do quiz)",
+        "12. Reescrever o QuizScreenWrapper",
+        "13. Reescrever a ArchetypeReveal com typewriter effect",
+        "14. Reescrever o NeuralLoader",
+        "15. Implementar StickyNavbar na landing page",
+        "16. Reescrever todos os blocos da página de vendas (Hero, Dor, Científico, Features, Como Funciona, Planos)",
+        "17. Reescrever o DashboardHub com greeting animado, mini-stats e cards de navegação premium",
+        "18. Reescrever a Sidebar com design Linear-inspired",
+        "19. Reescrever o CalendarGrid com visual rico",
+        "20. Implementar ContributionGrid na tela de Progresso",
+        "21. Reescrever a DiagnosisPage com abas animadas",
+        "22. Implementar Skeleton loaders em todos os estados de carregamento",
+        "23. Implementar AIGenerationLoader no onboarding",
+        "24. Corrigir todos os bugs listados na Seção 9",
+        "25. Implementar meta tags SEO completas",
+        "26. Verificar e garantir RTL para árabe em TODOS os componentes",
+        "27. Testar mobile em iOS Safari e Android Chrome",
+        "28. Verificar que NENHUMA chave secreta está no frontend"
+      ],
+
+      "prioridade_maxima": [
+        "Framer Motion em TODOS os elementos — zero CSS transitions simples em componentes críticos",
+        "Canvas-confetti para checkboxes e conquistas",
+        "CSS variables completas implementadas — zero hardcoded colors",
+        "Typewriter effect na revelação do arquétipo",
+        "Skeleton loaders em todo loading state",
+        "RTL árabe funcionando corretamente",
+        "Mobile-first — testar cada componente em 375px"
+      ],
+
+      "nao_quebrar": [
+        "Sistema de autenticação Supabase existente",
+        "Webhooks Stripe existentes",
+        "Integração OpenAI existente",
+        "Sistema de drip do calendário existente",
+        "Sistema de pontos e conquistas existente",
+        "Tabelas do banco de dados existentes",
+        "Variáveis de ambiente existentes"
+      ]
+    }
+  }
+}

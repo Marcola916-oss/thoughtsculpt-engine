@@ -37,10 +37,10 @@ function DiagnosisPage() {
   const [copied, setCopied] = useState(false);
 
   const tabs = [
-    { key: "financial_analysis", label: t.dashboard.diagnosis.tabs.financial },
-    { key: "professional_analysis", label: t.dashboard.diagnosis.tabs.professional },
-    { key: "romantic_analysis", label: t.dashboard.diagnosis.tabs.romantic },
-    { key: "personal_analysis", label: t.dashboard.diagnosis.tabs.personal },
+    { key: "financial_analysis", label: t.dashboard.diagnosis.tabs.financial, icon: "💰" },
+    { key: "professional_analysis", label: t.dashboard.diagnosis.tabs.professional, icon: "💼" },
+    { key: "romantic_analysis", label: t.dashboard.diagnosis.tabs.romantic, icon: "❤️" },
+    { key: "personal_analysis", label: t.dashboard.diagnosis.tabs.personal, icon: "🧘" },
   ];
 
   const { data: diagnosis, isLoading } = useQuery({
@@ -224,20 +224,24 @@ function DiagnosisPage() {
         </div>
       </header>
 
-      <div className="mb-8 flex flex-wrap gap-2 border-b border-border/50 relative z-10 overflow-x-auto scrollbar-none">
-
+      <div className="mb-8 flex gap-1 p-1 bg-secondary/50 rounded-xl border border-border/50 relative z-10 overflow-x-auto scrollbar-none">
         {tabs.map((tabItem) => (
           <button
             key={tabItem.key}
             onClick={() => setTab(tabItem.key)}
-            className={`relative px-4 py-3 text-sm font-semibold transition-colors ${
+            className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
               tab === tabItem.key ? "text-foreground" : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            {tabItem.label}
             {tab === tabItem.key && (
-              <span className="absolute bottom-[-1px] left-0 h-[2px] w-full bg-primary" />
+              <motion.div
+                layoutId="activeTab"
+                className="absolute inset-0 rounded-lg bg-card border border-border shadow-sm"
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              />
             )}
+            <span className="relative z-10">{tabItem.icon}</span>
+            <span className="relative z-10 hidden sm:inline">{tabItem.label}</span>
           </button>
         ))}
       </div>
@@ -246,10 +250,10 @@ function DiagnosisPage() {
         <AnimatePresence mode="wait">
           <motion.article
             key={tab}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -16, filter: "blur(4px)" }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="prose prose-invert max-w-none whitespace-pre-wrap glass-panel p-10 md:p-16 leading-relaxed shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden border-white/5"
           >
             <div className="absolute top-0 right-0 p-16 opacity-[0.02] pointer-events-none select-none">

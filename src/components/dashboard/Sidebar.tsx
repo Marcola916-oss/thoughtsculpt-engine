@@ -14,7 +14,7 @@ interface SidebarProps {
   profile?: { display_name: string | null; archetype: string | null } | null;
 }
 
-function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onClose }: SidebarProps & { onClose?: () => void }) {
+function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onClose, hasDiagnosis }: SidebarProps & { onClose?: () => void; hasDiagnosis?: boolean }) {
   const { t, locale } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -41,11 +41,12 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
       <Link
         to="/dashboard"
         onClick={onClose}
-        className="mb-10 font-display text-2xl font-black tracking-tighter relative z-10 flex items-center gap-1.5"
+        className="mb-2 font-display text-2xl font-black tracking-tighter relative z-10 flex items-center gap-1.5"
       >
         <span className="text-foreground">Mind</span>
         <span className="text-arch-primary transition-colors duration-500">Reset</span>
       </Link>
+      <p className="text-[10px] font-semibold text-muted-foreground/50 uppercase tracking-[0.2em] mb-8 relative z-10">Protocol v2.0</p>
 
       {/* Nav */}
       <nav className="flex flex-1 flex-col gap-0.5 relative z-10">
@@ -54,32 +55,47 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
             ? pathname === it.to
             : pathname.startsWith(it.to);
           return (
-            <Link
+            <motion.div
               key={it.to}
-              to={it.to}
-              onClick={onClose}
-              className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ${
-                active
-                  ? "bg-arch-primary/10 text-foreground shadow-[0_0_15px_var(--arch-glow)] border border-arch-primary/20"
-                  : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:translate-x-1"
-              }`}
+              whileTap={!active ? { scale: 0.98 } : {}}
             >
-              {active && (
-                <motion.div
-                  layoutId="active-nav"
-                  className="absolute left-0 h-6 w-1 rounded-full bg-arch-primary shadow-[0_0_10px_var(--arch-glow)]"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
+              <Link
+                to={it.to}
+                onClick={onClose}
+                className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ${
+                  active
+                    ? "bg-arch-primary/10 text-foreground shadow-[0_0_15px_var(--arch-glow)] border border-arch-primary/20"
+                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:translate-x-1"
+                }`}
+              >
+                {active && (
+                  <motion.div
+                    layoutId="active-nav"
+                    className="absolute left-0 h-6 w-1 rounded-full bg-arch-primary shadow-[0_0_10px_var(--arch-glow)]"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
 
-              <span className="text-base" aria-hidden>{it.icon}</span>
-              <span className="flex-1">{it.label}</span>
+                <span className="text-base" aria-hidden>{it.icon}</span>
+                <span className="flex-1">{it.label}</span>
 
-              {/* Streak badge on Progress using compact StreakCounter */}
-              {it.to === "/dashboard/progress" && streak != null && (
-                <StreakCounter streak={streak} compact />
-              )}
-            </Link>
+                {/* NOVO badge on Diagnosis if no diagnosis yet */}
+                {it.to === "/dashboard/diagnosis" && hasDiagnosis === false && (
+                  <motion.span
+                    className="text-[10px] font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full border border-primary/30"
+                    animate={{ opacity: [1, 0.5, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    NOVO
+                  </motion.span>
+                )}
+
+                {/* Streak badge on Progress using compact StreakCounter */}
+                {it.to === "/dashboard/progress" && streak != null && (
+                  <StreakCounter streak={streak} compact />
+                )}
+              </Link>
+            </motion.div>
           );
         })}
 
@@ -136,6 +152,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState<any[]>([]);
   const [loadingNotifs, setLoadingNotifs] = useState(false);
+  const [hasDiagnosis, setHasDiagnosis] = useState<boolean | undefined>(undefined);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const navigate = useNavigate();
 
@@ -189,6 +206,12 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         .eq("user_id", user.id)
         .maybeSingle()
         .then(({ data }) => { if (data) setProfile(data); });
+      // Check if diagnosis exists
+      supabase
+        .from("diagnoses")
+        .select("id", { count: "exact", head: true })
+        .eq("user_id", user.id)
+        .then(({ count }) => { setHasDiagnosis(count != null && count > 0); });
     });
   };
 
@@ -238,6 +261,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           streak={streak}
           unreadCount={unread}
           profile={profile}
+          hasDiagnosis={hasDiagnosis}
           onOpenNotifications={() => {
             setNotifOpen(true);
             fetchNotifications();
@@ -272,6 +296,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               streak={streak}
               unreadCount={unread}
               profile={profile}
+              hasDiagnosis={hasDiagnosis}
               onOpenNotifications={() => {
                 setNotifOpen(true);
                 fetchNotifications();

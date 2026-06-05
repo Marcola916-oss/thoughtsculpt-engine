@@ -23,6 +23,16 @@ type FormState = {
   mobile_os: "ios" | "android" | "none" | "";
 };
 
+const STEP_ICONS: Record<number, string> = {
+  1: "🌅",
+  2: "🌙",
+  3: "⏱️",
+  4: "💭",
+  5: "🎯",
+  6: "⚖️",
+  7: "📱",
+};
+
 function AILoader({ onComplete }: { onComplete: () => void }) {
   const { t } = useI18n();
   const [step, setStep] = useState(0);
@@ -201,14 +211,25 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step1.heading}</h2>
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                  <motion.span
+                    key={`icon-${step}`}
+                    initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-4xl mr-3"
+                  >
+                    {STEP_ICONS[step]}
+                  </motion.span>
+                  {t.onboarding.step1.heading}
+                </h2>
                 <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step1.description}</p>
                 <div className="grid gap-3">
                   {[
-                    { value: "before-6am", label: t.onboarding.step1.option.before6am },
-                    { value: "6am-7am", label: t.onboarding.step1.option.between6am7am },
-                    { value: "7am-8am", label: t.onboarding.step1.option.between7am8am },
-                    { value: "after-8am", label: t.onboarding.step1.option.after8am },
+                    { value: "before-6am", label: t.onboarding.step1.option.before6am, emoji: "🌙" },
+                    { value: "6am-7am", label: t.onboarding.step1.option.between6am7am, emoji: "⭐" },
+                    { value: "7am-8am", label: t.onboarding.step1.option.between7am8am, emoji: "☀️" },
+                    { value: "after-8am", label: t.onboarding.step1.option.after8am, emoji: "🌤️" },
                   ].map((opt) => (
                     <button
                       key={opt.value}
@@ -222,7 +243,7 @@ function OnboardingPage() {
                           : "border-border bg-background text-muted-foreground hover:border-arch-primary/50 hover:bg-secondary"
                       }`}
                     >
-                      {opt.label}
+                      <span className="mr-2">{opt.emoji}</span>{opt.label}
                     </button>
                   ))}
                 </div>
@@ -237,14 +258,25 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step2.heading}</h2>
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                  <motion.span
+                    key={`icon-${step}`}
+                    initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-4xl mr-3"
+                  >
+                    {STEP_ICONS[step]}
+                  </motion.span>
+                  {t.onboarding.step2.heading}
+                </h2>
                 <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step2.description}</p>
                 <div className="grid gap-3">
                   {[
-                    { value: "before-10pm", label: t.onboarding.step2.option.before10pm },
-                    { value: "10pm-11pm", label: t.onboarding.step2.option.between10pm11pm },
-                    { value: "11pm-midnight", label: t.onboarding.step2.option.between11pmMidnight },
-                    { value: "after-midnight", label: t.onboarding.step2.option.afterMidnight },
+                    { value: "before-10pm", label: t.onboarding.step2.option.before10pm, emoji: "🌙" },
+                    { value: "10pm-11pm", label: t.onboarding.step2.option.between10pm11pm, emoji: "⭐" },
+                    { value: "11pm-midnight", label: t.onboarding.step2.option.between11pmMidnight, emoji: "🌟" },
+                    { value: "after-midnight", label: t.onboarding.step2.option.afterMidnight, emoji: "🌌" },
                   ].map((opt) => (
                     <button
                       key={opt.value}
@@ -258,7 +290,7 @@ function OnboardingPage() {
                           : "border-border bg-background text-muted-foreground hover:border-arch-primary/50 hover:bg-secondary"
                       }`}
                     >
-                      {opt.label}
+                      <span className="mr-2">{opt.emoji}</span>{opt.label}
                     </button>
                   ))}
                 </div>
@@ -273,14 +305,25 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step3.heading}</h2>
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                  <motion.span
+                    key={`icon-${step}`}
+                    initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-4xl mr-3"
+                  >
+                    {STEP_ICONS[step]}
+                  </motion.span>
+                  {t.onboarding.step3.heading}
+                </h2>
                 <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step3.description}</p>
                 <div className="grid gap-3">
                   {[
-                    { value: 15, label: t.onboarding.step3.option.min15 },
-                    { value: 30, label: t.onboarding.step3.option.min30 },
-                    { value: 45, label: t.onboarding.step3.option.min45 },
-                    { value: 60, label: t.onboarding.step3.option.min60 },
+                    { value: 15, label: t.onboarding.step3.option.min15, emoji: "⚡" },
+                    { value: 30, label: t.onboarding.step3.option.min30, emoji: "🎯" },
+                    { value: 45, label: t.onboarding.step3.option.min45, emoji: "🔥" },
+                    { value: 60, label: t.onboarding.step3.option.min60, emoji: "💪" },
                   ].map((opt) => (
                     <button
                       key={opt.value}
@@ -294,7 +337,7 @@ function OnboardingPage() {
                           : "border-border bg-background text-muted-foreground hover:border-arch-primary/50 hover:bg-secondary"
                       }`}
                     >
-                      {opt.label}
+                      <span className="mr-2">{opt.emoji}</span>{opt.label}
                     </button>
                   ))}
                 </div>
@@ -309,7 +352,18 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step4.heading}</h2>
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                  <motion.span
+                    key={`icon-${step}`}
+                    initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-4xl mr-3"
+                  >
+                    {STEP_ICONS[step]}
+                  </motion.span>
+                  {t.onboarding.step4.heading}
+                </h2>
                 <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step4.description}</p>
                 <input
                   required
@@ -341,14 +395,25 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step5.heading}</h2>
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                  <motion.span
+                    key={`icon-${step}`}
+                    initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-4xl mr-3"
+                  >
+                    {STEP_ICONS[step]}
+                  </motion.span>
+                  {t.onboarding.step5.heading}
+                </h2>
                 <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step5.description}</p>
                 <div className="grid gap-3">
                   {[
-                    { value: "debt", label: t.onboarding.step5.option.debt },
-                    { value: "emergency", label: t.onboarding.step5.option.emergency },
-                    { value: "invest", label: t.onboarding.step5.option.invest },
-                    { value: "organize", label: t.onboarding.step5.option.organize },
+                    { value: "debt", label: t.onboarding.step5.option.debt, emoji: "🔗" },
+                    { value: "emergency", label: t.onboarding.step5.option.emergency, emoji: "🛡️" },
+                    { value: "invest", label: t.onboarding.step5.option.invest, emoji: "📈" },
+                    { value: "organize", label: t.onboarding.step5.option.organize, emoji: "📋" },
                   ].map((opt) => (
                     <button
                       key={opt.value}
@@ -362,7 +427,7 @@ function OnboardingPage() {
                           : "border-border bg-background text-muted-foreground hover:border-arch-primary/50 hover:bg-secondary"
                       }`}
                     >
-                      {opt.label}
+                      <span className="mr-2">{opt.emoji}</span>{opt.label}
                     </button>
                   ))}
                 </div>
@@ -377,12 +442,23 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step6.heading}</h2>
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                  <motion.span
+                    key={`icon-${step}`}
+                    initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-4xl mr-3"
+                  >
+                    {STEP_ICONS[step]}
+                  </motion.span>
+                  {t.onboarding.step6.heading}
+                </h2>
                 <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step6.description}</p>
                 <div className="grid gap-3">
                   {[
-                    { value: "hardcore", label: t.onboarding.step6.option.hardcore },
-                    { value: "gradual", label: t.onboarding.step6.option.gradual },
+                    { value: "hardcore", label: t.onboarding.step6.option.hardcore, emoji: "🔥" },
+                    { value: "gradual", label: t.onboarding.step6.option.gradual, emoji: "🌱" },
                   ].map((opt) => (
                     <button
                       key={opt.value}
@@ -396,7 +472,7 @@ function OnboardingPage() {
                           : "border-border bg-background text-muted-foreground hover:border-arch-primary/50 hover:bg-secondary"
                       }`}
                     >
-                      {opt.label}
+                      <span className="mr-2">{opt.emoji}</span>{opt.label}
                     </button>
                   ))}
                 </div>
@@ -411,13 +487,24 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl">{t.onboarding.step7.heading}</h2>
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                  <motion.span
+                    key={`icon-${step}`}
+                    initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-4xl mr-3"
+                  >
+                    {STEP_ICONS[step]}
+                  </motion.span>
+                  {t.onboarding.step7.heading}
+                </h2>
                 <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step7.description}</p>
                 <div className="grid gap-3">
                   {[
-                    { value: "ios", label: t.onboarding.step7.option.ios },
-                    { value: "android", label: t.onboarding.step7.option.android },
-                    { value: "none", label: t.onboarding.step7.option.none },
+                    { value: "ios", label: t.onboarding.step7.option.ios, emoji: "🍎" },
+                    { value: "android", label: t.onboarding.step7.option.android, emoji: "🤖" },
+                    { value: "none", label: t.onboarding.step7.option.none, emoji: "🔒" },
                   ].map((opt) => (
                     <button
                       key={opt.value}
@@ -428,7 +515,7 @@ function OnboardingPage() {
                           : "border-border bg-background text-muted-foreground hover:border-arch-primary/50 hover:bg-secondary"
                       }`}
                     >
-                      {opt.label}
+                      <span className="mr-2">{opt.emoji}</span>{opt.label}
                     </button>
                   ))}
                 </div>

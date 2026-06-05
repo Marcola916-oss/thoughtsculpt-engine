@@ -89,6 +89,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "MindReset — Discover your financial archetype" },
       { property: "og:description", content: "Behavioral diagnosis that reveals why you earn, spend and lose money the way you do." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://mindreset.app/" },
+      { name: "robots", content: "index, follow" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "MindReset — Discover your financial archetype" },
       { name: "twitter:description", content: "Behavioral diagnosis that reveals why you earn, spend and lose money the way you do." },
@@ -97,8 +99,45 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "canonical",
+        href: "https://mindreset.app/",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: "MindReset",
+          url: "https://mindreset.app/",
+          description: "Behavioral diagnosis that reveals why you earn, spend and lose money the way you do. AI-powered analysis across 4 life dimensions.",
+          applicationCategory: "FinanceApplication",
+          operatingSystem: "Web",
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+          },
+          author: {
+            "@type": "Organization",
+            name: "MindReset",
+            url: "https://mindreset.app/",
+          },
+        }),
       },
     ],
   }),

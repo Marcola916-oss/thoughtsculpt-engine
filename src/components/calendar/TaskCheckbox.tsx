@@ -1,10 +1,12 @@
-import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 
 interface TaskCheckboxProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
+  label: string;
+  type: "reflective" | "action";
   disabled?: boolean;
   className?: string;
 }
@@ -12,58 +14,90 @@ interface TaskCheckboxProps {
 export function TaskCheckbox({
   checked,
   onChange,
+  label,
+  type,
   disabled = false,
   className = "",
 }: TaskCheckboxProps) {
-  const isMounted = useRef(false);
+  const [justChecked, setJustChecked] = useState(false);
 
-  useEffect(() => {
-    if (checked && isMounted.current) {
-      // Small localized confetti explosion at the cursor height (bottom center)
+  const handleCheck = () => {
+    if (!checked) {
+      setJustChecked(true);
       confetti({
-        particleCount: 16,
-        angle: 90,
-        spread: 45,
-        origin: { y: 0.7 },
-        colors: ["#CC0000", "#FFFFFF"],
-        ticks: 60,
+        particleCount: 30,
+        spread: 50,
+        origin: { y: 0.6 },
+        colors: ["#CC0000", "#FF4444", "#FFD700", "#22C55E"],
+        scalar: 0.8,
+        gravity: 1.2,
       });
+      setTimeout(() => setJustChecked(false), 600);
     }
-    isMounted.current = true;
-  }, [checked]);
+    onChange(!checked);
+  };
 
   return (
-    <motion.button
-      type="button"
-      disabled={disabled}
-      onClick={() => onChange(!checked)}
-      whileTap={!disabled ? { scale: 0.88 } : {}}
-      transition={{ type: "spring", stiffness: 500, damping: 20 }}
-      className={[
-        "w-6 h-6 rounded-lg border-2 flex items-center justify-center cursor-pointer outline-none transition-all duration-200 select-none shrink-0",
-        checked
-          ? "border-primary bg-primary text-primary-foreground shadow-[0_0_10px_var(--accent-glow)]"
-          : "border-border bg-card/60 hover:border-primary/50",
-        disabled ? "opacity-30 cursor-not-allowed" : "",
-        className,
-      ].join(" ")}
+    <motion.label
+      className={`flex cursor-pointer items-start gap-3 select-none group ${disabled ? "opacity-40 cursor-not-allowed" : ""} ${className}`}
+      whileTap={!disabled ? { scale: 0.98 } : {}}
     >
-      <svg
-        className="w-3.5 h-3.5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={3.5}
-      >
-        <motion.path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M5 13l4 4L19 7"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: checked ? 1 : 0 }}
-          transition={{ duration: 0.2, ease: "easeInOut" }}
-        />
-      </svg>
-    </motion.button>
+      <div className="relative mt-0.5 shrink-0">
+        <motion.div
+          onClick={!disabled ? handleCheck : undefined}
+          className={`w-6 h-6 rounded-[5px] border-2 flex items-center justify-center transition-colors duration-200 ${
+            checked
+              ? "bg-success border-success"
+              : "border-border-strong bg-transparent group-hover:border-success"
+          }`}
+          animate={
+            justChecked
+              ? {
+                  scale: [1, 1.4, 0.85, 1.1, 1],
+                }
+              : {}
+          }
+          transition={
+            justChecked
+              ? { duration: 0.5, times: [0, 0.3, 0.55, 0.75, 1] }
+              : {}
+          }
+        >
+          <AnimatePresence>
+            {checked && (
+              <motion.svg
+                className="w-3.5 h-3.5 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                exit={{ pathLength: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+              >
+                <motion.path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={3}
+                  d="M5 13l4 4L19 7"
+                />
+              </motion.svg>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+      <div className="flex-1">
+        <span
+          className={`text-sm leading-relaxed flex items-center gap-1.5 transition-all duration-300 ${
+            checked
+              ? "text-muted-foreground line-through"
+              : "text-foreground"
+          }`}
+        >
+          <span className="text-base">{type === "reflective" ? "🧠" : "⚡"}</span>
+          {label}
+        </span>
+      </div>
+    </motion.label>
   );
 }
