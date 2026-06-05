@@ -398,11 +398,17 @@
 /* ─── Gradients & ambient ────────────────────────────────── */
 .mesh-gradient {
   background-color: #000;
-  background-image:
-    radial-gradient(at 0% 0%, var(--arch-glow) 0, transparent 50%),
+  background-image: 
+    radial-gradient(at 0% 0%, var(--arch-glow) 0, transparent 50%), 
     radial-gradient(at 100% 100%, var(--arch-glow) 0, transparent 50%),
     radial-gradient(at 50% 50%, rgba(255,255,255,0.02) 0, transparent 80%);
   background-attachment: fixed;
+  animation: mesh-shift 15s ease-in-out infinite alternate;
+}
+
+@keyframes mesh-shift {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 10% 10%; }
 }
 
 .hero-glow {

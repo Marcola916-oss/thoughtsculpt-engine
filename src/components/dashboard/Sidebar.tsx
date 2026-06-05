@@ -126,7 +126,7 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
           <div className="flex-1 min-w-0 text-left">
             <p className="text-sm font-bold text-foreground truncate">{profile.display_name || "Membro"}</p>
             <p className="text-[10px] font-semibold text-muted-foreground/80 uppercase tracking-widest mt-0.5 truncate">
-              {profile.archetype ? t.archetypes?.[profile.archetype]?.name || profile.archetype : "MindReset"}
+              {profile.archetype ? (t.archetypes as any)?.[profile.archetype]?.name || profile.archetype : "MindReset"}
             </p>
           </div>
         </div>

@@ -24,53 +24,58 @@ export function QuizScreenWrapper({
   const visualProgress = progress >= 80 ? 95 : progress;
 
   return (
-    <div className="relative min-h-[70vh] flex flex-col justify-center items-center py-6 w-full max-w-2xl mx-auto px-4">
-      {/* Fixed top progress bar inside the wrapper container */}
-      <div className="w-full mb-8 z-20">
-        <div className="flex justify-between items-end mb-2">
-          <div className="flex items-center gap-2">
+    <div className="relative min-h-[70vh] flex flex-col justify-center items-center py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px]">
+      {/* Ambient backgrounds inside wrapper */}
+      <div className="absolute inset-0 grid-pattern opacity-[0.03] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary opacity-[0.07] blur-[120px] rounded-full pointer-events-none" />
+
+      {/* Fixed top progress bar */}
+      <div className="w-full mb-12 z-20">
+        <div className="flex justify-between items-end mb-3">
+          <div className="flex items-center gap-3">
             {onBack && (
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1, x: -2 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={onBack}
-                className="p-1 rounded-lg hover:bg-white/5 transition text-muted-foreground hover:text-foreground mr-1"
+                className="p-2 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition text-muted-foreground hover:text-foreground"
                 aria-label={t.common.back}
               >
                 <ChevronLeft className="h-5 w-5" />
-              </button>
+              </motion.button>
             )}
             {progressTitle && (
-              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">
+              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-primary drop-shadow-[0_0_8px_var(--accent-glow)]">
                 {progressTitle}
               </span>
             )}
           </div>
-          <span className="text-xs font-bold text-muted-foreground">
+          <span className="text-xs font-black text-muted-foreground/60 tabular-nums">
             {Math.round(progress)}%
           </span>
         </div>
-        <div className="h-1.5 w-full bg-secondary/40 rounded-full overflow-hidden">
+        <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 p-[1px]">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${visualProgress}%` }}
             transition={{ type: "spring", damping: 25, stiffness: 120 }}
-            className="h-full bg-primary shadow-[0_0_15px_var(--accent-glow)]"
+            className="h-full bg-gradient-to-r from-primary to-accent rounded-full shadow-[0_0_15px_var(--accent-glow)]"
           />
         </div>
       </div>
 
-      {/* Grid Pattern and Ambient Glow */}
-      <div className="absolute inset-0 grid-pattern opacity-[0.03] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary opacity-[0.05] blur-[100px] rounded-full pointer-events-none" />
-
-      {/* Slide transition container using AnimatePresence */}
+      {/* Content transition container */}
       <div className="w-full flex-1 flex flex-col justify-center relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={stepKey}
-            initial={{ opacity: 0, x: 20, filter: "blur(4px)" }}
-            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, x: -20, filter: "blur(4px)" }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, scale: 0.95, y: 10, rotateX: 5 }}
+            animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+            exit={{ opacity: 0, scale: 1.05, y: -10, rotateX: -5 }}
+            transition={{ 
+              duration: 0.5, 
+              ease: [0.16, 1, 0.3, 1]
+            }}
             className="w-full flex flex-col justify-center"
           >
             {children}
