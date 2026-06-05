@@ -487,7 +487,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         <Magnetic>
           <button
             onClick={onStart}
-            className="group relative h-28 w-full max-w-xl overflow-visible rounded-[2.5rem] bg-foreground text-background transition-all hover:shadow-[0_50px_100px_-20px_rgba(255,255,255,0.2)] active:scale-95"
+            className="group relative h-28 w-full max-w-xl overflow-hidden rounded-[2.5rem] bg-foreground text-background transition-all hover:shadow-[0_50px_100px_-20px_rgba(255,255,255,0.2)] active:scale-95"
           >
             <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
             <span className="relative z-10 flex items-center justify-center gap-6 text-4xl font-black italic tracking-tighter group-hover:text-primary-foreground">
@@ -646,7 +646,7 @@ function Identity(props: {
         onClick={props.onContinue}
         whileHover={ok ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
         whileTap={ok ? { scale: 0.98 } : {}}
-        className="group relative mt-12 w-full overflow-visible rounded-2xl bg-foreground py-5 text-xl font-black italic tracking-tighter text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
+        className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-black italic tracking-tighter text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
       >
         <div className="absolute inset-0 overflow-hidden rounded-2xl bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-primary-foreground">
@@ -888,7 +888,7 @@ function Reveal({
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={onContinue}
-          className="group relative mt-24 w-full overflow-visible rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
+          className="group relative mt-24 w-full overflow-hidden rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
         >
           <div className="absolute inset-0 overflow-hidden rounded-3xl bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           <span className="relative z-10 flex items-center justify-center gap-6">
