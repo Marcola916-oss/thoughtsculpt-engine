@@ -5,7 +5,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { 
   CheckCircle2, 
-  Lock, 
+  Lock,
+  Clock,
   ArrowRight, 
   Brain, 
   Calendar as CalendarIcon, 
