@@ -385,7 +385,7 @@ function TopBar() {
             <LanguageSwitcher />
           </div>
           <Link
-            to="/login"
+            to="/login/"
             data-cursor="hover"
             className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10"
           >
