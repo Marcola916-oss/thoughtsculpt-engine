@@ -16,18 +16,36 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 function DashboardLayout() {
   const { t } = useI18n();
   const fetchProfile = useServerFn(getMyProfile);
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["my-profile"],
     queryFn: () => fetchProfile(),
+    retry: false,
   });
 
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center p-4 text-center">
+        <div className="max-w-md space-y-4">
+          <h2 className="text-xl font-bold text-primary">Error Loading Profile</h2>
+          <p className="text-sm text-muted-foreground">{(error as Error).message}</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="rounded-full bg-primary px-6 py-2 text-sm font-bold text-primary-foreground"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (!isLoading && data?.profile && !data.profile.onboarding_completed) {
-    throw redirect({ to: "/_authenticated/onboarding/" });
+    throw redirect({ to: "/onboarding" });
   }
 
   if (!isLoading && data?.profile?.access_level === "revoked") {
     supabase.auth.signOut().then(() => {
-      window.location.href = "/login/?reason=revoked";
+      window.location.href = "/login?reason=revoked";
     });
     return null;
   }
