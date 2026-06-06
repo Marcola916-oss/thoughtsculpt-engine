@@ -107,7 +107,10 @@ export const saveOnboarding = createServerFn({ method: "POST" })
 
     const { error: pErr } = await supabase
       .from("profiles")
-      .update({ onboarding_completed: true })
+      .update({ 
+        onboarding_completed: true,
+        updated_at: new Date().toISOString()
+      })
       .eq("user_id", userId);
     
     if (pErr) {

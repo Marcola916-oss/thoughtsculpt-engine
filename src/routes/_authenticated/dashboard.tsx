@@ -77,12 +77,12 @@ function DashboardLayout() {
     );
   }
 
-  // Only redirect if we are certain onboarding is not completed
-  // Use a slightly more defensive check to avoid false positives during hydration/loading
-  if (data?.profile && data.profile.onboarding_completed === false) {
-    console.log("Onboarding not completed, redirecting...");
-    return <Navigate to="/onboarding" replace />;
-  }
+  useEffect(() => {
+    if (isClient && !isLoading && data?.profile && data.profile.onboarding_completed === false) {
+      console.log("Onboarding not completed, redirecting...");
+      window.location.href = "/onboarding";
+    }
+  }, [isClient, isLoading, data?.profile]);
 
   if (!isLoading && data?.profile?.access_level === "revoked") {
     supabase.auth.signOut().then(() => {
