@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, redirect, Link } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect, Link, Navigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { DashboardShell } from "../../components/dashboard/Sidebar";
@@ -78,7 +78,8 @@ function DashboardLayout() {
   }
 
   if (data?.profile && data.profile.onboarding_completed === false) {
-    throw redirect({ to: "/onboarding" });
+    console.log("Onboarding not completed, redirecting...");
+    return <Navigate to="/onboarding" replace />;
   }
 
   if (!isLoading && data?.profile?.access_level === "revoked") {
