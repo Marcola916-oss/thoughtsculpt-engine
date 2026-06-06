@@ -92,7 +92,7 @@ function DashboardLayout() {
               </p>
               <Link
                 to="/dashboard/settings"
-                className="mt-6 inline-block rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-[0_0_20px_var(--accent-glow)] transition-all hover:scale-105 hover:shadow-lg pointer-events-auto"
+                className="mt-6 inline-block rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-[0_0_20px_rgba(204,0,0,0.45)] transition-all hover:scale-105 hover:shadow-lg pointer-events-auto"
               >
                 {t.dashboard.layout.locked.reactivateButton}
               </Link>
