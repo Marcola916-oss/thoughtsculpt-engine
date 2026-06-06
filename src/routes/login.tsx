@@ -31,7 +31,7 @@ function LoginPage() {
       setErr(error.message);
       return;
     }
-    window.location.href = "/dashboard/";
+    window.location.href = "/dashboard";
   }
 
   async function forgot() {
