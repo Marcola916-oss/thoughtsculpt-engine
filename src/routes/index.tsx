@@ -1241,14 +1241,14 @@ function Sales({
               <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">{s.ctaFinal.title}</h3>
               <p className="text-xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">{s.ctaFinal.subtitle}</p>
               
-              <button
+              <PrimaryButton
                 onClick={onContinue}
-                className="group relative inline-flex items-center gap-6 overflow-hidden rounded-2xl bg-foreground px-16 py-8 text-2xl md:text-3xl font-black italic text-background transition-all hover:scale-[1.05] hover:shadow-[0_40px_80px_-20px_var(--arch-glow)] active:scale-95"
+                size="xl"
+                className="italic"
+                icon={<ArrowRight size={28} className="text-arch-primary" />}
               >
-                <span className="relative z-10">{s.ctaFinal.cta.toUpperCase()}</span>
-                <ArrowRight size={36} className="relative z-10 transition-transform duration-500 group-hover:translate-x-4 text-arch-primary" />
-                <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              </button>
+                {s.ctaFinal.cta.toUpperCase()}
+              </PrimaryButton>
               
               <div className="mt-16 flex items-center justify-center gap-8">
                 <div className="flex items-center gap-3 text-background/40 font-black uppercase tracking-[0.3em] text-xs">
