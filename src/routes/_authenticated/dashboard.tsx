@@ -77,7 +77,7 @@ function DashboardLayout() {
     );
   }
 
-  if (data?.profile && !data.profile.onboarding_completed) {
+  if (data?.profile && data.profile.onboarding_completed === false) {
     throw redirect({ to: "/onboarding" });
   }
 
