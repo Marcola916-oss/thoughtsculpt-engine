@@ -157,8 +157,12 @@ function OnboardingPage() {
       await Promise.all([genCalendar(), minDelay]);
       return { elapsed: Date.now() - startTime };
     },
-    onSuccess: () => navigate({ to: "/dashboard" }),
-    onError: () => navigate({ to: "/dashboard" }),
+    onSuccess: () => {
+      window.location.href = "/dashboard";
+    },
+    onError: () => {
+      window.location.href = "/dashboard";
+    },
   });
 
   const nextStep = () => setStep((s) => s + 1);
