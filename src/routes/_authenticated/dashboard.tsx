@@ -29,6 +29,33 @@ function DashboardLayout() {
     enabled: isClient, // Only fetch on client
   });
 
+  const profile = data?.profile;
+  const onboardingCompleted = profile?.onboarding_completed;
+
+  useEffect(() => {
+    if (isClient && !isLoading && profile && onboardingCompleted === false) {
+      console.log("Onboarding not completed, redirecting...");
+      window.location.href = "/onboarding";
+    }
+  }, [isClient, isLoading, profile, onboardingCompleted]);
+
+  useEffect(() => {
+    if (!isLoading && profile?.access_level === "revoked") {
+      supabase.auth.signOut().then(() => {
+        window.location.href = "/login?reason=revoked";
+      });
+    }
+  }, [isLoading, profile?.access_level]);
+
+  useEffect(() => {
+    if (profile?.archetype) {
+      document.body.setAttribute("data-arch", profile.archetype);
+    }
+    return () => {
+      document.body.removeAttribute("data-arch");
+    };
+  }, [profile?.archetype]);
+
   if (error) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-black p-4 text-center">
@@ -76,33 +103,6 @@ function DashboardLayout() {
       </div>
     );
   }
-
-  const profile = data?.profile;
-  const onboardingCompleted = profile?.onboarding_completed;
-
-  useEffect(() => {
-    if (isClient && !isLoading && profile && onboardingCompleted === false) {
-      console.log("Onboarding not completed, redirecting...");
-      window.location.href = "/onboarding";
-    }
-  }, [isClient, isLoading, profile, onboardingCompleted]);
-
-  useEffect(() => {
-    if (!isLoading && profile?.access_level === "revoked") {
-      supabase.auth.signOut().then(() => {
-        window.location.href = "/login?reason=revoked";
-      });
-    }
-  }, [isLoading, profile?.access_level]);
-
-  useEffect(() => {
-    if (profile?.archetype) {
-      document.body.setAttribute("data-arch", profile.archetype);
-    }
-    return () => {
-      document.body.removeAttribute("data-arch");
-    };
-  }, [profile?.archetype]);
 
   const accessLevel = profile?.access_level ?? "active";
   const expiresAt = profile?.features_expires_at;
