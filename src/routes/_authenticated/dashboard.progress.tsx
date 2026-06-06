@@ -14,7 +14,7 @@ import { AchievementUnlock } from "../../components/gamification/AchievementUnlo
 import { numberRollUp, achievementPop } from "../../lib/animations";
 
 export const Route = createFileRoute("/_authenticated/dashboard/progress")({
-  head: () => ({ meta: [{ title: "Progresso — MindReset" }] }),
+  head: () => ({ meta: [{ title: "Evolution — MindReset" }] }),
   component: ProgressPage,
 });
 

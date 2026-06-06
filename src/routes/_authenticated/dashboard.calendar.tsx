@@ -15,7 +15,7 @@ import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { TaskCheckbox } from "../../components/calendar/TaskCheckbox";
 
 export const Route = createFileRoute("/_authenticated/dashboard/calendar")({
-  head: () => ({ meta: [{ title: "Matriz de Ação — MindReset" }] }),
+  head: () => ({ meta: [{ title: "Action Matrix — MindReset" }] }),
   component: CalendarPage,
 });
 

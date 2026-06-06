@@ -113,7 +113,7 @@ function HubPage() {
         <motion.h1 variants={staggerItem} className="mt-1 font-display text-3xl font-extrabold md:text-4xl">
           {archetype ? (
             <div className="flex flex-col gap-2">
-              <span>{t.dashboard.hub.headingWithArchetype("")}</span>
+              <span>{t.dashboard.hub.headingWithArchetype(ARCHETYPE_NAMES[archetype][lang])}</span>
               <div className="inline-flex items-center gap-2 mt-1">
                 <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary shadow-[0_0_10px_rgba(204,0,0,0.2)]">
                   {ARCHETYPE_NAMES[archetype][lang]}

@@ -9,7 +9,7 @@ import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { Magnetic } from "../../components/PageTransition";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
-  head: () => ({ meta: [{ title: "Calibração — MindReset" }] }),
+  head: () => ({ meta: [{ title: "Calibration — MindReset" }] }),
   component: OnboardingPage,
 });
 
