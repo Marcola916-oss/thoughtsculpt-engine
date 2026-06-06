@@ -3,11 +3,13 @@ import { supabase } from "../integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated")({
   beforeLoad: async () => {
-    if (typeof window === "undefined") return;
-
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data.user) {
-      throw redirect({ to: "/login" });
+    // Only check auth on the client to avoid hydration mismatch/SSR redirect loops
+    // since the session is stored in localStorage.
+    if (typeof window !== "undefined") {
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data.user) {
+        throw redirect({ to: "/login" });
+      }
     }
   },
   component: () => <Outlet />,
