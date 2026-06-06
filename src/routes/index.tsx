@@ -1111,31 +1111,53 @@ function Sales({
           ))}
         </div>
 
-        {/* ── Block 5: How It Works ────────────────────── */}
-        <div className="text-center max-w-7xl mx-auto">
-          <h3 className="font-display text-4xl md:text-7xl font-black mb-24 tracking-tighter">{s.howItWorks.title}</h3>
-          <div className="grid md:grid-cols-3 gap-16 relative">
-            <div className="hidden md:block absolute top-16 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-border to-transparent -z-10" />
+        {/* ── Block 5: How It Works (Simple. Profundo. Eficaz.) ────────────────────── */}
+        <div className="text-center max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 inline-flex items-center gap-3 rounded-full bg-white/5 border border-white/10 px-6 py-2 text-[10px] font-black uppercase tracking-[0.4em] text-arch-primary"
+          >
+            COMO FUNCIONA
+          </motion.div>
+          <h3 className="font-display text-4xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic">
+            Simples. <span className="text-arch-primary">Profundo.</span> Eficaz.
+          </h3>
+          <p className="mt-8 text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto font-medium leading-relaxed mb-24">
+            Sem planilhas. Sem dados bancários. Apenas psicologia aplicada para reprogramar sua relação com o dinheiro.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-12 md:gap-24 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-[60px] left-[15%] right-[15%] h-[1px] bg-gradient-to-r from-transparent via-arch-primary/20 to-transparent" />
             
             {s.howItWorks.steps.map((step, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2 }}
                 className="flex flex-col items-center text-center group"
               >
-                <div className="flex h-32 w-32 items-center justify-center rounded-3xl bg-background border-2 border-border group-hover:border-arch-primary group-hover:text-arch-primary transition-all duration-500 font-display text-5xl font-black mb-10 relative shadow-xl">
-                  {step.num}
-                  {i < 2 && <div className="md:hidden absolute -bottom-12 left-1/2 -translate-x-1/2 h-12 w-px bg-border" />}
+                <div className="relative mb-12">
+                  <div className="flex h-32 w-32 items-center justify-center rounded-[2.5rem] bg-background border border-border group-hover:border-arch-primary group-hover:bg-arch-primary group-hover:text-primary-foreground transition-all duration-700 font-display text-5xl font-black italic shadow-2xl relative z-10">
+                    {step.num}
+                  </div>
+                  {/* Decorative number glow */}
+                  <div className="absolute inset-0 bg-arch-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  
+                  {/* Step separator (Mobile) */}
+                  {i < 2 && <div className="md:hidden absolute -bottom-12 left-1/2 -translate-x-1/2 h-12 w-px bg-gradient-to-b from-arch-primary/50 to-transparent" />}
                 </div>
-                <h4 className="font-bold text-3xl mb-4 tracking-tight">{step.title}</h4>
-                <p className="text-muted-foreground text-lg leading-relaxed px-4">{step.description}</p>
+                <h4 className="font-black text-3xl mb-6 tracking-tight uppercase italic">{step.title}</h4>
+                <p className="text-muted-foreground text-xl leading-relaxed font-medium px-4">{step.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
+
 
         {/* ── Block 6: Social Proof ────────────────────── */}
         <div className="rounded-[4rem] border border-border bg-card p-12 md:p-32 shadow-2xl overflow-hidden relative max-w-7xl mx-auto">
