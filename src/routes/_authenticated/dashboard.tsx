@@ -5,7 +5,7 @@ import { DashboardShell } from "../../components/dashboard/Sidebar";
 import { getMyProfile } from "../../lib/profile.functions";
 import { supabase } from "../../integrations/supabase/client";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
@@ -16,10 +16,17 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
 function DashboardLayout() {
   const { t } = useI18n();
   const fetchProfile = useServerFn(getMyProfile);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["my-profile"],
     queryFn: () => fetchProfile(),
     retry: false,
+    enabled: isClient, // Only fetch on client
   });
 
   if (error) {
@@ -39,7 +46,19 @@ function DashboardLayout() {
     );
   }
 
-  if (!isLoading && data?.profile && !data.profile.onboarding_completed) {
+  // Pre-hydration or loading state
+  if (!isClient || isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-black">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
+          <p className="text-sm font-medium text-muted-foreground animate-pulse">Initializing Protocol...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (data?.profile && !data.profile.onboarding_completed) {
     throw redirect({ to: "/onboarding" });
   }
 

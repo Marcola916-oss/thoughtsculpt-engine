@@ -34,11 +34,22 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
 function HubPage() {
   const { t, lang } = useI18n();
   const fetchProfile = useServerFn(getMyProfile);
-  const { data, error } = useQuery({
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const { data, error, isLoading } = useQuery({
     queryKey: ["my-profile"],
     queryFn: () => fetchProfile(),
     retry: false,
+    enabled: isClient,
   });
+
+  if (!isClient || isLoading) {
+    return null; // Parent layout handles loading
+  }
 
   if (error) {
     return (
