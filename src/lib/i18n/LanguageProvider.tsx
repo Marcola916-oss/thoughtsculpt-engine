@@ -66,11 +66,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("https://ipapi.co/json/", { cache: "no-store" });
+        // Updated API for geolocation: free, no rate limit, CORS allowed
+        const res = await fetch("https://geo.kamero.ai/api/geo", { cache: "no-store" });
         if (!res.ok) return;
         const data = await res.json();
         if (cancelled) return;
-        const cc: string | undefined = data?.country_code;
+        
+        // The new API returns country (code), city, and timezone
+        const cc: string | undefined = data?.country;
         if (cc) {
           setCountry(cc);
           const c = CURRENCY_BY_COUNTRY[cc] ?? "USD";
@@ -81,8 +84,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             if (detected) setLangState(detected);
           }
         }
-      } catch {
-        /* offline / blocked — keep navigator-detected lang */
+      } catch (err) {
+        console.warn("Geolocation API failed, using fallback:", err);
+        /* offline / blocked / rate-limited — keep navigator-detected lang */
       }
     })();
     return () => { cancelled = true; };
