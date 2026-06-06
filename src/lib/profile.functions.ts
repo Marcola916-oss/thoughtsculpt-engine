@@ -112,7 +112,7 @@ export const saveOnboarding = createServerFn({ method: "POST" })
     
     if (pErr) {
       console.error("Error updating profile onboarding status:", pErr);
-      // We don't throw here to avoid blocking the user if the answers were saved
+      throw new Error(`Failed to update onboarding status: ${pErr.message}`);
     }
 
     return { ok: true };

@@ -158,10 +158,14 @@ function OnboardingPage() {
       return { elapsed: Date.now() - startTime };
     },
     onSuccess: () => {
+      // Force a hard reload to the dashboard to clear all state and ensure fresh data
       window.location.href = "/dashboard";
     },
-    onError: () => {
-      window.location.href = "/dashboard";
+    onError: (err) => {
+      console.error("Onboarding submission failed:", err);
+      // If it fails, we show an alert but don't redirect to avoid the loop
+      alert("Houve um erro ao salvar seu progresso. Por favor, tente novamente.");
+      setShowLoader(false);
     },
   });
 
