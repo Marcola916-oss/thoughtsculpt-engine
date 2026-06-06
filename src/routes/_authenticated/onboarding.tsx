@@ -9,7 +9,7 @@ import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { Magnetic } from "../../components/PageTransition";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
-  head: () => ({ meta: [{ title: "Calibração — MindReset" }] }),
+  head: () => ({ meta: [{ title: "Calibration — MindReset" }] }),
   component: OnboardingPage,
 });
 
@@ -157,8 +157,8 @@ function OnboardingPage() {
       await Promise.all([genCalendar(), minDelay]);
       return { elapsed: Date.now() - startTime };
     },
-    onSuccess: () => navigate({ to: "/dashboard" }),
-    onError: () => navigate({ to: "/dashboard" }),
+    onSuccess: () => navigate({ to: "/dashboard/" }),
+    onError: () => navigate({ to: "/dashboard/" }),
   });
 
   const nextStep = () => setStep((s) => s + 1);
@@ -177,7 +177,7 @@ function OnboardingPage() {
     if (isFormValid) mut.mutate();
   };
 
-  if (showLoader) return <AILoader onComplete={() => navigate({ to: "/dashboard" })} />;
+  if (showLoader) return <AILoader onComplete={() => navigate({ to: "/dashboard/" })} />;
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between py-12 px-4 relative overflow-hidden">

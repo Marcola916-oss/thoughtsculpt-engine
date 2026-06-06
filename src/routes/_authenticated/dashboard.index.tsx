@@ -113,9 +113,9 @@ function HubPage() {
         <motion.h1 variants={staggerItem} className="mt-1 font-display text-3xl font-extrabold md:text-4xl">
           {archetype ? (
             <div className="flex flex-col gap-2">
-              <span>{t.dashboard.hub.headingWithArchetype("")}</span>
+              <span>{t.dashboard.hub.headingWithArchetype(ARCHETYPE_NAMES[archetype][lang])}</span>
               <div className="inline-flex items-center gap-2 mt-1">
-                <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary">
+                <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary shadow-[0_0_10px_rgba(204,0,0,0.2)]">
                   {ARCHETYPE_NAMES[archetype][lang]}
                 </span>
               </div>
@@ -157,7 +157,7 @@ function HubPage() {
             key={i}
             variants={staggerItem}
             className="bg-card border border-border rounded-[var(--radius-md)] p-4 text-center"
-            whileHover={{ borderColor: "var(--arch-primary)", y: -2 }}
+            whileHover={{ borderColor: "rgba(204,0,0,0.5)", y: -2, boxShadow: "0 0 15px rgba(204,0,0,0.15)" }}
             transition={{ duration: 0.2 }}
           >
             <div className="text-2xl mb-1">{stat.icon}</div>
@@ -178,7 +178,7 @@ function HubPage() {
           <Link key={c.to} to={c.to} className="block group">
             <motion.div
               variants={staggerItem}
-              whileHover={{ y: -4, boxShadow: "var(--shadow-accent)" }}
+              whileHover={{ y: -4, boxShadow: "0 10px 30px -10px rgba(204,0,0,0.3)" }}
               transition={{ duration: 0.2 }}
             >
               <BentoCard className="h-full">

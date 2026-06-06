@@ -15,7 +15,7 @@ import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { TaskCheckbox } from "../../components/calendar/TaskCheckbox";
 
 export const Route = createFileRoute("/_authenticated/dashboard/calendar")({
-  head: () => ({ meta: [{ title: "Matriz de Ação — MindReset" }] }),
+  head: () => ({ meta: [{ title: "Action Matrix — MindReset" }] }),
   component: CalendarPage,
 });
 
@@ -115,6 +115,11 @@ function CalendarPage() {
           setTimeout(() => {
             toggleMut.mutate({ task_id: taskId, is_completed: true });
             fireConfetti();
+            setChecks((prev) => {
+              const newState = { ...prev };
+              delete newState[taskId];
+              return newState;
+            });
           }, 300);
         }
         return { ...prev, [taskId]: next };
@@ -159,7 +164,7 @@ function CalendarPage() {
         <button
           onClick={() => generate.mutate()}
           disabled={generate.isPending}
-          className="mt-8 group relative overflow-hidden rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_20px_var(--accent-glow)] disabled:scale-100 disabled:opacity-50"
+          className="mt-8 group relative overflow-hidden rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(204,0,0,0.45)] disabled:scale-100 disabled:opacity-50"
         >
           {generate.isPending ? (
             <span className="flex items-center gap-2">
@@ -297,7 +302,7 @@ function CalendarPage() {
           <div className="relative">
             <button
               onClick={() => setShowExportMenu(!showExportMenu)}
-              className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold hover:border-primary transition"
+              className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-semibold hover:border-primary hover:shadow-[0_0_15px_rgba(204,0,0,0.25)] transition"
             >
               📥 {t.dashboard.calendar.export.button}
             </button>
@@ -337,7 +342,7 @@ function CalendarPage() {
                   onClick={() => handleMonthChange(m)}
                   className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all ${
                     selectedMonth === m
-                      ? "bg-primary text-primary-foreground shadow-[0_0_10px_var(--accent-glow)] font-bold"
+                      ? "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(204,0,0,0.45)] font-bold"
                       : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                   }`}
                 >
@@ -366,7 +371,7 @@ function CalendarPage() {
                   !taskUnlocked
                     ? "border-border bg-card/50 opacity-40 blur-[1px] cursor-not-allowed"
                     : isActive
-                      ? "border-primary bg-primary/20 shadow-[0_0_15px_var(--accent-glow)]"
+                      ? "border-primary bg-primary/20 shadow-[0_0_15px_rgba(204,0,0,0.35)]"
                       : task.is_completed
                         ? "border-success/40 bg-success/10 text-success"
                         : task.is_milestone

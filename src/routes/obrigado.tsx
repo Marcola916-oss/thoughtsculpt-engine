@@ -147,14 +147,14 @@ function ThankYouPage() {
       icon: Brain,
       title: "Acesse o Dashboard",
       desc: "Veja seu painel personalizado com tudo organizado",
-      href: "/dashboard",
+      href: "/dashboard/",
       color: "from-blue-500/20 to-blue-600/10",
     },
     {
       icon: CalendarIcon,
       title: "Complete o Onboarding",
       desc: "7 perguntas rápidas para calibrar seu protocolo",
-      href: "/onboarding",
+      href: "/_authenticated/onboarding/",
       color: "from-amber-500/20 to-amber-600/10",
     },
     {
@@ -326,7 +326,7 @@ function ThankYouPage() {
             className="text-center mb-16"
           >
             <Link
-              to="/dashboard"
+              to="/dashboard/"
               data-cursor="hover"
               className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-[#CC0000] px-12 py-5 text-xl font-black text-white transition-all hover:scale-105 shadow-[0_20px_60px_-15px_rgba(204,0,0,0.4)]"
             >
