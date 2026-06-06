@@ -79,7 +79,7 @@ function HubPage() {
         .eq("user_id", user.id)
         .limit(1)
         .then(({ data }) => {
-          setHasDiagnosis(data && data.length > 0);
+          setHasDiagnosis(!!(data && data.length > 0));
         });
     });
   }, []);
@@ -149,9 +149,9 @@ function HubPage() {
         animate="visible"
       >
         {[
-          { label: t.lang === "pt" ? "Pontos" : "Points", value: points.toLocaleString(), icon: "⭐" },
+          { label: lang === "pt" ? "Pontos" : "Points", value: points.toLocaleString(), icon: "⭐" },
           { label: "Streak", value: `${streak}d`, icon: "🔥" },
-          { label: t.lang === "pt" ? "Tarefas" : "Tasks", value: tasksCompleted, icon: "✅" },
+          { label: lang === "pt" ? "Tarefas" : "Tasks", value: tasksCompleted, icon: "✅" },
         ].map((stat, i) => (
           <motion.div
             key={i}
