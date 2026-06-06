@@ -77,6 +77,8 @@ function DashboardLayout() {
     );
   }
 
+  // Only redirect if we are certain onboarding is not completed
+  // Use a slightly more defensive check to avoid false positives during hydration/loading
   if (data?.profile && data.profile.onboarding_completed === false) {
     console.log("Onboarding not completed, redirecting...");
     return <Navigate to="/onboarding" replace />;
