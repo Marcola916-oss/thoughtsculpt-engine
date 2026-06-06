@@ -109,7 +109,11 @@ export const saveOnboarding = createServerFn({ method: "POST" })
       .from("profiles")
       .update({ onboarding_completed: true })
       .eq("user_id", userId);
-    if (pErr) throw new Error(pErr.message);
+    
+    if (pErr) {
+      console.error("Error updating profile onboarding status:", pErr);
+      // We don't throw here to avoid blocking the user if the answers were saved
+    }
 
     return { ok: true };
   });
