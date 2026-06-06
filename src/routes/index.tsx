@@ -1245,53 +1245,66 @@ function Sales({
           </div>
         </div>
 
-        {/* ── Block 8: Final CTA + Guarantee ───────────────────────── */}
-        <div className="max-w-6xl mx-auto space-y-12">
-          {/* Guarantee Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-center gap-10 p-10 md:p-16 rounded-[3rem] border border-border bg-background shadow-xl"
-          >
-            <div className="h-32 w-32 shrink-0 bg-arch-primary/10 rounded-full flex items-center justify-center">
-              <ShieldCheck size={64} className="text-arch-primary" />
-            </div>
-            <div className="text-center md:text-left">
-              <h4 className="text-3xl font-black mb-4 tracking-tight">{s.guarantee.title}</h4>
-              <p className="text-xl text-muted-foreground leading-relaxed font-medium">{s.guarantee.body}</p>
-            </div>
-          </motion.div>
-
+        {/* ── Block 8: Final CTA + Guarantee (O padrão que te travou tem nome) ───────────────────────── */}
+        <div className="max-w-6xl mx-auto space-y-24 px-6 pb-24">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center rounded-[4rem] border border-white/10 bg-white/5 p-12 md:p-32 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden backdrop-blur-3xl"
+            className="text-center rounded-[5rem] border border-white/10 bg-white/5 p-12 md:p-32 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden backdrop-blur-3xl group"
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/20 via-transparent to-transparent opacity-50" />
+            {/* Animated Background Aura */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/20 via-transparent to-arch-primary/5 opacity-30 group-hover:opacity-50 transition-opacity duration-1000" />
+            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[100px] animate-pulse" />
+            <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[100px] animate-pulse [animation-delay:2s]" />
+
             <div className="relative z-10">
-              <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">{s.ctaFinal.title}</h3>
-              <p className="text-xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">{s.ctaFinal.subtitle}</p>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="mb-12 inline-flex items-center gap-3 rounded-full bg-arch-primary/10 px-6 py-2 border border-arch-primary/20"
+              >
+                <span className="text-xs font-black uppercase tracking-[0.4em] text-arch-primary">CHEGOU A HORA</span>
+              </motion.div>
+
+              <h3 className="font-display text-4xl md:text-[7rem] font-black text-foreground mb-10 tracking-tighter leading-[0.85] uppercase italic">
+                O padrão que te travou <span className="text-arch-primary underline decoration-arch-primary/20 underline-offset-8">tem nome.</span>
+              </h3>
+              
+              <p className="text-xl md:text-3xl text-muted-foreground mb-20 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">
+                8 perguntas. 3 minutos. Uma clareza que nenhuma planilha de Excel jamais conseguirá te dar.
+              </p>
               
               <PrimaryButton
-                onClick={onContinue}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 size="xl"
-                className="italic"
-                icon={<ArrowRight size={28} className="text-arch-primary" />}
+                className="italic h-28 md:h-32 px-12 md:px-20 text-3xl md:text-4xl"
+                icon={<ArrowRight size={40} className="text-arch-primary ml-4" />}
               >
-                {s.ctaFinal.cta.toUpperCase()}
+                DESCOBRIR MEU ARQUÉTIPO →
               </PrimaryButton>
               
-              <div className="mt-16 flex items-center justify-center gap-8">
-                <div className="flex items-center gap-3 text-background/40 font-black uppercase tracking-[0.3em] text-xs">
-                  <Lock size={14} />
-                  <span>{s.ctaFinal.trust}</span>
+              <div className="mt-20 flex flex-wrap items-center justify-center gap-10 opacity-40">
+                <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em]">
+                  <ShieldCheck size={16} className="text-emerald-500" />
+                  <span>7 DIAS GARANTIA</span>
+                </div>
+                <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em]">
+                  <Lock size={16} className="text-blue-500" />
+                  <span>DADOS PROTEGIDOS</span>
+                </div>
+                <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em]">
+                  <CheckCircle2 size={16} className="text-arch-primary" />
+                  <span>SEM CARTÃO DE CRÉDITO</span>
                 </div>
               </div>
             </div>
           </motion.div>
+
+          {/* Detailed FAQ section based on the mockup if not already covered enough */}
         </div>
+
 
       </div>
     </section>
