@@ -34,7 +34,13 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
 function HubPage() {
   const { t, lang } = useI18n();
   const fetchProfile = useServerFn(getMyProfile);
+  
   const [isClient, setIsClient] = useState(false);
+  const [streak, setStreak] = useState<number>(0);
+  const [points, setPoints] = useState<number>(0);
+  const [tasksCompleted, setTasksCompleted] = useState<number>(0);
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [hasDiagnosis, setHasDiagnosis] = useState<boolean>(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -47,26 +53,9 @@ function HubPage() {
     enabled: isClient,
   });
 
-  if (!isClient || isLoading) {
-    return null; // Parent layout handles loading
-  }
-
-  if (error) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 text-center">
-        <h2 className="text-lg font-bold text-primary">Failed to load dashboard data</h2>
-        <p className="text-sm text-muted-foreground">{(error as Error).message}</p>
-      </div>
-    );
-  }
-  
-  const [streak, setStreak] = useState<number>(0);
-  const [points, setPoints] = useState<number>(0);
-  const [tasksCompleted, setTasksCompleted] = useState<number>(0);
-  const [notifications, setNotifications] = useState<any[]>([]);
-  const [hasDiagnosis, setHasDiagnosis] = useState<boolean>(false);
-
   useEffect(() => {
+    if (!isClient) return;
+
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (!user) return;
       
@@ -103,7 +92,20 @@ function HubPage() {
           setHasDiagnosis(!!(data && data.length > 0));
         });
     });
-  }, []);
+  }, [isClient]);
+
+  if (!isClient || isLoading) {
+    return null; // Parent layout handles loading
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <h2 className="text-lg font-bold text-primary">Failed to load dashboard data</h2>
+        <p className="text-sm text-muted-foreground">{(error as Error).message}</p>
+      </div>
+    );
+  }
 
   const archetype = data?.profile?.archetype as Archetype | null | undefined;
   const name = data?.profile?.display_name ?? "";
