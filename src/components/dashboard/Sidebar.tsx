@@ -425,7 +425,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                           <h4 className="font-semibold text-sm text-foreground truncate">{n.title}</h4>
                           <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{n.body}</p>
                           <span className="mt-2 block text-[10px] text-muted-foreground/60">
-                            {new Date(n.created_at).toLocaleDateString(locale, {
+                            {new Date(n.created_at).toLocaleDateString(lang === "pt" ? "pt-BR" : lang === "pl" ? "pl-PL" : lang === "ro" ? "ro-RO" : "en-US", {
                               day: "2-digit",
                               month: "2-digit",
                               hour: "2-digit",

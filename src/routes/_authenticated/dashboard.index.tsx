@@ -88,10 +88,10 @@ function HubPage() {
   const name = data?.profile?.display_name ?? "";
 
   const cards = [
-    { to: "/dashboard/diagnosis", icon: "🧠", ...t.dashboard.hub.cards.diagnosis, badge: !hasDiagnosis ? "NOVO" : null },
-    { to: "/dashboard/calendar", icon: "📅", ...t.dashboard.hub.cards.calendar, badge: "Hoje" },
-    { to: "/dashboard/compass", icon: "🧭", ...t.dashboard.hub.cards.compass, badge: null },
-    { to: "/dashboard/progress", icon: "📈", title: t.lang === "pt" ? "Progresso" : "Progress", desc: t.lang === "pt" ? `${points} pontos acumulados` : `${points} points earned`, badge: streak > 0 ? `🔥${streak}` : null },
+    { to: "/dashboard/diagnosis" as const, icon: "🧠", ...t.dashboard.hub.cards.diagnosis, badge: !hasDiagnosis ? "NOVO" : null },
+    { to: "/dashboard/calendar" as const, icon: "📅", ...t.dashboard.hub.cards.calendar, badge: "Hoje" },
+    { to: "/dashboard/compass" as const, icon: "🧭", ...t.dashboard.hub.cards.compass, badge: null },
+    { to: "/dashboard/progress" as const, icon: "📈", title: lang === "pt" ? "Progresso" : "Progress", desc: lang === "pt" ? `${points} pontos acumulados` : `${points} points earned`, cta: lang === "pt" ? "Ver progresso" : "View progress", badge: streak > 0 ? `🔥${streak}` : null },
   ];
 
   const hour = String(new Date().getHours());
