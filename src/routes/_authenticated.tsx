@@ -6,9 +6,8 @@ export const Route = createFileRoute("/_authenticated")({
     // Only check auth on the client to avoid hydration mismatch/SSR redirect loops
     // since the session is stored in localStorage.
     if (typeof window !== "undefined") {
-      const { data, error } = await supabase.auth.getUser();
-      if (error || !data.user) {
-        // If we're on the client and have no user, redirect to login
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
         throw redirect({ to: "/login" });
       }
     }
