@@ -34,10 +34,20 @@ export const Route = createFileRoute("/_authenticated/dashboard/")({
 function HubPage() {
   const { t, lang } = useI18n();
   const fetchProfile = useServerFn(getMyProfile);
-  const { data } = useQuery({
+  const { data, error } = useQuery({
     queryKey: ["my-profile"],
     queryFn: () => fetchProfile(),
+    retry: false,
   });
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <h2 className="text-lg font-bold text-primary">Failed to load dashboard data</h2>
+        <p className="text-sm text-muted-foreground">{(error as Error).message}</p>
+      </div>
+    );
+  }
   
   const [streak, setStreak] = useState<number>(0);
   const [points, setPoints] = useState<number>(0);
