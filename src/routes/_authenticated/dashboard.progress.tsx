@@ -237,11 +237,13 @@ function ProgressPage() {
       <AnimatePresence>
         {unclaimedAch && unclaimedDetails && (
           <AchievementUnlock
-            achievementName={unclaimedDetails.name}
-            achievementDescription={unclaimedDetails.desc}
-            rewardText={unclaimedAch.reward_value ? `${unclaimedAch.reward_value} ${unclaimedAch.reward_type === "extra_days" ? "dias extras de acesso" : "pontos"}` : undefined}
+            achievement={{
+              code: unclaimedDetails.code,
+              name: unclaimedDetails.name,
+              desc: unclaimedDetails.desc,
+              icon: unclaimedDetails.icon
+            }}
             onClose={() => setUnclaimedAch(null)}
-            onClaim={() => handleClaimReward(unclaimedAch.id)}
           />
         )}
       </AnimatePresence>
