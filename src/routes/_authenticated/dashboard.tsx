@@ -77,21 +77,23 @@ function DashboardLayout() {
     );
   }
 
+  const profile = data?.profile;
+  const onboardingCompleted = profile?.onboarding_completed;
+
   useEffect(() => {
-    if (isClient && !isLoading && data?.profile && data.profile.onboarding_completed === false) {
+    if (isClient && !isLoading && profile && onboardingCompleted === false) {
       console.log("Onboarding not completed, redirecting...");
       window.location.href = "/onboarding";
     }
-  }, [isClient, isLoading, data?.profile]);
+  }, [isClient, isLoading, profile, onboardingCompleted]);
 
-  if (!isLoading && data?.profile?.access_level === "revoked") {
-    supabase.auth.signOut().then(() => {
-      window.location.href = "/login?reason=revoked";
-    });
-    return null;
-  }
-
-  const profile = data?.profile;
+  useEffect(() => {
+    if (!isLoading && profile?.access_level === "revoked") {
+      supabase.auth.signOut().then(() => {
+        window.location.href = "/login?reason=revoked";
+      });
+    }
+  }, [isLoading, profile?.access_level]);
 
   useEffect(() => {
     if (profile?.archetype) {
