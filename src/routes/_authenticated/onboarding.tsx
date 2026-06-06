@@ -153,8 +153,12 @@ function OnboardingPage() {
           mobile_os: form.mobile_os || "none",
         },
       });
-      const minDelay = new Promise((r) => setTimeout(r, 8000));
-      await Promise.all([genCalendar(), minDelay]);
+      
+      // Ensure calendar is generated before moving on
+      await genCalendar();
+      
+      const minDelay = new Promise((r) => setTimeout(r, 4000));
+      await minDelay;
       return { elapsed: Date.now() - startTime };
     },
     onSuccess: () => {
