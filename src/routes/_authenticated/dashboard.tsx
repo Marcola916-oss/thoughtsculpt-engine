@@ -22,7 +22,7 @@ function DashboardLayout() {
   });
 
   if (!isLoading && data?.profile && !data.profile.onboarding_completed) {
-    throw redirect({ to: "/_authenticated/onboarding/" });
+    throw redirect({ to: "/onboarding" });
   }
 
   if (!isLoading && data?.profile?.access_level === "revoked") {
