@@ -373,15 +373,16 @@ function TopBar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="group flex items-center gap-2 font-display text-2xl font-black tracking-tighter">
-          <div className="h-8 w-8 rounded-lg bg-arch-primary flex items-center justify-center transition-transform group-hover:rotate-12">
-            <span className="text-background text-xl italic font-black">M</span>
+        <Link to="/" className="group flex items-center gap-3 font-display text-3xl font-black tracking-tighter">
+          <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)]">
+            <span className="text-white text-2xl italic font-black">M</span>
           </div>
           <div className="flex items-baseline">
-            <span className="text-foreground transition-colors group-hover:text-arch-primary">Mind</span>
-            <span className="text-arch-primary/60 transition-colors group-hover:text-foreground">Reset</span>
+            <span className="text-white transition-colors group-hover:text-arch-primary">Mind</span>
+            <span className="text-arch-primary/80 transition-colors group-hover:text-white">Reset</span>
           </div>
         </Link>
+
         <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center gap-8">
             <LanguageSwitcher />
@@ -602,8 +603,9 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <h2 className="font-display text-3xl font-black md:text-4xl tracking-tighter uppercase italic">{t.identity.title}</h2>
-      <p className="mt-3 text-lg text-muted-foreground leading-relaxed font-medium tracking-tight">{t.identity.sub}</p>
+      <h2 className="font-display text-5xl font-black md:text-7xl tracking-tighter uppercase italic text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">{t.identity.title}</h2>
+      <p className="mt-6 text-xl text-muted-foreground leading-relaxed font-medium tracking-tight max-w-xl">{t.identity.sub}</p>
+
 
       <div className="mt-10 space-y-8">
         <div>
