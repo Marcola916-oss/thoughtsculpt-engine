@@ -115,6 +115,11 @@ function CalendarPage() {
           setTimeout(() => {
             toggleMut.mutate({ task_id: taskId, is_completed: true });
             fireConfetti();
+            setChecks((prev) => {
+              const newState = { ...prev };
+              delete newState[taskId];
+              return newState;
+            });
           }, 300);
         }
         return { ...prev, [taskId]: next };
