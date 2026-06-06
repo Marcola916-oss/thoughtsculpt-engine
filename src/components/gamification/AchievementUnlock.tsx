@@ -1,139 +1,102 @@
-import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { Trophy, Gift, X } from "lucide-react";
+/**
+ * AchievementUnlock — Premium modal to celebrate newly unlocked achievements.
+ *
+ * Features:
+ * - achievementPop animation
+ * - Confetti burst on mount
+ * - Glassmorphism modal style
+ * - Red accent glow
+ */
+
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { modalScale, achievementPop } from "@/lib/animations";
+import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import confetti from "canvas-confetti";
 
-interface AchievementUnlockProps {
-  achievementName: string;
-  achievementDescription: string;
-  rewardText?: string;
-  onClose: () => void;
-  onClaim?: () => void;
+interface Achievement {
+  code: string;
+  name: string;
+  desc: string;
+  icon: string;
 }
 
-export function AchievementUnlock({
-  achievementName,
-  achievementDescription,
-  rewardText,
-  onClose,
-  onClaim,
-}: AchievementUnlockProps) {
+interface AchievementUnlockProps {
+  achievement: Achievement | null;
+  onClose: () => void;
+}
+
+export function AchievementUnlock({ achievement, onClose }: AchievementUnlockProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
-    // Trigger cinematic confetti explosion on unlock
-    const duration = 3 * 1000;
-    const end = Date.now() + duration;
-
-    const frame = () => {
+    if (achievement) {
+      setIsOpen(true);
       confetti({
-        particleCount: 4,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0, y: 0.8 },
-        colors: ["#CC0000", "#D4AF37", "#ffffff"],
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ["#CC0000", "#FF4444", "#FFD700", "#FFFFFF"],
       });
-      confetti({
-        particleCount: 4,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1, y: 0.8 },
-        colors: ["#CC0000", "#D4AF37", "#ffffff"],
-      });
+    } else {
+      setIsOpen(false);
+    }
+  }, [achievement]);
 
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
-      }
-    };
-
-    frame();
-  }, []);
+  if (!achievement) return null;
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
-      {/* Dark backdrop blur */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        className="absolute inset-0 bg-background/80 backdrop-blur-md"
-      />
-
-      {/* Cinematic Modal Container */}
-      <motion.div
-        initial={{ scale: 0.9, y: 20, opacity: 0 }}
-        animate={{ scale: 1, y: 0, opacity: 1 }}
-        exit={{ scale: 0.9, y: 20, opacity: 0 }}
-        transition={{ type: "spring", damping: 25, stiffness: 220 }}
-        className="relative bg-card border border-gold/30 rounded-[2.5rem] p-8 md:p-12 w-full max-w-lg text-center shadow-[0_30px_60px_rgba(212,175,55,0.15)] relative overflow-hidden"
-      >
-        {/* Gold radiant top glow */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 bg-gold opacity-10 blur-[50px] rounded-full pointer-events-none" />
-
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/5 transition text-muted-foreground hover:text-foreground"
-          aria-label="Fechar"
-        >
-          <X className="h-5 w-5" />
-        </button>
-
-        {/* Big Achievement Trophy */}
-        <motion.div
-          initial={{ scale: 0, rotate: -20 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", delay: 0.2, stiffness: 450, damping: 15 }}
-          className="w-20 h-20 rounded-3xl bg-gold-surface border border-gold/30 flex items-center justify-center mx-auto mb-6 text-gold shadow-[0_0_20px_var(--color-gold-surface)]"
-        >
-          <Trophy className="h-10 w-10 stroke-[1.5]" />
-        </motion.div>
-
-        {/* Kicker tag */}
-        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-2 block">
-          Conquista Desbloqueada!
-        </span>
-
-        {/* Achievement Details */}
-        <h3 className="font-display text-2xl md:text-3xl font-black text-foreground mb-3 leading-tight tracking-tight">
-          {achievementName}
-        </h3>
-        <p className="text-muted-foreground text-sm leading-relaxed mb-6 px-4">
-          {achievementDescription}
-        </p>
-
-        {/* Reward section if present */}
-        {rewardText && (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+          {/* Backdrop */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center gap-3 rounded-2xl border border-success/20 bg-success/5 p-4 text-left mb-8 max-w-sm mx-auto"
-          >
-            <div className="h-9 w-9 rounded-xl bg-success/15 flex items-center justify-center shrink-0 text-success">
-              <Gift className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-success">
-                Recompensa Recebida
-              </p>
-              <p className="text-xs text-foreground font-bold leading-tight mt-0.5">
-                {rewardText}
-              </p>
-            </div>
-          </motion.div>
-        )}
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+          />
 
-        {/* Action Button */}
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={onClaim || onClose}
-          className="w-full rounded-2xl bg-gold py-4 text-base font-black italic tracking-tighter text-background shadow-[0_15px_30px_-10px_var(--color-gold-surface)] hover:brightness-110 transition-all uppercase"
-        >
-          {onClaim ? "Reivindicar Prêmio" : "Excelente!"}
-        </motion.button>
-      </motion.div>
-    </div>
+          {/* Modal */}
+          <motion.div
+            variants={modalScale}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="relative w-full max-w-sm glass-modal overflow-hidden p-8 text-center"
+          >
+            {/* Glow background */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/20 rounded-full blur-[60px] pointer-events-none" />
+
+            <motion.div
+              variants={achievementPop}
+              className="text-7xl mb-6 relative z-10"
+            >
+              {achievement.icon}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="relative z-10"
+            >
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-2 block">
+                Conquista Desbloqueada
+              </span>
+              <h2 className="font-display text-3xl font-bold mb-3">{achievement.name}</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-8">
+                {achievement.desc}
+              </p>
+
+              <PrimaryButton fullWidth onClick={onClose} size="lg">
+                Continuar Jornada
+              </PrimaryButton>
+            </motion.div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

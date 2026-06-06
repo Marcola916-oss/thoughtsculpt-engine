@@ -79,7 +79,7 @@ function HubPage() {
         .eq("user_id", user.id)
         .limit(1)
         .then(({ data }) => {
-          setHasDiagnosis(data && data.length > 0);
+          setHasDiagnosis(!!(data && data.length > 0));
         });
     });
   }, []);
@@ -88,10 +88,10 @@ function HubPage() {
   const name = data?.profile?.display_name ?? "";
 
   const cards = [
-    { to: "/dashboard/diagnosis", icon: "🧠", ...t.dashboard.hub.cards.diagnosis, badge: !hasDiagnosis ? "NOVO" : null },
-    { to: "/dashboard/calendar", icon: "📅", ...t.dashboard.hub.cards.calendar, badge: "Hoje" },
-    { to: "/dashboard/compass", icon: "🧭", ...t.dashboard.hub.cards.compass, badge: null },
-    { to: "/dashboard/progress", icon: "📈", title: t.lang === "pt" ? "Progresso" : "Progress", desc: t.lang === "pt" ? `${points} pontos acumulados` : `${points} points earned`, badge: streak > 0 ? `🔥${streak}` : null },
+    { to: "/dashboard/diagnosis" as const, icon: "🧠", ...t.dashboard.hub.cards.diagnosis, badge: !hasDiagnosis ? "NOVO" : null },
+    { to: "/dashboard/calendar" as const, icon: "📅", ...t.dashboard.hub.cards.calendar, badge: "Hoje" },
+    { to: "/dashboard/compass" as const, icon: "🧭", ...t.dashboard.hub.cards.compass, badge: null },
+    { to: "/dashboard/progress" as const, icon: "📈", title: lang === "pt" ? "Progresso" : "Progress", desc: lang === "pt" ? `${points} pontos acumulados` : `${points} points earned`, cta: lang === "pt" ? "Ver progresso" : "View progress", badge: streak > 0 ? `🔥${streak}` : null },
   ];
 
   const hour = String(new Date().getHours());
@@ -149,9 +149,9 @@ function HubPage() {
         animate="visible"
       >
         {[
-          { label: t.lang === "pt" ? "Pontos" : "Points", value: points.toLocaleString(), icon: "⭐" },
+          { label: lang === "pt" ? "Pontos" : "Points", value: points.toLocaleString(), icon: "⭐" },
           { label: "Streak", value: `${streak}d`, icon: "🔥" },
-          { label: t.lang === "pt" ? "Tarefas" : "Tasks", value: tasksCompleted, icon: "✅" },
+          { label: lang === "pt" ? "Tarefas" : "Tasks", value: tasksCompleted, icon: "✅" },
         ].map((stat, i) => (
           <motion.div
             key={i}

@@ -30,6 +30,8 @@ import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
 import { Atmosphere } from "@/components/atmosphere/Atmosphere";
+import { AchievementUnlock } from "@/components/gamification/AchievementUnlock";
+import { PrimaryButton } from "@/components/ui/PrimaryButton";
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -745,16 +747,15 @@ function EmailCapture(props: {
           <span className="leading-relaxed">{t.common.gdpr}</span>
         </label>
 
-        <motion.button
+        <PrimaryButton
           type="submit"
-          data-cursor="hover"
           disabled={!valid}
-          whileHover={valid ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
-          whileTap={valid ? { scale: 0.98 } : {}}
-          className="w-full rounded-2xl bg-primary px-5 py-4 text-lg font-bold text-primary-foreground shadow-lg transition-all disabled:opacity-20 disabled:scale-100"
+          fullWidth
+          size="lg"
+          className="mt-4"
         >
           {t.emailCapture.cta} →
-        </motion.button>
+        </PrimaryButton>
       </form>
     </div>
   );
@@ -1037,15 +1038,13 @@ function Sales({
 
         {/* Mid-CTA after Pain Mirror */}
         <div className="text-center">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+          <PrimaryButton
             onClick={onContinue}
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-arch-primary px-8 py-4 text-lg font-black text-white transition-all hover:shadow-[0_20px_60px_-15px_var(--arch-glow)]"
+            size="lg"
+            icon={<ArrowRight size={20} />}
           >
-            <span className="relative z-10">{t.plans.chooseCta}</span>
-            <ArrowRight size={20} className="relative z-10 transition-transform group-hover:translate-x-1" />
-          </motion.button>
+            {t.plans.chooseCta}
+          </PrimaryButton>
         </div>
 
         {/* ── Block 3: Scientific Proof ────────────────── */}
@@ -1186,15 +1185,13 @@ function Sales({
 
         {/* Mid-CTA after Social Proof */}
         <div className="text-center">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+          <PrimaryButton
             onClick={onContinue}
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-arch-primary px-8 py-4 text-lg font-black text-white transition-all hover:shadow-[0_20px_60px_-15px_var(--arch-glow)]"
+            size="lg"
+            icon={<ArrowRight size={20} />}
           >
-            <span className="relative z-10">{t.plans.chooseCta}</span>
-            <ArrowRight size={20} className="relative z-10 transition-transform group-hover:translate-x-1" />
-          </motion.button>
+            {t.plans.chooseCta}
+          </PrimaryButton>
         </div>
 
         {/* ── Block 7: FAQ ────────────────────────────── */}
@@ -1244,14 +1241,14 @@ function Sales({
               <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">{s.ctaFinal.title}</h3>
               <p className="text-xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">{s.ctaFinal.subtitle}</p>
               
-              <button
+              <PrimaryButton
                 onClick={onContinue}
-                className="group relative inline-flex items-center gap-6 overflow-hidden rounded-2xl bg-foreground px-16 py-8 text-2xl md:text-3xl font-black italic text-background transition-all hover:scale-[1.05] hover:shadow-[0_40px_80px_-20px_var(--arch-glow)] active:scale-95"
+                size="xl"
+                className="italic"
+                icon={<ArrowRight size={28} className="text-arch-primary" />}
               >
-                <span className="relative z-10">{s.ctaFinal.cta.toUpperCase()}</span>
-                <ArrowRight size={36} className="relative z-10 transition-transform duration-500 group-hover:translate-x-4 text-arch-primary" />
-                <div className="absolute inset-0 bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              </button>
+                {s.ctaFinal.cta.toUpperCase()}
+              </PrimaryButton>
               
               <div className="mt-16 flex items-center justify-center gap-8">
                 <div className="flex items-center gap-3 text-background/40 font-black uppercase tracking-[0.3em] text-xs">
