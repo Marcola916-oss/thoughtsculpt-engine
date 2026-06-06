@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindReset — Diagnóstico de Arquétipo Financeiro</title>
+
+  <!--
+  ═══════════════════════════════════════════════════════════════
+   MINDRESET — LANDING PAGE MOCKUP v1.0
+   Para uso como referência de design na Lovable.
+   Estrutura: 9 seções + footer
+   Paleta: #000000 base · #CC0000 accent · #F5F5F7 texto
+   Fontes: Syne (títulos) + DM Sans (corpo)
+   Sem seção de preços — pricing ocorre pós-quiz
+  ═══════════════════════════════════════════════════════════════
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════
+       DESIGN TOKENS — Brand System
+    ═══════════════════════════════════ */
+    :root {
+      /* Backgrounds */
+      --bg:           #000000;
+      --surface-1:    #0C0C0C;
+      --surface-2:    #141414;
+      --surface-3:    #1C1C1C;
+      --surface-4:    #242424;
+
+      /* Brand Colors */
+      --red:          #CC0000;
+      --red-mid:      #990000;
+      --red-dark:     #660000;
+      --red-a20:      rgba(204, 0, 0, 0.20);
+      --red-a12:      rgba(204, 0, 0, 0.12);
+      --red-a06:      rgba(204, 0, 0, 0.06);
+
+      /* Text */
+      --white:        #F5F5F7;
+      --white-80:     rgba(245, 245, 247, 0.80);
+      --white-55:     rgba(245, 245, 247, 0.55);
+      --white-30:     rgba(245, 245, 247, 0.30);
+      --white-12:     rgba(245, 245, 247, 0.12);
+      --white-07:     rgba(245, 245, 247, 0.07);
+
+      /* Borders */
+      --border:       rgba(245, 245, 247, 0.09);
+      --border-hover: rgba(245, 245, 247, 0.18);
+
+      /* Typography */
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+
+      /* Spacing */
+      --section-pad:  110px;
+      --container:    1160px;
+    }
+
+    /* ═══════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════ */
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      color: var(--white);
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ═══════════════════════════════════
+       LAYOUT HELPERS
+    ═══════════════════════════════════ */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .section {
+      padding: var(--section-pad) 0;
+    }
+    .section--dark { background: var(--surface-1); }
+
+    /* Section label (small red tag above titles) */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.25rem;
+    }
+    .tag::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    /* Section titles */
+    .section-title {
+      font-size: clamp(34px, 4vw, 54px);
+      margin-bottom: .9rem;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--white-55);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* Grid divider pattern (shared by archetype & feature grids) */
+    .divided-grid {
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════
+       SCAN LINES OVERLAY (decorative)
+       Applied via ::before on select sections
+    ═══════════════════════════════════ */
+    .scanlines::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0) 0px,
+        rgba(0,0,0,0) 3px,
+        rgba(0,0,0,0.04) 3px,
+        rgba(0,0,0,0.04) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ═══════════════════════════════════
+       BUTTONS
+    ═══════════════════════════════════ */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      padding: 17px 34px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.14s ease;
+      white-space: nowrap;
+    }
+    .btn-primary:hover {
+      background: #E00000;
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary .arrow { font-size: 19px; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white-07);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 18px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .btn-ghost:hover {
+      background: var(--white-12);
+      border-color: var(--border-hover);
+    }
+
+
+    /* ═══════════════════════════════════
+       ① NAVBAR
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <Navbar> — position fixed, z-index 100 */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 64px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+    }
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .navbar__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--white);
+    }
+    /* LOVABLE: usar o MarbleBust SVG/componente do projeto como ícone */
+    .navbar__logo-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--red-a12);
+      border: 1px solid rgba(204, 0, 0, 0.35);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .navbar__logo-reset { color: var(--red); }
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .navbar__lang {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--white-55);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .navbar__lang-chevron { font-size: 10px; opacity: .6; }
+
+
+    /* ═══════════════════════════════════
+       ② HERO SECTION
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <HeroSection> — min-height: 100vh, texto SEMPRE branco */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 2rem 80px;
+      overflow: hidden;
+    }
+    /* Red radial glow — elemento decorativo, vem do bottom-center */
+    .hero__glow {
+      position: absolute;
+      bottom: -280px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 820px;
+      height: 820px;
+      background: radial-gradient(
+        circle at center,
+        rgba(204, 0, 0, 0.20) 0%,
+        rgba(204, 0, 0, 0.08) 35%,
+        transparent 70%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Floating archetype labels (background, barely visible) */
+    .hero__float {
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--white-12);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    .hero__float--ao  { top: 22%; left: 6%; }
+    .hero__float--ss  { top: 38%; right: 5%; }
+    .hero__float--ea  { bottom: 28%; left: 8%; }
+    .hero__float--hi  { bottom: 18%; right: 7%; }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Pill badge above headline */
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--white-55);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 7px 18px;
+      margin-bottom: 2.5rem;
+    }
+    .hero__badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    /*
+      LOVABLE — ATENÇÃO:
+      O headline DEVE ser branco (#F5F5F7).
+      Jamais usar texto vermelho sobre fundo vermelho/escuro.
+      <em> é o único elemento que usa cor vermelha — somente para 1 ou 2 palavras.
+    */
+    .hero__h1 {
+      font-size: clamp(46px, 7vw, 92px);
+      color: var(--white);           /* ← CRÍTICO: sempre branco */
+      max-width: 920px;
+      margin-bottom: 1.5rem;
+    }
+    .hero__h1 em {
+      font-style: normal;
+      color: var(--red);             /* ← vermelho APENAS aqui */
+    }
+    .hero__sub {
+      font-size: 18px;
+      color: var(--white-55);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto 3rem;
+    }
+
+    /* CTA block */
+    .hero__cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero__micro {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--white-30);
+    }
+    .hero__micro-sep { opacity: .5; }
+
+
+    /* ═══════════════════════════════════
+       ③ SOCIAL PROOF BAR
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <ProofBar> — tira horizontal com 4 stats */
+    .proof-bar {
+      background: var(--surface-1);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .proof-bar__inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .proof-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 24px 0;
+      border-right: 1px solid var(--border);
+      padding-left: 2rem;
+    }
+    .proof-item:first-child { padding-left: 0; }
+    .proof-item:last-child  { border-right: none; }
+    .proof-item__icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      opacity: .85;
+    }
+    .proof-item__value {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+    .proof-item__label {
+      font-size: 12px;
+      color: var(--white-30);
+      margin-top: 2px;
+    }
+
+
+    /* ═══════════════════════════════════
+       ④ ARCHETYPE SHOWCASE
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <ArchetypeShowcase> — 4 cards em grid horizontal */
+    .archetypes { background: var(--surface-1); }
+    .archetypes__header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .archetypes__header .section-sub { margin: 0 auto; }
+
+    .archetypes__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .arch-card {
+      background: var(--surface-1);
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .arch-card:first-child { border-left: 1px solid var(--border); border-radius: 14px 0 0 14px; }
+    .arch-card:last-child  { border-radius: 0 14px 14px 0; }
+    .arch-card:hover { background: var(--surface-2); }
+
+    /* Red bottom accent on hover */
+    .arch-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .arch-card:hover::after { transform: scaleX(1); }
+
+    .arch-card__icon {
+      width: 48px;
+      height: 48px;
+      background: var(--red-a06);
+      border: 1px solid rgba(204, 0, 0, 0.18);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 1.5rem;
+    }
+    .arch-card__code {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: .4rem;
+    }
+    .arch-card__name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: .35rem;
+    }
+    .arch-card__trigger {
+      font-size: 11px;
+      color: var(--white-30);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .arch-card__desc {
+      font-size: 14px;
+      color: var(--white-55);
+      line-height: 1.7;
+    }
+
+
+    /* ═══════════════════════════════════
+       ⑤ HOW IT WORKS
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <HowItWorks> — 3 passos com connector */
+    .how__inner {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr 60px 1fr;
+      align-items: flex-start;
+      gap: 0;
+      margin-top: 4rem;
+    }
+    .step {
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .step__num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(204, 0, 0, 0.4);
+      border-radius: 50%;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--red);
+      margin: 0 auto 1.25rem;
+      background: var(--red-a06);
+    }
+    .step__title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .step__desc {
+      font-size: 14px;
+      color: var(--white-55);
+      line-height: 1.7;
+      max-width: 200px;
+      margin: 0 auto;
+    }
+    .step__connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 16px;    /* alinha com centro do número */
+      color: var(--white-12);
+      font-size: 30px;
+      font-weight: 300;
+    }
+
+
+    /* ═══════════════════════════════════
+       ⑥ PRODUCT FEATURES
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <FeaturesGrid> — 2x2 grid das 4 ilhas do dashboard */
+    .features { background: var(--surface-1); }
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 3.5rem;
+    }
+
+    .feature-card {
+      background: var(--surface-1);
+      padding: 2.75rem;
+      border: 1px solid var(--border);
+      transition: background 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card:nth-child(1) { border-radius: 14px 0 0 0; }
+    .feature-card:nth-child(2) { border-radius: 0 14px 0 0; border-left: none; }
+    .feature-card:nth-child(3) { border-radius: 0 0 0 14px; border-top: none; }
+    .feature-card:nth-child(4) { border-radius: 0 0 14px 0; border-top: none; border-left: none; }
+    .feature-card:hover { background: var(--surface-2); }
+
+    .feature-card__icon {
+      width: 52px;
+      height: 52px;
+      background: var(--red-a12);
+      border: 1px solid rgba(204, 0, 0, 0.22);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 1.5rem;
+    }
+    .feature-card__title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .6rem;
+    }
+    .feature-card__desc {
+      font-size: 15px;
+      color: var(--white-55);
+      line-height: 1.7;
+    }
+    .feature-card__meta {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 11px;
+      color: var(--red);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+
+    /* ═══════════════════════════════════
+       ⑦ TESTIMONIALS
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <Testimonials> — 3 cards lado a lado */
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 3.5rem;
+    }
+    .testi-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s;
+    }
+    .testi-card:hover { border-color: var(--border-hover); }
+    .testi-card__stars {
+      color: #E8A838;
+      font-size: 14px;
+      letter-spacing: 3px;
+      margin-bottom: 1.1rem;
+    }
+    .testi-card__quote {
+      font-size: 15px;
+      font-style: italic;
+      color: var(--white-80);
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+    .testi-card__author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .testi-card__avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white-55);
+      flex-shrink: 0;
+    }
+    .testi-card__name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .testi-card__arch {
+      font-size: 11px;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+
+    /* ═══════════════════════════════════
+       ⑧ FAQ
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <FAQ> — accordion, max-width 700px, centralizado */
+    .faq { background: var(--surface-1); }
+    .faq__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .faq__sticky {
+      position: sticky;
+      top: 100px;
+    }
+    .faq__list { padding-top: .5rem; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+
+    .faq-item__q {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.35rem 0;
+      user-select: none;
+    }
+    .faq-item__chevron {
+      color: var(--red);
+      font-size: 20px;
+      flex-shrink: 0;
+      font-weight: 300;
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-item__chevron { transform: rotate(45deg); }
+    .faq-item__a {
+      font-size: 14px;
+      color: var(--white-55);
+      line-height: 1.75;
+      padding-bottom: 1.35rem;
+      display: none;
+    }
+    .faq-item.open .faq-item__a { display: block; }
+
+
+    /* ═══════════════════════════════════
+       ⑨ FINAL CTA SECTION
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <FinalCTA> — seção de fechamento, fundo escuro com glow central */
+    .final-cta {
+      position: relative;
+      text-align: center;
+      padding: 130px 2rem;
+      overflow: hidden;
+    }
+    .final-cta__glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(204, 0, 0, 0.16) 0%,
+        rgba(204, 0, 0, 0.06) 45%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+    .final-cta__content { position: relative; z-index: 2; }
+    .final-cta h2 {
+      font-size: clamp(36px, 5.5vw, 66px);
+      max-width: 680px;
+      margin: 0 auto 1.25rem;
+    }
+    .final-cta p {
+      font-size: 18px;
+      color: var(--white-55);
+      margin-bottom: 3rem;
+    }
+    /* Garantia micro text */
+    .final-cta__guarantee {
+      margin-top: 1.25rem;
+      font-size: 13px;
+      color: var(--white-30);
+    }
+
+
+    /* ═══════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════ */
+    /* LOVABLE: componente <Footer> — simples, linha, logo + links */
+    .footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      padding: 28px 0;
+    }
+    .footer__inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer__copy { font-size: 13px; color: var(--white-30); }
+    .footer__links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer__links a {
+      font-size: 13px;
+      color: var(--white-30);
+      transition: color 0.15s;
+    }
+    .footer__links a:hover { color: var(--white-80); }
+
+
+    /* ═══════════════════════════════════
+       RESPONSIVE (mobile breakpoint)
+    ═══════════════════════════════════ */
+    @media (max-width: 768px) {
+      :root { --section-pad: 70px; }
+      .proof-bar__inner { grid-template-columns: repeat(2, 1fr); }
+      .proof-item:nth-child(2) { border-right: none; }
+      .proof-item { padding-left: 1rem; }
+      .archetypes__grid { grid-template-columns: repeat(2, 1fr); }
+      .arch-card:first-child  { border-radius: 14px 0 0 0; }
+      .arch-card:nth-child(2) { border-radius: 0 14px 0 0; border-left: none; }
+      .arch-card:nth-child(3) { border-radius: 0 0 0 14px; border-top: none; }
+      .arch-card:last-child   { border-radius: 0 0 14px 0; border-top: none; border-left: none; }
+      .how__inner { grid-template-columns: 1fr; }
+      .step__connector { transform: rotate(90deg); padding-top: 0; }
+      .features__grid { grid-template-columns: 1fr; }
+      .feature-card:nth-child(1) { border-radius: 14px 14px 0 0; }
+      .feature-card:nth-child(2) { border-left: 1px solid var(--border); border-top: none; border-radius: 0; }
+      .feature-card:nth-child(3) { border-left: 1px solid var(--border); border-top: none; border-radius: 0; }
+      .feature-card:nth-child(4) { border-left: 1px solid var(--border); border-top: none; border-radius: 0 0 14px 14px; }
+      .testimonials__grid { grid-template-columns: 1fr; }
+      .faq__layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .faq__sticky { position: static; }
+      .hero__float { display: none; }
+      .footer__inner { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════
+       ① NAVBAR
+       Componente: <Navbar>
+       Fixo no topo. Logo + seletor de idioma + botão ENTRAR.
+  ══════════════════════════════════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="navbar__inner">
+      <a href="/" class="navbar__logo" aria-label="MindReset - Página inicial">
+        <!-- LOVABLE: usar o componente MarbleBust aqui -->
+        <span class="navbar__logo-icon" aria-hidden="true">🏛️</span>
+        Mind<span class="navbar__logo-reset">Reset</span>
+      </a>
+      <div class="navbar__right">
+        <!-- LOVABLE: LanguageSwitcher component com dropdown -->
+        <button class="navbar__lang" aria-label="Selecionar idioma">
+          Português <span class="navbar__lang-chevron">▾</span>
+        </button>
+        <a href="/login" class="btn-ghost">ENTRAR</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ② HERO SECTION
+       Componente: <HeroSection>
+       REGRA CRÍTICA: texto do headline SEMPRE branco #F5F5F7.
+       Vermelho (#CC0000) APENAS em <em> para 1-2 palavras de destaque.
+       O fundo escuro cria o contraste necessário.
+  ══════════════════════════════════════════════════ -->
+  <section class="hero scanlines" aria-labelledby="hero-headline">
+    <!-- Glow decorativo — não remover -->
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <!-- Arquétipos flutuando no background — decorativo -->
+    <span class="hero__float hero__float--ao" aria-hidden="true">→ O Guardador AO</span>
+    <span class="hero__float hero__float--ss" aria-hidden="true">O Pavão SS ←</span>
+    <span class="hero__float hero__float--ea" aria-hidden="true">→ O Fantasma EA</span>
+    <span class="hero__float hero__float--hi" aria-hidden="true">O Foguinho HI ←</span>
+
+    <div class="hero__content">
+      <!-- Pill badge acima do headline -->
+      <div class="hero__badge" role="text">
+        <span class="hero__badge-dot" aria-hidden="true"></span>
+        Finanças Comportamentais
+        <span class="hero__badge-dot" aria-hidden="true"></span>
+        8 Perguntas
+        <span class="hero__badge-dot" aria-hidden="true"></span>
+        3 Minutos
+      </div>
+
+      <!-- HEADLINE — texto BRANCO, apenas "conhecer" em vermelho -->
+      <h1 class="hero__h1" id="hero-headline">
+        O dinheiro não te falta.<br>
+        Falta-te <em>conhecer</em> o teu padrão.
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="hero__sub">
+        MindReset diagnostica o teu arquétipo financeiro com inteligência artificial
+        e entrega um protocolo personalizado de transformação. Sem orçamentos.
+        Sem dados bancários. Só psicologia que muda comportamento.
+      </p>
+
+      <!-- CTA + microcopy -->
+      <div class="hero__cta-block">
+        <a href="#quiz" class="btn-primary">
+          Descobrir meu arquétipo agora
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <span class="hero__micro">
+          <span>🔒 SSL Seguro</span>
+          <span class="hero__micro-sep">·</span>
+          <span>Dados Protegidos</span>
+          <span class="hero__micro-sep">·</span>
+          <span>7 dias de garantia</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ③ SOCIAL PROOF BAR
+       Componente: <ProofBar>
+       Tira horizontal com 4 métricas de confiança.
+  ══════════════════════════════════════════════════ -->
+  <aside class="proof-bar" aria-label="Indicadores de confiança">
+    <div class="proof-bar__inner">
+      <div class="proof-item">
+        <span class="proof-item__icon" aria-hidden="true">✦</span>
+        <div>
+          <div class="proof-item__value">+12.000</div>
+          <div class="proof-item__label">Diagnósticos realizados</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <span class="proof-item__icon" aria-hidden="true">★</span>
+        <div>
+          <div class="proof-item__value">4.9 / 5</div>
+          <div class="proof-item__label">Avaliação média</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <span class="proof-item__icon" aria-hidden="true">◈</span>
+        <div>
+          <div class="proof-item__value">100%</div>
+          <div class="proof-item__label">Sem dados bancários</div>
+        </div>
+      </div>
+      <div class="proof-item">
+        <span class="proof-item__icon" aria-hidden="true">◉</span>
+        <div>
+          <div class="proof-item__value">5</div>
+          <div class="proof-item__label">Idiomas suportados</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ④ ARCHETYPE SHOWCASE
+       Componente: <ArchetypeShowcase>
+       Os 4 arquétipos em grid horizontal com hover effect.
+       ANTES estava quebrado — floating labels sem contexto.
+       AGORA: cards completos com código, nome, gatilho e descrição.
+  ══════════════════════════════════════════════════ -->
+  <section class="section archetypes" aria-labelledby="arch-title">
+    <div class="container">
+      <div class="archetypes__header">
+        <span class="tag" aria-hidden="true">Os 4 Arquétipos</span>
+        <h2 class="section-title" id="arch-title">
+          Qual é o seu padrão com dinheiro?
+        </h2>
+        <p class="section-sub">
+          Todo comportamento financeiro tem uma raiz emocional.
+          Descubra a sua em menos de 3 minutos.
+        </p>
+      </div>
+      <div class="archetypes__grid" role="list">
+        <!-- AO — Accumulator Obsessive -->
+        <article class="arch-card" role="listitem">
+          <div class="arch-card__icon" aria-hidden="true">🐿️</div>
+          <div class="arch-card__code">AO</div>
+          <h3 class="arch-card__name">O Guardador</h3>
+          <p class="arch-card__trigger">Gatilho: medo de faltar</p>
+          <p class="arch-card__desc">
+            Acumula com obsessão. Dificuldade em gastar mesmo com saldo.
+            A sensação de segurança nunca parece suficiente.
+          </p>
+        </article>
+        <!-- SS — Status Seeker -->
+        <article class="arch-card" role="listitem">
+          <div class="arch-card__icon" aria-hidden="true">👑</div>
+          <div class="arch-card__code">SS</div>
+          <h3 class="arch-card__name">O Pavão</h3>
+          <p class="arch-card__trigger">Gatilho: aprovação social</p>
+          <p class="arch-card__desc">
+            Gasta para impressionar. O status é a moeda emocional.
+            A imagem externa vale mais que a saúde financeira real.
+          </p>
+        </article>
+        <!-- EA — Escapist Alienated -->
+        <article class="arch-card" role="listitem">
+          <div class="arch-card__icon" aria-hidden="true">🌫️</div>
+          <div class="arch-card__code">EA</div>
+          <h3 class="arch-card__name">O Fantasma</h3>
+          <p class="arch-card__trigger">Gatilho: fuga e negação</p>
+          <p class="arch-card__desc">
+            Evita falar sobre dinheiro. Ignora extratos e contas.
+            O desconforto financeiro fica anestesiado pela evitação.
+          </p>
+        </article>
+        <!-- HI — Hedonist Impulsive -->
+        <article class="arch-card" role="listitem">
+          <div class="arch-card__icon" aria-hidden="true">🎉</div>
+          <div class="arch-card__code">HI</div>
+          <h3 class="arch-card__name">O Foguinho</h3>
+          <p class="arch-card__trigger">Gatilho: prazer imediato</p>
+          <p class="arch-card__desc">
+            Compra por impulso, vive o agora. A empolgação do momento
+            sobrepõe qualquer planejamento. O presente sempre vence.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ⑤ HOW IT WORKS
+       Componente: <HowItWorks>
+       3 passos simples com conectores visuais.
+  ══════════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="how-title">
+    <div class="container">
+      <span class="tag" aria-hidden="true">Como funciona</span>
+      <h2 class="section-title" id="how-title">Simples. Profundo. Eficaz.</h2>
+      <p class="section-sub">Sem planilhas. Sem dados bancários. Apenas perguntas sobre como você se comporta.</p>
+
+      <div class="how__inner" role="list">
+        <div class="step" role="listitem">
+          <div class="step__num" aria-hidden="true">1</div>
+          <h3 class="step__title">Responda 8 perguntas</h3>
+          <p class="step__desc">Sobre comportamento real, não teoria financeira. Sem julgamento.</p>
+        </div>
+        <div class="step__connector" aria-hidden="true">→</div>
+        <div class="step" role="listitem">
+          <div class="step__num" aria-hidden="true">2</div>
+          <h3 class="step__title">Receba seu diagnóstico</h3>
+          <p class="step__desc">A IA mapeia seu arquétipo em 4 dimensões: financeiro, profissional, amoroso e pessoal.</p>
+        </div>
+        <div class="step__connector" aria-hidden="true">→</div>
+        <div class="step" role="listitem">
+          <div class="step__num" aria-hidden="true">3</div>
+          <h3 class="step__title">Siga o protocolo</h3>
+          <p class="step__desc">Missões diárias desbloqueadas gradualmente. Mudança real, passo a passo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ⑥ PRODUCT FEATURES
+       Componente: <FeaturesGrid>
+       Grid 2x2 com as 4 ilhas do dashboard.
+       ANTES: labels em inglês. AGORA: 100% português.
+  ══════════════════════════════════════════════════ -->
+  <section class="section features" aria-labelledby="feat-title">
+    <div class="container">
+      <span class="tag" aria-hidden="true">O que você recebe</span>
+      <h2 class="section-title" id="feat-title">
+        Quatro ferramentas.<br>Uma transformação.
+      </h2>
+      <div class="features__grid" role="list">
+        <!-- Feature 1: Diagnóstico -->
+        <article class="feature-card" role="listitem">
+          <div class="feature-card__icon" aria-hidden="true">🧠</div>
+          <h3 class="feature-card__title">Diagnóstico Completo por IA</h3>
+          <p class="feature-card__desc">
+            Um relatório em 4 dimensões escrito exclusivamente para você:
+            como seu padrão aparece no dinheiro, no trabalho, nos
+            relacionamentos e na vida pessoal.
+          </p>
+          <span class="feature-card__meta">Gerado por GPT-4o · Exclusivo e pessoal</span>
+        </article>
+        <!-- Feature 2: Matriz -->
+        <article class="feature-card" role="listitem">
+          <div class="feature-card__icon" aria-hidden="true">📅</div>
+          <h3 class="feature-card__title">Matriz de Ação Personalizada</h3>
+          <p class="feature-card__desc">
+            Um calendário de 30, 180 ou 365 dias com missões reflexivas
+            e práticas desbloqueadas aos poucos — como um protocolo de
+            treinamento comportamental diário.
+          </p>
+          <span class="feature-card__meta">Destravado gradualmente · Gamificado</span>
+        </article>
+        <!-- Feature 3: Compass -->
+        <article class="feature-card" role="listitem">
+          <div class="feature-card__icon" aria-hidden="true">🧭</div>
+          <h3 class="feature-card__title">Compass — Mapa de Pessoas</h3>
+          <p class="feature-card__desc">
+            Descreva alguém da sua vida e a IA identifica o arquétipo
+            financeiro dela. Receba 5 estratégias específicas para
+            melhorar essa relação com dinheiro.
+          </p>
+          <span class="feature-card__meta">Para parceiros, filhos, sócios</span>
+        </article>
+        <!-- Feature 4: Progresso -->
+        <article class="feature-card" role="listitem">
+          <div class="feature-card__icon" aria-hidden="true">📈</div>
+          <h3 class="feature-card__title">Painel de Progresso</h3>
+          <p class="feature-card__desc">
+            Streak de dias consecutivos, pontos, conquistas desbloqueáveis
+            e um relatório mensal da IA analisando sua evolução.
+            Transformação que você consegue ver e medir.
+          </p>
+          <span class="feature-card__meta">Streak · Pontos · Badges · Relatório mensal</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ⑦ TESTIMONIALS
+       Componente: <Testimonials>
+       3 depoimentos em cards. LOVABLE: substituir por dados reais
+       quando disponíveis. Por enquanto, placeholders plausíveis.
+  ══════════════════════════════════════════════════ -->
+  <section class="section" aria-labelledby="testi-title">
+    <div class="container">
+      <span class="tag" aria-hidden="true">Depoimentos</span>
+      <h2 class="section-title" id="testi-title">Quem já entendeu seu padrão</h2>
+      <div class="testimonials__grid">
+        <article class="testi-card">
+          <div class="testi-card__stars" aria-label="5 estrelas">★★★★★</div>
+          <blockquote class="testi-card__quote">
+            "Nunca entendi por que eu gastava tudo antes do dia 15.
+            O diagnóstico nomeou exatamente o que eu sentia.
+            Parece que finalmente alguém me explicou para mim mesmo."
+          </blockquote>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar" aria-hidden="true">AK</div>
+            <div>
+              <div class="testi-card__name">Adam K.</div>
+              <div class="testi-card__arch">Arquétipo: Hedonista Impulsivo</div>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars" aria-label="5 estrelas">★★★★★</div>
+          <blockquote class="testi-card__quote">
+            "Eu achei que era disciplinada com dinheiro. O MindReset
+            mostrou que eu estava com medo de gastar — e que isso também
+            é um problema. Foi revelador."
+          </blockquote>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar" aria-hidden="true">MC</div>
+            <div>
+              <div class="testi-card__name">Maria C.</div>
+              <div class="testi-card__arch">Arquétipo: Guardadora Obsessiva</div>
+            </div>
+          </div>
+        </article>
+        <article class="testi-card">
+          <div class="testi-card__stars" aria-label="5 estrelas">★★★★★</div>
+          <blockquote class="testi-card__quote">
+            "O Compass foi a parte mais surpreendente. Analisei meu sócio
+            e entendi em 2 minutos por que nossas discussões sobre dinheiro
+            nunca iam a lugar nenhum."
+          </blockquote>
+          <div class="testi-card__author">
+            <div class="testi-card__avatar" aria-hidden="true">RS</div>
+            <div>
+              <div class="testi-card__name">Rami S.</div>
+              <div class="testi-card__arch">Arquétipo: Fantasma Evasivo</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ⑧ FAQ
+       Componente: <FAQ>
+       Layout 2 colunas: título sticky à esquerda + accordion à direita.
+  ══════════════════════════════════════════════════ -->
+  <section class="section faq" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="faq__layout">
+        <!-- Coluna esquerda: título fixo -->
+        <div class="faq__sticky">
+          <span class="tag" aria-hidden="true">Dúvidas Frequentes</span>
+          <h2 class="section-title" id="faq-title">
+            Perguntas que<br>você provavelmente tem
+          </h2>
+          <p class="section-sub" style="margin-top:.75rem;">
+            Se ficou alguma dúvida, o botão para começar o diagnóstico
+            resolve a maioria delas em 3 minutos.
+          </p>
+          <div style="margin-top:2.5rem;">
+            <a href="#quiz" class="btn-primary" style="font-size:14px; padding:14px 28px;">
+              Fazer o diagnóstico grátis <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+        <!-- Coluna direita: accordion -->
+        <div class="faq__list" role="list">
+          <div class="faq-item open" role="listitem">
+            <button class="faq-item__q" aria-expanded="true" onclick="toggleFaq(this)">
+              O MindReset tem acesso aos meus dados bancários?
+              <span class="faq-item__chevron" aria-hidden="true">+</span>
+            </button>
+            <p class="faq-item__a">
+              Não. O MindReset não acessa contas, extratos nem informações bancárias.
+              O diagnóstico é baseado exclusivamente nas suas respostas comportamentais
+              ao quiz — sem integração bancária de qualquer tipo.
+            </p>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-item__q" aria-expanded="false" onclick="toggleFaq(this)">
+              O diagnóstico é realmente personalizado?
+              <span class="faq-item__chevron" aria-hidden="true">+</span>
+            </button>
+            <p class="faq-item__a">
+              Sim. A IA (GPT-4o) gera um relatório único baseado no seu arquétipo,
+              nome, gênero e respostas individuais. Não é um texto genérico —
+              é escrito especificamente para você e salvo de forma permanente.
+            </p>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-item__q" aria-expanded="false" onclick="toggleFaq(this)">
+              Funciona para quem não entende de finanças?
+              <span class="faq-item__chevron" aria-hidden="true">+</span>
+            </button>
+            <p class="faq-item__a">
+              Especialmente para quem não entende. O MindReset não fala sobre
+              investimentos ou planilhas — fala sobre o comportamento emocional
+              por trás das decisões financeiras. Não é preciso saber nada
+              de finanças para se beneficiar.
+            </p>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-item__q" aria-expanded="false" onclick="toggleFaq(this)">
+              O que acontece depois que descubro meu arquétipo?
+              <span class="faq-item__chevron" aria-hidden="true">+</span>
+            </button>
+            <p class="faq-item__a">
+              Você recebe o diagnóstico completo em 4 dimensões da vida (financeiro,
+              profissional, amoroso, pessoal). Ao assinar, acessa a Matriz de Ação —
+              um calendário de missões diárias por 30, 180 ou 365 dias.
+            </p>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-item__q" aria-expanded="false" onclick="toggleFaq(this)">
+              Em quanto tempo vejo resultados?
+              <span class="faq-item__chevron" aria-hidden="true">+</span>
+            </button>
+            <p class="faq-item__a">
+              A compreensão do próprio padrão acontece já no primeiro acesso — o diagnóstico.
+              A transformação comportamental real ocorre ao longo de 21 a 90 dias de prática
+              consistente com as missões diárias.
+            </p>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-item__q" aria-expanded="false" onclick="toggleFaq(this)">
+              E se eu não gostar?
+              <span class="faq-item__chevron" aria-hidden="true">+</span>
+            </button>
+            <p class="faq-item__a">
+              Garantia de 7 dias sem perguntas. Se o produto não entregar o que promete,
+              reembolsamos 100% do valor pago.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════
+       ⑨ FINAL CTA
+       Componente: <FinalCTA>
+       Seção de fechamento. Glow central. Headline forte + botão primário.
+  ══════════════════════════════════════════════════ -->
+  <section class="final-cta" aria-labelledby="cta-title">
+    <div class="final-cta__glow" aria-hidden="true"></div>
+    <div class="final-cta__content">
+      <h2 id="cta-title">
+        O padrão que te travou tem nome.<br>
+        Está na hora de <em style="font-style:normal; color:var(--red);">descobrir</em> qual é.
+      </h2>
+      <p>8 perguntas. 3 minutos. Uma clareza que nenhuma planilha dá.</p>
+      <a href="#quiz" class="btn-primary">
+        Iniciar meu diagnóstico gratuito
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="final-cta__guarantee">
+        7 dias de garantia · SSL Seguro · Sem cartão de crédito necessário
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════
+       FOOTER
+       Componente: <Footer>
+  ══════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <span class="footer__copy">© 2026 MindReset Inc. Todos os direitos reservados.</span>
+      <nav class="footer__links" aria-label="Links legais">
+        <a href="/privacy">Privacidade</a>
+        <a href="/terms">Termos de Uso</a>
+      </nav>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════
+       FAQ ACCORDION SCRIPT
+  ═══════════════════════════════════ -->
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-item__q').setAttribute('aria-expanded', 'false');
+      });
+      // Open clicked (if was closed)
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+  </script>
+
+</body>
+</html>
