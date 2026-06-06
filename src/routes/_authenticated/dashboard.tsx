@@ -27,7 +27,7 @@ function DashboardLayout() {
 
   if (!isLoading && data?.profile?.access_level === "revoked") {
     supabase.auth.signOut().then(() => {
-      window.location.href = "/login?reason=revoked";
+      window.location.href = "/login/?reason=revoked";
     });
     return null;
   }
