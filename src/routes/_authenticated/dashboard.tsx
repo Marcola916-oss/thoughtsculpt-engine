@@ -31,16 +31,35 @@ function DashboardLayout() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center p-4 text-center">
-        <div className="max-w-md space-y-4">
-          <h2 className="text-xl font-bold text-primary">Error Loading Profile</h2>
-          <p className="text-sm text-muted-foreground">{(error as Error).message}</p>
-          <button 
-            onClick={() => window.location.reload()}
-            className="rounded-full bg-primary px-6 py-2 text-sm font-bold text-primary-foreground"
-          >
-            Try Again
-          </button>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-black p-4 text-center">
+        <div className="relative mb-8">
+          <div className="absolute -inset-4 animate-pulse rounded-full bg-primary/20 blur-xl" />
+          <div className="relative h-16 w-16 text-6xl" aria-hidden>⚠️</div>
+        </div>
+        <div className="max-w-md space-y-6">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-white">
+            Connection Interrupted
+          </h2>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            We couldn't synchronize your neural profile. This usually happens due to a temporary connection issue.
+          </p>
+          <div className="flex flex-col gap-3">
+            <button 
+              onClick={() => window.location.reload()}
+              className="w-full rounded-full bg-primary py-4 text-sm font-black uppercase tracking-widest text-primary-foreground shadow-[0_0_20px_rgba(204,0,0,0.45)] transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Re-establish Connection
+            </button>
+            <button 
+              onClick={async () => {
+                await supabase.auth.signOut();
+                window.location.href = "/login";
+              }}
+              className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors"
+            >
+              Sign out and try again
+            </button>
+          </div>
         </div>
       </div>
     );

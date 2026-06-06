@@ -8,6 +8,7 @@ export const Route = createFileRoute("/_authenticated")({
     if (typeof window !== "undefined") {
       const { data, error } = await supabase.auth.getUser();
       if (error || !data.user) {
+        // If we're on the client and have no user, redirect to login
         throw redirect({ to: "/login" });
       }
     }
