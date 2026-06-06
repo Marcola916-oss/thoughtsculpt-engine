@@ -31,7 +31,10 @@ function LoginPage() {
       setErr(error.message);
       return;
     }
-    window.location.href = "/dashboard";
+    
+    // Clear any potential stale profile data from react-query cache
+    // by ensuring a clean redirect and reload
+    window.location.assign("/dashboard");
   }
 
   async function forgot() {
