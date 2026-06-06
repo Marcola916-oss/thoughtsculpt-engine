@@ -33,8 +33,11 @@ function LoginPage() {
     }
     
     // Clear any potential stale profile data from react-query cache
-    // by ensuring a clean redirect and reload
-    window.location.assign("/dashboard");
+    // by ensuring a clean redirect and reload. We use a short timeout
+    // to ensure Supabase internal state is fully persisted before reload.
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 100);
   }
 
   async function forgot() {

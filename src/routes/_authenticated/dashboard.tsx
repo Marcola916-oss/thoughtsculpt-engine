@@ -22,10 +22,10 @@ function DashboardLayout() {
     setIsClient(true);
   }, []);
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["my-profile"],
     queryFn: () => fetchProfile(),
-    retry: false,
+    retry: 1, // Allow one retry for transient network issues
     enabled: isClient, // Only fetch on client
   });
 
@@ -45,7 +45,7 @@ function DashboardLayout() {
           </p>
           <div className="flex flex-col gap-3">
             <button 
-              onClick={() => window.location.reload()}
+              onClick={() => refetch()}
               className="w-full rounded-full bg-primary py-4 text-sm font-black uppercase tracking-widest text-primary-foreground shadow-[0_0_20px_rgba(204,0,0,0.45)] transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               Re-establish Connection
