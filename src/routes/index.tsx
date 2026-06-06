@@ -408,73 +408,59 @@ function TopBar() {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative py-12 md:py-40 text-center">
-      {/* Background elements */}
-      <div className="hero-glow" />
+    <section className="relative pt-24 pb-12 md:pt-48 md:pb-40 text-center overflow-hidden">
+      {/* Dynamic Aura Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_50%)] opacity-40 blur-[100px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/10 blur-[120px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/10 blur-[120px] rounded-full animate-pulse [animation-delay:2s]" />
+      </div>
 
-
-      {/* Floating Archetype Badges */}
+      {/* Stats Badges */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -12, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-950/20 px-4 py-2 text-xs font-bold text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.15)] backdrop-blur-md absolute left-[8%] top-[25%] pointer-events-none select-none"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-12 flex flex-wrap justify-center gap-4"
       >
-        🛡️ {t.archetypes?.AO?.name || "Accumulator"}
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -18, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-950/20 px-4 py-2 text-xs font-bold text-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
-      >
-        👑 {t.archetypes?.SS?.name || "Status Seeker"}
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -15, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-bold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
-      >
-        🌌 {t.archetypes?.EA?.name || "Escapist"}
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -20, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none"
-      >
-        ⚡ {t.archetypes?.HI?.name || "Hedonist"}
-      </motion.div>
-      
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/80 shadow-2xl backdrop-blur-xl"
-      >
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-arch-primary"></span>
-        </span>
-        {t.hero.kicker}
+        <div className="glass-morphism rounded-full px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary flex items-center gap-2 border border-arch-primary/20 shadow-[0_0_20px_rgba(var(--arch-primary-rgb),0.1)]">
+          <span className="flex h-2 w-2 rounded-full bg-arch-primary animate-ping" />
+          {t.hero.kicker}
+        </div>
+        <div className="glass-morphism rounded-full px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-foreground/60 flex items-center gap-2 border border-white/5">
+          <Star className="h-3 w-3 fill-arch-primary text-arch-primary" />
+          4.9/5 Avaliação média
+        </div>
       </motion.div>
 
       <motion.h1 
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto max-w-6xl font-display text-6xl font-black leading-[0.85] tracking-[-0.05em] md:text-[10rem] uppercase italic bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent"
+        className="mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
       >
-        {t.hero.headline}
+        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+          {t.hero.headline.split('conhecer')[0]}
+        </span>
+        <span className="relative inline-block mx-4">
+          <span className="relative z-10 text-arch-primary">conhecer</span>
+          <motion.span 
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
+            className="absolute bottom-[5%] left-0 h-[10%] w-full bg-arch-primary/40 -z-0 origin-left"
+          />
+        </span>
+        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+          {t.hero.headline.split('conhecer')[1]}
+        </span>
       </motion.h1>
-
 
       <motion.p 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 1 }}
-        className="mx-auto mt-12 max-w-2xl text-lg text-muted-foreground md:text-2xl leading-relaxed font-medium"
+        className="mx-auto mt-16 max-w-2xl text-lg text-muted-foreground md:text-2xl leading-relaxed font-medium tracking-tight px-6"
       >
         {t.hero.sub}
       </motion.p>
@@ -483,61 +469,79 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 1 }}
-        className="mt-20 flex flex-col items-center gap-8"
+        className="mt-24 flex flex-col items-center gap-12"
       >
         <Magnetic>
           <button
             onClick={onStart}
             data-cursor="hover"
-            className="group relative h-32 w-full max-w-2xl overflow-hidden rounded-[3rem] bg-white text-black transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_50px_rgba(255,255,255,0.1)]"
+            className="group relative h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
-            <div className="absolute inset-0 overflow-hidden rounded-[3rem] bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center gap-6 text-5xl font-black italic tracking-tighter group-hover:text-white">
+            <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+            <span className="relative z-10 flex items-center justify-center gap-6 text-3xl md:text-4xl font-black italic tracking-tighter group-hover:text-white transition-colors">
               {t.hero.cta.toUpperCase()}
-              <ArrowRight className="h-12 w-12 transition-transform duration-700 group-hover:translate-x-5" />
+              <ArrowRight className="h-10 w-10 transition-transform duration-700 group-hover:translate-x-4" />
             </span>
             <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
           </button>
         </Magnetic>
 
-        
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex items-center gap-6 text-muted-foreground/60">
-            <div className="flex items-center gap-2 text-sm font-bold">
-              <ShieldCheck className="h-4 w-4" />
+        <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-muted-foreground/50">
+            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+              <ShieldCheck className="h-4 w-4 text-emerald-500/50" />
               <span>SSL Seguro</span>
             </div>
-            <div className="flex items-center gap-2 text-sm font-bold">
-              <Lock className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+              <Lock className="h-4 w-4 text-blue-500/50" />
               <span>Dados Protegidos</span>
             </div>
-            <div className="flex items-center gap-2 text-sm font-bold">
-              <Clock className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+              <Clock className="h-4 w-4 text-arch-primary/50" />
               <span>7 dias garantia</span>
             </div>
-          </div>
-          
-          <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
-            <div className="flex text-arch-primary gap-0.5">
-              {[1, 2, 3, 4, 5].map(i => <Star key={i} className="h-3 w-3 fill-current" />)}
+            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
+              <CheckCircle2 className="h-4 w-4 text-emerald-500/50" />
+              <span>Sem dados bancários</span>
             </div>
-            <span>{t.hero.trust}</span>
           </div>
         </div>
       </motion.div>
 
+      {/* Floating Archetype Display */}
+      <div className="mt-40 relative px-4 max-w-7xl mx-auto overflow-visible">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="pt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 opacity-40 hover:opacity-100 transition-opacity duration-1000">
+           {['AO', 'SS', 'EA', 'HI'].map((arch) => (
+             <motion.div 
+               key={arch}
+               whileHover={{ y: -10, scale: 1.05 }}
+               className="glass-morphism rounded-[2.5rem] p-8 border border-white/5 flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/30 group"
+             >
+               <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all">
+                 {arch === 'AO' ? '🛡️' : arch === 'SS' ? '👑' : arch === 'EA' ? '👻' : '⚡'}
+               </span>
+               <div className="space-y-1">
+                 <span className="block text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
+                 <span className="block text-lg font-bold tracking-tighter text-foreground/80">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
+               </div>
+             </motion.div>
+           ))}
+        </div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
+        transition={{ delay: 2, duration: 1 }}
         className="mt-32 opacity-20"
       >
-        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-foreground to-transparent mx-auto mb-8" />
-        <ChevronDown className="mx-auto h-6 w-6 animate-bounce" />
+        <ChevronDown className="mx-auto h-6 w-6 animate-bounce text-arch-primary" />
       </motion.div>
     </section>
   );
 }
+
 
 function Features() {
   const { t } = useI18n();
