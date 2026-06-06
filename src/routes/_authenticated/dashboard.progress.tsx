@@ -71,7 +71,7 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
           {/* Consistency Score */}
           {report.consistency_score != null && (
             <div className="mt-4 flex items-center gap-4 rounded-2xl border border-border bg-background p-5">
-              <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-full border-4 border-primary shadow-[0_0_20px_var(--accent-glow)]">
+              <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-full border-4 border-primary shadow-[0_0_20px_rgba(204,0,0,0.35)]">
                 <span className="font-display text-2xl font-extrabold text-primary">
                   {report.consistency_score}
                 </span>
@@ -222,7 +222,7 @@ function ProgressPage() {
       case "complete":
         return "bg-success/80 border-success/50 shadow-[0_0_4px_rgba(34,197,94,0.4)]";
       case "milestone":
-        return "bg-primary shadow-[0_0_8px_var(--accent-glow)] border-primary/60";
+        return "bg-primary shadow-[0_0_12px_rgba(204,0,0,0.4)] border-primary/60";
       case "pending":
         return "bg-secondary/60 border-border";
       case "locked":
@@ -334,7 +334,7 @@ function ProgressPage() {
           {report ? (
             <button
               onClick={() => setShowReport(true)}
-              className="mt-4 w-full rounded-lg bg-primary/10 px-4 py-2 font-semibold text-primary transition hover:bg-primary/20 hover:shadow-[0_0_10px_var(--accent-glow)]"
+              className="mt-4 w-full rounded-lg bg-primary/10 px-4 py-2 font-semibold text-primary transition hover:bg-primary/20 hover:shadow-[0_0_15px_rgba(204,0,0,0.25)]"
             >
               {t.dashboard.progress.report.viewFull}
             </button>

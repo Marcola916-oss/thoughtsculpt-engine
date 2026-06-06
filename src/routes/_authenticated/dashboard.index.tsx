@@ -115,7 +115,7 @@ function HubPage() {
             <div className="flex flex-col gap-2">
               <span>{t.dashboard.hub.headingWithArchetype("")}</span>
               <div className="inline-flex items-center gap-2 mt-1">
-                <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary">
+                <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary shadow-[0_0_10px_rgba(204,0,0,0.2)]">
                   {ARCHETYPE_NAMES[archetype][lang]}
                 </span>
               </div>
@@ -178,7 +178,7 @@ function HubPage() {
           <Link key={c.to} to={c.to} className="block group">
             <motion.div
               variants={staggerItem}
-              whileHover={{ y: -4, boxShadow: "var(--shadow-accent)" }}
+              whileHover={{ y: -4, boxShadow: "0 10px 30px -10px rgba(204,0,0,0.3)" }}
               transition={{ duration: 0.2 }}
             >
               <BentoCard className="h-full">
