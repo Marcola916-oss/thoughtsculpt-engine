@@ -88,6 +88,14 @@ function DashboardLayout() {
   }, [isClient, isLoading, profile, onboardingCompleted]);
 
   useEffect(() => {
+    if (!isLoading && profile?.access_level === "revoked") {
+      supabase.auth.signOut().then(() => {
+        window.location.href = "/login?reason=revoked";
+      });
+    }
+  }, [isLoading, profile?.access_level]);
+
+  useEffect(() => {
     if (profile?.archetype) {
       document.body.setAttribute("data-arch", profile.archetype);
     }
