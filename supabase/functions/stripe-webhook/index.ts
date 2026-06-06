@@ -189,12 +189,22 @@ async function handleCheckoutCompleted(
 
   await syncProfileSubscription(userId, planMeta, "active", currentPeriodEnd);
 
-  // Welcome notification
+  // Welcome notification (multi-language supported via metadata)
+  const welcomeDict = {
+    pt: { title: "🎉 Bem-vindo ao MindReset!", body: "Sua assinatura está ativa. Clique aqui para começar seu diagnóstico." },
+    en: { title: "🎉 Welcome to MindReset!", body: "Your subscription is active. Click here to start your diagnosis." },
+    pl: { title: "🎉 Witaj w MindReset!", body: "Twoja subskrypcja jest aktywna. Kliknij tutaj, aby rozpocząć diagnozę." },
+    ro: { title: "🎉 Bine ai venit la MindReset!", body: "Abonamentul tău este activ. Click aici pentru a începe diagnoza." },
+    ar: { title: "🎉 مرحباً بك في MindReset!", body: "اشتراكك نشط الآن. انقر هنا لبدء التشخيص." }
+  };
+  const userLang = (session.metadata?.lang as keyof typeof welcomeDict | undefined) ?? 'en';
+  const msg = welcomeDict[userLang] || welcomeDict.en;
+
   await supabaseAdmin.from("notifications").insert({
     user_id: userId,
     type: "system",
-    title: "🎉 Bem-vindo ao MindReset!",
-    body: "Sua assinatura está ativa. Clique aqui para começar seu diagnóstico.",
+    title: msg.title,
+    body: msg.body,
     icon: "🎉",
     action_url: "/dashboard/diagnosis",
   });

@@ -30,6 +30,8 @@ import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
 import { Atmosphere } from "@/components/atmosphere/Atmosphere";
+import { AchievementUnlock } from "@/components/gamification/AchievementUnlock";
+import { PrimaryButton } from "@/components/ui/PrimaryButton";
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -745,16 +747,15 @@ function EmailCapture(props: {
           <span className="leading-relaxed">{t.common.gdpr}</span>
         </label>
 
-        <motion.button
+        <PrimaryButton
           type="submit"
-          data-cursor="hover"
           disabled={!valid}
-          whileHover={valid ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
-          whileTap={valid ? { scale: 0.98 } : {}}
-          className="w-full rounded-2xl bg-primary px-5 py-4 text-lg font-bold text-primary-foreground shadow-lg transition-all disabled:opacity-20 disabled:scale-100"
+          fullWidth
+          size="lg"
+          className="mt-4"
         >
           {t.emailCapture.cta} →
-        </motion.button>
+        </PrimaryButton>
       </form>
     </div>
   );
@@ -1037,15 +1038,13 @@ function Sales({
 
         {/* Mid-CTA after Pain Mirror */}
         <div className="text-center">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+          <PrimaryButton
             onClick={onContinue}
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-arch-primary px-8 py-4 text-lg font-black text-white transition-all hover:shadow-[0_20px_60px_-15px_var(--arch-glow)]"
+            size="lg"
+            icon={<ArrowRight size={20} />}
           >
-            <span className="relative z-10">{t.plans.chooseCta}</span>
-            <ArrowRight size={20} className="relative z-10 transition-transform group-hover:translate-x-1" />
-          </motion.button>
+            {t.plans.chooseCta}
+          </PrimaryButton>
         </div>
 
         {/* ── Block 3: Scientific Proof ────────────────── */}
@@ -1186,15 +1185,13 @@ function Sales({
 
         {/* Mid-CTA after Social Proof */}
         <div className="text-center">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+          <PrimaryButton
             onClick={onContinue}
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-arch-primary px-8 py-4 text-lg font-black text-white transition-all hover:shadow-[0_20px_60px_-15px_var(--arch-glow)]"
+            size="lg"
+            icon={<ArrowRight size={20} />}
           >
-            <span className="relative z-10">{t.plans.chooseCta}</span>
-            <ArrowRight size={20} className="relative z-10 transition-transform group-hover:translate-x-1" />
-          </motion.button>
+            {t.plans.chooseCta}
+          </PrimaryButton>
         </div>
 
         {/* ── Block 7: FAQ ────────────────────────────── */}
