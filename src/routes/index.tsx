@@ -168,10 +168,12 @@ function LandingAndQuiz() {
 
   return (
     <div 
-      className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-[#000000] text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
-      <div className="noise-overlay" />
+      <div className="noise-overlay pointer-events-none" />
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_-20%,_var(--arch-glow),transparent_70%)] opacity-30 pointer-events-none" />
+
       <ScrollProgress />
       <TopBar />
 
@@ -371,15 +373,16 @@ function TopBar() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-        <Link to="/" className="group flex items-center gap-2 font-display text-2xl font-black tracking-tighter">
-          <div className="h-8 w-8 rounded-lg bg-arch-primary flex items-center justify-center transition-transform group-hover:rotate-12">
-            <span className="text-background text-xl italic font-black">M</span>
+        <Link to="/" className="group flex items-center gap-3 font-display text-3xl font-black tracking-tighter">
+          <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)]">
+            <span className="text-white text-2xl italic font-black">M</span>
           </div>
           <div className="flex items-baseline">
-            <span className="text-foreground transition-colors group-hover:text-arch-primary">Mind</span>
-            <span className="text-arch-primary/60 transition-colors group-hover:text-foreground">Reset</span>
+            <span className="text-white transition-colors group-hover:text-arch-primary">Mind</span>
+            <span className="text-arch-primary/80 transition-colors group-hover:text-white">Reset</span>
           </div>
         </Link>
+
         <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center gap-8">
             <LanguageSwitcher />
@@ -460,11 +463,12 @@ function Hero({ onStart }: { onStart: () => void }) {
       <motion.h1 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto max-w-5xl font-display text-5xl font-extrabold leading-[0.95] tracking-tighter md:text-9xl bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent"
+        transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="mx-auto max-w-6xl font-display text-6xl font-black leading-[0.85] tracking-[-0.05em] md:text-[10rem] uppercase italic bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent"
       >
         {t.hero.headline}
       </motion.h1>
+
 
       <motion.p 
         initial={{ opacity: 0, y: 20 }}
@@ -485,16 +489,17 @@ function Hero({ onStart }: { onStart: () => void }) {
           <button
             onClick={onStart}
             data-cursor="hover"
-            className="group relative h-28 w-full max-w-xl overflow-hidden rounded-[2.5rem] bg-foreground text-background transition-all hover:shadow-[0_50px_100px_-20px_rgba(255,255,255,0.2)] active:scale-95"
+            className="group relative h-32 w-full max-w-2xl overflow-hidden rounded-[3rem] bg-white text-black transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_50px_rgba(255,255,255,0.1)]"
           >
-            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center gap-6 text-4xl font-black italic tracking-tighter group-hover:text-primary-foreground">
+            <div className="absolute inset-0 overflow-hidden rounded-[3rem] bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+            <span className="relative z-10 flex items-center justify-center gap-6 text-5xl font-black italic tracking-tighter group-hover:text-white">
               {t.hero.cta.toUpperCase()}
-              <ArrowRight className="h-10 w-10 transition-transform duration-700 group-hover:translate-x-5" />
+              <ArrowRight className="h-12 w-12 transition-transform duration-700 group-hover:translate-x-5" />
             </span>
-            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] translate-x-[-100%] bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1.5s_infinite]" />
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
           </button>
         </Magnetic>
+
         
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-6 text-muted-foreground/60">
@@ -598,8 +603,9 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <h2 className="font-display text-3xl font-black md:text-4xl tracking-tighter uppercase italic">{t.identity.title}</h2>
-      <p className="mt-3 text-lg text-muted-foreground leading-relaxed font-medium tracking-tight">{t.identity.sub}</p>
+      <h2 className="font-display text-5xl font-black md:text-7xl tracking-tighter uppercase italic text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">{t.identity.title}</h2>
+      <p className="mt-6 text-xl text-muted-foreground leading-relaxed font-medium tracking-tight max-w-xl">{t.identity.sub}</p>
+
 
       <div className="mt-10 space-y-8">
         <div>
@@ -997,11 +1003,12 @@ function Sales({
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="rounded-[3rem] border border-border bg-card/30 backdrop-blur-sm p-8 md:p-24 shadow-2xl relative overflow-hidden max-w-6xl mx-auto"
+          className="rounded-[4rem] border border-white/5 bg-white/[0.02] backdrop-blur-2xl p-8 md:p-24 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden max-w-6xl mx-auto"
         >
-          <div className="absolute top-0 right-0 p-12 opacity-[0.03] -rotate-12 translate-x-12 -translate-y-12">
-            <Brain size={400} />
+          <div className="absolute top-0 right-0 p-12 opacity-[0.05] -rotate-12 translate-x-24 -translate-y-24">
+            <Brain size={600} className="text-white" />
           </div>
+
           <div className="relative z-10 grid md:grid-cols-2 gap-16">
             <div>
               <h2 className="font-display text-4xl md:text-6xl font-black text-foreground mb-8 leading-tight tracking-tighter">
