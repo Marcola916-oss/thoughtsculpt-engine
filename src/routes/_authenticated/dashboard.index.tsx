@@ -157,7 +157,7 @@ function HubPage() {
             key={i}
             variants={staggerItem}
             className="bg-card border border-border rounded-[var(--radius-md)] p-4 text-center"
-            whileHover={{ borderColor: "var(--arch-primary)", y: -2 }}
+            whileHover={{ borderColor: "rgba(204,0,0,0.5)", y: -2, boxShadow: "0 0 15px rgba(204,0,0,0.15)" }}
             transition={{ duration: 0.2 }}
           >
             <div className="text-2xl mb-1">{stat.icon}</div>
