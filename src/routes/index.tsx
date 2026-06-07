@@ -585,60 +585,6 @@ function Hero({ onStart }: { onStart: () => void }) {
   );
 }
 
-=======
-
-function Features() {
-  const { t } = useI18n();
-  return (
-    <section className="py-12">
-      <div className="text-center mb-8">
-        <h2 className="font-display text-4xl font-extrabold tracking-tight md:text-6xl text-gradient">
-          {t.features?.title || "Engineered for deep transformation"}
-        </h2>
-        <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">
-          {t.features?.subtitle || "More than a test. A precision instrument for your subconscious."}
-        </p>
-      </div>
-
-      <div className="bento-grid">
-        <BentoCard className="md:col-span-2">
-          <Brain className="h-10 w-10 text-arch-primary mb-4" />
-          <h3 className="text-2xl font-bold mb-2">Neural Pattern Analysis</h3>
-          <p className="text-muted-foreground">
-            Our AI engine decodes the microscopic language patterns in your choices to map your financial identity with 98% accuracy.
-          </p>
-        </BentoCard>
-
-        <BentoCard>
-          <ShieldCheck className="h-10 w-10 text-arch-primary mb-4" />
-          <h3 className="text-2xl font-bold mb-2">Privacy First</h3>
-          <p className="text-muted-foreground">
-            No bank linking. No data selling. Your psychological profile is encrypted and remains yours.
-          </p>
-        </BentoCard>
-
-        <BentoCard>
-          <LineChart className="h-10 w-10 text-arch-primary mb-4" />
-          <h3 className="text-2xl font-bold mb-2">Real-time Evolution</h3>
-          <p className="text-muted-foreground">
-            Track how your patterns change as you implement the personalized resets.
-          </p>
-        </BentoCard>
-
-        <BentoCard className="md:col-span-2">
-          <CompassIcon className="h-10 w-10 text-arch-primary mb-4" />
-          <h3 className="text-2xl font-bold mb-2">Life Path Mapping</h3>
-          <p className="text-muted-foreground">
-            Go beyond money. Understand how your archetype influences your career, relationships, and health.
-          </p>
-        </BentoCard>
-      </div>
-    </section>
-  );
-}
-
-
->>>>>>> 7abf8dd3295b484be2ae66262744a7b7dce81910
 /* ─── Identity ────────────────────────────────────────────── */
 
 function Identity(props: {
