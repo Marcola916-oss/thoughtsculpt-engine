@@ -515,7 +515,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         className="mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
       >
-        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent text-base">
           {t.hero.headline.split('conhecer')[0]}
         </span>
         <span className="relative inline-block mx-4">
@@ -527,7 +527,7 @@ function Hero({ onStart }: { onStart: () => void }) {
             className="absolute bottom-[5%] left-0 h-[10%] w-full bg-arch-primary/40 -z-0 origin-left"
           />
         </span>
-        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent text-base">
           {t.hero.headline.split('conhecer')[1]}
         </span>
       </motion.h1>
