@@ -1,5 +1,57 @@
 # AGENTS — MindReset Engine Notes
 
+## Landing Page Premium Upgrade (Fase 5)
+
+A Fase 5 entregou o upgrade completo da landing page, baseado no mockup `melhorias e contexto/MindReset_LandingPage_Mockup.html`. A landing pré-quiz passou de 2 para 9 seções, em 5 idiomas completos (PT, EN, PL, RO, AR).
+
+### Componentes novos (todos em `src/components/landing/`)
+
+| Componente | Inspiração | Função |
+|---|---|---|
+| `ProofBar` | ③ Tira 4 stats | Métricas de confiança: diagnósticos, rating, sem banco, idiomas |
+| `ArchetypeShowcase` | ④ Grid 4 colunas | Cards AO/SS/EA/HI com ícones Lucide + hover bottom-bar vermelha |
+| `HowItWorks` | ⑤ 3 passos | Steps com setas conectoras (versão landing, não-VSL) |
+| `FeaturesGrid` | ⑥ 2x2 grid | 4 ferramentas (Diagnóstico, Matriz, Compass, Progresso) — REPLACES old `<Features>` bento EN |
+| `Testimonials` | ⑦ 3 cards | 5★ + avatar gradiente + arquétipo |
+| `FAQ` | ⑧ 2-col sticky | Accordion animado com `useState` (1 item aberto por vez) |
+| `FinalCTA` | ⑨ Glow + headline | `<span>` accent + CTA primário + guarantee microtext |
+
+### Touchpoints integrados (5A-5B)
+
+- **5A — `src/routes/index.tsx`:** `stage="hero"` agora wrappa 9 seções: Hero → ProofBar → ArchetypeShowcase → HowItWorks → FeaturesGrid → Testimonials → FAQ → FinalCTA. Hero isolado em Atmosphere; resto herda background base. CTAs internos (`FAQ`, `FinalCTA`) chamam `setStage({ kind: "identity" })` para iniciar o quiz.
+- **5B — i18n 5 idiomas:** `src/lib/i18n/types.ts` (Dict) e `src/lib/i18n/translations.ts` (PT/EN/PL/RO/AR) com chave `landing.*` completa. **~7.000 caracteres** de copy localizados (especialmente crítico AR/PL/RO com nuances culturais: "Oszczędny" não "Skąpy" no PL, "Econom" não "Zgârcit" no RO, "المدخر القهري" não "البخيل" no AR).
+- **5C — Sales cleanup:** Removidos do `Sales` (em `index.tsx`): Block 5 (How It Works), Block 6 (Social Proof/Testimonials), Block 7 (FAQ). Mantidos: Block 1 (H1+VSL), Block 2 (Pain Mirror), Block 3 (Science), Block 4 (4D Product Grid com copy de vendas), Block 8 (Final CTA + Guarantee). Rota chunk `index-*.js` foi de 100.65 kB → 93.70 kB (deduplicação).
+
+### Verificações (Fase 5)
+
+- Build: `npm run build` (~2.5s, exit 0). Landing adiciona ~20 kB (7 componentes) ao bundle principal.
+- TypeScript: `npx tsc --noEmit` (2 erros pré-existentes em `onboarding.tsx:192` e `obrigado.tsx:329` — type "/dashboard/" vs "/dashboard" — não relacionados). **0 erros nos novos componentes**.
+- Lint: `npx eslint src/components/landing/` (clean — 0 erros). `npx eslint src/routes/index.tsx` (1 erro pré-existente `as any` em Sales:936).
+- Prettier: `npx prettier --write "src/components/landing/**/*.{ts,tsx}" "src/routes/index.tsx"` (4 files reformatted: FAQ, FinalCTA, Testimonials, index.tsx).
+
+### Constraints de design aplicadas
+
+- **Reutilização:** `Reveal` (componente de scroll-reveal) e `Reveal.Group` (stagger) usados em TODAS as 7 seções. `ButtonPress` (halo vermelho跟随 cursor) usado em `<FAQ cta>` e `<FinalCTA cta>`. `Atmosphere` mantido no Hero.
+- **Acessibilidade:** `aria-label` em ProofBar; `aria-labelledby` em todas as sections; `aria-expanded` + `aria-controls` no FAQ accordion; `aria-hidden` em badges/dividers decorativos; `role="img"` + `aria-label` em estrelas dos testimonials.
+- **Responsive:** grid 1-col em mobile (`grid-cols-1`), 2-col em tablet (`sm:grid-cols-2`), 4-col em desktop (`lg:grid-cols-4`). FAQ vira 1-col em mobile (sticky desativado). Connectors `→` no HowItWorks escondem em mobile.
+- **Path alias:** `@/components/landing` re-exporta todos os 7 via barrel `index.ts`.
+
+### Notas de copy (importante)
+
+- **PT-PT (lusófono):** base do mockup. Usa "tu/tens/teu" (PT-PT, não PT-BR). Validação cultural: usa "estatuto" em vez de "status" para SS (mais natural em PT-PT).
+- **EN:** tom premium fintech-behavioral, mas universal. "Discover" highlighted em vermelho no FinalCTA.
+- **PL:** "Oszczędny" (não "Skąpy"/miser), "Paw" (peacock), "Iskra" (spark) — evita conotações negativas.
+- **RO:** "Econom" (não "Zgârcit"/avaricious), "Cumpătat" — tom premium sem julgamento.
+- **AR:** RTL-aware. "المدخر القهري" (Saver compulsive, não "البخيل"/miser). "اكتشاف" highlighted em vermelho. Cultural: zero referências a juros/riba.
+
+### Recomendações Fase 6+ (pendentes)
+
+1. **Code-split ArchetypeShowcase:** `landing-ArchetypeShowcase-*.js` será criado se os 4 ícones Lucide forem pesados. Atualmente inline, monitorar.
+2. **A/B test do headline hero:** PT atual ("O dinheiro não te falta...") é forte. Testar variante sem "te falta" para ver conversão.
+3. **Adicionar vídeo real no VSL Block 1 do Sales:** placeholder atual. Integrar com provider (Mux/Cloudflare Stream).
+4. **FAQ schema.org:** adicionar `FAQPage` JSON-LD para SEO rich snippets. Especialmente importante em PL/RO/AR onde rich results têm menos concorrência.
+5. **Trust badges no hero:** considerar adicionar selos SSL/Stripe/Cancel anytime em badge flutuante (similar ao existente no TopBar).
+
 ## Camada Visual + Identidade (Fases 1-4)
 
 As Fases 1-4 entregaram a camada visual premium do SaaS: identidade de marca, atmosfera, interação e integração nos touchpoints-chave (global, home, quiz, /obrigado).
