@@ -1,0 +1,297 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "M Mind Reset" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: M
+          - generic [ref=e9]:
+            - generic [ref=e10]: Mind
+            - generic [ref=e11]: Reset
+        - generic [ref=e12]:
+          - combobox "Language" [ref=e14]:
+            - option "Português"
+            - option "English" [selected]
+            - option "Polski"
+            - option "Română"
+            - option "العربية"
+          - link "Log in" [ref=e15] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=e16]: Log in
+    - main [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic:
+            - generic: €
+            - generic: $
+            - generic: ¥
+            - generic: ₿
+            - generic: £
+            - generic: ¢
+            - generic: €
+            - generic: $
+          - generic [ref=e21]:
+            - generic [ref=e22]: 🛡️ Obsessive Accumulator
+            - generic: 👑 Status Seeker
+            - generic: 🌌 Avoidant Escapist
+            - generic: ⚡ Impulsive Hedonist
+            - generic [ref=e23]: Behavioral finance • 8 questions • 3 minutes
+            - heading [level=1] [ref=e27]:
+              - text: It's not the money. It's the pattern you can't see.
+              - generic [ref=e28]: conhecer
+            - paragraph [ref=e29]: MindReset diagnoses your financial archetype and ships a personalized action protocol. No budgets. No bank linking. Just psychology that changes behavior.
+            - generic [ref=e30]:
+              - button [ref=e32]:
+                - generic [ref=e34]:
+                  - text: I WANT MY FREE DIAGNOSIS
+                  - img [ref=e35]
+              - generic [ref=e38]:
+                - generic [ref=e39]:
+                  - generic [ref=e40]:
+                    - img [ref=e41]
+                    - generic [ref=e44]: SSL Seguro
+                  - generic [ref=e45]:
+                    - img [ref=e46]
+                    - generic [ref=e49]: Dados Protegidos
+                  - generic [ref=e50]:
+                    - img [ref=e51]
+                    - generic [ref=e54]: 7 dias garantia
+                - generic [ref=e56]:
+                  - img [ref=e57]
+                  - img [ref=e59]
+                  - img [ref=e61]
+                  - img [ref=e63]
+                  - img [ref=e65]
+            - generic [ref=e69]:
+              - generic [ref=e70]:
+                - generic [ref=e71]: 🛡️
+                - generic [ref=e72]:
+                  - generic [ref=e73]: AO
+                  - generic [ref=e74]: Obsessive Accumulator
+              - generic [ref=e75]:
+                - generic [ref=e76]: 👑
+                - generic [ref=e77]:
+                  - generic [ref=e78]: SS
+                  - generic [ref=e79]: Status Seeker
+              - generic [ref=e80]:
+                - generic [ref=e81]: 👻
+                - generic [ref=e82]:
+                  - generic [ref=e83]: EA
+                  - generic [ref=e84]: Avoidant Escapist
+              - generic [ref=e85]:
+                - generic [ref=e86]: ⚡
+                - generic [ref=e87]:
+                  - generic [ref=e88]: HI
+                  - generic [ref=e89]: Impulsive Hedonist
+            - img [ref=e91]
+        - complementary "MindReset — Indicadores de confiança" [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]:
+              - img [ref=e97]
+              - generic [ref=e100]:
+                - generic [ref=e101]: +12,000
+                - generic [ref=e102]: Diagnoses delivered
+            - generic [ref=e103]:
+              - img [ref=e105]
+              - generic [ref=e107]:
+                - generic [ref=e108]: 4.9 / 5
+                - generic [ref=e109]: Average rating
+            - generic [ref=e110]:
+              - img [ref=e112]
+              - generic [ref=e115]:
+                - generic [ref=e116]: 100%
+                - generic [ref=e117]: No bank data needed
+            - generic [ref=e118]:
+              - img [ref=e120]
+              - generic [ref=e125]:
+                - generic [ref=e126]: "5"
+                - generic [ref=e127]: Languages supported
+        - region "What's your pattern with money?" [ref=e128]:
+          - generic [ref=e129]:
+            - generic [ref=e130]: The 4 Archetypes
+            - heading "What's your pattern with money?" [level=2] [ref=e132]
+            - paragraph [ref=e133]: Every financial behavior has an emotional root. Find yours in under 3 minutes.
+          - generic [ref=e134]:
+            - generic [ref=e135]:
+              - generic [ref=e136]:
+                - img [ref=e138]
+                - generic [ref=e140]: AO
+              - heading "The Saver" [level=3] [ref=e141]
+              - paragraph [ref=e142]: "Trigger: fear of running out"
+              - paragraph [ref=e143]: Hoards obsessively. Difficulty spending even with a healthy balance. The feeling of safety never feels like enough.
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - img [ref=e147]
+                - generic [ref=e149]: SS
+              - heading "The Peacock" [level=3] [ref=e150]
+              - paragraph [ref=e151]: "Trigger: social approval"
+              - paragraph [ref=e152]: Spends to impress. Status is the emotional currency. External image matters more than real financial health.
+            - generic [ref=e153]:
+              - generic [ref=e154]:
+                - img [ref=e156]
+                - generic [ref=e161]: EA
+              - heading "The Ghost" [level=3] [ref=e162]
+              - paragraph [ref=e163]: "Trigger: avoidance and denial"
+              - paragraph [ref=e164]: Avoids talking about money. Ignores statements and bills. Financial discomfort is numbed by evasion.
+            - generic [ref=e165]:
+              - generic [ref=e166]:
+                - img [ref=e168]
+                - generic [ref=e170]: HI
+              - heading "The Spark" [level=3] [ref=e171]
+              - paragraph [ref=e172]: "Trigger: immediate pleasure"
+              - paragraph [ref=e173]: Impulse buys, lives for now. The thrill of the moment overrides any plan. The present always wins.
+        - region "Simple. Deep. Effective." [ref=e174]:
+          - generic [ref=e175]:
+            - generic [ref=e176]: How it works
+            - heading "Simple. Deep. Effective." [level=2] [ref=e178]
+            - paragraph [ref=e179]: No spreadsheets. No bank data. Just questions about how you actually behave.
+          - generic [ref=e180]:
+            - generic [ref=e181]:
+              - generic [ref=e182]: "1"
+              - heading "Answer 8 questions" [level=3] [ref=e183]
+              - paragraph [ref=e184]: About real behavior — not financial theory. No judgment.
+            - generic [ref=e185]:
+              - generic [ref=e186]: "2"
+              - heading "Get your diagnosis" [level=3] [ref=e187]
+              - paragraph [ref=e188]: "AI maps your archetype across 4 dimensions: financial, professional, romantic, personal."
+            - generic [ref=e189]:
+              - generic [ref=e190]: "3"
+              - heading "Follow the protocol" [level=3] [ref=e191]
+              - paragraph [ref=e192]: Daily missions unlock gradually. Real change, step by step.
+            - img [ref=e194]
+            - img [ref=e197]
+        - region "Four tools. One transformation." [ref=e199]:
+          - generic [ref=e200]:
+            - generic [ref=e201]: What you get
+            - heading "Four tools. One transformation." [level=2] [ref=e203]
+          - generic [ref=e204]:
+            - generic [ref=e205]:
+              - img [ref=e207]
+              - heading "Full AI Diagnosis" [level=3] [ref=e215]
+              - paragraph [ref=e216]: "A 4-dimension report written exclusively for you: how your pattern shows up in money, work, relationships, and personal life."
+              - generic [ref=e217]: Powered by GPT-4o · Exclusive & personal
+            - generic [ref=e218]:
+              - img [ref=e220]
+              - heading "Personalized Action Matrix" [level=3] [ref=e222]
+              - paragraph [ref=e223]: A 30, 180, or 365-day calendar with reflective missions and practices unlocked gradually — like a daily behavioral training protocol.
+              - generic [ref=e224]: Unlocked gradually · Gamified
+            - generic [ref=e225]:
+              - img [ref=e227]
+              - heading "Compass — People Map" [level=3] [ref=e230]
+              - paragraph [ref=e231]: Describe someone in your life and the AI identifies their financial archetype. Get 5 specific strategies to improve that money relationship.
+              - generic [ref=e232]: For partners, kids, co-founders
+            - generic [ref=e233]:
+              - img [ref=e235]
+              - heading "Progress Dashboard" [level=3] [ref=e238]
+              - paragraph [ref=e239]: Daily streak, points, unlockable achievements, and a monthly AI report analyzing your evolution. Transformation you can see and measure.
+              - generic [ref=e240]: Streak · Points · Badges · Monthly report
+        - region "Who already understood their pattern" [ref=e241]:
+          - generic [ref=e242]:
+            - generic [ref=e243]: Testimonials
+            - heading "Who already understood their pattern" [level=2] [ref=e245]
+          - generic [ref=e246]:
+            - generic [ref=e247]:
+              - img "5 de 5 estrelas" [ref=e248]:
+                - img [ref=e249]
+                - img [ref=e251]
+                - img [ref=e253]
+                - img [ref=e255]
+                - img [ref=e257]
+              - blockquote [ref=e259]: “I never understood why I spent everything before the 15th. The diagnosis named exactly what I felt — like someone finally explained me to myself.”
+              - generic [ref=e260]:
+                - generic [ref=e261]: AK
+                - generic [ref=e262]:
+                  - paragraph [ref=e263]: Adam K.
+                  - paragraph [ref=e264]: "Archetype: Impulsive Hedonist"
+            - generic [ref=e265]:
+              - img "5 de 5 estrelas" [ref=e266]:
+                - img [ref=e267]
+                - img [ref=e269]
+                - img [ref=e271]
+                - img [ref=e273]
+                - img [ref=e275]
+              - blockquote [ref=e277]: “I thought I was disciplined with money. MindReset showed me I was afraid to spend — and that this is also a problem. It was revealing.”
+              - generic [ref=e278]:
+                - generic [ref=e279]: MC
+                - generic [ref=e280]:
+                  - paragraph [ref=e281]: Maria C.
+                  - paragraph [ref=e282]: "Archetype: Obsessive Saver"
+            - generic [ref=e283]:
+              - img "5 de 5 estrelas" [ref=e284]:
+                - img [ref=e285]
+                - img [ref=e287]
+                - img [ref=e289]
+                - img [ref=e291]
+                - img [ref=e293]
+              - blockquote [ref=e295]: “Compass was the most surprising part. I analyzed my co-founder and understood in 2 minutes why our money discussions never went anywhere.”
+              - generic [ref=e296]:
+                - generic [ref=e297]: RS
+                - generic [ref=e298]:
+                  - paragraph [ref=e299]: Rami S.
+                  - paragraph [ref=e300]: "Archetype: Avoidant Ghost"
+        - region "Questions you probably have" [ref=e301]:
+          - generic [ref=e302]:
+            - generic [ref=e303]:
+              - generic [ref=e304]: Frequently Asked Questions
+              - heading "Questions you probably have" [level=2] [ref=e306]
+              - paragraph [ref=e307]: If anything is still unclear, the button to start the diagnosis solves most of them in 3 minutes.
+              - button "Take the free diagnosis" [ref=e308]:
+                - text: Take the free diagnosis
+                - img [ref=e309]
+            - generic [ref=e311]:
+              - generic [ref=e312]:
+                - button "Does MindReset access my bank data?" [expanded] [ref=e313]:
+                  - generic [ref=e314]: Does MindReset access my bank data?
+                  - img [ref=e315]
+                - region [ref=e318]:
+                  - paragraph [ref=e319]: No. MindReset never accesses accounts, statements, or any banking information. The diagnosis is based exclusively on your behavioral answers to the quiz — no bank integration of any kind.
+              - button "Is the diagnosis really personalized?" [ref=e321]:
+                - generic [ref=e322]: Is the diagnosis really personalized?
+                - img [ref=e323]
+              - button "Does it work for people who don't understand finance?" [ref=e325]:
+                - generic [ref=e326]: Does it work for people who don't understand finance?
+                - img [ref=e327]
+              - button "What happens after I discover my archetype?" [ref=e329]:
+                - generic [ref=e330]: What happens after I discover my archetype?
+                - img [ref=e331]
+              - button "How soon will I see results?" [ref=e333]:
+                - generic [ref=e334]: How soon will I see results?
+                - img [ref=e335]
+              - button "What if I don't like it?" [ref=e337]:
+                - generic [ref=e338]: What if I don't like it?
+                - img [ref=e339]
+        - region "The pattern that held you back has a name. It's time to discover what it is." [ref=e340]:
+          - generic:
+            - heading "The pattern that held you back has a name. It's time to discover what it is." [level=2]
+            - paragraph: 8 questions. 3 minutes. A clarity no spreadsheet can give you.
+            - button "Start my free diagnosis":
+              - generic: Start my free diagnosis
+            - generic:
+              - generic: 7-day guarantee
+              - generic: SSL · Dados protegidos
+    - contentinfo [ref=e341]:
+      - generic [ref=e342]:
+        - paragraph [ref=e343]: © 2026 MindReset Inc.
+        - generic [ref=e344]:
+          - link "Privacy" [ref=e345] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e346] [cursor=pointer]:
+            - /url: /terms
+  - generic [ref=e348]:
+    - generic [ref=e349]:
+      - paragraph [ref=e350]: We use location technologies to personalize your experience. By continuing you agree to our Privacy Policy.
+      - generic [ref=e351]:
+        - link "Privacy" [ref=e352] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms" [ref=e353] [cursor=pointer]:
+          - /url: /terms
+    - generic [ref=e354]:
+      - button "Essential only" [ref=e355]
+      - button "Accept all" [ref=e356]
+  - complementary "Edit with Lovable" [ref=e357]:
+    - link "Edit with Lovable" [ref=e358] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e359]: Edit with
+      - img [ref=e360]
+    - button "Dismiss" [ref=e365] [cursor=pointer]:
+      - img [ref=e366]

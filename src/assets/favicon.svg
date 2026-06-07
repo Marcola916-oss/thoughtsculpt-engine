@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MindReset">
+  <defs>
+    <radialGradient id="mr-glow" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#CC0000" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#CC0000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mr-fade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF1A1A"/>
+      <stop offset="100%" stop-color="#990000"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#000000"/>
+  <rect width="64" height="64" rx="14" fill="url(#mr-glow)"/>
+  <text x="32" y="49" text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif"
+        font-size="48" font-weight="900" font-style="italic"
+        fill="url(#mr-fade)" letter-spacing="-3">M</text>
+</svg>
