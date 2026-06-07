@@ -1183,7 +1183,6 @@ function Sales({
           ))}
         </div>
 
-<<<<<<< HEAD
         {/* ── Block 8: Final CTA + Guarantee ───────────────────────── */}
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Guarantee Section */}
@@ -1244,10 +1243,6 @@ function Sales({
           {/* Detailed FAQ section based on the mockup if not already covered enough */}
         </div>
 <<<<<<< HEAD
-=======
-
-
->>>>>>> 7abf8dd3295b484be2ae66262744a7b7dce81910
       </div>
     </section>
   );
