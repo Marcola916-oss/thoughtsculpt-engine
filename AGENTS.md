@@ -52,6 +52,82 @@ A Fase 5 entregou o upgrade completo da landing page, baseado no mockup `melhori
 4. **FAQ schema.org:** adicionar `FAQPage` JSON-LD para SEO rich snippets. Especialmente importante em PL/RO/AR onde rich results têm menos concorrência.
 5. **Trust badges no hero:** considerar adicionar selos SSL/Stripe/Cancel anytime em badge flutuante (similar ao existente no TopBar).
 
+---
+
+## Curtain + Text Upgrade (Fase 6)
+
+A Fase 6 resolveu o problema de contraste causado pelo `VolumetricFog` (position: fixed, z-index: 1) que cobria todo o viewport com glow vermelho, tornando texto em sections pós-Hero ilegível.
+
+### Mudanças aplicadas
+
+- **`src/routes/index.tsx:184-194`:** Wrapper curtain `<div className="relative z-10 bg-background/80 backdrop-blur-md">` adicionado nas seções pós-Hero (ProofBar → FinalCTA). Cria painéis escuros sobre o fog vermelho.
+- **10 upgrades de cor de texto** em 7 componentes: `text-muted-foreground` → `text-foreground/70` (corpo) ou `text-foreground/60` (labels). `text-arch-primary` (vermelho) mantido apenas para badges decorativos.
+
+### Componentes modificados
+
+| Componente | Mudanças |
+|---|---|
+| `ArchetypeShowcase` | 3 text-muted-foreground → text-foreground/70 |
+| `HowItWorks` | 2 text-muted-foreground → text-foreground/70 |
+| `ProofBar` | 1 text-muted-foreground → text-foreground/70 |
+| `FeaturesGrid` | 1 text-muted-foreground → text-foreground/70 |
+| `FAQ` | 2 text-muted-foreground → text-foreground/60 |
+| `FinalCTA` | 2 text-muted-foreground → text-foreground/60 |
+| `Testimonials` | 0 (já usava text-foreground/85) |
+
+### Root cause
+
+`VolumetricFog` com `position: fixed, inset-0, z-index: 1` cobre todo o viewport com `--accent-glow-strong` (50% opacity). Fixes de cor de texto sozinhos não bastam — o FUNDO era vermelho, não preto. A curtain cria background escuro com blur por trás do conteúdo.
+
+### Verificação
+
+- Build: 2.43s, 0 erros novos
+- Diff: 20 insertions, 18 deletions
+- Docs: `tmp/smoke/FASE6-APPLIED.md`
+
+---
+
+## MCPs + Skills + Custom Agents (Fase 7)
+
+A Fase 7 instalou todo o ecossistema OpenCode gratuito para o projeto.
+
+### MCPs instalados (5)
+
+| MCP | Tipo | Uso |
+|---|---|---|
+| Perplexity | local | Busca web |
+| Playwright | local | Automação de browser (screenshots, smoke tests) |
+| Chrome DevTools | local | Debug de browser |
+| Context7 | local | Docs de bibliotecas |
+| Supabase | remote (OAuth) | Database, edge functions, auth (read-only) |
+
+### Skill do projeto
+
+- `.agents/skills/mindreset-project/SKILL.md` — Conhecimento completo do projeto: brand tokens, file structure, quiz flow, i18n, deployment, accessibility, known issues, PowerShell quirks, Supabase config.
+
+### Agentes customizados (4)
+
+| Agente | Permissions | Uso |
+|---|---|---|
+| `mindreset-copywriter` | Read, Grep, Glob | Copys, CTAs, headlines, i18n (5 idiomas) |
+| `mindreset-reviewer` | Read, Grep, Glob, Bash | Código质量安全, bundle, performance, WCAG |
+| `mindreset-security` | Read, Grep, Glob, Bash | Supabase RLS, edge functions, auth, OWASP |
+| `mindreset-landing` | Read, Grep, Glob | UX, conversão, microinterações, responsividade |
+
+### Custom tools (3)
+
+| Tool | Uso |
+|---|---|
+| `contrast-audit` | Verifica WCAG AA de cores do projeto |
+| `i18n-sync` | Verifica chaves de tradução faltantes entre 5 idiomas |
+| `build-check` | Build + TypeCheck + Lint em uma chamada |
+
+### Instructions
+
+`opencode.json` referencia automaticamente `AGENTS.md` e `.agents/skills/mindreset-project/SKILL.md` como contexto para todas as sessões.
+
+---
+
 ## Camada Visual + Identidade (Fases 1-4)
 
 As Fases 1-4 entregaram a camada visual premium do SaaS: identidade de marca, atmosfera, interação e integração nos touchpoints-chave (global, home, quiz, /obrigado).
@@ -92,14 +168,14 @@ As Fases 1-4 entregaram a camada visual premium do SaaS: identidade de marca, at
 - `Select-String` com `-NotMatch` não aceita array; usar pipeline separado
 - `npm` (não `bun` — não está instalado no Windows deste projeto)
 
-### Recomendações Fase 6+ (pendentes)
+### Recomendações Fase 6+ (pendentes — atualizado Fase 7)
 
 1. **Otimizar vendor bundle:** `index-*.js` está em 781.81 kB / 241.70 kB gzipped (React + Framer Motion + Radix UI). Considerar code-splitting mais agressivo ou tree-shaking de Radix sub-pacotes
 2. **Tree-shake MarbleBust:** variants `full`/`loader`/`mini`/`empty` são todos importados juntos. Lazy-load variants não usados por página
 3. **Auto-fix CRLF:** 11066 erros `prettier/prettier` (CRLF) pré-existentes. Rodar `npx prettier --write .` em momento de baixa atividade (vai reformatar ~11k linhas)
 4. **Resolver TS pré-existentes:** 6 erros em `dashboard/Sidebar` (locale, boolean|null, Dict.lang, Dict.cta) — tarefa dedicada de cleanup
 5. **Automatizar Lighthouse em CI:** GitHub Actions rodando `npx lighthouse` em PRs (requer Chrome headless configurado)
-6. **Dev server cleanup:** se ficar em background, lembrar de matar com `Stop-Process -Id <PID>` (ex: PID 29780 durante V5)
+6. ~~**Dev server cleanup:**~~ ✅ resolvido (documentado)
 
 ### Arquivos críticos de leitura (para novos agentes)
 
