@@ -40,15 +40,6 @@ import {
   FinalCTA,
 } from "@/components/landing";
 
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 z-50 h-1 bg-arch-primary origin-left shadow-[0_0_10px_var(--arch-glow)]"
-      style={{ scaleX: scrollYProgress, opacity: scrollYProgress }}
-    />
-  );
-}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -168,7 +159,7 @@ function LandingAndQuiz() {
       <div className="noise-overlay pointer-events-none" />
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_-20%,_var(--arch-glow),transparent_70%)] opacity-30 pointer-events-none" />
 
-      <ScrollProgress />
+      
       <TopBar />
 
       <main className="w-full px-4 pb-24 pt-4 md:pt-12 relative z-10">
@@ -184,12 +175,16 @@ function LandingAndQuiz() {
               <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </Atmosphere>
-              <div className="relative z-10 bg-background/80 backdrop-blur-md">
+              <div className="relative z-10 bg-black/80 backdrop-blur-md">
                 <ProofBar />
-                <ArchetypeShowcase />
-                <HowItWorks />
-                <FeaturesGrid />
-                <Testimonials />
+                <div className="bg-gradient-to-b from-black to-zinc-950">
+                  <ArchetypeShowcase />
+                  <HowItWorks />
+                </div>
+                <div className="bg-gradient-to-b from-zinc-950 to-black">
+                  <FeaturesGrid />
+                  <Testimonials />
+                </div>
                 <FAQ onCta={() => setStage({ kind: "identity" })} />
                 <FinalCTA onCta={() => setStage({ kind: "identity" })} />
               </div>
