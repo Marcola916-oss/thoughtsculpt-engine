@@ -50,7 +50,7 @@ export function FeaturesGrid() {
               <h3 className="font-display text-2xl font-extrabold tracking-tight text-foreground md:text-[26px]">
                 {item.title}
               </h3>
-              <p className="text-[15px] leading-relaxed text-muted-foreground md:text-base">
+              <p className="text-[15px] leading-relaxed text-foreground/70 md:text-base">
                 {item.desc}
               </p>
               <span className="mt-auto pt-2 text-[10px] font-bold uppercase tracking-[0.14em] text-arch-primary">

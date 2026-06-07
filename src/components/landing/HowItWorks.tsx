@@ -25,7 +25,7 @@ export function HowItWorks() {
         >
           {w.title}
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-foreground/70 md:text-lg">
           {w.sub}
         </p>
       </Reveal>
@@ -45,7 +45,7 @@ export function HowItWorks() {
               {i + 1}
             </div>
             <h3 className="mb-2 font-display text-lg font-bold text-foreground">{step.title}</h3>
-            <p className="max-w-[220px] text-sm leading-relaxed text-muted-foreground">
+            <p className="max-w-[220px] text-sm leading-relaxed text-foreground/70">
               {step.desc}
             </p>
           </Reveal>

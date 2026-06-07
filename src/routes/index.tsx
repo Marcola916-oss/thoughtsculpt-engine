@@ -184,13 +184,15 @@ function LandingAndQuiz() {
               <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </Atmosphere>
-              <ProofBar />
-              <ArchetypeShowcase />
-              <HowItWorks />
-              <FeaturesGrid />
-              <Testimonials />
-              <FAQ onCta={() => setStage({ kind: "identity" })} />
-              <FinalCTA onCta={() => setStage({ kind: "identity" })} />
+              <div className="relative z-10 bg-background/80 backdrop-blur-md">
+                <ProofBar />
+                <ArchetypeShowcase />
+                <HowItWorks />
+                <FeaturesGrid />
+                <Testimonials />
+                <FAQ onCta={() => setStage({ kind: "identity" })} />
+                <FinalCTA onCta={() => setStage({ kind: "identity" })} />
+              </div>
             </motion.div>
           )}
 

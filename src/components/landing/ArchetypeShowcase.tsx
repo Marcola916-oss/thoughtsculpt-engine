@@ -39,7 +39,7 @@ export function ArchetypeShowcase() {
         >
           {a.title}
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-foreground/70 md:text-lg">
           {a.sub}
         </p>
       </Reveal>
@@ -78,11 +78,11 @@ export function ArchetypeShowcase() {
                 {item.name}
               </h3>
 
-              <p className="border-b border-white/[0.07] pb-4 text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground/80">
+              <p className="border-b border-white/[0.07] pb-4 text-[11px] font-semibold uppercase tracking-[0.1em] text-foreground/60">
                 {item.trigger}
               </p>
 
-              <p className="text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
+              <p className="text-sm leading-relaxed text-foreground/70">{item.desc}</p>
             </Reveal>
           );
         })}
