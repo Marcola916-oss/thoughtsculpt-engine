@@ -23,7 +23,7 @@ export function FeaturesGrid() {
         </span>
         <h2
           id="features-title"
-          className="font-display text-4xl font-extrabold leading-[1.05] tracking-[-0.03em] md:text-6xl"
+          className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-7xl whitespace-pre-line"
         >
           {f.title}
         </h2>

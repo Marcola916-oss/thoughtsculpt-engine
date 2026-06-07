@@ -153,7 +153,7 @@ function LandingAndQuiz() {
 
   return (
     <div
-      className="min-h-screen w-full bg-[#000000] text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay pointer-events-none" />
