@@ -1188,7 +1188,6 @@ function Sales({
 
           {/* Detailed FAQ section based on the mockup if not already covered enough */}
         </div>
-<<<<<<< HEAD
       </div>
     </section>
   );
