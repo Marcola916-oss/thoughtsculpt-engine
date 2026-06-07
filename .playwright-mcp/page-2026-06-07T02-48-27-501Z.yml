@@ -1,0 +1,297 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "M Mind Reset" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]: M
+          - generic [ref=e9]:
+            - generic [ref=e10]: Mind
+            - generic [ref=e11]: Reset
+        - generic [ref=e12]:
+          - combobox "Language" [ref=e14]:
+            - option "Português"
+            - option "English"
+            - option "Polski"
+            - option "Română"
+            - option "العربية" [selected]
+          - link "تسجيل الدخول" [ref=e442] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=e16]: تسجيل الدخول
+    - main [ref=e18]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - generic:
+            - generic: €
+            - generic: $
+            - generic: ¥
+            - generic: ₿
+            - generic: £
+            - generic: ¢
+            - generic: €
+            - generic: $
+          - generic [ref=e21]:
+            - generic [ref=e22]: 🛡️ Obsessive Accumulator
+            - generic: 👑 Status Seeker
+            - generic: 🌌 Avoidant Escapist
+            - generic: ⚡ Impulsive Hedonist
+            - generic [ref=e23]: السلوك المالي • ٨ أسئلة • ٣ دقائق
+            - heading [level=1] [ref=e27]:
+              - text: ليست المشكلة في المال. المشكلة في النمط الذي لا تراه.
+              - generic [ref=e28]: conhecer
+            - paragraph [ref=e29]: MindReset يشخّص نمطك المالي ويقدّم بروتوكول عمل مخصّصاً لك. بدون ميزانيات. بدون ربط بنكي. علم نفس يغيّر السلوك.
+            - generic [ref=e30]:
+              - button [ref=e32]:
+                - generic [ref=e34]:
+                  - text: أريد تشخيصي المجاني
+                  - img [ref=e35]
+              - generic [ref=e38]:
+                - generic [ref=e39]:
+                  - generic [ref=e40]:
+                    - img [ref=e41]
+                    - generic [ref=e44]: SSL Seguro
+                  - generic [ref=e45]:
+                    - img [ref=e46]
+                    - generic [ref=e49]: Dados Protegidos
+                  - generic [ref=e50]:
+                    - img [ref=e51]
+                    - generic [ref=e54]: 7 dias garantia
+                - generic [ref=e56]:
+                  - img [ref=e57]
+                  - img [ref=e59]
+                  - img [ref=e61]
+                  - img [ref=e63]
+                  - img [ref=e65]
+            - generic [ref=e69]:
+              - generic [ref=e70]:
+                - generic [ref=e71]: 🛡️
+                - generic [ref=e72]:
+                  - generic [ref=e73]: AO
+                  - generic [ref=e74]: Obsessive Accumulator
+              - generic [ref=e75]:
+                - generic [ref=e76]: 👑
+                - generic [ref=e77]:
+                  - generic [ref=e78]: SS
+                  - generic [ref=e79]: Status Seeker
+              - generic [ref=e80]:
+                - generic [ref=e81]: 👻
+                - generic [ref=e82]:
+                  - generic [ref=e83]: EA
+                  - generic [ref=e84]: Avoidant Escapist
+              - generic [ref=e85]:
+                - generic [ref=e86]: ⚡
+                - generic [ref=e87]:
+                  - generic [ref=e88]: HI
+                  - generic [ref=e89]: Impulsive Hedonist
+            - img [ref=e91]
+        - complementary "MindReset — Indicadores de confiança" [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]:
+              - img [ref=e97]
+              - generic [ref=e100]:
+                - generic [ref=e101]: +12,000
+                - generic [ref=e102]: تشخيص تم إنجازه
+            - generic [ref=e103]:
+              - img [ref=e105]
+              - generic [ref=e107]:
+                - generic [ref=e108]: 4.9 / 5
+                - generic [ref=e109]: متوسط التقييم
+            - generic [ref=e110]:
+              - img [ref=e112]
+              - generic [ref=e115]:
+                - generic [ref=e116]: 100%
+                - generic [ref=e117]: بدون بيانات بنكية
+            - generic [ref=e118]:
+              - img [ref=e120]
+              - generic [ref=e125]:
+                - generic [ref=e126]: "5"
+                - generic [ref=e127]: لغات مدعومة
+        - region "ما هو نمطك مع المال؟" [ref=e443]:
+          - generic [ref=e129]:
+            - generic [ref=e130]: الأنماط الأربعة
+            - heading "ما هو نمطك مع المال؟" [level=2] [ref=e444]
+            - paragraph [ref=e133]: لكل سلوك مالي جذر عاطفي. اكتشف نمطك في أقل من 3 دقائق.
+          - generic [ref=e134]:
+            - generic [ref=e135]:
+              - generic [ref=e136]:
+                - img [ref=e138]
+                - generic [ref=e140]: AO
+              - heading "المدخر القهري" [level=3] [ref=e445]
+              - paragraph [ref=e142]: "المحفّز: خوف النفاد"
+              - paragraph [ref=e143]: يكدّس بهوس. صعوبة في الإنفاق حتى مع رصيد صحي. الشعور بالأمان لا يبدو كافياً أبداً.
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - img [ref=e147]
+                - generic [ref=e149]: SS
+              - heading "الطاووس" [level=3] [ref=e446]
+              - paragraph [ref=e151]: "المحفّز: القبول الاجتماعي"
+              - paragraph [ref=e152]: ينفق لإبهار الآخرين. المكانة هي العملة العاطفية. الصورة الخارجية أهم من الصحة المالية الحقيقية.
+            - generic [ref=e153]:
+              - generic [ref=e154]:
+                - img [ref=e156]
+                - generic [ref=e161]: EA
+              - heading "الشبح" [level=3] [ref=e447]
+              - paragraph [ref=e163]: "المحفّز: الهروب والإنكار"
+              - paragraph [ref=e164]: يتجنب الحديث عن المال. يتجاهل الكشوف والفواتير. discomfort المالي مخدر بالهروب.
+            - generic [ref=e165]:
+              - generic [ref=e166]:
+                - img [ref=e168]
+                - generic [ref=e170]: HI
+              - heading "الشرارة" [level=3] [ref=e448]
+              - paragraph [ref=e172]: "المحفّز: المتعة الفورية"
+              - paragraph [ref=e173]: يشتري باندفاع، يعيش اللحظة. إثارة الآن تطغى على أي تخطيط. الحاضر يفوز دائماً.
+        - region "بسيطة. عميقة. فعّالة." [ref=e449]:
+          - generic [ref=e175]:
+            - generic [ref=e176]: كيف تعمل
+            - heading "بسيطة. عميقة. فعّالة." [level=2] [ref=e450]
+            - paragraph [ref=e179]: بدون جداول بيانات. بدون بيانات بنكية. فقط أسئلة عن سلوكك الفعلي.
+          - generic [ref=e180]:
+            - generic [ref=e181]:
+              - generic [ref=e182]: "1"
+              - heading "أجب عن 8 أسئلة" [level=3] [ref=e451]
+              - paragraph [ref=e184]: عن سلوك حقيقي، لا نظرية مالية. بدون أحكام.
+            - generic [ref=e185]:
+              - generic [ref=e186]: "2"
+              - heading "احصل على تشخيصك" [level=3] [ref=e452]
+              - paragraph [ref=e188]: "الذكاء الاصطناعي يرسم نمطك في 4 أبعاد: المالي، المهني، العاطفي والشخصي."
+            - generic [ref=e189]:
+              - generic [ref=e190]: "3"
+              - heading "اتبع البروتوكول" [level=3] [ref=e453]
+              - paragraph [ref=e192]: مهمات يومية تُفتح تدريجياً. تغيير حقيقي، خطوة بخطوة.
+            - img [ref=e194]
+            - img [ref=e197]
+        - region "أربع أدوات. تحوّل واحد." [ref=e454]:
+          - generic [ref=e200]:
+            - generic [ref=e201]: ما ستحصل عليه
+            - heading "أربع أدوات. تحوّل واحد." [level=2] [ref=e455]
+          - generic [ref=e204]:
+            - generic [ref=e205]:
+              - img [ref=e207]
+              - heading "تشخيص كامل بالذكاء الاصطناعي" [level=3] [ref=e456]
+              - paragraph [ref=e216]: "تقرير في 4 أبعاد مكتوب خصيصاً لك: كيف يظهر نمطك في المال، العمل، العلاقات والحياة الشخصية."
+              - generic [ref=e217]: مدعوم بـ GPT-4o · حصري وشخصي
+            - generic [ref=e218]:
+              - img [ref=e220]
+              - heading "مصفوفة إجراءات مخصصة" [level=3] [ref=e457]
+              - paragraph [ref=e223]: تقويم 30 أو 180 أو 365 يوماً بمهمات تأملية وممارسات تُفتح تدريجياً — كبروتوكول تدريبي سلوكي يومي.
+              - generic [ref=e224]: يُفتح تدريجياً · تفاعلي
+            - generic [ref=e225]:
+              - img [ref=e227]
+              - heading "Compass — خريطة الأشخاص" [level=3] [ref=e458]
+              - paragraph [ref=e231]: صِف شخصاً من حياتك وسيقوم الذكاء الاصطناعي بتحديد نمطه المالي. ستحصل على 5 استراتيجيات محددة لتحسين هذه العلاقة مع المال.
+              - generic [ref=e232]: للشركاء، الأبناء، الشركاء التجاريين
+            - generic [ref=e233]:
+              - img [ref=e235]
+              - heading "لوحة التقدم" [level=3] [ref=e459]
+              - paragraph [ref=e239]: سلسلة أيام متتالية، نقاط، إنجازات قابلة للفتح، وتقرير شهري يحلل الذكاء الاصطناعي تطورك. تحويل يمكنك رؤيته وقياسه.
+              - generic [ref=e240]: سلسلة · نقاط · شارات · تقرير شهري
+        - region "من فهم نمطه بالفعل" [ref=e460]:
+          - generic [ref=e242]:
+            - generic [ref=e243]: شهادات
+            - heading "من فهم نمطه بالفعل" [level=2] [ref=e461]
+          - generic [ref=e246]:
+            - generic [ref=e247]:
+              - img "5 de 5 estrelas" [ref=e248]:
+                - img [ref=e249]
+                - img [ref=e251]
+                - img [ref=e253]
+                - img [ref=e255]
+                - img [ref=e257]
+              - blockquote [ref=e259]: “لم أفهم أبداً لماذا كنتُ أنفق كل شيء قبل اليوم الخامس عشر. التشخيص سمّى بالضبط ما شعرت به. كأن أحداً أخيراً شرحني لنفسي.”
+              - generic [ref=e260]:
+                - generic [ref=e261]: آك
+                - generic [ref=e262]:
+                  - paragraph [ref=e263]: آدم ك.
+                  - paragraph [ref=e264]: "النمط: الملذّ المندفع"
+            - generic [ref=e265]:
+              - img "5 de 5 estrelas" [ref=e266]:
+                - img [ref=e267]
+                - img [ref=e269]
+                - img [ref=e271]
+                - img [ref=e273]
+                - img [ref=e275]
+              - blockquote [ref=e277]: “كنت أظن أنني منظبط مع المال. أظهر لي MindReset أنني كنت أخشى الإنفاق — وأن هذه أيضاً مشكلة. كان كشفاً.”
+              - generic [ref=e278]:
+                - generic [ref=e279]: مس
+                - generic [ref=e280]:
+                  - paragraph [ref=e281]: ماريا س.
+                  - paragraph [ref=e282]: "النمط: المدخر القهري"
+            - generic [ref=e283]:
+              - img "5 de 5 estrelas" [ref=e284]:
+                - img [ref=e285]
+                - img [ref=e287]
+                - img [ref=e289]
+                - img [ref=e291]
+                - img [ref=e293]
+              - blockquote [ref=e295]: “كان Compass الجزء الأكثر إثارة. حلّلت شريكي وفهمت في دقيقتين لماذا كانت نقاشاتنا حول المال لا تذهب لأي مكان.”
+              - generic [ref=e296]:
+                - generic [ref=e297]: رس
+                - generic [ref=e298]:
+                  - paragraph [ref=e299]: رامي س.
+                  - paragraph [ref=e300]: "النمط: الشبح المتجنب"
+        - region "أسئلة من المرجح أن لديكها" [ref=e462]:
+          - generic [ref=e302]:
+            - generic [ref=e303]:
+              - generic [ref=e304]: الأسئلة الشائعة
+              - heading "أسئلة من المرجح أن لديكها" [level=2] [ref=e463]
+              - paragraph [ref=e307]: إذا كان هناك أي شيء غير واضح، فزر بدء التشخيص يحلّ معظمها في 3 دقائق.
+              - button "ابدأ التشخيص المجاني" [ref=e464]:
+                - text: ابدأ التشخيص المجاني
+                - img [ref=e309]
+            - generic [ref=e311]:
+              - generic [ref=e312]:
+                - button "هل يصل MindReset إلى بياناتي البنكية؟" [expanded] [ref=e465]:
+                  - generic [ref=e314]: هل يصل MindReset إلى بياناتي البنكية؟
+                  - img [ref=e315]
+                - region [ref=e318]:
+                  - paragraph [ref=e319]: لا. لا يصل MindReset إلى الحسابات أو الكشوف أو أي معلومات بنكية. يعتمد التشخيص حصرياً على إجاباتك السلوكية للاختبار — بدون أي تكامل بنكي.
+              - button "هل التشخيص مخصص فعلاً لي؟" [ref=e466]:
+                - generic [ref=e322]: هل التشخيص مخصص فعلاً لي؟
+                - img [ref=e323]
+              - button "هل يعمل لمن لا يفهم في المال؟" [ref=e467]:
+                - generic [ref=e326]: هل يعمل لمن لا يفهم في المال؟
+                - img [ref=e327]
+              - button "ماذا يحدث بعد أن أكتشف نمطي؟" [ref=e468]:
+                - generic [ref=e330]: ماذا يحدث بعد أن أكتشف نمطي؟
+                - img [ref=e331]
+              - button "متى سأرى النتائج؟" [ref=e469]:
+                - generic [ref=e334]: متى سأرى النتائج؟
+                - img [ref=e335]
+              - button "ماذا لو لم يعجبني؟" [ref=e470]:
+                - generic [ref=e338]: ماذا لو لم يعجبني؟
+                - img [ref=e339]
+        - region "النمط الذي أعاقك له اسم. حان وقت اكتشاف ما هو." [ref=e471]:
+          - generic:
+            - heading "النمط الذي أعاقك له اسم. حان وقت اكتشاف ما هو." [level=2]
+            - paragraph: 8 أسئلة. 3 دقائق. وضوح لا يمنحك إياه أي جدول بيانات.
+            - button "ابدأ تشخيصي المجاني":
+              - generic: ابدأ تشخيصي المجاني
+            - generic:
+              - generic: ضمان 7 أيام
+              - generic: SSL · Dados protegidos
+    - contentinfo [ref=e341]:
+      - generic [ref=e342]:
+        - paragraph [ref=e343]: © 2026 MindReset Inc.
+        - generic [ref=e344]:
+          - link "الخصوصية" [ref=e472] [cursor=pointer]:
+            - /url: /privacy
+          - link "الشروط" [ref=e473] [cursor=pointer]:
+            - /url: /terms
+  - generic [ref=e348]:
+    - generic [ref=e349]:
+      - paragraph [ref=e350]: نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية.
+      - generic [ref=e351]:
+        - link "الخصوصية" [ref=e474] [cursor=pointer]:
+          - /url: /privacy
+        - link "الشروط" [ref=e475] [cursor=pointer]:
+          - /url: /terms
+    - generic [ref=e354]:
+      - button "الضروري فقط" [ref=e476]
+      - button "أوافق على الكل" [ref=e477]
+  - complementary "Edit with Lovable" [ref=e357]:
+    - link "Edit with Lovable" [ref=e358] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e359]: Edit with
+      - img [ref=e360]
+    - button "Dismiss" [ref=e365] [cursor=pointer]:
+      - img [ref=e366]
