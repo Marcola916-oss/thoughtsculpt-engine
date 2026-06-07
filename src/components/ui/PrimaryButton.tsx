@@ -56,25 +56,27 @@ export function PrimaryButton({
       onClick={onClick}
       disabled={isDisabled}
       className={[
-        "relative overflow-hidden rounded-2xl font-semibold",
+        "relative overflow-hidden rounded-2xl font-black uppercase tracking-widest",
         "bg-primary text-primary-foreground",
-        "flex items-center justify-center",
+        "flex items-center justify-center italic",
         SIZE_CLASSES[size],
         fullWidth ? "w-full" : "",
         "disabled:opacity-40 disabled:cursor-not-allowed",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "transition-all duration-300",
         className,
       ].join(" ")}
       whileHover={
         !isDisabled
           ? {
-              y: -2,
-              boxShadow: "0 8px 32px rgba(204,0,0,0.45)",
+              y: -4,
+              scale: 1.02,
+              boxShadow: "0 20px 40px rgba(204,0,0,0.55), 0 0 20px rgba(204,0,0,0.3)",
             }
           : {}
       }
-      whileTap={!isDisabled ? { scale: 0.97 } : {}}
-      transition={{ duration: 0.15 }}
+      whileTap={!isDisabled ? { scale: 0.96 } : {}}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
     >
       {/* Shimmer sweep on hover */}
       <motion.span

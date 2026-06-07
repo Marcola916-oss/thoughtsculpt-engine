@@ -40,15 +40,6 @@ import {
   FinalCTA,
 } from "@/components/landing";
 
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 z-50 h-1 bg-arch-primary origin-left shadow-[0_0_10px_var(--arch-glow)]"
-      style={{ scaleX: scrollYProgress, opacity: scrollYProgress }}
-    />
-  );
-}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -162,13 +153,13 @@ function LandingAndQuiz() {
 
   return (
     <div
-      className="min-h-screen w-full bg-[#000000] text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay pointer-events-none" />
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_-20%,_var(--arch-glow),transparent_70%)] opacity-30 pointer-events-none" />
 
-      <ScrollProgress />
+      
       <TopBar />
 
       <main className="w-full px-4 pb-24 pt-4 md:pt-12 relative z-10">
@@ -184,12 +175,16 @@ function LandingAndQuiz() {
               <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </Atmosphere>
-              <div className="relative z-10 bg-background/80 backdrop-blur-md">
+              <div className="relative z-10 bg-black/80 backdrop-blur-md">
                 <ProofBar />
-                <ArchetypeShowcase />
-                <HowItWorks />
-                <FeaturesGrid />
-                <Testimonials />
+                <div className="bg-gradient-to-b from-black to-zinc-950">
+                  <ArchetypeShowcase />
+                  <HowItWorks />
+                </div>
+                <div className="bg-gradient-to-b from-zinc-950 to-black">
+                  <FeaturesGrid />
+                  <Testimonials />
+                </div>
                 <FAQ onCta={() => setStage({ kind: "identity" })} />
                 <FinalCTA onCta={() => setStage({ kind: "identity" })} />
               </div>
@@ -364,6 +359,8 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 function TopBar() {
   const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", fn, { passive: true });
@@ -374,7 +371,7 @@ function TopBar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         scrolled
-          ? "bg-background/60 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          ? "bg-black/60 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-6"
       }`}
     >
@@ -383,10 +380,17 @@ function TopBar() {
           to="/"
           className="group flex items-center gap-3 font-display text-3xl font-black tracking-tighter"
         >
-          <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)]">
-            <span className="text-white text-2xl italic font-black">M</span>
+          <div className="relative">
+            <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)]">
+              <span className="text-white text-2xl italic font-black">M</span>
+            </div>
+            <motion.div 
+              className="absolute -inset-1 rounded-xl bg-arch-primary/20 blur-sm -z-10"
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
           </div>
-          <div className="flex items-baseline">
+          <div className="flex items-baseline uppercase italic">
             <span className="text-white transition-colors group-hover:text-arch-primary">Mind</span>
             <span className="text-arch-primary transition-colors group-hover:text-white">
               Reset
@@ -401,13 +405,24 @@ function TopBar() {
           <Link
             to="/login"
             data-cursor="hover"
-            className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10"
+            className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 hover:-translate-y-0.5"
           >
             <span className="relative z-10">{t.common.login}</span>
             <div className="absolute inset-0 translate-y-[100%] bg-arch-primary transition-transform duration-300 group-hover:translate-y-0" />
           </Link>
         </div>
       </div>
+      
+      {/* Scroll indicator line integrated into TopBar */}
+      <motion.div 
+        className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-arch-primary to-transparent"
+        style={{ 
+          scaleX: scrollYProgress, 
+          width: "100%",
+          transformOrigin: "center",
+          opacity: scrolled ? 1 : 0
+        }}
+      />
     </header>
   );
 }
@@ -432,33 +447,53 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-12 flex flex-wrap justify-center gap-4"
+        className="mb-12 flex flex-wrap justify-center gap-4 px-4"
       >
-        🛡️ {t.archetypes?.AO?.name || "Accumulator"}
+        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary backdrop-blur-md">
+          <ShieldCheck className="h-3.5 w-3.5" />
+          {t.archetypes?.AO?.name || "O Guardador"}
+        </span>
       </motion.div>
+
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -18, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-950/20 px-4 py-2 text-xs font-bold text-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 0.8, x: 0, y: [0, -18, 0] }}
+        transition={{ 
+          opacity: { duration: 1 },
+          x: { duration: 1 },
+          y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 } 
+        }}
+        className="hidden lg:flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-bold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
       >
-        ­ƒææ {t.archetypes?.SS?.name || "Status Seeker"}
+        <Star className="h-3.5 w-3.5" />
+        {t.archetypes?.SS?.name || "O Pav├úo"}
       </motion.div>
+
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -15, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 0.8, x: 0, y: [0, -15, 0] }}
+        transition={{ 
+          opacity: { duration: 1 },
+          x: { duration: 1 },
+          y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 } 
+        }}
         className="hidden lg:flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-bold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
       >
-        ­ƒîî {t.archetypes?.EA?.name || "Escapist"}
+        <CompassIcon className="h-3.5 w-3.5" />
+        {t.archetypes?.EA?.name || "O Fantasma"}
       </motion.div>
+
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 0.8, y: [0, -20, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        transition={{ 
+          opacity: { duration: 1 },
+          y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 } 
+        }}
         className="hidden lg:flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none"
       >
-        ÔÜí {t.archetypes?.HI?.name || "Hedonist"}
+        <LineChart className="h-3.5 w-3.5" />
+        {t.archetypes?.HI?.name || "O Foguinho"}
       </motion.div>
 
       <motion.div

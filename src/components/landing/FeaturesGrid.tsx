@@ -23,7 +23,7 @@ export function FeaturesGrid() {
         </span>
         <h2
           id="features-title"
-          className="font-display text-4xl font-extrabold leading-[1.05] tracking-[-0.03em] md:text-6xl"
+          className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-7xl whitespace-pre-line"
         >
           {f.title}
         </h2>
@@ -39,21 +39,24 @@ export function FeaturesGrid() {
             <Reveal
               key={i}
               variant="fade-up"
-              className="group relative flex flex-col gap-5 bg-background p-8 transition-colors duration-300 hover:bg-white/[0.025] md:p-12"
+              className="group relative flex flex-col gap-5 bg-background p-8 transition-all duration-500 hover:bg-white/[0.035] md:p-12 hover:-translate-y-1"
             >
+              <div className="absolute inset-0 bg-gradient-to-br from-arch-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              
               <span
                 aria-hidden
-                className="flex h-14 w-14 items-center justify-center rounded-2xl border border-arch-primary/20 bg-arch-primary/10 text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground"
+                className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-arch-primary/20 bg-arch-primary/10 text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground group-hover:rotate-3"
               >
                 <Icon className="h-6 w-6" />
               </span>
-              <h3 className="font-display text-2xl font-extrabold tracking-tight text-foreground md:text-[26px]">
+              <h3 className="relative z-10 font-display text-2xl font-extrabold tracking-tight text-foreground md:text-[26px] group-hover:text-arch-primary transition-colors">
                 {item.title}
               </h3>
-              <p className="text-[15px] leading-relaxed text-foreground/70 md:text-base">
+              <p className="relative z-10 text-[15px] leading-relaxed text-foreground/70 md:text-base">
                 {item.desc}
               </p>
-              <span className="mt-auto pt-2 text-[10px] font-bold uppercase tracking-[0.14em] text-arch-primary">
+              <span className="relative z-10 mt-auto pt-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary/60 group-hover:text-arch-primary transition-colors">
+                <span className="h-1 w-1 rounded-full bg-current" />
                 {item.meta}
               </span>
             </Reveal>
