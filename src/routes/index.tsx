@@ -432,7 +432,15 @@ function Hero({ onStart }: { onStart: () => void }) {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="mb-12 flex flex-wrap justify-center gap-4"
       >
+<<<<<<< HEAD
         ­ƒøí´©Å {t.archetypes?.AO?.name || "Accumulator"}
+=======
+<<<<<<< HEAD
+        ­ƒøí´©Å {t.archetypes?.AO?.name || "Accumulator"}
+=======
+        🛡️ {t.archetypes?.AO?.name || "Accumulator"}
+>>>>>>> 131d2acdc9229c42dddff3209a092e12ff39a122
+>>>>>>> c0612485282d8545540516d622ab65d449652367
       </motion.div>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -585,7 +593,15 @@ function Hero({ onStart }: { onStart: () => void }) {
   );
 }
 
+<<<<<<< HEAD
 /* ÔöÇÔöÇÔöÇ Identity ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+=======
+<<<<<<< HEAD
+/* ÔöÇÔöÇÔöÇ Identity ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+=======
+/* ─── Identity ────────────────────────────────────────────── */
+>>>>>>> 131d2acdc9229c42dddff3209a092e12ff39a122
+>>>>>>> c0612485282d8545540516d622ab65d449652367
 
 function Identity(props: {
   name: string;
@@ -1129,7 +1145,15 @@ function Sales({
           ))}
         </div>
 
+<<<<<<< HEAD
         {/* ÔöÇÔöÇ Block 8: Final CTA + Guarantee ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+=======
+<<<<<<< HEAD
+        {/* ÔöÇÔöÇ Block 8: Final CTA + Guarantee ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+=======
+        {/* ── Block 8: Final CTA + Guarantee ───────────────────────── */}
+>>>>>>> 131d2acdc9229c42dddff3209a092e12ff39a122
+>>>>>>> c0612485282d8545540516d622ab65d449652367
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Guarantee Section */}
           <motion.div
