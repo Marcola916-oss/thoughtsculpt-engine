@@ -8,7 +8,7 @@ interface BackgroundAmbientProps {
 
 export const BackgroundAmbient = memo(({ variant = "landing", className }: BackgroundAmbientProps) => {
   return (
-    <div className={cn("flowing-ambient pointer-events-none fixed inset-0 z-[-1]", className)}>
+    <div className={cn("flowing-ambient pointer-events-none fixed inset-0 z-[-10]", className)}>
       <div className="absolute inset-0 bg-black" />
       
       {/* Dynamic Mesh Orbs */}
