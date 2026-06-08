@@ -21,11 +21,11 @@ export function HowItWorks() {
         </span>
         <h2
           id="how-title"
-          className="font-display text-4xl font-extrabold leading-[1.05] tracking-[-0.03em] md:text-6xl"
+          className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-7xl"
         >
           {w.title}
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-foreground/70 md:text-lg">
+        <p className="mx-auto mt-6 max-w-xl text-base font-medium leading-relaxed text-white/60 md:text-xl tracking-tight drop-shadow-lg">
           {w.sub}
         </p>
       </Reveal>
@@ -39,13 +39,13 @@ export function HowItWorks() {
           <Reveal
             key={i}
             variant="fade-up"
-            className="relative flex flex-col items-center text-center"
+            className="group relative flex flex-col items-center text-center"
           >
-            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-full border border-arch-primary/40 bg-arch-primary/[0.06] font-display text-2xl font-extrabold text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)]">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-arch-primary/40 bg-arch-primary/[0.06] font-display text-3xl font-black italic text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground group-hover:rotate-6">
               {i + 1}
             </div>
-            <h3 className="mb-2 font-display text-lg font-bold text-foreground">{step.title}</h3>
-            <p className="max-w-[220px] text-sm leading-relaxed text-foreground/70">
+            <h3 className="mb-3 font-display text-xl font-black uppercase italic tracking-tight text-foreground group-hover:text-arch-primary transition-colors">{step.title}</h3>
+            <p className="max-w-[220px] text-[15px] font-medium leading-relaxed text-white/60 group-hover:text-white/90 transition-colors drop-shadow-md">
               {step.desc}
             </p>
           </Reveal>

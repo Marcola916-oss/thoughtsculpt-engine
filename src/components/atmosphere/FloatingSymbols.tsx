@@ -195,15 +195,15 @@ const SEEDED_SLOTS: SeededSlot[] = [
 ];
 
 const DENSITY_OPACITY: Record<FloatingSymbolsDensity, number> = {
-  sparse: 0.7,
-  normal: 1,
-  dense: 1.4,
+  sparse: 0.8,
+  normal: 1.2,
+  dense: 1.6,
 };
 
 const DENSITY_BLUR: Record<FloatingSymbolsDensity, string> = {
-  sparse: "blur-[0.5px]",
-  normal: "",
-  dense: "blur-[1px]",
+  sparse: "blur-[1px]",
+  normal: "blur-[0.5px]",
+  dense: "",
 };
 
 function FloatingSymbolsImpl({
@@ -229,7 +229,7 @@ function FloatingSymbolsImpl({
         positionClass,
         "inset-0",
         "pointer-events-none",
-        "z-[1]",
+        "z-[1]", // Symbols sit behind main content (z-10) but above background
         "overflow-hidden",
         reducedMotion === true ? "motion-reduce" : "motion-safe",
         className,
@@ -237,7 +237,8 @@ function FloatingSymbolsImpl({
     >
       {visible.map((slot, i) => {
         const char = symbols[i % symbols.length];
-        const finalOpacity = Math.min(slot.opacity * opacityMul, 0.28);
+        // Elements are now pure white for maximum visibility on black, but very low opacity
+        const finalOpacity = Math.min(slot.opacity * opacityMul, 0.35);
         return (
           <span
             key={i}
@@ -253,10 +254,10 @@ function FloatingSymbolsImpl({
               top: `${slot.y}%`,
               fontSize: `${slot.size}px`,
               opacity: finalOpacity,
-              color: "var(--accent)",
+              // White text ensures they are visible regardless of the background color
+              color: "#FFFFFF",
               animationDelay: `${slot.delay}s`,
               animationDuration: `${slot.duration}s`,
-              // CSS variables consumed by .symbol-drift keyframe
               ["--drift-x" as string]: `${slot.driftX}px`,
               ["--drift-y" as string]: `${slot.driftY}px`,
             }}

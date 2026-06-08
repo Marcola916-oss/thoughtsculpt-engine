@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 
 import { useServerFn } from "@tanstack/react-start";
@@ -28,7 +28,7 @@ import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
-import { Atmosphere } from "@/components/atmosphere/Atmosphere";
+import { Atmosphere, BackgroundAmbient } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import {
   ProofBar,
@@ -40,26 +40,17 @@ import {
   FinalCTA,
 } from "@/components/landing";
 
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 z-50 h-1 bg-arch-primary origin-left shadow-[0_0_10px_var(--arch-glow)]"
-      style={{ scaleX: scrollYProgress, opacity: scrollYProgress }}
-    />
-  );
-}
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MindReset ÔÇö Discover your financial archetype" },
+      { title: "MindReset — Discover your financial archetype" },
       {
         name: "description",
         content:
           "A 3-minute behavioral diagnosis. No budgets. No bank linking. Just psychology that changes behavior.",
       },
-      { property: "og:title", content: "MindReset ÔÇö Discover your financial archetype" },
+      { property: "og:title", content: "MindReset — Discover your financial archetype" },
       {
         property: "og:description",
         content:
@@ -162,13 +153,14 @@ function LandingAndQuiz() {
 
   return (
     <div
-      className="min-h-screen w-full bg-[#000000] text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
-      <div className="noise-overlay pointer-events-none" />
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_-20%,_var(--arch-glow),transparent_70%)] opacity-30 pointer-events-none" />
+      <BackgroundAmbient variant="landing" className="z-[-20]" />
+      <div className="noise-overlay pointer-events-none z-[-15]" />
 
-      <ScrollProgress />
+
+      
       <TopBar />
 
       <main className="w-full px-4 pb-24 pt-4 md:pt-12 relative z-10">
@@ -184,12 +176,16 @@ function LandingAndQuiz() {
               <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </Atmosphere>
-              <div className="relative z-10 bg-background/80 backdrop-blur-md">
+              <div className="relative z-10 bg-black/95 backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)]">
                 <ProofBar />
-                <ArchetypeShowcase />
-                <HowItWorks />
-                <FeaturesGrid />
-                <Testimonials />
+                <div className="bg-black">
+                  <ArchetypeShowcase />
+                  <HowItWorks />
+                </div>
+                <div className="bg-black">
+                  <FeaturesGrid />
+                  <Testimonials />
+                </div>
                 <FAQ onCta={() => setStage({ kind: "identity" })} />
                 <FinalCTA onCta={() => setStage({ kind: "identity" })} />
               </div>
@@ -202,7 +198,7 @@ function LandingAndQuiz() {
                 stepKey="identity"
                 progress={0}
                 onBack={undefined}
-                progressTitle="Identifica├º├úo"
+                progressTitle="Identificação"
               >
                 <Identity
                   name={name}
@@ -244,7 +240,7 @@ function LandingAndQuiz() {
                 stepKey="email"
                 progress={90}
                 onBack={() => setStage({ kind: "q", index: 7 })}
-                progressTitle="Finaliza├º├úo"
+                progressTitle="Finalização"
               >
                 <EmailCapture
                   name={name}
@@ -359,11 +355,13 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
   );
 }
 
-/* ÔöÇÔöÇÔöÇ TopBar ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- TopBar ----------------------------------------------------------------------------------------- */
 
 function TopBar() {
   const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", fn, { passive: true });
@@ -374,7 +372,7 @@ function TopBar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         scrolled
-          ? "bg-background/60 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          ? "bg-black/80 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-6"
       }`}
     >
@@ -383,12 +381,19 @@ function TopBar() {
           to="/"
           className="group flex items-center gap-3 font-display text-3xl font-black tracking-tighter"
         >
-          <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)]">
-            <span className="text-white text-2xl italic font-black">M</span>
+          <div className="relative">
+            <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)] border border-white/10">
+              <span className="text-white text-2xl italic font-black drop-shadow-sm">M</span>
+            </div>
+            <motion.div 
+              className="absolute -inset-1 rounded-xl bg-arch-primary/20 blur-sm -z-10"
+              animate={{ opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
           </div>
-          <div className="flex items-baseline">
-            <span className="text-white transition-colors group-hover:text-arch-primary">Mind</span>
-            <span className="text-arch-primary transition-colors group-hover:text-white">
+          <div className="flex items-baseline uppercase italic">
+            <span className="text-white transition-colors group-hover:text-arch-primary drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)]">Mind</span>
+            <span className="text-arch-primary transition-colors group-hover:text-white drop-shadow-[0_2px_15px_var(--arch-glow)]">
               Reset
             </span>
           </div>
@@ -401,20 +406,29 @@ function TopBar() {
           <Link
             to="/login"
             data-cursor="hover"
-            className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-6 py-2.5 text-xs font-black uppercase tracking-widest text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10"
+            className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 hover:-translate-y-0.5"
           >
             <span className="relative z-10">{t.common.login}</span>
             <div className="absolute inset-0 translate-y-[100%] bg-arch-primary transition-transform duration-300 group-hover:translate-y-0" />
           </Link>
         </div>
       </div>
+      
+      {/* Scroll indicator line integrated into TopBar */}
+      <motion.div 
+        className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-arch-primary to-transparent"
+        style={{ 
+          scaleX: scrollYProgress, 
+          width: "100%",
+          transformOrigin: "center",
+          opacity: scrolled ? 1 : 0
+        }}
+      />
     </header>
   );
 }
 
-/* ÔöÇÔöÇÔöÇ Hero ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
-
-/* ÔöÇÔöÇÔöÇ Hero ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- Hero ------------------------------------------------------------------------------------------- */
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
@@ -422,9 +436,9 @@ function Hero({ onStart }: { onStart: () => void }) {
     <section className="relative pt-24 pb-12 md:pt-48 md:pb-40 text-center overflow-hidden">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_50%)] opacity-40 blur-[100px]" />
-        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/10 blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/10 blur-[120px] rounded-full animate-pulse [animation-delay:2s]" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[120px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[140px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[140px] rounded-full animate-pulse [animation-delay:2s]" />
       </div>
 
       {/* Floating Archetype Badges */}
@@ -432,40 +446,60 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-12 flex flex-wrap justify-center gap-4"
+        className="mb-12 flex flex-wrap justify-center gap-4 px-4"
       >
-        🛡️ {t.archetypes?.AO?.name || "Accumulator"}
+        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary backdrop-blur-md">
+          <ShieldCheck className="h-3.5 w-3.5" />
+          {t.archetypes?.AO?.name || "O Guardador"}
+        </span>
       </motion.div>
+
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -18, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-950/20 px-4 py-2 text-xs font-bold text-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 0.8, x: 0, y: [0, -18, 0] }}
+        transition={{ 
+          opacity: { duration: 1 },
+          x: { duration: 1 },
+          y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 } 
+        }}
+        className="hidden lg:flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-bold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
       >
-        ­ƒææ {t.archetypes?.SS?.name || "Status Seeker"}
+        <Star className="h-3.5 w-3.5" />
+        {t.archetypes?.SS?.name || "O Pav├úo"}
       </motion.div>
+
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -15, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 0.8, x: 0, y: [0, -15, 0] }}
+        transition={{ 
+          opacity: { duration: 1 },
+          x: { duration: 1 },
+          y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 } 
+        }}
         className="hidden lg:flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-bold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
       >
-        ­ƒîî {t.archetypes?.EA?.name || "Escapist"}
+        <CompassIcon className="h-3.5 w-3.5" />
+        {t.archetypes?.EA?.name || "O Fantasma"}
       </motion.div>
+
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 0.8, y: [0, -20, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        transition={{ 
+          opacity: { duration: 1 },
+          y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 } 
+        }}
         className="hidden lg:flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none"
       >
-        ÔÜí {t.archetypes?.HI?.name || "Hedonist"}
+        <LineChart className="h-3.5 w-3.5" />
+        {t.archetypes?.HI?.name || "O Foguinho"}
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/80 shadow-2xl backdrop-blur-xl"
+        className="mb-10 inline-flex items-center gap-2 rounded-full bg-black/40 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/90 shadow-2xl backdrop-blur-2xl border-white/10 border-2"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
@@ -478,33 +512,39 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
+        className="relative mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
       >
-        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+        <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
           {t.hero.headline.split('conhecer')[0]}
         </span>
-        <span className="relative inline-block mx-4">
-          <span className="relative z-10 text-arch-primary">conhecer</span>
+        <span className="relative inline-block mx-4 z-10">
+          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
           <motion.span 
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-            className="absolute bottom-[5%] left-0 h-[10%] w-full bg-arch-primary/40 -z-0 origin-left"
+            className="absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]"
           />
         </span>
-        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+        <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
           {t.hero.headline.split('conhecer')[1]}
         </span>
+        
+        {/* Deep Contrast Backplate for Headline */}
+        <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[100px] -z-0 pointer-events-none" />
       </motion.h1>
 
-      <motion.p
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 1 }}
-        className="mx-auto mt-16 max-w-2xl text-lg text-muted-foreground md:text-2xl leading-relaxed font-medium tracking-tight px-6"
+        className="relative mx-auto mt-16 max-w-2xl px-6"
       >
-        {t.hero.sub}
-      </motion.p>
+        <div className="absolute inset-0 bg-black/60 blur-[40px] -z-10 scale-150" />
+        <p className="relative z-10 text-lg text-white md:text-2xl leading-relaxed font-semibold tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+          {t.hero.sub}
+        </p>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -561,10 +601,10 @@ function Hero({ onStart }: { onStart: () => void }) {
              <motion.div 
                key={arch}
                whileHover={{ y: -10, scale: 1.05 }}
-               className="glass-morphism rounded-[2.5rem] p-8 border border-white/5 flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/30 group"
+               className="glass-morphism rounded-[2.5rem] p-8 border border-white/10 bg-black/40 backdrop-blur-xl flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
              >
                <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all">
-                 {arch === 'AO' ? '­ƒøí´©Å' : arch === 'SS' ? '­ƒææ' : arch === 'EA' ? '­ƒæ╗' : 'ÔÜí'}
+                 {arch === 'AO' ? '🛡️' : arch === 'SS' ? '👑' : arch === 'EA' ? '👻' : '🔥'}
                </span>
                <div className="space-y-1">
                  <span className="block text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
@@ -667,7 +707,7 @@ function Identity(props: {
   );
 }
 
-/* ÔöÇÔöÇÔöÇ QuestionScreen ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- QuestionScreen ---------------------------------------------------------------------------------- */
 
 function QuestionScreen(props: {
   index: number;
@@ -701,7 +741,7 @@ function QuestionScreen(props: {
   );
 }
 
-/* ÔöÇÔöÇÔöÇ EmailCapture ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- EmailCapture ------------------------------------------------------------------------------------- */
 
 function EmailCapture(props: {
   name: string;
@@ -753,14 +793,14 @@ function EmailCapture(props: {
         </label>
 
         <PrimaryButton type="submit" disabled={!valid} fullWidth size="lg" className="mt-4">
-          {t.emailCapture.cta} ÔåÆ
+          {t.emailCapture.cta} →
         </PrimaryButton>
       </form>
     </div>
   );
 }
 
-/* ÔöÇÔöÇÔöÇ Reveal ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- Reveal ------------------------------------------------------------------------------------------- */
 
 function Reveal({
   name,
@@ -862,7 +902,7 @@ function Reveal({
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[100px]" />
 
         <div className="absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-32 rounded-[2.5rem] bg-background border-2 border-arch-primary flex items-center justify-center text-5xl shadow-[0_20px_40px_-10px_var(--arch-glow)] z-20">
-          ­ƒÄ»
+          🔒
         </div>
 
         <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">
@@ -915,7 +955,7 @@ function Reveal({
   );
 }
 
-/* ÔöÇÔöÇÔöÇ Sales (9-Block VSL) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- Sales (9-Block VSL) ----------------------------------------------------------------------------- */
 
 function Sales({
   name,
@@ -948,7 +988,7 @@ function Sales({
   return (
     <section className="py-12 md:py-24 animate-in fade-in duration-1000">
       <div className="space-y-40">
-        {/* ÔöÇÔöÇ Block 1: H1 + Promise + Video Placeholder ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+        {/* --- Block 1: H1 + Promise + Video Placeholder ---------------------- */}
         <div className="text-center max-w-5xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -1017,7 +1057,7 @@ function Sales({
           </motion.div>
         </div>
 
-        {/* ÔöÇÔöÇ Block 2: Pain Mirror ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+        {/* --- Block 2: Pain Mirror ------------------------------------------- */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -1069,7 +1109,7 @@ function Sales({
           </PrimaryButton>
         </div>
 
-        {/* ÔöÇÔöÇ Block 3: Scientific Proof ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+        {/* --- Block 3: Scientific Proof -------------------------------------- */}
         <div className="text-center max-w-5xl mx-auto relative px-6">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-full h-[600px] bg-arch-glow blur-[140px] opacity-10 -z-10" />
           <div className="inline-flex items-center justify-center h-32 w-32 rounded-[2.5rem] bg-white/5 border border-white/10 mb-12 shadow-2xl backdrop-blur-xl">
@@ -1104,7 +1144,7 @@ function Sales({
           </div>
         </div>
 
-        {/* ÔöÇÔöÇ Block 4: Product Grid (4D Features) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+        {/* --- Block 4: Product Grid (4D Features) ----------------------------- */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {s.features.map((f, i) => (
             <motion.div
@@ -1176,7 +1216,7 @@ function Sales({
                 className="italic h-28 md:h-32 px-12 md:px-20 text-3xl md:text-4xl"
                 icon={<ArrowRight size={40} className="text-arch-primary ml-4" />}
               >
-                DESCOBRIR MEU ARQU├ëTIPO ÔåÆ
+                DESCOBRIR MEU ARQUÉTIPO →
               </PrimaryButton>
 
               <div className="mt-16 flex items-center justify-center gap-8">
@@ -1428,14 +1468,14 @@ function Plans({
   );
 }
 
-/* ÔöÇÔöÇÔöÇ Footer ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- Footer ----------------------------------------------------------------------------------------- */
 
 function Footer() {
   const { t } = useI18n();
   return (
     <footer className="mt-12 border-t border-border bg-card">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-muted-foreground">
-        <p className="font-semibold text-foreground">┬® {new Date().getFullYear()} MindReset Inc.</p>
+        <p className="font-semibold text-foreground">© {new Date().getFullYear()} MindReset Inc.</p>
         <div className="flex gap-6">
           <Link to="/privacy" className="hover:text-primary transition">
             {t.common.privacy}

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { getCheckoutSessionStatus } from "../lib/checkout.success";
 import { useI18n } from "../lib/i18n/LanguageProvider";
-import { Atmosphere } from "@/components/atmosphere/Atmosphere";
+import { Atmosphere, BackgroundAmbient } from "@/components/atmosphere";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { IdentitySymbol } from "@/components/identity/IdentitySymbol";
 import { MarbleBust } from "@/components/identity/MarbleBust";
@@ -169,7 +169,7 @@ function ThankYouPage() {
   return (
     <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
       <div className="min-h-screen bg-black text-white relative overflow-hidden">
-        <div className="fixed inset-0 mesh-gradient opacity-30 pointer-events-none" />
+        <BackgroundAmbient variant="landing" />
         <div className="noise-overlay" />
 
         <div className="relative z-10 mx-auto max-w-3xl px-4 py-12 md:py-20">

@@ -16,9 +16,9 @@ export function ProofBar() {
   return (
     <aside
       aria-label="MindReset — Indicadores de confiança"
-      className="relative w-full border-y border-white/[0.07] bg-white/[0.015] backdrop-blur-sm"
+      className="relative w-full border-y border-white/[0.1] bg-black/40 backdrop-blur-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)]"
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-white/[0.07] px-4 md:grid-cols-4 md:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-white/[0.1] px-4 md:grid-cols-4 md:px-8">
         {items.map((item, i) => {
           const Icon = ICONS[i];
           return (
@@ -26,19 +26,19 @@ export function ProofBar() {
               key={i}
               variant="fade-up"
               delay={i * 0.08}
-              className="flex items-center gap-4 px-4 py-7 md:px-8"
+              className="group flex items-center gap-4 px-4 py-7 md:px-8 transition-colors hover:bg-white/[0.02]"
             >
               <span
                 aria-hidden
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-arch-primary/20 bg-arch-primary/10 text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-arch-primary/20 bg-arch-primary/10 text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-arch-primary group-hover:text-primary-foreground"
               >
                 <Icon className="h-4 w-4" />
               </span>
-              <div className="min-w-0">
-                <div className="font-display text-2xl font-extrabold leading-none text-foreground md:text-[26px]">
+              <div className="min-w-0 transition-transform duration-500 group-hover:translate-x-1">
+                <div className="font-display text-2xl font-black italic leading-none text-white md:text-[26px] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
                   {item.value}
                 </div>
-                <div className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground/60">
+                <div className="mt-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-white/50 group-hover:text-arch-primary transition-colors drop-shadow-sm">
                   {item.label}
                 </div>
               </div>

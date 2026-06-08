@@ -19,6 +19,7 @@ import {
   type FloatingSymbolsSet,
 } from "./FloatingSymbols";
 import { ScanLines, type ScanLinesIntensity } from "./ScanLines";
+import { BackgroundAmbient } from "./BackgroundAmbient";
 
 export type AtmosphereFog = "off" | VolumetricFogIntensity;
 export type AtmosphereSymbols = "off" | FloatingSymbolsDensity;
@@ -38,6 +39,8 @@ export interface AtmosphereProps {
   /** Forwarded to the wrapper. */
   className?: string;
   children?: ReactNode;
+  /** Whether to show the base ambient background (default true if fog/scan used) */
+  withAmbient?: boolean;
 }
 
 const FOG_TO_INTENSITY: Record<VolumetricFogIntensity, VolumetricFogIntensity> = {
@@ -60,9 +63,11 @@ export function Atmosphere({
   pinned = true,
   className,
   children,
+  withAmbient = false,
 }: AtmosphereProps) {
   return (
     <div aria-hidden="true" className={cn("relative", className)}>
+      {withAmbient && <BackgroundAmbient variant="landing" />}
       {fog !== "off" && <VolumetricFog intensity={FOG_TO_INTENSITY[fog]} pinned={pinned} />}
       {symbols !== "off" && (
         <FloatingSymbols

@@ -347,27 +347,26 @@
 
 .bento-card {
   position: relative;
-  background: var(--card);
-  border: 1px solid transparent;
-  border-radius: var(--radius-2xl);
+  background: rgba(13, 13, 13, 0.4);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-xl);
   padding: 2rem;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 4px 24px -1px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(255,255,255,0.01) inset;
 }
-.bento-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
-  opacity: 0;
-  transition: opacity 0.5s;
-  pointer-events: none;
-}
-.bento-card:hover::before { opacity: 1; }
+
 .bento-card:hover {
+  background: rgba(20, 20, 20, 0.6);
   border-color: var(--arch-primary);
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 40px -20px var(--arch-glow);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 40px -20px var(--arch-glow),
+    0 0 0 1px var(--arch-primary) inset;
 }
 
 /* ─── Glassmorphism ──────────────────────────────────────── */
@@ -412,6 +411,48 @@
     radial-gradient(at 50% 50%, rgba(255,255,255,0.02) 0, transparent 80%);
   background-attachment: fixed;
   animation: mesh-shift 15s ease-in-out infinite alternate;
+}
+
+/* New Animated Flowing Background for Internal/Landing */
+.flowing-ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.flowing-ambient::before {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background: radial-gradient(circle at center, var(--arch-primary) 0%, transparent 40%);
+  opacity: 0.15;
+  filter: blur(140px);
+  animation: flowing-rotate 22s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+.flowing-ambient::after {
+  content: "";
+  position: absolute;
+  width: 130%;
+  height: 130%;
+  bottom: -15%;
+  right: -15%;
+  background: radial-gradient(circle at center, var(--accent-deeper) 0%, transparent 40%);
+  opacity: 0.12;
+  filter: blur(120px);
+  animation: flowing-rotate 28s ease-in-out infinite reverse;
+  mix-blend-mode: screen;
+}
+
+@keyframes flowing-rotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
 }
 
 @keyframes mesh-shift {
@@ -611,32 +652,36 @@
 /* ─── Atmosphere: VolumetricFog ──────────────────────────── */
 .fog-layer-base {
   background: radial-gradient(
-    ellipse 75% 60% at 50% 28%,
+    ellipse 85% 70% at 50% 28%,
     var(--accent-surface) 0%,
-    transparent 65%
+    rgba(0,0,0,0.7) 40%,
+    transparent 80%
   );
 }
 .fog-base-subtle {
   background: radial-gradient(
-    ellipse 75% 60% at 50% 28%,
+    ellipse 80% 65% at 50% 28%,
     var(--accent-surface) 0%,
-    transparent 70%
+    rgba(0,0,0,0.7) 50%,
+    transparent 80%
   );
 }
 .fog-base-normal {
   background: radial-gradient(
-    ellipse 80% 65% at 50% 30%,
+    ellipse 85% 70% at 50% 30%,
     var(--accent-surface) 0%,
-    var(--accent-glow) 50%,
-    transparent 80%
+    var(--accent-glow) 35%,
+    rgba(0,0,0,0.85) 60%,
+    transparent 85%
   );
 }
 .fog-base-dramatic {
   background: radial-gradient(
-    ellipse 90% 70% at 50% 30%,
+    ellipse 100% 80% at 50% 30%,
     var(--accent-surface) 0%,
-    var(--accent-glow-strong) 40%,
-    transparent 85%
+    var(--accent-glow-strong) 30%,
+    rgba(0,0,0,0.95) 55%,
+    transparent 90%
   );
 }
 

@@ -25,11 +25,11 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
           </span>
           <h2
             id="faq-title"
-            className="font-display text-4xl font-extrabold leading-[1.05] tracking-[-0.03em] md:text-5xl"
+            className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-5xl"
           >
             {f.title}
           </h2>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-foreground/70">{f.sub}</p>
+          <p className="mt-6 max-w-md text-base font-medium leading-relaxed text-white/50 drop-shadow-md">{f.sub}</p>
           {onCta && (
             <ButtonPress
               onClick={onCta}
@@ -45,15 +45,15 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
           {f.items.map((item, i) => {
             const isOpen = openIdx === i;
             return (
-              <div key={i} className={`border-b border-white/[0.07] ${i === 0 ? "border-t" : ""}`}>
+              <div key={i} className={`border-b border-white/[0.07] ${i === 0 ? "border-t" : ""} transition-colors hover:bg-white/[0.01]`}>
                 <button
                   type="button"
                   onClick={() => setOpenIdx(isOpen ? null : i)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-panel-${i}`}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:text-arch-primary"
+                  className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors group"
                 >
-                  <span className="font-display text-base font-bold text-foreground md:text-lg">
+                  <span className={`font-display text-lg font-black uppercase italic tracking-tight transition-colors ${isOpen ? "text-arch-primary" : "text-white"} group-hover:text-arch-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]`}>
                     {item.q}
                   </span>
                   <Plus
@@ -72,7 +72,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
                     isOpen ? "grid-rows-[1fr] opacity-100 pb-5" : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
-                  <p className="min-h-0 text-sm leading-relaxed text-foreground/70 md:text-[15px]">
+                  <p className="min-h-0 text-[15px] font-medium leading-relaxed text-white/70 md:text-base drop-shadow-sm">
                     {item.a}
                   </p>
                 </div>
