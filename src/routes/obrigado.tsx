@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { getCheckoutSessionStatus } from "../lib/checkout.success";
 import { useI18n } from "../lib/i18n/LanguageProvider";
-import { Atmosphere } from "@/components/atmosphere/Atmosphere";
+import { Atmosphere, BackgroundAmbient } from "@/components/atmosphere";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { IdentitySymbol } from "@/components/identity/IdentitySymbol";
 import { MarbleBust } from "@/components/identity/MarbleBust";

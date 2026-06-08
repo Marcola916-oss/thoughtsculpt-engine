@@ -7,6 +7,7 @@ import { saveOnboarding } from "../../lib/profile.functions";
 import { generateCalendar } from "../../lib/calendar.functions";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { Magnetic } from "../../components/PageTransition";
+import { BackgroundAmbient } from "@/components/atmosphere";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({ meta: [{ title: "Calibration — MindReset" }] }),
