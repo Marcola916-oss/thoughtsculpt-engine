@@ -1,4 +1,4 @@
-﻿import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 
 import { useServerFn } from "@tanstack/react-start";
@@ -44,13 +44,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MindReset ÔÇö Discover your financial archetype" },
+      { title: "MindReset — Discover your financial archetype" },
       {
         name: "description",
         content:
           "A 3-minute behavioral diagnosis. No budgets. No bank linking. Just psychology that changes behavior.",
       },
-      { property: "og:title", content: "MindReset ÔÇö Discover your financial archetype" },
+      { property: "og:title", content: "MindReset — Discover your financial archetype" },
       {
         property: "og:description",
         content:
@@ -176,13 +176,13 @@ function LandingAndQuiz() {
               <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </Atmosphere>
-              <div className="relative z-10 bg-black/80 backdrop-blur-md">
+              <div className="relative z-10 bg-black/95 backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)]">
                 <ProofBar />
-                <div className="bg-gradient-to-b from-black to-zinc-950">
+                <div className="bg-black">
                   <ArchetypeShowcase />
                   <HowItWorks />
                 </div>
-                <div className="bg-gradient-to-b from-zinc-950 to-black">
+                <div className="bg-black">
                   <FeaturesGrid />
                   <Testimonials />
                 </div>
@@ -198,7 +198,7 @@ function LandingAndQuiz() {
                 stepKey="identity"
                 progress={0}
                 onBack={undefined}
-                progressTitle="Identifica├º├úo"
+                progressTitle="Identificação"
               >
                 <Identity
                   name={name}
@@ -240,7 +240,7 @@ function LandingAndQuiz() {
                 stepKey="email"
                 progress={90}
                 onBack={() => setStage({ kind: "q", index: 7 })}
-                progressTitle="Finaliza├º├úo"
+                progressTitle="Finalização"
               >
                 <EmailCapture
                   name={name}
@@ -355,7 +355,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
   );
 }
 
-/* ÔöÇÔöÇÔöÇ TopBar ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- TopBar ----------------------------------------------------------------------------------------- */
 
 function TopBar() {
   const { t } = useI18n();
@@ -600,7 +600,7 @@ function Hero({ onStart }: { onStart: () => void }) {
                className="glass-morphism rounded-[2.5rem] p-8 border border-white/10 bg-black/40 backdrop-blur-xl flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
              >
                <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all">
-                 {arch === 'AO' ? '­ƒøí´©Å' : arch === 'SS' ? '­ƒææ' : arch === 'EA' ? '­ƒæ╗' : 'ÔÜí'}
+                 {arch === 'AO' ? '🛡️' : arch === 'SS' ? '👑' : arch === 'EA' ? '👻' : '🔥'}
                </span>
                <div className="space-y-1">
                  <span className="block text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
@@ -703,7 +703,7 @@ function Identity(props: {
   );
 }
 
-/* ÔöÇÔöÇÔöÇ QuestionScreen ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- QuestionScreen ---------------------------------------------------------------------------------- */
 
 function QuestionScreen(props: {
   index: number;
@@ -737,7 +737,7 @@ function QuestionScreen(props: {
   );
 }
 
-/* ÔöÇÔöÇÔöÇ EmailCapture ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- EmailCapture ------------------------------------------------------------------------------------- */
 
 function EmailCapture(props: {
   name: string;
@@ -789,14 +789,14 @@ function EmailCapture(props: {
         </label>
 
         <PrimaryButton type="submit" disabled={!valid} fullWidth size="lg" className="mt-4">
-          {t.emailCapture.cta} ÔåÆ
+          {t.emailCapture.cta} →
         </PrimaryButton>
       </form>
     </div>
   );
 }
 
-/* ÔöÇÔöÇÔöÇ Reveal ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- Reveal ------------------------------------------------------------------------------------------- */
 
 function Reveal({
   name,
@@ -898,7 +898,7 @@ function Reveal({
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[100px]" />
 
         <div className="absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-32 rounded-[2.5rem] bg-background border-2 border-arch-primary flex items-center justify-center text-5xl shadow-[0_20px_40px_-10px_var(--arch-glow)] z-20">
-          ­ƒÄ»
+          🔒
         </div>
 
         <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">
@@ -951,7 +951,7 @@ function Reveal({
   );
 }
 
-/* ÔöÇÔöÇÔöÇ Sales (9-Block VSL) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- Sales (9-Block VSL) ----------------------------------------------------------------------------- */
 
 function Sales({
   name,
@@ -984,7 +984,7 @@ function Sales({
   return (
     <section className="py-12 md:py-24 animate-in fade-in duration-1000">
       <div className="space-y-40">
-        {/* ÔöÇÔöÇ Block 1: H1 + Promise + Video Placeholder ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+        {/* --- Block 1: H1 + Promise + Video Placeholder ---------------------- */}
         <div className="text-center max-w-5xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -1053,7 +1053,7 @@ function Sales({
           </motion.div>
         </div>
 
-        {/* ÔöÇÔöÇ Block 2: Pain Mirror ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+        {/* --- Block 2: Pain Mirror ------------------------------------------- */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -1105,7 +1105,7 @@ function Sales({
           </PrimaryButton>
         </div>
 
-        {/* ÔöÇÔöÇ Block 3: Scientific Proof ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+        {/* --- Block 3: Scientific Proof -------------------------------------- */}
         <div className="text-center max-w-5xl mx-auto relative px-6">
           <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-full h-[600px] bg-arch-glow blur-[140px] opacity-10 -z-10" />
           <div className="inline-flex items-center justify-center h-32 w-32 rounded-[2.5rem] bg-white/5 border border-white/10 mb-12 shadow-2xl backdrop-blur-xl">
@@ -1140,7 +1140,7 @@ function Sales({
           </div>
         </div>
 
-        {/* ÔöÇÔöÇ Block 4: Product Grid (4D Features) ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */}
+        {/* --- Block 4: Product Grid (4D Features) ----------------------------- */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {s.features.map((f, i) => (
             <motion.div
@@ -1212,7 +1212,7 @@ function Sales({
                 className="italic h-28 md:h-32 px-12 md:px-20 text-3xl md:text-4xl"
                 icon={<ArrowRight size={40} className="text-arch-primary ml-4" />}
               >
-                DESCOBRIR MEU ARQU├ëTIPO ÔåÆ
+                DESCOBRIR MEU ARQUÉTIPO →
               </PrimaryButton>
 
               <div className="mt-16 flex items-center justify-center gap-8">
@@ -1464,14 +1464,14 @@ function Plans({
   );
 }
 
-/* ÔöÇÔöÇÔöÇ Footer ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* --- Footer ----------------------------------------------------------------------------------------- */
 
 function Footer() {
   const { t } = useI18n();
   return (
     <footer className="mt-12 border-t border-border bg-card">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-muted-foreground">
-        <p className="font-semibold text-foreground">┬® {new Date().getFullYear()} MindReset Inc.</p>
+        <p className="font-semibold text-foreground">© {new Date().getFullYear()} MindReset Inc.</p>
         <div className="flex gap-6">
           <Link to="/privacy" className="hover:text-primary transition">
             {t.common.privacy}
