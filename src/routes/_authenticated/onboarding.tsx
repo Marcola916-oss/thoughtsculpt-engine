@@ -7,6 +7,7 @@ import { saveOnboarding } from "../../lib/profile.functions";
 import { generateCalendar } from "../../lib/calendar.functions";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { Magnetic } from "../../components/PageTransition";
+import { BackgroundAmbient } from "@/components/atmosphere";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({ meta: [{ title: "Calibration — MindReset" }] }),
@@ -193,7 +194,7 @@ function OnboardingPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col justify-between py-12 px-4 relative overflow-hidden">
-      <div className="absolute inset-0 mesh-gradient opacity-10" />
+      <BackgroundAmbient variant="landing" />
       
       <header className="mx-auto max-w-xl w-full text-center relative z-10">
         <div className="font-display text-2xl font-bold tracking-tight mb-8">

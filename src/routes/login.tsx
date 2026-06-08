@@ -2,6 +2,7 @@ import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { supabase } from "../integrations/supabase/client";
+import { BackgroundAmbient } from "@/components/atmosphere";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Log in — MindReset" }] }),
@@ -52,7 +53,9 @@ function LoginPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6">
+    <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden">
+      <BackgroundAmbient variant="landing" />
+      <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 relative z-10">
       <Link to="/" className="mb-8 text-center font-display text-xl font-bold">
         <span className="text-foreground">Mind</span>
         <span className="text-primary">Reset</span>
@@ -100,6 +103,7 @@ function LoginPage() {
       >
         Forgot password?
       </button>
+      </div>
     </div>
   );
 }

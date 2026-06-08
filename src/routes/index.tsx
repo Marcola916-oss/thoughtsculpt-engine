@@ -28,7 +28,7 @@ import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
-import { Atmosphere } from "@/components/atmosphere/Atmosphere";
+import { Atmosphere, BackgroundAmbient } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import {
   ProofBar,
@@ -156,8 +156,9 @@ function LandingAndQuiz() {
       className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
+      <BackgroundAmbient variant="landing" />
       <div className="noise-overlay pointer-events-none" />
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_-20%,_var(--arch-glow),transparent_70%)] opacity-30 pointer-events-none" />
+
 
       
       <TopBar />
