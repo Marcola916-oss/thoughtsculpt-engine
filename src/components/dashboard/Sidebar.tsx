@@ -33,20 +33,28 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
   }
 
   return (
-    <div className="flex h-full flex-col p-5 relative">
-      {/* Mesh background effect for sidebar */}
-      <div className="absolute inset-0 mesh-gradient opacity-5 pointer-events-none" />
+    <div className="flex h-full flex-col p-5 relative overflow-hidden">
+      {/* Visual hierarchy lines */}
+      <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-border/50 to-transparent" />
+      <div className="absolute top-1/4 -right-1 h-32 w-2 bg-arch-primary/20 blur-md rounded-full" />
       
-      {/* Logo */}
-      <Link
-        to="/dashboard"
-        onClick={onClose}
-        className="mb-2 font-display text-2xl font-black tracking-tighter relative z-10 flex items-center gap-1.5"
-      >
-        <span className="text-foreground">Mind</span>
-        <span className="text-arch-primary transition-colors duration-500">Reset</span>
-      </Link>
-      <p className="text-[10px] font-semibold text-muted-foreground/50 uppercase tracking-[0.2em] mb-8 relative z-10">Protocol v2.0</p>
+      {/* Logo Section */}
+      <div className="mb-10 pl-2">
+        <Link
+          to="/dashboard"
+          onClick={onClose}
+          className="font-display text-2xl font-black tracking-tighter relative z-10 flex items-center gap-1.5 group"
+        >
+          <div className="h-8 w-8 rounded-lg bg-arch-primary flex items-center justify-center shadow-[0_0_15px_var(--arch-glow)] transition-transform duration-500 group-hover:rotate-12">
+            <span className="text-white text-lg italic font-black">M</span>
+          </div>
+          <div className="flex flex-col -gap-1">
+            <span className="text-foreground leading-none">Mind</span>
+            <span className="text-arch-primary leading-none transition-colors duration-500">Reset</span>
+          </div>
+        </Link>
+        <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.4em] mt-3">Protocol v3.0 // 2026</p>
+      </div>
 
       {/* Nav */}
       <nav className="flex flex-1 flex-col gap-0.5 relative z-10">
@@ -62,10 +70,10 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
               <Link
                 to={it.to}
                 onClick={onClose}
-                className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ${
+                className={`group relative flex items-center gap-3 rounded-xl px-4 py-3.5 text-xs font-black uppercase tracking-widest transition-all duration-300 ${
                   active
-                    ? "bg-arch-primary/10 text-foreground shadow-[0_0_15px_var(--arch-glow)] border border-arch-primary/20"
-                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:translate-x-1"
+                    ? "text-foreground shadow-[0_0_20px_var(--arch-glow)] border border-arch-primary/30 bg-arch-primary/5"
+                    : "text-muted-foreground/60 hover:text-foreground hover:bg-white/5 hover:translate-x-1"
                 }`}
               >
                 {active && (
@@ -119,13 +127,13 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
 
       {/* User profile / archetype badge at bottom */}
       {profile && (
-        <div className="mt-auto pt-6 border-t border-border flex items-center gap-3 relative z-10">
-          <div className="h-10 w-10 rounded-xl bg-arch-primary/10 flex items-center justify-center font-bold text-arch-primary border border-arch-primary/20 shadow-[0_0_10px_var(--arch-glow)] select-none">
+        <div className="mt-auto pt-6 border-t border-white/5 flex items-center gap-3 relative z-10 px-2">
+          <div className="h-11 w-11 rounded-xl bg-arch-primary/10 flex items-center justify-center font-black text-arch-primary border border-arch-primary/20 shadow-[0_0_15px_var(--arch-glow)] select-none italic">
             {profile.archetype || "MR"}
           </div>
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-sm font-bold text-foreground truncate">{profile.display_name || "Membro"}</p>
-            <p className="text-[10px] font-semibold text-muted-foreground/80 uppercase tracking-widest mt-0.5 truncate">
+            <p className="text-xs font-black text-foreground truncate uppercase tracking-wider">{profile.display_name || "Membro"}</p>
+            <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] mt-0.5 truncate italic">
               {profile.archetype ? (t.archetypes as any)?.[profile.archetype]?.name || profile.archetype : "MindReset"}
             </p>
           </div>
@@ -135,9 +143,9 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
       {/* Logout */}
       <button
         onClick={logout}
-        className="mt-4 flex items-center gap-2 text-left text-xs text-muted-foreground transition hover:text-foreground relative z-10"
+        className="mt-6 flex items-center gap-2 text-left text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/50 transition hover:text-arch-primary relative z-10 px-2 group"
       >
-        <span>↩</span> {t.common.logout}
+        <span className="transition-transform group-hover:-translate-x-1">↩</span> {t.common.logout}
       </button>
     </div>
   );
@@ -256,7 +264,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen bg-transparent relative z-10" data-arch={profile?.archetype || undefined}>
       {/* Desktop Sidebar */}
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border bg-card md:flex z-50">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border/40 bg-card/30 backdrop-blur-3xl md:flex z-50">
         <SidebarContent
           streak={streak}
           unreadCount={unread}
