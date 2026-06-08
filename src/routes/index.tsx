@@ -372,7 +372,7 @@ function TopBar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         scrolled
-          ? "bg-black/60 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          ? "bg-black/80 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-6"
       }`}
     >
@@ -382,8 +382,8 @@ function TopBar() {
           className="group flex items-center gap-3 font-display text-3xl font-black tracking-tighter"
         >
           <div className="relative">
-            <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)]">
-              <span className="text-white text-2xl italic font-black">M</span>
+            <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)] border border-white/10">
+              <span className="text-white text-2xl italic font-black drop-shadow-sm">M</span>
             </div>
             <motion.div 
               className="absolute -inset-1 rounded-xl bg-arch-primary/20 blur-sm -z-10"
@@ -392,8 +392,8 @@ function TopBar() {
             />
           </div>
           <div className="flex items-baseline uppercase italic">
-            <span className="text-white transition-colors group-hover:text-arch-primary">Mind</span>
-            <span className="text-arch-primary transition-colors group-hover:text-white">
+            <span className="text-white transition-colors group-hover:text-arch-primary drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)]">Mind</span>
+            <span className="text-arch-primary transition-colors group-hover:text-white drop-shadow-[0_2px_15px_var(--arch-glow)]">
               Reset
             </span>
           </div>
@@ -438,9 +438,9 @@ function Hero({ onStart }: { onStart: () => void }) {
     <section className="relative pt-24 pb-12 md:pt-48 md:pb-40 text-center overflow-hidden">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_50%)] opacity-40 blur-[100px]" />
-        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/10 blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/10 blur-[120px] rounded-full animate-pulse [animation-delay:2s]" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[120px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[140px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[140px] rounded-full animate-pulse [animation-delay:2s]" />
       </div>
 
       {/* Floating Archetype Badges */}
@@ -501,7 +501,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-10 inline-flex items-center gap-2 rounded-full bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/80 shadow-2xl backdrop-blur-xl opacity-0 border-black border-2 text-neutral-300"
+        className="mb-10 inline-flex items-center gap-2 rounded-full bg-black/40 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/90 shadow-2xl backdrop-blur-2xl border-white/10 border-2"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
@@ -514,21 +514,21 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
+        className="mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
       >
-        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-white">
+        <span className="bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-white">
           {t.hero.headline.split('conhecer')[0]}
         </span>
         <span className="relative inline-block mx-4">
-          <span className="relative z-10 text-arch-primary">conhecer</span>
+          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_25px_var(--arch-glow)]">conhecer</span>
           <motion.span 
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-            className="absolute bottom-[5%] left-0 h-[10%] w-full bg-arch-primary/40 -z-0 origin-left"
+            className="absolute bottom-[10%] left-0 h-[8%] w-full bg-arch-primary/60 -z-0 origin-left blur-[2px]"
           />
         </span>
-        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-white">
+        <span className="bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-white">
           {t.hero.headline.split('conhecer')[1]}
         </span>
       </motion.h1>
@@ -537,7 +537,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 1 }}
-        className="mx-auto mt-16 max-w-2xl text-lg text-muted-foreground md:text-2xl leading-relaxed font-medium tracking-tight px-6"
+        className="mx-auto mt-16 max-w-2xl text-lg text-white/80 md:text-2xl leading-relaxed font-medium tracking-tight px-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
       >
         {t.hero.sub}
       </motion.p>
@@ -597,7 +597,7 @@ function Hero({ onStart }: { onStart: () => void }) {
              <motion.div 
                key={arch}
                whileHover={{ y: -10, scale: 1.05 }}
-               className="glass-morphism rounded-[2.5rem] p-8 border border-white/5 flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/30 group"
+               className="glass-morphism rounded-[2.5rem] p-8 border border-white/10 bg-black/40 backdrop-blur-xl flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
              >
                <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all">
                  {arch === 'AO' ? '­ƒøí´©Å' : arch === 'SS' ? '­ƒææ' : arch === 'EA' ? '­ƒæ╗' : 'ÔÜí'}
