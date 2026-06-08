@@ -121,8 +121,8 @@ export function MagneticCursor({
       const py = position.current.y + (target.current.y - position.current.y) * ease;
       position.current.x = px;
       position.current.y = py;
-      scale.current += (targetScale.current - scale.current) * 0.22;
-      opacity.current += (targetOpacity.current - opacity.current) * 0.18;
+      scale.current += (targetScale.current - scale.current) * 0.15;
+      opacity.current += (targetOpacity.current - opacity.current) * 0.12;
 
       if (ref.current) {
         ref.current.style.transform = `translate3d(${px - size / 2}px, ${py - size / 2}px, 0) scale(${scale.current})`;
