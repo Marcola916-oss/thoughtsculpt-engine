@@ -237,8 +237,8 @@ function FloatingSymbolsImpl({
     >
       {visible.map((slot, i) => {
         const char = symbols[i % symbols.length];
-        // Increased visibility but kept it as an atmospheric "shadow" element
-        const finalOpacity = Math.min(slot.opacity * opacityMul, 0.4);
+        // Elements are now pure white for maximum visibility on black, but very low opacity
+        const finalOpacity = Math.min(slot.opacity * opacityMul, 0.35);
         return (
           <span
             key={i}
@@ -254,8 +254,8 @@ function FloatingSymbolsImpl({
               top: `${slot.y}%`,
               fontSize: `${slot.size}px`,
               opacity: finalOpacity,
-              // Using white-ish text for better visibility against dark background without being bright red
-              color: "rgba(255, 255, 255, 0.4)",
+              // White text ensures they are visible regardless of the background color
+              color: "#FFFFFF",
               animationDelay: `${slot.delay}s`,
               animationDuration: `${slot.duration}s`,
               ["--drift-x" as string]: `${slot.driftX}px`,

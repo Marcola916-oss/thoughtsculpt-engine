@@ -428,10 +428,10 @@
   height: 150%;
   top: -25%;
   left: -25%;
-  background: radial-gradient(circle at center, var(--arch-primary) 0%, transparent 50%);
-  opacity: 0.25;
-  filter: blur(120px);
-  animation: flowing-rotate 20s ease-in-out infinite;
+  background: radial-gradient(circle at center, var(--arch-primary) 0%, transparent 40%);
+  opacity: 0.15;
+  filter: blur(140px);
+  animation: flowing-rotate 22s ease-in-out infinite;
   mix-blend-mode: screen;
 }
 
@@ -442,10 +442,10 @@
   height: 130%;
   bottom: -15%;
   right: -15%;
-  background: radial-gradient(circle at center, var(--accent-deeper) 0%, transparent 60%);
-  opacity: 0.2;
-  filter: blur(100px);
-  animation: flowing-rotate 25s ease-in-out infinite reverse;
+  background: radial-gradient(circle at center, var(--accent-deeper) 0%, transparent 40%);
+  opacity: 0.12;
+  filter: blur(120px);
+  animation: flowing-rotate 28s ease-in-out infinite reverse;
   mix-blend-mode: screen;
 }
 
@@ -654,33 +654,34 @@
   background: radial-gradient(
     ellipse 85% 70% at 50% 28%,
     var(--accent-surface) 0%,
-    rgba(0,0,0,0.4) 50%,
-    transparent 85%
+    rgba(0,0,0,0.7) 40%,
+    transparent 80%
   );
 }
 .fog-base-subtle {
   background: radial-gradient(
     ellipse 80% 65% at 50% 28%,
     var(--accent-surface) 0%,
-    transparent 75%
+    rgba(0,0,0,0.7) 50%,
+    transparent 80%
   );
 }
 .fog-base-normal {
   background: radial-gradient(
     ellipse 85% 70% at 50% 30%,
     var(--accent-surface) 0%,
-    var(--accent-glow) 40%,
-    rgba(0,0,0,0.6) 70%,
-    transparent 90%
+    var(--accent-glow) 35%,
+    rgba(0,0,0,0.85) 60%,
+    transparent 85%
   );
 }
 .fog-base-dramatic {
   background: radial-gradient(
     ellipse 100% 80% at 50% 30%,
     var(--accent-surface) 0%,
-    var(--accent-glow-strong) 35%,
-    rgba(0,0,0,0.8) 65%,
-    transparent 95%
+    var(--accent-glow-strong) 30%,
+    rgba(0,0,0,0.95) 55%,
+    transparent 90%
   );
 }
 
