@@ -148,9 +148,8 @@ function LandingAndQuiz() {
   }
 
   useEffect(() => {
-    // Scroll with instant behavior on mobile to avoid lag
-    const behavior = window.innerWidth < 768 ? "auto" : "smooth";
-    window.scrollTo({ top: 0, behavior });
+    // Scroll with instant behavior to avoid lag on any device
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage.kind]);
 
   // Determine atmosphere settings based on stage
@@ -396,7 +395,7 @@ function TopBar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         scrolled
-          ? "bg-black/90 md:backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          ? "bg-black/90 border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-4 md:py-6"
       }`}
     >

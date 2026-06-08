@@ -245,7 +245,7 @@ function FloatingSymbolsImpl({
             key={i}
             aria-hidden
             className={cn(
-              "symbol-drift absolute select-none font-serif leading-none",
+              "absolute select-none font-serif leading-none",
               slot.mobileHidden && "hidden md:block",
               blurClass,
               withGlow && "symbol-glow",
@@ -254,11 +254,12 @@ function FloatingSymbolsImpl({
               left: `${slot.x}%`,
               top: `${slot.y}%`,
               fontSize: `${slot.size}px`,
-              opacity: 0.25, // Higher opacity for guaranteed visibility
-              // High-contrast white/silver to stand out against deep red/black
+              opacity: 0.2, 
               color: "#E5E7EB",
+              animation: "symbol-drift-static linear infinite",
               animationDelay: `${slot.delay}s`,
               animationDuration: `${slot.duration}s`,
+              willChange: "transform, opacity",
               ["--drift-x" as string]: `${slot.driftX}px`,
               ["--drift-y" as string]: `${slot.driftY}px`,
             }}

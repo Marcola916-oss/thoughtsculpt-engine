@@ -78,26 +78,29 @@ function VolumetricFogImpl({
       {/* L2 — diagonal light beam (top-left to bottom-right) */}
       {intensity !== "subtle" && <div className="fog-layer-beam absolute inset-0" />}
 
-      {/* L3 — breathing orbs - Reduced to 1 on mobile and no blur filter */}
+      {/* L3 — Static breathing orbs (Hardware accelerated) */}
       <div
-        className="fog-breathe-1 absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full"
+        className="absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full"
         style={{
           background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
-          filter: "var(--fog-blur-1, blur(70px))",
+          animation: "fog-breathe-static 10s ease-in-out infinite",
+          willChange: "transform, opacity",
         }}
       />
       <div
-        className="fog-breathe-2 absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full hidden md:block"
+        className="absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full hidden md:block"
         style={{
           background: "radial-gradient(circle, var(--accent-glow-strong) 0%, transparent 70%)",
-          filter: "blur(90px)",
+          animation: "fog-breathe-static 15s ease-in-out infinite reverse",
+          willChange: "transform, opacity",
         }}
       />
       <div
-        className="fog-breathe-3 absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full hidden md:block"
+        className="absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full hidden md:block"
         style={{
           background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
-          filter: "blur(80px)",
+          animation: "fog-breathe-static 12s ease-in-out infinite",
+          willChange: "transform, opacity",
         }}
       />
     </div>
