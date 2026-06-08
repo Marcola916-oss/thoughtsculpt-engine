@@ -500,7 +500,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-10 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/80 shadow-2xl backdrop-blur-xl"
+        className="mb-10 inline-flex items-center gap-2 rounded-full bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/80 shadow-2xl backdrop-blur-xl opacity-0 border-black border-2 text-neutral-300"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
@@ -515,7 +515,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         className="mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
       >
-        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-neutral-300">
           {t.hero.headline.split('conhecer')[0]}
         </span>
         <span className="relative inline-block mx-4">
@@ -527,7 +527,7 @@ function Hero({ onStart }: { onStart: () => void }) {
             className="absolute bottom-[5%] left-0 h-[10%] w-full bg-arch-primary/40 -z-0 origin-left"
           />
         </span>
-        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-b from-white via-white to-white/40 bg-clip-text text-neutral-300">
           {t.hero.headline.split('conhecer')[1]}
         </span>
       </motion.h1>
