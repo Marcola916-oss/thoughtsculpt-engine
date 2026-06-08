@@ -151,6 +151,25 @@ function LandingAndQuiz() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [stage.kind]);
 
+  // Determine atmosphere settings based on stage
+  const atmosphereProps = useMemo(() => {
+    switch (stage.kind) {
+      case "hero":
+        return { fog: "dramatic" as const, symbols: "sparse" as const, scan: "subtle" as const };
+      case "identity":
+      case "q":
+        return { fog: "subtle" as const, symbols: "off" as const, scan: "subtle" as const };
+      case "email":
+        return { fog: "normal" as const, symbols: "off" as const, scan: "subtle" as const };
+      case "loader":
+        return { fog: "dramatic" as const, symbols: "off" as const, scan: "subtle" as const };
+      case "reveal":
+        return { fog: "dramatic" as const, symbols: "sparse" as const, scan: "subtle" as const };
+      default:
+        return { fog: "off" as const, symbols: "off" as const, scan: "off" as const };
+    }
+  }, [stage.kind]);
+
   return (
     <div
       className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
@@ -158,8 +177,9 @@ function LandingAndQuiz() {
     >
       <BackgroundAmbient variant="landing" />
       <div className="noise-overlay pointer-events-none z-0" />
-
-
+      
+      {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
+      <Atmosphere {...atmosphereProps} pinned withAmbient={false} />
       
       <TopBar />
 
@@ -173,9 +193,9 @@ function LandingAndQuiz() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
+              <div className="relative z-10">
                 <Hero onStart={() => setStage({ kind: "identity" })} />
-              </Atmosphere>
+              </div>
               <div className="relative z-10 bg-black/95 md:backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
                 <div className="bg-black">
@@ -193,7 +213,7 @@ function LandingAndQuiz() {
           )}
 
           {stage.kind === "identity" && (
-            <Atmosphere fog="subtle" symbols="off" scan="subtle" pinned>
+            <div className="relative z-10">
               <QuizScreenWrapper
                 stepKey="identity"
                 progress={0}
@@ -208,11 +228,11 @@ function LandingAndQuiz() {
                   onContinue={() => setStage({ kind: "q", index: 0 })}
                 />
               </QuizScreenWrapper>
-            </Atmosphere>
+            </div>
           )}
 
           {stage.kind === "q" && (
-            <Atmosphere fog="subtle" symbols="sparse" scan="subtle" pinned>
+            <div className="relative z-10">
               <QuizScreenWrapper
                 stepKey={`q-${stage.index}`}
                 progress={((stage.index + 1) / 8) * 85}
@@ -231,11 +251,11 @@ function LandingAndQuiz() {
                   onSelect={answerQuestion}
                 />
               </QuizScreenWrapper>
-            </Atmosphere>
+            </div>
           )}
 
           {stage.kind === "email" && (
-            <Atmosphere fog="normal" symbols="off" scan="subtle" pinned>
+            <div className="relative z-10">
               <QuizScreenWrapper
                 stepKey="email"
                 progress={90}
@@ -251,21 +271,21 @@ function LandingAndQuiz() {
                   onSubmit={() => setStage({ kind: "loader" })}
                 />
               </QuizScreenWrapper>
-            </Atmosphere>
+            </div>
           )}
 
           {stage.kind === "loader" && (
-            <Atmosphere fog="dramatic" symbols="off" scan="subtle" pinned>
+            <div className="relative z-10">
               <NeuralLoader
                 key="loader"
                 onComplete={() => setStage({ kind: "reveal" })}
                 durationMs={3000}
               />
-            </Atmosphere>
+            </div>
           )}
 
           {stage.kind === "reveal" && archCode && (
-            <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
+            <div className="relative z-10">
               <motion.div
                 key="reveal"
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -284,7 +304,7 @@ function LandingAndQuiz() {
                   }}
                 />
               </motion.div>
-            </Atmosphere>
+            </div>
           )}
 
           {stage.kind === "sales" && archCode && (
