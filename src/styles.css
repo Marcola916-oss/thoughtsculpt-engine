@@ -413,40 +413,39 @@
   animation: mesh-shift 15s ease-in-out infinite alternate;
 }
 
-/* New Animated Flowing Background for Internal/Landing */
+/* Optimized Ambient Background - High Contrast Depth */
 .flowing-ambient {
   position: absolute;
   inset: 0;
-  overflow: hidden;
   background: #000;
+  overflow: hidden;
 }
 
 .flowing-ambient::before {
   content: "";
   position: absolute;
-  width: 150%;
-  height: 150%;
-  top: -25%;
-  left: -25%;
-  background: radial-gradient(circle at center, var(--arch-primary) 0%, transparent 40%);
-  opacity: 0.15;
-  filter: blur(140px);
-  animation: flowing-rotate 22s ease-in-out infinite;
-  mix-blend-mode: screen;
+  width: 140%;
+  height: 140%;
+  top: -20%;
+  left: -20%;
+  /* Using a very sharp radial gradient for clear separation */
+  background: radial-gradient(circle at center, #CC0000 0%, transparent 60%);
+  opacity: 0.25;
+  filter: blur(100px);
+  animation: flowing-rotate 25s linear infinite;
 }
 
 .flowing-ambient::after {
   content: "";
   position: absolute;
-  width: 130%;
-  height: 130%;
-  bottom: -15%;
-  right: -15%;
-  background: radial-gradient(circle at center, var(--accent-deeper) 0%, transparent 40%);
-  opacity: 0.12;
-  filter: blur(120px);
-  animation: flowing-rotate 28s ease-in-out infinite reverse;
-  mix-blend-mode: screen;
+  width: 120%;
+  height: 120%;
+  bottom: -10%;
+  right: -10%;
+  background: radial-gradient(circle at center, #440000 0%, transparent 50%);
+  opacity: 0.2;
+  filter: blur(80px);
+  animation: flowing-rotate 35s linear infinite reverse;
 }
 
 @keyframes flowing-rotate {

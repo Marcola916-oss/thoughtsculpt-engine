@@ -229,7 +229,7 @@ function FloatingSymbolsImpl({
         positionClass,
         "inset-0",
         "pointer-events-none",
-        "z-[1]", // Symbols sit behind main content (z-10) but above background
+        "z-[-100]", // Positioned safely between background (-9999) and content (0+)
         "overflow-hidden",
         reducedMotion === true ? "motion-reduce" : "motion-safe",
         className,
@@ -253,9 +253,9 @@ function FloatingSymbolsImpl({
               left: `${slot.x}%`,
               top: `${slot.y}%`,
               fontSize: `${slot.size}px`,
-              opacity: finalOpacity,
-              // White text ensures they are visible regardless of the background color
-              color: "#FFFFFF",
+              opacity: 0.25, // Higher opacity for guaranteed visibility
+              // High-contrast white/silver to stand out against deep red/black
+              color: "#E5E7EB",
               animationDelay: `${slot.delay}s`,
               animationDuration: `${slot.duration}s`,
               ["--drift-x" as string]: `${slot.driftX}px`,
