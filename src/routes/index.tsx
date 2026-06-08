@@ -408,7 +408,7 @@ function TopBar() {
           <Link
             to="/login"
             data-cursor="hover"
-            className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-4 md:px-6 py-2 md:py-2.5 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 hover:-translate-y-0.5"
+            className="group relative hidden sm:flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-4 md:px-6 py-2 md:py-2.5 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 hover:-translate-y-0.5"
           >
             <span className="relative z-10">{t.common.login}</span>
             <div className="absolute inset-0 translate-y-[100%] bg-arch-primary transition-transform duration-300 group-hover:translate-y-0" />
@@ -448,7 +448,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-12 flex flex-wrap justify-center gap-4 px-4"
+        className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
       >
         <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary backdrop-blur-md">
           <ShieldCheck className="h-3.5 w-3.5" />
