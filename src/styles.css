@@ -414,6 +414,46 @@
   animation: mesh-shift 15s ease-in-out infinite alternate;
 }
 
+/* New Animated Flowing Background for Internal/Landing */
+.flowing-ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  background: black;
+}
+
+.flowing-ambient::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(circle at center, var(--arch-primary) 0%, transparent 60%);
+  opacity: 0.15;
+  filter: blur(100px);
+  animation: flowing-rotate 30s linear infinite;
+}
+
+.flowing-ambient::after {
+  content: "";
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  bottom: -25%;
+  right: -25%;
+  background: radial-gradient(circle at center, var(--accent-dark) 0%, transparent 50%);
+  opacity: 0.1;
+  filter: blur(80px);
+  animation: flowing-rotate 25s linear infinite reverse;
+}
+
+@keyframes flowing-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 @keyframes mesh-shift {
   0% { background-position: 0% 0%; }
   100% { background-position: 10% 10%; }

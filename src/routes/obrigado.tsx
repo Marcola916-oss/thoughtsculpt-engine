@@ -169,7 +169,7 @@ function ThankYouPage() {
   return (
     <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
       <div className="min-h-screen bg-black text-white relative overflow-hidden">
-        <div className="fixed inset-0 mesh-gradient opacity-30 pointer-events-none" />
+        <BackgroundAmbient variant="landing" />
         <div className="noise-overlay" />
 
         <div className="relative z-10 mx-auto max-w-3xl px-4 py-12 md:py-20">
