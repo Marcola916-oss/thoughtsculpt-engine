@@ -254,9 +254,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="flex min-h-screen bg-background relative z-0" data-arch={profile?.archetype || undefined}>
+    <div className="flex min-h-screen bg-transparent relative z-10" data-arch={profile?.archetype || undefined}>
       {/* Desktop Sidebar */}
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border bg-card md:flex">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border bg-card md:flex z-50">
         <SidebarContent
           streak={streak}
           unreadCount={unread}
@@ -310,7 +310,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Main content */}
       <div className="flex flex-1 flex-col min-w-0">
         {/* Mobile header */}
-        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-background/90 px-4 py-3 backdrop-blur md:hidden">
+        <header className="sticky top-0 z-50 flex items-center justify-between border-b border-border bg-background/90 px-4 py-3 backdrop-blur md:hidden">
           <button
             onClick={() => setMobileOpen(true)}
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition hover:text-foreground"
