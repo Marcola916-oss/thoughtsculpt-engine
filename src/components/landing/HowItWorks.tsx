@@ -25,7 +25,7 @@ export function HowItWorks() {
         >
           {w.title}
         </h2>
-        <p className="mx-auto mt-6 max-w-xl text-base font-medium leading-relaxed text-foreground/50 md:text-xl tracking-tight">
+        <p className="mx-auto mt-6 max-w-xl text-base font-medium leading-relaxed text-white/60 md:text-xl tracking-tight drop-shadow-lg">
           {w.sub}
         </p>
       </Reveal>
@@ -45,7 +45,7 @@ export function HowItWorks() {
               {i + 1}
             </div>
             <h3 className="mb-3 font-display text-xl font-black uppercase italic tracking-tight text-foreground group-hover:text-arch-primary transition-colors">{step.title}</h3>
-            <p className="max-w-[220px] text-[15px] font-medium leading-relaxed text-foreground/50 group-hover:text-foreground/80 transition-colors">
+            <p className="max-w-[220px] text-[15px] font-medium leading-relaxed text-white/60 group-hover:text-white/90 transition-colors drop-shadow-md">
               {step.desc}
             </p>
           </Reveal>

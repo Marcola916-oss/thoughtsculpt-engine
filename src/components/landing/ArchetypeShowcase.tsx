@@ -39,7 +39,7 @@ export function ArchetypeShowcase() {
         >
           {a.title}
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-foreground/70 md:text-lg">
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 md:text-lg drop-shadow-lg">
           {a.sub}
         </p>
       </Reveal>

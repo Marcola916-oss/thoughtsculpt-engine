@@ -52,7 +52,7 @@ export function FeaturesGrid() {
               <h3 className="relative z-10 font-display text-2xl font-extrabold tracking-tight text-white md:text-[26px] group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                 {item.title}
               </h3>
-              <p className="relative z-10 text-[15px] leading-relaxed text-foreground/70 md:text-base">
+              <p className="relative z-10 text-[15px] leading-relaxed text-white/70 md:text-base drop-shadow-sm">
                 {item.desc}
               </p>
               <span className="relative z-10 mt-auto pt-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary/60 group-hover:text-arch-primary transition-colors">

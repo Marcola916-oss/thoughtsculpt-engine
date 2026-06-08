@@ -38,7 +38,7 @@ export function ProofBar() {
                 <div className="font-display text-2xl font-black italic leading-none text-white md:text-[26px] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
                   {item.value}
                 </div>
-                <div className="mt-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40 group-hover:text-arch-primary transition-colors">
+                <div className="mt-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-white/50 group-hover:text-arch-primary transition-colors drop-shadow-sm">
                   {item.label}
                 </div>
               </div>

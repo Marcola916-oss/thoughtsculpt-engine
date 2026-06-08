@@ -32,7 +32,7 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
           {c.titleAfter}
         </h2>
 
-        <p className="mx-auto mt-8 max-w-2xl text-lg font-medium leading-relaxed text-foreground/50 md:text-2xl tracking-tight">
+        <p className="mx-auto mt-8 max-w-2xl text-lg font-medium leading-relaxed text-white/60 md:text-2xl tracking-tight drop-shadow-xl">
           {c.sub}
         </p>
 
@@ -50,7 +50,7 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
           </ButtonPress>
         )}
 
-        <div className="mt-7 flex flex-col items-center justify-center gap-3 text-xs font-semibold text-foreground/60 md:flex-row md:gap-6">
+        <div className="mt-7 flex flex-col items-center justify-center gap-3 text-xs font-semibold text-white/60 md:flex-row md:gap-6 drop-shadow-md">
           <span className="inline-flex items-center gap-1.5">
             <ShieldCheck className="h-3.5 w-3.5" /> {c.guarantee}
           </span>

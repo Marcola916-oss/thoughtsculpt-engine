@@ -29,7 +29,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
           >
             {f.title}
           </h2>
-          <p className="mt-6 max-w-md text-base font-medium leading-relaxed text-foreground/50">{f.sub}</p>
+          <p className="mt-6 max-w-md text-base font-medium leading-relaxed text-white/50 drop-shadow-md">{f.sub}</p>
           {onCta && (
             <ButtonPress
               onClick={onCta}
@@ -72,7 +72,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
                     isOpen ? "grid-rows-[1fr] opacity-100 pb-5" : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
-                  <p className="min-h-0 text-[15px] font-medium leading-relaxed text-foreground/50 md:text-base">
+                  <p className="min-h-0 text-[15px] font-medium leading-relaxed text-white/70 md:text-base drop-shadow-sm">
                     {item.a}
                   </p>
                 </div>
