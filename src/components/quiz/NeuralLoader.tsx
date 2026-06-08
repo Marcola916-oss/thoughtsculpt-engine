@@ -159,15 +159,9 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
       </div>
 
       {/* Percentage */}
-      <motion.p
-        className="text-4xl font-bold text-foreground mb-6 tabular-nums"
-        key={Math.round(progress)}
-        initial={{ scale: 0.85 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.1 }}
-      >
+      <p className="text-4xl font-bold text-foreground mb-6 tabular-nums">
         {Math.round(progress)}%
-      </motion.p>
+      </p>
 
       {/* Main cycling message */}
       <div className="h-8 overflow-hidden mb-8 w-full">
