@@ -78,11 +78,11 @@ export function ArchetypeShowcase() {
                 {item.name}
               </h3>
 
-              <p className="border-b border-white/[0.07] pb-4 text-[11px] font-black uppercase tracking-[0.15em] text-foreground/40 group-hover:text-foreground/60 transition-colors">
+              <p className="border-b border-white/[0.07] pb-4 text-[11px] font-black uppercase tracking-[0.15em] text-white/40 group-hover:text-white/60 transition-colors">
                 {item.trigger}
               </p>
 
-              <p className="text-sm leading-relaxed text-foreground/60 group-hover:text-foreground/80 transition-colors">{item.desc}</p>
+              <p className="text-sm leading-relaxed text-white/60 group-hover:text-white/80 transition-colors">{item.desc}</p>
             </Reveal>
           );
         })}
