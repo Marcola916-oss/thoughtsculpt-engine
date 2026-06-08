@@ -163,7 +163,7 @@ function LandingAndQuiz() {
       
       <TopBar />
 
-      <main className="w-full px-4 pb-24 pt-4 md:pt-12 relative z-10">
+      <main className="w-full px-0 sm:px-4 pb-24 pt-4 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
           {stage.kind === "hero" && (
             <motion.div
@@ -433,7 +433,7 @@ function TopBar() {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative pt-24 pb-12 md:pt-48 md:pb-40 text-center overflow-hidden">
+    <section className="relative pt-24 pb-12 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[120px]" />

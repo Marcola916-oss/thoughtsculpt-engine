@@ -428,10 +428,13 @@
   height: 140%;
   top: -20%;
   left: -20%;
-  /* Using a very sharp radial gradient for clear separation */
+  /* Reduced blur and size on mobile for performance */
   background: radial-gradient(circle at center, #CC0000 0%, transparent 60%);
   opacity: 0.25;
-  filter: blur(100px);
+  filter: blur(60px);
+  @media (min-width: 768px) {
+    filter: blur(100px);
+  }
   animation: flowing-rotate 25s linear infinite;
 }
 
@@ -444,7 +447,10 @@
   right: -10%;
   background: radial-gradient(circle at center, #440000 0%, transparent 50%);
   opacity: 0.2;
-  filter: blur(80px);
+  filter: blur(50px);
+  @media (min-width: 768px) {
+    filter: blur(80px);
+  }
   animation: flowing-rotate 35s linear infinite reverse;
 }
 

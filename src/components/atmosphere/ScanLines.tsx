@@ -58,6 +58,8 @@ function ScanLinesImpl({
         "pointer-events-none",
         "z-[1]",
         "scan-overlay",
+        // Subtler on mobile to reduce rendering cost
+        "opacity-30 md:opacity-100",
         OVERLAY_OPACITY[intensity],
         className,
       )}
