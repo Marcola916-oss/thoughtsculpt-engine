@@ -316,8 +316,8 @@ function MarbleBustImpl({
           </g>
         )}
 
-        {/* L5 — Eyes (red glow) */}
-        <g className="bust-eyes" filter="url(#bust-glow)">
+        {/* L5 — Eyes (red glow) - Filter removed on mobile for performance */}
+        <g className="bust-eyes md:[filter:url(#bust-glow)]">
           {/* Marcus eye — wider, slightly oval, with inner core */}
           <g className="bust-eye-marcus">
             <ellipse cx="102" cy="80" rx="6.5" ry="4" fill="url(#eye-marcus)" />
@@ -346,7 +346,7 @@ function MarbleBustImpl({
         />
         {/* Crack inner glow — red light bleeding out */}
         <path
-          className="bust-crack-glow"
+          className="bust-crack-glow md:[filter:url(#bust-glow)]"
           d="M 86 32
              C 92 48, 98 62, 104 78
              C 110 94, 116 110, 124 128
@@ -356,14 +356,12 @@ function MarbleBustImpl({
           stroke="oklch(0.6 0.24 25)"
           strokeWidth="1"
           strokeLinecap="round"
-          filter="url(#bust-glow)"
         />
 
         {/* L7 — Circuit board (PCB traces following the crack) */}
         {variant !== "mini" && (
           <g
-            className="bust-circuit"
-            filter="url(#bust-glow)"
+            className="bust-circuit md:[filter:url(#bust-glow)]"
             stroke="oklch(0.6 0.22 25)"
             strokeWidth="1.2"
             fill="none"

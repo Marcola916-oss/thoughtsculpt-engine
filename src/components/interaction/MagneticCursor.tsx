@@ -59,17 +59,16 @@ export function MagneticCursor({
   const raf = useRef<number | null>(null);
   const isHovering = useRef(false);
   const isPressed = useRef(false);
-  const [isTouch, setIsTouch] = useState(false);
+  const [isTouch, setIsTouch] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(hover: none)").matches;
+  });
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || isTouch) return;
 
     const touchQuery = window.matchMedia("(hover: none)");
-    if (touchQuery.matches) {
-      setIsTouch(true);
-      return;
-    }
     const touchListener = (e: MediaQueryListEvent) => setIsTouch(e.matches);
     touchQuery.addEventListener("change", touchListener);
 

@@ -113,22 +113,25 @@ function RevealRoot({
 
   const transitionOverride = delay != null || duration != null ? { delay, duration } : undefined;
 
-  if (inGroup) {
+  if (inGroup || reducedMotion) {
     return (
-      <Component variants={baseVariants} className={className}>
+      <div className={cn("will-change-transform", className)}>
         {children}
-      </Component>
+      </div>
     );
   }
+
+  // Detect if on mobile to simplify animation
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   return (
     <Component
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount, margin }}
+      viewport={{ once, amount: isMobile ? 0.05 : amount, margin }}
       variants={baseVariants}
       transition={transitionOverride}
-      className={className}
+      className={cn("will-change-[transform,opacity]", className)}
     >
       {children}
     </Component>

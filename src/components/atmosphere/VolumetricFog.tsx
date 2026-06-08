@@ -78,23 +78,23 @@ function VolumetricFogImpl({
       {/* L2 — diagonal light beam (top-left to bottom-right) */}
       {intensity !== "subtle" && <div className="fog-layer-beam absolute inset-0" />}
 
-      {/* L3 — three breathing orbs */}
+      {/* L3 — breathing orbs - Reduced to 1 on mobile and no blur filter */}
       <div
         className="fog-breathe-1 absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full"
         style={{
           background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
-          filter: "blur(70px)",
+          filter: "var(--fog-blur-1, blur(70px))",
         }}
       />
       <div
-        className="fog-breathe-2 absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full"
+        className="fog-breathe-2 absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full hidden md:block"
         style={{
           background: "radial-gradient(circle, var(--accent-glow-strong) 0%, transparent 70%)",
           filter: "blur(90px)",
         }}
       />
       <div
-        className="fog-breathe-3 absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full"
+        className="fog-breathe-3 absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full hidden md:block"
         style={{
           background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
           filter: "blur(80px)",
