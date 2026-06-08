@@ -772,14 +772,14 @@
     drop-shadow(0 0 14px var(--accent-glow));
 }
 
-@keyframes symbol-drift {
+@keyframes symbol-drift-static {
   0%, 100% {
-    transform: translate(0, 0);
-    opacity: 0.7;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.2;
   }
   50% {
-    transform: translate(var(--drift-x, 12px), var(--drift-y, -22px));
-    opacity: 1;
+    transform: translate3d(var(--drift-x, 12px), var(--drift-y, -22px), 0);
+    opacity: 0.5;
   }
 }
 
