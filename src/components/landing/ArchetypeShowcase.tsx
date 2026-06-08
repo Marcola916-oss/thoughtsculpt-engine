@@ -45,7 +45,7 @@ export function ArchetypeShowcase() {
       </Reveal>
 
       <Reveal.Group
-        className="grid grid-cols-1 overflow-hidden rounded-2xl border border-white/[0.07] sm:grid-cols-2 lg:grid-cols-4"
+        className="grid grid-cols-1 overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/60 backdrop-blur-3xl sm:grid-cols-2 lg:grid-cols-4 shadow-2xl"
         stagger="fast"
       >
         {ARCH_KEYS.map((key) => {
@@ -74,7 +74,7 @@ export function ArchetypeShowcase() {
                 </span>
               </div>
 
-              <h3 className="font-display text-2xl font-black italic uppercase tracking-tighter text-foreground group-hover:text-arch-primary transition-colors">
+              <h3 className="font-display text-2xl font-black italic uppercase tracking-tighter text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
                 {item.name}
               </h3>
 

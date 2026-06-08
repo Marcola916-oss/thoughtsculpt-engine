@@ -53,7 +53,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
                   aria-controls={`faq-panel-${i}`}
                   className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors group"
                 >
-                  <span className={`font-display text-lg font-black uppercase italic tracking-tight transition-colors ${isOpen ? "text-arch-primary" : "text-foreground"} group-hover:text-arch-primary`}>
+                  <span className={`font-display text-lg font-black uppercase italic tracking-tight transition-colors ${isOpen ? "text-arch-primary" : "text-white"} group-hover:text-arch-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]`}>
                     {item.q}
                   </span>
                   <Plus

@@ -30,7 +30,7 @@ export function FeaturesGrid() {
       </Reveal>
 
       <Reveal.Group
-        className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.07] md:grid-cols-2"
+        className="grid grid-cols-1 gap-6 md:grid-cols-2"
         stagger="fast"
       >
         {f.items.map((item, i) => {
@@ -39,7 +39,7 @@ export function FeaturesGrid() {
             <Reveal
               key={i}
               variant="fade-up"
-              className="group relative flex flex-col gap-5 bg-background p-8 transition-all duration-500 hover:bg-white/[0.035] md:p-12 hover:-translate-y-1"
+              className="group relative flex flex-col gap-5 rounded-[2.5rem] border border-white/10 bg-black/60 backdrop-blur-3xl p-8 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/80 md:p-12 hover:-translate-y-2 shadow-2xl"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-arch-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               
@@ -49,7 +49,7 @@ export function FeaturesGrid() {
               >
                 <Icon className="h-6 w-6" />
               </span>
-              <h3 className="relative z-10 font-display text-2xl font-extrabold tracking-tight text-foreground md:text-[26px] group-hover:text-arch-primary transition-colors">
+              <h3 className="relative z-10 font-display text-2xl font-extrabold tracking-tight text-white md:text-[26px] group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                 {item.title}
               </h3>
               <p className="relative z-10 text-[15px] leading-relaxed text-foreground/70 md:text-base">
