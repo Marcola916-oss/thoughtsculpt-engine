@@ -328,7 +328,9 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 1200);
+      // Show earlier on mobile
+      const threshold = window.innerWidth < 768 ? 800 : 1200;
+      setVisible(window.scrollY > threshold);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -341,11 +343,11 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
           initial={{ y: 100 }}
           animate={{ y: 0 }}
           exit={{ y: 100 }}
-          className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 p-4 backdrop-blur-lg"
+          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black/90 p-4 pb-8 md:pb-4 backdrop-blur-xl"
         >
           <button
             onClick={onClick}
-            className="w-full rounded-full bg-arch-primary py-4 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--arch-glow)]"
+            className="w-full rounded-2xl bg-primary py-4 text-base md:text-lg font-black uppercase italic tracking-widest text-primary-foreground shadow-[0_10px_30px_rgba(204,0,0,0.4)] active:scale-[0.98] transition-transform"
           >
             {t.sales.cta}
           </button>
@@ -400,7 +402,7 @@ function TopBar() {
         </Link>
 
         <div className="flex items-center gap-3 md:gap-6">
-          <div className="hidden md:flex items-center gap-8">
+          <div className="flex items-center gap-8">
             <LanguageSwitcher />
           </div>
           <Link
