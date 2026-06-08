@@ -71,7 +71,7 @@ function ScanLinesImpl({
       {intensity === "crt" && (
         <div
           className="scan-move absolute inset-0"
-          style={{ animationDuration: SPEED_DURATION[speed] }}
+          style={{ animationDuration: SPEED_DURATION[speed], willChange: "transform" }}
         >
           <div
             className="absolute inset-x-0 top-0 h-[1.5px]"
