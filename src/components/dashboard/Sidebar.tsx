@@ -33,20 +33,28 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
   }
 
   return (
-    <div className="flex h-full flex-col p-5 relative">
-      {/* Mesh background effect for sidebar */}
-      <div className="absolute inset-0 mesh-gradient opacity-5 pointer-events-none" />
+    <div className="flex h-full flex-col p-5 relative overflow-hidden">
+      {/* Visual hierarchy lines */}
+      <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-border/50 to-transparent" />
+      <div className="absolute top-1/4 -right-1 h-32 w-2 bg-arch-primary/20 blur-md rounded-full" />
       
-      {/* Logo */}
-      <Link
-        to="/dashboard"
-        onClick={onClose}
-        className="mb-2 font-display text-2xl font-black tracking-tighter relative z-10 flex items-center gap-1.5"
-      >
-        <span className="text-foreground">Mind</span>
-        <span className="text-arch-primary transition-colors duration-500">Reset</span>
-      </Link>
-      <p className="text-[10px] font-semibold text-muted-foreground/50 uppercase tracking-[0.2em] mb-8 relative z-10">Protocol v2.0</p>
+      {/* Logo Section */}
+      <div className="mb-10 pl-2">
+        <Link
+          to="/dashboard"
+          onClick={onClose}
+          className="font-display text-2xl font-black tracking-tighter relative z-10 flex items-center gap-1.5 group"
+        >
+          <div className="h-8 w-8 rounded-lg bg-arch-primary flex items-center justify-center shadow-[0_0_15px_var(--arch-glow)] transition-transform duration-500 group-hover:rotate-12">
+            <span className="text-white text-lg italic font-black">M</span>
+          </div>
+          <div className="flex flex-col -gap-1">
+            <span className="text-foreground leading-none">Mind</span>
+            <span className="text-arch-primary leading-none transition-colors duration-500">Reset</span>
+          </div>
+        </Link>
+        <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.4em] mt-3">Protocol v3.0 // 2026</p>
+      </div>
 
       {/* Nav */}
       <nav className="flex flex-1 flex-col gap-0.5 relative z-10">
@@ -62,10 +70,10 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
               <Link
                 to={it.to}
                 onClick={onClose}
-                className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-300 ${
+                className={`group relative flex items-center gap-3 rounded-xl px-4 py-3.5 text-xs font-black uppercase tracking-widest transition-all duration-300 ${
                   active
-                    ? "bg-arch-primary/10 text-foreground shadow-[0_0_15px_var(--arch-glow)] border border-arch-primary/20"
-                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:translate-x-1"
+                    ? "text-foreground shadow-[0_0_20px_var(--arch-glow)] border border-arch-primary/30 bg-arch-primary/5"
+                    : "text-muted-foreground/60 hover:text-foreground hover:bg-white/5 hover:translate-x-1"
                 }`}
               >
                 {active && (

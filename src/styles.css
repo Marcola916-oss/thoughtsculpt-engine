@@ -347,27 +347,26 @@
 
 .bento-card {
   position: relative;
-  background: var(--card);
-  border: 1px solid transparent;
-  border-radius: var(--radius-2xl);
+  background: rgba(13, 13, 13, 0.4);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-xl);
   padding: 2rem;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 4px 24px -1px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(255,255,255,0.01) inset;
 }
-.bento-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
-  opacity: 0;
-  transition: opacity 0.5s;
-  pointer-events: none;
-}
-.bento-card:hover::before { opacity: 1; }
+
 .bento-card:hover {
+  background: rgba(20, 20, 20, 0.6);
   border-color: var(--arch-primary);
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 20px 40px -20px var(--arch-glow);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 40px -20px var(--arch-glow),
+    0 0 0 1px var(--arch-primary) inset;
 }
 
 /* ─── Glassmorphism ──────────────────────────────────────── */
