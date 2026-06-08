@@ -103,6 +103,7 @@ function LoginPage() {
       >
         Forgot password?
       </button>
+      </div>
     </div>
   );
 }
