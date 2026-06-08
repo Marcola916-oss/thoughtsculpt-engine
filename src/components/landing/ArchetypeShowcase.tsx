@@ -39,13 +39,13 @@ export function ArchetypeShowcase() {
         >
           {a.title}
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-foreground/70 md:text-lg">
+        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 md:text-lg drop-shadow-lg">
           {a.sub}
         </p>
       </Reveal>
 
       <Reveal.Group
-        className="grid grid-cols-1 overflow-hidden rounded-2xl border border-white/[0.07] sm:grid-cols-2 lg:grid-cols-4"
+        className="grid grid-cols-1 overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/60 backdrop-blur-3xl sm:grid-cols-2 lg:grid-cols-4 shadow-2xl"
         stagger="fast"
       >
         {ARCH_KEYS.map((key) => {
@@ -55,7 +55,7 @@ export function ArchetypeShowcase() {
             <Reveal
               key={key}
               variant="fade-up"
-              className="group relative flex flex-col gap-4 border-white/[0.07] bg-white/[0.012] p-7 transition-all duration-500 hover:bg-white/[0.045] sm:border-r last:border-r-0 sm:[&:nth-child(2)]:border-r sm:[&:nth-child(even)]:lg:border-r-0 hover:-translate-y-1"
+              className="group relative flex flex-col gap-4 border-white/10 bg-white/[0.02] p-8 transition-all duration-500 hover:bg-white/[0.08] sm:border-r last:border-r-0 hover:-translate-y-1"
             >
               <span
                 aria-hidden
@@ -74,15 +74,15 @@ export function ArchetypeShowcase() {
                 </span>
               </div>
 
-              <h3 className="font-display text-2xl font-black italic uppercase tracking-tighter text-foreground group-hover:text-arch-primary transition-colors">
+              <h3 className="font-display text-2xl font-black italic uppercase tracking-tighter text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
                 {item.name}
               </h3>
 
-              <p className="border-b border-white/[0.07] pb-4 text-[11px] font-black uppercase tracking-[0.15em] text-foreground/40 group-hover:text-foreground/60 transition-colors">
+              <p className="border-b border-white/[0.07] pb-4 text-[11px] font-black uppercase tracking-[0.15em] text-white/40 group-hover:text-white/60 transition-colors">
                 {item.trigger}
               </p>
 
-              <p className="text-sm leading-relaxed text-foreground/60 group-hover:text-foreground/80 transition-colors">{item.desc}</p>
+              <p className="text-sm leading-relaxed text-white/60 group-hover:text-white/80 transition-colors">{item.desc}</p>
             </Reveal>
           );
         })}

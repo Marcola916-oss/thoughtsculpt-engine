@@ -47,7 +47,7 @@ export function Testimonials() {
           <Reveal
             key={i}
             variant="fade-up"
-            className="group flex flex-col gap-6 rounded-2xl border border-white/[0.07] bg-white/[0.015] p-7 transition-all duration-500 hover:border-white/[0.2] hover:bg-white/[0.04] md:p-8 hover:-translate-y-1"
+            className="group flex flex-col gap-6 rounded-[2.5rem] border border-white/10 bg-black/60 backdrop-blur-3xl p-8 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/80 md:p-10 hover:-translate-y-2 shadow-2xl"
           >
             <div
               className="flex items-center gap-1 text-amber-400 group-hover:text-amber-300 transition-colors"
@@ -59,7 +59,7 @@ export function Testimonials() {
               ))}
             </div>
 
-            <blockquote className="flex-1 text-[15px] italic leading-[1.75] text-foreground/80 group-hover:text-foreground transition-colors">
+            <blockquote className="flex-1 text-[16px] italic leading-[1.75] text-white/80 group-hover:text-white transition-colors drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
               &ldquo;{item.quote}&rdquo;
             </blockquote>
 
@@ -71,7 +71,7 @@ export function Testimonials() {
                 {initials(item.name)}
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-black tracking-tight text-foreground">{item.name}</p>
+                <p className="text-sm font-black tracking-tight text-white">{item.name}</p>
                 <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary">
                   {item.arch}
                 </p>
