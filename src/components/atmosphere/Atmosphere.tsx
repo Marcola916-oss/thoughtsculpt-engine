@@ -66,7 +66,7 @@ export function Atmosphere({
   withAmbient = false,
 }: AtmosphereProps) {
   return (
-    <div aria-hidden="true" className={cn("relative", className)}>
+    <div aria-hidden="true" className={cn("relative z-10", className)}>
       {withAmbient && <BackgroundAmbient variant="landing" />}
       {fog !== "off" && <VolumetricFog intensity={FOG_TO_INTENSITY[fog]} pinned={pinned} />}
       {symbols !== "off" && (
@@ -75,10 +75,13 @@ export function Atmosphere({
           density={SYMBOLS_TO_DENSITY[symbols]}
           pinned={pinned}
           withGlow={symbols === "dense"}
+          className="z-[5]"
         />
       )}
       {scan !== "off" && <ScanLines intensity={scan} pinned={pinned} />}
-      {children}
+      <div className="relative z-20">
+        {children}
+      </div>
     </div>
   );
 }

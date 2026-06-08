@@ -57,7 +57,8 @@ function VolumetricFogImpl({
         "inset-0",
         "pointer-events-none",
         "overflow-hidden",
-        "z-[1]",
+        "z-[2]", // Fog stays just above the base background
+
         INTENSITY_WRAPPER[intensity],
         reducedMotion === true ? "motion-reduce" : "motion-safe",
         className,

@@ -18,20 +18,16 @@ export const BackgroundAmbient = memo(({ variant = "landing", className }: Backg
     <div 
       className={cn(
         "pointer-events-none fixed inset-0",
-        "z-[-9999]", // Force to the bottom-most layer
-        "bg-black",   // Solid black foundation
+        "z-[-100]", // Positioned at the very back of the stack
+        "bg-black",
         className
       )}
-      style={{ isolation: 'isolate' }}
     >
-      {/* The animated atmospheric layer defined in styles.css */}
-      <div className="flowing-ambient absolute inset-0 opacity-40" />
+      {/* The animated atmospheric layer */}
+      <div className="flowing-ambient absolute inset-0 opacity-20" />
       
-      {/* Dark mask to ensure center legibility remains perfect */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_80%)]" />
-      
-      {/* Final black overlay to dampen any aggressive light */}
-      <div className="absolute inset-0 bg-black/30" />
+      {/* Dark mask for center focus */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.9)_80%)]" />
     </div>
   );
 });
