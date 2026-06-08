@@ -348,8 +348,12 @@
 .bento-card {
   position: relative;
   background: rgba(13, 13, 13, 0.4);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  background: rgba(13, 13, 13, 0.8);
+  /* Backdrop blur only on desktop */
+  @media (min-width: 1024px) {
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+  }
   border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: var(--radius-xl);
   padding: 2rem;
@@ -371,26 +375,35 @@
 
 /* ─── Glassmorphism ──────────────────────────────────────── */
 .glass-panel {
-  background: rgba(13, 13, 13, 0.6);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  background: rgba(13, 13, 13, 0.9);
+  /* Backdrop blur only on desktop */
+  @media (min-width: 1024px) {
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+  }
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-2xl);
   box-shadow: 0 4px 24px -1px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.02) inset;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(255, 255, 255, 0.05);
+  /* Backdrop blur only on desktop */
+  @media (min-width: 1024px) {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-xl);
 }
 
 .glass-modal {
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
+  background: rgba(10, 10, 10, 0.98);
+  /* Backdrop blur only on desktop */
+  @media (min-width: 1024px) {
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+  }
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-2xl);
 }
@@ -419,6 +432,11 @@
   inset: 0;
   background: #000;
   overflow: hidden;
+  /* Disable background animations on very small screens to save CPU */
+  display: none;
+  @media (min-width: 640px) {
+    display: block;
+  }
 }
 
 .flowing-ambient::before {
@@ -430,9 +448,10 @@
   left: -20%;
   /* Reduced blur and size on mobile for performance */
   background: radial-gradient(circle at center, #CC0000 0%, transparent 60%);
-  opacity: 0.25;
-  filter: blur(60px);
-  @media (min-width: 768px) {
+  opacity: 0.15;
+  filter: blur(40px);
+  @media (min-width: 1024px) {
+    opacity: 0.25;
     filter: blur(100px);
   }
   animation: flowing-rotate 25s linear infinite;
