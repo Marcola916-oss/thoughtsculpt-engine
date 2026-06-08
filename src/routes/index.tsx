@@ -148,7 +148,9 @@ function LandingAndQuiz() {
   }
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Scroll with instant behavior on mobile to avoid lag
+    const behavior = window.innerWidth < 768 ? "auto" : "smooth";
+    window.scrollTo({ top: 0, behavior });
   }, [stage.kind]);
 
   // Determine atmosphere settings based on stage

@@ -68,17 +68,33 @@ export function Atmosphere({
   return (
     <div aria-hidden="true" className={cn("relative z-10", className)}>
       {withAmbient && <BackgroundAmbient variant="landing" />}
-      {fog !== "off" && <VolumetricFog intensity={FOG_TO_INTENSITY[fog]} pinned={pinned} />}
+      
+      {/* Heavy fog only on desktop */}
+      {fog !== "off" && (
+        <VolumetricFog 
+          intensity={FOG_TO_INTENSITY[fog]} 
+          pinned={pinned} 
+          className="hidden md:block" 
+        />
+      )}
+      
+      {/* Simpler fog for mobile */}
+      {fog !== "off" && (
+        <div className="md:hidden fixed inset-0 z-[2] pointer-events-none opacity-30 bg-gradient-to-b from-primary/10 to-transparent" />
+      )}
+
       {symbols !== "off" && (
         <FloatingSymbols
           set={symbolsSet}
           density={SYMBOLS_TO_DENSITY[symbols]}
           pinned={pinned}
           withGlow={symbols === "dense"}
-          className="z-[5]"
+          className="z-[5] hidden md:block" // Completely hide symbols on mobile for performance
         />
       )}
-      {scan !== "off" && <ScanLines intensity={scan} pinned={pinned} />}
+      
+      {scan !== "off" && <ScanLines intensity={scan} pinned={pinned} className="opacity-20 md:opacity-100" />}
+      
       <div className="relative z-20">
         {children}
       </div>
