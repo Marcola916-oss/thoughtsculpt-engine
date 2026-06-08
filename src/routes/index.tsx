@@ -163,7 +163,7 @@ function LandingAndQuiz() {
       
       <TopBar />
 
-      <main className="w-full px-4 pb-24 pt-4 md:pt-12 relative z-10">
+      <main className="w-full px-0 sm:px-4 pb-24 pt-4 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
           {stage.kind === "hero" && (
             <motion.div
@@ -176,7 +176,7 @@ function LandingAndQuiz() {
               <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </Atmosphere>
-              <div className="relative z-10 bg-black/95 backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)]">
+              <div className="relative z-10 bg-black/95 backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
                 <div className="bg-black">
                   <ArchetypeShowcase />
@@ -328,7 +328,9 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY > 1200);
+      // Show earlier on mobile
+      const threshold = window.innerWidth < 768 ? 800 : 1200;
+      setVisible(window.scrollY > threshold);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -341,11 +343,11 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
           initial={{ y: 100 }}
           animate={{ y: 0 }}
           exit={{ y: 100 }}
-          className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/80 p-4 backdrop-blur-lg"
+          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black/90 p-4 pb-8 md:pb-4 backdrop-blur-xl"
         >
           <button
             onClick={onClick}
-            className="w-full rounded-full bg-arch-primary py-4 text-lg font-bold text-primary-foreground shadow-[0_0_20px_var(--arch-glow)]"
+            className="w-full rounded-2xl bg-primary py-4 text-base md:text-lg font-black uppercase italic tracking-widest text-primary-foreground shadow-[0_10px_30px_rgba(204,0,0,0.4)] active:scale-[0.98] transition-transform"
           >
             {t.sales.cta}
           </button>
@@ -372,11 +374,11 @@ function TopBar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         scrolled
-          ? "bg-black/80 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
-          : "bg-transparent py-6"
+          ? "bg-black/90 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          : "bg-transparent py-4 md:py-6"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6">
         <Link
           to="/"
           className="group flex items-center gap-3 font-display text-3xl font-black tracking-tighter"
@@ -399,14 +401,14 @@ function TopBar() {
           </div>
         </Link>
 
-        <div className="flex items-center gap-6">
-          <div className="hidden md:flex items-center gap-8">
+        <div className="flex items-center gap-3 md:gap-6">
+          <div className="flex items-center gap-8">
             <LanguageSwitcher />
           </div>
           <Link
             to="/login"
             data-cursor="hover"
-            className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 hover:-translate-y-0.5"
+            className="group relative hidden sm:flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-4 md:px-6 py-2 md:py-2.5 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 hover:-translate-y-0.5"
           >
             <span className="relative z-10">{t.common.login}</span>
             <div className="absolute inset-0 translate-y-[100%] bg-arch-primary transition-transform duration-300 group-hover:translate-y-0" />
@@ -433,12 +435,12 @@ function TopBar() {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative pt-24 pb-12 md:pt-48 md:pb-40 text-center overflow-hidden">
+    <section className="relative pt-20 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[120px]" />
-        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[140px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[140px] rounded-full animate-pulse [animation-delay:2s]" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[80px] md:blur-[120px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[80px] md:blur-[140px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[80px] md:blur-[140px] rounded-full animate-pulse [animation-delay:2s]" />
       </div>
 
       {/* Floating Archetype Badges */}
@@ -446,7 +448,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-12 flex flex-wrap justify-center gap-4 px-4"
+        className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
       >
         <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary backdrop-blur-md">
           <ShieldCheck className="h-3.5 w-3.5" />

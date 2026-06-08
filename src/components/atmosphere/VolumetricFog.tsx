@@ -58,7 +58,8 @@ function VolumetricFogImpl({
         "pointer-events-none",
         "overflow-hidden",
         "z-[2]", // Fog stays just above the base background
-
+        // Optimize mobile opacity and disable fog by default on very slow devices
+        "opacity-40 md:opacity-100",
         INTENSITY_WRAPPER[intensity],
         reducedMotion === true ? "motion-reduce" : "motion-safe",
         className,

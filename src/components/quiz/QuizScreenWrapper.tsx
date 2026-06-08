@@ -24,9 +24,9 @@ export function QuizScreenWrapper({
   const visualProgress = progress >= 80 ? 95 : progress;
 
   return (
-    <div className="relative min-h-[70vh] flex flex-col justify-center items-center py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px] overflow-hidden">
+    <div className="relative min-h-[60vh] md:min-h-[70vh] flex flex-col justify-center items-center py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px] overflow-hidden">
       {/* Fixed top progress bar */}
-      <div className="w-full mb-12 z-20">
+      <div className="w-full mb-6 md:mb-12 z-20">
         <div className="flex justify-between items-end mb-3">
           <div className="flex items-center gap-3">
             {onBack && (
