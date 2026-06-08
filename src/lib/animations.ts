@@ -27,8 +27,8 @@ export const fadeIn: Variants = {
 };
 
 export const fadeInUp: Variants = {
-  hidden:  { opacity: 0, y: 24, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0,  filter: "blur(0px)", transition: { duration: 0.5, ease: ease.smooth } },
+  hidden:  { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: ease.smooth } },
   exit:    { opacity: 0, y: -8, transition: { duration: 0.25 } },
 };
 
@@ -98,9 +98,9 @@ export const pageTransition: Variants = {
 };
 
 export const quizScreenTransition: Variants = {
-  hidden:  { opacity: 0, x: 30,  filter: "blur(4px)" },
-  visible: { opacity: 1, x: 0,   filter: "blur(0px)", transition: { duration: 0.3, ease: ease.smooth } },
-  exit:    { opacity: 0, x: -30, filter: "blur(4px)", transition: { duration: 0.2 } },
+  hidden:  { opacity: 0, x: 30 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.3, ease: ease.smooth } },
+  exit:    { opacity: 0, x: -30, transition: { duration: 0.2 } },
 };
 
 // ─── Drawer / sheet variants ──────────────────────────────────
