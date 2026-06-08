@@ -512,33 +512,39 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+        className="relative mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
       >
-        <span className="bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-white">
+        <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
           {t.hero.headline.split('conhecer')[0]}
         </span>
-        <span className="relative inline-block mx-4">
-          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_25px_var(--arch-glow)]">conhecer</span>
+        <span className="relative inline-block mx-4 z-10">
+          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
           <motion.span 
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-            className="absolute bottom-[10%] left-0 h-[8%] w-full bg-arch-primary/60 -z-0 origin-left blur-[2px]"
+            className="absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]"
           />
         </span>
-        <span className="bg-gradient-to-b from-white via-white to-white/70 bg-clip-text text-white">
+        <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
           {t.hero.headline.split('conhecer')[1]}
         </span>
+        
+        {/* Deep Contrast Backplate for Headline */}
+        <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[100px] -z-0 pointer-events-none" />
       </motion.h1>
 
-      <motion.p
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 1 }}
-        className="mx-auto mt-16 max-w-2xl text-lg text-white/80 md:text-2xl leading-relaxed font-medium tracking-tight px-6 drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]"
+        className="relative mx-auto mt-16 max-w-2xl px-6"
       >
-        {t.hero.sub}
-      </motion.p>
+        <div className="absolute inset-0 bg-black/60 blur-[40px] -z-10 scale-150" />
+        <p className="relative z-10 text-lg text-white md:text-2xl leading-relaxed font-semibold tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+          {t.hero.sub}
+        </p>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
