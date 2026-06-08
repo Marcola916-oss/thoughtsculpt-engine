@@ -346,7 +346,7 @@ function MarbleBustImpl({
         />
         {/* Crack inner glow — red light bleeding out */}
         <path
-          className="bust-crack-glow"
+          className="bust-crack-glow md:[filter:url(#bust-glow)]"
           d="M 86 32
              C 92 48, 98 62, 104 78
              C 110 94, 116 110, 124 128
@@ -356,7 +356,6 @@ function MarbleBustImpl({
           stroke="oklch(0.6 0.24 25)"
           strokeWidth="1"
           strokeLinecap="round"
-          className="md:[filter:url(#bust-glow)]"
         />
 
         {/* L7 — Circuit board (PCB traces following the crack) */}
