@@ -120,20 +120,20 @@ function HubPage() {
   const hour = String(new Date().getHours());
 
   return (
-    <div className="mx-auto max-w-5xl relative">
-      <div className="absolute inset-0 mesh-gradient opacity-10 pointer-events-none" />
+    <div className="mx-auto max-w-5xl relative pb-20">
+      <div className="absolute top-0 -right-20 w-64 h-64 bg-arch-primary/5 blur-[100px] rounded-full pointer-events-none" />
       
       {/* Header with greeting + archetype banner */}
       <motion.header
-        className="mb-10 relative z-10"
+        className="mb-12 relative z-10"
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
       >
-        <motion.p variants={staggerItem} className="text-sm text-muted-foreground">
+        <motion.p variants={staggerItem} className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 mb-2">
           {t.dashboard.hub.greeting(hour)}{name ? `, ${name}` : ""}.
         </motion.p>
-        <motion.h1 variants={staggerItem} className="mt-1 font-display text-3xl font-extrabold md:text-4xl">
+        <motion.h1 variants={staggerItem} className="mt-1 font-display text-4xl font-black md:text-5xl tracking-tighter italic">
           {archetype ? (
             <div className="flex flex-col gap-2">
               <span>{t.dashboard.hub.headingWithArchetype(ARCHETYPE_NAMES[archetype][lang])}</span>
@@ -152,8 +152,11 @@ function HubPage() {
         {archetype && (
           <motion.div
             variants={staggerItem}
-            className={`mt-6 p-4 rounded-[var(--radius-lg)] bg-gradient-to-r ${ARCHETYPE_GRADIENTS[archetype]} to-transparent border border-border-subtle`}
+            className={`mt-8 p-6 rounded-[var(--radius-xl)] bg-gradient-to-r ${ARCHETYPE_GRADIENTS[archetype]} to-transparent border border-white/5 backdrop-blur-xl relative overflow-hidden`}
           >
+            <div className="absolute top-0 right-0 p-2 opacity-10">
+              <span className="text-4xl font-black italic">PROTOCOL</span>
+            </div>
             <p className="text-sm italic" style={{ color: "var(--arch-primary)" }}>
               &ldquo;{ARCHETYPE_QUOTES[archetype]}&rdquo;
             </p>
@@ -179,13 +182,13 @@ function HubPage() {
           <motion.div
             key={i}
             variants={staggerItem}
-            className="bg-card border border-border rounded-[var(--radius-md)] p-4 text-center"
-            whileHover={{ borderColor: "rgba(204,0,0,0.5)", y: -2, boxShadow: "0 0 15px rgba(204,0,0,0.15)" }}
+            className="bg-white/5 border border-white/5 backdrop-blur-md rounded-[var(--radius-xl)] p-5 text-center relative overflow-hidden group"
+            whileHover={{ borderColor: "var(--arch-primary)", y: -2, boxShadow: "0 10px 30px -10px var(--arch-glow)" }}
             transition={{ duration: 0.2 }}
           >
-            <div className="text-2xl mb-1">{stat.icon}</div>
-            <div className="text-xl font-bold text-foreground tabular-nums">{stat.value}</div>
-            <div className="text-xs text-muted-foreground mt-0.5">{stat.label}</div>
+            <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">{stat.icon}</div>
+            <div className="text-2xl font-black text-foreground tabular-nums tracking-tighter">{stat.value}</div>
+            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mt-1">{stat.label}</div>
           </motion.div>
         ))}
       </motion.div>

@@ -264,7 +264,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen bg-transparent relative z-10" data-arch={profile?.archetype || undefined}>
       {/* Desktop Sidebar */}
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border bg-card md:flex z-50">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-border/40 bg-card/30 backdrop-blur-3xl md:flex z-50">
         <SidebarContent
           streak={streak}
           unreadCount={unread}
