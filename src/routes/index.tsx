@@ -176,7 +176,7 @@ function LandingAndQuiz() {
               <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </Atmosphere>
-              <div className="relative z-10 bg-black/95 backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+              <div className="relative z-10 bg-black/95 md:backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
                 <div className="bg-black">
                   <ArchetypeShowcase />
@@ -343,7 +343,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
           initial={{ y: 100 }}
           animate={{ y: 0 }}
           exit={{ y: 100 }}
-          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black/90 p-4 pb-8 md:pb-4 backdrop-blur-xl"
+          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black/90 p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
         >
           <button
             onClick={onClick}
@@ -374,7 +374,7 @@ function TopBar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         scrolled
-          ? "bg-black/90 backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          ? "bg-black/90 md:backdrop-blur-2xl border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-4 md:py-6"
       }`}
     >
@@ -450,7 +450,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
       >
-        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary backdrop-blur-md">
+        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary md:backdrop-blur-md">
           <ShieldCheck className="h-3.5 w-3.5" />
           {t.archetypes?.AO?.name || "O Guardador"}
         </span>
