@@ -240,22 +240,23 @@ function HubPage() {
       {/* Notifications */}
       {notifications.length > 0 && (
         <motion.section
-          className="mt-12 rounded-2xl border border-border bg-card p-6"
+          className="mt-16 rounded-[var(--radius-xl)] border border-white/5 bg-white/5 backdrop-blur-xl p-8 relative overflow-hidden"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
         >
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display text-lg font-bold">{t.dashboard.hub.recentActivity.title}</h3>
-            <Link to="/dashboard/progress" className="text-xs text-primary hover:underline">{t.dashboard.hub.recentActivity.viewAll}</Link>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-arch-primary/5 blur-3xl pointer-events-none" />
+          <div className="flex items-center justify-between mb-8 relative z-10">
+            <h3 className="font-display text-xl font-black italic tracking-tighter uppercase">{t.dashboard.hub.recentActivity.title}</h3>
+            <Link to="/dashboard/progress" className="text-[10px] font-black uppercase tracking-widest text-arch-primary hover:underline">{t.dashboard.hub.recentActivity.viewAll} →</Link>
           </div>
           <div className="space-y-3">
             {notifications.map((n) => (
-              <div key={n.id} className="flex items-start gap-3 rounded-xl bg-background p-4">
-                <span className="text-xl">{n.icon || "🔔"}</span>
+              <div key={n.id} className="flex items-start gap-4 rounded-2xl bg-white/5 border border-white/5 p-5 transition-all hover:bg-white/10 group">
+                <span className="text-2xl transition-transform group-hover:scale-110">{n.icon || "🔔"}</span>
                 <div>
-                  <h4 className="text-sm font-bold text-foreground">{n.title}</h4>
-                  <p className="mt-0.5 text-xs text-muted-foreground">{n.body}</p>
+                  <h4 className="text-sm font-black text-foreground uppercase tracking-tight">{n.title}</h4>
+                  <p className="mt-1 text-xs text-muted-foreground/80 leading-relaxed font-medium">{n.body}</p>
                 </div>
               </div>
             ))}

@@ -127,13 +127,13 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
 
       {/* User profile / archetype badge at bottom */}
       {profile && (
-        <div className="mt-auto pt-6 border-t border-border flex items-center gap-3 relative z-10">
-          <div className="h-10 w-10 rounded-xl bg-arch-primary/10 flex items-center justify-center font-bold text-arch-primary border border-arch-primary/20 shadow-[0_0_10px_var(--arch-glow)] select-none">
+        <div className="mt-auto pt-6 border-t border-white/5 flex items-center gap-3 relative z-10 px-2">
+          <div className="h-11 w-11 rounded-xl bg-arch-primary/10 flex items-center justify-center font-black text-arch-primary border border-arch-primary/20 shadow-[0_0_15px_var(--arch-glow)] select-none italic">
             {profile.archetype || "MR"}
           </div>
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-sm font-bold text-foreground truncate">{profile.display_name || "Membro"}</p>
-            <p className="text-[10px] font-semibold text-muted-foreground/80 uppercase tracking-widest mt-0.5 truncate">
+            <p className="text-xs font-black text-foreground truncate uppercase tracking-wider">{profile.display_name || "Membro"}</p>
+            <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] mt-0.5 truncate italic">
               {profile.archetype ? (t.archetypes as any)?.[profile.archetype]?.name || profile.archetype : "MindReset"}
             </p>
           </div>
@@ -143,9 +143,9 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
       {/* Logout */}
       <button
         onClick={logout}
-        className="mt-4 flex items-center gap-2 text-left text-xs text-muted-foreground transition hover:text-foreground relative z-10"
+        className="mt-6 flex items-center gap-2 text-left text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/50 transition hover:text-arch-primary relative z-10 px-2 group"
       >
-        <span>↩</span> {t.common.logout}
+        <span className="transition-transform group-hover:-translate-x-1">↩</span> {t.common.logout}
       </button>
     </div>
   );
