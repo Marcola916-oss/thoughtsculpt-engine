@@ -418,38 +418,41 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: black;
+  background: #000;
 }
 
 .flowing-ambient::before {
   content: "";
   position: absolute;
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
-  background: radial-gradient(circle at center, var(--arch-primary) 0%, transparent 60%);
-  opacity: 0.15;
-  filter: blur(100px);
-  animation: flowing-rotate 30s linear infinite;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background: radial-gradient(circle at center, var(--arch-primary) 0%, transparent 50%);
+  opacity: 0.25;
+  filter: blur(120px);
+  animation: flowing-rotate 20s ease-in-out infinite;
+  mix-blend-mode: screen;
 }
 
 .flowing-ambient::after {
   content: "";
   position: absolute;
-  width: 150%;
-  height: 150%;
-  bottom: -25%;
-  right: -25%;
-  background: radial-gradient(circle at center, var(--accent-dark) 0%, transparent 50%);
-  opacity: 0.1;
-  filter: blur(80px);
-  animation: flowing-rotate 25s linear infinite reverse;
+  width: 130%;
+  height: 130%;
+  bottom: -15%;
+  right: -15%;
+  background: radial-gradient(circle at center, var(--accent-deeper) 0%, transparent 60%);
+  opacity: 0.2;
+  filter: blur(100px);
+  animation: flowing-rotate 25s ease-in-out infinite reverse;
+  mix-blend-mode: screen;
 }
 
 @keyframes flowing-rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
 }
 
 @keyframes mesh-shift {
@@ -649,32 +652,35 @@
 /* ─── Atmosphere: VolumetricFog ──────────────────────────── */
 .fog-layer-base {
   background: radial-gradient(
-    ellipse 75% 60% at 50% 28%,
+    ellipse 85% 70% at 50% 28%,
     var(--accent-surface) 0%,
-    transparent 65%
+    rgba(0,0,0,0.4) 50%,
+    transparent 85%
   );
 }
 .fog-base-subtle {
   background: radial-gradient(
-    ellipse 75% 60% at 50% 28%,
+    ellipse 80% 65% at 50% 28%,
     var(--accent-surface) 0%,
-    transparent 70%
+    transparent 75%
   );
 }
 .fog-base-normal {
   background: radial-gradient(
-    ellipse 80% 65% at 50% 30%,
+    ellipse 85% 70% at 50% 30%,
     var(--accent-surface) 0%,
-    var(--accent-glow) 50%,
-    transparent 80%
+    var(--accent-glow) 40%,
+    rgba(0,0,0,0.6) 70%,
+    transparent 90%
   );
 }
 .fog-base-dramatic {
   background: radial-gradient(
-    ellipse 90% 70% at 50% 30%,
+    ellipse 100% 80% at 50% 30%,
     var(--accent-surface) 0%,
-    var(--accent-glow-strong) 40%,
-    transparent 85%
+    var(--accent-glow-strong) 35%,
+    rgba(0,0,0,0.8) 65%,
+    transparent 95%
   );
 }
 
