@@ -719,21 +719,13 @@
   mix-blend-mode: screen;
 }
 
-.fog-breathe-1 { animation: fog-breathe-1 11s ease-in-out infinite; }
-.fog-breathe-2 { animation: fog-breathe-2 13s ease-in-out infinite 3s; }
-.fog-breathe-3 { animation: fog-breathe-3 9s  ease-in-out infinite 5s; }
+.fog-breathe-1 { animation: fog-breathe-static 11s ease-in-out infinite; }
+.fog-breathe-2 { animation: fog-breathe-static 13s ease-in-out infinite 3s reverse; }
+.fog-breathe-3 { animation: fog-breathe-static 9s  ease-in-out infinite 5s; }
 
-@keyframes fog-breathe-1 {
-  0%, 100% { opacity: 0.30; transform: translate(0, 0)     scale(1);    }
-  50%      { opacity: 0.60; transform: translate(2%, -1%)  scale(1.15); }
-}
-@keyframes fog-breathe-2 {
-  0%, 100% { opacity: 0.25; transform: translate(0, 0)     scale(1);    }
-  50%      { opacity: 0.55; transform: translate(-2%, 1%)  scale(1.10); }
-}
-@keyframes fog-breathe-3 {
-  0%, 100% { opacity: 0.35; transform: translate(0, 0)     scale(1);    }
-  50%      { opacity: 0.65; transform: translate(1%, -2%)  scale(1.20); }
+@keyframes fog-breathe-static {
+  0%, 100% { opacity: 0.30; transform: translate3d(0, 0, 0) scale(1); }
+  50%      { opacity: 0.60; transform: translate3d(2%, -1%, 0) scale(1.15); }
 }
 
 @media (prefers-reduced-motion: reduce) {
