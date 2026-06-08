@@ -426,57 +426,55 @@
   animation: mesh-shift 15s ease-in-out infinite alternate;
 }
 
-/* Optimized Ambient Background - High Contrast Depth */
+/* Ultra-Optimized Ambient Background - Hardware Accelerated */
 .flowing-ambient {
   position: absolute;
   inset: 0;
   background: #000;
   overflow: hidden;
-  /* Disable background animations on very small screens to save CPU */
-  display: none;
-  @media (min-width: 640px) {
-    display: block;
-  }
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .flowing-ambient::before {
   content: "";
   position: absolute;
-  width: 140%;
-  height: 140%;
-  top: -20%;
-  left: -20%;
-  /* Reduced blur and size on mobile for performance */
-  background: radial-gradient(circle at center, #CC0000 0%, transparent 60%);
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  /* Using gradients for blur effect instead of heavy filters */
+  background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 60%);
   opacity: 0.15;
-  filter: blur(40px);
-  @media (min-width: 1024px) {
-    opacity: 0.25;
-    filter: blur(100px);
-  }
-  animation: flowing-rotate 25s linear infinite;
+  pointer-events: none;
+  animation: flowing-rotate-static 30s linear infinite;
+  will-change: transform;
 }
 
 .flowing-ambient::after {
   content: "";
   position: absolute;
-  width: 120%;
-  height: 120%;
-  bottom: -10%;
-  right: -10%;
-  background: radial-gradient(circle at center, #440000 0%, transparent 50%);
+  width: 130%;
+  height: 130%;
+  bottom: -15%;
+  right: -15%;
+  background: radial-gradient(circle at center, var(--accent-deeper) 0%, transparent 50%);
   opacity: 0.2;
-  filter: blur(50px);
-  @media (min-width: 768px) {
-    filter: blur(80px);
-  }
-  animation: flowing-rotate 35s linear infinite reverse;
+  pointer-events: none;
+  animation: flowing-rotate-static 45s linear infinite reverse;
+  will-change: transform;
 }
 
-@keyframes flowing-rotate {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.1); }
-  100% { transform: rotate(360deg) scale(1); }
+@keyframes flowing-rotate-static {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  100% { transform: translate3d(0, 0, 0) rotate(360deg); }
+}
+
+/* Pre-programmed fog breathing to avoid JS calculations */
+@keyframes fog-breathe-static {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.3; }
+  50% { transform: translate3d(2%, 2%, 0) scale(1.1); opacity: 0.5; }
+}
 }
 
 @keyframes mesh-shift {
