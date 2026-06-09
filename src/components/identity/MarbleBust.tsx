@@ -361,7 +361,7 @@ function MarbleBustImpl({
         {/* L7 — Circuit board (PCB traces following the crack) */}
         {variant !== "mini" && (
           <g
-            className="bust-circuit md:[filter:url(#bust-glow)]"
+            className="bust-circuit lg:[filter:url(#bust-glow)]"
             stroke="oklch(0.6 0.22 25)"
             strokeWidth="1.2"
             fill="none"
