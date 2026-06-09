@@ -347,29 +347,34 @@
 
 .bento-card {
   position: relative;
-  background: rgba(13, 13, 13, 0.95);
+  background: rgba(13, 13, 13, 1);
   /* Backdrop blur only on desktop */
-  @media (min-width: 1024px) {
+  @media (min-width: 1280px) {
+    background: rgba(13, 13, 13, 0.95);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
   }
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: var(--radius-xl);
-  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem; /* Smaller radius on mobile */
+  @media (min-width: 768px) {
+    border-radius: var(--radius-xl);
+  }
+  padding: 1.5rem;
+  @media (min-width: 768px) {
+    padding: 2rem;
+  }
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 
-    0 4px 24px -1px rgba(0,0,0,0.3),
-    0 0 0 1px rgba(255,255,255,0.01) inset;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .bento-card:hover {
-  background: rgba(20, 20, 20, 0.6);
+  background: rgba(20, 20, 20, 1);
+  @media (min-width: 1024px) {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px var(--arch-glow);
+  }
   border-color: var(--arch-primary);
-  transform: translateY(-4px);
-  box-shadow: 
-    0 20px 40px -20px var(--arch-glow),
-    0 0 0 1px var(--arch-primary) inset;
 }
 
 /* ─── Glassmorphism ──────────────────────────────────────── */
