@@ -28,7 +28,7 @@ import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
-import { Atmosphere, BackgroundAmbient } from "@/components/atmosphere";
+import { Atmosphere, BackgroundAmbient, type AtmosphereFog } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import {
   ProofBar,
@@ -154,6 +154,18 @@ function LandingAndQuiz() {
 
   // Determine atmosphere settings based on stage
   const atmosphereProps = useMemo(() => {
+    // Force very light mode on mobile/tablet
+    const isMobileOrTablet = typeof window !== "undefined" && window.innerWidth < 1024;
+
+    if (isMobileOrTablet) {
+      const mobileFog: AtmosphereFog = (stage.kind === 'hero' || stage.kind === 'loader') ? 'normal' : 'off';
+      return { 
+        fog: mobileFog, 
+        symbols: 'off' as const, 
+        scan: 'off' as const 
+      };
+    }
+
     switch (stage.kind) {
       case "hero":
         return { fog: "dramatic" as const, symbols: "sparse" as const, scan: "subtle" as const };
@@ -182,7 +194,10 @@ function LandingAndQuiz() {
       {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
       <Atmosphere {...atmosphereProps} pinned withAmbient={false} />
       
-      <TopBar />
+      {/* Use a static TopBar wrapper on mobile */}
+      <div className="contents md:block">
+        <TopBar />
+      </div>
 
       <main className="w-full px-0 sm:px-4 pb-24 pt-4 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
@@ -197,7 +212,7 @@ function LandingAndQuiz() {
               <div className="relative z-10">
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </div>
-              <div className="relative z-10 bg-black/95 md:backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+              <div className="relative z-10 bg-black shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
                 <div className="bg-black">
                   <ArchetypeShowcase />
@@ -364,7 +379,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
           initial={{ y: 100 }}
           animate={{ y: 0 }}
           exit={{ y: 100 }}
-          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black/90 p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
+          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
         >
           <button
             onClick={onClick}
@@ -395,7 +410,7 @@ function TopBar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         scrolled
-          ? "bg-black/90 border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          ? "bg-black border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] md:bg-black/90 md:backdrop-blur-xl"
           : "bg-transparent py-4 md:py-6"
       }`}
     >
@@ -459,9 +474,9 @@ function Hero({ onStart }: { onStart: () => void }) {
     <section className="relative pt-20 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[80px] md:blur-[120px]" />
-        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[80px] md:blur-[140px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[80px] md:blur-[140px] rounded-full animate-pulse [animation-delay:2s]" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[40px] lg:blur-[120px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[60px] lg:blur-[140px] rounded-full lg:animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[60px] lg:blur-[140px] rounded-full lg:animate-pulse [animation-delay:2s]" />
       </div>
 
       {/* Floating Archetype Badges */}
@@ -535,13 +550,13 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
+        className="relative mx-auto max-w-6xl font-display text-[11vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic"
       >
         <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
           {t.hero.headline.split('conhecer')[0]}
         </span>
-        <span className="relative inline-block mx-4 z-10">
-          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
+        <span className="relative inline-block mx-1 md:mx-4 z-10">
+          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
           <motion.span 
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -554,7 +569,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         </span>
         
         {/* Deep Contrast Backplate for Headline */}
-        <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[100px] -z-0 pointer-events-none" />
+        <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[60px] md:blur-[100px] -z-0 pointer-events-none" />
       </motion.h1>
 
       <motion.div
@@ -617,21 +632,25 @@ function Hero({ onStart }: { onStart: () => void }) {
       </motion.div>
 
       {/* Floating Archetype Display */}
-      <div className="mt-40 relative px-4 max-w-7xl mx-auto overflow-visible">
+      <div className="mt-20 md:mt-40 relative px-4 max-w-7xl mx-auto overflow-visible">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="pt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 opacity-40 hover:opacity-100 transition-opacity duration-1000">
+        <div className="pt-12 md:pt-20 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 opacity-60 lg:opacity-40 hover:opacity-100 transition-opacity duration-1000">
            {['AO', 'SS', 'EA', 'HI'].map((arch) => (
              <motion.div 
                key={arch}
                whileHover={{ y: -10, scale: 1.05 }}
+<<<<<<< HEAD
                className="glass-morphism rounded-[2.5rem] p-8 border border-white/10 bg-black/40 md:backdrop-blur-xl flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
+=======
+               className="rounded-3xl lg:rounded-[2.5rem] p-5 md:p-8 border border-white/10 bg-black/40 flex flex-col items-center text-center gap-3 md:gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl lg:backdrop-blur-xl"
+>>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
              >
-               <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all">
+               <span className="text-3xl md:text-4xl filter grayscale group-hover:grayscale-0 transition-all">
                  {arch === 'AO' ? '🛡️' : arch === 'SS' ? '👑' : arch === 'EA' ? '👻' : '🔥'}
                </span>
                <div className="space-y-1">
-                 <span className="block text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
-                 <span className="block text-lg font-bold tracking-tighter text-foreground/80">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
+                 <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
+                 <span className="block text-sm md:text-lg font-bold tracking-tighter text-foreground/80">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
                </div>
              </motion.div>
            ))}

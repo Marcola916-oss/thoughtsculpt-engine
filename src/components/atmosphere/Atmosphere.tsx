@@ -97,6 +97,7 @@ export function Atmosphere({
   return (
     <div aria-hidden="true" className={cn("relative z-10", className)}>
       {withAmbient && <BackgroundAmbient variant="landing" />}
+<<<<<<< HEAD
 
       {/* Fog — tier-aware orb count */}
       {showFog && (
@@ -110,6 +111,29 @@ export function Atmosphere({
           )}
         />
       )}
+=======
+      
+      {/* Heavy fog only on desktop */}
+      {fog !== "off" && (
+        <VolumetricFog 
+          intensity={FOG_TO_INTENSITY[fog]} 
+          pinned={pinned} 
+          className="hidden lg:block" 
+        />
+      )}
+      
+      {/* Magical but light fog for mobile/tablet */}
+      {fog !== "off" && (
+        <div 
+          className="lg:hidden fixed inset-0 z-[2] pointer-events-none"
+          style={{
+            background: `radial-gradient(circle at 50% 30%, var(--arch-glow), transparent 70%)`,
+            opacity: fog === 'dramatic' ? 0.4 : 0.2,
+            mixBlendMode: 'screen'
+          }}
+        />
+      )}
+>>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
 
       {/* Floating symbols — tier-aware count */}
       {showSymbols && (
@@ -118,6 +142,7 @@ export function Atmosphere({
           count={TIER_SYMBOLS[tier]}
           density={SYMBOLS_TO_DENSITY[symbols]}
           pinned={pinned}
+<<<<<<< HEAD
           withGlow={symbols === "dense" && tier === "high"}
           className="z-[5]"
         />
@@ -132,6 +157,15 @@ export function Atmosphere({
         />
       )}
 
+=======
+          withGlow={symbols === "dense"}
+          className="z-[5] hidden lg:block" // Completely hide symbols on mobile/tablet for performance
+        />
+      )}
+      
+      {scan !== "off" && <ScanLines intensity={scan} pinned={pinned} className="opacity-15 lg:opacity-100" />}
+      
+>>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
       <div className="relative z-20">
         {children}
       </div>

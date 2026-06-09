@@ -140,6 +140,20 @@ function RevealRoot({
     );
   }
 
+<<<<<<< HEAD
+=======
+  // Detect if on mobile to simplify animation
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  
+  if (reducedMotion || isMobile) {
+    return (
+      <div className={cn("will-change-transform", className)}>
+        {children}
+      </div>
+    );
+  }
+
+>>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
   return (
     <Component
       initial="hidden"
@@ -201,7 +215,7 @@ function RevealGroup({
         variants={containerVariants}
         className={cn(className)}
       >
-        {reducedMotion ? <>{children}</> : children}
+        {reducedMotion || (typeof window !== "undefined" && window.innerWidth < 768) ? <>{children}</> : children}
       </Component>
     </RevealGroupContext.Provider>
   );

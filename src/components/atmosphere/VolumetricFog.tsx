@@ -67,7 +67,13 @@ function VolumetricFogImpl({
         "inset-0",
         "pointer-events-none",
         "overflow-hidden",
+<<<<<<< HEAD
         "z-[2]",
+=======
+        "z-[2]", // Fog stays just above the base background
+        // Optimize mobile opacity and disable fog by default on very slow devices
+        "opacity-40 lg:opacity-100",
+>>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
         INTENSITY_WRAPPER[intensity],
         reducedMotion === true ? "motion-reduce" : "motion-safe",
         className,
@@ -83,22 +89,28 @@ function VolumetricFogImpl({
         )}
       />
 
+<<<<<<< HEAD
       {/* L2 — diagonal light beam (only when 2+ orbs) */}
       {orbs >= 2 && intensity !== "subtle" && (
         <div className="fog-layer-beam absolute inset-0" />
       )}
+=======
+      {/* L2 — diagonal light beam (top-left to bottom-right) */}
+      {intensity !== "subtle" && <div className="fog-layer-beam absolute inset-0 hidden lg:block" />}
+>>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
 
       {/* L3 — Breathing orbs (GPU composited: translate3d + opacity) */}
 
       {/* Orb 1 — always rendered (the mobile "alive" orb) */}
       <div
-        className="absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full"
+        className="absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full hidden lg:block"
         style={{
           background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
           animation: "fog-breathe-static 10s ease-in-out infinite",
           willChange: "transform, opacity",
         }}
       />
+<<<<<<< HEAD
 
       {/* Orb 2 — only when 2+ orbs */}
       {orbs >= 2 && (
@@ -123,6 +135,24 @@ function VolumetricFogImpl({
           }}
         />
       )}
+=======
+      <div
+        className="absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full hidden lg:block"
+        style={{
+          background: "radial-gradient(circle, var(--accent-glow-strong) 0%, transparent 70%)",
+          animation: "fog-breathe-static 15s ease-in-out infinite reverse",
+          willChange: "transform, opacity",
+        }}
+      />
+      <div
+        className="absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full hidden lg:block"
+        style={{
+          background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
+          animation: "fog-breathe-static 12s ease-in-out infinite",
+          willChange: "transform, opacity",
+        }}
+      />
+>>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
     </div>
   );
 }
