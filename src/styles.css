@@ -787,6 +787,14 @@
 }
 .motion-reduce .symbol-drift { animation: none !important; }
 
+/* ─── Atmosphere: BackgroundAmbient (was missing reduced-motion) ─── */
+@media (prefers-reduced-motion: reduce) {
+  .flowing-ambient::before,
+  .flowing-ambient::after { animation: none !important; }
+}
+.motion-reduce .flowing-ambient::before,
+.motion-reduce .flowing-ambient::after { animation: none !important; }
+
 /* ─── Interaction: MagneticCursor ─────────────────────────── */
 .magnetic-cursor {
   border-radius: 50%;
@@ -892,8 +900,131 @@
   }
 }
 
+/* ─── CSS-only Scroll Reveal (mobile-optimized) ───────────── */
+/*
+ * Used by <Reveal> on mobile tiers instead of Framer Motion.
+ * Single global IntersectionObserver adds .is-visible — CSS handles the rest.
+ * All animations use transform + opacity only = GPU composited = 60fps.
+ */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for children inside .reveal-group */
+.reveal-group > .reveal:nth-child(1)  { transition-delay: 0ms; }
+.reveal-group > .reveal:nth-child(2)  { transition-delay: 60ms; }
+.reveal-group > .reveal:nth-child(3)  { transition-delay: 120ms; }
+.reveal-group > .reveal:nth-child(4)  { transition-delay: 180ms; }
+.reveal-group > .reveal:nth-child(5)  { transition-delay: 240ms; }
+.reveal-group > .reveal:nth-child(6)  { transition-delay: 300ms; }
+.reveal-group > .reveal:nth-child(7)  { transition-delay: 360ms; }
+.reveal-group > .reveal:nth-child(8)  { transition-delay: 420ms; }
+
+/* Scale variant */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, opacity;
+}
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Slide-left variant */
+.reveal-slide-left {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.reveal-slide-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide-right variant */
+.reveal-slide-right {
+  opacity: 0;
+  transform: translateX(32px);
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.reveal-slide-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Disabled state for prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-scale,
+  .reveal-slide-left,
+  .reveal-slide-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ─── Scrollbar ──────────────────────────────────────────── */
 ::-webkit-scrollbar         { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track   { background: transparent; }
 ::-webkit-scrollbar-thumb   { background: rgba(255,255,255,0.10); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.20); }
+
+/* ─── Performance: CSS Containment ─────────────────────────── */
+/*
+ * contain limits the scope of layout/paint reflows to the container.
+ * Used on atmosphere layers and cards to prevent layout thrashing.
+ */
+[data-fog-intensity],
+[data-scan-intensity],
+[data-floating-set] {
+  contain: layout style;
+}
+
+/* ─── Performance: Pause animations when tab hidden ────────── */
+@media (prefers-reduced-motion: no-preference) {
+  :paused .fog-layer-base,
+  :paused .fog-layer-beam,
+  :paused [style*="fog-breathe-static"],
+  :paused [style*="symbol-drift-static"],
+  :paused .flowing-ambient::before,
+  :paused .flowing-ambient::after,
+  :paused .scan-move,
+  :paused .noise-overlay {
+    animation-play-state: paused !important;
+  }
+}
+
+/* ─── Hero CTA Glow Pulse (zero DOM, pure CSS) ────────────── */
+@keyframes cta-glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(204,0,0,0.15), 0 0 40px rgba(204,0,0,0.05); }
+  50%      { box-shadow: 0 0 30px rgba(204,0,0,0.25), 0 0 60px rgba(204,0,0,0.10); }
+}
+
+.hero-cta-glow {
+  animation: cta-glow-pulse 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta-glow { animation: none !important; }
+}

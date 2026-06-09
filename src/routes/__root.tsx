@@ -18,6 +18,8 @@ import { PageTransition } from "../components/PageTransition";
 import { AnimatePresence } from "framer-motion";
 import { ScanLines } from "@/components/atmosphere/ScanLines";
 import { MagneticCursor } from "@/components/interaction/MagneticCursor";
+import { RevealProvider } from "@/components/interaction/Reveal";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 
 function NotFoundComponent() {
@@ -173,18 +175,21 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useScrollReveal();
 
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <ScanLines intensity="subtle" />
-        <MagneticCursor />
-        <AnimatePresence mode="wait">
-          <PageTransition key={useRouter().state.location.pathname}>
-            <Outlet />
-          </PageTransition>
-        </AnimatePresence>
-        <CookieBanner />
+        <RevealProvider>
+          <ScanLines intensity="subtle" />
+          <MagneticCursor />
+          <AnimatePresence mode="wait">
+            <PageTransition key={useRouter().state.location.pathname}>
+              <Outlet />
+            </PageTransition>
+          </AnimatePresence>
+          <CookieBanner />
+        </RevealProvider>
       </LanguageProvider>
     </QueryClientProvider>
   );

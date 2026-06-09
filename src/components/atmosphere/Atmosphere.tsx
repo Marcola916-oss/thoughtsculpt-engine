@@ -1,17 +1,19 @@
 /**
  * Atmosphere — Single-import orchestrator for VolumetricFog + FloatingSymbols + ScanLines.
  *
- * Use this when a page wants a complete atmosphere with a one-liner.
- * For surgical opt-in (e.g. only scan lines on the dashboard), import the
- * individual components instead.
+ * Tier-aware: detects device capability and adjusts layer count automatically.
+ *
+ * - "low":    1 breathing orb, no floating symbols, subtle scan lines
+ * - "medium": 2 breathing orbs, 4 sparse symbols, subtle scan lines
+ * - "high":   3 orbs, full symbols, beam, scan lines — desktop full magic
  *
  * @example
  *   <Atmosphere fog="dramatic" scan="subtle">{children}</Atmosphere>
- *   <Atmosphere fog="subtle" symbols="subtle" scan="normal" pinned />
  */
 
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { useDeviceTier, type DeviceTier } from "@/hooks/use-device-tier";
 import { VolumetricFog, type VolumetricFogIntensity } from "./VolumetricFog";
 import {
   FloatingSymbols,
@@ -55,6 +57,27 @@ const SYMBOLS_TO_DENSITY: Record<FloatingSymbolsDensity, FloatingSymbolsDensity>
   dense: "dense",
 };
 
+/** How many orbs to render per tier */
+const TIER_ORBS: Record<DeviceTier, number> = {
+  low: 1,
+  medium: 2,
+  high: 3,
+};
+
+/** How many floating symbols to render per tier */
+const TIER_SYMBOLS: Record<DeviceTier, number> = {
+  low: 0,
+  medium: 4,
+  high: 8,
+};
+
+/** Opacity multiplier for scan lines per tier */
+const TIER_SCAN_OPACITY: Record<DeviceTier, string> = {
+  low: "opacity-15",
+  medium: "opacity-20",
+  high: "opacity-100",
+};
+
 export function Atmosphere({
   fog = "off",
   symbols = "off",
@@ -65,36 +88,50 @@ export function Atmosphere({
   children,
   withAmbient = false,
 }: AtmosphereProps) {
+  const tier = useDeviceTier();
+
+  const showFog = fog !== "off";
+  const showSymbols = symbols !== "off" && TIER_SYMBOLS[tier] > 0;
+  const showScan = scan !== "off";
+
   return (
     <div aria-hidden="true" className={cn("relative z-10", className)}>
       {withAmbient && <BackgroundAmbient variant="landing" />}
-      
-      {/* Heavy fog only on desktop */}
-      {fog !== "off" && (
-        <VolumetricFog 
-          intensity={FOG_TO_INTENSITY[fog]} 
-          pinned={pinned} 
-          className="hidden md:block" 
+
+      {/* Fog — tier-aware orb count */}
+      {showFog && (
+        <VolumetricFog
+          intensity={FOG_TO_INTENSITY[fog]}
+          pinned={pinned}
+          maxOrbs={TIER_ORBS[tier]}
+          className={cn(
+            tier === "low" && "opacity-60",
+            tier === "medium" && "opacity-80",
+          )}
         />
-      )}
-      
-      {/* Simpler fog for mobile */}
-      {fog !== "off" && (
-        <div className="md:hidden fixed inset-0 z-[2] pointer-events-none opacity-30 bg-gradient-to-b from-primary/10 to-transparent" />
       )}
 
-      {symbols !== "off" && (
+      {/* Floating symbols — tier-aware count */}
+      {showSymbols && (
         <FloatingSymbols
           set={symbolsSet}
+          count={TIER_SYMBOLS[tier]}
           density={SYMBOLS_TO_DENSITY[symbols]}
           pinned={pinned}
-          withGlow={symbols === "dense"}
-          className="z-[5] hidden md:block" // Completely hide symbols on mobile for performance
+          withGlow={symbols === "dense" && tier === "high"}
+          className="z-[5]"
         />
       )}
-      
-      {scan !== "off" && <ScanLines intensity={scan} pinned={pinned} className="opacity-20 md:opacity-100" />}
-      
+
+      {/* Scan lines — tier-aware opacity */}
+      {showScan && (
+        <ScanLines
+          intensity={scan}
+          pinned={pinned}
+          className={TIER_SCAN_OPACITY[tier]}
+        />
+      )}
+
       <div className="relative z-20">
         {children}
       </div>

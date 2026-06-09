@@ -124,7 +124,7 @@ function ThankYouPage() {
   if (error) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-black p-4 text-white">
-        <div className="rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-8 text-center max-w-md backdrop-blur-xl">
+        <div className="rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-8 text-center max-w-md md:backdrop-blur-xl">
           <span className="text-4xl">⚠️</span>
           <h2 className="mt-4 mb-2 text-2xl font-bold text-[#CC0000]">Algo deu errado</h2>
           <p className="text-gray-400 leading-relaxed">{error}</p>
@@ -219,7 +219,7 @@ function ThankYouPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="mb-10 rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]"
+            className="mb-10 rounded-[2rem] border border-white/10 bg-white/5 md:backdrop-blur-xl p-8 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)]"
           >
             <div className="flex items-center gap-3 mb-6">
               <ShieldCheck className="h-6 w-6 text-[#CC0000]" />
@@ -270,7 +270,7 @@ function ThankYouPage() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.9, duration: 0.6 }}
-            className="mb-10 flex items-center justify-center gap-3 rounded-full border border-[#CC0000]/20 bg-[#CC0000]/5 px-6 py-3 backdrop-blur-xl"
+            className="mb-10 flex items-center justify-center gap-3 rounded-full border border-[#CC0000]/20 bg-[#CC0000]/5 px-6 py-3 md:backdrop-blur-xl"
           >
             <Clock className="h-4 w-4 text-[#CC0000]" />
             <span className="text-sm font-bold text-gray-400">
