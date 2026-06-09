@@ -444,29 +444,28 @@
 .flowing-ambient::before {
   content: "";
   position: absolute;
-  width: 150%;
-  height: 150%;
-  top: -25%;
-  left: -25%;
-  /* Using gradients for blur effect instead of heavy filters */
+  width: 120%;
+  height: 120%;
+  top: -10%;
+  left: -10%;
   background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 60%);
-  opacity: 0.15;
+  opacity: 0.1;
   pointer-events: none;
-  animation: flowing-rotate-static 30s linear infinite;
+  animation: flowing-rotate-static 40s linear infinite;
   will-change: transform;
 }
 
 .flowing-ambient::after {
   content: "";
   position: absolute;
-  width: 130%;
-  height: 130%;
-  bottom: -15%;
-  right: -15%;
+  width: 100%;
+  height: 100%;
+  bottom: -5%;
+  right: -5%;
   background: radial-gradient(circle at center, var(--accent-deeper) 0%, transparent 50%);
-  opacity: 0.2;
+  opacity: 0.15;
   pointer-events: none;
-  animation: flowing-rotate-static 45s linear infinite reverse;
+  animation: flowing-rotate-static 60s linear infinite reverse;
   will-change: transform;
 }
 
