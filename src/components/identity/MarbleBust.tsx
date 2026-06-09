@@ -403,6 +403,7 @@ function MarbleBustImpl({
             textAnchor="middle"
             fill="oklch(0.7 0.22 25)"
             filter="url(#bust-glow)"
+            className="hidden lg:block"
             opacity={isEmpty ? 0.85 : 0.95}
           >
             <text x="78" y="73">
