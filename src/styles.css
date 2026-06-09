@@ -475,7 +475,6 @@
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.3; }
   50% { transform: translate3d(2%, 2%, 0) scale(1.1); opacity: 0.5; }
 }
-}
 
 @keyframes mesh-shift {
   0% { background-position: 0% 0%; }
