@@ -633,21 +633,21 @@ function Hero({ onStart }: { onStart: () => void }) {
       </motion.div>
 
       {/* Floating Archetype Display */}
-      <div className="mt-40 relative px-4 max-w-7xl mx-auto overflow-visible">
+      <div className="mt-20 md:mt-40 relative px-4 max-w-7xl mx-auto overflow-visible">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="pt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 opacity-40 hover:opacity-100 transition-opacity duration-1000">
+        <div className="pt-12 md:pt-20 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 opacity-60 lg:opacity-40 hover:opacity-100 transition-opacity duration-1000">
            {['AO', 'SS', 'EA', 'HI'].map((arch) => (
              <motion.div 
                key={arch}
                whileHover={{ y: -10, scale: 1.05 }}
-               className="rounded-[2.5rem] p-8 border border-white/10 bg-black/40 flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl md:backdrop-blur-xl"
+               className="rounded-3xl lg:rounded-[2.5rem] p-5 md:p-8 border border-white/10 bg-black/40 flex flex-col items-center text-center gap-3 md:gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl lg:backdrop-blur-xl"
              >
-               <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all">
+               <span className="text-3xl md:text-4xl filter grayscale group-hover:grayscale-0 transition-all">
                  {arch === 'AO' ? '🛡️' : arch === 'SS' ? '👑' : arch === 'EA' ? '👻' : '🔥'}
                </span>
                <div className="space-y-1">
-                 <span className="block text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
-                 <span className="block text-lg font-bold tracking-tighter text-foreground/80">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
+                 <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
+                 <span className="block text-sm md:text-lg font-bold tracking-tighter text-foreground/80">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
                </div>
              </motion.div>
            ))}
