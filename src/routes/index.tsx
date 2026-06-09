@@ -154,6 +154,18 @@ function LandingAndQuiz() {
 
   // Determine atmosphere settings based on stage
   const atmosphereProps = useMemo(() => {
+    // Detect mobile
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
+    if (isMobile) {
+      // Simplified atmosphere for mobile - no symbols, subtle fog
+      return { 
+        fog: (stage.kind === 'hero' || stage.kind === 'loader' || stage.kind === 'reveal') ? 'normal' : 'subtle' as const, 
+        symbols: 'off' as const, 
+        scan: 'off' as const 
+      };
+    }
+
     switch (stage.kind) {
       case "hero":
         return { fog: "dramatic" as const, symbols: "sparse" as const, scan: "subtle" as const };
@@ -182,7 +194,10 @@ function LandingAndQuiz() {
       {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
       <Atmosphere {...atmosphereProps} pinned withAmbient={false} />
       
-      <TopBar />
+      {/* Use a static TopBar wrapper on mobile */}
+      <div className="contents md:block">
+        <TopBar />
+      </div>
 
       <main className="w-full px-0 sm:px-4 pb-24 pt-4 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
@@ -197,7 +212,7 @@ function LandingAndQuiz() {
               <div className="relative z-10">
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </div>
-              <div className="relative z-10 bg-black/95 md:backdrop-blur-3xl shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+              <div className="relative z-10 bg-black shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
                 <div className="bg-black">
                   <ArchetypeShowcase />
@@ -364,7 +379,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
           initial={{ y: 100 }}
           animate={{ y: 0 }}
           exit={{ y: 100 }}
-          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black/90 p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
+          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
         >
           <button
             onClick={onClick}
@@ -395,7 +410,7 @@ function TopBar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
         scrolled
-          ? "bg-black/90 border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          ? "bg-black border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] md:bg-black/90 md:backdrop-blur-xl"
           : "bg-transparent py-4 md:py-6"
       }`}
     >
@@ -624,7 +639,7 @@ function Hero({ onStart }: { onStart: () => void }) {
              <motion.div 
                key={arch}
                whileHover={{ y: -10, scale: 1.05 }}
-               className="glass-morphism rounded-[2.5rem] p-8 border border-white/10 bg-black/40 backdrop-blur-xl flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
+               className="rounded-[2.5rem] p-8 border border-white/10 bg-black/40 flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl md:backdrop-blur-xl"
              >
                <span className="text-4xl filter grayscale group-hover:grayscale-0 transition-all">
                  {arch === 'AO' ? '🛡️' : arch === 'SS' ? '👑' : arch === 'EA' ? '👻' : '🔥'}

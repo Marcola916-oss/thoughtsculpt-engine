@@ -45,7 +45,7 @@ export function ArchetypeShowcase() {
       </Reveal>
 
       <Reveal.Group
-        className="grid grid-cols-1 overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/60 backdrop-blur-3xl sm:grid-cols-2 lg:grid-cols-4 shadow-2xl"
+        className="grid grid-cols-1 overflow-hidden rounded-[2.5rem] border border-white/10 bg-black sm:grid-cols-2 lg:grid-cols-4 shadow-2xl md:backdrop-blur-3xl"
         stagger="fast"
       >
         {ARCH_KEYS.map((key) => {
