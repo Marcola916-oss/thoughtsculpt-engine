@@ -639,11 +639,7 @@ function Hero({ onStart }: { onStart: () => void }) {
              <motion.div 
                key={arch}
                whileHover={{ y: -10, scale: 1.05 }}
-<<<<<<< HEAD
-               className="glass-morphism rounded-[2.5rem] p-8 border border-white/10 bg-black/40 md:backdrop-blur-xl flex flex-col items-center text-center gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
-=======
-               className="rounded-3xl lg:rounded-[2.5rem] p-5 md:p-8 border border-white/10 bg-black/40 flex flex-col items-center text-center gap-3 md:gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl lg:backdrop-blur-xl"
->>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
+                className="glass-morphism rounded-3xl lg:rounded-[2.5rem] p-5 md:p-8 border border-white/10 bg-black/40 md:backdrop-blur-xl flex flex-col items-center text-center gap-3 md:gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
              >
                <span className="text-3xl md:text-4xl filter grayscale group-hover:grayscale-0 transition-all">
                  {arch === 'AO' ? '🛡️' : arch === 'SS' ? '👑' : arch === 'EA' ? '👻' : '🔥'}

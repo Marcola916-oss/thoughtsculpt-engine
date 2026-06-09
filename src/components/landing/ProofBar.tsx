@@ -16,11 +16,7 @@ export function ProofBar() {
   return (
     <aside
       aria-label="MindReset — Indicadores de confiança"
-<<<<<<< HEAD
       className="relative w-full border-y border-white/[0.1] bg-black/40 md:backdrop-blur-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)]"
-=======
-      className="relative w-full border-y border-white/[0.1] bg-black/60 lg:backdrop-blur-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)]"
->>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
     >
       <div className="mx-auto grid max-w-7xl grid-cols-2 lg:divide-x divide-white/[0.1] px-4 md:grid-cols-4 md:px-8">
         {items.map((item, i) => {

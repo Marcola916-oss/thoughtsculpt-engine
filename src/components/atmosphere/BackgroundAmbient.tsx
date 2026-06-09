@@ -30,7 +30,6 @@ export const BackgroundAmbient = memo(({ variant = "landing", className }: Backg
         className
       )}
     >
-<<<<<<< HEAD
       {isLowEnd ? (
         /* Mobile low-end: static gradient, zero animation */
         <div
@@ -45,12 +44,6 @@ export const BackgroundAmbient = memo(({ variant = "landing", className }: Backg
       )}
 
       {/* Dark mask for center focus — always static, always present */}
-=======
-      {/* The animated atmospheric layer - Lower opacity on mobile */}
-      <div className="flowing-ambient absolute inset-0 opacity-10 md:opacity-20" />
-      
-      {/* Dark mask for center focus */}
->>>>>>> c409624dd2d48f6eb8ec9d44279bdd911fc1625f
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.9)_80%)]" />
     </div>
   );
