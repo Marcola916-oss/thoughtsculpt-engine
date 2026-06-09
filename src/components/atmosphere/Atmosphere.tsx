@@ -74,13 +74,20 @@ export function Atmosphere({
         <VolumetricFog 
           intensity={FOG_TO_INTENSITY[fog]} 
           pinned={pinned} 
-          className="hidden md:block" 
+          className="hidden lg:block" 
         />
       )}
       
-      {/* Simpler fog for mobile */}
+      {/* Magical but light fog for mobile/tablet */}
       {fog !== "off" && (
-        <div className="md:hidden fixed inset-0 z-[2] pointer-events-none opacity-30 bg-gradient-to-b from-primary/10 to-transparent" />
+        <div 
+          className="lg:hidden fixed inset-0 z-[2] pointer-events-none"
+          style={{
+            background: `radial-gradient(circle at 50% 30%, var(--arch-glow), transparent 70%)`,
+            opacity: fog === 'dramatic' ? 0.4 : 0.2,
+            mixBlendMode: 'screen'
+          }}
+        />
       )}
 
       {symbols !== "off" && (
@@ -89,11 +96,11 @@ export function Atmosphere({
           density={SYMBOLS_TO_DENSITY[symbols]}
           pinned={pinned}
           withGlow={symbols === "dense"}
-          className="z-[5] hidden md:block" // Completely hide symbols on mobile for performance
+          className="z-[5] hidden lg:block" // Completely hide symbols on mobile/tablet for performance
         />
       )}
       
-      {scan !== "off" && <ScanLines intensity={scan} pinned={pinned} className="opacity-20 md:opacity-100" />}
+      {scan !== "off" && <ScanLines intensity={scan} pinned={pinned} className="opacity-15 lg:opacity-100" />}
       
       <div className="relative z-20">
         {children}
