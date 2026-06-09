@@ -59,7 +59,7 @@ function VolumetricFogImpl({
         "overflow-hidden",
         "z-[2]", // Fog stays just above the base background
         // Optimize mobile opacity and disable fog by default on very slow devices
-        "opacity-40 md:opacity-100",
+        "opacity-40 lg:opacity-100",
         INTENSITY_WRAPPER[intensity],
         reducedMotion === true ? "motion-reduce" : "motion-safe",
         className,
@@ -76,11 +76,11 @@ function VolumetricFogImpl({
       />
 
       {/* L2 — diagonal light beam (top-left to bottom-right) */}
-      {intensity !== "subtle" && <div className="fog-layer-beam absolute inset-0" />}
+      {intensity !== "subtle" && <div className="fog-layer-beam absolute inset-0 hidden lg:block" />}
 
       {/* L3 — Static breathing orbs (Hardware accelerated) */}
       <div
-        className="absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full"
+        className="absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full hidden lg:block"
         style={{
           background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
           animation: "fog-breathe-static 10s ease-in-out infinite",
@@ -88,7 +88,7 @@ function VolumetricFogImpl({
         }}
       />
       <div
-        className="absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full hidden md:block"
+        className="absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full hidden lg:block"
         style={{
           background: "radial-gradient(circle, var(--accent-glow-strong) 0%, transparent 70%)",
           animation: "fog-breathe-static 15s ease-in-out infinite reverse",
@@ -96,7 +96,7 @@ function VolumetricFogImpl({
         }}
       />
       <div
-        className="absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full hidden md:block"
+        className="absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full hidden lg:block"
         style={{
           background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
           animation: "fog-breathe-static 12s ease-in-out infinite",
