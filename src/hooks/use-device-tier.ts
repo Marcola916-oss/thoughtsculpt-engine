@@ -32,20 +32,14 @@ function detectTier(): DeviceTier {
   if (typeof window === "undefined") return "high";
 
   const isTouchDevice = window.matchMedia("(hover: none)").matches;
-  const cores = navigator.hardwareConcurrency ?? 4;
-  const memory = (navigator as { deviceMemory?: number }).deviceMemory ?? 4;
+  const cores = navigator.hardwareConcurrency ?? 2;
+  const memoryRaw = (navigator as { deviceMemory?: number }).deviceMemory;
+  const memory = memoryRaw ?? (isTouchDevice ? 2 : 4);
   const width = window.innerWidth;
 
-  // Desktop with hover = always high
   if (!isTouchDevice && width >= 1024) return "high";
-
-  // High-end mobile: 8+ cores, 6+ GB RAM, wide screen
   if (isTouchDevice && cores >= 8 && memory >= 6 && width >= 414) return "medium";
-
-  // Mid-range: 4+ cores, 4+ GB RAM
-  if (cores >= 4 && memory >= 4) return "medium";
-
-  // Low-end: everything else (old phones, weak devices)
+  if (!isTouchDevice && cores >= 4 && memory >= 4) return "medium";
   return "low";
 }
 

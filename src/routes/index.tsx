@@ -40,6 +40,28 @@ import {
   FinalCTA,
 } from "@/components/landing";
 
+const useReducedMotion = () => {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(hover: none) and (max-width: 1023px)").matches;
+};
+
+let isMobileMotion = false;
+
+const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+  if (isMobileMotion) return <div className={className} {...props}>{children}</div>;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -72,6 +94,7 @@ type Stage =
   | { kind: "plans" };
 
 function LandingAndQuiz() {
+  isMobileMotion = useReducedMotion();
   const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
   const [name, setName] = useState("");

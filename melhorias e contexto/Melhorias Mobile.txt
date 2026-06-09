@@ -1,0 +1,75 @@
+Preciso corrigir 2 problemas de performance no mobile que já foram identificados com diagnóstico preciso. NÃO tente outras abordagens — execute exatamente o que está descrito.
+
+---
+
+PROBLEMA 1 — Bug no use-device-tier.ts (src/hooks/use-device-tier.ts)
+
+O Safari no iOS não expõe navigator.deviceMemory, retornando undefined. O fallback atual é ?? 4 (assume 4GB), fazendo iPhone e dispositivos Apple serem classificados como "medium" quando deveriam ser "low".
+
+CORREÇÃO EXATA — substitua a função detectTier() por esta:
+
+function detectTier(): DeviceTier {
+  if (typeof window === "undefined") return "high";
+
+  const isTouchDevice = window.matchMedia("(hover: none)").matches;
+  const cores = navigator.hardwareConcurrency ?? 2;
+  const memoryRaw = (navigator as { deviceMemory?: number }).deviceMemory;
+  const memory = memoryRaw ?? (isTouchDevice ? 2 : 4);
+  const width = window.innerWidth;
+
+  if (!isTouchDevice && width >= 1024) return "high";
+  if (isTouchDevice && cores >= 8 && memory >= 6 && width >= 414) return "medium";
+  if (!isTouchDevice && cores >= 4 && memory >= 4) return "medium";
+  return "low";
+}
+
+Lógica da mudança:
+- Safari touch sem deviceMemory → assume 2GB (conservador) em vez de 4GB
+- Condição medium exige explicitamente !isTouchDevice para desktop, separando touch de não-touch
+- iPhone 8 (6 cores, 2GB assumido, touch) agora cai corretamente em "low"
+
+---
+
+PROBLEMA 2 — Framer Motion whileInView nas seções da landing page (src/routes/index.tsx)
+
+Todas as 9 seções da landing page usam motion.div com whileInView. No mobile, o Framer Motion monitora cada elemento durante o scroll e dispara animações em cadeia, causando jank no iPhone 8.
+
+CORREÇÃO EXATA:
+
+1) Logo após os imports existentes, adiciona este hook:
+
+const useReducedMotion = () => {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(hover: none) and (max-width: 1023px)").matches;
+};
+
+2) Dentro do componente LandingAndQuiz, logo na primeira linha:
+
+const isMobileMotion = useReducedMotion();
+
+3) Cria este helper que substitui motion.div nas seções da landing:
+
+const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
+  if (isMobileMotion) return <div className={className} {...props}>{children}</div>;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+4) Substitui todos os motion.div que usam whileInView dentro das seções ProofBar, ArchetypeShowcase, HowItWorks, FeaturesGrid, Testimonials, FAQ e FinalCTA por <MSection>. Os motion.div de interação (whileHover, whileTap em botões) devem ser mantidos como estão.
+
+---
+
+APÓS AS CORREÇÕES:
+1) Roda npm run build — confirma 0 erros novos
+2) Confirma que use-device-tier.ts não tem mais o fallback ?? 4 na linha do memory
+3) Confirma que a função detectTier retorna "low" para dispositivos touch sem deviceMemory
