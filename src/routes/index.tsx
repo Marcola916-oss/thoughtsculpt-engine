@@ -159,8 +159,9 @@ function LandingAndQuiz() {
 
     if (isMobile) {
       // Simplified atmosphere for mobile - no symbols, subtle fog
+      const mobileFog: AtmosphereFog = (stage.kind === 'hero' || stage.kind === 'loader' || stage.kind === 'reveal') ? 'normal' : 'subtle';
       return { 
-        fog: (stage.kind === 'hero' || stage.kind === 'loader' || stage.kind === 'reveal') ? 'normal' : 'subtle' as const, 
+        fog: mobileFog, 
         symbols: 'off' as const, 
         scan: 'off' as const 
       };

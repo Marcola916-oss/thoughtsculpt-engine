@@ -386,7 +386,7 @@
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(25, 25, 25, 1);
   /* Backdrop blur only on desktop */
   @media (min-width: 1024px) {
     backdrop-filter: blur(20px) saturate(180%);
