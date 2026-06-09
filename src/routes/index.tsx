@@ -551,13 +551,13 @@ function Hero({ onStart }: { onStart: () => void }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mx-auto max-w-6xl font-display text-5xl font-black leading-[0.9] tracking-[-0.05em] md:text-[9.5rem] uppercase italic"
+        className="relative mx-auto max-w-6xl font-display text-[11vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic"
       >
         <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
           {t.hero.headline.split('conhecer')[0]}
         </span>
-        <span className="relative inline-block mx-4 z-10">
-          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
+        <span className="relative inline-block mx-1 md:mx-4 z-10">
+          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
           <motion.span 
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
@@ -570,7 +570,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         </span>
         
         {/* Deep Contrast Backplate for Headline */}
-        <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[100px] -z-0 pointer-events-none" />
+        <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[60px] md:blur-[100px] -z-0 pointer-events-none" />
       </motion.h1>
 
       <motion.div
