@@ -28,7 +28,7 @@ import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
-import { Atmosphere, BackgroundAmbient } from "@/components/atmosphere";
+import { Atmosphere, BackgroundAmbient, type AtmosphereFog } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import {
   ProofBar,
