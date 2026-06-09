@@ -317,7 +317,7 @@ function MarbleBustImpl({
         )}
 
         {/* L5 — Eyes (red glow) - Filter removed on mobile for performance */}
-        <g className="bust-eyes md:[filter:url(#bust-glow)]">
+        <g className="bust-eyes lg:[filter:url(#bust-glow)]">
           {/* Marcus eye — wider, slightly oval, with inner core */}
           <g className="bust-eye-marcus">
             <ellipse cx="102" cy="80" rx="6.5" ry="4" fill="url(#eye-marcus)" />
@@ -346,7 +346,7 @@ function MarbleBustImpl({
         />
         {/* Crack inner glow — red light bleeding out */}
         <path
-          className="bust-crack-glow md:[filter:url(#bust-glow)]"
+          className="bust-crack-glow lg:[filter:url(#bust-glow)]"
           d="M 86 32
              C 92 48, 98 62, 104 78
              C 110 94, 116 110, 124 128
@@ -361,7 +361,7 @@ function MarbleBustImpl({
         {/* L7 — Circuit board (PCB traces following the crack) */}
         {variant !== "mini" && (
           <g
-            className="bust-circuit md:[filter:url(#bust-glow)]"
+            className="bust-circuit lg:[filter:url(#bust-glow)]"
             stroke="oklch(0.6 0.22 25)"
             strokeWidth="1.2"
             fill="none"
@@ -396,7 +396,7 @@ function MarbleBustImpl({
         {/* L8 — Currency symbols (at trace terminals) */}
         {variant === "full" || isEmpty ? (
           <g
-            className="bust-currency"
+            className="bust-currency hidden lg:block"
             fontFamily="ui-sans-serif, system-ui, sans-serif"
             fontWeight="700"
             fontSize="11"
@@ -431,7 +431,7 @@ function MarbleBustImpl({
               fill="oklch(0.15 0.01 70)"
               stroke="oklch(0.6 0.22 25)"
               strokeWidth="1.2"
-              filter="url(#bust-glow)"
+              className="lg:[filter:url(#bust-glow)]"
             />
             <circle
               r="5"
