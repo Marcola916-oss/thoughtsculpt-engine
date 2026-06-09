@@ -1,48 +1,61 @@
 ---
 name: mindreset-builder
-description: Use when building, modifying, debugging, or expanding any part of the MindReset SaaS. Covers quiz funnel, onboarding, dashboard, Supabase schema, Stripe billing, OpenAI integration, gamification, retention mechanics, design system, and localization. Full stack: React + TypeScript + Tailwind (Lovable), Supabase, Stripe, OpenAI API. Do NOT use for unrelated projects.
+description: >
+  MindReset SaaS — referência completa. Product identity, quiz funnel, database schema,
+  Stripe billing, OpenAI prompts, brand tokens, componentes, i18n, deployment e convenções.
+  Use ao construir, modificar, debugar ou expandir qualquer parte do MindReset SaaS.
+  Stack: React + TypeScript + Tailwind (Lovable), Supabase, Stripe, OpenAI API.
+  NÃO usar para projetos não relacionados.
+when_to_use: "Ao trabalhar no MindReset: quiz funnel, onboarding, dashboard, Supabase schema, Stripe billing, OpenAI integration, gamificação, retenção, design system, localização, deployment ou qualquer componente. NÃO para tarefas genéricas."
+allowed-tools: [Read, Write, Edit, Grep, Glob, Bash, Skill]
+effort: medium
 ---
-# MindReset Protocol — SaaS Builder Skill
+
+# MindReset — Referência Completa do SaaS
+
+> SaaS de finanças comportamentais multi-locale. TanStack Start + Vite + Tailwind + Supabase + Lovable.
+
+---
 
 ## PRODUCT IDENTITY
 
-**MindReset** is a behavioral finance SaaS. It diagnoses the user's financial archetype through a quiz, then delivers a personalized AI-generated action protocol (calendar, diagnosis, relationship tool, progress tracker). It does NOT track budgets or connect to bank accounts. It works on psychology first, then action.
+**MindReset** é um SaaS de finanças comportamentais. Diagnostica o arquétipo financeiro do usuário via quiz e entrega um protocolo de ação personalizado gerado por IA (calendário, diagnóstico, ferramenta de relacionamento, tracker de progresso). NÃO rastreia orçamentos nem conecta a contas bancárias. Trabalha psicologia primeiro, depois ação.
 
-**4 Archetypes:**
-- AO (Accumulator Obsessive) — fear of scarcity, compulsive saving
-- SS (Status Seeker) — spends for social approval, buys identity
-- EA (Escapist/Alienated) — avoids money topic, uses spending as escape
-- HI (Hedonist Impulsive) — lives for now, emotional impulse decisions
+**4 Arquétipos:**
+- AO (Accumulator Obsessive) — medo de escassez, poupança compulsiva
+- SS (Status Seeker) — gasta por aprovação social, compra identidade
+- EA (Escapist/Alienated) — evita tema dinheiro, usa gastos como fuga
+- HI (Hedonist Impulsive) — vive o agora, decisões por impulso emocional
 
-**4 App Areas:**
-1. Meu Diagnóstico — AI-generated 4-dimension psychological analysis (financial, professional, romantic, personal)
-2. Matriz de Ação — AI-generated personalized daily calendar (30d / 6m / 1y)
-3. Compass — tool to analyze other people's archetypes and get relationship strategies
-4. Progresso — gamified progress dashboard (points, streak, achievements, monthly reports)
+**4 Áreas do App:**
+1. **Meu Diagnóstico** — análise psicológica 4 dimensões gerada por IA (financeira, profissional, romântica, pessoal)
+2. **Matriz de Ação** — calendário diário personalizado gerado por IA (30d / 6m / 1y)
+3. **Compass** — ferramenta para analisar arquétipos de outras pessoas e obter estratégias de relacionamento
+4. **Progresso** — dashboard gamificado (pontos, streak, achievements, relatórios mensais)
 
-**Target Markets:** Poland (PLN) • Romania (RON) • Saudi Arabia (SAR) • Global (USD/EUR)
+**Mercados-alvo:** Poland (PLN) • Romania (RON) • Saudi Arabia (SAR) • Global (USD/EUR)
 
 ---
 
 ## TECH STACK
 
-| Tool | Role | Notes |
-|------|------|-------|
-| Lovable.dev | React + TypeScript + Tailwind frontend | Use Shadcn/UI components |
-| Supabase | PostgreSQL + Auth + Storage + Edge Functions | RLS MUST be enabled on ALL tables |
-| OpenAI API | gpt-4o for Diagnosis • gpt-4o-mini for Calendar, Compass, Reports | Cache all results — never regenerate |
-| Stripe | Recurring subscriptions + webhooks + Customer Portal | Smart Retries enabled |
-| ipapi.co | IP geolocation for language + currency auto-detection | Free tier: 30k/day, no key needed |
-| Vercel / Netlify | Frontend hosting | Auto-deploy from Lovable GitHub |
+| Tool | Papel | Notas |
+|------|-------|-------|
+| Lovable.dev | React + TypeScript + Tailwind frontend | Usar componentes Shadcn/UI |
+| Supabase | PostgreSQL + Auth + Storage + Edge Functions | RLS OBRIGATÓRIO em TODAS as tabelas |
+| OpenAI API | gpt-4o para Diagnóstico • gpt-4o-mini para Calendário, Compass, Relatórios | Cache todos os resultados — nunca regenerar |
+| Stripe | Assinaturas recorrentes + webhooks + Customer Portal | Smart Retries habilitado |
+| ipapi.co | Geolocalização por IP para detecção de idioma + moeda | Tier gratuito: 30k/dia, sem chave |
+| Vercel / Netlify | Hospedagem frontend | Auto-deploy do GitHub do Lovable |
 
-**Environment Variables (Settings → Secrets — NEVER hardcode):**
+**Variáveis de Ambiente (Settings → Secrets — NUNCA hardcode):**
 ```
 NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
-SUPABASE_SERVICE_ROLE_KEY          # Edge Functions only
-OPENAI_API_KEY                     # Edge Functions only
+SUPABASE_SERVICE_ROLE_KEY          # Edge Functions apenas
+OPENAI_API_KEY                     # Edge Functions apenas
 STRIPE_PUBLISHABLE_KEY
-STRIPE_SECRET_KEY                  # Edge Functions only
+STRIPE_SECRET_KEY                  # Edge Functions apenas
 STRIPE_WEBHOOK_SECRET
 NEXT_PUBLIC_APP_URL
 NEXT_PUBLIC_STRIPE_30D_PLN / RON / SAR / USD / EUR
@@ -52,11 +65,162 @@ NEXT_PUBLIC_STRIPE_1Y_PLN / RON / SAR / USD / EUR
 
 ---
 
-## DATABASE ARCHITECTURE
+## ESTRUTURA DE ARQUIVOS
 
-**RULE: RLS (Row Level Security) is MANDATORY on every single table. No exceptions.**
+```
+src/
+├── routes/
+│   ├── __root.tsx          # Root layout, favicon, SEO meta, LD+JSON
+│   ├── index.tsx           # Landing + Quiz + Sales (stage machine)
+│   ├── obrigado.tsx        # Página de resultado / thank you
+│   └── _authenticated/     # Rotas do dashboard (onboarding, dashboard, settings, etc.)
+├── components/
+│   ├── landing/            # ProofBar, ArchetypeShowcase, HowItWorks, FeaturesGrid, Testimonials, FAQ, FinalCTA
+│   ├── quiz/               # QuizOption, NeuralLoader
+│   ├── identity/           # MarbleBust, BustLoader, IdentitySymbol, BustMini, BustEmptyState
+│   ├── atmosphere/         # VolumetricFog, FloatingSymbols, ScanLines, Atmosphere
+│   ├── interaction/        # ArchetypeHover, MagneticCursor, Reveal, ButtonPress
+│   └── dashboard/          # Sidebar, charts, etc.
+├── lib/
+│   ├── i18n/
+│   │   ├── LanguageProvider.tsx  # Language context + <html lang> + dir="rtl" para AR
+│   │   ├── translations.ts      # 5 locales (PT 215-274, EN 517-623, PL 851-970, RO 995-1066, AR 1090-1163)
+│   │   └── types.ts             # Tipo Dict
+│   ├── utils.ts            # cn() helper (clsx + tailwind-merge)
+│   └── animations.ts       # 30+ variantes Framer Motion
+├── hooks/
+│   └── use-mouse-position.ts
+├── styles.css              # Design tokens + Tailwind overrides + animações de fog
+└── assets/
+    └── favicon.svg         # MindReset "M" vermelho no preto
+```
 
-### quiz_leads — stores all quiz completers (including non-buyers)
+---
+
+## BRAND TOKENS
+
+Todos em `src/styles.css` `:root`:
+
+```css
+:root {
+  /* Base */
+  --background: oklch(0% 0 0);               /* #000000 canvas */
+  --foreground: oklch(0.97 0.003 250);       /* #F5F5F7 */
+  --card: oklch(0.13 0 0);                   /* #0D0D0D surface */
+  --muted: oklch(0.18 0 0);                  /* #1A1A1A elevated */
+  --muted-foreground: oklch(0.72 0.005 250); /* #929698 — AA on black */
+  --border: oklch(0.24 0 0);                 /* #2A2A2A */
+
+  /* Accent */
+  --primary: oklch(0.52 0.24 27);            /* #CC0000 */
+  --primary-dark: oklch(0.38 0.22 27);       /* #990000 */
+  --accent-glow: oklch(0.52 0.24 27 / 0.35);
+
+  /* Semânticas */
+  --success: #22C55E;
+  --warning: #F59E0B;
+
+  /* Override por arquétipo */
+  --arch-primary: var(--primary);
+}
+```
+
+**Cores por Arquétipo (override `--arch-primary`):**
+| Arquétipo | Cor | Valor |
+|-----------|-----|-------|
+| AO (Accumulator) | Azul | `oklch(0.64 0.12 210)` |
+| SS (Status Seeker) | Dourado | `oklch(0.75 0.12 85)` |
+| EA (Essentialist) | Roxo | `oklch(0.7 0.05 280)` |
+| HI (Hedonist) | Laranja | `oklch(0.65 0.25 35)` |
+
+### Tipografia
+- Display/Hero: Inter ou Syne, 48-64px, weight 800
+- Heading 1: Inter, 32-40px, weight 700
+- Heading 2: Inter, 24-28px, weight 600
+- Body: Inter, 16-18px, weight 400
+- Caption: Inter, 12-14px, weight 400-500
+- Carregar via: `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap`
+
+### Micro-interações (obrigatórias — separa premium do genérico)
+- **Botão CTA:** hover=translateY(-2px)+glow, click=scale(0.97) 100ms
+- **Checkbox de tarefa:** ao marcar → bounce verde + confete 0.5s
+- **Barra de progresso:** `transition: width 0.8s ease-out`
+- **Achievement unlock:** scale(0)→scale(1.1)→scale(1) + partículas douradas 1.5s
+- **Streak counter:** animação roll-up (translateY(-100%)→0)
+- **Dashboard cards:** hover → borda vira vermelho + translateY(-4px)
+- **Quiz loader:** anel vermelho girando + textos fade a cada 0.7s
+- **Reveal do diagnóstico:** nome do arquétipo typewriter (1 char/50ms)
+- **Link ativo na sidebar:** bg vermelho translúcido + borda esquerda vermelho sólido (3px)
+
+### Estados dos Componentes
+| Componente | Default | Hover | Pressed | Disabled |
+|------------|---------|-------|---------|----------|
+| Primary Button | bg:#CC0000 | bg:#990000+glow | scale(0.97) | opacity:0.4 |
+| Input | border:#2A2A2A | border:#555 | border:#CC0000 | opacity:0.5 |
+| Card | bg:#0D0D0D | border:red+translateY(-4px) | scale(0.99) | opacity:0.6 |
+| Quiz Option | border:#2A2A2A | border:red+red-bg | darker-red-bg | — |
+
+### Regras Mobile-First
+- Viewport: `width=device-width, initial-scale=1, maximum-scale=1`
+- Touch targets: mínimo 44x44px
+- Sidebar: recolhida por padrão no mobile, abre como drawer com overlay
+- Grade de planos: 1 coluna mobile, 3 colunas desktop
+- Opções do quiz: 100% largura no mobile
+- Texto mínimo no body: 16px (previne auto-zoom do iOS nos inputs)
+- Usar `safe-area-inset-bottom` para o indicador home do iPhone
+
+---
+
+## LANDING PAGE (9 seções)
+
+Ordem em `src/routes/index.tsx` linhas 184-194:
+
+1. **Hero** — headline + CTA + badges flutuantes dos arquétipos + fundo com glow vermelho
+2. **ProofBar** — 4 métricas de confiança (diagnósticos, avaliação, sem banco, idiomas)
+3. **ArchetypeShowcase** — 4 cards de arquétipo (AO/SS/EA/HI) com ícones + descrições
+4. **HowItWorks** — processo em 3 passos com setas
+5. **FeaturesGrid** — grade 2×2 (Diagnóstico, Compass, Calendário, Progresso)
+6. **Testimonials** — 3 cards de review com avatares
+7. **FAQ** — acordeão (6 itens, abertura única)
+8. **FinalCTA** — headline + garantia + CTA
+
+**Cortina:** Seções 2-8 envoltas em `<div className="relative z-10 bg-background/80 backdrop-blur-md">` para evitar sangramento do fog vermelho.
+
+---
+
+## QUIZ FUNNEL
+
+### State Machine (`index.tsx`)
+```
+hero → identity → questions → email → loader → reveal → /obrigado
+```
+
+| Tela | Nome | Comportamento |
+|------|------|---------------|
+| 0 | Identity | Nome + gênero na mesma tela. Salvar no state. |
+| 1-8 | Questions | Uma por tela. Usar placeholder [NOME]. Auto-avança na seleção. |
+| 9 | Email Capture | Campo de email + checkbox GDPR (obrigatório). Salvar em quiz_leads ANTES de mostrar resultado. |
+| 10 | Loader | 3 segundos. NeuralLoader com animação Brain → MarbleBust. Sem chamada real à API. |
+| 11 | Reveal | Nome do arquétipo typewriter. 2-3 linhas de impacto. CTA vermelho. |
+| 12 | Sales Page | Sales page longa completa (9 blocos). |
+| 13 | Plans | Grade de 3 planos. Preço local por IP. "MAIS POPULAR" no 6M. |
+
+**Validado:** 1 questão/tela = +30% conversão. Email antes dos resultados = +40% leads. Nome+gênero nas questões = +15-25% conclusão.
+
+**Pontuação de Arquétipo:**
+```typescript
+// Cada uma das 8 questões: cada resposta = +2 para um arquétipo (AO/SS/EA/HI)
+const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+// Desempate: usar resposta da Q8. Se ainda empatado: usar Q5.
+```
+
+---
+
+## ARQUITETURA DO BANCO DE DADOS
+
+**REGRA: RLS (Row Level Security) é OBRIGATÓRIO em todas as tabelas. Sem exceções.**
+
+### quiz_leads — armazena todos os que completaram o quiz (incluindo não-compradores)
 ```sql
 CREATE TABLE quiz_leads (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -76,7 +240,7 @@ ALTER TABLE quiz_leads ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "service_only" ON quiz_leads USING (false);
 ```
 
-### users — main user table
+### users — tabela principal de usuários
 ```sql
 CREATE TABLE users (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -109,7 +273,7 @@ CREATE INDEX idx_users_stripe_customer ON users(stripe_customer_id);
 CREATE INDEX idx_users_auth_id ON users(auth_user_id);
 ```
 
-### diagnoses — AI-generated diagnoses
+### diagnoses — diagnósticos gerados por IA
 ```sql
 CREATE TABLE diagnoses (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -131,7 +295,7 @@ CREATE POLICY "user_own_diagnoses" ON diagnoses
 CREATE INDEX idx_diagnoses_user_id ON diagnoses(user_id);
 ```
 
-### onboarding_answers — 7 calibration questions
+### onboarding_answers — 7 perguntas de calibração
 ```sql
 CREATE TABLE onboarding_answers (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -147,7 +311,7 @@ CREATE POLICY "user_own_onboarding" ON onboarding_answers
   FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
 ```
 
-### calendar_tasks — personalized daily tasks
+### calendar_tasks — tarefas diárias personalizadas
 ```sql
 CREATE TABLE calendar_tasks (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -169,7 +333,7 @@ CREATE INDEX idx_tasks_user_day ON calendar_tasks(user_id, day_number);
 CREATE INDEX idx_tasks_unlocked ON calendar_tasks(user_id, is_unlocked);
 ```
 
-### compass_analyses — relationship archetype analyses
+### compass_analyses — análises de arquétipo de relacionamento
 ```sql
 CREATE TABLE compass_analyses (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -189,7 +353,7 @@ CREATE POLICY "user_own_compass" ON compass_analyses
 CREATE INDEX idx_compass_user ON compass_analyses(user_id);
 ```
 
-### user_progress — gamification state
+### user_progress — estado de gamificação
 ```sql
 CREATE TABLE user_progress (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -209,7 +373,7 @@ CREATE POLICY "user_own_progress" ON user_progress
   FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
 ```
 
-### achievements — unlocked achievement records
+### achievements — achievements desbloqueados
 ```sql
 CREATE TABLE achievements (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -227,7 +391,7 @@ CREATE POLICY "user_own_achievements" ON achievements
   FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
 ```
 
-### daily_limits — anti-abuse for 1-year plan
+### daily_limits — anti-abuso para plano de 1 ano
 ```sql
 CREATE TABLE daily_limits (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -243,7 +407,7 @@ CREATE POLICY "user_own_limits" ON daily_limits
   FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
 ```
 
-### notifications — in-app notification system
+### notifications — sistema de notificações in-app
 ```sql
 CREATE TABLE notifications (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -259,7 +423,7 @@ CREATE POLICY "user_own_notifications" ON notifications
 CREATE INDEX idx_notif_user_unread ON notifications(user_id, is_read);
 ```
 
-### monthly_reports — auto-generated monthly reports
+### monthly_reports — relatórios mensais auto-gerados
 ```sql
 CREATE TABLE monthly_reports (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -275,7 +439,7 @@ CREATE POLICY "user_own_reports" ON monthly_reports
   FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
 ```
 
-### viral_shares — public shareable archetype pages
+### viral_shares — páginas públicas compartilháveis de arquétipo
 ```sql
 CREATE TABLE viral_shares (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -291,17 +455,17 @@ CREATE POLICY "service_insert" ON viral_shares FOR INSERT WITH CHECK (true);
 
 ---
 
-## SECURITY RULES
+## REGRAS DE SEGURANÇA
 
-1. **STRIPE_SECRET_KEY** and **SUPABASE_SERVICE_ROLE_KEY** go in Edge Functions ONLY. Never in frontend.
-2. **NEXT_PUBLIC_*** variables are safe for frontend (public keys only).
-3. Always verify Stripe webhook signatures with `stripe.webhooks.constructEvent()` before processing.
-4. Rate limit Edge Functions: max 10 AI calls per IP per minute.
-5. Sanitize all free-text user inputs before sending to OpenAI.
-6. Always call `checkAndIncrementLimit()` before any AI generation.
+1. **STRIPE_SECRET_KEY** e **SUPABASE_SERVICE_ROLE_KEY** vão APENAS em Edge Functions. Nunca no frontend.
+2. Variáveis **NEXT_PUBLIC_*** são seguras para o frontend (apenas chaves públicas).
+3. Sempre verificar assinatura de webhooks Stripe com `stripe.webhooks.constructEvent()` antes de processar.
+4. Rate limit em Edge Functions: máximo 10 chamadas de IA por IP por minuto.
+5. Sanitizar todos os inputs de texto livre antes de enviar ao OpenAI.
+6. Sempre chamar `checkAndIncrementLimit()` antes de qualquer geração de IA.
 
 ```typescript
-// Stripe webhook signature validation (Edge Function)
+// Validação de assinatura do webhook Stripe (Edge Function)
 import Stripe from 'https://esm.sh/stripe@14';
 const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY')!);
 const webhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET')!;
@@ -327,96 +491,74 @@ Deno.serve(async (req) => {
 
 ---
 
-## QUIZ FUNNEL (14 SCREENS)
+## CONFIGURAÇÃO DO STRIPE
 
-**Validated:** 1 question/screen = +30% conversion. Email before results = +40% leads. Name+gender in questions = +15-25% completion.
-
-| Screen | Name | Key Behavior |
-|--------|------|-------------|
-| 0 | Identity | Name + gender on same screen. Save to state. |
-| 1-8 | Questions | One per screen. Use [NOME] placeholder. Auto-advance on selection. |
-| 9 | Email Capture | Email field + GDPR checkbox (required). Save to quiz_leads BEFORE showing result. |
-| 10 | Loader | 3 seconds. Red spinning ring. No real API call. |
-| 11 | Reveal | Archetype name typewriter effect. 2-3 impact lines. Red CTA. |
-| 12 | Sales Page | Full long-form sales page (9 blocks). |
-| 13 | Plans | 3-plan grid. Local pricing by IP. "MOST POPULAR" on 6M. |
-
-**Archetype Scoring:** Each of 8 questions, each answer = +2 to one archetype (AO/SS/EA/HI).
-```typescript
-const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
-// Tiebreaker: use Q8 answer. If still tied: use Q5.
-```
-
----
-
-## STRIPE CONFIGURATION
-
-### Pricing Table
-| Currency | 30 Days | 6 Months | 1 Year |
-|----------|---------|----------|--------|
+### Tabela de Preços
+| Moeda | 30 Dias | 6 Meses | 1 Ano |
+|-------|---------|---------|-------|
 | PLN | 79 zł | 199 zł | 319 zł |
 | RON | 89 lei | 229 lei | 369 lei |
 | SAR | 89 ر.س | 229 ر.س | 369 ر.س |
 | USD | $22 | $55 | $89 |
 | EUR | €20 | €50 | €82 |
 
-All plans = recurring subscriptions. Smart Retries: 7 days. Enable Stripe Customer Portal.
+Todos os planos = assinaturas recorrentes. Smart Retries: 7 dias. Habilitar Stripe Customer Portal.
 Webhook URL: `https://[project].supabase.co/functions/v1/stripe-webhook`
 
-### Webhook Events
-| Event | Supabase Action |
-|-------|----------------|
-| customer.subscription.created | Create user, set plan_type + expiry dates, create auth.user |
-| invoice.payment_succeeded | Renew dates, set status='active', insert notification |
-| invoice.payment_failed | Set status='past_due', insert notification, DO NOT block yet |
-| customer.subscription.deleted | Manual → 'revoked'. Non-payment → 'locked' |
-| charge.refunded | access_level='revoked' immediately, invalidate session |
-| customer.subscription.updated | Update plan_type, recalculate dates |
+### Eventos do Webhook
+| Evento | Ação no Supabase |
+|--------|-----------------|
+| customer.subscription.created | Criar usuário, definir plan_type + datas de expiração, criar auth.user |
+| invoice.payment_succeeded | Renovar datas, definir status='active', inserir notificação |
+| invoice.payment_failed | Definir status='past_due', inserir notificação, NÃO bloquear ainda |
+| customer.subscription.deleted | Manual → 'revoked'. Não-pagamento → 'locked' |
+| charge.refunded | access_level='revoked' imediatamente, invalidar sessão |
+| customer.subscription.updated | Atualizar plan_type, recalcular datas |
 
-### Access Date Logic
-| Plan | features_expires_at | account_expires_at |
-|------|--------------------|--------------------|
-| 30d | purchase + 30 days | purchase + 37 days |
-| 6m | purchase + 180 days | purchase + 187 days |
-| 1y | purchase + 365 days | purchase + 372 days |
-
----
-
-## AUTH & ROUTING
-
-### Route Map
-| Route | Auth | Description |
-|-------|------|-------------|
-| / | Public | Full quiz (screens 0-13) + embedded sales page |
-| /share/[token] | Public | Viral archetype share page |
-| /login | Public | Email + password ONLY. No signup buttons. |
-| /reset-password | Public | Password recovery |
-| /dashboard | Private | Hub: 3 cards + notifications |
-| /dashboard/diagnosis | Private | 4-tab AI diagnosis + PDF + share |
-| /dashboard/calendar | Private | Action matrix with drip unlock |
-| /dashboard/compass | Private | Analyze other people's archetypes |
-| /dashboard/progress | Private | Gamification dashboard |
-| /dashboard/settings | Private | Language, theme, plan, cancellation |
-| /onboarding | Private | 7 calibration questions (first login only) |
-
-### Route Guard Logic
-```
-1. Check Supabase session → null = redirect /login
-2. Check users.access_level:
-   'active'  → normal access
-   'grace'   → show warning banner
-   'locked'  → freeze interface + show upgrade overlay
-   'revoked' → logout + redirect /login
-3. onboarding_completed = false → redirect /onboarding
-4. features_expires_at < NOW()+3days → red warning bar
-   features_expires_at < NOW()      → pointer-events: none on content
-```
+### Lógica de Datas de Acesso
+| Plano | features_expires_at | account_expires_at |
+|-------|--------------------|--------------------|
+| 30d | compra + 30 dias | compra + 37 dias |
+| 6m | compra + 180 dias | compra + 187 dias |
+| 1y | compra + 365 dias | compra + 372 dias |
 
 ---
 
-## OPENAI PROMPTS
+## AUTH & ROTEAMENTO
 
-### Prompt 1: Full Diagnosis (gpt-4o — cache result, never regenerate within 30 days)
+### Mapa de Rotas
+| Rota | Auth | Descrição |
+|------|------|-----------|
+| / | Pública | Quiz completo (telas 0-13) + sales page embutida |
+| /share/[token] | Pública | Página viral de compartilhamento de arquétipo |
+| /login | Pública | Email + senha APENAS. Sem botões de signup. |
+| /reset-password | Pública | Recuperação de senha |
+| /dashboard | Privada | Hub: 3 cards + notificações |
+| /dashboard/diagnosis | Privada | Diagnóstico IA em 4 abas + PDF + share |
+| /dashboard/calendar | Privada | Matriz de ação com drip unlock |
+| /dashboard/compass | Privada | Analisar arquétipos de outras pessoas |
+| /dashboard/progress | Privada | Dashboard de gamificação |
+| /dashboard/settings | Privada | Idioma, tema, plano, cancelamento |
+| /onboarding | Privada | 7 perguntas de calibração (apenas no primeiro login) |
+
+### Lógica do Route Guard
+```
+1. Verificar sessão Supabase → null = redirecionar /login
+2. Verificar users.access_level:
+   'active'  → acesso normal
+   'grace'   → mostrar banner de aviso
+   'locked'  → congelar interface + mostrar overlay de upgrade
+   'revoked' → logout + redirecionar /login
+3. onboarding_completed = false → redirecionar /onboarding
+4. features_expires_at < NOW()+3dias → barra de aviso vermelha
+   features_expires_at < NOW()      → pointer-events: none no conteúdo
+```
+
+---
+
+## PROMPTS OPENAI
+
+### Prompt 1: Diagnóstico Completo (gpt-4o — cache o resultado, nunca regenerar dentro de 30 dias)
 ```
 SYSTEM: You are the psychological analysis engine of MindReset. Generate deep, empathetic, highly personalized analyses. NOT a generic chatbot. Rules: 1) No generic phrases. 2) Use user's name 3+ times per dimension. 3) Correct gender grammar. 4) Tone: empathetic, intelligent. 5) Respond ONLY in valid JSON.
 
@@ -427,7 +569,7 @@ USER: Generate complete diagnosis for:
 Return JSON: { "financial_analysis": "4 paragraphs", "professional_analysis": "3 paragraphs", "romantic_analysis": "3 paragraphs (gender-adapted)", "personal_analysis": "3 paragraphs" }
 ```
 
-### Prompt 2: Action Calendar (gpt-4o-mini — generate once, never regenerate)
+### Prompt 2: Calendário de Ação (gpt-4o-mini — gerar uma vez, nunca regenerar)
 ```
 SYSTEM: Behavioral calendar engine of MindReset. Create personalized daily plans based on behavioral psychology and stoicism. Respond ONLY as valid JSON array.
 
@@ -441,7 +583,7 @@ MILESTONES (is_milestone:true): Days 7,14,21,30,60,90,120,150,180
 Return: [{"day":1,"reflective_task":"...","action_task":"...","is_milestone":false,"phase":"recognition"}]
 ```
 
-### Prompt 3: Compass Analysis (gpt-4o-mini)
+### Prompt 3: Análise Compass (gpt-4o-mini)
 ```
 SYSTEM: COMPASS — behavioral profile analysis based on interpersonal perception. ALWAYS note analysis is based on user's perception, not clinical diagnosis.
 
@@ -451,7 +593,7 @@ Analyst: {user_name} ({user_archetype}) | Goal: {context} | Observations: {obser
 Return JSON: { "probable_archetype": "AO|SS|EA|HI", "confidence_level": "high|medium|low", "perception_disclaimer": "...", "archetype_in_context": "2 paragraphs", "dynamic_analysis": "archetype combination tensions/synergies", "interaction_strategies": ["5 strategies"], "communication_script": "example phrase", "what_to_avoid": ["3 traps"] }
 ```
 
-### Prompt 4: Monthly Report (gpt-4o-mini — 1x per month, serve from DB after)
+### Prompt 4: Relatório Mensal (gpt-4o-mini — 1x por mês, servir do DB depois)
 ```
 SYSTEM: Evolutionary report engine of MindReset. Generate reports that make the user feel measurable growth.
 
@@ -465,146 +607,94 @@ Return JSON: { "consistency_score": 0-100, "performance_badge": "Iniciante|Em Pr
 
 ---
 
-## DRIP UNLOCK SYSTEM
+## SISTEMA DE DRIP UNLOCK
 
-| Plan | Month 1 (Days 1-30) | After Month 1 |
-|------|---------------------|---------------|
-| 30 days | +5 days unlocked every 24h | Plan ends at Day 30 |
-| 6 months | +5 days unlocked every 24h | Day 31: all unlocked instantly |
-| 1 year | +5 days unlocked every 24h | Day 31: all unlocked instantly |
-| Upgrade | Drip restarts for Month 1 | Month 2+: all unlocked |
-
----
-
-## RETENTION & UPSELL
-
-**Phase 1 (Days 27-30):** Dismissible banner: "Your protocol expires in {X} days. Upgrade to keep your progress."
-
-**Phase 2 (after features_expires_at, up to 7 days — Stripe retrying):** Non-dismissible red banner: "Payment failed. Update payment method." → Stripe Customer Portal button.
-
-**Phase 3 (access_level='locked'):** pointer-events:none on ALL content + semi-transparent overlay. ONLY clickable: "Reactivate My MindReset →" button → opens plan grid with plans above current.
-
-**Cancellation Save Offer (before Stripe Portal):**
-- Option 1 (highlighted): "Pause for 30 days"
-- Option 2: "Change to smaller plan"
-- Option 3 (subtle): "Continue cancellation" → Stripe Portal
+| Plano | Mês 1 (Dias 1-30) | Após Mês 1 |
+|-------|-------------------|------------|
+| 30 dias | +5 dias desbloqueados a cada 24h | Plano encerra no Dia 30 |
+| 6 meses | +5 dias desbloqueados a cada 24h | Dia 31: todos desbloqueados instantaneamente |
+| 1 ano | +5 dias desbloqueados a cada 24h | Dia 31: todos desbloqueados instantaneamente |
+| Upgrade | Drip recomeça para o Mês 1 | Mês 2+: todos desbloqueados |
 
 ---
 
-## GAMIFICATION
+## RETENÇÃO & UPSELL
 
-### Points System
-| Action | Points | Frequency |
-|--------|--------|-----------|
-| Complete reflective task | +10 | 1x/day |
-| Complete action task | +10 | 1x/day |
-| Both tasks same day | +5 bonus | 1x/day |
-| Milestone day (7,14,21,30…) | +30 | per milestone |
-| Use Compass | +15 | per analysis |
-| Generate diagnosis | +20 | 1x/month |
-| Export calendar (first time) | +25 | 1x total |
-| 7-day streak | +50 | per achievement |
-| 30-day streak | +200 | per achievement |
+**Fase 1 (Dias 27-30):** Banner dismissível: "Your protocol expires in {X} days. Upgrade to keep your progress."
 
-### Achievements (30d and 6m plans)
-| Code | Name | Trigger | Reward |
-|------|------|---------|--------|
-| ACH_001 | Primeiro Passo | Day 1 complete | +50 pts |
-| ACH_002 | 7 Dias de Reset | 7 consecutive days | +1 Compass |
-| ACH_003 | Exportador | Export calendar | +1 Monthly Report |
-| ACH_004 | 15 Dias Imparável | 15 consecutive days | +1 Relationship Calendar |
-| ACH_005 | Meio Caminho | Day 15 complete | +2 extra days |
-| ACH_006 | 30 Days Complete | Day 30 complete | +5 extra days + 15% coupon |
-| ACH_007 | Explorador | Compass 3x | +2 Compass analyses |
-| ACH_008 | 100 Dias (6m) | 100 days complete | +10 extra days |
+**Fase 2 (após features_expires_at, até 7 dias — Stripe retrying):** Banner vermelho não-dismissível: "Payment failed. Update payment method." → botão do Stripe Customer Portal.
 
-### Points Redemption
-| Points | Reward |
-|--------|--------|
-| 500 | 10% upgrade coupon (30 days) |
-| 800 | +2 extra days |
-| 1,200 | +5 extra days |
-| 1,500 | 1 week next-tier access |
-| 2,000 | +10 extra days |
+**Fase 3 (access_level='locked'):** pointer-events:none em TODO o conteúdo + overlay semi-transparente. ÚNICO clicável: botão "Reactivate My MindReset →" → abre grade de planos acima do atual.
+
+**Oferta de Salvamento no Cancelamento (antes do Portal Stripe):**
+- Opção 1 (destacada): "Pause for 30 days"
+- Opção 2: "Change to smaller plan"
+- Opção 3 (sutil): "Continue cancellation" → Stripe Portal
 
 ---
 
-## PLAN LIMITS
+## GAMIFICAÇÃO
 
-| Feature | 30 Days | 6 Months | 1 Year |
-|---------|---------|----------|--------|
-| Diagnosis | 1x + 1 redo/month | 1x + 1 redo/month | Unlimited* |
-| Calendar | 1x (30d) | 1x (6m) | 1x (1y) |
-| Compass analyses | 2 | 10 | Unlimited* |
-| Relationship calendars | No | 3 | Unlimited* |
-| Diagnosis PDF | Yes | Yes | Yes |
-| Calendar PDF | No | Yes | Yes |
-| Monthly report | Via achievement | Included | Included |
+### Sistema de Pontos
+| Ação | Pontos | Frequência |
+|------|--------|------------|
+| Completar tarefa reflexiva | +10 | 1x/dia |
+| Completar tarefa de ação | +10 | 1x/dia |
+| Ambas as tarefas no mesmo dia | +5 bônus | 1x/dia |
+| Dia de milestone (7,14,21,30…) | +30 | por milestone |
+| Usar Compass | +15 | por análise |
+| Gerar diagnóstico | +20 | 1x/mês |
+| Exportar calendário (primeira vez) | +25 | 1x total |
+| Streak de 7 dias | +50 | por achievement |
+| Streak de 30 dias | +200 | por achievement |
 
-*Anti-abuse caps (invisible): 10 AI generations/day, 15 calendars/month, 15 PDFs/month.
+### Achievements (planos 30d e 6m)
+| Código | Nome | Gatilho | Recompensa |
+|--------|------|---------|------------|
+| ACH_001 | Primeiro Passo | Dia 1 completo | +50 pts |
+| ACH_002 | 7 Dias de Reset | 7 dias consecutivos | +1 Compass |
+| ACH_003 | Exportador | Exportar calendário | +1 Relatório Mensal |
+| ACH_004 | 15 Dias Imparável | 15 dias consecutivos | +1 Calendário de Relacionamento |
+| ACH_005 | Meio Caminho | Dia 15 completo | +2 dias extras |
+| ACH_006 | 30 Days Complete | Dia 30 completo | +5 dias extras + cupom 15% |
+| ACH_007 | Explorador | Compass 3x | +2 análises Compass |
+| ACH_008 | 100 Dias (6m) | 100 dias completos | +10 dias extras |
 
----
-
-## DESIGN SYSTEM
-
-### Colors
-```css
-:root {
-  --bg-canvas:      #000000;
-  --bg-surface:     #0D0D0D;
-  --bg-elevated:    #1A1A1A;
-  --border-default: #2A2A2A;
-  --text-primary:   #F5F5F7;
-  --text-secondary: #8E8E93;
-  --accent:         #CC0000;
-  --accent-dark:    #990000;
-  --accent-glow:    rgba(204,0,0,0.25);
-  --success:        #22C55E;
-  --warning:        #F59E0B;
-}
-```
-
-### Typography
-- Display/Hero: Inter or Syne, 48-64px, weight 800
-- Heading 1: Inter, 32-40px, weight 700
-- Heading 2: Inter, 24-28px, weight 600
-- Body: Inter, 16-18px, weight 400
-- Caption: Inter, 12-14px, weight 400-500
-- Load via: `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap`
-
-### Micro-interactions (mandatory — separates premium from generic)
-- **CTA button:** hover=translateY(-2px)+glow, click=scale(0.97) 100ms
-- **Task checkbox:** on check → green bounce + 0.5s confetti
-- **Progress bar:** transition: width 0.8s ease-out
-- **Achievement unlock:** scale(0)→scale(1.1)→scale(1) + golden particles 1.5s
-- **Streak counter:** roll-up animation (translateY(-100%)→0)
-- **Dashboard cards:** hover → border turns red + translateY(-4px)
-- **Quiz loader:** red spinning ring + texts fade every 0.7s
-- **Diagnosis reveal:** archetype name typewriter (1 char/50ms)
-- **Active sidebar link:** red translucent bg + solid red left border (3px)
-
-### Component States
-| Component | Default | Hover | Pressed | Disabled |
-|-----------|---------|-------|---------|----------|
-| Primary Button | bg:#CC0000 | bg:#990000+glow | scale(0.97) | opacity:0.4 |
-| Input | border:#2A2A2A | border:#555 | border:#CC0000 | opacity:0.5 |
-| Card | bg:#0D0D0D | border:red+translateY(-4px) | scale(0.99) | opacity:0.6 |
-| Quiz Option | border:#2A2A2A | border:red+red-bg | darker-red-bg | — |
-
-### Mobile-First Rules
-- Viewport: `width=device-width, initial-scale=1, maximum-scale=1`
-- Touch targets: minimum 44x44px
-- Sidebar: collapsed by default on mobile, opens as drawer with overlay
-- Plan grid: 1 column mobile, 3 columns desktop
-- Quiz options: 100% width on mobile
-- Body text minimum: 16px (prevents iOS auto-zoom on inputs)
-- Use safe-area-inset-bottom for iPhone home indicator
+### Resgate de Pontos
+| Pontos | Recompensa |
+|--------|------------|
+| 500 | Cupom de upgrade 10% (30 dias) |
+| 800 | +2 dias extras |
+| 1.200 | +5 dias extras |
+| 1.500 | 1 semana de acesso ao próximo tier |
+| 2.000 | +10 dias extras |
 
 ---
 
-## LOCALIZATION
+## LIMITES DOS PLANOS
 
-### Language Detection
+| Feature | 30 Dias | 6 Meses | 1 Ano |
+|---------|---------|---------|-------|
+| Diagnóstico | 1x + 1 refazer/mês | 1x + 1 refazer/mês | Ilimitado* |
+| Calendário | 1x (30d) | 1x (6m) | 1x (1y) |
+| Análises Compass | 2 | 10 | Ilimitado* |
+| Calendários de relacionamento | Não | 3 | Ilimitado* |
+| PDF do Diagnóstico | Sim | Sim | Sim |
+| PDF do Calendário | Não | Sim | Sim |
+| Relatório mensal | Via achievement | Incluído | Incluído |
+
+*Caps anti-abuso (invisíveis): 10 gerações de IA/dia, 15 calendários/mês, 15 PDFs/mês.
+
+---
+
+## LOCALIZAÇÃO / i18n
+
+### 5 Locales
+`src/lib/i18n/translations.ts` — PT (linhas 215-274), EN (517-623), PL (851-970), RO (995-1066), AR (1090-1163)
+
+**Namespaces de chaves:** `landing.*` | `quiz.*` | `dashboard.*`
+
+### Detecção de Idioma
 ```typescript
 async function detectLanguage() {
   const saved = localStorage.getItem('mindreset_lang');
@@ -621,14 +711,15 @@ async function detectLanguage() {
 }
 ```
 
-### RTL (Arabic)
+### RTL (Árabe)
 ```typescript
+// Em LanguageProvider.tsx:91-96
 document.documentElement.setAttribute('dir', 'rtl');
 document.documentElement.setAttribute('lang', 'ar');
 ```
-Always use `margin-inline-start/end` instead of `margin-left/right`.
+Sempre usar `margin-inline-start/end` em vez de `margin-left/right`.
 
-### Currency Detection
+### Detecção de Moeda
 ```typescript
 const currencyMap = {
   'PL': { currency:'PLN', symbol:'zł', locale:'pl-PL' },
@@ -640,37 +731,96 @@ const currencyMap = {
 
 ---
 
-## ERROR HANDLING
+## TRATAMENTO DE ERROS
 
-| Error | System Action | User Sees |
-|-------|--------------|-----------|
-| API timeout >30s | 1 auto-retry after 5s | Spinner + "Processing..." |
-| 429 rate limit | Wait 60s then auto-retry | "Finalizing protocol..." |
-| 500/503 down | Log + internal notification | Toast + retry button |
-| Invalid JSON | Parse raw text + retry | Same toast |
-| Incomplete response | Check required fields → retry | "Refining diagnosis..." |
-
----
-
-## PRIVACY & LEGAL
-
-- GDPR consent banner required for EU users (Poland, Romania) before any ipapi.co call
-- `/privacy` and `/terms` pages required, linked in footer
-- Diagnosis footer: "This diagnosis is a behavioral analysis. Not medical, psychological, or financial advice."
-- Compass footer: "Based on your perception only. Not a clinical diagnosis."
-- 7-day refund policy in Terms
+| Erro | Ação do Sistema | Usuário Vê |
+|------|----------------|------------|
+| API timeout >30s | 1 auto-retry após 5s | Spinner + "Processing..." |
+| 429 rate limit | Aguardar 60s e auto-retry | "Finalizing protocol..." |
+| 500/503 fora do ar | Log + notificação interna | Toast + botão de retry |
+| JSON inválido | Parse do texto bruto + retry | Mesmo toast |
+| Resposta incompleta | Verificar campos obrigatórios → retry | "Refining diagnosis..." |
 
 ---
 
-## COMMON MISTAKES TO AVOID
+## PRIVACIDADE & LEGAL
 
-1. Never regenerate cached content — diagnosis, calendar, reports are generated ONCE.
-2. Never put secret keys in frontend — STRIPE_SECRET_KEY, SUPABASE_SERVICE_ROLE_KEY, OPENAI_API_KEY are Edge Functions only.
-3. Never skip RLS — every table MUST have Row Level Security enabled.
-4. Never block access during Stripe retry period — keep access for 7 days while Smart Retries run.
-5. Never hardcode price IDs — use environment variables for all 15 Stripe price IDs.
-6. Never use localStorage — Lovable apps run in sandboxed iframes. Use in-memory state or Supabase.
-7. Never skip webhook signature verification — always validate before processing.
-8. Never show raw error codes to users — map all errors to friendly messages.
-9. Never break RTL — use margin-inline-start/end, never margin-left/right.
-10. Never send unsanitized inputs to OpenAI — always clean free-text fields first.
+- Banner de consentimento GDPR obrigatório para usuários da UE (Polônia, Romênia) antes de qualquer chamada ao ipapi.co
+- Páginas `/privacy` e `/terms` obrigatórias, linkadas no footer
+- Rodapé do Diagnóstico: "This diagnosis is a behavioral analysis. Not medical, psychological, or financial advice."
+- Rodapé do Compass: "Based on your perception only. Not a clinical diagnosis."
+- Política de reembolso de 7 dias nos Termos
+
+---
+
+## DEPLOYMENT
+
+1. Editar no Antigravity (ou localmente)
+2. Sincronizar com GitHub: `https://github.com/Marcola916-oss/thoughtsculpt-engine.git`
+3. Lovable puxa do GitHub
+4. Clicar em **Publish** no Lovable
+5. Live em: `https://thoughtsculpt-engine.lovable.app`
+
+---
+
+## ACESSIBILIDADE
+
+- `aria-label` em todos os elementos interativos
+- `role="img"` + `aria-label` em símbolos decorativos
+- `aria-hidden` em camadas decorativas (fog, scan lines, symbols)
+- `prefers-reduced-motion` e `(hover: none)` em `src/styles.css:597-841`
+- FAQ: `aria-expanded` + `aria-controls` por item
+- Contraste WCAG AA: `--muted-foreground` em 5.85:1 sobre preto
+
+---
+
+## PROBLEMAS CONHECIDOS
+
+- 2 erros TS pré-existentes: `onboarding.tsx:192` e `obrigado.tsx:329` — `"/dashboard/"` vs `"/dashboard"` (type mismatch, não bloqueia o build)
+- Build passa: `npm run build` (~2.5s)
+- `npx tsc --noEmit` mostra apenas esses 2 erros pré-existentes
+
+---
+
+## CONVENÇÕES
+
+- **Path alias:** `@/*` → `./src/*` (via `vite-tsconfig-paths`)
+- **cn() helper:** `clsx` + `tailwind-merge` para classes condicionais
+- **Animações de reveal:** `<Reveal variant="fade-up">` e `<Reveal.Group stagger="fast">`
+- **Atmosphere:** `<Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>` para o Hero
+- **Ícone da marca:** `<IdentitySymbol>` para uso decorativo, `<MarbleBust>` para hero/loader
+- **ButtonPress:** efeito de halo nos botões CTA
+- Sem `localStorage` — apps Lovable rodam em iframes sandboxed; usar state em memória ou Supabase
+
+---
+
+## POWERSHELL 5.1 (WINDOWS)
+
+- `New-Item` usa `-Path` (não `-LiteralPath`)
+- `npm` é `.cmd` — usar `Start-Process -FilePath "cmd.exe" -ArgumentList "/c", "npm.cmd"` ou operador `&`
+- `Get-Content -Raw` para tamanho bruto, `Measure-Object -Line` para contagem de linhas
+- `Select-String` com `-NotMatch` não aceita array — usar pipeline
+
+---
+
+## REFERÊNCIA SUPABASE
+
+- **Project ref:** `yuphudqargdosdrxznzi`
+- **URL pattern:** `https://<project-ref>.supabase.co`
+- **Edge functions:** `supabase/functions/` (stripe-webhook, etc.)
+- **MCP:** Read-only, escopo no projeto; features: database, docs, development
+
+---
+
+## ERROS COMUNS A EVITAR
+
+1. Nunca regenerar conteúdo em cache — diagnóstico, calendário, relatórios são gerados UMA VEZ.
+2. Nunca colocar chaves secretas no frontend — STRIPE_SECRET_KEY, SUPABASE_SERVICE_ROLE_KEY, OPENAI_API_KEY são somente para Edge Functions.
+3. Nunca pular RLS — toda tabela DEVE ter Row Level Security habilitado.
+4. Nunca bloquear acesso durante o período de retry do Stripe — manter acesso por 7 dias enquanto Smart Retries rodam.
+5. Nunca hardcodar price IDs — usar variáveis de ambiente para todos os 15 price IDs do Stripe.
+6. Nunca usar localStorage — apps Lovable rodam em iframes sandboxed. Usar state em memória ou Supabase.
+7. Nunca pular verificação de assinatura do webhook — sempre validar antes de processar.
+8. Nunca mostrar códigos de erro brutos para usuários — mapear todos os erros para mensagens amigáveis.
+9. Nunca quebrar RTL — usar `margin-inline-start/end`, nunca `margin-left/right`.
+10. Nunca enviar inputs não sanitizados ao OpenAI — sempre limpar campos de texto livre antes.
