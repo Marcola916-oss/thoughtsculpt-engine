@@ -474,9 +474,9 @@ function Hero({ onStart }: { onStart: () => void }) {
     <section className="relative pt-20 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[80px] md:blur-[120px]" />
-        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[80px] md:blur-[140px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[80px] md:blur-[140px] rounded-full animate-pulse [animation-delay:2s]" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[40px] lg:blur-[120px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[60px] lg:blur-[140px] rounded-full lg:animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[60px] lg:blur-[140px] rounded-full lg:animate-pulse [animation-delay:2s]" />
       </div>
 
       {/* Floating Archetype Badges */}
