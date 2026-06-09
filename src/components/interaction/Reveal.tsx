@@ -113,7 +113,7 @@ function RevealRoot({
 
   const transitionOverride = delay != null || duration != null ? { delay, duration } : undefined;
 
-  if (inGroup || reducedMotion) {
+  if (inGroup) {
     return (
       <div className={cn("will-change-transform", className)}>
         {children}
@@ -123,6 +123,14 @@ function RevealRoot({
 
   // Detect if on mobile to simplify animation
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  
+  if (reducedMotion || isMobile) {
+    return (
+      <div className={cn("will-change-transform", className)}>
+        {children}
+      </div>
+    );
+  }
 
   return (
     <Component
@@ -173,7 +181,7 @@ function RevealGroup({
         variants={containerVariants}
         className={cn(className)}
       >
-        {reducedMotion ? <>{children}</> : children}
+        {reducedMotion || (typeof window !== "undefined" && window.innerWidth < 768) ? <>{children}</> : children}
       </Component>
     </RevealGroupContext.Provider>
   );

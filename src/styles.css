@@ -347,8 +347,7 @@
 
 .bento-card {
   position: relative;
-  background: rgba(13, 13, 13, 0.4);
-  background: rgba(13, 13, 13, 0.8);
+  background: rgba(13, 13, 13, 0.95);
   /* Backdrop blur only on desktop */
   @media (min-width: 1024px) {
     backdrop-filter: blur(16px) saturate(140%);
@@ -375,7 +374,7 @@
 
 /* ─── Glassmorphism ──────────────────────────────────────── */
 .glass-panel {
-  background: rgba(13, 13, 13, 0.9);
+  background: rgba(13, 13, 13, 1);
   /* Backdrop blur only on desktop */
   @media (min-width: 1024px) {
     backdrop-filter: blur(24px) saturate(180%);
@@ -387,7 +386,7 @@
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(25, 25, 25, 1);
   /* Backdrop blur only on desktop */
   @media (min-width: 1024px) {
     backdrop-filter: blur(20px) saturate(180%);
@@ -398,7 +397,7 @@
 }
 
 .glass-modal {
-  background: rgba(10, 10, 10, 0.98);
+  background: rgba(10, 10, 10, 1);
   /* Backdrop blur only on desktop */
   @media (min-width: 1024px) {
     backdrop-filter: blur(40px);
@@ -409,7 +408,7 @@
 }
 
 .glass-navbar {
-  background: rgba(0, 0, 0, 0.80);
+  background: rgba(0, 0, 0, 1);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
