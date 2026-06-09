@@ -431,7 +431,7 @@ function MarbleBustImpl({
               fill="oklch(0.15 0.01 70)"
               stroke="oklch(0.6 0.22 25)"
               strokeWidth="1.2"
-              filter="url(#bust-glow)"
+              className="lg:[filter:url(#bust-glow)]"
             />
             <circle
               r="5"
