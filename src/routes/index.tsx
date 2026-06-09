@@ -155,11 +155,11 @@ function LandingAndQuiz() {
   // Determine atmosphere settings based on stage
   const atmosphereProps = useMemo(() => {
     // Detect mobile
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
 
     if (isMobile) {
-      // Simplified atmosphere for mobile - no symbols, subtle fog
-      const mobileFog: AtmosphereFog = (stage.kind === 'hero' || stage.kind === 'loader' || stage.kind === 'reveal') ? 'normal' : 'subtle';
+      // Very light atmosphere for mobile/tablet to ensure smooth 60fps
+      const mobileFog: AtmosphereFog = (stage.kind === 'hero' || stage.kind === 'loader') ? 'normal' : 'off';
       return { 
         fog: mobileFog, 
         symbols: 'off' as const, 
