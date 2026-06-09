@@ -317,7 +317,7 @@ function MarbleBustImpl({
         )}
 
         {/* L5 — Eyes (red glow) - Filter removed on mobile for performance */}
-        <g className="bust-eyes md:[filter:url(#bust-glow)]">
+        <g className="bust-eyes lg:[filter:url(#bust-glow)]">
           {/* Marcus eye — wider, slightly oval, with inner core */}
           <g className="bust-eye-marcus">
             <ellipse cx="102" cy="80" rx="6.5" ry="4" fill="url(#eye-marcus)" />
