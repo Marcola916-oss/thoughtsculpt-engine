@@ -158,8 +158,9 @@ function LandingAndQuiz() {
     const isMobileOrTablet = typeof window !== "undefined" && window.innerWidth < 1024;
 
     if (isMobileOrTablet) {
+      const mobileFog: AtmosphereFog = (stage.kind === 'hero' || stage.kind === 'loader') ? 'normal' : 'off';
       return { 
-        fog: (stage.kind === 'hero' || stage.kind === 'loader') ? 'normal' : 'off', 
+        fog: mobileFog, 
         symbols: 'off' as const, 
         scan: 'off' as const 
       };
