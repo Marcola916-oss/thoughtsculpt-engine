@@ -396,14 +396,13 @@ function MarbleBustImpl({
         {/* L8 — Currency symbols (at trace terminals) */}
         {variant === "full" || isEmpty ? (
           <g
-            className="bust-currency"
+            className="bust-currency hidden lg:block"
             fontFamily="ui-sans-serif, system-ui, sans-serif"
             fontWeight="700"
             fontSize="11"
             textAnchor="middle"
             fill="oklch(0.7 0.22 25)"
             filter="url(#bust-glow)"
-            className="hidden lg:block"
             opacity={isEmpty ? 0.85 : 0.95}
           >
             <text x="78" y="73">
