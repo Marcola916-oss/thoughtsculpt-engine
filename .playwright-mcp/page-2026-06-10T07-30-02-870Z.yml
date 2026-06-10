@@ -1,0 +1,60 @@
+- generic [ref=e3]:
+  - banner [ref=e644]:
+    - generic [ref=e645]:
+      - link "M Mind Reset Brain" [ref=e646] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e649]: M
+        - generic [ref=e651]:
+          - generic [ref=e652]: Mind
+          - generic [ref=e653]: Reset
+          - img "Brain" [ref=e654]:
+            - img [ref=e655]
+      - generic [ref=e656]:
+        - combobox "Language" [ref=e658]:
+          - option "Português" [selected]
+          - option "English"
+          - option "Polski"
+          - option "Română"
+          - option "العربية"
+        - link "Entrar" [ref=e659] [cursor=pointer]:
+          - /url: /login
+          - generic [ref=e660]: Entrar
+  - main [ref=e4]:
+    - generic [ref=e664]:
+      - generic [ref=e668]:
+        - generic [ref=e669]:
+          - button "Voltar" [ref=e693]:
+            - img [ref=e694]
+          - generic [ref=e670]: Pergunta 2 de 8
+        - generic [ref=e671]: 21%
+      - generic [ref=e698]:
+        - heading "Recebes uma quantia inesperada equivalente ao teu salário. Qual é o teu primeiro impulso?" [level=2] [ref=e699]
+        - paragraph [ref=e700]: Lucas, escolhe a opção que mais se parece contigo — não há respostas erradas.
+        - generic [ref=e701]:
+          - button "A Guardo quase tudo — segurança em primeiro lugar" [active] [ref=e702] [cursor=pointer]:
+            - generic [ref=e703]: A
+            - generic [ref=e704]: Guardo quase tudo — segurança em primeiro lugar
+            - img [ref=e715]
+          - button "B Aproveito para algo que vai impressionar quem está à minha volta" [ref=e705] [cursor=pointer]:
+            - generic [ref=e706]: B
+            - generic [ref=e707]: Aproveito para algo que vai impressionar quem está à minha volta
+            - generic:
+              - img
+          - button "C Deixo na conta e tento não pensar nisso" [ref=e708] [cursor=pointer]:
+            - generic [ref=e709]: C
+            - generic [ref=e710]: Deixo na conta e tento não pensar nisso
+            - generic:
+              - img
+          - button "D Compro o que sempre quis — vivo agora, planeio depois" [ref=e711] [cursor=pointer]:
+            - generic [ref=e712]: D
+            - generic [ref=e713]: Compro o que sempre quis — vivo agora, planeio depois
+            - generic:
+              - img
+  - contentinfo [ref=e365]:
+    - generic [ref=e366]:
+      - paragraph [ref=e367]: © 2026 MindReset Inc.
+      - generic [ref=e368]:
+        - link "Privacidade" [ref=e638] [cursor=pointer]:
+          - /url: /privacy
+        - link "Termos" [ref=e639] [cursor=pointer]:
+          - /url: /terms
