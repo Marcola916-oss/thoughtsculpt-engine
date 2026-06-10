@@ -533,7 +533,7 @@ function TopBar() {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative pt-20 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
+    <section className="relative pt-12 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[8px] lg:blur-[120px]" />
@@ -608,13 +608,25 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       {(() => {
         const headline = t.hero.headline;
-        const keyword = "conhecer";
-        const idx = headline.indexOf(keyword);
+        // Fix for i18n issue: find the best word to highlight or use a standard one
+        const keywords = ["conhecer", "know", "poznać", "cunoști", "تعرف"];
+        let keyword = "";
+        let idx = -1;
+        
+        for (const kw of keywords) {
+          const foundIdx = headline.indexOf(kw);
+          if (foundIdx !== -1) {
+            keyword = kw;
+            idx = foundIdx;
+            break;
+          }
+        }
+
         const hasKeyword = idx !== -1;
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[9vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic";
+        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[9vw] md:text-[7rem] lg:text-[8rem] font-black leading-[0.95] md:leading-[0.9] tracking-[-0.05em] uppercase italic";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
@@ -680,7 +692,7 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       <MFade
         delay={0.6}
-        className="mt-24 flex flex-col items-center gap-12"
+        className="mt-12 md:mt-24 flex flex-col items-center gap-12"
       >
         <Magnetic>
           <button
