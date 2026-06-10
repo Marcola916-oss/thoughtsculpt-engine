@@ -1,0 +1,46 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "M Mind Reset" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e9]: M
+        - generic [ref=e11]:
+          - generic [ref=e12]: Mind
+          - generic [ref=e13]: Reset
+      - generic [ref=e14]:
+        - combobox "Language" [ref=e16]:
+          - option "Português" [selected]
+          - option "English"
+          - option "Polski"
+          - option "Română"
+          - option "العربية"
+        - link "Entrar" [ref=e794] [cursor=pointer]:
+          - /url: /login
+          - generic [ref=e18]: Entrar
+  - main [ref=e20]:
+    - generic [ref=e829]:
+      - generic [ref=e831]:
+        - generic [ref=e832]:
+          - button "Voltar" [ref=e856]:
+            - img [ref=e857]
+          - generic [ref=e833]: Finalização
+        - generic [ref=e834]: 90%
+      - generic [ref=e997]:
+        - img [ref=e999]
+        - heading "Lucas, o teu diagnóstico está pronto." [level=2] [ref=e1002]
+        - paragraph [ref=e1003]: Indica o teu e-mail para receberes o relatório completo e desbloquear a tua página de arquétipo.
+        - generic [ref=e1004]:
+          - textbox "tuemail@exemplo.com" [active] [ref=e1006]
+          - generic [ref=e1007] [cursor=pointer]:
+            - checkbox "Aceito a Política de Privacidade e a partilha de dados para personalizar o meu diagnóstico." [ref=e1008]
+            - generic [ref=e1009]: Aceito a Política de Privacidade e a partilha de dados para personalizar o meu diagnóstico.
+          - button "Revelar meu arquétipo agora →" [disabled] [ref=e1010]:
+            - generic [ref=e1011]: Revelar meu arquétipo agora →
+  - contentinfo [ref=e378]:
+    - generic [ref=e379]:
+      - paragraph [ref=e380]: © 2026 MindReset Inc.
+      - generic [ref=e381]:
+        - link "Privacidade" [ref=e826] [cursor=pointer]:
+          - /url: /privacy
+        - link "Termos" [ref=e827] [cursor=pointer]:
+          - /url: /terms

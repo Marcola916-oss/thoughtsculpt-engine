@@ -1,0 +1,10 @@
+Abre o produto com o Playwright e faz uma auditoria completa de bugs visuais e funcionais em todas as etapas do produto. Testa o fluxo completo nesta ordem: 1) Landing page — verifica se o hero text está cortado, se aparece a palavra "conhecer" colada ao título em qualquer idioma, tira screenshot da dobra inicial; 2) Troca o idioma para English, Polish, Romanian e Arabic — verifica se o bug do "conhecer" aparece no título em cada um; 3) Clica no CTA principal para iniciar o quiz — confirma que o botão funciona; 4) Responde todas as 8 perguntas do quiz clicando nas opções — tira screenshot de cada pergunta e verifica se há botões que não respondem ao clique ou elementos quebrados; 5) Na tela de email, preenche com um email de teste e avança; 6) Na tela de loading — tira screenshot completo, verifica a qualidade visual da ilustração/arte, documenta o que aparece no terminal animado; 7) Na página de reveal pós-quiz — esta é a mais crítica: há dois retângulos cinzentos/brancos sobrepostos ao conteúdo que indicam componentes quebrados (provavelmente o MarbleBust ou imagens que falharam ao carregar), tira screenshot e identifica exatamente quais componentes estão quebrando e porquê; 8) Verifica se há botões não clicáveis ou elementos que aparecem mas não fazem nada na página de reveal e nas páginas seguintes (sales e plans); 9) Inspeciona o código-fonte da i18n (src/lib/i18n/translations.ts) para encontrar onde a palavra "conhecer" está a vazar para outros idiomas — é um bug de tradução onde uma chave PT está a ser usada em todos os idiomas; 10) Documenta TUDO numa lista organizada por prioridade: bugs críticos que bloqueiam o fluxo, bugs visuais que afetam profissionalismo, e elementos de arte que precisam de melhoria. Não corrijas nada ainda — apenas mapeia e reporta tudo com screenshots e localização exata no código de cada problema encontrado.
+
+
+E-mail de captura: lflavio916@gmail.com
+
+Login
+e-mail: lflavio916@gmail.com
+senha: MindReset2026!
+
+Url: https://thoughtsculpt-engine.lovable.app/

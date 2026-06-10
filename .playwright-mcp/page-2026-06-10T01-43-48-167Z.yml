@@ -1,0 +1,49 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "M Mind Reset" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e9]: M
+        - generic [ref=e11]:
+          - generic [ref=e12]: Mind
+          - generic [ref=e13]: Reset
+      - generic [ref=e14]:
+        - combobox "Language" [ref=e16]:
+          - option "Português" [selected]
+          - option "English"
+          - option "Polski"
+          - option "Română"
+          - option "العربية"
+        - link "Entrar" [ref=e794] [cursor=pointer]:
+          - /url: /login
+          - generic [ref=e18]: Entrar
+  - main [ref=e20]:
+    - generic [ref=e829]:
+      - generic [ref=e831]:
+        - generic [ref=e833]: Identificação
+        - generic [ref=e834]: 0%
+      - generic [ref=e838]:
+        - heading "Antes de começar, quem és tu?" [level=2] [ref=e839]
+        - paragraph [ref=e840]: Vamos usar o teu nome ao longo do diagnóstico para o tornar pessoal.
+        - generic [ref=e841]:
+          - generic [ref=e842]:
+            - generic [ref=e843]: O teu primeiro nome
+            - 'textbox "Ex.: Sofia" [ref=e844]': Lucas
+          - generic [ref=e845]:
+            - generic [ref=e846]: Como te identificas?
+            - generic [ref=e847]:
+              - button "Masculino" [active] [ref=e848]
+              - button "Feminino" [ref=e849]
+              - button "Prefiro não dizer" [ref=e850]
+        - button "CONTINUAR" [ref=e851]:
+          - generic [ref=e853]:
+            - text: CONTINUAR
+            - img [ref=e854]
+  - contentinfo [ref=e378]:
+    - generic [ref=e379]:
+      - paragraph [ref=e380]: © 2026 MindReset Inc.
+      - generic [ref=e381]:
+        - link "Privacidade" [ref=e826] [cursor=pointer]:
+          - /url: /privacy
+        - link "Termos" [ref=e827] [cursor=pointer]:
+          - /url: /terms

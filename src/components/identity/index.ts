@@ -1,7 +1,7 @@
 /**
  * MindReset identity module — barrel export.
  *
- *   import { MarbleBust, BustMini, BustLoader, BustEmptyState, IdentitySymbol } from "@/components/identity";
+ *   import { MarbleBust, BustMini, BustLoader, BustEmptyState, IdentitySymbol, CircuitBrain } from "@/components/identity";
  */
 
 export { MarbleBust } from "./MarbleBust";
@@ -18,3 +18,6 @@ export type { BustEmptyStateProps } from "./BustEmptyState";
 
 export { IdentitySymbol } from "./IdentitySymbol";
 export type { IdentitySymbolProps } from "./IdentitySymbol";
+
+export { CircuitBrain } from "./CircuitBrain";
+export type { CircuitBrainProps, CircuitBrainVariant, BrainStyle } from "./CircuitBrain";

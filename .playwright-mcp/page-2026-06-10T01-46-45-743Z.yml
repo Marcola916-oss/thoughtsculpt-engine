@@ -1,0 +1,59 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "M Mind Reset" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e9]: M
+        - generic [ref=e11]:
+          - generic [ref=e12]: Mind
+          - generic [ref=e13]: Reset
+      - generic [ref=e14]:
+        - combobox "Language" [ref=e16]:
+          - option "Português" [selected]
+          - option "English"
+          - option "Polski"
+          - option "Română"
+          - option "العربية"
+        - link "Entrar" [ref=e794] [cursor=pointer]:
+          - /url: /login
+          - generic [ref=e18]: Entrar
+  - main [ref=e20]:
+    - generic [ref=e829]:
+      - generic [ref=e831]:
+        - generic [ref=e832]:
+          - button "Voltar" [ref=e856]:
+            - img [ref=e857]
+          - generic [ref=e833]: Pergunta 4 de 8
+        - generic [ref=e834]: 43%
+      - generic [ref=e912]:
+        - heading "No fim do mês a tua conta normalmente está:" [level=2] [ref=e913]
+        - paragraph [ref=e914]: Lucas, escolhe a opção que mais se parece contigo — não há respostas erradas.
+        - generic [ref=e915]:
+          - button "A Com mais do que esperavas — poupaste demais" [ref=e916] [cursor=pointer]:
+            - generic [ref=e917]: A
+            - generic [ref=e918]: Com mais do que esperavas — poupaste demais
+            - generic:
+              - img
+          - button "B Vazia depois de subscrições, jantares, marcas" [ref=e919] [cursor=pointer]:
+            - generic [ref=e920]: B
+            - generic [ref=e921]: Vazia depois de subscrições, jantares, marcas
+            - generic:
+              - img
+          - button "C Não sei ao certo — não confiro" [ref=e922] [cursor=pointer]:
+            - generic [ref=e923]: C
+            - generic [ref=e924]: Não sei ao certo — não confiro
+            - generic:
+              - img
+          - button "D Vazia, mas valeu cada momento" [ref=e925] [cursor=pointer]:
+            - generic [ref=e926]: D
+            - generic [ref=e927]: Vazia, mas valeu cada momento
+            - generic:
+              - img
+  - contentinfo [ref=e378]:
+    - generic [ref=e379]:
+      - paragraph [ref=e380]: © 2026 MindReset Inc.
+      - generic [ref=e381]:
+        - link "Privacidade" [ref=e826] [cursor=pointer]:
+          - /url: /privacy
+        - link "Termos" [ref=e827] [cursor=pointer]:
+          - /url: /terms

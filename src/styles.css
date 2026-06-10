@@ -702,6 +702,45 @@
   animation: none !important;
 }
 
+/* ─── CircuitBrain identity symbol ─────────────────────────── */
+.circuit-brain-pulse {
+  animation: circuit-brain-breathe 4s ease-in-out infinite;
+}
+.circuit-node-pulse {
+  animation: circuit-node-glow 2s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.circuit-chip-pulse {
+  animation: circuit-chip-glow 3s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes circuit-brain-breathe {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 4px rgba(255,255,255,0.15)); }
+  50%      { filter: brightness(1.08) drop-shadow(0 0 12px rgba(255,255,255,0.3)); }
+}
+@keyframes circuit-node-glow {
+  0%, 100% { opacity: 0.65; }
+  50%      { opacity: 1; }
+}
+@keyframes circuit-chip-glow {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circuit-brain-pulse, .circuit-node-pulse, .circuit-chip-pulse {
+    animation: none !important;
+  }
+}
+.motion-reduce .circuit-brain-pulse,
+.motion-reduce .circuit-node-pulse,
+.motion-reduce .circuit-chip-pulse {
+  animation: none !important;
+}
+
 /* ─── Atmosphere: VolumetricFog ──────────────────────────── */
 .fog-layer-base {
   background: radial-gradient(

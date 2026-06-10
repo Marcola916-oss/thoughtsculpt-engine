@@ -1,0 +1,153 @@
+{
+  "$ref": "Inspirações — Referência Visual do Componente de Marca do MindReset",
+  "$important": "Este é o componente central de identidade visual. NÃO é mármore. NÃO é pedra. NÃO é orgânico. É um CÉREBRO DIGITAL feito de circuito eletrônico (PCB).",
+
+  "conceito": {
+    "nome": "Circuit Brain — Cérebro Digital",
+    "descricao": "Silhueta de cérebro humano (visão lateral) inteiramente preenchida por trilhas de placa de circuito eletrônico (PCB traces). Representa inteligência artificial, mente computacional e tecnologia de ponta.",
+    "nao_e": [
+      "NÃO é mármore",
+      "NÃO é pedra ou rocha",
+      "NÃO é escultura ou busto",
+      "NÃO é orgânico ou natural",
+      "NÃO tem textura de superfície física",
+      "NÃO é abstrato — é técnico e preciso como um PCB real"
+    ],
+    "e": [
+      "É um cérebro desenhado com trilhas de circuito eletrônico",
+      "É tecnológico, digital, computacional",
+      "Tem linhas retas que se conectam em ângulos de 90°",
+      "Tem nós circulares (solder pads) nos terminais de cada trilha",
+      "Tem um chip central quadrado como ponto focal",
+      "Irradia brilho — as trilhas e nós emitem luz"
+    ]
+  },
+
+  "variantes": {
+    "estilo_premium_monocromatico": {
+      "nome": "Circuit Brain Premium (usar este — combina com brand do MindReset)",
+      "referencia_imagem": "Inspirações (1).jpg — fundo escuro, trilhas brancas/prata",
+      "fundo": {
+        "cor": "#1A1A1A a #2A2A2A (gradiente radial escuro, não preto puro)",
+        "efeito": "gradiente radial — levemente mais claro ao redor do cérebro, mais escuro nas bordas"
+      },
+      "silhueta_cerebro": {
+        "forma": "vista lateral, voltado para a direita",
+        "preenchimento": "trilhas de circuito branco-prata cobrindo toda a área interna",
+        "contorno": "definido pelas próprias trilhas — sem borda/outline explícito",
+        "caule": "tronco cerebral na parte inferior, com trilhas descendo"
+      },
+      "trilhas_pcb": {
+        "cor": "#C8C8C8 a #E8E8E8 (branco-prata)",
+        "espessura": "1 a 1.5px",
+        "padrão": "linhas retas + curvas de 90° (horizontal, vertical, bifurcações em T e L)",
+        "densidade": "alta — cobre toda a silhueta sem espaços grandes",
+        "brilho": "filter: drop-shadow(0 0 2px rgba(255,255,255,0.6))"
+      },
+      "nos_solder_pads": {
+        "forma": "círculo perfeito",
+        "tamanho": "2 a 4px de raio",
+        "cor": "#FFFFFF",
+        "posicao": "nas extremidades de cada trilha (não nas interseções)",
+        "brilho": "glow branco suave: box-shadow: 0 0 4px #fff, 0 0 8px rgba(255,255,255,0.5)"
+      },
+      "chip_central": {
+        "forma": "quadrado",
+        "tamanho": "20 a 28px",
+        "posicao": "centro do cérebro (lobo frontal, levemente à direita do centro)",
+        "cor": "#FFFFFF",
+        "efeito": "brilho branco intenso — blowout/overexposure: box-shadow radial espalhando por ~40px",
+        "css_exemplo": "background: #fff; box-shadow: 0 0 20px 8px #fff, 0 0 40px 15px rgba(255,255,255,0.6), 0 0 80px 30px rgba(255,255,255,0.2)"
+      },
+      "glow_ambiente": {
+        "descricao": "Luz branca suave irradiando do centro para as bordas",
+        "css": "radial-gradient(ellipse at 55% 45%, rgba(255,255,255,0.08) 0%, transparent 65%)"
+      },
+      "mood": "premium, minimalista, elegante, sofisticado, tecnológico"
+    },
+
+    "estilo_neon_colorido": {
+      "nome": "Circuit Brain Neon (variante vibrante — para destaques ou telas de loading)",
+      "referencia_imagem": "Inspirações (2).jpg — fundo preto, trilhas arco-íris neon",
+      "fundo": {
+        "cor": "#000000 (preto absoluto)",
+        "efeito": "nenhum gradiente — preto puro para máximo contraste neon"
+      },
+      "silhueta_cerebro": {
+        "forma": "vista lateral, voltado para a direita",
+        "gradiente_de_cores": "arco-íris diagonal — superior-esquerdo azul/roxo → superior-direito verde → centro vermelho → inferior laranja → base amarelo-dourado"
+      },
+      "mapa_de_cores_por_regiao": {
+        "superior_esquerdo": "#5555FF (azul) → #8844FF (roxo)",
+        "superior_direito": "#00CC44 (verde) → #44FF88",
+        "centro_esquerdo": "#FF2222 (vermelho vivo)",
+        "inferior_centro": "#FF6600 (laranja)",
+        "base_e_caule": "#FFCC00 (amarelo-dourado) → #FF9900"
+      },
+      "trilhas_pcb": {
+        "cor": "herda a cor da região — cada trilha tem a cor do gradiente local",
+        "espessura": "1.5 a 2px",
+        "brilho": "filter: drop-shadow(0 0 3px [cor_local])"
+      },
+      "nos_solder_pads": {
+        "forma": "círculo",
+        "tamanho": "4 a 7px de raio",
+        "cor": "herda cor da região + mais brilhante",
+        "brilho": "glow intenso neon na cor local"
+      },
+      "mood": "cyberpunk, neon, vibrante, energético, futurista"
+    }
+  },
+
+  "anatomia_pcb_detalhada": {
+    "estrutura_das_trilhas": {
+      "origem": "partem do chip central e se ramificam para todas as direções",
+      "tipos_de_linha": [
+        "segmentos horizontais puros",
+        "segmentos verticais puros",
+        "curvas de 90° (nunca diagonais, nunca curvas suaves)",
+        "bifurcações em T (uma linha se divide em duas)",
+        "junções em L (linha muda de direção 90°)"
+      ],
+      "terminacao": "cada trilha termina num nó circular (solder pad)",
+      "nao_usar": "NÃO usar curvas orgânicas/bezier — PCB tem apenas 45° ou 90°"
+    },
+    "densidade_visual": "Trilhas cobrindo ~70-80% da área interna da silhueta. Não pode haver áreas vazias grandes.",
+    "profundidade": "Algumas trilhas mais brilhantes (primeiro plano), outras mais suaves (segundo plano) — cria ilusão de profundidade"
+  },
+
+  "implementacao_sugerida": {
+    "tecnologia": "SVG inline ou componente React",
+    "abordagem_recomendada": {
+      "passo_1": "Path SVG para a silhueta do cérebro como clip-path",
+      "passo_2": "Linhas SVG (<line>, <path> com apenas linhas retas) para trilhas dentro do clip",
+      "passo_3": "Circles SVG para nós/solder pads nos terminais",
+      "passo_4": "Rect SVG para o chip central",
+      "passo_5": "filter SVG com feGaussianBlur para o glow das trilhas e nós",
+      "passo_6": "radialGradient SVG para o brilho ambiente ao redor do chip"
+    },
+    "css_glow_trilhas": "filter: drop-shadow(0px 0px 2px rgba(255,255,255,0.8)) drop-shadow(0px 0px 6px rgba(255,255,255,0.4))",
+    "css_glow_chip": "filter: drop-shadow(0px 0px 12px rgba(255,255,255,1)) drop-shadow(0px 0px 30px rgba(255,255,255,0.6))",
+    "animacao_sugerida": "pulse suave nos nós (opacity 0.7 → 1.0, 2s ease-in-out infinite) — como se o circuito estivesse vivo",
+    "tamanhos_responsivos": {
+      "hero": "280 a 360px",
+      "loader": "120 a 160px",
+      "mini": "32 a 48px",
+      "icone": "20 a 24px"
+    }
+  },
+
+  "integracao_com_brand_mindreset": {
+    "versao_padrao": "estilo_premium_monocromatico (branco/prata em fundo escuro)",
+    "versao_destaque": "chip central em #CC0000 (vermelho da marca) em vez de branco — para momentos de reveal do arquétipo",
+    "versao_neon": "usar gradiente de cores do arquétipo do usuário (AO=azul, SS=dourado, EA=roxo, HI=laranja)",
+    "onde_usar": {
+      "hero_landing": "versao_padrao — tamanho hero, centralizado com Atmosphere",
+      "quiz_loader": "versao_padrao — tamanho loader, animação de pulse nos nós",
+      "reveal_arquetipo": "versao_destaque (chip vermelho) — momento de máximo impacto",
+      "sidebar_mini": "versao_padrao — tamanho mini, estático",
+      "favicon": "versao_padrao — tamanho ícone, simplificado"
+    },
+    "substituir_marmorebust": "Este componente Circuit Brain SUBSTITUI ou COEXISTE com o MarbleBust. O Circuit Brain representa mente digital/tecnológica. Use onde há contexto de IA, análise, diagnóstico."
+  }
+}

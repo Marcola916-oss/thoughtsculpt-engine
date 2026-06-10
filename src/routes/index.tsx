@@ -31,6 +31,7 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
 import { Atmosphere, BackgroundAmbient, type AtmosphereFog } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
+import { CircuitBrain } from "@/components/identity";
 import {
   ProofBar,
   ArchetypeShowcase,
@@ -247,10 +248,12 @@ function LandingAndQuiz() {
       {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
       <Atmosphere {...atmosphereProps} pinned withAmbient={false} />
       
-      {/* Use a static TopBar wrapper on mobile */}
-      <div className="contents md:block">
-        <TopBar />
-      </div>
+      {/* TopBar — hidden on hero stage (landing page has its own layout) */}
+      {stage.kind !== "hero" && (
+        <div className="contents md:block">
+          <TopBar />
+        </div>
+      )}
 
       <main className="w-full px-0 sm:px-4 pb-24 pt-4 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
@@ -588,6 +591,18 @@ function Hero({ onStart }: { onStart: () => void }) {
         {t.archetypes?.HI?.name || "O Foguinho"}
       </motion.div>
 
+      {/* CircuitBrain — central visual identity */}
+      <MFade delay={0.1} className="mb-8 md:mb-12 flex justify-center">
+        <CircuitBrain
+          variant="hero"
+          style="premium"
+          size={200}
+          withGlow
+          animated
+          ariaLabel="MindReset — Mente Digital"
+        />
+      </MFade>
+
       <MFade
         delay={0}
         y={-20}
@@ -600,45 +615,67 @@ function Hero({ onStart }: { onStart: () => void }) {
         {t.hero.kicker}
       </MFade>
 
-      {isMobileMotion ? (
-        <h1 className="hero-fade hero-fade-delay-2 relative mx-auto max-w-6xl font-display text-[11vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic">
-          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-            {t.hero.headline.split('conhecer')[0]}
-          </span>
+      {(() => {
+        const headline = t.hero.headline;
+        const keyword = "conhecer";
+        const idx = headline.indexOf(keyword);
+        const hasKeyword = idx !== -1;
+        const before = hasKeyword ? headline.slice(0, idx) : headline;
+        const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
+
+        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[9vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic";
+
+        const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
-            <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
-            <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
+            <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">{keyword}</span>
+            {isMobileMotion ? (
+              <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
+            ) : (
+              <motion.span
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
+                className="absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]"
+              />
+            )}
           </span>
+        ) : null;
+
+        const textSpan = (content: string) => (
           <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-            {t.hero.headline.split('conhecer')[1]}
+            {content}
           </span>
-          <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[8px] md:blur-[100px] -z-0 pointer-events-none" />
-        </h1>
-      ) : (
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto max-w-6xl font-display text-[11vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic"
-        >
-          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-            {t.hero.headline.split('conhecer')[0]}
-          </span>
-          <span className="relative inline-block mx-1 md:mx-4 z-10">
-            <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
-            <motion.span 
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-              className="absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]"
-            />
-          </span>
-          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-            {t.hero.headline.split('conhecer')[1]}
-          </span>
-          <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[8px] md:blur-[100px] -z-0 pointer-events-none" />
-        </motion.h1>
-      )}
+        );
+
+        const bgBlur = <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[8px] md:blur-[100px] -z-0 pointer-events-none" />;
+
+        const content = (
+          <>
+            {textSpan(before)}
+            {highlightSpan}
+            {textSpan(after)}
+            {bgBlur}
+          </>
+        );
+
+        if (isMobileMotion) {
+          return (
+            <h1 className={`hero-fade hero-fade-delay-2 ${headlineClass}`}>
+              {content}
+            </h1>
+          );
+        }
+        return (
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className={headlineClass}
+          >
+            {content}
+          </motion.h1>
+        );
+      })()}
 
       <MFade
         delay={0.4}
@@ -931,8 +968,9 @@ function Reveal({
   }, [a.name]);
 
   return (
-    <section className="py-12 md:py-40 overflow-hidden relative">
+    <section className="py-12 md:py-40 overflow-hidden relative bg-black">
       <div className="absolute inset-0 bg-arch-glow blur-[12px] lg:blur-[160px] opacity-20 -z-10" />
+      <div className="absolute inset-0 bg-black/80 -z-[5]" />
       <div className="text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
@@ -943,7 +981,25 @@ function Reveal({
           {t.reveal.kicker(name)}
         </motion.div>
 
-        <h1 className="mt-4 font-display text-7xl font-black leading-[0.85] text-foreground md:text-[14rem] tracking-tighter uppercase italic">
+        {/* CircuitBrain — archetype-colored, maximum impact moment */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.3 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", damping: 12, stiffness: 100, delay: 0.3 }}
+          className="mb-8 flex justify-center"
+        >
+          <CircuitBrain
+            variant="hero"
+            style="archetype"
+            archetype={arch}
+            size={160}
+            withGlow
+            animated
+            ariaLabel={`Arquétipo: ${a.name}`}
+          />
+        </motion.div>
+
+        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full">
           <span className="text-arch-primary text-gradient">{text}</span>
           <motion.span
             animate={{ opacity: [1, 0] }}
@@ -1022,9 +1078,6 @@ function Reveal({
               variants={staggerItem}
               className="flex gap-8 rounded-[2.5rem] border border-white/5 bg-background/50 p-8 md:p-12 transition-all hover:border-arch-primary/40 group relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 p-8 opacity-[0.02] text-8xl font-black italic pointer-events-none">
-                {i + 1}
-              </div>
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-arch-primary/10 text-arch-primary font-black text-2xl group-hover:bg-arch-primary group-hover:text-primary-foreground transition-all duration-500 shadow-xl border border-arch-primary/20">
                 {i + 1}
               </div>
