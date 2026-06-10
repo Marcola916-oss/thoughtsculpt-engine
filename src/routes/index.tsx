@@ -15,6 +15,10 @@ import {
   Star,
   ShieldCheck,
   ChevronDown,
+  Shield,
+  Crown,
+  EyeOff,
+  Flame,
 } from "lucide-react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
@@ -950,6 +954,17 @@ function EmailCapture(props: {
   );
 }
 
+function ArchetypeIcon({ arch, className }: { arch: Archetype; className?: string }) {
+  const icons = {
+    AO: Shield,
+    SS: Crown,
+    EA: EyeOff,
+    HI: Flame,
+  };
+  const Icon = icons[arch];
+  return <Icon className={className} />;
+}
+
 /* --- Reveal ------------------------------------------------------------------------------------------- */
 
 function Reveal({
@@ -1005,14 +1020,29 @@ function Reveal({
             variant="hero"
             style="archetype"
             archetype={arch}
-            size={160}
+            size={isMobileMotion ? 200 : 380}
             withGlow
             animated
             ariaLabel={`Arquétipo: ${a.name}`}
+            className="animate-in zoom-in duration-700 ease-out"
           />
         </motion.div>
 
-        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full">
+        {/* Archetype icon emerging from brain */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 1, type: "spring", stiffness: 100 }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
+        >
+           <div className="h-20 w-20 rounded-full bg-black/80 backdrop-blur-md border border-arch-primary/30 flex items-center justify-center shadow-[0_0_40px_var(--arch-glow)]">
+             <ArchetypeIcon arch={arch} className="h-10 w-10 text-arch-primary" />
+           </div>
+        </motion.div>
+
+        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative">
+          {/* Cinema explosion background */}
+          <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
           <span className="text-arch-primary text-gradient">{text}</span>
           <motion.span
             animate={{ opacity: [1, 0] }}
