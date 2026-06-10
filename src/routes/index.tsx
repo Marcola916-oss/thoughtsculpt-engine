@@ -51,6 +51,7 @@ let isMobileMotion = false;
 
 const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
   if (isMobileMotion) return <div className={className} {...props}>{children}</div>;
+  const { onAnimationStart: _oas, onAnimationEnd: _oae, onDragStart: _ods, onDragEnd: _ode, onDrag: _od, ...rest } = props;
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -58,7 +59,7 @@ const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDi
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={className}
-      {...props}
+      {...rest}
     >
       {children}
     </motion.div>
@@ -81,13 +82,14 @@ const MFade = ({
       </div>
     );
   }
+  const { onAnimationStart: _oas, onAnimationEnd: _oae, onDragStart: _ods, onDragEnd: _ode, onDrag: _od, ...rest } = props;
   return (
     <motion.div
       initial={{ opacity: 0, y }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={className}
-      {...props}
+      {...rest}
     >
       {children}
     </motion.div>
