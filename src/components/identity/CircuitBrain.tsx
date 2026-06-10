@@ -27,10 +27,11 @@ export const CircuitBrain = memo(({
   className,
   progress = 100,
 }: CircuitBrainProps) => {
-  const isArchetype = style === "archetype" && archetype;
-  
   return (
     <div className={cn("relative inline-flex items-center justify-center", className)} style={{ width: size, height: size }}>
+      {withGlow && (
+        <div className="absolute inset-0 bg-[#CC0000]/10 blur-[40px] rounded-full animate-pulse pointer-events-none" />
+      )}
       <svg viewBox="0 0 200 200" width={size} height={size} className={cn(animated && "animate-pulse")}>
         <defs>
           <radialGradient id="brain-glow" cx="50%" cy="50%" r="50%">
@@ -42,10 +43,6 @@ export const CircuitBrain = memo(({
           </mask>
         </defs>
         
-        {withGlow && (
-          <motion-div className="absolute inset-0 bg-[#CC0000]/20 blur-[40px] rounded-full animate-pulse" />
-        )}
-
         <g mask={progress < 100 ? "url(#brain-mask)" : undefined}>
           <path
             d="M100,25 C135,25 165,35 175,65 C185,95 175,125 155,145 C135,165 100,175 80,165 C60,155 45,135 45,105 C45,75 65,55 100,25 Z"
@@ -57,7 +54,6 @@ export const CircuitBrain = memo(({
             style={{ filter: "drop-shadow(0 0 8px #CC0000)" }}
           />
           
-          {/* Circuit details */}
           <g stroke="#CC0000" strokeWidth="1" strokeOpacity="0.4" fill="none">
             <path d="M70,70 L130,70 M60,100 L140,100 M70,130 L130,130 M100,45 L100,155" />
             <circle cx="100" cy="70" r="2" fill="#CC0000" />
