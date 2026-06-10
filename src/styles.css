@@ -1108,3 +1108,19 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-cta-glow { animation: none !important; }
 }
+
+/* ─── CircuitBrain pulse + glow (CSS-only, GPU-accelerated) ── */
+@keyframes brain-glow-pulse {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.96); }
+  50%      { opacity: 0.95; transform: translate(-50%, -50%) scale(1.06); }
+}
+@keyframes brain-image-pulse {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(204,0,0,0.45)) drop-shadow(0 0 22px rgba(204,0,0,0.28)); }
+  50%      { filter: drop-shadow(0 0 18px rgba(204,0,0,0.75)) drop-shadow(0 0 40px rgba(204,0,0,0.45)); }
+}
+.brain-glow-pulse  { animation: brain-glow-pulse 3.2s ease-in-out infinite; will-change: opacity, transform; }
+.brain-image-pulse { animation: brain-image-pulse 3.2s ease-in-out infinite; will-change: filter; }
+
+@media (prefers-reduced-motion: reduce) {
+  .brain-glow-pulse, .brain-image-pulse { animation: none !important; }
+}
