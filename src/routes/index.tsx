@@ -15,6 +15,10 @@ import {
   Star,
   ShieldCheck,
   ChevronDown,
+  Shield,
+  Crown,
+  EyeOff,
+  Flame,
 } from "lucide-react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
@@ -360,24 +364,16 @@ function LandingAndQuiz() {
 
           {stage.kind === "reveal" && archCode && (
             <div className="relative z-10">
-              <motion.div
-                key="reveal"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ type: "spring", damping: 20, stiffness: 100 }}
-              >
-                <Reveal
-                  name={name}
-                  arch={archCode}
-                  onContinue={() => setStage({ kind: "sales" })}
-                  leadError={leadError}
-                  onRetry={() => {
-                    setLeadError(null);
-                    setStage({ kind: "loader" });
-                  }}
-                />
-              </motion.div>
+              <Reveal
+                name={name}
+                arch={archCode}
+                onContinue={() => setStage({ kind: "sales" })}
+                leadError={leadError}
+                onRetry={() => {
+                  setLeadError(null);
+                  setStage({ kind: "loader" });
+                }}
+              />
             </div>
           )}
 
@@ -494,6 +490,7 @@ function TopBar() {
             <span className="text-arch-primary transition-colors group-hover:text-white drop-shadow-[0_2px_15px_var(--arch-glow)]">
               Reset
             </span>
+            <CircuitBrain size={18} variant="icon" animated={false} withGlow={false} className="ml-1 opacity-40 group-hover:opacity-100 transition-opacity" />
           </div>
         </Link>
 
@@ -533,7 +530,7 @@ function TopBar() {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative pt-20 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
+    <section className="relative pt-12 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[8px] lg:blur-[120px]" />
@@ -594,6 +591,16 @@ function Hero({ onStart }: { onStart: () => void }) {
       </motion.div>
 
 
+      <MFade delay={0.1} className="flex justify-center mb-8">
+        <CircuitBrain 
+          variant="hero" 
+          size={isMobileMotion ? 140 : 320} 
+          withGlow 
+          animated 
+          ariaLabel="MindReset — Digital Mind"
+        />
+      </MFade>
+
       <MFade
         delay={0}
         y={-20}
@@ -608,13 +615,25 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       {(() => {
         const headline = t.hero.headline;
-        const keyword = "conhecer";
-        const idx = headline.indexOf(keyword);
+        // Fix for i18n issue: find the best word to highlight or use a standard one
+        const keywords = ["conhecer", "know", "poznać", "cunoști", "تعرف"];
+        let keyword = "";
+        let idx = -1;
+        
+        for (const kw of keywords) {
+          const foundIdx = headline.indexOf(kw);
+          if (foundIdx !== -1) {
+            keyword = kw;
+            idx = foundIdx;
+            break;
+          }
+        }
+
         const hasKeyword = idx !== -1;
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[9vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic";
+        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[9vw] md:text-[7rem] lg:text-[8rem] font-black leading-[0.95] md:leading-[0.9] tracking-[-0.05em] uppercase italic";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
@@ -680,7 +699,7 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       <MFade
         delay={0.6}
-        className="mt-24 flex flex-col items-center gap-12"
+        className="mt-12 md:mt-24 flex flex-col items-center gap-12"
       >
         <Magnetic>
           <button
@@ -928,6 +947,17 @@ function EmailCapture(props: {
   );
 }
 
+function ArchetypeIcon({ arch, className }: { arch: Archetype; className?: string }) {
+  const icons = {
+    AO: Shield,
+    SS: Crown,
+    EA: EyeOff,
+    HI: Flame,
+  };
+  const Icon = icons[arch];
+  return <Icon className={className} />;
+}
+
 /* --- Reveal ------------------------------------------------------------------------------------------- */
 
 function Reveal({
@@ -983,14 +1013,29 @@ function Reveal({
             variant="hero"
             style="archetype"
             archetype={arch}
-            size={160}
+            size={isMobileMotion ? 200 : 380}
             withGlow
             animated
             ariaLabel={`Arquétipo: ${a.name}`}
+            className="animate-in zoom-in duration-700 ease-out"
           />
         </motion.div>
 
-        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full">
+        {/* Archetype icon emerging from brain */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 1, type: "spring", stiffness: 100 }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
+        >
+           <div className="h-20 w-20 rounded-full bg-black/80 backdrop-blur-md border border-arch-primary/30 flex items-center justify-center shadow-[0_0_40px_var(--arch-glow)]">
+             <ArchetypeIcon arch={arch} className="h-10 w-10 text-arch-primary" />
+           </div>
+        </motion.div>
+
+        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative">
+          {/* Cinema explosion background */}
+          <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
           <span className="text-arch-primary text-gradient">{text}</span>
           <motion.span
             animate={{ opacity: [1, 0] }}

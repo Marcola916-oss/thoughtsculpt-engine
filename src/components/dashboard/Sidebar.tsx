@@ -6,6 +6,7 @@ import { supabase } from "../../integrations/supabase/client";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { StreakCounter } from "../gamification/StreakCounter";
 import { drawerSlide, modalScale } from "../../lib/animations";
+import { CircuitBrain } from "../identity/CircuitBrain";
 
 interface SidebarProps {
   streak?: number;
@@ -49,7 +50,10 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
             <span className="text-white text-lg italic font-black">M</span>
           </div>
           <div className="flex flex-col -gap-1">
-            <span className="text-foreground leading-none">Mind</span>
+            <span className="text-foreground leading-none flex items-center gap-1.5">
+              Mind 
+              <CircuitBrain size={16} variant="icon" animated={false} withGlow={false} className="opacity-40" />
+            </span>
             <span className="text-arch-primary leading-none transition-colors duration-500">Reset</span>
           </div>
         </Link>
