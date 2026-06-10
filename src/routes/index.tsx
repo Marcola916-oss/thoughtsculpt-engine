@@ -490,6 +490,7 @@ function TopBar() {
             <span className="text-arch-primary transition-colors group-hover:text-white drop-shadow-[0_2px_15px_var(--arch-glow)]">
               Reset
             </span>
+            <CircuitBrain size={18} variant="icon" animated={false} withGlow={false} className="ml-1 opacity-40 group-hover:opacity-100 transition-opacity" />
           </div>
         </Link>
 
