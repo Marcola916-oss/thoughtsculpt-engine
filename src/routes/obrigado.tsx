@@ -18,6 +18,7 @@ import { Atmosphere, BackgroundAmbient } from "@/components/atmosphere";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { IdentitySymbol } from "@/components/identity/IdentitySymbol";
 import { MarbleBust } from "@/components/identity/MarbleBust";
+import { CircuitBrain } from "../components/identity/CircuitBrain";
 
 export const Route = createFileRoute("/obrigado")({
   head: () => ({ meta: [{ title: "Bem-vindo ao MindReset!" }] }),
