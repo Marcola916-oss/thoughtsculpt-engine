@@ -74,11 +74,11 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
       <div className="relative mb-10">
         <CircuitBrain
           variant="loader"
-          style="premium"
           size={160}
           withGlow
           animated
-          ariaLabel="Análise cognitiva em andamento"
+          progress={progress}
+          ariaLabel="Cognitive analysis in progress"
         />
       </div>
 
