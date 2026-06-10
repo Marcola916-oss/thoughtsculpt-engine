@@ -40,11 +40,11 @@ function SettingsPage() {
     setPasswordError(null);
     setPasswordSuccess(false);
     if (newPassword.length < 8) {
-      setPasswordError("A senha deve ter pelo menos 8 caracteres.");
+      setPasswordError(t.settingsExtra.passwordMinLength);
       return;
     }
     if (newPassword !== confirmPassword) {
-      setPasswordError("As senhas não coincidem.");
+      setPasswordError(t.settingsExtra.passwordMismatch);
       return;
     }
     setPasswordLoading(true);
@@ -54,7 +54,7 @@ function SettingsPage() {
       setNewPassword("");
       setConfirmPassword("");
     } catch (e) {
-      setPasswordError((e as Error).message || "Erro ao alterar senha.");
+      setPasswordError((e as Error).message || t.settingsExtra.passwordChangeError);
     } finally {
       setPasswordLoading(false);
     }
@@ -241,40 +241,40 @@ function SettingsPage() {
 
         {/* Security Section - Password Change */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-xl font-bold">Segurança</h2>
+          <h2 className="mb-4 font-display text-xl font-bold">{t.dashboard.settings.security.title}</h2>
           <p className="mb-4 text-sm text-muted-foreground">
-            Altere sua senha de acesso. Recomendamos usar uma senha forte e única.
+            {t.dashboard.settings.security.desc}
           </p>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Nova senha</label>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.security.newLabel}</label>
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Mínimo 8 caracteres"
+                placeholder={t.dashboard.settings.security.newPlaceholder}
                 className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Confirmar nova senha</label>
+              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.security.confirmLabel}</label>
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Repita a nova senha"
+                placeholder={t.dashboard.settings.security.confirmPlaceholder}
                 className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               />
             </div>
           </div>
           {passwordError && <p className="mt-3 text-sm text-primary">{passwordError}</p>}
-          {passwordSuccess && <p className="mt-3 text-sm text-success">Senha alterada com sucesso!</p>}
+          {passwordSuccess && <p className="mt-3 text-sm text-success">{t.dashboard.settings.security.success}</p>}
           <button
             onClick={handlePasswordChange}
             disabled={passwordLoading || !newPassword || !confirmPassword}
             className="mt-4 rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-40"
           >
-            {passwordLoading ? "Alterando..." : "Alterar Senha"}
+            {passwordLoading ? t.dashboard.settings.security.buttonLoading : t.dashboard.settings.security.buttonDefault}
           </button>
         </section>
       </div>

@@ -11,7 +11,7 @@ export const LANGS: { code: Lang; label: string; dir: "ltr" | "rtl" }[] = [
 export type Currency = "PLN" | "RON" | "SAR" | "USD" | "EUR";
 
 export const CURRENCY_BY_COUNTRY: Record<string, Currency> = {
-  PL: "PLN", RO: "RON", SA: "SAR", AE: "SAR",
+  PL: "PLN", RO: "RON", SA: "SAR", AE: "SAR", BR: "EUR",
   // Eurozone fallback
   DE: "EUR", FR: "EUR", IT: "EUR", ES: "EUR", PT: "EUR", NL: "EUR", BE: "EUR", IE: "EUR", AT: "EUR", FI: "EUR", GR: "EUR",
   // Default everywhere else → USD

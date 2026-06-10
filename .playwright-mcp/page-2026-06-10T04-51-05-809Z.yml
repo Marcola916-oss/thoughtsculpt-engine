@@ -1,0 +1,278 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic:
+      - generic: €
+      - generic: $
+      - generic: ¥
+      - generic: ₿
+      - generic: £
+      - generic: ¢
+      - generic: €
+      - generic: $
+    - main [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e7]:
+          - generic [ref=e9]:
+            - img [ref=e10]
+            - text: Obsessive Accumulator
+          - generic:
+            - img
+            - text: Status Seeker
+          - generic:
+            - img
+            - text: Avoidant Escapist
+          - generic:
+            - img
+            - text: Impulsive Hedonist
+          - img "MindReset — Digital Mind" [ref=e14]:
+            - img [ref=e15]
+          - generic [ref=e16]: Finanțe comportamentale • 14 întrebări • 3 minute
+          - heading "Nu sunt banii. E tiparul pe care nu-l vezi." [level=1] [ref=e392]: Nu sunt banii. E tiparul pe care nu-l vezi.
+          - paragraph [ref=e24]: MindReset îți diagnostichează arhetipul financiar și îți livrează un protocol personalizat. Fără bugete. Fără cont bancar. Doar psihologie care schimbă comportamentul.
+          - generic [ref=e25]:
+            - button "VREAU DIAGNOZA GRATUITĂ" [ref=e393]:
+              - generic [ref=e29]:
+                - text: VREAU DIAGNOZA GRATUITĂ
+                - img [ref=e30]
+            - generic [ref=e33]:
+              - generic [ref=e34]:
+                - generic [ref=e35]:
+                  - img [ref=e36]
+                  - generic [ref=e39]: SSL Seguro
+                - generic [ref=e40]:
+                  - img [ref=e41]
+                  - generic [ref=e44]: Dados Protegidos
+                - generic [ref=e45]:
+                  - img [ref=e46]
+                  - generic [ref=e49]: 7 dias garantia
+              - generic [ref=e51]:
+                - img [ref=e52]
+                - img [ref=e54]
+                - img [ref=e56]
+                - img [ref=e58]
+                - img [ref=e60]
+          - generic [ref=e64]:
+            - generic [ref=e65]:
+              - generic [ref=e66]: 🛡️
+              - generic [ref=e67]:
+                - generic [ref=e68]: AO
+                - generic [ref=e69]: Obsessive Accumulator
+            - generic [ref=e70]:
+              - generic [ref=e71]: 👑
+              - generic [ref=e72]:
+                - generic [ref=e73]: SS
+                - generic [ref=e74]: Status Seeker
+            - generic [ref=e75]:
+              - generic [ref=e76]: 👻
+              - generic [ref=e77]:
+                - generic [ref=e78]: EA
+                - generic [ref=e79]: Avoidant Escapist
+            - generic [ref=e80]:
+              - generic [ref=e81]: 🔥
+              - generic [ref=e82]:
+                - generic [ref=e83]: HI
+                - generic [ref=e84]: Impulsive Hedonist
+          - img [ref=e86]
+        - generic [ref=e88]:
+          - complementary "MindReset — Indicadores de confiança" [ref=e89]:
+            - generic [ref=e90]:
+              - generic [ref=e394]:
+                - img [ref=e396]
+                - generic [ref=e399]:
+                  - generic [ref=e400]: "+12.000"
+                  - generic [ref=e401]: Diagnostice realizate
+              - generic [ref=e402]:
+                - img [ref=e404]
+                - generic [ref=e406]:
+                  - generic [ref=e407]: 4.9 / 5
+                  - generic [ref=e408]: Evaluare medie
+              - generic [ref=e409]:
+                - img [ref=e411]
+                - generic [ref=e414]:
+                  - generic [ref=e415]: 100%
+                  - generic [ref=e416]: Fără date bancare
+              - generic [ref=e417]:
+                - img [ref=e419]
+                - generic [ref=e424]:
+                  - generic [ref=e425]: "5"
+                  - generic [ref=e426]: Limbi suportate
+          - generic [ref=e124]:
+            - region "Care este tiparul tău cu banii?" [ref=e427]:
+              - generic [ref=e428]:
+                - generic [ref=e429]: Cele 4 Arhetipuri
+                - heading "Care este tiparul tău cu banii?" [level=2] [ref=e431]
+                - paragraph [ref=e432]: Orice comportament financiar are o rădăcină emoțională. Descoperă-l pe al tău în mai puțin de 3 minute.
+              - generic [ref=e433]:
+                - generic [ref=e434]:
+                  - generic [ref=e435]:
+                    - img [ref=e437]
+                    - generic [ref=e439]: AO
+                  - heading "Economul" [level=3] [ref=e440]
+                  - paragraph [ref=e441]: "Declanșator: teama de a nu avea"
+                  - paragraph [ref=e442]: Acumulează cu obsesia. Dificultate în a cheltui chiar și cu un sold sănătos. Senzația de siguranță nu pare niciodată suficientă.
+                - generic [ref=e443]:
+                  - generic [ref=e444]:
+                    - img [ref=e446]
+                    - generic [ref=e448]: SS
+                  - heading "Păunul" [level=3] [ref=e449]
+                  - paragraph [ref=e450]: "Declanșator: aprobarea socială"
+                  - paragraph [ref=e451]: Cheltuie ca să impresioneze. Statutul este moneda emoțională. Imaginea externă valorează mai mult decât sănătatea financiară reală.
+                - generic [ref=e452]:
+                  - generic [ref=e453]:
+                    - img [ref=e455]
+                    - generic [ref=e460]: EA
+                  - heading "Fantasma" [level=3] [ref=e461]
+                  - paragraph [ref=e462]: "Declanșator: fugă și negare"
+                  - paragraph [ref=e463]: Evită să vorbească despre bani. Ignoră extrase și facturi. Disconfortul financiar este anesteziat de evitare.
+                - generic [ref=e464]:
+                  - generic [ref=e465]:
+                    - img [ref=e467]
+                    - generic [ref=e469]: HI
+                  - heading "Scânteia" [level=3] [ref=e470]
+                  - paragraph [ref=e471]: "Declanșator: plăcerea imediată"
+                  - paragraph [ref=e472]: Cumpără impulsiv, trăiește acum. Emoția momentului suprascrie orice plan. Prezentul câștigă întotdeauna.
+            - region "Simplu. Profund. Eficient." [ref=e473]:
+              - generic [ref=e474]:
+                - generic [ref=e475]: Cum funcționează
+                - heading "Simplu. Profund. Eficient." [level=2] [ref=e477]
+                - paragraph [ref=e478]: Fără foi de calcul. Fără date bancare. Doar întrebări despre cum te comporți cu adevărat.
+              - generic [ref=e479]:
+                - generic [ref=e480]:
+                  - generic [ref=e481]: "1"
+                  - heading "Răspunde la 8 întrebări" [level=3] [ref=e482]
+                  - paragraph [ref=e483]: Despre comportamentul real, nu teoria financiară. Fără judecată.
+                - generic [ref=e484]:
+                  - generic [ref=e485]: "2"
+                  - heading "Primește diagnosticul" [level=3] [ref=e486]
+                  - paragraph [ref=e487]: "AI-ul îți mapează arhetipul în 4 dimensiuni: financiar, profesional, amoros și personal."
+                - generic [ref=e488]:
+                  - generic [ref=e489]: "3"
+                  - heading "Urmează protocolul" [level=3] [ref=e490]
+                  - paragraph [ref=e491]: Misiuni zilnice deblocate treptat. Schimbare reală, pas cu pas.
+                - img [ref=e493]
+                - img [ref=e496]
+          - generic [ref=e196]:
+            - region "Patru unelte. O transformare." [ref=e498]:
+              - generic [ref=e499]:
+                - generic [ref=e500]: Ce primești
+                - heading "Patru unelte. O transformare." [level=2] [ref=e502]
+              - generic [ref=e503]:
+                - generic [ref=e504]:
+                  - img [ref=e507]
+                  - heading "Diagnostic Complet prin AI" [level=3] [ref=e515]
+                  - paragraph [ref=e516]: "Un raport în 4 dimensiuni scris exclusiv pentru tine: cum apare tiparul tău în bani, muncă, relații și viața personală."
+                  - generic [ref=e517]: Generat de GPT-4o · Exclusiv și personal
+                - generic [ref=e519]:
+                  - img [ref=e522]
+                  - heading "Matrice de Acțiune Personalizată" [level=3] [ref=e524]
+                  - paragraph [ref=e525]: Un calendar de 30, 180 sau 365 de zile cu misiuni reflexive și practici deblocate treptat — ca un protocol zilnic de antrenament comportamental.
+                  - generic [ref=e526]: Deblocat treptat · Gamificat
+                - generic [ref=e528]:
+                  - img [ref=e531]
+                  - heading "Compass — Harta Persoanelor" [level=3] [ref=e534]
+                  - paragraph [ref=e535]: Descrie pe cineva din viața ta și AI-ul identifică arhetipul financiar al acelei persoane. Primești 5 strategii specifice pentru a îmbunătăți relația aceea cu banii.
+                  - generic [ref=e536]: Pentru parteneri, copii, asociați
+                - generic [ref=e538]:
+                  - img [ref=e541]
+                  - heading "Panou de Progres" [level=3] [ref=e544]
+                  - paragraph [ref=e545]: Streak zilnic, puncte, realizări deblocate și un raport lunar al AI care îți analizează evoluția. Transformare pe care o poți vedea și măsura.
+                  - generic [ref=e546]: Streak · Puncte · Insigne · Raport lunar
+            - region "Cine a înțeles deja tiparul propriu" [ref=e548]:
+              - generic [ref=e549]:
+                - generic [ref=e550]: Testimoniale
+                - heading "Cine a înțeles deja tiparul propriu" [level=2] [ref=e552]
+              - generic [ref=e553]:
+                - generic [ref=e554]:
+                  - img "5 de 5 estrelas" [ref=e555]:
+                    - img [ref=e556]
+                    - img [ref=e558]
+                    - img [ref=e560]
+                    - img [ref=e562]
+                    - img [ref=e564]
+                  - blockquote [ref=e566]: “Nu am înțeles niciodată de ce cheltuiam totul înainte de data de 15. Diagnosticul a numit exact ceea ce simțeam. Parcă cineva m-a explicat, în sfârșit, pe mine mie.”
+                  - generic [ref=e567]:
+                    - generic [ref=e568]: AK
+                    - generic [ref=e569]:
+                      - paragraph [ref=e570]: Adam K.
+                      - paragraph [ref=e571]: "Arhetip: Hedonist Impulsiv"
+                - generic [ref=e572]:
+                  - img "5 de 5 estrelas" [ref=e573]:
+                    - img [ref=e574]
+                    - img [ref=e576]
+                    - img [ref=e578]
+                    - img [ref=e580]
+                    - img [ref=e582]
+                  - blockquote [ref=e584]: “Credeam că sunt disciplinată cu banii. MindReset mi-a arătat că îmi era frică să cheltuiesc — și că asta este tot o problemă. A fost revelator.”
+                  - generic [ref=e585]:
+                    - generic [ref=e586]: MC
+                    - generic [ref=e587]:
+                      - paragraph [ref=e588]: Maria C.
+                      - paragraph [ref=e589]: "Arhetip: Econom Obsesiv"
+                - generic [ref=e590]:
+                  - img "5 de 5 estrelas" [ref=e591]:
+                    - img [ref=e592]
+                    - img [ref=e594]
+                    - img [ref=e596]
+                    - img [ref=e598]
+                    - img [ref=e600]
+                  - blockquote [ref=e602]: “Compass a fost partea cea mai surprinzătoare. L-am analizat pe asociatul meu și am înțeles în 2 minute de ce discuțiile noastre despre bani nu duceau nicăieri.”
+                  - generic [ref=e603]:
+                    - generic [ref=e604]: RS
+                    - generic [ref=e605]:
+                      - paragraph [ref=e606]: Rami S.
+                      - paragraph [ref=e607]: "Arhetip: Fantasmă Evazionistă"
+          - region "Întrebări pe care probabil le ai" [ref=e608]:
+            - generic [ref=e308]:
+              - generic [ref=e609]:
+                - generic [ref=e610]: Întrebări Frecvente
+                - heading "Întrebări pe care probabil le ai" [level=2] [ref=e612]
+                - paragraph [ref=e613]: Dacă a mai rămas ceva neclar, butonul de a începe diagnosticul rezolvă majoritatea în 3 minute.
+                - button "Fă diagnosticul gratuit" [ref=e614]:
+                  - text: Fă diagnosticul gratuit
+                  - img [ref=e615]
+              - generic [ref=e617]:
+                - generic [ref=e618]:
+                  - button "MindReset are acces la datele mele bancare?" [expanded] [ref=e619]:
+                    - generic [ref=e620]: MindReset are acces la datele mele bancare?
+                    - img [ref=e621]
+                  - region [ref=e624]:
+                    - paragraph [ref=e625]: Nu. MindReset nu accesează conturi, extrase sau orice informații bancare. Diagnosticul se bazează exclusiv pe răspunsurile tale comportamentale la quiz — fără nicio integrare bancară.
+                - button "Diagnosticul este într-adevăr personalizat?" [ref=e627]:
+                  - generic [ref=e628]: Diagnosticul este într-adevăr personalizat?
+                  - img [ref=e629]
+                - button "Funcționează pentru cei care nu se pricep la finanțe?" [ref=e631]:
+                  - generic [ref=e632]: Funcționează pentru cei care nu se pricep la finanțe?
+                  - img [ref=e633]
+                - button "Ce se întâmplă după ce îmi descopăr arhetipul?" [ref=e635]:
+                  - generic [ref=e636]: Ce se întâmplă după ce îmi descopăr arhetipul?
+                  - img [ref=e637]
+                - button "În cât timp văd rezultate?" [ref=e639]:
+                  - generic [ref=e640]: În cât timp văd rezultate?
+                  - img [ref=e641]
+                - button "Și dacă nu îmi place?" [ref=e643]:
+                  - generic [ref=e644]: Și dacă nu îmi place?
+                  - img [ref=e645]
+          - region "Tiparul care te-a blocat are un nume. E timpul să afli care e." [ref=e646]:
+            - generic:
+              - heading "Tiparul care te-a blocat are un nume. E timpul să afli care e." [level=2]
+              - paragraph: 8 întrebări. 3 minute. O claritate pe care nicio foaie de calcul nu ți-o dă.
+              - button "Începe diagnosticul meu gratuit":
+                - generic: Începe diagnosticul meu gratuit
+              - generic:
+                - generic: Garanție 7 zile
+                - generic: SSL · Dados protegidos
+    - contentinfo [ref=e365]:
+      - generic [ref=e366]:
+        - paragraph [ref=e367]: © 2026 MindReset Inc.
+        - generic [ref=e368]:
+          - link "Confidențialitate" [ref=e647] [cursor=pointer]:
+            - /url: /privacy
+          - link "Termeni" [ref=e648] [cursor=pointer]:
+            - /url: /terms
+  - complementary "Edit with Lovable" [ref=e381]:
+    - link "Edit with Lovable" [ref=e382] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e383]: Edit with
+      - img [ref=e384]
+    - button "Dismiss" [ref=e389] [cursor=pointer]:
+      - img [ref=e390]

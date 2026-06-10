@@ -195,7 +195,7 @@ function CompassPage() {
               <div className="bg-primary/10 p-6 md:p-8">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">{t.dashboard.compass.result.probableArchetype}</p>
                 <h2 className="mt-1 font-display text-3xl font-extrabold text-foreground">
-                  {ARCHETYPE_NAMES[(activeAnalysis.probable_archetype ?? "AO") as Archetype]?.pt}
+                  {ARCHETYPE_NAMES[(activeAnalysis.probable_archetype ?? "AO") as Archetype]?.[lang]}
                 </h2>
                 <p className="mt-1 text-sm font-bold text-primary">
                   {activeAnalysis.probable_archetype}

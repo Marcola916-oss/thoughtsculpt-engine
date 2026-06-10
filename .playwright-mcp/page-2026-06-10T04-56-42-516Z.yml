@@ -1,0 +1,116 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e650]:
+      - generic [ref=e651]:
+        - link "M Mind Reset Brain" [ref=e652] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e655]: M
+          - generic [ref=e657]:
+            - generic [ref=e658]: Mind
+            - generic [ref=e659]: Reset
+            - img "Brain" [ref=e660]:
+              - img [ref=e661]
+        - generic [ref=e662]:
+          - combobox "Language" [ref=e664]:
+            - option "Português" [selected]
+            - option "English"
+            - option "Polski"
+            - option "Română"
+            - option "العربية"
+          - link "Entrar" [ref=e665] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=e666]: Entrar
+    - main [ref=e4]:
+      - generic [ref=e925]:
+        - generic [ref=e926]:
+          - generic [ref=e928]: "Oferta termina em: 10:31"
+          - heading "Sofia, foi por isto que nada do que tentaste antes funcionou." [level=1] [ref=e929]
+          - paragraph [ref=e930]: Em 30 dias, vais reconhecer o gatilho antes de ele acontecer.
+          - generic [ref=e936] [cursor=pointer]: Assista a esta breve explicação do seu arquétipo
+        - generic [ref=e945]:
+          - img [ref=e947]
+          - generic [ref=e956]:
+            - generic [ref=e957]:
+              - heading "Você já tentou de tudo, certo?" [level=2] [ref=e958]
+              - paragraph [ref=e959]: Planilhas do Excel. Aplicativos de orçamento. Promessas de ano novo. Mas o padrão sempre volta a assumir o controle nas horas de estresse, ansiedade ou euforia. Isso acontece porque o problema não é matemático — é comportamental.
+              - generic [ref=e961]: Isso não é fraqueza. É o seu arquétipo financeiro operando no piloto automático.
+            - generic [ref=e962]:
+              - generic [ref=e963]:
+                - img [ref=e965]
+                - generic [ref=e968]: O dinheiro some antes do fim do mês e você não sabe exatamente para onde foi
+              - generic [ref=e969]:
+                - img [ref=e971]
+                - generic [ref=e974]: Você toma decisões financeiras que sabe que são erradas... e continua tomando
+              - generic [ref=e975]:
+                - img [ref=e977]
+                - generic [ref=e980]: Mesmo quando a situação melhora, a sensação de insegurança não passa
+              - generic [ref=e981]:
+                - img [ref=e983]
+                - generic [ref=e986]: Já tentou planilhas, apps, métodos — e nenhum durou mais de 30 dias
+        - button "Quero esse plano agora" [ref=e988]:
+          - img [ref=e990]
+          - generic [ref=e992]: Quero esse plano agora
+        - generic [ref=e993]:
+          - img [ref=e996]
+          - heading "O problema não está no que você sabe sobre dinheiro." [level=3] [ref=e999]
+          - generic [ref=e1000]:
+            - paragraph [ref=e1001]: "Neurociência comportamental confirma: 95% das decisões financeiras são tomadas pelo sistema emocional do cérebro — não pelo racional."
+            - paragraph [ref=e1002]: Kahneman, Thaler e Ariely passaram décadas estudando exatamente isso.
+            - generic [ref=e1003]:
+              - paragraph [ref=e1004]: Planilhas não resolvem um problema que não é de planilha.
+              - paragraph [ref=e1006]: "O MindReset foi construído para trabalhar onde o problema realmente existe: na mente."
+        - generic [ref=e1008]:
+          - generic [ref=e1009]:
+            - generic:
+              - img
+            - img [ref=e1011]
+            - heading "Diagnóstico Profundo" [level=4] [ref=e1019]
+            - paragraph [ref=e1020]: Um dossiê de 4 dimensões (Finanças, Profissional, Pessoal, Amor) detalhando seus pontos cegos comportamentais.
+          - generic [ref=e1021]:
+            - generic:
+              - img
+            - img [ref=e1023]
+            - heading "Matriz de Ação" [level=4] [ref=e1025]
+            - paragraph [ref=e1026]: Protocolo diário personalizado gerado por IA com micro-tarefas executáveis para reconectar seu cérebro.
+          - generic [ref=e1027]:
+            - generic:
+              - img
+            - img [ref=e1029]
+            - heading "Compass" [level=4] [ref=e1032]
+            - paragraph [ref=e1033]: Decodifique as pessoas da sua vida. Saiba exatamente o que dizer para evitar conflitos e fortalecer relacionamentos.
+          - generic [ref=e1034]:
+            - generic:
+              - img
+            - img [ref=e1036]
+            - heading "Gamificação Real" [level=4] [ref=e1039]
+            - paragraph [ref=e1040]: Ganhe pontos, mantenha o streak e receba relatórios mensais para comprovar sua evolução comportamental.
+        - generic [ref=e1041]:
+          - generic [ref=e1042]:
+            - img [ref=e1044]
+            - generic [ref=e1047]:
+              - heading "Garantia Incondicional" [level=4] [ref=e1048]
+              - paragraph [ref=e1049]: Se em 7 dias não sentires que o teu protocolo está a mudar a tua percepção sobre dinheiro, devolvemos 100% do teu investimento. Sem perguntas.
+          - generic [ref=e1054]:
+            - heading "Chega de repetir os mesmos padrões." [level=3] [ref=e1055]
+            - paragraph [ref=e1056]: O seu arquétipo não é um destino. É um ponto de partida.
+            - button "DESCOBRIR MEU ARQUÉTIPO →" [ref=e1057]:
+              - img [ref=e1059]
+              - generic [ref=e1061]: DESCOBRIR MEU ARQUÉTIPO →
+            - generic [ref=e1063]:
+              - img [ref=e1064]
+              - generic [ref=e1067]: 🔒 Stripe • 🛡️ SSL • Cancelar a qualquer momento
+    - contentinfo [ref=e365]:
+      - generic [ref=e366]:
+        - paragraph [ref=e367]: © 2026 MindReset Inc.
+        - generic [ref=e368]:
+          - link "Privacidade" [ref=e648] [cursor=pointer]:
+            - /url: /privacy
+          - link "Termos" [ref=e649] [cursor=pointer]:
+            - /url: /terms
+  - complementary "Edit with Lovable" [ref=e381]:
+    - link "Edit with Lovable" [ref=e382] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e383]: Edit with
+      - img [ref=e384]
+    - button "Dismiss" [ref=e389] [cursor=pointer]:
+      - img [ref=e390]

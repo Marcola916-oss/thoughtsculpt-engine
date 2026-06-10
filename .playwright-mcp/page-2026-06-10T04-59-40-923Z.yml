@@ -1,0 +1,316 @@
+- generic [active] [ref=e1]:
+  - complementary "Edit with Lovable" [ref=e17]:
+    - link "Edit with Lovable" [ref=e18] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e19]: Edit with
+      - img [ref=e20]
+    - button "Dismiss" [ref=e25] [cursor=pointer]:
+      - img [ref=e26]
+  - generic [ref=e424]:
+    - complementary [ref=e425]:
+      - generic [ref=e426]:
+        - generic [ref=e429]:
+          - link "M Mind Brain Reset" [ref=e430] [cursor=pointer]:
+            - /url: /dashboard
+            - generic [ref=e432]: M
+            - generic [ref=e433]:
+              - generic [ref=e434]:
+                - text: Mind
+                - img "Brain" [ref=e435]:
+                  - img [ref=e436]
+              - generic [ref=e437]: Reset
+          - paragraph [ref=e438]: Protocol v3.0 // 2026
+        - navigation [ref=e439]:
+          - link "Início" [ref=e441] [cursor=pointer]:
+            - /url: /dashboard
+            - generic [ref=e442]: 🏠
+            - generic [ref=e443]: Início
+          - link "Diagnóstico NOVO" [ref=e445] [cursor=pointer]:
+            - /url: /dashboard/diagnosis
+            - generic [ref=e446]: 🧠
+            - generic [ref=e447]: Diagnóstico
+            - generic [ref=e448]: NOVO
+          - link "Matriz de Ação" [ref=e450] [cursor=pointer]:
+            - /url: /dashboard/calendar
+            - generic [ref=e451]: 📅
+            - generic [ref=e452]: Matriz de Ação
+          - link "Compass" [ref=e454] [cursor=pointer]:
+            - /url: /dashboard/compass
+            - generic [ref=e455]: 🧭
+            - generic [ref=e456]: Compass
+          - link "Progresso 0" [ref=e458] [cursor=pointer]:
+            - /url: /dashboard/progress
+            - generic [ref=e460]: 📈
+            - generic [ref=e461]: Progresso
+            - generic [ref=e462]:
+              - img [ref=e463]
+              - generic [ref=e465]: "0"
+          - link "Configurações" [ref=e467] [cursor=pointer]:
+            - /url: /dashboard/settings
+            - generic [ref=e468]: ⚙️
+            - generic [ref=e469]: Configurações
+          - button "Notificações" [ref=e470]:
+            - generic [ref=e471]: 🔔
+            - generic [ref=e472]: Notificações
+        - generic [ref=e473]:
+          - generic [ref=e474]: AO
+          - generic [ref=e475]:
+            - paragraph [ref=e476]: Lucas
+            - paragraph [ref=e477]: Acumulador Obsessivo
+        - button "↩ Sair" [ref=e478]:
+          - generic [ref=e479]: ↩
+          - text: Sair
+    - main [ref=e481]:
+      - generic [ref=e484]:
+        - generic [ref=e485]:
+          - heading "Sua Evolução" [level=1] [ref=e486]
+          - paragraph [ref=e487]: Acompanhe seu progresso, conquistas e relatórios de IA.
+        - generic [ref=e488]:
+          - generic [ref=e489]:
+            - img [ref=e491]
+            - generic [ref=e493]:
+              - generic [ref=e494]:
+                - generic [ref=e495]: "0"
+                - generic [ref=e496]: dias
+              - paragraph [ref=e497]: Consistência Zerada. Comece Hoje!
+            - generic [ref=e499]:
+              - generic [ref=e500]: "Maior Sequência:"
+              - generic [ref=e501]: 0 dias
+          - generic [ref=e502]:
+            - img [ref=e506]:
+              - generic [ref=e508]:
+                - img [ref=e510]
+                - img [ref=e512]
+            - generic:
+              - generic: "15"
+              - generic: Pontos
+            - paragraph [ref=e513]: Faltam 485 pts para o próximo benefício
+          - generic [ref=e514]:
+            - generic [ref=e515]:
+              - generic [ref=e516]: 📊
+              - heading "Relatório Mensal" [level=2] [ref=e517]
+              - paragraph [ref=e518]: Seu relatório gerado por IA estará disponível após 30 dias de protocolo.
+            - generic [ref=e519]: Em breve
+        - generic [ref=e520]:
+          - generic [ref=e521]:
+            - heading "Consistência" [level=3] [ref=e522]
+            - paragraph [ref=e523]: 0 de 180 dias concluídos
+            - generic [ref=e524]:
+              - generic "Dia 1 — Pendente" [ref=e525]
+              - generic "Dia 2 — Pendente" [ref=e526]
+              - generic "Dia 3 — Pendente" [ref=e527]
+              - generic "Dia 4 — Pendente" [ref=e528]
+              - generic "Dia 5 — Pendente" [ref=e529]
+              - generic "Dia 6 — Pendente" [ref=e530]
+              - generic "Dia 7 — Pendente" [ref=e531]
+              - generic "Dia 8 — Pendente" [ref=e532]
+              - generic "Dia 9 — Pendente" [ref=e533]
+              - generic "Dia 10 — Pendente" [ref=e534]
+              - generic "Dia 11 — Pendente" [ref=e535]
+              - generic "Dia 12 — Pendente" [ref=e536]
+              - generic "Dia 13 — Pendente" [ref=e537]
+              - generic "Dia 14 — Pendente" [ref=e538]
+              - generic "Dia 15 — Pendente" [ref=e539]
+              - generic "Dia 16 — Pendente" [ref=e540]
+              - generic "Dia 17 — Pendente" [ref=e541]
+              - generic "Dia 18 — Pendente" [ref=e542]
+              - generic "Dia 19 — Pendente" [ref=e543]
+              - generic "Dia 20 — Pendente" [ref=e544]
+              - generic "Dia 21 — Pendente" [ref=e545]
+              - generic "Dia 22 — Pendente" [ref=e546]
+              - generic "Dia 23 — Pendente" [ref=e547]
+              - generic "Dia 24 — Pendente" [ref=e548]
+              - generic "Dia 25 — Pendente" [ref=e549]
+              - generic "Dia 26 — Pendente" [ref=e550]
+              - generic "Dia 27 — Pendente" [ref=e551]
+              - generic "Dia 28 — Pendente" [ref=e552]
+              - generic "Dia 29 — Pendente" [ref=e553]
+              - generic "Dia 30 — Pendente" [ref=e554]
+              - generic "Dia 31 — Pendente" [ref=e555]
+              - generic "Dia 32 — Pendente" [ref=e556]
+              - generic "Dia 33 — Pendente" [ref=e557]
+              - generic "Dia 34 — Pendente" [ref=e558]
+              - generic "Dia 35 — Pendente" [ref=e559]
+              - generic "Dia 36 — Pendente" [ref=e560]
+              - generic "Dia 37 — Pendente" [ref=e561]
+              - generic "Dia 38 — Pendente" [ref=e562]
+              - generic "Dia 39 — Pendente" [ref=e563]
+              - generic "Dia 40 — Pendente" [ref=e564]
+              - generic "Dia 41 — Pendente" [ref=e565]
+              - generic "Dia 42 — Pendente" [ref=e566]
+              - generic "Dia 43 — Pendente" [ref=e567]
+              - generic "Dia 44 — Pendente" [ref=e568]
+              - generic "Dia 45 — Pendente" [ref=e569]
+              - generic "Dia 46 — Pendente" [ref=e570]
+              - generic "Dia 47 — Pendente" [ref=e571]
+              - generic "Dia 48 — Pendente" [ref=e572]
+              - generic "Dia 49 — Pendente" [ref=e573]
+              - generic "Dia 50 — Pendente" [ref=e574]
+              - generic "Dia 51 — Pendente" [ref=e575]
+              - generic "Dia 52 — Pendente" [ref=e576]
+              - generic "Dia 53 — Pendente" [ref=e577]
+              - generic "Dia 54 — Pendente" [ref=e578]
+              - generic "Dia 55 — Pendente" [ref=e579]
+              - generic "Dia 56 — Pendente" [ref=e580]
+              - generic "Dia 57 — Pendente" [ref=e581]
+              - generic "Dia 58 — Pendente" [ref=e582]
+              - generic "Dia 59 — Pendente" [ref=e583]
+              - generic "Dia 60 — Pendente" [ref=e584]
+              - generic "Dia 61 — Pendente" [ref=e585]
+              - generic "Dia 62 — Pendente" [ref=e586]
+              - generic "Dia 63 — Pendente" [ref=e587]
+              - generic "Dia 64 — Pendente" [ref=e588]
+              - generic "Dia 65 — Pendente" [ref=e589]
+              - generic "Dia 66 — Pendente" [ref=e590]
+              - generic "Dia 67 — Pendente" [ref=e591]
+              - generic "Dia 68 — Pendente" [ref=e592]
+              - generic "Dia 69 — Pendente" [ref=e593]
+              - generic "Dia 70 — Pendente" [ref=e594]
+              - generic "Dia 71 — Pendente" [ref=e595]
+              - generic "Dia 72 — Pendente" [ref=e596]
+              - generic "Dia 73 — Pendente" [ref=e597]
+              - generic "Dia 74 — Pendente" [ref=e598]
+              - generic "Dia 75 — Pendente" [ref=e599]
+              - generic "Dia 76 — Pendente" [ref=e600]
+              - generic "Dia 77 — Pendente" [ref=e601]
+              - generic "Dia 78 — Pendente" [ref=e602]
+              - generic "Dia 79 — Pendente" [ref=e603]
+              - generic "Dia 80 — Pendente" [ref=e604]
+              - generic "Dia 81 — Pendente" [ref=e605]
+              - generic "Dia 82 — Pendente" [ref=e606]
+              - generic "Dia 83 — Pendente" [ref=e607]
+              - generic "Dia 84 — Pendente" [ref=e608]
+              - generic "Dia 85 — Pendente" [ref=e609]
+              - generic "Dia 86 — Pendente" [ref=e610]
+              - generic "Dia 87 — Pendente" [ref=e611]
+              - generic "Dia 88 — Pendente" [ref=e612]
+              - generic "Dia 89 — Pendente" [ref=e613]
+              - generic "Dia 90 — Pendente" [ref=e614]
+              - generic "Dia 91 — Pendente" [ref=e615]
+              - generic "Dia 92 — Pendente" [ref=e616]
+              - generic "Dia 93 — Pendente" [ref=e617]
+              - generic "Dia 94 — Pendente" [ref=e618]
+              - generic "Dia 95 — Pendente" [ref=e619]
+              - generic "Dia 96 — Pendente" [ref=e620]
+              - generic "Dia 97 — Pendente" [ref=e621]
+              - generic "Dia 98 — Pendente" [ref=e622]
+              - generic "Dia 99 — Pendente" [ref=e623]
+              - generic "Dia 100 — Pendente" [ref=e624]
+              - generic "Dia 101 — Pendente" [ref=e625]
+              - generic "Dia 102 — Pendente" [ref=e626]
+              - generic "Dia 103 — Pendente" [ref=e627]
+              - generic "Dia 104 — Pendente" [ref=e628]
+              - generic "Dia 105 — Pendente" [ref=e629]
+              - generic "Dia 106 — Pendente" [ref=e630]
+              - generic "Dia 107 — Pendente" [ref=e631]
+              - generic "Dia 108 — Pendente" [ref=e632]
+              - generic "Dia 109 — Pendente" [ref=e633]
+              - generic "Dia 110 — Pendente" [ref=e634]
+              - generic "Dia 111 — Pendente" [ref=e635]
+              - generic "Dia 112 — Pendente" [ref=e636]
+              - generic "Dia 113 — Pendente" [ref=e637]
+              - generic "Dia 114 — Pendente" [ref=e638]
+              - generic "Dia 115 — Pendente" [ref=e639]
+              - generic "Dia 116 — Pendente" [ref=e640]
+              - generic "Dia 117 — Pendente" [ref=e641]
+              - generic "Dia 118 — Pendente" [ref=e642]
+              - generic "Dia 119 — Pendente" [ref=e643]
+              - generic "Dia 120 — Pendente" [ref=e644]
+              - generic "Dia 121 — Pendente" [ref=e645]
+              - generic "Dia 122 — Pendente" [ref=e646]
+              - generic "Dia 123 — Pendente" [ref=e647]
+              - generic "Dia 124 — Pendente" [ref=e648]
+              - generic "Dia 125 — Pendente" [ref=e649]
+              - generic "Dia 126 — Pendente" [ref=e650]
+              - generic "Dia 127 — Pendente" [ref=e651]
+              - generic "Dia 128 — Pendente" [ref=e652]
+              - generic "Dia 129 — Pendente" [ref=e653]
+              - generic "Dia 130 — Pendente" [ref=e654]
+              - generic "Dia 131 — Pendente" [ref=e655]
+              - generic "Dia 132 — Pendente" [ref=e656]
+              - generic "Dia 133 — Pendente" [ref=e657]
+              - generic "Dia 134 — Pendente" [ref=e658]
+              - generic "Dia 135 — Pendente" [ref=e659]
+              - generic "Dia 136 — Pendente" [ref=e660]
+              - generic "Dia 137 — Pendente" [ref=e661]
+              - generic "Dia 138 — Pendente" [ref=e662]
+              - generic "Dia 139 — Pendente" [ref=e663]
+              - generic "Dia 140 — Pendente" [ref=e664]
+              - generic "Dia 141 — Pendente" [ref=e665]
+              - generic "Dia 142 — Pendente" [ref=e666]
+              - generic "Dia 143 — Pendente" [ref=e667]
+              - generic "Dia 144 — Pendente" [ref=e668]
+              - generic "Dia 145 — Pendente" [ref=e669]
+              - generic "Dia 146 — Pendente" [ref=e670]
+              - generic "Dia 147 — Pendente" [ref=e671]
+              - generic "Dia 148 — Pendente" [ref=e672]
+              - generic "Dia 149 — Pendente" [ref=e673]
+              - generic "Dia 150 — Pendente" [ref=e674]
+              - generic "Dia 151 — Pendente" [ref=e675]
+              - generic "Dia 152 — Pendente" [ref=e676]
+              - generic "Dia 153 — Pendente" [ref=e677]
+              - generic "Dia 154 — Pendente" [ref=e678]
+              - generic "Dia 155 — Pendente" [ref=e679]
+              - generic "Dia 156 — Pendente" [ref=e680]
+              - generic "Dia 157 — Pendente" [ref=e681]
+              - generic "Dia 158 — Pendente" [ref=e682]
+              - generic "Dia 159 — Pendente" [ref=e683]
+              - generic "Dia 160 — Pendente" [ref=e684]
+              - generic "Dia 161 — Pendente" [ref=e685]
+              - generic "Dia 162 — Pendente" [ref=e686]
+              - generic "Dia 163 — Pendente" [ref=e687]
+              - generic "Dia 164 — Pendente" [ref=e688]
+              - generic "Dia 165 — Pendente" [ref=e689]
+              - generic "Dia 166 — Pendente" [ref=e690]
+              - generic "Dia 167 — Pendente" [ref=e691]
+              - generic "Dia 168 — Pendente" [ref=e692]
+              - generic "Dia 169 — Pendente" [ref=e693]
+              - generic "Dia 170 — Pendente" [ref=e694]
+              - generic "Dia 171 — Pendente" [ref=e695]
+              - generic "Dia 172 — Pendente" [ref=e696]
+              - generic "Dia 173 — Pendente" [ref=e697]
+              - generic "Dia 174 — Pendente" [ref=e698]
+              - generic "Dia 175 — Pendente" [ref=e699]
+              - generic "Dia 176 — Pendente" [ref=e700]
+              - generic "Dia 177 — Pendente" [ref=e701]
+              - generic "Dia 178 — Pendente" [ref=e702]
+              - generic "Dia 179 — Pendente" [ref=e703]
+              - generic "Dia 180 — Pendente" [ref=e704]
+            - generic [ref=e705]:
+              - generic [ref=e706]: Bloqueado
+              - generic [ref=e708]: Pendente
+              - generic [ref=e710]: Concluído
+              - generic [ref=e712]: Marco
+          - generic [ref=e714]:
+            - heading "Conquistas" [level=3] [ref=e715]
+            - generic [ref=e716]:
+              - generic [ref=e717]:
+                - generic [ref=e718]: 🔒
+                - generic [ref=e719]:
+                  - heading "Primeiro Passo" [level=4] [ref=e720]
+                  - paragraph [ref=e721]: Completar o Dia 1 do protocolo.
+              - generic [ref=e722]:
+                - generic [ref=e723]: 🔒
+                - generic [ref=e724]:
+                  - heading "7 Dias de Reset" [level=4] [ref=e725]
+                  - paragraph [ref=e726]: Completar 7 dias consecutivos.
+              - generic [ref=e727]:
+                - generic [ref=e728]: 🔒
+                - generic [ref=e729]:
+                  - heading "Exportador" [level=4] [ref=e730]
+                  - paragraph [ref=e731]: Exportar seu calendário pela 1ª vez.
+              - generic [ref=e732]:
+                - generic [ref=e733]: 🔒
+                - generic [ref=e734]:
+                  - heading "15 Dias Imparável" [level=4] [ref=e735]
+                  - paragraph [ref=e736]: Manter o streak por 15 dias.
+              - generic [ref=e737]:
+                - generic [ref=e738]: 🔒
+                - generic [ref=e739]:
+                  - heading "Meio Caminho" [level=4] [ref=e740]
+                  - paragraph [ref=e741]: Chegar ao Dia 15 do protocolo.
+              - generic [ref=e742]:
+                - generic [ref=e743]: 🔒
+                - generic [ref=e744]:
+                  - heading "Veterano" [level=4] [ref=e745]
+                  - paragraph [ref=e746]: Completar os primeiros 30 dias.

@@ -14,14 +14,14 @@ export const PRICES: Record<Currency, PriceRow> = {
 
 export const PLAN_DAYS: Record<PlanKey, number> = { "30d": 30, "6m": 180, "1y": 365 };
 
-export function formatPrice(currency: Currency, amount: number): string {
+export function formatPrice(currency: Currency, amount: number, opts?: { minimumFractionDigits?: number; maximumFractionDigits?: number }): string {
   const locale =
     currency === "PLN" ? "pl-PL" :
     currency === "RON" ? "ro-RO" :
     currency === "SAR" ? "ar-SA" :
     currency === "EUR" ? "de-DE" : "en-US";
   try {
-    return new Intl.NumberFormat(locale, { style: "currency", currency, maximumFractionDigits: 0 }).format(amount);
+    return new Intl.NumberFormat(locale, { style: "currency", currency, minimumFractionDigits: opts?.minimumFractionDigits ?? 0, maximumFractionDigits: opts?.maximumFractionDigits ?? 0 }).format(amount);
   } catch {
     return `${amount} ${currency}`;
   }
@@ -30,5 +30,5 @@ export function formatPrice(currency: Currency, amount: number): string {
 export function pricePerDay(currency: Currency, plan: PlanKey): string {
   const total = PRICES[currency][plan];
   const days = PLAN_DAYS[plan];
-  return formatPrice(currency, +(total / days).toFixed(2));
+  return formatPrice(currency, +(total / days).toFixed(2), { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 }

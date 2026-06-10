@@ -1,0 +1,68 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e650]:
+      - generic [ref=e651]:
+        - link "M Mind Reset Brain" [ref=e652] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e655]: M
+          - generic [ref=e657]:
+            - generic [ref=e658]: Mind
+            - generic [ref=e659]: Reset
+            - img "Brain" [ref=e660]:
+              - img [ref=e661]
+        - generic [ref=e662]:
+          - combobox "Language" [ref=e664]:
+            - option "Português" [selected]
+            - option "English"
+            - option "Polski"
+            - option "Română"
+            - option "العربية"
+          - link "Entrar" [ref=e665] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=e666]: Entrar
+    - main [ref=e4]:
+      - generic [ref=e670]:
+        - generic [ref=e674]:
+          - generic [ref=e675]:
+            - button "Voltar" [ref=e699]:
+              - img [ref=e700]
+            - generic [ref=e676]: Finalização
+          - generic [ref=e677]: 90%
+        - generic [ref=e851]:
+          - heading "Se pudesses mudar UMA coisa no teu comportamento financeiro seria:" [level=2] [ref=e852]
+          - paragraph [ref=e853]: Sofia, escolhe a opção que mais se parece contigo — não há respostas erradas.
+          - generic [ref=e854]:
+            - button "A Parar de viver em modo escassez" [ref=e855] [cursor=pointer]:
+              - generic [ref=e856]: A
+              - generic [ref=e857]: Parar de viver em modo escassez
+              - generic:
+                - img
+            - button "B Comprar por mim e não pelos outros" [ref=e858] [cursor=pointer]:
+              - generic [ref=e859]: B
+              - generic [ref=e860]: Comprar por mim e não pelos outros
+              - generic:
+                - img
+            - button "C Olhar para as minhas contas sem fugir" [ref=e861] [cursor=pointer]:
+              - generic [ref=e862]: C
+              - generic [ref=e863]: Olhar para as minhas contas sem fugir
+              - generic:
+                - img
+            - button "D Conseguir adiar uma compra por 24h" [active] [ref=e864] [cursor=pointer]:
+              - generic [ref=e865]: D
+              - generic [ref=e866]: Conseguir adiar uma compra por 24h
+              - img [ref=e868]
+    - contentinfo [ref=e365]:
+      - generic [ref=e366]:
+        - paragraph [ref=e367]: © 2026 MindReset Inc.
+        - generic [ref=e368]:
+          - link "Privacidade" [ref=e648] [cursor=pointer]:
+            - /url: /privacy
+          - link "Termos" [ref=e649] [cursor=pointer]:
+            - /url: /terms
+  - complementary "Edit with Lovable" [ref=e381]:
+    - link "Edit with Lovable" [ref=e382] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e383]: Edit with
+      - img [ref=e384]
+    - button "Dismiss" [ref=e389] [cursor=pointer]:
+      - img [ref=e390]

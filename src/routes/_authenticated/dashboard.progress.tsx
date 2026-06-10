@@ -202,8 +202,8 @@ function ProgressPage() {
   // Donut chart
   const nextRewardTier = Math.ceil((points + 1) / 500) * 500;
   const chartData = [
-    { name: "Points", value: points },
-    { name: "Remaining", value: Math.max(nextRewardTier - points, 0) },
+    { name: t.dashboard.progress.donut.points, value: points },
+    { name: t.dashboard.progress.donut.remaining, value: Math.max(nextRewardTier - points, 0) },
   ];
   const COLORS = ["var(--color-primary)", "var(--color-border)"];
 

@@ -113,7 +113,7 @@ function DiagnosisPage() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
     doc.setTextColor(204, 0, 0);
-    doc.text("MindReset — Dossiê Comportamental", margin, y);
+    doc.text(t.dashboard.diagnosis.pdf.header, margin, y);
     y += 10;
 
     doc.setFont("helvetica", "normal");
@@ -164,7 +164,7 @@ function DiagnosisPage() {
     doc.setFontSize(8);
     doc.setTextColor(140, 140, 140);
     doc.text(
-      "MindReset — Análise comportamental. Não constitui aconselhamento profissional.",
+      t.dashboard.diagnosis.pdf.footer,
       margin,
       y
     );

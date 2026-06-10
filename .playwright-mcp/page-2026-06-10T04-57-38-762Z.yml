@@ -1,0 +1,28 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "MindReset" [ref=e5] [cursor=pointer]:
+      - /url: /
+    - heading "Log in" [level=1] [ref=e6]
+    - generic [ref=e7]:
+      - textbox "you@example.com" [ref=e8]
+      - textbox "••••••••" [ref=e9]
+      - button "Log in" [ref=e10]
+    - button "Forgot password?" [ref=e11]
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - paragraph [ref=e15]: We use location technologies to personalize your experience. By continuing you agree to our Privacy Policy.
+      - generic [ref=e16]:
+        - link "Privacy" [ref=e17] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms" [ref=e18] [cursor=pointer]:
+          - /url: /terms
+    - generic [ref=e19]:
+      - button "Essential only" [ref=e20]
+      - button "Accept all" [ref=e21]
+  - complementary "Edit with Lovable" [ref=e22]:
+    - link "Edit with Lovable" [ref=e23] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e24]: Edit with
+      - img [ref=e25]
+    - button "Dismiss" [ref=e30] [cursor=pointer]:
+      - img [ref=e31]

@@ -11,13 +11,6 @@ import { staggerContainer, staggerItem } from "../../lib/animations";
 import { StreakCounter } from "../../components/gamification/StreakCounter";
 import { BentoCard } from "../../components/ui/BentoCard";
 
-const ARCHETYPE_QUOTES: Record<Archetype, string> = {
-  AO: "Segurança real não vem de acumular — vem de confiar.",
-  SS: "Sua riqueza real não precisa de aprovação.",
-  EA: "Cada passo em direção à clareza é uma vitória.",
-  HI: "A melhor recompensa vem de quem espera.",
-};
-
 const ARCHETYPE_GRADIENTS: Record<Archetype, string> = {
   AO: "from-blue-950/40",
   SS: "from-purple-950/40",
@@ -101,7 +94,7 @@ function HubPage() {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <h2 className="text-lg font-bold text-primary">Failed to load dashboard data</h2>
+        <h2 className="text-lg font-bold text-primary">{t.dashboardErrors.failedLoad}</h2>
         <p className="text-sm text-muted-foreground">{(error as Error).message}</p>
       </div>
     );
@@ -111,10 +104,10 @@ function HubPage() {
   const name = data?.profile?.display_name ?? "";
 
   const cards = [
-    { to: "/dashboard/diagnosis" as const, icon: "🧠", ...t.dashboard.hub.cards.diagnosis, badge: !hasDiagnosis ? "NOVO" : null },
-    { to: "/dashboard/calendar" as const, icon: "📅", ...t.dashboard.hub.cards.calendar, badge: "Hoje" },
+    { to: "/dashboard/diagnosis" as const, icon: "🧠", ...t.dashboard.hub.cards.diagnosis, badge: !hasDiagnosis ? t.dashboard.hub.badges.new : null },
+    { to: "/dashboard/calendar" as const, icon: "📅", ...t.dashboard.hub.cards.calendar, badge: t.dashboard.hub.badges.today },
     { to: "/dashboard/compass" as const, icon: "🧭", ...t.dashboard.hub.cards.compass, badge: null },
-    { to: "/dashboard/progress" as const, icon: "📈", title: lang === "pt" ? "Progresso" : "Progress", desc: lang === "pt" ? `${points} pontos acumulados` : `${points} points earned`, cta: lang === "pt" ? "Ver progresso" : "View progress", badge: streak > 0 ? `🔥${streak}` : null },
+    { to: "/dashboard/progress" as const, icon: "📈", ...t.dashboard.hub.cards.progress, badge: streak > 0 ? `🔥${streak}` : null },
   ];
 
   const hour = String(new Date().getHours());
@@ -158,7 +151,7 @@ function HubPage() {
               <span className="text-4xl font-black italic">PROTOCOL</span>
             </div>
             <p className="text-sm italic" style={{ color: "var(--arch-primary)" }}>
-              &ldquo;{ARCHETYPE_QUOTES[archetype]}&rdquo;
+              &ldquo;{t.dashboard.hub.quotes[archetype]}&rdquo;
             </p>
             <p className="text-xs text-muted-foreground mt-1">
               {ARCHETYPE_NAMES[archetype][lang]} — {new Date().toLocaleDateString(lang === "pt" ? "pt-BR" : lang === "pl" ? "pl-PL" : lang === "ro" ? "ro-RO" : "en-US", { weekday: "long", day: "numeric", month: "long" })}
@@ -175,9 +168,9 @@ function HubPage() {
         animate="visible"
       >
         {[
-          { label: lang === "pt" ? "Pontos" : "Points", value: points.toLocaleString(), icon: "⭐" },
-          { label: "Streak", value: `${streak}d`, icon: "🔥" },
-          { label: lang === "pt" ? "Tarefas" : "Tasks", value: tasksCompleted, icon: "✅" },
+          { label: t.dashboard.hub.stats.points, value: points.toLocaleString(), icon: "⭐" },
+          { label: t.dashboard.hub.stats.streak, value: `${streak}d`, icon: "🔥" },
+          { label: t.dashboard.hub.stats.tasks, value: tasksCompleted, icon: "✅" },
         ].map((stat, i) => (
           <motion.div
             key={i}
@@ -213,14 +206,14 @@ function HubPage() {
                   {c.badge && (
                     <motion.span
                       className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                        c.badge === "NOVO"
+                        c.badge === t.dashboard.hub.badges.new
                           ? "text-primary bg-primary/10 border border-primary/30"
                           : c.badge.startsWith("🔥")
                           ? "text-warning bg-warning/10"
                           : "text-primary bg-primary/10"
                       }`}
-                      animate={c.badge === "NOVO" ? { opacity: [1, 0.5, 1] } : {}}
-                      transition={c.badge === "NOVO" ? { duration: 2, repeat: Infinity } : {}}
+                      animate={c.badge === t.dashboard.hub.badges.new ? { opacity: [1, 0.5, 1] } : {}}
+                      transition={c.badge === t.dashboard.hub.badges.new ? { duration: 2, repeat: Infinity } : {}}
                     >
                       {c.badge}
                     </motion.span>

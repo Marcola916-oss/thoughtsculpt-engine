@@ -1,0 +1,68 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e650]:
+      - generic [ref=e651]:
+        - link "M Mind Reset Brain" [ref=e652] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e655]: M
+          - generic [ref=e657]:
+            - generic [ref=e658]: Mind
+            - generic [ref=e659]: Reset
+            - img "Brain" [ref=e660]:
+              - img [ref=e661]
+        - generic [ref=e662]:
+          - combobox "Language" [ref=e664]:
+            - option "Português" [selected]
+            - option "English"
+            - option "Polski"
+            - option "Română"
+            - option "العربية"
+          - link "Entrar" [ref=e665] [cursor=pointer]:
+            - /url: /login
+            - generic [ref=e666]: Entrar
+    - main [ref=e4]:
+      - generic [ref=e670]:
+        - generic [ref=e674]:
+          - generic [ref=e675]:
+            - button "Voltar" [ref=e699]:
+              - img [ref=e700]
+            - generic [ref=e676]: Pergunta 5 de 8
+          - generic [ref=e677]: 53%
+        - generic [ref=e767]:
+          - heading "No fim do mês a tua conta normalmente está:" [level=2] [ref=e768]
+          - paragraph [ref=e769]: Sofia, escolhe a opção que mais se parece contigo — não há respostas erradas.
+          - generic [ref=e770]:
+            - button "A Com mais do que esperavas — poupaste demais" [ref=e771] [cursor=pointer]:
+              - generic [ref=e772]: A
+              - generic [ref=e773]: Com mais do que esperavas — poupaste demais
+              - generic:
+                - img
+            - button "B Vazia depois de subscrições, jantares, marcas" [ref=e774] [cursor=pointer]:
+              - generic [ref=e775]: B
+              - generic [ref=e776]: Vazia depois de subscrições, jantares, marcas
+              - generic:
+                - img
+            - button "C Não sei ao certo — não confiro" [ref=e777] [cursor=pointer]:
+              - generic [ref=e778]: C
+              - generic [ref=e779]: Não sei ao certo — não confiro
+              - generic:
+                - img
+            - button "D Vazia, mas valeu cada momento" [active] [ref=e780] [cursor=pointer]:
+              - generic [ref=e781]: D
+              - generic [ref=e782]: Vazia, mas valeu cada momento
+              - img [ref=e784]
+    - contentinfo [ref=e365]:
+      - generic [ref=e366]:
+        - paragraph [ref=e367]: © 2026 MindReset Inc.
+        - generic [ref=e368]:
+          - link "Privacidade" [ref=e648] [cursor=pointer]:
+            - /url: /privacy
+          - link "Termos" [ref=e649] [cursor=pointer]:
+            - /url: /terms
+  - complementary "Edit with Lovable" [ref=e381]:
+    - link "Edit with Lovable" [ref=e382] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e383]: Edit with
+      - img [ref=e384]
+    - button "Dismiss" [ref=e389] [cursor=pointer]:
+      - img [ref=e390]

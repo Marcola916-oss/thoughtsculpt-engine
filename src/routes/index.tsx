@@ -296,7 +296,7 @@ function LandingAndQuiz() {
                 stepKey="identity"
                 progress={0}
                 onBack={undefined}
-                progressTitle="Identificação"
+                progressTitle={t.quizProgress.identity}
               >
                 <Identity
                   name={name}
@@ -338,7 +338,7 @@ function LandingAndQuiz() {
                 stepKey="email"
                 progress={90}
                 onBack={() => setStage({ kind: "q", index: 7 })}
-                progressTitle="Finalização"
+                progressTitle={t.quizProgress.email}
               >
                 <EmailCapture
                   name={name}
@@ -720,15 +720,15 @@ function Hero({ onStart }: { onStart: () => void }) {
           <div className="flex items-center gap-6 text-muted-foreground/60">
             <div className="flex items-center gap-2 text-sm font-bold">
               <ShieldCheck className="h-4 w-4" />
-              <span>SSL Seguro</span>
+              <span>{t.hero.trustSsl}</span>
             </div>
             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
               <Lock className="h-4 w-4 text-blue-500/50" />
-              <span>Dados Protegidos</span>
+              <span>{t.hero.trustData}</span>
             </div>
             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
               <Clock className="h-4 w-4 text-arch-primary/50" />
-              <span>7 dias garantia</span>
+              <span>{t.hero.trustGuarantee}</span>
             </div>
           </div>
 
@@ -1400,7 +1400,7 @@ function Sales({
                 className="italic h-28 md:h-32 px-12 md:px-20 text-3xl md:text-4xl"
                 icon={<ArrowRight size={40} className="text-arch-primary ml-4" />}
               >
-                DESCOBRIR MEU ARQUÉTIPO →
+                 {t.salesCta.discoverArchetype}
               </PrimaryButton>
 
               <div className="mt-16 flex items-center justify-center gap-8">
@@ -1417,7 +1417,7 @@ function Sales({
   );
 }
 
-/* ÔöÇÔöÇÔöÇ Plans ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* ── Plans ─────────────────────────────── */
 
 function Plans({
   email,
@@ -1531,10 +1531,10 @@ function Plans({
           let discountStr = null;
           if (p === "6m") {
             const savings = Math.round((1 - total / (baseMonthlyPrice * 6)) * 100);
-            discountStr = `${t.plans.mostPopular} ┬À ÔêÆ${savings}%`;
+            discountStr = `${t.plans.mostPopular} — ↓${savings}%`;
           } else if (p === "1y") {
             const savings = Math.round((1 - total / (baseMonthlyPrice * 12)) * 100);
-            discountStr = `ÔêÆ${savings}%`;
+            discountStr = `↓${savings}%`;
           }
 
           return (
@@ -1628,7 +1628,7 @@ function Plans({
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-arch-primary/10">
             <ShieldCheck className="h-8 w-8 text-arch-primary" />
           </div>
-          <p className="text-xl font-bold text-foreground">7 Dias de Garantia</p>
+          <p className="text-xl font-bold text-foreground">{t.plansExtra.guarantee7Days}</p>
           <p className="text-sm text-muted-foreground max-w-md">{t.plans.guarantee}</p>
         </MSection>
 

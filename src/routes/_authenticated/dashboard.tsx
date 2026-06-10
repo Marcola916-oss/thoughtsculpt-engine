@@ -66,17 +66,17 @@ function DashboardLayout() {
         </div>
         <div className="max-w-md space-y-6">
           <h2 className="font-display text-2xl font-bold tracking-tight text-white">
-            Connection Interrupted
+            {t.dashboardErrors.connectionHeading}
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            We couldn't synchronize your neural profile. This usually happens due to a temporary connection issue.
+            {t.dashboardErrors.connectionDesc}
           </p>
           <div className="flex flex-col gap-3">
             <button 
               onClick={() => refetch()}
               className="w-full rounded-full bg-primary py-4 text-sm font-black uppercase tracking-widest text-primary-foreground shadow-[0_0_20px_rgba(204,0,0,0.45)] transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              Re-establish Connection
+              {t.dashboardErrors.reconnectButton}
             </button>
             <button 
               onClick={async () => {
@@ -85,7 +85,7 @@ function DashboardLayout() {
               }}
               className="text-xs font-bold text-muted-foreground hover:text-primary transition-colors"
             >
-              Sign out and try again
+              {t.dashboardErrors.signOutTryAgain}
             </button>
           </div>
         </div>
@@ -99,7 +99,7 @@ function DashboardLayout() {
       <div className="flex min-h-screen items-center justify-center bg-black">
         <div className="flex flex-col items-center gap-4">
           <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
-          <p className="text-sm font-medium text-muted-foreground animate-pulse">Initializing Protocol...</p>
+          <p className="text-sm font-medium text-muted-foreground animate-pulse">{t.dashboardErrors.initializing}</p>
         </div>
       </div>
     );
@@ -136,7 +136,7 @@ function DashboardLayout() {
               to="/dashboard/settings" 
               className="shrink-0 rounded-lg bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground hover:bg-primary-dark transition"
             >
-              {isGrace ? t.dashboard.layout.banner.updateButton : "Upsell"}
+              {isGrace ? t.dashboard.layout.banner.updateButton : t.dashboardErrors.initializing}
             </Link>
           </div>
         )}

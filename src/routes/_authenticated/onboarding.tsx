@@ -169,7 +169,7 @@ function OnboardingPage() {
     onError: (err) => {
       console.error("Onboarding submission failed:", err);
       // If it fails, we show an alert but don't redirect to avoid the loop
-      alert("Houve um erro ao salvar seu progresso. Por favor, tente novamente.");
+      alert(t.onboardingExtra.saveError);
       setShowLoader(false);
     },
   });

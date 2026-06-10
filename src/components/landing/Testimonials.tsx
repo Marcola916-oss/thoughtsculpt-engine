@@ -52,7 +52,7 @@ export function Testimonials() {
             <div
               className="flex items-center gap-1 text-amber-400 group-hover:text-amber-300 transition-colors"
               role="img"
-              aria-label={`${item.stars} de 5 estrelas`}
+              aria-label={tt.starsAlt(item.stars)}
             >
               {Array.from({ length: item.stars }).map((_, s) => (
                 <Star key={s} className="h-3.5 w-3.5 fill-current" />

@@ -1,0 +1,17 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "MindReset" [ref=e5] [cursor=pointer]:
+      - /url: /
+    - heading "Entrar" [level=1] [ref=e33]
+    - generic [ref=e7]:
+      - textbox "tuemail@exemplo.com" [ref=e34]
+      - textbox "••••••••" [ref=e9]
+      - button "Entrar" [ref=e35]
+    - button "Forgot password?" [ref=e11]
+  - complementary "Edit with Lovable" [ref=e22]:
+    - link "Edit with Lovable" [ref=e23] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e24]: Edit with
+      - img [ref=e25]
+    - button "Dismiss" [ref=e30] [cursor=pointer]:
+      - img [ref=e31]

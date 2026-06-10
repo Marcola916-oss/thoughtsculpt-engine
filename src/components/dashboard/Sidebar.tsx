@@ -57,7 +57,7 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
             <span className="text-arch-primary leading-none transition-colors duration-500">Reset</span>
           </div>
         </Link>
-        <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.4em] mt-3">Protocol v3.0 // 2026</p>
+        <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.4em] mt-3">{t.commonExtra.protocolVersion}</p>
       </div>
 
       {/* Nav */}
@@ -98,7 +98,7 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
                     animate={{ opacity: [1, 0.5, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    NOVO
+                    {t.dashboard.hub.badges.new}
                   </motion.span>
                 )}
 
@@ -136,7 +136,7 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
             {profile.archetype || "MR"}
           </div>
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-xs font-black text-foreground truncate uppercase tracking-wider">{profile.display_name || "Membro"}</p>
+            <p className="text-xs font-black text-foreground truncate uppercase tracking-wider">{profile.display_name || t.common.login}</p>
             <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] mt-0.5 truncate italic">
               {profile.archetype ? (t.archetypes as any)?.[profile.archetype]?.name || profile.archetype : "MindReset"}
             </p>
@@ -326,7 +326,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <button
             onClick={() => setMobileOpen(true)}
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition hover:text-foreground"
-            aria-label="Open menu"
+            aria-label={t.commonExtra.openMenu}
           >
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />

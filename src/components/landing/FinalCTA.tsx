@@ -56,7 +56,7 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
           </span>
           <span className="hidden h-3 w-px bg-white/15 md:block" />
           <span className="inline-flex items-center gap-1.5">
-            <Lock className="h-3.5 w-3.5" /> SSL · Dados protegidos
+            <Lock className="h-3.5 w-3.5" /> {c.trustLine}
           </span>
         </div>
       </Reveal>

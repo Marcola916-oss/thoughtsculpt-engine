@@ -71,7 +71,7 @@ function ThankYouPage() {
 
   useEffect(() => {
     if (!sessionId) {
-      setError("Sessão de checkout não encontrada.");
+      setError(t.obrigado.errorHeading);
       setLoading(false);
       return;
     }
@@ -83,7 +83,7 @@ function ThankYouPage() {
       })
       .catch((e) => {
         console.error(e);
-        setError(e?.message ?? "Erro inesperado");
+        setError(e?.message ?? t.obrigado.errorHeading);
         setLoading(false);
       });
   }, [sessionId]);
@@ -117,7 +117,7 @@ function ThankYouPage() {
           <CircuitBrain variant="loader" size={120} withGlow animated />
         </div>
         <p className="mt-8 text-lg font-black uppercase tracking-[0.2em] text-primary animate-pulse">
-          PREPARANDO SEU ACESSO...
+          {t.obrigado.loadingTitle}
         </p>
       </div>
     );
@@ -128,41 +128,41 @@ function ThankYouPage() {
       <div className="flex min-h-screen items-center justify-center bg-black p-4 text-white">
         <div className="rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-8 text-center max-w-md md:backdrop-blur-xl">
           <span className="text-4xl">⚠️</span>
-          <h2 className="mt-4 mb-2 text-2xl font-bold text-[#CC0000]">Algo deu errado</h2>
+          <h2 className="mt-4 mb-2 text-2xl font-bold text-[#CC0000]">{t.obrigado.errorHeading}</h2>
           <p className="text-gray-400 leading-relaxed">{error}</p>
           <Link
             data-cursor="hover"
             to="/"
             className="mt-6 inline-block rounded-full bg-[#CC0000] px-6 py-3 font-bold text-white transition hover:scale-105"
           >
-            Voltar ao início
+            {t.obrigado.errorGoHome}
           </Link>
         </div>
       </div>
     );
   }
 
-  const firstName = displayName?.split(" ")[0] || "MindReset Membro";
+  const firstName = displayName?.split(" ")[0] || t.obrigado.fallbackName;
 
   const steps = [
     {
       icon: Brain,
-      title: "Acesse o Dashboard",
-      desc: "Veja seu painel personalizado com tudo organizado",
+      title: t.obrigado.step1Title,
+      desc: t.obrigado.step1Desc,
       href: "/dashboard/",
       color: "from-blue-500/20 to-blue-600/10",
     },
     {
       icon: CalendarIcon,
-      title: "Complete o Onboarding",
-      desc: "7 perguntas rápidas para calibrar seu protocolo",
+      title: t.obrigado.step2Title,
+      desc: t.obrigado.step2Desc,
       href: "/_authenticated/onboarding/",
       color: "from-amber-500/20 to-amber-600/10",
     },
     {
       icon: CompassIcon,
-      title: "Comece seu Diagnóstico",
-      desc: "IA gera sua análise comportamental completa",
+      title: t.obrigado.step3Title,
+      desc: t.obrigado.step3Desc,
       href: "/dashboard/diagnosis",
       color: "from-emerald-500/20 to-emerald-600/10",
     },
@@ -206,13 +206,12 @@ function ThankYouPage() {
             </motion.div>
 
             <h1 className="font-display text-4xl md:text-5xl font-black tracking-tighter leading-tight">
-              Bem-vindo ao MindReset,
+              {t.obrigado.welcomeHeading}
               <br />
               <TypewriterText text={firstName} className="text-[#CC0000]" />!
             </h1>
             <p className="mt-4 text-lg text-gray-400 leading-relaxed max-w-xl mx-auto">
-              Sua jornada de transformação comportamental começa agora. Estamos felizes em ter você
-              connosco.
+              {t.obrigado.welcomeSub}
             </p>
           </motion.div>
 
@@ -225,22 +224,22 @@ function ThankYouPage() {
           >
             <div className="flex items-center gap-3 mb-6">
               <ShieldCheck className="h-6 w-6 text-[#CC0000]" />
-              <h2 className="font-display text-xl font-bold">Seus Dados de Acesso</h2>
+              <h2 className="font-display text-xl font-bold">{t.obrigado.credentialsHeading}</h2>
             </div>
 
             <div className="space-y-4">
               <div className="rounded-xl border border-white/5 bg-white/5 p-4">
                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 block mb-1">
-                  Email
+                  {t.obrigado.emailLabel}
                 </label>
                 <p className="text-lg font-bold text-white break-all">
-                  {email || "Email não disponível"}
+                  {email || t.obrigado.emailUnavailable}
                 </p>
               </div>
 
               <div className="rounded-xl border border-[#CC0000]/20 bg-[#CC0000]/5 p-4">
                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 block mb-1">
-                  Senha padrão
+                  {t.obrigado.passwordLabel}
                 </label>
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-xl font-mono font-bold text-[#CC0000] tracking-wider">
@@ -255,13 +254,11 @@ function ThankYouPage() {
                     ) : (
                       <Copy className="h-4 w-4" />
                     )}
-                    {copied ? "Copiado!" : "Copiar"}
+                    {copied ? t.obrigado.copySuccess : t.obrigado.copyDefault}
                   </ButtonPress>
                 </div>
                 <p className="mt-2 text-xs text-gray-500">
-                  Você pode alterar sua senha a qualquer momento em{" "}
-                  <strong className="text-gray-400">Configurações → Segurança</strong> dentro do
-                  painel.
+                  {t.obrigado.passwordInstruction}
                 </p>
               </div>
             </div>
@@ -276,7 +273,7 @@ function ThankYouPage() {
           >
             <Clock className="h-4 w-4 text-[#CC0000]" />
             <span className="text-sm font-bold text-gray-400">
-              Seu diagnóstico pessoal será necessário em:{" "}
+              {t.obrigado.diagnosisTimerLabel}{" "}
               <span className="font-mono text-[#CC0000] text-lg">{formatTime(timeLeft)}</span>
             </span>
           </motion.div>
@@ -289,7 +286,7 @@ function ThankYouPage() {
             className="mb-12"
           >
             <h2 className="font-display text-2xl font-black text-center mb-8 tracking-tight">
-              O que fazer agora?
+              {t.obrigado.whatsNextHeading}
             </h2>
             <div className="space-y-4">
               {steps.map((step, i) => (
@@ -332,7 +329,7 @@ function ThankYouPage() {
               data-cursor="hover"
               className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-[#CC0000] px-12 py-5 text-xl font-black text-white transition-all hover:scale-105 shadow-[0_20px_60px_-15px_rgba(204,0,0,0.4)]"
             >
-              <span className="relative z-10">ACESSE O MINDRESET AGORA</span>
+              <span className="relative z-10">{t.obrigado.accessCta}</span>
               <ArrowRight
                 size={24}
                 className="relative z-10 group-hover:translate-x-1 transition-transform"
@@ -349,21 +346,21 @@ function ThankYouPage() {
             className="mb-12"
           >
             <h3 className="font-display text-xl font-bold text-center mb-6">
-              Perguntas Frequentes
+              {t.obrigado.faqHeading}
             </h3>
             <div className="space-y-3">
               {[
                 {
-                  q: "Como faço login?",
-                  a: "Use o email da compra com a senha MindReset2026! (que você pode copiar acima). Se esquecer a senha, use 'Esqueci a senha' na tela de login.",
+                  q: t.obrigado.faq1Q,
+                  a: t.obrigado.faq1A,
                 },
                 {
-                  q: "O que fazer primeiro?",
-                  a: "Complete o Onboarding (7 perguntas rápidas). Depois, acesse o Diagnóstico para receber sua análise comportamental personalizada por IA.",
+                  q: t.obrigado.faq2Q,
+                  a: t.obrigado.faq2A,
                 },
                 {
-                  q: "Preciso de ajuda?",
-                  a: "Acesse nosso suporte por email ou chat. Estamos aqui para ajudar você a ter a melhor experiência possível.",
+                  q: t.obrigado.faq3Q,
+                  a: t.obrigado.faq3A,
                 },
               ].map((item, i) => (
                 <details
@@ -386,7 +383,7 @@ function ThankYouPage() {
 
           {/* Footer */}
           <div className="text-center text-xs text-gray-600">
-            © {new Date().getFullYear()} MindReset Inc. Todos os direitos reservados.
+            © {new Date().getFullYear()} MindReset Inc. {t.obrigado.copyright}
           </div>
         </div>
       </div>

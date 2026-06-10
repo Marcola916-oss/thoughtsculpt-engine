@@ -17,10 +17,17 @@ export type Dict = {
     nav: { home: string; diagnosis: string; actionMatrix: string; compass: string; progress: string; settings: string; notifications: string };
     success: { loading: string; errorTitle: string };
   };
-  hero: { kicker: string; headline: string; sub: string; cta: string; trust: string };
+  login: {
+    enterEmailFirst: string; checkInbox: string; forgotPassword: string;
+    subscriptionEnded: string; subscriptionRenew: string;
+  };
+  notFound: { title: string; desc: string; goHome: string };
+  errorPage: { title: string; desc: string; tryAgain: string; goHome: string };
+  hero: { kicker: string; headline: string; sub: string; cta: string; trust: string; trustSsl: string; trustData: string; trustGuarantee: string };
   features: { title: string; subtitle: string };
   landing: {
     proofBar: {
+      ariaLabel: string;
       diagnostics: { value: string; label: string };
       rating: { value: string; label: string };
       noBank: { value: string; label: string };
@@ -40,19 +47,21 @@ export type Dict = {
     };
     testimonials: {
       tag: string; title: string;
+      starsAlt: (n: number) => string;
       items: Array<{ stars: number; quote: string; name: string; arch: string }>;
     };
     faq: {
       tag: string; title: string; sub: string; cta: string;
       items: Array<{ q: string; a: string }>;
     };
-    finalCta: { titleBefore: string; titleHighlight: string; titleAfter: string; sub: string; cta: string; guarantee: string };
+    finalCta: { titleBefore: string; titleHighlight: string; titleAfter: string; sub: string; cta: string; guarantee: string; trustLine: string };
   };
 
   identity: { title: string; sub: string };
   questions: { title: (n: number, total: number) => string; intro: (name: string) => string };
   q: Array<{ q: string; options: string[] }>;
   emailCapture: { title: (name: string) => string; sub: string; cta: string };
+  quizProgress: { identity: string; email: string };
   loader: { title: string; steps: string[]; analysis: string[] };
   archetypes: Record<"AO" | "SS" | "EA" | "HI", { name: string; tagline: string; hooks: string[] }>;
   reveal: {
@@ -98,7 +107,11 @@ export type Dict = {
         diagnosis: { title: string; desc: string; cta: string };
         calendar: { title: string; desc: string; cta: string };
         compass: { title: string; desc: string; cta: string };
+        progress: { title: string; desc: (points: number) => string; cta: string };
       };
+      badges: { new: string; today: string };
+      stats: { points: string; streak: string; tasks: string };
+      quotes: Record<"AO" | "SS" | "EA" | "HI", string>;
       recentActivity: { title: string; viewAll: string };
     };
     progress: {
@@ -123,6 +136,7 @@ export type Dict = {
         scoreDescription: (score: number) => string; monthAnalysis: string;
         patternIdentified: string; nextMonthFocus: string; generatedOn: string;
       };
+      donut: { points: string; remaining: string };
     };
     diagnosis: {
       tabs: { financial: string; professional: string; romantic: string; personal: string };
@@ -132,6 +146,7 @@ export type Dict = {
       result: { heading: string; generatedOn: string };
       actions: { downloadPdf: string; copied: string; copyLink: string; whatsapp: string };
       disclaimer: string;
+      pdf: { header: string; footer: string };
     };
     calendar: {
       pageTitle: string;
@@ -146,6 +161,7 @@ export type Dict = {
       undoButton: string;
       journal: { label: string; placeholder: string };
       export: { button: string; csvOption: string; csvHeader: string; yes: string; no: string; markdownDay: (n: number) => string; markdownReflection: string; markdownAction: string };
+      ics: { calName: string; daySummary: (n: number, phase: string) => string; reflective: string; action: string; milestone: string; alarmDesc: string };
     };
     compass: {
       subtitle: string;
@@ -164,6 +180,7 @@ export type Dict = {
       preferences: { title: string; languageLabel: string; langPt: string; themeLabel: string; themeDark: string; themeLight: string };
       subscription: { title: string; currentPlan: string; plan30d: string; plan6m: string; plan1y: string; status: string; nextRenewal: string; accessingPortal: string; manageStripe: string; cancel: string; noneFound: string };
       cancelModal: { heading: (name: string) => string; body: string; keepProgress: string; proceedCancel: string };
+      security: { title: string; desc: string; newLabel: string; newPlaceholder: string; confirmLabel: string; confirmPlaceholder: string; success: string; buttonLoading: string; buttonDefault: string };
     };
     layout: {
       banner: { grace: string; expiring: (days: number) => string; day: string; days: string; updateButton: string };
@@ -185,6 +202,37 @@ export type Dict = {
     footer: { privacy: string };
   };
   checkout: { welcomeNotification: { title: string; body: string } };
+  resetPassword: { title: string; placeholder: string; updating: string; updateButton: string; success: string };
+  sharePage: { metaTitle: string; metaDescription: string };
+  obrigado: {
+    metaTitle: string; loadingTitle: string;
+    errorHeading: string; errorGoHome: string; fallbackName: string;
+    step1Title: string; step1Desc: string;
+    step2Title: string; step2Desc: string;
+    step3Title: string; step3Desc: string;
+    welcomeHeading: string; welcomeSub: string;
+    credentialsHeading: string; emailLabel: string; emailUnavailable: string;
+    passwordLabel: string; copySuccess: string; copyDefault: string;
+    passwordInstruction: string; diagnosisTimerLabel: string;
+    whatsNextHeading: string; accessCta: string;
+    faqHeading: string;
+    faq1Q: string; faq1A: string;
+    faq2Q: string; faq2A: string;
+    faq3Q: string; faq3A: string;
+    copyright: string;
+  };
+  dashboardErrors: {
+    connectionHeading: string; connectionDesc: string;
+    reconnectButton: string; signOutTryAgain: string;
+    initializing: string;
+    failedLoad: string;
+  };
+  salesCta: { discoverArchetype: string };
+  plansExtra: { guarantee7Days: string; visa: string; mastercard: string; stripe: string; footerCopyright: string };
+  calendarExportLabels: { markdownOption: string; icsOption: string; markdownHeader: string };
+  onboardingExtra: { saveError: string };
+  settingsExtra: { passwordMinLength: string; passwordMismatch: string; passwordChangeError: string };
+  commonExtra: { openMenu: string; protocolVersion: string };
 };
 
 const PT: Dict = {
@@ -201,12 +249,24 @@ const PT: Dict = {
     nav: { home: "Início", diagnosis: "Diagnóstico", actionMatrix: "Matriz de Ação", compass: "Compass", progress: "Progresso", settings: "Configurações", notifications: "Notificações" },
     success: { loading: "Finalizando sua compra e preparando seu acesso…", errorTitle: "Erro na Finalização" },
   },
+  login: {
+    enterEmailFirst: "Introduz o teu e-mail primeiro.",
+    checkInbox: "Verifica a tua caixa de entrada.",
+    forgotPassword: "Esqueceste-te da password?",
+    subscriptionEnded: "⏳ A tua assinatura foi encerrada.",
+    subscriptionRenew: "Renova o teu plano para continuar a aceder ao MindReset.",
+  },
+  notFound: { title: "Página não encontrada", desc: "A página que procuras não existe ou foi movida.", goHome: "Ir para o início" },
+  errorPage: { title: "Esta página não carregou", desc: "Algo correu mal do nosso lado. Podes tentar voltar a carregar ou voltar ao início.", tryAgain: "Tentar novamente", goHome: "Ir para o início" },
   hero: {
     kicker: "Finanças comportamentais • 8 perguntas • 3 minutos",
     headline: "O dinheiro não te falta. Falta-te conhecer o teu padrão.",
     sub: "MindReset diagnostica o teu arquétipo financeiro e entrega um protocolo personalizado de ação. Sem orçamentos. Sem ligação bancária. Só psicologia que muda comportamento.",
     cta: "Quero meu diagnóstico grátis",
     trust: "+12.000 diagnósticos • Sem cartão para começar",
+    trustSsl: "SSL Seguro",
+    trustData: "Dados Protegidos",
+    trustGuarantee: "7 dias garantia",
   },
   features: {
     title: "Engenharia para transformação profunda",
@@ -214,6 +274,7 @@ const PT: Dict = {
   },
   landing: {
     proofBar: {
+      ariaLabel: "Indicadores de confiança",
       diagnostics: { value: "+12.000", label: "Diagnósticos realizados" },
       rating: { value: "4.9 / 5", label: "Avaliação média" },
       noBank: { value: "100%", label: "Sem dados bancários" },
@@ -253,6 +314,7 @@ const PT: Dict = {
     testimonials: {
       tag: "Depoimentos",
       title: "Quem já entendeu o seu padrão",
+      starsAlt: (n) => `${n} de ${n} estrelas`,
       items: [
         { stars: 5, quote: "Nunca entendi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: Hedonista Impulsivo" },
         { stars: 5, quote: "Eu achava que era disciplinada com dinheiro. O MindReset mostrou que eu tinha medo de gastar — e que isso também é um problema. Foi revelador.", name: "Maria C.", arch: "Arquétipo: Guardadora Obsessiva" },
@@ -280,6 +342,7 @@ const PT: Dict = {
       sub: "8 perguntas. 3 minutos. Uma clareza que nenhuma planilha dá.",
       cta: "Iniciar o meu diagnóstico gratuito",
       guarantee: "7 dias de garantia",
+      trustLine: "🔒 Stripe • 🛡️ SSL • Cancelar a qualquer momento",
     },
   },
 
@@ -309,9 +372,10 @@ const PT: Dict = {
   ],
   emailCapture: {
     title: (name) => `${name}, o teu diagnóstico está pronto.`,
-    sub: "Indica o teu e-mail para receberes o relatório completo e desbloquear a tua página de arquétipo.",
-    cta: "Revelar meu arquétipo agora",
+    sub: "Introduz o teu e-mail para receberes o relatório completo e desbloqueares a página do arquétipo.",
+    cta: "Ver o meu arquétipo agora",
   },
+  quizProgress: { identity: "Identificação", email: "Finalização" },
   loader: {
     title: "Processando as tuas respostas",
     steps: [
@@ -442,6 +506,15 @@ const PT: Dict = {
         diagnosis: { title: "Meu Diagnóstico", desc: "Entenda seu arquétipo completo.", cta: "Acessar →" },
         calendar: { title: "Matriz de Ação", desc: "Acesse seu protocolo diário personalizado.", cta: "Acessar →" },
         compass: { title: "Compass", desc: "Descubra o arquétipo de alguém na sua vida.", cta: "Acessar →" },
+        progress: { title: "Progresso", desc: (pts) => `${pts} pontos acumulados`, cta: "Ver progresso →" },
+      },
+      badges: { new: "NOVO", today: "Hoje" },
+      stats: { points: "Pontos", streak: "Streak", tasks: "Tarefas" },
+      quotes: {
+        AO: "Segurança real não vem de acumular — vem de confiar.",
+        SS: "Sua riqueza real não precisa de aprovação.",
+        EA: "Cada passo em direção à clareza é uma vitória.",
+        HI: "A melhor recompensa vem de quem espera.",
       },
       recentActivity: { title: "Avisos Recentes", viewAll: "Ver todas →" },
     },
@@ -471,6 +544,7 @@ const PT: Dict = {
         scoreDescription: (s) => `Você completou ${s}% das tarefas deste mês. Continue nesse ritmo.`,
         monthAnalysis: "Análise do Mês", patternIdentified: "Padrão Identificado", nextMonthFocus: "Foco para o Próximo Mês", generatedOn: "Gerado em",
       },
+      donut: { points: "Pontos", remaining: "Restantes" },
     },
     diagnosis: {
       tabs: { financial: "Finanças", professional: "Profissional", romantic: "Relacionamentos", personal: "Pessoal" },
@@ -480,6 +554,7 @@ const PT: Dict = {
       result: { heading: "Dossiê Comportamental", generatedOn: "Análise gerada por IA em" },
       actions: { downloadPdf: "📄 Baixar PDF", copied: "✓ Copiado!", copyLink: "🔗 Copiar Link", whatsapp: "WhatsApp" },
       disclaimer: "Isenção de responsabilidade: Esta análise é baseada em padrões comportamentais identificados em suas respostas. Não constitui aconselhamento financeiro, psicológico ou médico profissional.",
+      pdf: { header: "MindReset — Dossiê Comportamental", footer: "MindReset — Análise comportamental. Não constitui aconselhamento profissional." },
     },
     calendar: {
       pageTitle: "Matriz de Ação",
@@ -494,6 +569,7 @@ const PT: Dict = {
       undoButton: "Desmarcar Conclusão",
       journal: { label: "Diário de Bordo", placeholder: "Como você se sentiu fazendo isso? (Salvo automaticamente)" },
       export: { button: "📥 Exportar", csvOption: "CSV (Planilha)", csvHeader: "Dia,Fase,Marco,Tarefa Reflexiva,Tarefa de Ação,Concluído", yes: "Sim", no: "Não", markdownDay: (n) => `Dia ${n}`, markdownReflection: "Reflexão", markdownAction: "Ação" },
+      ics: { calName: "MindReset Matriz de Ação", daySummary: (n, phase) => `Dia ${n} — ${phase}`, reflective: "Reflexiva", action: "Ação", milestone: "⭐ MARCO", alarmDesc: "MindReset tarefa do dia" },
     },
     compass: {
       subtitle: "Decodifique o comportamento financeiro de pessoas ao seu redor e descubra a melhor forma de se comunicar com elas.",
@@ -512,6 +588,7 @@ const PT: Dict = {
       preferences: { title: "Preferências", languageLabel: "Idioma", langPt: "Português (BR)", themeLabel: "Tema Visual", themeDark: "Escuro (Dark Mode)", themeLight: "Claro (Light Mode)" },
       subscription: { title: "Assinatura e Cobrança", currentPlan: "Plano Atual", plan30d: "30 Dias", plan6m: "6 Meses", plan1y: "1 Ano", status: "Status", nextRenewal: "Próxima Renovação", accessingPortal: "Acessando...", manageStripe: "Gerenciar no Stripe", cancel: "Cancelar assinatura", noneFound: "Nenhuma assinatura ativa encontrada." },
       cancelModal: { heading: (n) => `Espera! Antes de cancelar, ${n}...`, body: "Você começou seu protocolo e interromper agora significa perder seu progresso diário e o acesso à sua matriz de ação personalizada.", keepProgress: "Voltar e manter progresso", proceedCancel: "Continuar para o cancelamento" },
+      security: { title: "Segurança", desc: "Altere sua senha de acesso. Recomendamos usar uma senha forte e única.", newLabel: "Nova senha", newPlaceholder: "Mínimo 8 caracteres", confirmLabel: "Confirmar nova senha", confirmPlaceholder: "Repita a nova senha", success: "Senha alterada com sucesso!", buttonLoading: "Alterando...", buttonDefault: "Alterar Senha" },
     },
     layout: {
       banner: { grace: "⚠️ Não conseguimos processar seu pagamento. Atualize seu método de pagamento para continuar seu protocolo sem interrupções.", expiring: (d) => `⏳ Seu protocolo expira em ${d} dia(s). Faça upgrade para não perder seu progresso.`, day: "dia", days: "dias", updateButton: "Atualizar" },
@@ -533,6 +610,55 @@ const PT: Dict = {
     footer: { privacy: "MindReset respeita as diretrizes de privacidade e segurança do GDPR/LGPD." },
   },
   checkout: { welcomeNotification: { title: "🎉 Bem-vindo ao MindReset!", body: "Sua assinatura está ativa. Clique aqui para começar seu diagnóstico." } },
+  resetPassword: { title: "Definir nova senha", placeholder: "Nova senha", updating: "Atualizando…", updateButton: "Atualizar senha", success: "Senha atualizada. Pode fazer login agora." },
+  sharePage: { metaTitle: "Compartilhar Arquétipo", metaDescription: "Veja o resultado do diagnóstico comportamental." },
+  obrigado: {
+    metaTitle: "Bem-vindo ao MindReset!",
+    loadingTitle: "PREPARANDO SEU ACESSO...",
+    errorHeading: "Algo deu errado",
+    errorGoHome: "Voltar ao início",
+    fallbackName: "MindReset Membro",
+    step1Title: "Acesse o Dashboard",
+    step1Desc: "Veja seu painel personalizado com tudo organizado",
+    step2Title: "Complete o Onboarding",
+    step2Desc: "7 perguntas rápidas para calibrar seu protocolo",
+    step3Title: "Comece seu Diagnóstico",
+    step3Desc: "IA gera sua análise comportamental completa",
+    welcomeHeading: "Bem-vindo ao MindReset,",
+    welcomeSub: "Sua jornada de transformação comportamental começa agora. Estamos felizes em ter você connosco.",
+    credentialsHeading: "Seus Dados de Acesso",
+    emailLabel: "Email",
+    emailUnavailable: "Email não disponível",
+    passwordLabel: "Senha padrão",
+    copySuccess: "Copiado!",
+    copyDefault: "Copiar",
+    passwordInstruction: "Você pode alterar sua senha a qualquer momento em Configurações → Segurança dentro do painel.",
+    diagnosisTimerLabel: "Seu diagnóstico pessoal será necessário em:",
+    whatsNextHeading: "O que fazer agora?",
+    accessCta: "ACESSE O MINDRESET AGORA",
+    faqHeading: "Perguntas Frequentes",
+    faq1Q: "Como faço login?",
+    faq1A: "Use o email da compra com a senha MindReset2026! (que você pode copiar acima). Se esquecer a senha, use 'Esqueci a senha' na tela de login.",
+    faq2Q: "O que fazer primeiro?",
+    faq2A: "Complete o Onboarding (7 perguntas rápidas). Depois, acesse o Diagnóstico para receber sua análise comportamental personalizada por IA.",
+    faq3Q: "Preciso de ajuda?",
+    faq3A: "Acesse nosso suporte por email ou chat. Estamos aqui para ajudar você a ter a melhor experiência possível.",
+    copyright: "Todos os direitos reservados.",
+  },
+  dashboardErrors: {
+    connectionHeading: "Connection Interrupted",
+    connectionDesc: "We couldn't synchronize your neural profile. This usually happens due to a temporary connection issue.",
+    reconnectButton: "Re-establish Connection",
+    signOutTryAgain: "Sign out and try again",
+    initializing: "Initializing Protocol...",
+    failedLoad: "Failed to load dashboard data",
+  },
+  salesCta: { discoverArchetype: "DESCOBRIR MEU ARQUÉTIPO →" },
+  plansExtra: { guarantee7Days: "7 Dias de Garantia", visa: "Visa", mastercard: "Mastercard", stripe: "Stripe", footerCopyright: "MindReset Inc." },
+  calendarExportLabels: { markdownOption: "Markdown (.md)", icsOption: "Calendar (.ics)", markdownHeader: "# MindReset Action Matrix\n\n" },
+  onboardingExtra: { saveError: "Houve um erro ao salvar seu progresso. Por favor, tente novamente." },
+  settingsExtra: { passwordMinLength: "A senha deve ter pelo menos 8 caracteres.", passwordMismatch: "As senhas não coincidem.", passwordChangeError: "Erro ao alterar senha." },
+  commonExtra: { openMenu: "Open menu", protocolVersion: "Protocol v3.0 // 2026" },
 };
 
 // English (master fallback)
@@ -550,12 +676,24 @@ const EN: Dict = {
     nav: { home: "Home", diagnosis: "Diagnosis", actionMatrix: "Action Matrix", compass: "Compass", progress: "Progress", settings: "Settings", notifications: "Notifications" },
     success: { loading: "Finalizing your purchase and preparing your access…", errorTitle: "Checkout Error" },
   },
+  login: {
+    enterEmailFirst: "Enter your email first.",
+    checkInbox: "Check your inbox.",
+    forgotPassword: "Forgot password?",
+    subscriptionEnded: "⏳ Your subscription has ended.",
+    subscriptionRenew: "Renew your plan to continue accessing MindReset.",
+  },
+  notFound: { title: "Page not found", desc: "The page you're looking for doesn't exist or has been moved.", goHome: "Go home" },
+  errorPage: { title: "This page didn't load", desc: "Something went wrong on our end. You can try refreshing or head back home.", tryAgain: "Try again", goHome: "Go home" },
   hero: {
     kicker: "Behavioral finance • 8 questions • 3 minutes",
     headline: "It's not the money. It's the pattern you need to know.",
     sub: "MindReset diagnoses your financial archetype and ships a personalized action protocol. No budgets. No bank linking. Just psychology that changes behavior.",
     cta: "I want my free diagnosis",
     trust: "+12,000 diagnoses • No card to start",
+    trustSsl: "Secure SSL",
+    trustData: "Data Protected",
+    trustGuarantee: "7-day guarantee",
   },
   features: {
     title: "Engineered for deep transformation",
@@ -563,6 +701,7 @@ const EN: Dict = {
   },
   landing: {
     proofBar: {
+      ariaLabel: "Trust indicators",
       diagnostics: { value: "+12,000", label: "Diagnoses delivered" },
       rating: { value: "4.9 / 5", label: "Average rating" },
       noBank: { value: "100%", label: "No bank data needed" },
@@ -602,6 +741,7 @@ const EN: Dict = {
     testimonials: {
       tag: "Testimonials",
       title: "Who already understood their pattern",
+      starsAlt: (n) => `${n} out of ${n} stars`,
       items: [
         { stars: 5, quote: "I never understood why I spent everything before the 15th. The diagnosis named exactly what I felt — like someone finally explained me to myself.", name: "Adam K.", arch: "Archetype: Impulsive Hedonist" },
         { stars: 5, quote: "I thought I was disciplined with money. MindReset showed me I was afraid to spend — and that this is also a problem. It was revealing.", name: "Maria C.", arch: "Archetype: Obsessive Saver" },
@@ -629,6 +769,7 @@ const EN: Dict = {
       sub: "8 questions. 3 minutes. A clarity no spreadsheet can give you.",
       cta: "Start my free diagnosis",
       guarantee: "7-day guarantee",
+      trustLine: "🔒 Stripe • 🛡️ SSL • Cancel anytime",
     },
   },
 
@@ -661,6 +802,7 @@ const EN: Dict = {
     sub: "Drop your email to receive the full report and unlock your archetype page.",
     cta: "Reveal my archetype now",
   },
+  quizProgress: { identity: "Identification", email: "Finalization" },
   loader: {
     title: "Processing your answers",
     steps: [
@@ -791,6 +933,15 @@ const EN: Dict = {
         diagnosis: { title: "My Diagnosis", desc: "Understand your complete archetype.", cta: "Access →" },
         calendar: { title: "Action Matrix", desc: "Access your personalized daily protocol.", cta: "Access →" },
         compass: { title: "Compass", desc: "Discover the archetype of someone in your life.", cta: "Access →" },
+        progress: { title: "Progress", desc: (pts) => `${pts} points earned`, cta: "View progress →" },
+      },
+      badges: { new: "NEW", today: "Today" },
+      stats: { points: "Points", streak: "Streak", tasks: "Tasks" },
+      quotes: {
+        AO: "Real security doesn't come from accumulating — it comes from trusting.",
+        SS: "Your real worth doesn't need approval.",
+        EA: "Every step toward clarity is a victory.",
+        HI: "The best reward comes to those who wait.",
       },
       recentActivity: { title: "Recent Notices", viewAll: "See all →" },
     },
@@ -820,6 +971,7 @@ const EN: Dict = {
         scoreDescription: (s) => `You completed ${s}% of this month's tasks. Keep it up.`,
         monthAnalysis: "Month Analysis", patternIdentified: "Pattern Identified", nextMonthFocus: "Focus for Next Month", generatedOn: "Generated on",
       },
+      donut: { points: "Points", remaining: "Remaining" },
     },
     diagnosis: {
       tabs: { financial: "Finance", professional: "Professional", romantic: "Relationships", personal: "Personal" },
@@ -829,6 +981,7 @@ const EN: Dict = {
       result: { heading: "Behavioral Dossier", generatedOn: "AI-generated analysis on" },
       actions: { downloadPdf: "📄 Download PDF", copied: "✓ Copied!", copyLink: "🔗 Copy Link", whatsapp: "WhatsApp" },
       disclaimer: "Disclaimer: This analysis is based on behavioral patterns identified in your responses. It does not constitute professional financial, psychological, or medical advice.",
+      pdf: { header: "MindReset — Behavioral Dossier", footer: "MindReset — Behavioral analysis. Not professional advice." },
     },
     calendar: {
       pageTitle: "Action Matrix",
@@ -843,6 +996,7 @@ const EN: Dict = {
       undoButton: "Unmark Completion",
       journal: { label: "Logbook", placeholder: "How did you feel doing this? (Auto-saved)" },
       export: { button: "📥 Export", csvOption: "CSV (Spreadsheet)", csvHeader: "Day,Phase,Milestone,Reflective Task,Action Task,Completed", yes: "Yes", no: "No", markdownDay: (n) => `Day ${n}`, markdownReflection: "Reflection", markdownAction: "Action" },
+      ics: { calName: "MindReset Action Matrix", daySummary: (n, phase) => `Day ${n} — ${phase}`, reflective: "Reflective", action: "Action", milestone: "⭐ MILESTONE", alarmDesc: "MindReset task of the day" },
     },
     compass: {
       subtitle: "Decode the financial behavior of people around you and discover the best way to communicate with them.",
@@ -861,6 +1015,7 @@ const EN: Dict = {
       preferences: { title: "Preferences", languageLabel: "Language", langPt: "Portuguese (BR)", themeLabel: "Visual Theme", themeDark: "Dark Mode", themeLight: "Light Mode" },
       subscription: { title: "Subscription & Billing", currentPlan: "Current Plan", plan30d: "30 Days", plan6m: "6 Months", plan1y: "1 Year", status: "Status", nextRenewal: "Next Renewal", accessingPortal: "Accessing...", manageStripe: "Manage on Stripe", cancel: "Cancel subscription", noneFound: "No active subscription found." },
       cancelModal: { heading: (n) => `Wait! Before cancelling, ${n}...`, body: "You started your protocol and stopping now means losing your daily progress and access to your personalized action matrix.", keepProgress: "Go back and keep progress", proceedCancel: "Continue to cancellation" },
+      security: { title: "Security", desc: "Change your password. We recommend using a strong, unique password.", newLabel: "New password", newPlaceholder: "Minimum 8 characters", confirmLabel: "Confirm new password", confirmPlaceholder: "Repeat new password", success: "Password changed successfully!", buttonLoading: "Changing...", buttonDefault: "Change Password" },
     },
     layout: {
       banner: { grace: "⚠️ We couldn't process your payment. Update your payment method to continue your protocol without interruptions.", expiring: (d) => `⏳ Your protocol expires in ${d} day(s). Upgrade to avoid losing your progress.`, day: "day", days: "days", updateButton: "Update" },
@@ -882,6 +1037,55 @@ const EN: Dict = {
     footer: { privacy: "MindReset respects GDPR/LGPD privacy and security guidelines." },
   },
   checkout: { welcomeNotification: { title: "🎉 Welcome to MindReset!", body: "Your subscription is active. Click here to start your diagnosis." } },
+  resetPassword: { title: "Set a new password", placeholder: "New password", updating: "Updating…", updateButton: "Update password", success: "Password updated. You can log in now." },
+  sharePage: { metaTitle: "Share Archetype", metaDescription: "View the behavioral diagnosis result." },
+  obrigado: {
+    metaTitle: "Welcome to MindReset!",
+    loadingTitle: "PREPARING YOUR ACCESS...",
+    errorHeading: "Something went wrong",
+    errorGoHome: "Go back home",
+    fallbackName: "MindReset Member",
+    step1Title: "Access the Dashboard",
+    step1Desc: "See your personalized panel with everything organized",
+    step2Title: "Complete Onboarding",
+    step2Desc: "7 quick questions to calibrate your protocol",
+    step3Title: "Start your Diagnosis",
+    step3Desc: "AI generates your complete behavioral analysis",
+    welcomeHeading: "Welcome to MindReset,",
+    welcomeSub: "Your behavioral transformation journey starts now. We're happy to have you with us.",
+    credentialsHeading: "Your Access Details",
+    emailLabel: "Email",
+    emailUnavailable: "Email not available",
+    passwordLabel: "Default password",
+    copySuccess: "Copied!",
+    copyDefault: "Copy",
+    passwordInstruction: "You can change your password anytime in Settings → Security within the dashboard.",
+    diagnosisTimerLabel: "Your personal diagnosis will be required in:",
+    whatsNextHeading: "What to do next?",
+    accessCta: "ACCESS MINDRESET NOW",
+    faqHeading: "Frequently Asked Questions",
+    faq1Q: "How do I log in?",
+    faq1A: "Use the email from your purchase with the password MindReset2026! (which you can copy above). If you forget the password, use 'Forgot password' on the login screen.",
+    faq2Q: "What should I do first?",
+    faq2A: "Complete the Onboarding (7 quick questions). Then, access the Diagnosis to receive your personalized behavioral analysis by AI.",
+    faq3Q: "Need help?",
+    faq3A: "Access our support via email or chat. We're here to help you have the best experience possible.",
+    copyright: "All rights reserved.",
+  },
+  dashboardErrors: {
+    connectionHeading: "Connection Interrupted",
+    connectionDesc: "We couldn't synchronize your neural profile. This usually happens due to a temporary connection issue.",
+    reconnectButton: "Re-establish Connection",
+    signOutTryAgain: "Sign out and try again",
+    initializing: "Initializing Protocol...",
+    failedLoad: "Failed to load dashboard data",
+  },
+  salesCta: { discoverArchetype: "DISCOVER MY ARCHETYPE →" },
+  plansExtra: { guarantee7Days: "7-Day Guarantee", visa: "Visa", mastercard: "Mastercard", stripe: "Stripe", footerCopyright: "MindReset Inc." },
+  calendarExportLabels: { markdownOption: "Markdown (.md)", icsOption: "Calendar (.ics)", markdownHeader: "# MindReset Action Matrix\n\n" },
+  onboardingExtra: { saveError: "An error occurred while saving your progress. Please try again." },
+  settingsExtra: { passwordMinLength: "Password must be at least 8 characters.", passwordMismatch: "Passwords do not match.", passwordChangeError: "Error changing password." },
+  commonExtra: { openMenu: "Open menu", protocolVersion: "Protocol v3.0 // 2026" },
 };
 
 const PL: Dict = {
@@ -896,22 +1100,36 @@ const PL: Dict = {
     privacy: "Prywatność", terms: "Regulamin", login: "Zaloguj", logout: "Wyloguj",
     securePayment: "Bezpieczna płatność przez Stripe", processing: "Przetwarzanie…",
   },
+  login: {
+    enterEmailFirst: "Najpierw wpisz swój e-mail.",
+    checkInbox: "Sprawdź swoją skrzynkę odbiorczą.",
+    forgotPassword: "Zapomniałeś hasła?",
+    subscriptionEnded: "⏳ Twoja subskrypcja została zakończona.",
+    subscriptionRenew: "Odnow plan, aby kontynuować dostęp do MindReset.",
+  },
+  notFound: { title: "Nie znaleziono strony", desc: "Strona, której szukasz, nie została znaleziona lub została przeniesiona.", goHome: "Strona główna" },
+  errorPage: { title: "Ta strona nie załadowała się", desc: "Coś poszło nie tak po naszej stronie. Możesz spróbować odświeżyć lub wrócić do strony głównej.", tryAgain: "Spróbuj ponownie", goHome: "Strona główna" },
   hero: {
     kicker: "Finanse behawioralne • 14 pytań • 3 minuty",
     headline: "To nie pieniądze. To wzorzec, który musisz poznać.",
     sub: "MindReset diagnozuje Twój finansowy archetyp i dostarcza spersonalizowany protokół działania. Bez budżetów. Bez łączenia z bankiem. Tylko psychologia, która zmienia zachowanie.",
     cta: "Chcę darmową diagnozę",
     trust: "+12 000 diagnoz • Bez karty na start",
+    trustSsl: "Bezpieczne SSL",
+    trustData: "Dane chronione",
+    trustGuarantee: "7-dniowa gwarancja",
   },
   identity: { title: "Zanim zaczniemy — kim jesteś?", sub: "Użyjemy Twojego imienia w całej diagnozie, żeby była osobista." },
   questions: { title: (n, total) => `Pytanie ${n} z ${total}`, intro: (name) => `${name}, wybierz odpowiedź najbliższą Tobie — nie ma złych.` },
   emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp teraz" },
+  quizProgress: { identity: "Identyfikacja", email: "Finalizacja" },
   loader: { ...EN.loader, title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…"] },
   reveal: { ...EN.reveal, kicker: (name) => `${name}, Twój archetyp to:`, sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.", cta: "Chcę swój protokół teraz", share: "Udostępnij mój archetyp", errorTitle: "Nie udało się zapisać diagnozy.", errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.", errorRetry: "Spróbuj ponownie" },
   plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan", guarantee: "7 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
   landing: {
     proofBar: {
+      ariaLabel: "Wskaźniki zaufania",
       diagnostics: { value: "+12 000", label: "Zrealizowanych diagnoz" },
       rating: { value: "4.9 / 5", label: "Średnia ocena" },
       noBank: { value: "100%", label: "Bez danych bankowych" },
@@ -951,6 +1169,7 @@ const PL: Dict = {
     testimonials: {
       tag: "Opinie",
       title: "Kto już zrozumiał swój wzorzec",
+      starsAlt: (n) => `${n} z ${n} gwiazdek`,
       items: [
         { stars: 5, quote: "Nigdy nie rozumiałem, dlaczego wydawałem wszystko przed 15. dniem miesiąca. Diagnoza nazwała dokładnie to, co czułem. Jakby ktoś w końcu wytłumaczył mnie mnie samemu.", name: "Adam K.", arch: "Archetyp: Impulsywny Hedonista" },
         { stars: 5, quote: "Myślałam, że jestem zdyscyplinowana z pieniędzmi. MindReset pokazał mi, że bałam się wydawać — i że to też jest problem. To było objawienie.", name: "Maria C.", arch: "Archetyp: Obsesyjna Oszczędna" },
@@ -978,8 +1197,59 @@ const PL: Dict = {
       sub: "8 pytań. 3 minuty. Jasność, której żaden arkusz nie da.",
       cta: "Rozpocznij moją darmową diagnozę",
       guarantee: "7-dniowa gwarancja",
+      trustLine: "🔒 Stripe • 🛡️ SSL • Anuluj w każdej chwili",
     },
   },
+  checkout: { welcomeNotification: { title: "🎉 Witamy w MindReset!", body: "Twoja subskrypcja jest aktywna. Kliknij tutaj, aby rozpocząć diagnozę." } },
+  resetPassword: { title: "Ustaw nowe hasło", placeholder: "Nowe hasło", updating: "Aktualizowanie…", updateButton: "Aktualizuj hasło", success: "Hasło zaktualizowane. Możesz się teraz zalogować." },
+  sharePage: { metaTitle: "Udostępnij Archetyp", metaDescription: "Zobacz wynik diagnozy behawioralnej." },
+  obrigado: {
+    metaTitle: "Witamy w MindReset!",
+    loadingTitle: "PRZYGOTOWYWANIE DOSTĘPU...",
+    errorHeading: "Coś poszło nie tak",
+    errorGoHome: "Wróć do strony głównej",
+    fallbackName: "Członek MindReset",
+    step1Title: "Przejdź do Panelu",
+    step1Desc: "Zobacz swój spersonalizowany panel ze wszystkim uporządkowanym",
+    step2Title: "Ukończ Onboarding",
+    step2Desc: "7 szybkich pytań do kalibracji protokołu",
+    step3Title: "Rozpocznij Diagnozę",
+    step3Desc: "AI generuje kompletną analizę behawioralną",
+    welcomeHeading: "Witamy w MindReset,",
+    welcomeSub: "Twoja podróż transformacji behawioralnej zaczyna się teraz. Cieszymy się, że jesteś z nami.",
+    credentialsHeading: "Twoje Dane Dostępu",
+    emailLabel: "Email",
+    emailUnavailable: "Email niedostępny",
+    passwordLabel: "Domyślne hasło",
+    copySuccess: "Skopiowano!",
+    copyDefault: "Kopiuj",
+    passwordInstruction: "Możesz zmienić hasło w dowolnym momencie w Ustawieniach → Bezpieczeństwo w panelu.",
+    diagnosisTimerLabel: "Twoja osobista diagnoza będzie potrzebna za:",
+    whatsNextHeading: "Co dalej?",
+    accessCta: "PRZEJDŹ DO MINDRESET TERAZ",
+    faqHeading: "Często Zadawane Pytania",
+    faq1Q: "Jak się zalogować?",
+    faq1A: "Użyj emaila z zakupu z hasłem MindReset2026! (które możesz skopiować powyżej). Jeśli zapomnisz hasła, użyj 'Zapomniałem hasła' na ekranie logowania.",
+    faq2Q: "Co zrobić najpierw?",
+    faq2A: "Ukończ Onboarding (7 szybkich pytań). Następnie przejdź do Diagnozy, aby otrzymać spersonalizowaną analizę behawioralną od AI.",
+    faq3Q: "Potrzebujesz pomocy?",
+    faq3A: "Skontaktuj się z naszym wsparciem przez email lub czat. Jesteśmy tutaj, aby pomóc Ci mieć najlepsze możliwe doświadczenie.",
+    copyright: "Wszelkie prawa zastrzeżone.",
+  },
+  dashboardErrors: {
+    connectionHeading: "Przerwano Połączenie",
+    connectionDesc: "Nie udało się zsynchronizować Twojego profilu neuronalnego. Zwykle dzieje się tak z powodu tymczasowego problemu z połączeniem.",
+    reconnectButton: "Przywróć Połączenie",
+    signOutTryAgain: "Wyloguj się i spróbuj ponownie",
+    initializing: "Inicjalizowanie Protokołu...",
+    failedLoad: "Nie udało się załadować danych panelu",
+  },
+  salesCta: { discoverArchetype: "ODKRYJ MÓJ ARCHETYP →" },
+  plansExtra: { guarantee7Days: "7-dniowa Gwarancja", visa: "Visa", mastercard: "Mastercard", stripe: "Stripe", footerCopyright: "MindReset Inc." },
+  calendarExportLabels: { markdownOption: "Markdown (.md)", icsOption: "Kalendarz (.ics)", markdownHeader: "# MindReset Action Matrix\n\n" },
+  onboardingExtra: { saveError: "Wystąpił błąd podczas zapisywania postępu. Spróbuj ponownie." },
+  settingsExtra: { passwordMinLength: "Hasło musi mieć co najmniej 8 znaków.", passwordMismatch: "Hasła nie są zgodne.", passwordChangeError: "Błąd zmiany hasła." },
+  commonExtra: { openMenu: "Otwórz menu", protocolVersion: "Protocol v3.0 // 2026" },
 };
 
 const RO: Dict = {
@@ -994,22 +1264,36 @@ const RO: Dict = {
     privacy: "Confidențialitate", terms: "Termeni", login: "Autentificare", logout: "Ieșire",
     securePayment: "Plată securizată prin Stripe", processing: "Se procesează…",
   },
+  login: {
+    enterEmailFirst: "Introdu adresa de e-mail mai întâi.",
+    checkInbox: "Verifică-ți căsuța poștală.",
+    forgotPassword: "Ai uitat parola?",
+    subscriptionEnded: "⏳ Abonamentul tău a expirat.",
+    subscriptionRenew: "Reînnoiește planul pentru a continua accesul la MindReset.",
+  },
+  notFound: { title: "Pagina nu a fost găsită", desc: "Pagina pe care o cauți nu există sau a fost mutată.", goHome: "Acasă" },
+  errorPage: { title: "Această pagină nu s-a încărcat", desc: "Ceva a mers greșit la noi. Poți încerca să reîncarci sau să te întorci acasă.", tryAgain: "Încearcă din nou", goHome: "Acasă" },
   hero: {
     kicker: "Finanțe comportamentale • 14 întrebări • 3 minute",
     headline: "Nu sunt banii. E tiparul pe care nu-l vezi.",
     sub: "MindReset îți diagnostichează arhetipul financiar și îți livrează un protocol personalizat. Fără bugete. Fără cont bancar. Doar psihologie care schimbă comportamentul.",
     cta: "Vreau diagnoza gratuită",
     trust: "+12.000 de diagnoze • Fără card pentru a începe",
+    trustSsl: "SSL Securizat",
+    trustData: "Date Protejate",
+    trustGuarantee: "Garanție 7 zile",
   },
   identity: { title: "Înainte să începem — cine ești?", sub: "Vom folosi prenumele tău în toată diagnoza ca să fie personală." },
   questions: { title: (n, total) => `Întrebarea ${n} din ${total}`, intro: (name) => `${name}, alege opțiunea care îți seamănă cel mai mult — nu există răspunsuri greșite.` },
   emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul acum" },
+  quizProgress: { identity: "Identificare", email: "Finalizare" },
   loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…"] },
   reveal: { ...EN.reveal, kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu acum", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
   plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan", guarantee: "7 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
   landing: {
     proofBar: {
+      ariaLabel: "Indicatori de încredere",
       diagnostics: { value: "+12.000", label: "Diagnostice realizate" },
       rating: { value: "4.9 / 5", label: "Evaluare medie" },
       noBank: { value: "100%", label: "Fără date bancare" },
@@ -1049,6 +1333,7 @@ const RO: Dict = {
     testimonials: {
       tag: "Testimoniale",
       title: "Cine a înțeles deja tiparul propriu",
+      starsAlt: (n) => `${n} din ${n} stele`,
       items: [
         { stars: 5, quote: "Nu am înțeles niciodată de ce cheltuiam totul înainte de data de 15. Diagnosticul a numit exact ceea ce simțeam. Parcă cineva m-a explicat, în sfârșit, pe mine mie.", name: "Adam K.", arch: "Arhetip: Hedonist Impulsiv" },
         { stars: 5, quote: "Credeam că sunt disciplinată cu banii. MindReset mi-a arătat că îmi era frică să cheltuiesc — și că asta este tot o problemă. A fost revelator.", name: "Maria C.", arch: "Arhetip: Econom Obsesiv" },
@@ -1076,8 +1361,59 @@ const RO: Dict = {
       sub: "8 întrebări. 3 minute. O claritate pe care nicio foaie de calcul nu ți-o dă.",
       cta: "Începe diagnosticul meu gratuit",
       guarantee: "Garanție 7 zile",
+      trustLine: "🔒 Stripe • 🛡️ SSL • Anulezi oricând",
     },
   },
+  checkout: { welcomeNotification: { title: "🎉 Bine ați venit la MindReset!", body: "Abonamentul dvs. este activ. Click aici pentru a începe diagnosticul." } },
+  resetPassword: { title: "Setează o parolă nouă", placeholder: "Parolă nouă", updating: "Se actualizează…", updateButton: "Actualizează parola", success: "Parola a fost actualizată. Vă puteți autentifica acum." },
+  sharePage: { metaTitle: "Partajează Arhetipul", metaDescription: "Vezi rezultatul diagnozei comportamentale." },
+  obrigado: {
+    metaTitle: "Bine ați venit la MindReset!",
+    loadingTitle: "SE PREGĂTEȘTE ACCESUL...",
+    errorHeading: "Ceva nu a mers bine",
+    errorGoHome: "Înapoi acasă",
+    fallbackName: "Membru MindReset",
+    step1Title: "Accesați Panoul",
+    step1Desc: "Vedeți panoul personalizat cu totul organizat",
+    step2Title: "Completați Onboardingul",
+    step2Desc: "7 întrebări rapide pentru calibrarea protocolului",
+    step3Title: "Începeți Diagnostica",
+    step3Desc: "IA generează analiza comportamentală completă",
+    welcomeHeading: "Bine ați venit la MindReset,",
+    welcomeSub: "Călătoria dvs. de transformare comportamentală începe acum. Suntem fericiți să vă avem alături.",
+    credentialsHeading: "Datele Dvs. de Acces",
+    emailLabel: "Email",
+    emailUnavailable: "Email indisponibil",
+    passwordLabel: "Parola implicită",
+    copySuccess: "Copiat!",
+    copyDefault: "Copiază",
+    passwordInstruction: "Puteți schimba parola oricând în Setări → Securitate din panou.",
+    diagnosisTimerLabel: "Diagnosticul dvs. personal va fi necesar în:",
+    whatsNextHeading: "Ce să faceți acum?",
+    accessCta: "ACCESAȚI MINDRESET ACUM",
+    faqHeading: "Întrebări Frecvente",
+    faq1Q: "Cum mă autentific?",
+    faq1A: "Folosiți emailul de la achiziție cu parola MindReset2026! (pe care o puteți copia mai sus). Dacă uitați parola, folosiți 'Am uitat parola' pe ecranul de autentificare.",
+    faq2Q: "Ce să fac mai întâi?",
+    faq2A: "Completați Onboardingul (7 întrebări rapide). Apoi, accesați Diagnostica pentru a primi analiza comportamentală personalizată de IA.",
+    faq3Q: "Aveți nevoie de ajutor?",
+    faq3A: "Accesați suportul nostru prin email sau chat. Suntem aici să vă ajutăm să aveți cea mai bună experiență posibilă.",
+    copyright: "Toate drepturile rezervate.",
+  },
+  dashboardErrors: {
+    connectionHeading: "Conexiune Întreruptă",
+    connectionDesc: "Nu am reușit să sincronizăm profilul dvs. neuronal. Acest lucru se întâmplă de obicei din cauza unei probleme temporare de conexiune.",
+    reconnectButton: "Restabilește Conexiunea",
+    signOutTryAgain: "Deconectați-vă și încercați din nou",
+    initializing: "Se inițializează Protocolul...",
+    failedLoad: "Nu s-au putut încărca datele panoului",
+  },
+  salesCta: { discoverArchetype: "DESCOPERĂ-MI ARHETIPUL →" },
+  plansExtra: { guarantee7Days: "Garanție 7 Zile", visa: "Visa", mastercard: "Mastercard", stripe: "Stripe", footerCopyright: "MindReset Inc." },
+  calendarExportLabels: { markdownOption: "Markdown (.md)", icsOption: "Calendar (.ics)", markdownHeader: "# MindReset Action Matrix\n\n" },
+  onboardingExtra: { saveError: "A apărut o eroare la salvarea progresului. Vă rugăm să încercați din nou." },
+  settingsExtra: { passwordMinLength: "Parola trebuie să aibă cel puțin 8 caractere.", passwordMismatch: " parolele nu se potrivesc.", passwordChangeError: "Eroare la schimbarea parolei." },
+  commonExtra: { openMenu: "Deschide meniul", protocolVersion: "Protocol v3.0 // 2026" },
 };
 
 const AR: Dict = {
@@ -1093,22 +1429,36 @@ const AR: Dict = {
     privacy: "الخصوصية", terms: "الشروط", login: "تسجيل الدخول", logout: "خروج",
     securePayment: "دفع آمن عبر Stripe", processing: "جارٍ المعالجة…",
   },
+  login: {
+    enterEmailFirst: "أدخل بريدك الإلكتروني أولاً.",
+    checkInbox: "تحقق من صندوق الوارد.",
+    forgotPassword: "نسيت كلمة المرور؟",
+    subscriptionEnded: "⏳ انتهت اشتراكك.",
+    subscriptionRenew: "جديد اشتراكك للمتابعة في الوصول إلى MindReset.",
+  },
+  notFound: { title: "الصفحة غير موجودة", desc: "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.", goHome: "الرئيسية" },
+  errorPage: { title: "هذه الصفحة لم تُحمّل", desc: "حدث خطأ من طرفنا. يمكنك المحاولة مرة أخرى أو العودة للرئيسية.", tryAgain: "حاول مرة أخرى", goHome: "الرئيسية" },
   hero: {
     kicker: "السلوك المالي • ٨ أسئلة • ٣ دقائق",
     headline: "ليست المشكلة في المال. المشكلة في النمط الذي لا تراه.",
     sub: "MindReset يشخّص نمطك المالي ويقدّم بروتوكول عمل مخصّصاً لك. بدون ميزانيات. بدون ربط بنكي. علم نفس يغيّر السلوك.",
     cta: "أريد تشخيصي المجاني",
     trust: "+12,000 تشخيص • بدون بطاقة للبدء",
+    trustSsl: "SSL آمن",
+    trustData: "البيانات محمية",
+    trustGuarantee: "ضمان 7 أيام",
   },
   identity: { title: "قبل أن نبدأ — من أنت؟", sub: "سنستخدم اسمك خلال التشخيص ليكون شخصياً." },
   questions: { title: (n, total) => `السؤال ${n} من ${total}`, intro: (name) => `${name}، اختر الإجابة الأقرب لك — لا توجد إجابة خاطئة.` },
   emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي الآن" },
+  quizProgress: { identity: "التعرف", email: "الإنجاز" },
   loader: { ...EN.loader, title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…"] },
   reveal: { ...EN.reveal, kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي الآن", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
   plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد هذا الخطة", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
   landing: {
     proofBar: {
+      ariaLabel: "مؤشرات الثقة",
       diagnostics: { value: "+12,000", label: "تشخيص تم إنجازه" },
       rating: { value: "4.9 / 5", label: "متوسط التقييم" },
       noBank: { value: "100%", label: "بدون بيانات بنكية" },
@@ -1148,6 +1498,7 @@ const AR: Dict = {
     testimonials: {
       tag: "شهادات",
       title: "من فهم نمطه بالفعل",
+      starsAlt: (n) => `${n} من ${n} نجوم`,
       items: [
         { stars: 5, quote: "لم أفهم أبداً لماذا كنتُ أنفق كل شيء قبل اليوم الخامس عشر. التشخيص سمّى بالضبط ما شعرت به. كأن أحداً أخيراً شرحني لنفسي.", name: "آدم ك.", arch: "النمط: الملذّ المندفع" },
         { stars: 5, quote: "كنت أظن أنني منظبط مع المال. أظهر لي MindReset أنني كنت أخشى الإنفاق — وأن هذه أيضاً مشكلة. كان كشفاً.", name: "ماريا س.", arch: "النمط: المدخر القهري" },
@@ -1175,8 +1526,59 @@ const AR: Dict = {
       sub: "8 أسئلة. 3 دقائق. وضوح لا يمنحك إياه أي جدول بيانات.",
       cta: "ابدأ تشخيصي المجاني",
       guarantee: "ضمان 7 أيام",
+      trustLine: "🔒 Stripe • 🛡️ SSL • إلغاء في أي وقت",
     },
   },
+  checkout: { welcomeNotification: { title: "🎉 مرحباً بك في MindReset!", body: "اشتراكك نشط. انقر هنا لبدء تشخيصك." } },
+  resetPassword: { title: "تعيين كلمة مرور جديدة", placeholder: "كلمة مرور جديدة", updating: "جارٍ التحديث…", updateButton: "تحديث كلمة المرور", success: "تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن." },
+  sharePage: { metaTitle: "مشاركة النمط", metaDescription: "عرض نتيجة التشخيص السلوكي." },
+  obrigado: {
+    metaTitle: "مرحباً بك في MindReset!",
+    loadingTitle: "جارٍ تجهيز وصولك...",
+    errorHeading: "حدث خطأ ما",
+    errorGoHome: "العودة إلى الصفحة الرئيسية",
+    fallbackName: "عضو MindReset",
+    step1Title: "الوصول إلى لوحة التحكم",
+    step1Desc: "شاهد لوحتك المخصصة مع كل شيء منظم",
+    step2Title: "أكمل التأهيل",
+    step2Desc: "7 أسئلة سريعة لضبط بروتوكولك",
+    step3Title: "ابدأ التشخيص",
+    step3Desc: "الذكاء الاصطناعي يولد تحليلك السلوكي الكامل",
+    welcomeHeading: "مرحباً بك في MindReset,",
+    welcomeSub: "رحلة تحولك السلوكي تبدأ الآن. يسعدنا أنك معنا.",
+    credentialsHeading: "بيانات وصولك",
+    emailLabel: "البريد الإلكتروني",
+    emailUnavailable: "البريد الإلكتروني غير متاح",
+    passwordLabel: "كلمة المرور الافتراضية",
+    copySuccess: "تم النسخ!",
+    copyDefault: "نسخ",
+    passwordInstruction: "يمكنك تغيير كلمة المرور في أي وقت في الإعدادات → الأمان داخل لوحة التحكم.",
+    diagnosisTimerLabel: "سيكون تشخيصك الشخصي مطلوباً في:",
+    whatsNextHeading: "ماذا تفعل الآن؟",
+    accessCta: "الوصول إلى MINDRESET الآن",
+    faqHeading: "الأسئلة الشائعة",
+    faq1Q: "كيف أسجل الدخول؟",
+    faq1A: "استخدم البريد الإلكتروني من الشراء مع كلمة المرور MindReset2026! (التي يمكنك نسخها أعلاه). إذا نسيت كلمة المرور، استخدم 'نسيت كلمة المرور' على شاشة تسجيل الدخول.",
+    faq2Q: "ماذا أفعل أولاً؟",
+    faq2A: "أكمل التأهيل (7 أسئلة سريعة). ثم، احصل على التشخيص لتلقي تحليلك السلوكي المخصص من الذكاء الاصطناعي.",
+    faq3Q: "تحتاج مساعدة؟",
+    faq3A: "تفضل بزيارتنا عبر البريد الإلكتروني أو الدردشة. نحن هنا لمساعدتك في الحصول على أفضل تجربة ممكنة.",
+    copyright: "جميع الحقوق محفوظة.",
+  },
+  dashboardErrors: {
+    connectionHeading: "تم قطع الاتصال",
+    connectionDesc: "لم نتمكن من مزامنة ملفك العصبي. يحدث هذا عادة بسبب مشكلة اتصال مؤقتة.",
+    reconnectButton: "إعادة تثبيت الاتصال",
+    signOutTryAgain: "تسجيل الخروج والمحاولة مرة أخرى",
+    initializing: "جارٍ تهيئة البروتوكول...",
+    failedLoad: "فشل تحميل بيانات لوحة التحكم",
+  },
+  salesCta: { discoverArchetype: "اكتشف نمطي →" },
+  plansExtra: { guarantee7Days: "ضمان 7 أيام", visa: "Visa", mastercard: "Mastercard", stripe: "Stripe", footerCopyright: "MindReset Inc." },
+  calendarExportLabels: { markdownOption: "Markdown (.md)", icsOption: "التقويم (.ics)", markdownHeader: "# MindReset Action Matrix\n\n" },
+  onboardingExtra: { saveError: "حدث خطأ أثناء حفظ تقدمك. يرجى المحاولة مرة أخرى." },
+  settingsExtra: { passwordMinLength: "يجب أن تكون كلمة المرور 8 أحرف على الأقل.", passwordMismatch: "كلمتا المرور غير متطابقتين.", passwordChangeError: "خطأ في تغيير كلمة المرور." },
+  commonExtra: { openMenu: "فتح القائمة", protocolVersion: "Protocol v3.0 // 2026" },
 };
 
 export const translations: Record<Lang, Dict> = { pt: PT, en: EN, pl: PL, ro: RO, ar: AR };

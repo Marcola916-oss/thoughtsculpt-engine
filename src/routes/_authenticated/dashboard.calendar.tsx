@@ -209,7 +209,7 @@ function CalendarPage() {
 
   const exportMD = () => {
     const md =
-      `# MindReset Action Matrix\n\n` +
+      t.calendarExportLabels.markdownHeader +
       tasks
         .filter((task) => isUnlocked(task))
         .map(
@@ -240,7 +240,7 @@ function CalendarPage() {
       "PRODID:-//MindReset//Action Matrix//EN",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
-      "X-WR-CALNAME:MindReset Action Matrix",
+      "X-WR-CALNAME:" + t.dashboard.calendar.ics.calName,
     ];
 
     tasks
@@ -253,11 +253,11 @@ function CalendarPage() {
         dtEnd.setHours(9, 30, 0, 0);
 
         const uid = `mindreset-day-${task.day_number}@mindreset.app`;
-        const summary = `Day ${task.day_number} — ${task.phase}`;
+        const summary = t.dashboard.calendar.ics.daySummary(task.day_number, task.phase);
         const description = [
-          task.reflective_task ? `Reflexiva: ${task.reflective_task}` : "",
-          task.action_task ? `Ação: ${task.action_task}` : "",
-          task.is_milestone ? "⭐ MARCO" : "",
+          task.reflective_task ? `${t.dashboard.calendar.ics.reflective}: ${task.reflective_task}` : "",
+          task.action_task ? `${t.dashboard.calendar.ics.action}: ${task.action_task}` : "",
+          task.is_milestone ? t.dashboard.calendar.ics.milestone : "",
         ]
           .filter(Boolean)
           .join("\\n");
@@ -273,7 +273,7 @@ function CalendarPage() {
           "BEGIN:VALARM",
           "TRIGGER:-PT15M",
           "ACTION:DISPLAY",
-          "DESCRIPTION:MindReset tarefa do dia",
+          "DESCRIPTION:" + t.dashboard.calendar.ics.alarmDesc,
           "END:VALARM",
           "END:VEVENT",
         );
@@ -318,13 +318,13 @@ function CalendarPage() {
                   onClick={exportMD}
                   className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-secondary"
                 >
-                  Markdown (.md)
+                   {t.calendarExportLabels.markdownOption}
                 </button>
                 <button
                   onClick={exportICS}
                   className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-secondary"
                 >
-                  Calendar (.ics)
+                   {t.calendarExportLabels.icsOption}
                 </button>
               </div>
             )}

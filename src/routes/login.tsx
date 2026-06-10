@@ -43,13 +43,13 @@ function LoginPage() {
 
   async function forgot() {
     if (!email) {
-      setErr("Enter your email first.");
+      setErr(t.login.enterEmailFirst);
       return;
     }
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset-password`,
     });
-    setErr(error ? error.message : "Check your inbox.");
+    setErr(error ? error.message : t.login.checkInbox);
   }
 
   return (
@@ -65,9 +65,9 @@ function LoginPage() {
           role="alert"
           className="mb-4 rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-sm text-foreground"
         >
-          <p className="font-semibold text-primary">⏳ Sua assinatura foi encerrada.</p>
+          <p className="font-semibold text-primary">{t.login.subscriptionEnded}</p>
           <p className="mt-1 text-muted-foreground">
-            Renove seu plano para continuar acessando o MindReset.
+            {t.login.subscriptionRenew}
           </p>
         </div>
       )}
@@ -101,7 +101,7 @@ function LoginPage() {
         onClick={forgot}
         className="mt-4 text-center text-xs text-muted-foreground hover:text-foreground"
       >
-        Forgot password?
+        {t.login.forgotPassword}
       </button>
       </div>
     </div>

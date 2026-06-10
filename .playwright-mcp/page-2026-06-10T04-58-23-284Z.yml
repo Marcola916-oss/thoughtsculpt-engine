@@ -1,0 +1,20 @@
+- generic [active] [ref=e1]:
+  - paragraph [ref=e6]: Initializing Protocol...
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - paragraph [ref=e10]: We use location technologies to personalize your experience. By continuing you agree to our Privacy Policy.
+      - generic [ref=e11]:
+        - link "Privacy" [ref=e12] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms" [ref=e13] [cursor=pointer]:
+          - /url: /terms
+    - generic [ref=e14]:
+      - button "Essential only" [ref=e15]
+      - button "Accept all" [ref=e16]
+  - complementary "Edit with Lovable" [ref=e17]:
+    - link "Edit with Lovable" [ref=e18] [cursor=pointer]:
+      - /url: https://lovable.dev/projects/3f9b1dc4-2b9d-4a05-870f-ba9e5ecd20e8?utm_source=lovable-badge
+      - generic [ref=e19]: Edit with
+      - img [ref=e20]
+    - button "Dismiss" [ref=e25] [cursor=pointer]:
+      - img [ref=e26]
