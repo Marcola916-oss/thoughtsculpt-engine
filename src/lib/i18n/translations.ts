@@ -552,7 +552,7 @@ const EN: Dict = {
   },
   hero: {
     kicker: "Behavioral finance • 8 questions • 3 minutes",
-    headline: "It's not the money. It's the pattern you can't see.",
+    headline: "It's not the money. It's the pattern you need to know.",
     sub: "MindReset diagnoses your financial archetype and ships a personalized action protocol. No budgets. No bank linking. Just psychology that changes behavior.",
     cta: "I want my free diagnosis",
     trust: "+12,000 diagnoses • No card to start",
@@ -898,7 +898,7 @@ const PL: Dict = {
   },
   hero: {
     kicker: "Finanse behawioralne • 14 pytań • 3 minuty",
-    headline: "To nie pieniądze. To wzorzec, którego nie widzisz.",
+    headline: "To nie pieniądze. To wzorzec, który musisz poznać.",
     sub: "MindReset diagnozuje Twój finansowy archetyp i dostarcza spersonalizowany protokół działania. Bez budżetów. Bez łączenia z bankiem. Tylko psychologia, która zmienia zachowanie.",
     cta: "Chcę darmową diagnozę",
     trust: "+12 000 diagnoz • Bez karty na start",
