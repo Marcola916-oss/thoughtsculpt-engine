@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { cn } from "@/lib/utils";
+import brainImage from "@/assets/brain-circuit.png";
 
 export type CircuitBrainVariant = "hero" | "loader" | "mini" | "icon";
 export type BrainStyle = "premium" | "neon" | "archetype";
@@ -27,42 +28,69 @@ export const CircuitBrain = memo(({
   className,
   progress = 100,
 }: CircuitBrainProps) => {
+  const isProgress = progress < 100;
+  const clipPath = isProgress
+    ? `inset(${100 - progress}% 0 0 0)`
+    : undefined;
+  const glowSize = Math.round(size * 0.6);
+
   return (
-    <div className={cn("relative inline-flex items-center justify-center", className)} style={{ width: size, height: size }}>
+    <div
+      className={cn("relative inline-flex items-center justify-center", className)}
+      style={{ width: size, height: size }}
+      role="img"
+      aria-label={ariaLabel}
+    >
       {withGlow && (
-        <div className="absolute inset-0 bg-[#CC0000]/10 blur-[40px] rounded-full animate-pulse pointer-events-none" />
-      )}
-      <svg viewBox="0 0 200 200" width={size} height={size} className={cn(animated && "animate-pulse")}>
-        <defs>
-          <radialGradient id="brain-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#CC0000" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#CC0000" stopOpacity="0" />
-          </radialGradient>
-          <mask id="brain-mask">
-             <rect x="0" y={200 - (progress * 2)} width="200" height="200" fill="white" />
-          </mask>
-        </defs>
-        
-        <g mask={progress < 100 ? "url(#brain-mask)" : undefined}>
-          <path
-            d="M100,25 C135,25 165,35 175,65 C185,95 175,125 155,145 C135,165 100,175 80,165 C60,155 45,135 45,105 C45,75 65,55 100,25 Z"
-            fill="none"
-            stroke="#CC0000"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            className="stroke-primary"
-            style={{ filter: "drop-shadow(0 0 8px #CC0000)" }}
+        <>
+          <div
+            className={cn(
+              "absolute rounded-full pointer-events-none",
+              animated && "brain-glow-pulse",
+            )}
+            style={{
+              width: glowSize,
+              height: glowSize,
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              background:
+                "radial-gradient(circle, rgba(204,0,0,0.55) 0%, rgba(204,0,0,0.25) 35%, rgba(204,0,0,0) 70%)",
+              filter: "blur(28px)",
+              willChange: "opacity, transform",
+            }}
           />
-          
-          <g stroke="#CC0000" strokeWidth="1" strokeOpacity="0.4" fill="none">
-            <path d="M70,70 L130,70 M60,100 L140,100 M70,130 L130,130 M100,45 L100,155" />
-            <circle cx="100" cy="70" r="2" fill="#CC0000" />
-            <circle cx="100" cy="100" r="3" fill="#CC0000" />
-            <circle cx="100" cy="130" r="2" fill="#CC0000" />
-            <path d="M100,70 L120,85 L120,115 L100,130 L80,115 L80,85 Z" strokeOpacity="0.2" />
-          </g>
-        </g>
-      </svg>
+          <div
+            className="absolute inset-0 rounded-full pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 55%, rgba(204,0,0,0.15) 0%, transparent 60%)",
+            }}
+          />
+        </>
+      )}
+      <img
+        src={brainImage}
+        alt=""
+        aria-hidden
+        width={size}
+        height={size}
+        loading={variant === "hero" ? "eager" : "lazy"}
+        decoding="async"
+        draggable={false}
+        className={cn(
+          "relative block w-full h-full object-contain select-none",
+          animated && "brain-image-pulse",
+        )}
+        style={{
+          clipPath,
+          WebkitClipPath: clipPath,
+          filter:
+            "drop-shadow(0 0 12px rgba(204,0,0,0.55)) drop-shadow(0 0 28px rgba(204,0,0,0.35))",
+          transition: isProgress ? "clip-path 200ms linear" : undefined,
+          willChange: "clip-path, filter",
+        }}
+      />
     </div>
   );
 });
