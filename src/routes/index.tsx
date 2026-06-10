@@ -591,17 +591,6 @@ function Hero({ onStart }: { onStart: () => void }) {
         {t.archetypes?.HI?.name || "O Foguinho"}
       </motion.div>
 
-      {/* CircuitBrain — central visual identity */}
-      <MFade delay={0.1} className="mb-8 md:mb-12 flex justify-center">
-        <CircuitBrain
-          variant="hero"
-          style="premium"
-          size={200}
-          withGlow
-          animated
-          ariaLabel="MindReset — Mente Digital"
-        />
-      </MFade>
 
       <MFade
         delay={0}
