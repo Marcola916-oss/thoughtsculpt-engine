@@ -6,6 +6,7 @@ import { supabase } from "../../integrations/supabase/client";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { StreakCounter } from "../gamification/StreakCounter";
 import { drawerSlide, modalScale } from "../../lib/animations";
+import { CircuitBrain } from "../identity/CircuitBrain";
 
 interface SidebarProps {
   streak?: number;

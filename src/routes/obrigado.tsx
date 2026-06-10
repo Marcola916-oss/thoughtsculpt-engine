@@ -112,11 +112,12 @@ function ThankYouPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
-        <div className="relative flex h-24 w-24 items-center justify-center">
-          <div className="absolute inset-0 animate-[spin_3s_linear_infinite] rounded-full border-4 border-[#CC0000]/20 border-t-[#CC0000] shadow-[0_0_24px_rgba(204,0,0,0.3)]" />
-          <MarbleBust variant="loader" intensity="subtle" size={64} ariaLabel="Carregando" />
+        <div className="relative flex h-32 w-32 items-center justify-center">
+          <CircuitBrain variant="loader" size={120} withGlow animated />
         </div>
-        <p className="mt-6 text-lg font-medium text-gray-400">Preparando seu acesso...</p>
+        <p className="mt-8 text-lg font-black uppercase tracking-[0.2em] text-primary animate-pulse">
+          PREPARANDO SEU ACESSO...
+        </p>
       </div>
     );
   }
@@ -195,12 +196,12 @@ function ThankYouPage() {
             </Link>
 
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
+              initial={{ scale: 0, rotate: -20 }}
+              animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", damping: 15, stiffness: 200, delay: 0.3 }}
-              className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-[#CC0000]/10 border border-[#CC0000]/20 shadow-[0_0_40px_rgba(204,0,0,0.2)]"
+              className="mb-8"
             >
-              <span className="text-4xl">🎉</span>
+              <CircuitBrain size={160} withGlow animated />
             </motion.div>
 
             <h1 className="font-display text-4xl md:text-5xl font-black tracking-tighter leading-tight">
