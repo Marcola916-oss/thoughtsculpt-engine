@@ -65,7 +65,7 @@ function AILoader({ onComplete }: { onComplete: () => void }) {
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background text-foreground overflow-hidden">
       <div className="absolute inset-0 mesh-gradient opacity-30" />
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/4 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-arch-glow blur-[120px]" />
+        <div className="absolute -top-1/4 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-arch-glow blur-[12px] lg:blur-[120px]" />
       </div>
 
       <div className="relative z-10 flex flex-col items-center gap-10 px-6 text-center max-w-lg">

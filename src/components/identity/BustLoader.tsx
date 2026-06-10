@@ -90,7 +90,7 @@ export function BustLoader({
   return (
     <section className="flex flex-col items-center justify-center min-h-[70vh] text-center relative w-full max-w-lg mx-auto px-4">
       {/* Ambient red glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary opacity-[0.08] blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary opacity-[0.08] blur-[12px] lg:blur-[120px] rounded-full pointer-events-none" />
 
       {/* Bust with progress ring */}
       <div className="relative mb-10" style={{ width: bustSize, height: bustSize }}>

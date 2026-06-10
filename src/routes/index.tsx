@@ -23,6 +23,7 @@ import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring"
 import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
 import { saveQuizLead } from "../lib/quiz.functions";
 import { createCheckoutSession } from "../lib/checkout.functions";
+import { useDeviceTier } from "../hooks/use-device-tier";
 
 import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
@@ -55,6 +56,35 @@ const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDi
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={className}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+/** Mount animation wrapper — CSS on low tier, Framer Motion on high */
+const MFade = ({
+  children,
+  className,
+  delay = 0,
+  y = 20,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { delay?: number; y?: number }) => {
+  if (isMobileMotion) {
+    const delayClass = delay <= 0 ? '' : delay <= 0.2 ? 'hero-fade-delay-1' : delay <= 0.4 ? 'hero-fade-delay-2' : delay <= 0.6 ? 'hero-fade-delay-3' : delay <= 1 ? 'hero-fade-delay-4' : delay <= 1.5 ? 'hero-fade-delay-5' : delay <= 2 ? 'hero-fade-delay-6' : 'hero-fade-delay-7';
+    return (
+      <div className={`hero-fade ${delayClass} ${className || ''}`} {...props}>
+        {children}
+      </div>
+    );
+  }
+  return (
+    <motion.div
+      initial={{ opacity: 0, y }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={className}
       {...props}
     >
@@ -247,8 +277,8 @@ function LandingAndQuiz() {
                 </div>
                 <FAQ onCta={() => setStage({ kind: "identity" })} />
                 <FinalCTA onCta={() => setStage({ kind: "identity" })} />
-              </div>
-            </motion.div>
+          </div>
+        </motion.div>
           )}
 
           {stage.kind === "identity" && (
@@ -420,8 +450,10 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
 function TopBar() {
   const { t } = useI18n();
+  const tier = useDeviceTier();
   const [scrolled, setScrolled] = useState(false);
-  const { scrollYProgress } = useScroll();
+  const scrollResult = useScroll();
+  const scrollYProgress = tier === "low" ? undefined : scrollResult.scrollYProgress;
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -475,16 +507,18 @@ function TopBar() {
         </div>
       </div>
       
-      {/* Scroll indicator line integrated into TopBar */}
-      <motion.div 
-        className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-arch-primary to-transparent"
-        style={{ 
-          scaleX: scrollYProgress, 
-          width: "100%",
-          transformOrigin: "center",
-          opacity: scrolled ? 1 : 0
-        }}
-      />
+      {/* Scroll indicator line integrated into TopBar — skipped on low tier */}
+      {tier !== "low" && (
+        <motion.div 
+          className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-arch-primary to-transparent"
+          style={{ 
+            scaleX: scrollYProgress, 
+            width: "100%",
+            transformOrigin: "center",
+            opacity: scrolled ? 1 : 0
+          }}
+        />
+      )}
     </header>
   );
 }
@@ -497,23 +531,21 @@ function Hero({ onStart }: { onStart: () => void }) {
     <section className="relative pt-20 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[40px] lg:blur-[120px]" />
-        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[60px] lg:blur-[140px] rounded-full lg:animate-pulse" />
-        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[60px] lg:blur-[140px] rounded-full lg:animate-pulse [animation-delay:2s]" />
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[8px] lg:blur-[120px]" />
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[8px] lg:blur-[140px] rounded-full lg:animate-pulse" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-arch-primary/5 blur-[8px] lg:blur-[140px] rounded-full lg:animate-pulse [animation-delay:2s]" />
       </div>
 
       {/* Floating Archetype Badges */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      <MFade
+        delay={0}
         className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
       >
         <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary md:backdrop-blur-md">
           <ShieldCheck className="h-3.5 w-3.5" />
           {t.archetypes?.AO?.name || "O Guardador"}
         </span>
-      </motion.div>
+      </MFade>
 
       <motion.div
         initial={{ opacity: 0, x: 20 }}
@@ -556,10 +588,9 @@ function Hero({ onStart }: { onStart: () => void }) {
         {t.archetypes?.HI?.name || "O Foguinho"}
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      <MFade
+        delay={0}
+        y={-20}
         className="mb-10 inline-flex items-center gap-2 rounded-full bg-black/40 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/90 shadow-2xl md:backdrop-blur-2xl border-white/10 border-2"
       >
         <span className="relative flex h-2 w-2">
@@ -567,50 +598,60 @@ function Hero({ onStart }: { onStart: () => void }) {
           <span className="relative inline-flex h-2 w-2 rounded-full bg-arch-primary"></span>
         </span>
         {t.hero.kicker}
-      </motion.div>
+      </MFade>
 
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mx-auto max-w-6xl font-display text-[11vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic"
-      >
-        <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-          {t.hero.headline.split('conhecer')[0]}
-        </span>
-        <span className="relative inline-block mx-1 md:mx-4 z-10">
-          <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
-          <motion.span 
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
-            className="absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]"
-          />
-        </span>
-        <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
-          {t.hero.headline.split('conhecer')[1]}
-        </span>
-        
-        {/* Deep Contrast Backplate for Headline */}
-        <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[60px] md:blur-[100px] -z-0 pointer-events-none" />
-      </motion.h1>
+      {isMobileMotion ? (
+        <h1 className="hero-fade hero-fade-delay-2 relative mx-auto max-w-6xl font-display text-[11vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic">
+          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+            {t.hero.headline.split('conhecer')[0]}
+          </span>
+          <span className="relative inline-block mx-1 md:mx-4 z-10">
+            <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
+            <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
+          </span>
+          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+            {t.hero.headline.split('conhecer')[1]}
+          </span>
+          <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[8px] md:blur-[100px] -z-0 pointer-events-none" />
+        </h1>
+      ) : (
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto max-w-6xl font-display text-[11vw] md:text-[9.5rem] font-black leading-[0.85] md:leading-[0.9] tracking-[-0.05em] uppercase italic"
+        >
+          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+            {t.hero.headline.split('conhecer')[0]}
+          </span>
+          <span className="relative inline-block mx-1 md:mx-4 z-10">
+            <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">conhecer</span>
+            <motion.span 
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
+              className="absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]"
+            />
+          </span>
+          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+            {t.hero.headline.split('conhecer')[1]}
+          </span>
+          <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[8px] md:blur-[100px] -z-0 pointer-events-none" />
+        </motion.h1>
+      )}
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 1 }}
+      <MFade
+        delay={0.4}
         className="relative mx-auto mt-16 max-w-2xl px-6"
       >
-        <div className="absolute inset-0 bg-black/60 blur-[40px] -z-10 scale-150" />
+        <div className="absolute inset-0 bg-black/60 blur-[8px] md:blur-[40px] -z-10 scale-150" />
         <p className="relative z-10 text-lg text-white md:text-2xl leading-relaxed font-semibold tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
           {t.hero.sub}
         </p>
-      </motion.div>
+      </MFade>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 1 }}
+      <MFade
+        delay={0.6}
         className="mt-24 flex flex-col items-center gap-12"
       >
         <Magnetic>
@@ -652,7 +693,7 @@ function Hero({ onStart }: { onStart: () => void }) {
             </div>
           </div>
         </div>
-      </motion.div>
+      </MFade>
 
       {/* Floating Archetype Display */}
       <div className="mt-20 md:mt-40 relative px-4 max-w-7xl mx-auto overflow-visible">
@@ -676,14 +717,12 @@ function Hero({ onStart }: { onStart: () => void }) {
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+      <MFade
+        delay={2}
         className="mt-32 opacity-20"
       >
         <ChevronDown className="mx-auto h-6 w-6 animate-bounce text-arch-primary" />
-      </motion.div>
+      </MFade>
     </section>
   );
 }
@@ -893,7 +932,7 @@ function Reveal({
 
   return (
     <section className="py-12 md:py-40 overflow-hidden relative">
-      <div className="absolute inset-0 bg-arch-glow blur-[160px] opacity-20 -z-10" />
+      <div className="absolute inset-0 bg-arch-glow blur-[12px] lg:blur-[160px] opacity-20 -z-10" />
       <div className="text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
@@ -960,7 +999,7 @@ function Reveal({
         className="mx-auto mt-32 max-w-5xl rounded-[4rem] border border-white/5 bg-card/40 p-10 md:p-24 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl"
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary to-transparent" />
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[100px]" />
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px]" />
 
         <div className="absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-32 rounded-[2.5rem] bg-background border-2 border-arch-primary flex items-center justify-center text-5xl shadow-[0_20px_40px_-10px_var(--arch-glow)] z-20">
           🔒
@@ -1051,49 +1090,61 @@ function Sales({
       <div className="space-y-40">
         {/* --- Block 1: H1 + Promise + Video Placeholder ---------------------- */}
         <div className="text-center max-w-5xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+          <MSection
             className="mb-8 inline-flex items-center gap-3 rounded-xl bg-arch-primary/10 px-4 py-2 border border-arch-primary/20"
           >
             <span className="text-sm font-black uppercase tracking-widest text-arch-primary">
               {s.timer} <span className="font-mono text-xl ml-2">{formatTime(timeLeft)}</span>
             </span>
-          </motion.div>
+          </MSection>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter"
-          >
-            {s.h1(
-              name,
-              (
-                <span className="text-arch-primary underline decoration-arch-primary/30 underline-offset-8 italic">
-                  {a.name}
-                </span>
-              ) as any,
-            )}
-          </motion.h1>
+          {isMobileMotion ? (
+            <h1 className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter">
+              {s.h1(
+                name,
+                (
+                  <span className="text-arch-primary underline decoration-arch-primary/30 underline-offset-8 italic">
+                    {a.name}
+                  </span>
+                ) as any,
+              )}
+            </h1>
+          ) : (
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter"
+            >
+              {s.h1(
+                name,
+                (
+                  <span className="text-arch-primary underline decoration-arch-primary/30 underline-offset-8 italic">
+                    {a.name}
+                  </span>
+                ) as any,
+              )}
+            </motion.h1>
+          )}
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto"
-          >
-            {s.promise}
-          </motion.p>
+          {isMobileMotion ? (
+            <p className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+              {s.promise}
+            </p>
+          ) : (
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto"
+            >
+              {s.promise}
+            </motion.p>
+          )}
 
           {/* Video Placeholder Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8 }}
+          <MSection
             className="mt-20 relative aspect-video w-full rounded-[2.5rem] bg-card border border-border shadow-2xl overflow-hidden group cursor-pointer"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/10 to-transparent" />
@@ -1115,14 +1166,11 @@ function Sales({
                 />
               ))}
             </div>
-          </motion.div>
+          </MSection>
         </div>
 
         {/* --- Block 2: Pain Mirror ------------------------------------------- */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
+        <MSection
           className="rounded-[4rem] border border-white/5 bg-white/[0.02] md:backdrop-blur-2xl p-8 md:p-24 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden max-w-6xl mx-auto"
         >
           <div className="absolute top-0 right-0 p-12 opacity-[0.05] -rotate-12 translate-x-24 -translate-y-24">
@@ -1145,23 +1193,19 @@ function Sales({
             </div>
             <div className="grid gap-4">
               {s.painBlock.bullets.map((b, i) => (
-                <motion.div
+                <MSection
                   key={i}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
                   className="flex gap-4 items-start p-6 rounded-2xl bg-background/50 border border-border/50"
                 >
                   <div className="h-6 w-6 rounded-full bg-arch-primary/10 flex items-center justify-center shrink-0 mt-1">
                     <CheckCircle2 size={14} className="text-arch-primary" />
                   </div>
                   <span className="text-lg font-medium leading-tight">{b}</span>
-                </motion.div>
+                </MSection>
               ))}
             </div>
           </div>
-        </motion.div>
+        </MSection>
 
         {/* Mid-CTA after Pain Mirror */}
         <div className="text-center">
@@ -1172,7 +1216,7 @@ function Sales({
 
         {/* --- Block 3: Scientific Proof -------------------------------------- */}
         <div className="text-center max-w-5xl mx-auto relative px-6">
-          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-full h-[600px] bg-arch-glow blur-[140px] opacity-10 -z-10" />
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-full h-[600px] bg-arch-glow blur-[12px] lg:blur-[140px] opacity-10 -z-10" />
           <div className="inline-flex items-center justify-center h-32 w-32 rounded-[2.5rem] bg-white/5 border border-white/10 mb-12 shadow-2xl md:backdrop-blur-xl">
             <ShieldCheck className="h-16 w-16 text-arch-primary animate-pulse" />
           </div>
@@ -1208,12 +1252,8 @@ function Sales({
         {/* --- Block 4: Product Grid (4D Features) ----------------------------- */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {s.features.map((f, i) => (
-            <motion.div
+            <MSection
               key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
               className="group rounded-[3rem] border border-white/5 bg-card/40 p-12 transition-all md:backdrop-blur-xl hover:border-arch-primary/30 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover:scale-125 transition-transform duration-700">
@@ -1228,17 +1268,14 @@ function Sales({
               <p className="text-muted-foreground text-xl leading-relaxed font-medium">
                 {f.description}
               </p>
-            </motion.div>
+            </MSection>
           ))}
         </div>
 
         {/* ── Block 8: Final CTA + Guarantee ───────────────────────── */}
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Guarantee Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <MSection
             className="flex flex-col md:flex-row items-center gap-10 p-10 md:p-16 rounded-[3rem] border border-border bg-background shadow-xl"
           >
             <div className="h-32 w-32 shrink-0 bg-arch-primary/10 rounded-full flex items-center justify-center">
@@ -1250,18 +1287,15 @@ function Sales({
                 {s.guarantee.body}
               </p>
             </div>
-          </motion.div>
+          </MSection>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <MSection
             className="text-center rounded-[5rem] border border-white/10 bg-white/5 p-12 md:p-32 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl group"
           >
             {/* Animated Background Aura */}
             <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/20 via-transparent to-arch-primary/5 opacity-30 group-hover:opacity-50 transition-opacity duration-1000" />
-            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[100px] animate-pulse" />
-            <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[100px] animate-pulse [animation-delay:2s]" />
+            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px] animate-pulse" />
+            <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px] animate-pulse [animation-delay:2s]" />
 
             <div className="relative z-10">
               <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">
@@ -1287,9 +1321,7 @@ function Sales({
                 </div>
               </div>
             </div>
-          </motion.div>
-
-          {/* Detailed FAQ section based on the mockup if not already covered enough */}
+          </MSection>
         </div>
       </div>
     </section>
@@ -1361,23 +1393,35 @@ function Plans({
             </span>
           </motion.div>
         )}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-display text-4xl font-extrabold md:text-7xl mb-6"
-        >
-          {t.plans.title}
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-        >
-          {t.plans.sub}
-        </motion.p>
+        {isMobileMotion ? (
+          <h2 className="font-display text-4xl font-extrabold md:text-7xl mb-6">
+            {t.plans.title}
+          </h2>
+        ) : (
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-display text-4xl font-extrabold md:text-7xl mb-6"
+          >
+            {t.plans.title}
+          </motion.h2>
+        )}
+        {isMobileMotion ? (
+          <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            {t.plans.sub}
+          </p>
+        ) : (
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+          >
+            {t.plans.sub}
+          </motion.p>
+        )}
       </div>
 
       {err && (
@@ -1405,12 +1449,8 @@ function Plans({
           }
 
           return (
-            <motion.div
+            <MSection
               key={p}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className={`relative flex flex-col rounded-[3.5rem] border bg-card/50 p-12 transition-all md:backdrop-blur-3xl ${
                 popular
                   ? "border-arch-primary shadow-[0_40px_100px_-20px_var(--arch-glow)] md:scale-110 z-10"
@@ -1486,17 +1526,14 @@ function Plans({
                   )}
                 </span>
               </motion.button>
-            </motion.div>
+            </MSection>
           );
         })}
       </div>
 
       <div className="mt-24 text-center">
         {/* Guarantee Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <MSection
           className="mb-10 inline-flex flex-col items-center gap-4 rounded-3xl border border-arch-primary/20 bg-arch-primary/5 px-10 py-8"
         >
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-arch-primary/10">
@@ -1504,7 +1541,7 @@ function Plans({
           </div>
           <p className="text-xl font-bold text-foreground">7 Dias de Garantia</p>
           <p className="text-sm text-muted-foreground max-w-md">{t.plans.guarantee}</p>
-        </motion.div>
+        </MSection>
 
         {/* Secure Badge */}
         <div className="flex items-center justify-center gap-4 text-sm font-bold text-muted-foreground">

@@ -247,6 +247,7 @@ function FloatingSymbolsImpl({
             className={cn(
               "absolute select-none font-serif leading-none",
               slot.mobileHidden && "hidden md:block",
+              "symbol-drift",
               blurClass,
               withGlow && "symbol-glow",
             )}
@@ -256,7 +257,6 @@ function FloatingSymbolsImpl({
               fontSize: `${slot.size}px`,
               opacity: 0.2, 
               color: "#E5E7EB",
-              animation: "symbol-drift-static linear infinite",
               animationDelay: `${slot.delay}s`,
               animationDuration: `${slot.duration}s`,
               willChange: "transform, opacity",

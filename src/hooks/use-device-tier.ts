@@ -15,10 +15,10 @@ export type DeviceTier = "low" | "medium" | "high";
  * - Device memory (navigator.deviceMemory — Chrome only)
  * - Screen width as fallback
  *
- * Returns "high" during SSR to avoid hydration mismatch.
+ * Returns "low" during SSR to show lightweight version first, then upgrades.
  */
 export function useDeviceTier(): DeviceTier {
-  const [tier, setTier] = useState<DeviceTier>("high");
+  const [tier, setTier] = useState<DeviceTier>("low");
 
   useEffect(() => {
     const detected = detectTier();

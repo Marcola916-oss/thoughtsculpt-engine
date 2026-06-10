@@ -152,7 +152,7 @@ function HubPage() {
         {archetype && (
           <motion.div
             variants={staggerItem}
-            className={`mt-8 p-6 rounded-[var(--radius-xl)] bg-gradient-to-r ${ARCHETYPE_GRADIENTS[archetype]} to-transparent border border-white/5 backdrop-blur-xl relative overflow-hidden`}
+            className={`mt-8 p-6 rounded-[var(--radius-xl)] bg-gradient-to-r ${ARCHETYPE_GRADIENTS[archetype]} to-transparent border border-white/5 md:backdrop-blur-xl relative overflow-hidden`}
           >
             <div className="absolute top-0 right-0 p-2 opacity-10">
               <span className="text-4xl font-black italic">PROTOCOL</span>
@@ -182,7 +182,7 @@ function HubPage() {
           <motion.div
             key={i}
             variants={staggerItem}
-            className="bg-white/5 border border-white/5 backdrop-blur-md rounded-[var(--radius-xl)] p-5 text-center relative overflow-hidden group"
+            className="bg-white/5 border border-white/5 md:backdrop-blur-md rounded-[var(--radius-xl)] p-5 text-center relative overflow-hidden group"
             whileHover={{ borderColor: "var(--arch-primary)", y: -2, boxShadow: "0 10px 30px -10px var(--arch-glow)" }}
             transition={{ duration: 0.2 }}
           >
@@ -240,7 +240,7 @@ function HubPage() {
       {/* Notifications */}
       {notifications.length > 0 && (
         <motion.section
-          className="mt-16 rounded-[var(--radius-xl)] border border-white/5 bg-white/5 backdrop-blur-xl p-8 relative overflow-hidden"
+          className="mt-16 rounded-[var(--radius-xl)] border border-white/5 bg-white/5 md:backdrop-blur-xl p-8 relative overflow-hidden"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}

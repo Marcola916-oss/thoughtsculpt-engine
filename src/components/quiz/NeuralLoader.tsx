@@ -83,7 +83,7 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
   return (
     <section className="flex flex-col items-center justify-center min-h-[70vh] text-center relative w-full max-w-lg mx-auto px-4">
       {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary opacity-[0.06] blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary opacity-[0.06] blur-[12px] lg:blur-[120px] rounded-full pointer-events-none" />
 
       {/* Orbital visualization */}
       <div className="relative w-36 h-36 mb-10">

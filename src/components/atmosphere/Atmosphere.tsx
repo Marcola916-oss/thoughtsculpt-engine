@@ -90,9 +90,14 @@ export function Atmosphere({
 }: AtmosphereProps) {
   const tier = useDeviceTier();
 
-  const showFog = fog !== "off";
-  const showSymbols = symbols !== "off" && TIER_SYMBOLS[tier] > 0;
-  const showScan = scan !== "off";
+  // Low tier: force all effects off — let BackgroundAmbient handle the glow
+  const effectiveFog = tier === "low" ? "off" : fog;
+  const effectiveSymbols = tier === "low" ? "off" : symbols;
+  const effectiveScan = tier === "low" ? "off" : scan;
+
+  const showFog = effectiveFog !== "off";
+  const showSymbols = effectiveSymbols !== "off" && TIER_SYMBOLS[tier] > 0;
+  const showScan = effectiveScan !== "off";
 
   return (
     <div aria-hidden="true" className={cn("relative z-10", className)}>
@@ -101,7 +106,7 @@ export function Atmosphere({
       {/* Fog — tier-aware orb count */}
       {showFog && (
         <VolumetricFog
-          intensity={FOG_TO_INTENSITY[fog]}
+          intensity={FOG_TO_INTENSITY[effectiveFog]}
           pinned={pinned}
           maxOrbs={TIER_ORBS[tier]}
           className={cn(
@@ -116,9 +121,9 @@ export function Atmosphere({
         <FloatingSymbols
           set={symbolsSet}
           count={TIER_SYMBOLS[tier]}
-          density={SYMBOLS_TO_DENSITY[symbols]}
+          density={SYMBOLS_TO_DENSITY[effectiveSymbols]}
           pinned={pinned}
-          withGlow={symbols === "dense" && tier === "high"}
+          withGlow={effectiveSymbols === "dense" && tier === "high"}
           className="z-[5]"
         />
       )}
@@ -126,7 +131,7 @@ export function Atmosphere({
       {/* Scan lines — tier-aware opacity */}
       {showScan && (
         <ScanLines
-          intensity={scan}
+          intensity={effectiveScan}
           pinned={pinned}
           className={TIER_SCAN_OPACITY[tier]}
         />

@@ -11,7 +11,7 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
     <section aria-labelledby="final-cta-title" className="relative overflow-hidden py-28 md:py-40">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-[600px] w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-[120px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-[600px] w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-[12px] lg:blur-[120px]"
         style={{
           background:
             "radial-gradient(ellipse at center, rgba(204,0,0,0.20) 0%, rgba(204,0,0,0.06) 45%, transparent 70%)",
