@@ -255,7 +255,7 @@ function FloatingSymbolsImpl({
               left: `${slot.x}%`,
               top: `${slot.y}%`,
               fontSize: `${slot.size}px`,
-              opacity: 0.2, 
+              opacity: finalOpacity, 
               color: "#E5E7EB",
               animationDelay: `${slot.delay}s`,
               animationDuration: `${slot.duration}s`,
