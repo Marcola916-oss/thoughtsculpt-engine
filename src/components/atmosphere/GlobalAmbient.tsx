@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import { Atmosphere } from "./Atmosphere";
+import { Atmosphere, type AtmosphereFog, type AtmosphereSymbols, type AtmosphereScan } from "./Atmosphere";
 import { useDeviceTier } from "@/hooks/use-device-tier";
 
 /**
