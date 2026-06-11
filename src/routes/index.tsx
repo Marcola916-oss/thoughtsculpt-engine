@@ -509,15 +509,6 @@ function Hero({ onStart }: { onStart: () => void }) {
       </motion.div>
 
 
-      <MFade delay={0.1} className="flex justify-center mb-8">
-        <CircuitBrain 
-          variant="hero" 
-          size={isMobileMotion ? 140 : 320} 
-          withGlow 
-          animated 
-          ariaLabel="MindReset — Digital Mind"
-        />
-      </MFade>
 
       <MFade
         delay={0}
