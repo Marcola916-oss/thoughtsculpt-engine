@@ -133,8 +133,14 @@ type Stage =
 
 function LandingAndQuiz() {
   isMobileMotion = useReducedMotion();
-  const { t, lang, currency, country } = useI18n();
+  const { t, lang, currency, country, meta } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.title = t.meta.title;
+    }
+  }, [t.meta.title]);
   const [name, setName] = useState("");
   const [gender, setGender] = useState<"m" | "f" | "n" | "">("");
   const [email, setEmail] = useState("");
