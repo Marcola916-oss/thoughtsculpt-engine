@@ -68,7 +68,7 @@ function VolumetricFogImpl({
         "inset-0",
         "pointer-events-none",
         "overflow-hidden",
-        isFixed ? "z-[2]" : "z-0",
+        isFixed ? "z-[2]" : "z-[-5]",
         INTENSITY_WRAPPER[intensity],
         reducedMotion === true ? "motion-reduce" : "motion-safe",
         className,
