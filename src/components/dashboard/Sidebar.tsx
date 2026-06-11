@@ -117,13 +117,13 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
 
       {/* User profile / archetype badge at bottom */}
       {profile && (
-        <div className="mt-auto pt-6 border-t border-white/5 flex items-center gap-3 relative z-10 px-2">
-          <div className="h-11 w-11 rounded-xl bg-arch-primary/10 flex items-center justify-center font-black text-arch-primary border border-arch-primary/20 shadow-[0_0_15px_var(--arch-glow)] select-none italic">
+        <div className="mt-auto pt-8 border-t border-white/5 flex items-center gap-4 relative z-10 px-2">
+          <div className="h-12 w-12 rounded-xl bg-arch-primary/10 flex items-center justify-center font-black text-arch-primary border border-arch-primary/30 shadow-[0_0_20px_var(--arch-glow)] select-none italic text-sm">
             {profile.archetype || "MR"}
           </div>
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-xs font-black text-foreground truncate uppercase tracking-wider">{profile.display_name || t.common.login}</p>
-            <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] mt-0.5 truncate italic">
+            <p className="text-sm font-black text-foreground truncate uppercase tracking-widest">{profile.display_name || t.common.login}</p>
+            <p className="text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.2em] mt-1 truncate italic">
               {profile.archetype ? (t.archetypes as any)?.[profile.archetype]?.name || profile.archetype : "MindReset"}
             </p>
           </div>
