@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import logoImage from "@/assets/logo-transparent.png";
+import logoImage from "@/assets/logo-v2-transparent.png";
 
 interface LogoProps {
   className?: string;
@@ -10,10 +10,10 @@ interface LogoProps {
 }
 
 const SIZE_MAP = {
-  sm: "h-8 md:h-10",
-  md: "h-12 md:h-16",
-  lg: "h-20 md:h-28",
-  xl: "h-32 md:h-44",
+  sm: "h-16 md:h-20",
+  md: "h-24 md:h-32",
+  lg: "h-40 md:h-52",
+  xl: "h-60 md:h-72",
 };
 
 export function Logo({ className = "", size = "md", link = true }: LogoProps) {
@@ -23,7 +23,7 @@ export function Logo({ className = "", size = "md", link = true }: LogoProps) {
         <img
           src={logoImage}
           alt="MindReset"
-          className="max-w-full max-h-full object-contain relative z-10 scale-[2.5]"
+          className="max-w-full max-h-full object-contain relative z-10"
           loading="eager"
         />
       </div>
