@@ -41,7 +41,7 @@ export function HowItWorks() {
             variant="fade-up"
             className="group relative flex flex-col items-center text-center"
           >
-            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-arch-primary/40 bg-arch-primary/[0.06] font-display text-3xl font-black italic text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground group-hover:rotate-6">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-arch-primary/40 bg-arch-primary/[0.04] font-display text-3xl font-black italic text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground group-hover:rotate-6">
               {i + 1}
             </div>
             <h3 className="mb-3 font-display text-xl font-black uppercase italic tracking-tight text-foreground group-hover:text-arch-primary transition-colors">{step.title}</h3>
