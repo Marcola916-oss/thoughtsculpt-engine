@@ -18,16 +18,15 @@ const SIZE_MAP = {
 
 export function Logo({ className = "", size = "md", link = true }: LogoProps) {
   const content = (
-    <div className={cn("relative flex items-center", className)}>
-      <img
-        src={logoImage}
-        alt="MindReset"
-        className={cn(
-          SIZE_MAP[size], 
-          "w-auto object-contain brightness-[1.1] contrast-[1.05] [filter:drop-shadow(0_0_8px_rgba(255,255,255,0.2))_drop-shadow(0_0_20px_rgba(255,255,255,0.1))] mix-blend-screen"
-        )}
-        loading="eager"
-      />
+    <div className={cn("relative flex items-center bg-transparent", className)}>
+      <div className={cn(SIZE_MAP[size], "relative flex items-center justify-center")}>
+        <img
+          src={logoImage}
+          alt="MindReset"
+          className="max-w-full max-h-full object-contain brightness-[1.1] contrast-[1.2] mix-blend-screen relative z-10 scale-[1.3]"
+          loading="eager"
+        />
+      </div>
     </div>
   );
 
