@@ -249,7 +249,6 @@ function LandingAndQuiz() {
       className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
-      <BackgroundAmbient variant="landing" />
       <div className="noise-overlay pointer-events-none z-0" />
       
       {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
