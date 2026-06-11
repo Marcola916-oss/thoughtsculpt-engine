@@ -255,7 +255,7 @@ function LandingAndQuiz() {
       {stage.kind === "hero" ? (
         <GlobalAmbient />
       ) : (
-        <Atmosphere {...atmosphereProps} pinned withAmbient={true} className="fixed inset-0 z-0" />
+        <Atmosphere {...atmosphereProps} pinned withAmbient={true} className="fixed inset-0 z-0 pointer-events-none" />
       )}
       
       <TopBar />
