@@ -320,7 +320,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           </button>
           
           <div className="absolute left-1/2 -translate-x-1/2">
-            <Logo size="md" />
+            <Logo size="lg" />
           </div>
           
           <div className="w-12" />
