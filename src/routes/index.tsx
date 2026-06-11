@@ -871,9 +871,9 @@ function Reveal({
   }, [a.name]);
 
   return (
-    <section className="py-12 md:py-40 overflow-hidden relative bg-black">
+    <section className="py-12 md:py-40 overflow-hidden relative bg-transparent">
       <div className="absolute inset-0 bg-arch-glow blur-[12px] lg:blur-[160px] opacity-20 -z-10" />
-      <div className="absolute inset-0 bg-black/80 -z-[5]" />
+      <div className="absolute inset-0 bg-black/35 -z-[5]" />
       <div className="text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
