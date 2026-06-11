@@ -266,7 +266,7 @@ function LandingAndQuiz() {
       
       <TopBar />
 
-      <main className="w-full px-0 sm:px-4 pb-24 pt-4 md:pt-12 relative z-10">
+      <main className="w-full px-0 sm:px-4 pb-24 pt-16 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
           {stage.kind === "hero" && (
             <motion.div
