@@ -19,14 +19,13 @@ const SIZE_MAP = {
 export function Logo({ className = "", size = "md", link = true }: LogoProps) {
   const content = (
     <div className={cn("relative flex items-center bg-transparent", className)}>
-      <div className={cn(SIZE_MAP[size], "relative")}>
+      <div className={cn(SIZE_MAP[size], "relative flex items-center justify-center")}>
         <img
           src={logoImage}
           alt="MindReset"
-          className="w-full h-full object-contain brightness-[1.1] contrast-[1.1] mix-blend-screen relative z-10"
+          className="max-w-full max-h-full object-contain brightness-[1.1] contrast-[1.1] mix-blend-screen relative z-10"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-black mix-blend-multiply opacity-50 rounded-lg" />
       </div>
     </div>
   );
