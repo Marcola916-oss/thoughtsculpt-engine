@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { getCheckoutSessionStatus } from "../lib/checkout.success";
 import { useI18n } from "../lib/i18n/LanguageProvider";
-import { Atmosphere, BackgroundAmbient } from "@/components/atmosphere";
+import { Atmosphere, GlobalAmbient } from "@/components/atmosphere";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { IdentitySymbol } from "@/components/identity/IdentitySymbol";
 import { MarbleBust } from "@/components/identity/MarbleBust";
@@ -170,9 +170,8 @@ function ThankYouPage() {
   ];
 
   return (
-    <Atmosphere fog="dramatic" symbols="sparse" scan="subtle" pinned>
-      <div className="min-h-screen bg-black text-white relative overflow-hidden">
-        <BackgroundAmbient variant="landing" />
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      <GlobalAmbient />
         <div className="noise-overlay" />
 
         <div className="relative z-10 mx-auto max-w-3xl px-4 py-12 md:py-20">
@@ -374,8 +373,6 @@ function ThankYouPage() {
           <div className="text-center text-xs text-gray-600">
             © {new Date().getFullYear()} MindReset Inc. {t.obrigado.copyright}
           </div>
-        </div>
-      </div>
-    </Atmosphere>
+    </div>
   );
 }
