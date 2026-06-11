@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import logoImage from "@/assets/logo-v2-transparent.png";
+import logoImage from "@/assets/logo-official-transparent.png";
 
 interface LogoProps {
   className?: string;
@@ -10,10 +10,10 @@ interface LogoProps {
 }
 
 const SIZE_MAP = {
-  sm: "h-16 md:h-20",
-  md: "h-24 md:h-32",
-  lg: "h-40 md:h-52",
-  xl: "h-60 md:h-72",
+  sm: "h-20 md:h-24",
+  md: "h-32 md:h-40",
+  lg: "h-52 md:h-64",
+  xl: "h-72 md:h-96",
 };
 
 export function Logo({ className = "", size = "md", link = true }: LogoProps) {
