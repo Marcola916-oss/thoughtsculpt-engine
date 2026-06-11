@@ -35,7 +35,7 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
 import { Atmosphere, GlobalAmbient, type AtmosphereFog } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
-import { CircuitBrain } from "@/components/identity";
+import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain } from "@/components/identity";
 import {
   ProofBar,
   ArchetypeShowcase,
