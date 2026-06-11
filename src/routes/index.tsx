@@ -260,13 +260,13 @@ function LandingAndQuiz() {
               <div className="relative z-10 min-h-screen">
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </div>
-              <div className="relative z-10 bg-black shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+              <div className="relative z-10 bg-transparent shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
-                <div className="bg-black">
+                <div className="bg-transparent">
                   <ArchetypeShowcase />
                   <HowItWorks />
                 </div>
-                <div className="bg-black">
+                <div className="bg-transparent">
                   <FeaturesGrid />
                   <Testimonials />
                 </div>
