@@ -27,13 +27,11 @@ import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring"
 import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
 import { saveQuizLead } from "../lib/quiz.functions";
 import { createCheckoutSession } from "../lib/checkout.functions";
-import { useDeviceTier } from "../hooks/use-device-tier";
 
 import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
-import { Atmosphere, GlobalAmbient, type AtmosphereFog } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain } from "@/components/identity";
 import {
@@ -217,22 +215,6 @@ function LandingAndQuiz() {
   useEffect(() => {
     // Scroll with instant behavior to avoid lag on any device
     window.scrollTo({ top: 0, behavior: "auto" });
-  }, [stage.kind]);
-
-  const atmosphereProps = useMemo(() => {
-    switch (stage.kind) {
-      case "hero":
-        return { fog: "dramatic" as const, symbols: "sparse" as const, scan: "subtle" as const };
-      case "identity":
-      case "q":
-      case "email":
-        return { fog: "normal" as const, symbols: "off" as const, scan: "subtle" as const };
-      case "loader":
-      case "reveal":
-        return { fog: "dramatic" as const, symbols: "off" as const, scan: "subtle" as const };
-      default:
-        return { fog: "normal" as const, symbols: "off" as const, scan: "subtle" as const };
-    }
   }, [stage.kind]);
 
   return (

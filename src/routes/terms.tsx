@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { Logo } from "@/components/identity/Logo";
-import { GlobalAmbient } from "@/components/atmosphere";
 
 
 export const Route = createFileRoute("/terms")({
@@ -17,8 +16,7 @@ export const Route = createFileRoute("/terms")({
 function TermsPage() {
   const { t } = useI18n();
   return (
-    <div className="relative min-h-screen bg-black overflow-x-hidden">
-      <GlobalAmbient />
+    <div className="relative min-h-screen bg-transparent overflow-x-hidden">
       <div className="mx-auto max-w-3xl px-6 py-12 md:py-20 relative z-10">
         <div className="flex flex-col items-center mb-12">
           <Logo size="md" className="mb-6" />

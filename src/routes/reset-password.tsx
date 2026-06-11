@@ -3,7 +3,6 @@ import { useState, type FormEvent } from "react";
 import { supabase } from "../integrations/supabase/client";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { Logo } from "@/components/identity/Logo";
-import { GlobalAmbient } from "@/components/atmosphere";
 
 
 export const Route = createFileRoute("/reset-password")({
@@ -27,7 +26,6 @@ function ResetPasswordPage() {
 
   return (
     <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden">
-      <GlobalAmbient />
       <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 relative z-10">
         <Logo size="xl" className="justify-center mb-8" />
 

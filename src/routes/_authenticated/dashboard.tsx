@@ -6,7 +6,6 @@ import { getMyProfile } from "../../lib/profile.functions";
 import { supabase } from "../../integrations/supabase/client";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { useEffect, useState } from "react";
-import { GlobalAmbient } from "@/components/atmosphere";
 
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
@@ -127,7 +126,6 @@ function DashboardLayout() {
 
   return (
     <DashboardShell>
-      <GlobalAmbient />
       <div className="relative min-h-[calc(100vh-80px)] w-full z-10">
         {showBanner && !isLocked && (
           <div className="mb-6 rounded-xl border border-primary/30 bg-primary/10 p-4 text-sm font-semibold text-primary shadow-sm flex items-center justify-between gap-4">
