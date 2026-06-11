@@ -303,7 +303,8 @@
     padding: 0;
     width: 100%;
     min-height: 100vh;
-    background-color: var(--color-background);
+    background-color: #050505;
+    background-image: radial-gradient(circle at top center, rgba(204, 0, 0, 0.03) 0%, transparent 70%);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: 'cv02','cv03','cv04','cv11';
@@ -343,40 +344,43 @@
 
 .bento-card {
   position: relative;
-  background: rgba(13, 13, 13, 1);
+  background: rgba(24, 24, 24, 0.7);
   /* Backdrop blur only on desktop */
   @media (min-width: 1280px) {
-    background: rgba(13, 13, 13, 0.95);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    background: rgba(13, 13, 13, 0.6);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
   }
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 1.5rem; /* Smaller radius on mobile */
-  @media (min-width: 768px) {
-    border-radius: var(--radius-xl);
-  }
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2rem;
   padding: 1.5rem;
   @media (min-width: 768px) {
-    padding: 2rem;
+    padding: 2.5rem;
   }
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
   
-  /* Micro-glow red border on hover for dashboard-like cards */
+  /* Micro-glow red border on hover */
   &:hover {
-    border-color: rgba(204, 0, 0, 0.4) !important;
-    box-shadow: 0 0 15px rgba(204, 0, 0, 0.2), 0 4px 20px rgba(0,0,0,0.5) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(30, 30, 30, 0.95);
+    box-shadow: 0 20px 50px -20px var(--arch-glow) !important;
   }
 }
 
-.bento-card:hover {
-  background: rgba(20, 20, 20, 1);
-  @media (min-width: 1024px) {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -20px var(--arch-glow);
-  }
-  border-color: var(--arch-primary);
+.bento-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.bento-card:hover::before {
+  opacity: 1;
 }
 
 /* ─── Glassmorphism ──────────────────────────────────────── */

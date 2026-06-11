@@ -261,7 +261,7 @@ function LandingAndQuiz() {
       {stage.kind === "hero" ? (
         <GlobalAmbient />
       ) : (
-        <Atmosphere {...atmosphereProps} pinned withAmbient={true} className="fixed inset-0 z-0 pointer-events-none" />
+        <Atmosphere {...atmosphereProps} pinned withAmbient={true} className="fixed inset-0 z-[-1] pointer-events-none" />
       )}
       
       <TopBar />
@@ -458,7 +458,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative pt-12 pb-8 md:pt-[10vh] md:pb-[10vh] min-h-[80vh] flex flex-col justify-center text-center overflow-hidden px-4 md:px-0">
+    <section className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[8px] lg:blur-[120px]" />
@@ -552,7 +552,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[9vw] md:text-[7rem] lg:text-[8rem] font-black leading-[0.95] md:leading-[0.9] tracking-[-0.05em] uppercase italic";
+        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[9vw] md:text-[6.5rem] lg:text-[7.5rem] xl:text-[8.5rem] font-black leading-[0.95] md:leading-[0.85] tracking-[-0.05em] uppercase italic px-4";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
@@ -929,9 +929,9 @@ function Reveal({
           className="mb-8 flex justify-center"
         >
           <ArchetypeRevealArt 
-            size={isMobileMotion ? 240 : 420} 
+            size={isMobileMotion ? 300 : 540} 
             archetype={arch}
-            className="animate-in zoom-in duration-700 ease-out"
+            className="animate-in zoom-in-50 duration-1000 ease-out drop-shadow-[0_0_50px_var(--arch-glow)]"
           />
         </motion.div>
 
