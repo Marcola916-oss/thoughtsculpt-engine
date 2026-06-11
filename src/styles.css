@@ -497,16 +497,19 @@
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--foreground) 0%, oklch(0.7 0 0) 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #E5E7EB 50%, #9CA3AF 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+  color: transparent;
 }
 
 .accent-gradient {
   background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* ─── Noise texture overlay ──────────────────────────────── */

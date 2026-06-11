@@ -100,7 +100,7 @@ export function Atmosphere({
   const showScan = effectiveScan !== "off";
 
   return (
-    <div aria-hidden="true" className={cn("relative z-10", className)}>
+    <div aria-hidden="true" className={cn("relative z-10 pointer-events-none", className)}>
       {withAmbient && <BackgroundAmbient variant="landing" className="z-[-1]" />}
 
       {/* Fog — tier-aware orb count */}
@@ -137,7 +137,7 @@ export function Atmosphere({
         />
       )}
 
-      <div className="relative z-20">
+      <div className="relative z-20 pointer-events-auto">
         {children}
       </div>
     </div>

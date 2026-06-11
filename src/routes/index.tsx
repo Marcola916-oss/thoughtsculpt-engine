@@ -135,6 +135,12 @@ function LandingAndQuiz() {
   isMobileMotion = useReducedMotion();
   const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.title = t.meta.title;
+    }
+  }, [t.meta.title]);
   const [name, setName] = useState("");
   const [gender, setGender] = useState<"m" | "f" | "n" | "">("");
   const [email, setEmail] = useState("");
@@ -452,7 +458,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative pt-12 pb-8 md:pt-48 md:pb-40 text-center overflow-hidden px-4 md:px-0">
+    <section className="relative pt-12 pb-8 md:pt-[10vh] md:pb-[10vh] min-h-[80vh] flex flex-col justify-center text-center overflow-hidden px-4 md:px-0">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[8px] lg:blur-[120px]" />
@@ -944,7 +950,7 @@ function Reveal({
         <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative">
           {/* Cinema explosion background */}
           <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
-          <span className="text-arch-primary text-gradient">{text}</span>
+          <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
           <motion.span
             animate={{ opacity: [1, 0] }}
             transition={{ repeat: Infinity, duration: 0.8 }}
