@@ -33,7 +33,7 @@ import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
-import { Atmosphere, type AtmosphereFog } from "@/components/atmosphere";
+import { Atmosphere, GlobalAmbient, type AtmosphereFog } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity";
 import {
@@ -252,7 +252,11 @@ function LandingAndQuiz() {
       <div className="noise-overlay pointer-events-none z-0" />
       
       {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
-      <Atmosphere {...atmosphereProps} pinned withAmbient={true} className="fixed inset-0 z-0" />
+      {stage.kind === "hero" ? (
+        <GlobalAmbient />
+      ) : (
+        <Atmosphere {...atmosphereProps} pinned withAmbient={true} className="fixed inset-0 z-0 pointer-events-none" />
+      )}
       
       <TopBar />
 
