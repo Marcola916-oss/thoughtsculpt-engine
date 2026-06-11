@@ -10,10 +10,10 @@ interface LogoProps {
 }
 
 const SIZE_MAP = {
-  sm: "h-20 md:h-24",
-  md: "h-32 md:h-40",
-  lg: "h-52 md:h-64",
-  xl: "h-72 md:h-96",
+  sm: "h-14 md:h-16",
+  md: "h-24 md:h-28",
+  lg: "h-36 md:h-40",
+  xl: "h-52 md:h-64",
 };
 
 export function Logo({ className = "", size = "md", link = true }: LogoProps) {
