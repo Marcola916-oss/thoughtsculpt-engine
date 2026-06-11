@@ -105,7 +105,7 @@ function VolumetricFogImpl({
         <div
           className="absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full"
           style={{
-            background: "radial-gradient(circle, var(--accent-glow-strong) 0%, transparent 70%)",
+            background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
             animation: "fog-breathe-static 15s ease-in-out infinite reverse",
             willChange: "transform, opacity",
           }}
