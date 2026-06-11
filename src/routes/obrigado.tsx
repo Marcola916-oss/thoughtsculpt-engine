@@ -18,8 +18,7 @@ import { Atmosphere, GlobalAmbient } from "@/components/atmosphere";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { IdentitySymbol } from "@/components/identity/IdentitySymbol";
 import { MarbleBust } from "@/components/identity/MarbleBust";
-import { CircuitBrain } from "../components/identity/CircuitBrain";
-import { Logo } from "@/components/identity/Logo";
+import { CircuitBrain, CelebrationBrain, Logo } from "@/components/identity";
 
 export const Route = createFileRoute("/obrigado")({
   head: () => ({ meta: [{ title: "Bem-vindo ao MindReset!" }] }),
@@ -190,7 +189,7 @@ function ThankYouPage() {
               transition={{ type: "spring", damping: 15, stiffness: 200, delay: 0.3 }}
               className="mb-8"
             >
-              <CircuitBrain size={160} withGlow animated />
+              <CelebrationBrain size={180} className="mx-auto" />
             </motion.div>
 
             <h1 className="font-display text-4xl md:text-5xl font-black tracking-tighter leading-tight">

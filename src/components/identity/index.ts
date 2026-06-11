@@ -20,4 +20,7 @@ export { IdentitySymbol } from "./IdentitySymbol";
 export type { IdentitySymbolProps } from "./IdentitySymbol";
 
 export { CircuitBrain } from "./CircuitBrain";
+export { Logo } from "./Logo";
+export { ArchetypeRevealArt } from "./ArchetypeRevealArt";
+export { CelebrationBrain } from "./CelebrationBrain";
 export type { CircuitBrainProps, CircuitBrainVariant, BrainStyle } from "./CircuitBrain";

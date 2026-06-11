@@ -6,7 +6,7 @@ import { getMyProfile, updateProfileSettings, changePassword } from "../../lib/p
 import { createCustomerPortalSession } from "../../lib/checkout.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
-import { Logo } from "@/components/identity/Logo";
+import { Logo, CircuitBrain } from "@/components/identity";
 
 export const Route = createFileRoute("/_authenticated/dashboard/settings")({
   head: () => ({ meta: [{ title: "Settings — MindReset" }] }),
@@ -153,8 +153,9 @@ function SettingsPage() {
             </div>
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.profile.archetypeLabel}</label>
-              <div className="rounded-lg border border-border bg-background px-4 py-3 text-sm">
-                {p?.archetype ? ARCHETYPE_NAMES[p.archetype as Archetype][lang] : t.dashboard.settings.profile.archetypeUndefined}
+              <div className="rounded-lg border border-border bg-background px-4 py-3 text-sm flex items-center justify-between">
+                <span>{p?.archetype ? ARCHETYPE_NAMES[p.archetype as Archetype][lang] : t.dashboard.settings.profile.archetypeUndefined}</span>
+                {p?.archetype && <CircuitBrain size={20} variant="mini" animated={false} withGlow={false} className="opacity-40" />}
               </div>
             </div>
           </div>
