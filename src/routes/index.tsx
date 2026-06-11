@@ -133,7 +133,7 @@ type Stage =
 
 function LandingAndQuiz() {
   isMobileMotion = useReducedMotion();
-  const { t, lang, currency, country, meta } = useI18n();
+  const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
 
   useEffect(() => {
