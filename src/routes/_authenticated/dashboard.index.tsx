@@ -13,10 +13,10 @@ import { BentoCard } from "../../components/ui/BentoCard";
 import { Logo, CircuitBrain } from "@/components/identity";
 
 const ARCHETYPE_GRADIENTS: Record<Archetype, string> = {
-  AO: "from-blue-950/40",
-  SS: "from-purple-950/40",
-  EA: "from-amber-950/40",
-  HI: "from-pink-950/40",
+  AO: "from-blue-600/30",
+  SS: "from-amber-600/30",
+  EA: "from-purple-600/30",
+  HI: "from-red-600/30",
 };
 
 
