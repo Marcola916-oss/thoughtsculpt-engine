@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import { staggerContainer, staggerItem } from "../../lib/animations";
 import { StreakCounter } from "../../components/gamification/StreakCounter";
 import { BentoCard } from "../../components/ui/BentoCard";
-import { Logo } from "@/components/identity/Logo";
+import { Logo, CircuitBrain } from "@/components/identity";
 
 const ARCHETYPE_GRADIENTS: Record<Archetype, string> = {
   AO: "from-blue-950/40",
