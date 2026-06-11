@@ -29,7 +29,7 @@ export function TopBar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6">
         {/* Logo Left */}
-        <Logo size="lg" />
+        <Logo size="md" />
 
         {/* Right Actions */}
         <div className="flex items-center gap-3 md:gap-6">
