@@ -42,7 +42,7 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
       
       {/* Logo Section */}
       <div className="mb-10 pl-2">
-        <Logo size="md" className="relative z-10" />
+        <Logo size="lg" className="relative z-10" />
         <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.4em] mt-3">{t.commonExtra.protocolVersion}</p>
       </div>
 
