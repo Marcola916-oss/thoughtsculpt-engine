@@ -1,6 +1,5 @@
 import { memo } from "react";
 import { cn } from "@/lib/utils";
-import { useDeviceTier } from "@/hooks/use-device-tier";
 
 interface BackgroundAmbientProps {
   variant?: "landing" | "dashboard";
@@ -17,10 +16,7 @@ interface BackgroundAmbientProps {
  *
  * Also adds prefers-reduced-motion support (was missing before).
  */
-export const BackgroundAmbient = memo(({ variant = "landing", className }: BackgroundAmbientProps) => {
-  const tier = useDeviceTier();
-  const isLowEnd = false; // Override to always show flowing ambient for premium feel
-
+export const BackgroundAmbient = memo(({ className }: BackgroundAmbientProps) => {
   return (
     <div
       className={cn(
