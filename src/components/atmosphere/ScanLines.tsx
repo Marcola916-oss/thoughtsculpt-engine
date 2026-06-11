@@ -60,7 +60,7 @@ function ScanLinesImpl({
         "scan-overlay",
         // Subtler on mobile to reduce rendering cost
         "opacity-100",
-        OVERLAY_OPACITY[intensity],
+        "opacity-100 mix-blend-screen",
         className,
       )}
     >

@@ -243,7 +243,7 @@ function LandingAndQuiz() {
       <div className="noise-overlay pointer-events-none z-0" />
       
       {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
-      <GlobalAmbient />
+
       
       <TopBar />
 
@@ -257,23 +257,23 @@ function LandingAndQuiz() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="relative z-10">
+              <div className="relative z-10 min-h-screen">
                 <Hero onStart={() => setStage({ kind: "identity" })} />
               </div>
-              <div className="relative z-10 bg-black shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+              <div className="relative z-10 bg-transparent shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
-                <div className="bg-black">
+                <div className="bg-transparent">
                   <ArchetypeShowcase />
                   <HowItWorks />
                 </div>
-                <div className="bg-black">
+                <div className="bg-transparent">
                   <FeaturesGrid />
                   <Testimonials />
                 </div>
                 <FAQ onCta={() => setStage({ kind: "identity" })} />
                 <FinalCTA onCta={() => setStage({ kind: "identity" })} />
-          </div>
-        </motion.div>
+              </div>
+            </motion.div>
           )}
 
           {stage.kind === "identity" && (
