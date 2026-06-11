@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import logoImage from "@/assets/logo-mindreset.png";
 
 interface LogoProps {
   className?: string;
@@ -19,7 +20,7 @@ export function Logo({ className = "", size = "md", link = true }: LogoProps) {
   const content = (
     <div className={cn("relative flex items-center", className)}>
       <img
-        src="/logo-mindreset.png"
+        src={logoImage}
         alt="MindReset"
         className={cn(
           SIZE_MAP[size], 
