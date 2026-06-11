@@ -9,10 +9,10 @@
       <stop offset="100%" stop-color="#990000"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="#000000"/>
+  <rect width="64" height="64" rx="14" fill="transparent"/>
   <rect width="64" height="64" rx="14" fill="url(#mr-glow)"/>
   <text x="32" y="49" text-anchor="middle"
-        font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif"
+        font-family="Syne, ui-sans-serif, system-ui, sans-serif"
         font-size="48" font-weight="900" font-style="italic"
         fill="url(#mr-fade)" letter-spacing="-3">M</text>
 </svg>
