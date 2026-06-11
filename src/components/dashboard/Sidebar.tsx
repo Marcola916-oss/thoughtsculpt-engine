@@ -7,6 +7,7 @@ import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { StreakCounter } from "../gamification/StreakCounter";
 import { drawerSlide, modalScale } from "../../lib/animations";
 import { CircuitBrain } from "../identity/CircuitBrain";
+import { Logo } from "@/components/identity/Logo";
 
 interface SidebarProps {
   streak?: number;
@@ -41,22 +42,7 @@ function SidebarContent({ streak, unreadCount, onOpenNotifications, profile, onC
       
       {/* Logo Section */}
       <div className="mb-10 pl-2">
-        <Link
-          to="/dashboard"
-          onClick={onClose}
-          className="font-display text-2xl font-black tracking-tighter relative z-10 flex items-center gap-1.5 group"
-        >
-          <div className="h-8 w-8 rounded-lg bg-arch-primary flex items-center justify-center shadow-[0_0_15px_var(--arch-glow)] transition-transform duration-500 group-hover:rotate-12">
-            <span className="text-white text-lg italic font-black">M</span>
-          </div>
-          <div className="flex flex-col -gap-1">
-            <span className="text-foreground leading-none flex items-center gap-1.5">
-              Mind 
-              <CircuitBrain size={16} variant="icon" animated={false} withGlow={false} className="opacity-40" />
-            </span>
-            <span className="text-arch-primary leading-none transition-colors duration-500">Reset</span>
-          </div>
-        </Link>
+        <Logo size="md" className="relative z-10" />
         <p className="text-[9px] font-black text-muted-foreground/40 uppercase tracking-[0.4em] mt-3">{t.commonExtra.protocolVersion}</p>
       </div>
 
@@ -332,9 +318,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <Link to="/dashboard" className="font-display text-base font-bold flex items-center gap-1">
-            <span className="text-foreground">Mind</span><span className="text-primary">Reset</span>
-          </Link>
+          <Logo size="sm" />
           <div className="w-9" />
         </header>
 
