@@ -25,7 +25,7 @@ export const BackgroundAmbient = memo(({ variant = "landing", className }: Backg
     <div
       className={cn(
         "pointer-events-none fixed inset-0",
-        "z-[-50]",
+        "z-[-100]",
         "bg-black",
         className
       )}

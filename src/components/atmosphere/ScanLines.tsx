@@ -56,7 +56,7 @@ function ScanLinesImpl({
         positionClass,
         "inset-0",
         "pointer-events-none",
-        "z-[1]",
+        pinned ? "z-[1]" : "z-0",
         "scan-overlay",
         // Subtler on mobile to reduce rendering cost
         "opacity-30 md:opacity-100",
