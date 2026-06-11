@@ -90,10 +90,10 @@ export function Atmosphere({
 }: AtmosphereProps) {
   const tier = useDeviceTier();
 
-  // Low tier: force all effects off — let BackgroundAmbient handle the glow
-  const effectiveFog = tier === "low" ? "off" : fog;
-  const effectiveSymbols = tier === "low" ? "off" : symbols;
-  const effectiveScan = tier === "low" ? "off" : scan;
+  // Force effects for premium experience regardless of tier, unless it's extremely low
+  const effectiveFog = fog;
+  const effectiveSymbols = symbols;
+  const effectiveScan = scan;
 
   const showFog = effectiveFog !== "off";
   const showSymbols = effectiveSymbols !== "off" && TIER_SYMBOLS[tier] > 0;

@@ -219,34 +219,19 @@ function LandingAndQuiz() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage.kind]);
 
-  // Determine atmosphere settings based on stage
   const atmosphereProps = useMemo(() => {
-    // Force very light mode on mobile/tablet
-    const isMobileOrTablet = typeof window !== "undefined" && window.innerWidth < 1024;
-
-    if (isMobileOrTablet) {
-      const mobileFog: AtmosphereFog = (stage.kind === 'hero' || stage.kind === 'loader') ? 'normal' : 'off';
-      return { 
-        fog: mobileFog, 
-        symbols: 'off' as const, 
-        scan: 'off' as const 
-      };
-    }
-
     switch (stage.kind) {
       case "hero":
         return { fog: "dramatic" as const, symbols: "sparse" as const, scan: "subtle" as const };
       case "identity":
       case "q":
-        return { fog: "subtle" as const, symbols: "off" as const, scan: "subtle" as const };
       case "email":
         return { fog: "normal" as const, symbols: "off" as const, scan: "subtle" as const };
       case "loader":
-        return { fog: "dramatic" as const, symbols: "off" as const, scan: "subtle" as const };
       case "reveal":
-        return { fog: "dramatic" as const, symbols: "sparse" as const, scan: "subtle" as const };
+        return { fog: "dramatic" as const, symbols: "off" as const, scan: "subtle" as const };
       default:
-        return { fog: "off" as const, symbols: "off" as const, scan: "off" as const };
+        return { fog: "normal" as const, symbols: "off" as const, scan: "subtle" as const };
     }
   }, [stage.kind]);
 

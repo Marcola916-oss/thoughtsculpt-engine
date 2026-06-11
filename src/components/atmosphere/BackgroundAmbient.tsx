@@ -19,7 +19,7 @@ interface BackgroundAmbientProps {
  */
 export const BackgroundAmbient = memo(({ variant = "landing", className }: BackgroundAmbientProps) => {
   const tier = useDeviceTier();
-  const isLowEnd = tier === "low";
+  const isLowEnd = false; // Override to always show flowing ambient for premium feel
 
   return (
     <div
