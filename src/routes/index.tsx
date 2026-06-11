@@ -458,7 +458,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center text-center overflow-hidden px-4 md:px-0">
+    <section className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center items-center text-center overflow-x-hidden px-4 md:px-6">
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[8px] lg:blur-[120px]" />
@@ -552,7 +552,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[9vw] md:text-[6.5rem] lg:text-[7.5rem] xl:text-[8.5rem] font-black leading-[0.95] md:leading-[0.85] tracking-[-0.05em] uppercase italic px-4";
+        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl font-black leading-[0.95] md:leading-[0.85] tracking-[-0.05em] uppercase italic px-4";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
@@ -624,7 +624,7 @@ function Hero({ onStart }: { onStart: () => void }) {
           <button
             onClick={onStart}
             data-cursor="hover"
-            className="group relative h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
+            className="group relative h-20 md:h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
             <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
             <span className="relative z-10 flex items-center justify-center gap-6 text-3xl md:text-4xl font-black italic tracking-tighter group-hover:text-white transition-colors">
@@ -637,7 +637,7 @@ function Hero({ onStart }: { onStart: () => void }) {
 
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-6 text-muted-foreground/60">
-            <div className="flex items-center gap-2 text-sm font-bold">
+            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
               <ShieldCheck className="h-4 w-4" />
               <span>{t.hero.trustSsl}</span>
             </div>
@@ -651,12 +651,13 @@ function Hero({ onStart }: { onStart: () => void }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
             <div className="flex text-arch-primary gap-0.5">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Star key={i} className="h-3 w-3 fill-current" />
               ))}
             </div>
+            <span>4.9 / 5</span>
           </div>
         </div>
       </MFade>
