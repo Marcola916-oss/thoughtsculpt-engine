@@ -181,7 +181,7 @@ function ThankYouPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <Logo size="lg" className="justify-center mb-8" />
+            <Logo size="md" className="justify-center mb-4" />
 
             <motion.div
               initial={{ scale: 0, rotate: -20 }}
