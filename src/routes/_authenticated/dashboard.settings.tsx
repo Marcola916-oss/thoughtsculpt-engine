@@ -6,6 +6,7 @@ import { getMyProfile, updateProfileSettings, changePassword } from "../../lib/p
 import { createCustomerPortalSession } from "../../lib/checkout.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
+import { Logo } from "@/components/identity/Logo";
 
 export const Route = createFileRoute("/_authenticated/dashboard/settings")({
   head: () => ({ meta: [{ title: "Settings — MindReset" }] }),
@@ -122,9 +123,12 @@ function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <header className="mb-8">
-        <h1 className="font-display text-3xl font-extrabold">{t.dashboard.settings.pageTitle}</h1>
-        <p className="mt-2 text-muted-foreground">{t.dashboard.settings.pageSubtitle}</p>
+      <header className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="font-display text-3xl font-extrabold">{t.dashboard.settings.pageTitle}</h1>
+          <p className="mt-2 text-muted-foreground">{t.dashboard.settings.pageSubtitle}</p>
+        </div>
+        <Logo size="sm" link={false} className="opacity-20 hidden sm:block" />
       </header>
 
       <div className="space-y-6">

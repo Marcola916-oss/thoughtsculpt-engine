@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { supabase } from "../integrations/supabase/client";
 import { BackgroundAmbient } from "@/components/atmosphere";
+import { Logo } from "@/components/identity/Logo";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Log in — MindReset" }] }),
@@ -56,10 +57,7 @@ function LoginPage() {
     <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden">
       <BackgroundAmbient variant="landing" />
       <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 relative z-10">
-      <Link to="/" className="mb-8 text-center font-display text-xl font-bold">
-        <span className="text-foreground">Mind</span>
-        <span className="text-primary">Reset</span>
-      </Link>
+      <Logo size="md" className="justify-center mb-8" />
       {revokedBanner && (
         <div
           role="alert"

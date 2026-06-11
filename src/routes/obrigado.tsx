@@ -19,6 +19,7 @@ import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { IdentitySymbol } from "@/components/identity/IdentitySymbol";
 import { MarbleBust } from "@/components/identity/MarbleBust";
 import { CircuitBrain } from "../components/identity/CircuitBrain";
+import { Logo } from "@/components/identity/Logo";
 
 export const Route = createFileRoute("/obrigado")({
   head: () => ({ meta: [{ title: "Bem-vindo ao MindReset!" }] }),
@@ -182,19 +183,7 @@ function ThankYouPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 font-display text-2xl font-black tracking-tighter mb-8"
-            >
-              <div className="h-8 w-8 rounded-lg bg-[#CC0000] flex items-center justify-center">
-                <span className="text-white text-xl italic font-black">M</span>
-              </div>
-              <span className="text-white">Mind</span>
-              <span className="text-[#CC0000]/60">Reset</span>
-              <span className="opacity-60">
-                <IdentitySymbol size={24} variant="mini" />
-              </span>
-            </Link>
+            <Logo size="lg" className="justify-center mb-8" />
 
             <motion.div
               initial={{ scale: 0, rotate: -20 }}
