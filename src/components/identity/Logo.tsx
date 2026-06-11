@@ -18,7 +18,7 @@ const SIZE_MAP = {
 
 export function Logo({ className = "", size = "md", link = true }: LogoProps) {
   const content = (
-    <div className={cn("relative flex items-center", className)}>
+    <div className={cn("relative flex items-center bg-transparent", className)}>
       <img
         src={logoImage}
         alt="MindReset"
