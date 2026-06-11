@@ -229,7 +229,7 @@ function FloatingSymbolsImpl({
         positionClass,
         "inset-0",
         "pointer-events-none",
-        pinned ? "z-[5]" : "z-[-5]", // Positioned firmly in front of the background layer
+        pinned ? "z-[5]" : "z-0", // Positioned firmly in front of the background layer
 
         "overflow-hidden",
         reducedMotion === true ? "motion-reduce" : "motion-safe",
