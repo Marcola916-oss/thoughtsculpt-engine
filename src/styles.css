@@ -344,7 +344,7 @@
 
 .bento-card {
   position: relative;
-  background: rgba(18, 18, 18, 0.8);
+  background: rgba(24, 24, 24, 0.7);
   /* Backdrop blur only on desktop */
   @media (min-width: 1280px) {
     background: rgba(13, 13, 13, 0.6);
@@ -364,7 +364,7 @@
   /* Micro-glow red border on hover */
   &:hover {
     border-color: rgba(255, 255, 255, 0.2) !important;
-    background: rgba(22, 22, 22, 0.9);
+    background: rgba(30, 30, 30, 0.95);
     box-shadow: 0 20px 50px -20px var(--arch-glow) !important;
   }
 }

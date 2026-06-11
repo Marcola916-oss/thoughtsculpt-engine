@@ -308,20 +308,22 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Main content */}
       <div className="flex flex-1 flex-col min-w-0">
         {/* Mobile header */}
-        <header className="sticky top-0 z-50 flex items-center justify-between border-b border-border bg-background/95 px-5 py-4 backdrop-blur-xl md:hidden">
+        <header className="sticky top-0 z-50 flex items-center justify-between border-b border-white/5 bg-black/80 px-6 py-5 backdrop-blur-2xl md:hidden">
           <button
             onClick={() => setMobileOpen(true)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-border text-muted-foreground transition hover:text-foreground hover:bg-white/5 active:scale-95"
+            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-muted-foreground transition hover:text-foreground active:scale-90"
             aria-label={t.commonExtra.openMenu}
           >
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <div className="flex-1 flex justify-center pl-10">
-            <Logo size="sm" />
+          
+          <div className="absolute left-1/2 -translate-x-1/2">
+            <Logo size="md" />
           </div>
-          <div className="w-10" />
+          
+          <div className="w-12" />
         </header>
 
         <main className="flex-1 px-4 py-6 md:px-10 md:py-10">{children}</main>
