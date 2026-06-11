@@ -58,7 +58,7 @@ function DashboardLayout() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-black p-4 text-center">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-transparent p-4 text-center">
         <div className="relative mb-8">
           <div className="absolute -inset-4 animate-pulse rounded-full bg-primary/20 blur-xl" />
           <div className="relative h-16 w-16 text-6xl" aria-hidden>⚠️</div>
@@ -95,7 +95,7 @@ function DashboardLayout() {
   // Pre-hydration or loading state
   if (!isClient || isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-black">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <div className="flex flex-col items-center gap-4">
           <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
           <p className="text-sm font-medium text-muted-foreground animate-pulse">{t.dashboardErrors.initializing}</p>

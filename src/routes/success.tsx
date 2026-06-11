@@ -44,7 +44,7 @@ function SuccessPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-transparent text-white">
         <Loader2 className="h-12 w-12 animate-spin text-[#CC0000]" />
         <p className="mt-4 text-lg font-medium text-gray-300">{t.common.success.loading}</p>
       </div>
@@ -53,7 +53,7 @@ function SuccessPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-black p-4 text-white">
+      <div className="flex min-h-screen items-center justify-center bg-transparent p-4 text-white">
         <div className="rounded-xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-6 text-center max-w-md">
           <h2 className="mb-2 text-2xl font-bold text-[#CC0000]">{t.common.success.errorTitle}</h2>
           <p className="text-gray-400">{error}</p>
