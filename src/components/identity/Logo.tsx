@@ -19,7 +19,7 @@ export function Logo({ className = "", size = "md", link = true }: LogoProps) {
   const content = (
     <div className={cn("relative flex items-center", className)}>
       <img
-        src="/src/assets/logo-mindreset.png"
+        src="/logo-mindreset.png"
         alt="MindReset"
         className={cn(
           SIZE_MAP[size], 
