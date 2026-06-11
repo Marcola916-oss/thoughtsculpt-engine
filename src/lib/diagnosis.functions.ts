@@ -89,7 +89,7 @@ export const generateDiagnosis = createServerFn({ method: "POST" })
     await checkAndIncrementLimit(supabase, userId, "generation", planType);
 
     const result = await callAIStructured<DiagnosisJSON>({
-      model: "google/gemini-2.0-flash-exp",
+      model: "google/gemini-2.0-flash-lite-preview-02-05",
       jsonSchema: DiagnosisSchema,
       messages: [
         {
@@ -129,7 +129,7 @@ export const generateDiagnosis = createServerFn({ method: "POST" })
         professional_analysis: result.professional_analysis,
         romantic_analysis: result.romantic_analysis,
         personal_analysis: result.personal_analysis,
-        model_used: "google/gemini-2.0-flash-exp",
+        model_used: "google/gemini-2.0-flash-lite-preview-02-05",
       })
       .select("*")
       .single();

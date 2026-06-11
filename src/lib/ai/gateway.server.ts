@@ -26,7 +26,7 @@ function mapGatewayError(status: number, body: string): Error {
 
 export async function callAI(opts: AICallOptions): Promise<string> {
   const body: Record<string, unknown> = {
-    model: opts.model ?? "google/gemini-2.0-flash-exp",
+    model: opts.model ?? "google/gemini-2.0-flash-lite-preview-02-05",
     messages: opts.messages,
   };
   if (opts.temperature !== undefined) body.temperature = opts.temperature;
@@ -48,7 +48,7 @@ export async function callAI(opts: AICallOptions): Promise<string> {
 export async function callAIStructured<T>(opts: AICallOptions): Promise<T> {
   if (!opts.jsonSchema) throw new Error("callAIStructured requires jsonSchema");
   const body = {
-    model: opts.model ?? "google/gemini-2.0-flash-exp",
+    model: opts.model ?? "google/gemini-2.0-flash-lite-preview-02-05",
     messages: opts.messages,
     tools: [
       {
