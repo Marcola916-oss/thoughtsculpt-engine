@@ -78,7 +78,7 @@ function ScanLinesImpl({
             style={{
               background:
                 "linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%)",
-              boxShadow: "0 0 14px var(--accent-glow-strong)",
+              boxShadow: "0 0 14px var(--accent-glow)",
             }}
           />
         </div>
