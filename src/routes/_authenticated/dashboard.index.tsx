@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { staggerContainer, staggerItem } from "../../lib/animations";
 import { StreakCounter } from "../../components/gamification/StreakCounter";
 import { BentoCard } from "../../components/ui/BentoCard";
+import { Logo } from "@/components/identity/Logo";
 
 const ARCHETYPE_GRADIENTS: Record<Archetype, string> = {
   AO: "from-blue-950/40",
@@ -148,7 +149,7 @@ function HubPage() {
             className={`mt-8 p-6 rounded-[var(--radius-xl)] bg-gradient-to-r ${ARCHETYPE_GRADIENTS[archetype]} to-transparent border border-white/5 md:backdrop-blur-xl relative overflow-hidden`}
           >
             <div className="absolute top-0 right-0 p-2 opacity-10">
-              <span className="text-4xl font-black italic">PROTOCOL</span>
+              <Logo link={false} size="sm" className="opacity-40 grayscale" />
             </div>
             <p className="text-sm italic" style={{ color: "var(--arch-primary)" }}>
               &ldquo;{t.dashboard.hub.quotes[archetype]}&rdquo;
