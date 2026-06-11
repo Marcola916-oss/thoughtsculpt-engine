@@ -22,7 +22,7 @@ function TermsPage() {
       <div className="mx-auto max-w-3xl px-6 py-12 md:py-20 relative z-10">
         <div className="flex flex-col items-center mb-12">
           <Logo size="md" className="mb-6" />
-          <Link to="/" className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 hover:text-primary transition-colors flex items-center gap-2">
+          <Link to="/" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-xs font-black uppercase tracking-[0.2em] text-muted-foreground transition-all hover:bg-white/10 hover:text-primary active:scale-95">
             <span className="text-sm">←</span> {t.notFound.goHome}
           </Link>
         </div>
