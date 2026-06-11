@@ -24,7 +24,7 @@ export function Logo({ className = "", size = "md", link = true }: LogoProps) {
         alt="MindReset"
         className={cn(
           SIZE_MAP[size], 
-          "w-auto object-contain brightness-[1.1] contrast-[1.05] drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] mix-blend-screen"
+          "w-auto object-contain brightness-[1.1] contrast-[1.05] drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
         )}
         loading="eager"
       />
