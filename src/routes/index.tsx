@@ -929,9 +929,9 @@ function Reveal({
           className="mb-8 flex justify-center"
         >
           <ArchetypeRevealArt 
-            size={isMobileMotion ? 240 : 420} 
+            size={isMobileMotion ? 300 : 540} 
             archetype={arch}
-            className="animate-in zoom-in duration-700 ease-out"
+            className="animate-in zoom-in-50 duration-1000 ease-out drop-shadow-[0_0_50px_var(--arch-glow)]"
           />
         </motion.div>
 
