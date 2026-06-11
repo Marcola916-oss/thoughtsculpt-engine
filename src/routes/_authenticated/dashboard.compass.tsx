@@ -27,7 +27,7 @@ function CompassPage() {
   const list = useServerFn(listCompass);
   const run = useServerFn(analyzeCompass);
   const qc = useQueryClient();
-  const { t, locale } = useI18n();
+  const { t, locale, lang } = useI18n();
 
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
