@@ -3,3 +3,4 @@ export { VolumetricFog } from "./VolumetricFog";
 export { FloatingSymbols } from "./FloatingSymbols";
 export { ScanLines } from "./ScanLines";
 export { BackgroundAmbient } from "./BackgroundAmbient";
+export { GlobalAmbient } from "./GlobalAmbient";
