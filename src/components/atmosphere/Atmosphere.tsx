@@ -101,8 +101,8 @@ export function Atmosphere({
   const showScan = effectiveScan !== "off";
 
   return (
-    <div aria-hidden="true" className={cn("relative z-10 pointer-events-none", className)}>
-      <BackgroundAmbient variant="landing" className="z-[-1]" />
+    <div aria-hidden="true" className={cn("fixed inset-0 pointer-events-none", className)}>
+      <BackgroundAmbient variant="landing" className="z-[-10]" />
 
       {/* Fog — tier-aware orb count */}
       {showFog && (
