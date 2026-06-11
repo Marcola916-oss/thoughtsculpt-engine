@@ -191,6 +191,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <RevealProvider>
+          <BackgroundAmbient />
           <ScanLines intensity="subtle" />
           <MagneticCursor />
           <AnimatePresence mode="wait">
