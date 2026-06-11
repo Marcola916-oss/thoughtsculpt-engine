@@ -130,11 +130,13 @@ function HubPage() {
         <motion.h1 variants={staggerItem} className="mt-1 font-display text-4xl font-black md:text-5xl tracking-tighter italic">
           {archetype ? (
             <div className="flex flex-col gap-2">
-              <span>{t.dashboard.hub.headingWithArchetype(ARCHETYPE_NAMES[archetype][lang])}</span>
-              <div className="inline-flex items-center gap-2 mt-1">
-                <span className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm text-primary shadow-[0_0_10px_rgba(204,0,0,0.2)]">
-                  {ARCHETYPE_NAMES[archetype][lang]}
-                </span>
+              <div className="flex items-center gap-4">
+                <span>{t.dashboard.hub.headingWithArchetype(ARCHETYPE_NAMES[archetype][lang])}</span>
+                <div className="inline-flex items-center gap-2 mt-1">
+                  <div className="h-10 w-10 border border-primary/20 bg-primary/5 rounded-xl flex items-center justify-center shadow-lg">
+                    <CircuitBrain size={24} variant="mini" animated={false} withGlow={false} />
+                  </div>
+                </div>
               </div>
             </div>
           ) : (

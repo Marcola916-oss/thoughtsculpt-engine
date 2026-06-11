@@ -922,14 +922,9 @@ function Reveal({
           transition={{ type: "spring", damping: 12, stiffness: 100, delay: 0.3 }}
           className="mb-8 flex justify-center"
         >
-          <CircuitBrain
-            variant="hero"
-            style="archetype"
+          <ArchetypeRevealArt 
+            size={isMobileMotion ? 240 : 420} 
             archetype={arch}
-            size={isMobileMotion ? 200 : 380}
-            withGlow
-            animated
-            ariaLabel={`Arquétipo: ${a.name}`}
             className="animate-in zoom-in duration-700 ease-out"
           />
         </motion.div>
