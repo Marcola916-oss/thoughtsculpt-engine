@@ -124,10 +124,10 @@ function HubPage() {
         initial="hidden"
         animate="visible"
       >
-        <motion.p variants={staggerItem} className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 mb-2">
+        <motion.p variants={staggerItem} className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 mb-3">
           {t.dashboard.hub.greeting(hour)}{name ? `, ${name}` : ""}.
         </motion.p>
-        <motion.h1 variants={staggerItem} className="mt-1 font-display text-4xl font-black md:text-5xl tracking-tighter italic">
+        <motion.h1 variants={staggerItem} className="mt-2 font-display text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter italic leading-[0.9]">
           {archetype ? (
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-4">
