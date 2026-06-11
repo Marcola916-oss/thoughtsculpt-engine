@@ -55,7 +55,7 @@ function VolumetricFogImpl({
   className,
 }: VolumetricFogProps) {
   const positionClass = pinned ? "fixed" : "absolute";
-  const orbs = Math.min(Math.max(maxOrbs, 1), 3);
+  const orbs = Math.min(Math.max(maxOrbs, 2), 3); // Minimum 2 orbs for premium feel
   const isFixed = pinned;
 
   return (

@@ -219,7 +219,7 @@ function FloatingSymbolsImpl({
   const symbols = SYMBOL_SETS[set];
   const opacityMul = DENSITY_OPACITY[density];
   const blurClass = DENSITY_BLUR[density];
-  const visible = SEEDED_SLOTS.slice(0, Math.min(count, SEEDED_SLOTS.length));
+  const visible = SEEDED_SLOTS.slice(0, Math.min(Math.max(count, 4), SEEDED_SLOTS.length));
 
   return (
     <div

@@ -90,13 +90,14 @@ export function Atmosphere({
 }: AtmosphereProps) {
   const tier = useDeviceTier();
 
-  // Force effects for premium experience regardless of tier, unless it's extremely low
+  // Premium experience: always show effects regardless of tier detection
   const effectiveFog = fog;
   const effectiveSymbols = symbols;
   const effectiveScan = scan;
 
   const showFog = effectiveFog !== "off";
-  const showSymbols = effectiveSymbols !== "off" && TIER_SYMBOLS[tier] > 0;
+  // Ensure symbols show up even if tier detection is conservative
+  const showSymbols = effectiveSymbols !== "off";
   const showScan = effectiveScan !== "off";
 
   return (
