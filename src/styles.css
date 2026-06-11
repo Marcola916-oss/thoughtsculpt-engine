@@ -1084,8 +1084,19 @@
  */
 [data-fog-intensity],
 [data-scan-intensity],
-[data-floating-set] {
+[data-fog-intensity],
+[data-scan-intensity],
+[data-floating-set],
+.flowing-ambient,
+.fog-layer-base,
+.fog-layer-beam,
+.fog-breathe-1,
+.fog-breathe-2,
+.fog-breathe-3,
+.symbol-drift,
+.scan-move {
   contain: layout style;
+  animation-play-state: running !important;
 }
 
 /* ─── Performance: Pause animations when tab hidden ────────── */

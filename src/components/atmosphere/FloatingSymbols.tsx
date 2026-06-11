@@ -219,7 +219,7 @@ function FloatingSymbolsImpl({
   const symbols = SYMBOL_SETS[set];
   const opacityMul = DENSITY_OPACITY[density];
   const blurClass = DENSITY_BLUR[density];
-  const visible = SEEDED_SLOTS.slice(0, Math.min(Math.max(count, 4), SEEDED_SLOTS.length));
+  const visible = SEEDED_SLOTS.slice(0, 12); // Always show all 12 slots for premium feel
 
   return (
     <div
@@ -239,14 +239,14 @@ function FloatingSymbolsImpl({
       {visible.map((slot, i) => {
         const char = symbols[i % symbols.length];
         // Elements are now pure white for maximum visibility on black, but very low opacity
-        const finalOpacity = Math.min(slot.opacity * opacityMul, 0.35);
+        const finalOpacity = Math.min(slot.opacity * opacityMul, 0.45); // Slightly higher opacity for visibility
         return (
           <span
             key={i}
             aria-hidden
             className={cn(
               "absolute select-none font-serif leading-none",
-              slot.mobileHidden && "hidden md:block",
+              slot.mobileHidden && "block md:block", // Never hide on mobile
               "symbol-drift",
               blurClass,
               withGlow && "symbol-glow",
