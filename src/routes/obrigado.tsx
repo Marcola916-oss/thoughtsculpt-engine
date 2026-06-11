@@ -172,7 +172,7 @@ function ThankYouPage() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       <GlobalAmbient />
-        <div className="noise-overlay" />
+      <div className="noise-overlay pointer-events-none z-0" />
 
         <div className="relative z-10 mx-auto max-w-3xl px-4 py-12 md:py-20">
           {/* Header */}
