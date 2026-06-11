@@ -97,10 +97,16 @@ function LoginPage() {
       </form>
       <button
         onClick={forgot}
-        className="mt-4 text-center text-xs text-muted-foreground hover:text-foreground"
+        className="mt-6 text-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors p-2"
       >
         {t.login.forgotPassword}
       </button>
+
+      <div className="mt-8 flex justify-center">
+        <Link to="/" className="inline-flex items-center gap-2 rounded-full border border-white/5 bg-white/5 px-6 py-3 text-xs font-black uppercase tracking-[0.2em] text-muted-foreground transition-all hover:bg-white/10 hover:text-primary active:scale-95">
+          <span className="text-sm">←</span> {t.notFound.goHome}
+        </Link>
+      </div>
       </div>
     </div>
   );
