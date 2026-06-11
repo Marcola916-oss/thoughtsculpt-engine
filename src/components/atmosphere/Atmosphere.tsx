@@ -111,8 +111,8 @@ export function Atmosphere({
           pinned={pinned}
           maxOrbs={TIER_ORBS[tier]}
           className={cn(
-            tier === "low" && "opacity-60",
-            tier === "medium" && "opacity-80",
+            "opacity-100", // Force full opacity for fog
+
           )}
         />
       )}
@@ -124,7 +124,7 @@ export function Atmosphere({
           count={TIER_SYMBOLS[tier]}
           density={SYMBOLS_TO_DENSITY[effectiveSymbols]}
           pinned={pinned}
-          withGlow={effectiveSymbols === "dense" && tier === "high"}
+          withGlow={true} // Always enable glow for premium feel
           className="z-[5]"
         />
       )}
@@ -134,7 +134,7 @@ export function Atmosphere({
         <ScanLines
           intensity={effectiveScan}
           pinned={pinned}
-          className={TIER_SCAN_OPACITY[tier]}
+          className="opacity-100" // Force full opacity for scan lines
         />
       )}
 

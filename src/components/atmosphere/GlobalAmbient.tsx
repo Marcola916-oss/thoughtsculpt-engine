@@ -22,14 +22,14 @@ export function GlobalAmbient() {
       withAmbient: boolean;
     } = {
       fog: "normal",
-      symbols: "off",
+      symbols: "normal", // Ensure symbols are on even by default elsewhere
       scan: "subtle",
       withAmbient: true
     };
 
     if (isLanding) {
       settings.fog = "dramatic";
-      settings.symbols = "normal";
+      settings.symbols = "dense"; // Force dense symbols on landing
       settings.scan = "subtle";
     }
 
