@@ -44,6 +44,7 @@ import {
   Testimonials,
   FAQ,
   FinalCTA,
+  TopBar,
 } from "@/components/landing";
 
 const useReducedMotion = () => {
