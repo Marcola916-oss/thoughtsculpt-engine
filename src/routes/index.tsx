@@ -237,17 +237,12 @@ function LandingAndQuiz() {
 
   return (
     <div
-      className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay pointer-events-none z-0" />
       
-      {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
-      <Atmosphere 
-        {...atmosphereProps} 
-        pinned 
-        className="fixed inset-0 z-[-1] pointer-events-none" 
-      />
+      {/* Persistent atmosphere is mounted globally in __root so it stays visible across the whole product. */}
       
       <TopBar />
 

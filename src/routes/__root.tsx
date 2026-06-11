@@ -193,11 +193,13 @@ function RootComponent() {
         <RevealProvider>
           <GlobalAmbient />
           <MagneticCursor />
-          <AnimatePresence mode="wait">
-            <PageTransition key={useRouter().state.location.pathname}>
-              <Outlet />
-            </PageTransition>
-          </AnimatePresence>
+          <div className="relative z-10">
+            <AnimatePresence mode="wait">
+              <PageTransition key={useRouter().state.location.pathname}>
+                <Outlet />
+              </PageTransition>
+            </AnimatePresence>
+          </div>
           <CookieBanner />
         </RevealProvider>
       </LanguageProvider>
