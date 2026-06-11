@@ -6,7 +6,6 @@ import { getMyProfile } from "../../lib/profile.functions";
 import { supabase } from "../../integrations/supabase/client";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { useEffect, useState } from "react";
-import { GlobalAmbient } from "@/components/atmosphere";
 
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
@@ -59,7 +58,7 @@ function DashboardLayout() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-black p-4 text-center">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-transparent p-4 text-center">
         <div className="relative mb-8">
           <div className="absolute -inset-4 animate-pulse rounded-full bg-primary/20 blur-xl" />
           <div className="relative h-16 w-16 text-6xl" aria-hidden>⚠️</div>
@@ -96,7 +95,7 @@ function DashboardLayout() {
   // Pre-hydration or loading state
   if (!isClient || isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-black">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <div className="flex flex-col items-center gap-4">
           <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
           <p className="text-sm font-medium text-muted-foreground animate-pulse">{t.dashboardErrors.initializing}</p>
@@ -127,7 +126,6 @@ function DashboardLayout() {
 
   return (
     <DashboardShell>
-      <GlobalAmbient />
       <div className="relative min-h-[calc(100vh-80px)] w-full z-10">
         {showBanner && !isLocked && (
           <div className="mb-6 rounded-xl border border-primary/30 bg-primary/10 p-4 text-sm font-semibold text-primary shadow-sm flex items-center justify-between gap-4">

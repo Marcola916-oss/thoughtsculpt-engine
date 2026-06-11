@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { getCheckoutSessionStatus } from "../lib/checkout.success";
 import { useI18n } from "../lib/i18n/LanguageProvider";
-import { Atmosphere, GlobalAmbient } from "@/components/atmosphere";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { IdentitySymbol } from "@/components/identity/IdentitySymbol";
 import { MarbleBust } from "@/components/identity/MarbleBust";
@@ -112,7 +111,7 @@ function ThankYouPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-transparent text-white">
         <div className="relative flex h-32 w-32 items-center justify-center">
           <CircuitBrain variant="loader" size={120} withGlow animated />
         </div>
@@ -125,7 +124,7 @@ function ThankYouPage() {
 
   if (error) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-black p-4 text-white">
+      <div className="flex min-h-screen items-center justify-center bg-transparent p-4 text-white">
         <div className="rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-8 text-center max-w-md md:backdrop-blur-xl">
           <span className="text-4xl">⚠️</span>
           <h2 className="mt-4 mb-2 text-2xl font-bold text-[#CC0000]">{t.obrigado.errorHeading}</h2>
@@ -169,8 +168,7 @@ function ThankYouPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <GlobalAmbient />
+    <div className="min-h-screen bg-transparent text-white relative overflow-hidden">
       <div className="noise-overlay pointer-events-none z-0" />
 
         <div className="relative z-10 mx-auto max-w-3xl px-4 py-12 md:py-20">

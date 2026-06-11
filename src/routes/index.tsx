@@ -27,13 +27,11 @@ import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring"
 import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
 import { saveQuizLead } from "../lib/quiz.functions";
 import { createCheckoutSession } from "../lib/checkout.functions";
-import { useDeviceTier } from "../hooks/use-device-tier";
 
 import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
-import { Atmosphere, GlobalAmbient, type AtmosphereFog } from "@/components/atmosphere";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain } from "@/components/identity";
 import {
@@ -219,35 +217,14 @@ function LandingAndQuiz() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage.kind]);
 
-  const atmosphereProps = useMemo(() => {
-    switch (stage.kind) {
-      case "hero":
-        return { fog: "dramatic" as const, symbols: "sparse" as const, scan: "subtle" as const };
-      case "identity":
-      case "q":
-      case "email":
-        return { fog: "normal" as const, symbols: "off" as const, scan: "subtle" as const };
-      case "loader":
-      case "reveal":
-        return { fog: "dramatic" as const, symbols: "off" as const, scan: "subtle" as const };
-      default:
-        return { fog: "normal" as const, symbols: "off" as const, scan: "subtle" as const };
-    }
-  }, [stage.kind]);
-
   return (
     <div
-      className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay pointer-events-none z-0" />
       
-      {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
-      <Atmosphere 
-        {...atmosphereProps} 
-        pinned 
-        className="fixed inset-0 z-[-1] pointer-events-none" 
-      />
+      {/* Persistent atmosphere is mounted globally in __root so it stays visible across the whole product. */}
       
       <TopBar />
 
@@ -894,9 +871,9 @@ function Reveal({
   }, [a.name]);
 
   return (
-    <section className="py-12 md:py-40 overflow-hidden relative bg-black">
+    <section className="py-12 md:py-40 overflow-hidden relative bg-transparent">
       <div className="absolute inset-0 bg-arch-glow blur-[12px] lg:blur-[160px] opacity-20 -z-10" />
-      <div className="absolute inset-0 bg-black/80 -z-[5]" />
+      <div className="absolute inset-0 bg-black/35 -z-[5]" />
       <div className="text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}

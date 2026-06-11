@@ -438,6 +438,112 @@
 }
 
 /* Ultra-Optimized Ambient Background - Hardware Accelerated */
+.mindreset-global-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #000;
+  isolation: isolate;
+}
+
+.mindreset-ambient-mesh,
+.mindreset-ambient-fog,
+.mindreset-ambient-symbols,
+.mindreset-ambient-scanlines,
+.mindreset-ambient-scanbeam {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mindreset-ambient-mesh {
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 48% 42% at 20% 20%, rgba(204, 0, 0, 0.28), transparent 68%),
+    radial-gradient(ellipse 44% 38% at 86% 58%, rgba(204, 0, 0, 0.22), transparent 70%),
+    radial-gradient(ellipse 50% 34% at 48% 92%, rgba(102, 0, 0, 0.34), transparent 72%),
+    #000;
+  filter: saturate(130%);
+  animation: mindreset-mesh-drift 16s ease-in-out infinite alternate;
+  will-change: background-position, transform, opacity;
+}
+
+.mindreset-ambient-fog {
+  z-index: 1;
+  border-radius: 9999px;
+  mix-blend-mode: screen;
+  filter: blur(34px);
+  opacity: 0.58;
+  will-change: transform, opacity;
+}
+
+.mindreset-ambient-fog-a {
+  width: 58vmax;
+  height: 58vmax;
+  left: -20vmax;
+  top: 4vmax;
+  background: radial-gradient(circle, rgba(204, 0, 0, 0.38) 0%, transparent 68%);
+  animation: mindreset-fog-float-a 11s ease-in-out infinite;
+}
+
+.mindreset-ambient-fog-b {
+  width: 54vmax;
+  height: 54vmax;
+  right: -18vmax;
+  top: 28vmax;
+  background: radial-gradient(circle, rgba(153, 0, 0, 0.34) 0%, transparent 70%);
+  animation: mindreset-fog-float-b 13s ease-in-out infinite 1.2s;
+}
+
+.mindreset-ambient-fog-c {
+  width: 46vmax;
+  height: 46vmax;
+  left: 28%;
+  bottom: -20vmax;
+  background: radial-gradient(circle, rgba(204, 0, 0, 0.22) 0%, transparent 72%);
+  animation: mindreset-fog-float-c 9s ease-in-out infinite 0.6s;
+}
+
+.mindreset-ambient-symbols {
+  z-index: 2;
+  overflow: hidden;
+}
+
+.mindreset-ambient-symbol {
+  position: absolute;
+  color: rgba(245, 245, 247, 0.34);
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(204, 0, 0, 0.65), 0 0 28px rgba(204, 0, 0, 0.36);
+  animation: mindreset-symbol-drift 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.mindreset-ambient-scanlines {
+  z-index: 3;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 255, 255, 0.22) 2px,
+    rgba(255, 255, 255, 0.22) 3px
+  );
+}
+
+.mindreset-ambient-scanbeam {
+  z-index: 4;
+  height: 100%;
+  transform: translateY(-100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(204, 0, 0, 0.22) 50%, transparent 100%);
+  animation: mindreset-scanbeam 7s linear infinite;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
 .flowing-ambient {
   position: absolute;
   inset: 0;
@@ -478,6 +584,39 @@
 @keyframes flowing-rotate-static {
   0% { transform: translate3d(0, 0, 0) rotate(0deg); }
   100% { transform: translate3d(0, 0, 0) rotate(360deg); }
+}
+
+@keyframes mindreset-mesh-drift {
+  0% { transform: translate3d(-1.5%, -1%, 0) scale(1); opacity: 0.86; }
+  50% { transform: translate3d(1.5%, 1%, 0) scale(1.05); opacity: 1; }
+  100% { transform: translate3d(-0.5%, 2%, 0) scale(1.02); opacity: 0.9; }
+}
+
+@keyframes mindreset-fog-float-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.96); opacity: 0.46; }
+  50% { transform: translate3d(8vmin, -4vmin, 0) scale(1.12); opacity: 0.72; }
+}
+
+@keyframes mindreset-fog-float-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.02); opacity: 0.4; }
+  50% { transform: translate3d(-7vmin, 5vmin, 0) scale(1.16); opacity: 0.68; }
+}
+
+@keyframes mindreset-fog-float-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.92); opacity: 0.34; }
+  50% { transform: translate3d(3vmin, -8vmin, 0) scale(1.18); opacity: 0.62; }
+}
+
+@keyframes mindreset-symbol-drift {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.18; }
+  50% { transform: translate3d(var(--ambient-symbol-drift, 18px), -24px, 0); opacity: 0.48; }
+}
+
+@keyframes mindreset-scanbeam {
+  0% { transform: translateY(-115%); opacity: 0; }
+  16% { opacity: 0.55; }
+  72% { opacity: 0.35; }
+  100% { transform: translateY(115%); opacity: 0; }
 }
 
 /* Pre-programmed fog breathing to avoid JS calculations */

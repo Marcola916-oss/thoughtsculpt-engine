@@ -2,7 +2,6 @@ import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { supabase } from "../integrations/supabase/client";
-import { GlobalAmbient } from "@/components/atmosphere";
 import { Logo } from "@/components/identity/Logo";
 
 export const Route = createFileRoute("/login")({
@@ -55,7 +54,6 @@ function LoginPage() {
 
   return (
     <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden">
-      <GlobalAmbient />
       <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 relative z-10">
       <Logo size="xl" className="justify-center mb-8" />
       {revokedBanner && (
