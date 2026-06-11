@@ -308,7 +308,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Main content */}
       <div className="flex flex-1 flex-col min-w-0">
         {/* Mobile header */}
-        <header className="sticky top-0 z-50 flex items-center justify-between border-b border-white/5 bg-black/80 px-6 py-5 backdrop-blur-2xl md:hidden">
+        <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-white/5 bg-black/80 px-6 py-5 backdrop-blur-2xl md:hidden">
           <button
             onClick={() => setMobileOpen(true)}
             className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-muted-foreground transition hover:text-foreground active:scale-90"

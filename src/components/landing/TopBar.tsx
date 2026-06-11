@@ -21,7 +21,7 @@ export function TopBar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+      className={`absolute top-0 left-0 right-0 z-[100] transition-all duration-500 ${
         scrolled
           ? "bg-black/60 backdrop-blur-md border-b border-white/5 py-2 md:py-3 shadow-2xl"
           : "bg-transparent py-4 md:py-6"
