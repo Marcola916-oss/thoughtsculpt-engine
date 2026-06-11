@@ -138,7 +138,7 @@ export function Atmosphere({
         />
       )}
 
-      <div className="relative z-20 pointer-events-auto">
+      <div className="relative z-20 pointer-events-auto min-h-screen">
         {children}
       </div>
     </div>
