@@ -950,7 +950,7 @@ function Reveal({
         <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative">
           {/* Cinema explosion background */}
           <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
-          <span className="text-gradient" style={{ color: 'var(--arch-primary)', backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
+          <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
           <motion.span
             animate={{ opacity: [1, 0] }}
             transition={{ repeat: Infinity, duration: 0.8 }}
