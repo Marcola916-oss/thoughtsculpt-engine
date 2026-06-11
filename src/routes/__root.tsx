@@ -16,7 +16,7 @@ import { LanguageProvider, useI18n } from "../lib/i18n/LanguageProvider";
 import { CookieBanner } from "../components/LanguageSwitcher";
 import { PageTransition } from "../components/PageTransition";
 import { AnimatePresence } from "framer-motion";
-import { ScanLines } from "@/components/atmosphere/ScanLines";
+import { ScanLines, BackgroundAmbient } from "@/components/atmosphere";
 import { MagneticCursor } from "@/components/interaction/MagneticCursor";
 import { RevealProvider } from "@/components/interaction/Reveal";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -191,6 +191,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
         <RevealProvider>
+          <BackgroundAmbient />
           <ScanLines intensity="subtle" />
           <MagneticCursor />
           <AnimatePresence mode="wait">

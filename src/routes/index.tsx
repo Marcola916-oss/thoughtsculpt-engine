@@ -44,6 +44,7 @@ import {
   Testimonials,
   FAQ,
   FinalCTA,
+  TopBar,
 } from "@/components/landing";
 
 const useReducedMotion = () => {
@@ -248,18 +249,12 @@ function LandingAndQuiz() {
       className="min-h-screen w-full bg-black text-foreground selection:bg-primary/30 overflow-x-hidden relative"
       data-arch={archCode || undefined}
     >
-      <BackgroundAmbient variant="landing" />
       <div className="noise-overlay pointer-events-none z-0" />
       
       {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
       <Atmosphere {...atmosphereProps} pinned withAmbient={false} />
       
-      {/* TopBar — hidden on hero stage (landing page has its own layout) */}
-      {stage.kind !== "hero" && (
-        <div className="contents md:block">
-          <TopBar />
-        </div>
-      )}
+      <TopBar />
 
       <main className="w-full px-0 sm:px-4 pb-24 pt-4 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
@@ -447,83 +442,6 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
   );
 }
 
-/* --- TopBar ----------------------------------------------------------------------------------------- */
-
-function TopBar() {
-  const { t } = useI18n();
-  const tier = useDeviceTier();
-  const [scrolled, setScrolled] = useState(false);
-  const scrollResult = useScroll();
-  const scrollYProgress = tier === "low" ? undefined : scrollResult.scrollYProgress;
-
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", fn, { passive: true });
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
-
-  return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 ${
-        scrolled
-          ? "bg-black border-b border-white/5 py-3 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] md:bg-black/90 md:backdrop-blur-xl"
-          : "bg-transparent py-4 md:py-6"
-      }`}
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6">
-        <Link
-          to="/"
-          className="group flex items-center gap-3 font-display text-3xl font-black tracking-tighter"
-        >
-          <div className="relative">
-            <div className="h-10 w-10 rounded-xl bg-arch-primary flex items-center justify-center transition-all duration-500 group-hover:rotate-[15deg] group-hover:scale-110 shadow-[0_0_20px_var(--arch-glow)] border border-white/10">
-              <span className="text-white text-2xl italic font-black drop-shadow-sm">M</span>
-            </div>
-            <motion.div 
-              className="absolute -inset-1 rounded-xl bg-arch-primary/20 blur-sm -z-10"
-              animate={{ opacity: [0.3, 0.6, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </div>
-          <div className="flex items-baseline uppercase italic">
-            <span className="text-white transition-colors group-hover:text-arch-primary drop-shadow-[0_2px_10px_rgba(255,255,255,0.2)]">Mind</span>
-            <span className="text-arch-primary transition-colors group-hover:text-white drop-shadow-[0_2px_15px_var(--arch-glow)]">
-              Reset
-            </span>
-            <CircuitBrain size={18} variant="icon" animated={false} withGlow={false} className="ml-1 opacity-40 group-hover:opacity-100 transition-opacity" />
-          </div>
-        </Link>
-
-        <div className="flex items-center gap-3 md:gap-6">
-          <div className="flex items-center gap-8">
-            <LanguageSwitcher />
-          </div>
-          <Link
-            to="/login"
-            data-cursor="hover"
-            className="group relative hidden sm:flex items-center gap-2 overflow-hidden rounded-full bg-white/5 px-4 md:px-6 py-2 md:py-2.5 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-foreground/80 border border-white/5 transition-all hover:bg-white/10 hover:border-white/10 hover:-translate-y-0.5"
-          >
-            <span className="relative z-10">{t.common.login}</span>
-            <div className="absolute inset-0 translate-y-[100%] bg-arch-primary transition-transform duration-300 group-hover:translate-y-0" />
-          </Link>
-        </div>
-      </div>
-      
-      {/* Scroll indicator line integrated into TopBar — skipped on low tier */}
-      {tier !== "low" && (
-        <motion.div 
-          className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-arch-primary to-transparent"
-          style={{ 
-            scaleX: scrollYProgress, 
-            width: "100%",
-            transformOrigin: "center",
-            opacity: scrolled ? 1 : 0
-          }}
-        />
-      )}
-    </header>
-  );
-}
 
 /* --- Hero ------------------------------------------------------------------------------------------- */
 

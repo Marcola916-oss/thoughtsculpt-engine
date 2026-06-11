@@ -27,7 +27,7 @@ function CompassPage() {
   const list = useServerFn(listCompass);
   const run = useServerFn(analyzeCompass);
   const qc = useQueryClient();
-  const { t, locale } = useI18n();
+  const { t, locale, lang } = useI18n();
 
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
@@ -195,7 +195,7 @@ function CompassPage() {
               <div className="bg-primary/10 p-6 md:p-8">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">{t.dashboard.compass.result.probableArchetype}</p>
                 <h2 className="mt-1 font-display text-3xl font-extrabold text-foreground">
-                  {ARCHETYPE_NAMES[(activeAnalysis.probable_archetype ?? "AO") as Archetype]?.[lang]}
+                  {ARCHETYPE_NAMES[(activeAnalysis.probable_archetype ?? "AO") as Archetype]?.[lang as keyof (typeof ARCHETYPE_NAMES)["AO"]]}
                 </h2>
                 <p className="mt-1 text-sm font-bold text-primary">
                   {activeAnalysis.probable_archetype}

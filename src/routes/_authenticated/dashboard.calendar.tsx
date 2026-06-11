@@ -253,7 +253,7 @@ function CalendarPage() {
         dtEnd.setHours(9, 30, 0, 0);
 
         const uid = `mindreset-day-${task.day_number}@mindreset.app`;
-        const summary = t.dashboard.calendar.ics.daySummary(task.day_number, task.phase);
+        const summary = t.dashboard.calendar.ics.daySummary(task.day_number, task.phase || "");
         const description = [
           task.reflective_task ? `${t.dashboard.calendar.ics.reflective}: ${task.reflective_task}` : "",
           task.action_task ? `${t.dashboard.calendar.ics.action}: ${task.action_task}` : "",
