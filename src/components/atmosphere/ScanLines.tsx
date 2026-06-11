@@ -59,7 +59,7 @@ function ScanLinesImpl({
         pinned ? "z-[1]" : "z-0",
         "scan-overlay",
         // Subtler on mobile to reduce rendering cost
-        "opacity-30 md:opacity-100",
+        "opacity-100",
         OVERLAY_OPACITY[intensity],
         className,
       )}
