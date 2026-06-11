@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import logoImage from "@/assets/logo-mindreset.png";
+import logoImage from "@/assets/logo-transparent.png";
 
 interface LogoProps {
   className?: string;
@@ -23,7 +23,7 @@ export function Logo({ className = "", size = "md", link = true }: LogoProps) {
         <img
           src={logoImage}
           alt="MindReset"
-          className="max-w-full max-h-full object-contain brightness-[1.1] contrast-[1.2] mix-blend-screen relative z-10 scale-[1.3]"
+          className="max-w-full max-h-full object-contain relative z-10 scale-[2.5]"
           loading="eager"
         />
       </div>
