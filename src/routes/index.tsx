@@ -252,7 +252,7 @@ function LandingAndQuiz() {
       <div className="noise-overlay pointer-events-none z-0" />
       
       {/* Persistent Atmosphere - stays mounted across stage changes for performance */}
-      <Atmosphere {...atmosphereProps} pinned withAmbient={true} className="fixed inset-0 z-0 pointer-events-none" />
+      <Atmosphere {...atmosphereProps} pinned withAmbient={true} className="fixed inset-0 z-0" />
       
       <TopBar />
 
