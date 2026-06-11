@@ -56,6 +56,7 @@ function VolumetricFogImpl({
 }: VolumetricFogProps) {
   const positionClass = pinned ? "fixed" : "absolute";
   const orbs = Math.min(Math.max(maxOrbs, 1), 3);
+  const isFixed = pinned;
 
   return (
     <div
@@ -67,7 +68,7 @@ function VolumetricFogImpl({
         "inset-0",
         "pointer-events-none",
         "overflow-hidden",
-        "z-[2]",
+        isFixed ? "z-[2]" : "z-0",
         INTENSITY_WRAPPER[intensity],
         reducedMotion === true ? "motion-reduce" : "motion-safe",
         className,
