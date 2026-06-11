@@ -10,10 +10,10 @@ interface LogoProps {
 }
 
 const SIZE_MAP = {
-  sm: "h-7 md:h-9",
-  md: "h-10 md:h-12",
-  lg: "h-14 md:h-20",
-  xl: "h-24 md:h-32",
+  sm: "h-8 md:h-10",
+  md: "h-12 md:h-16",
+  lg: "h-20 md:h-28",
+  xl: "h-32 md:h-44",
 };
 
 export function Logo({ className = "", size = "md", link = true }: LogoProps) {
@@ -24,7 +24,7 @@ export function Logo({ className = "", size = "md", link = true }: LogoProps) {
         alt="MindReset"
         className={cn(
           SIZE_MAP[size], 
-          "w-auto object-contain brightness-[1.25] drop-shadow-[0_0_15px_rgba(255,255,255,0.15)] contrast-[1.1]"
+          "w-auto object-contain brightness-[1.1] contrast-[1.05] [filter:drop-shadow(0_0_8px_rgba(255,255,255,0.2))_drop-shadow(0_0_20px_rgba(255,255,255,0.1))] mix-blend-screen"
         )}
         loading="eager"
       />
