@@ -31,7 +31,7 @@ export const BackgroundAmbient = memo(({ variant = "landing", className }: Backg
       )}
     >
       {/* Force flowing ambient always */}
-      <div className="flowing-ambient absolute inset-0 opacity-15 md:opacity-20" />
+      <div className="flowing-ambient absolute inset-0 opacity-40 md:opacity-50" />
 
       {/* Dark mask for center focus — always static, always present */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.9)_80%)]" />
