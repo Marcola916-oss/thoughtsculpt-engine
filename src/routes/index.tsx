@@ -739,7 +739,7 @@ function Identity(props: {
                 onClick={() => props.setGender(g)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`rounded-2xl border px-4 py-4 text-base font-black uppercase tracking-tighter italic transition-all ${
+                className={`rounded-2xl border px-2 py-4 text-[13px] sm:text-base font-black uppercase tracking-tight italic transition-all ${
                   props.gender === g
                     ? "border-primary bg-primary text-primary-foreground shadow-[0_15px_30px_-10px_var(--accent-glow)] scale-105 z-10"
                     : "border-border bg-card text-muted-foreground hover:border-foreground/30 hover:bg-secondary/40"
