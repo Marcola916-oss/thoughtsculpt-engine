@@ -1,46 +1,56 @@
-import { useMemo } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import { Atmosphere, type AtmosphereFog, type AtmosphereSymbols, type AtmosphereScan } from "./Atmosphere";
-import { useDeviceTier } from "@/hooks/use-device-tier";
+
+const SYMBOLS = ["€", "$", "¥", "₿", "£", "¢", "×", "÷", "≈", "π", "Σ", "∞"];
+
+const SYMBOL_SLOTS = [
+  [8, 16, 24, 0, 18],
+  [79, 18, 28, 2.2, -16],
+  [17, 45, 22, 1.1, 20],
+  [88, 54, 26, 3.1, -22],
+  [44, 10, 20, 0.7, 14],
+  [64, 79, 24, 2.8, -18],
+  [26, 84, 22, 1.8, 16],
+  [92, 88, 26, 3.7, -20],
+  [38, 31, 18, 1.4, 22],
+  [58, 61, 20, 4.2, -14],
+  [12, 70, 18, 2.5, 12],
+  [82, 39, 20, 1.6, -18],
+] as const;
 
 /**
  * GlobalAmbient — Background orchestrator for the entire application.
  * Tier-aware and route-aware to adjust intensity without blocking the UI.
  */
 export function GlobalAmbient() {
-  const tier = useDeviceTier();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-
-  // Determine atmosphere settings based on route
-  const atmosphereProps = useMemo(() => {
-    const isLanding = pathname === "/";
-    
-    const settings: {
-      fog: AtmosphereFog;
-      symbols: AtmosphereSymbols;
-      scan: AtmosphereScan;
-      withAmbient: boolean;
-    } = {
-      fog: "normal",
-      symbols: "normal", // Ensure symbols are on even by default elsewhere
-      scan: "crt",
-      withAmbient: true
-    };
-
-    if (isLanding) {
-      settings.fog = "dramatic";
-      settings.symbols = "dense"; // Force dense symbols on landing
-      settings.scan = "crt";
-    }
-
-    return settings;
-  }, [pathname, tier]);
+  const isLanding = pathname === "/";
+  const visibleSymbols = isLanding ? SYMBOL_SLOTS : SYMBOL_SLOTS.slice(0, 8);
 
   return (
-    <Atmosphere 
-      {...atmosphereProps} 
-      pinned 
-      className="fixed inset-0 z-[-1] pointer-events-none" 
-    />
+    <div className="mindreset-global-ambient" aria-hidden="true">
+      <div className="mindreset-ambient-mesh" />
+      <div className="mindreset-ambient-fog mindreset-ambient-fog-a" />
+      <div className="mindreset-ambient-fog mindreset-ambient-fog-b" />
+      <div className="mindreset-ambient-fog mindreset-ambient-fog-c" />
+      <div className="mindreset-ambient-symbols">
+        {visibleSymbols.map(([x, y, size, delay, drift], index) => (
+          <span
+            key={`${pathname}-${index}`}
+            className="mindreset-ambient-symbol"
+            style={{
+              left: `${x}%`,
+              top: `${y}%`,
+              fontSize: `${size}px`,
+              animationDelay: `${delay}s`,
+              ["--ambient-symbol-drift" as string]: `${drift}px`,
+            }}
+          >
+            {SYMBOLS[index % SYMBOLS.length]}
+          </span>
+        ))}
+      </div>
+      <div className="mindreset-ambient-scanlines" />
+      <div className="mindreset-ambient-scanbeam" />
+    </div>
   );
 }
