@@ -102,7 +102,7 @@ export function Atmosphere({
 
   return (
     <div aria-hidden="true" className={cn("relative z-10 pointer-events-none", className)}>
-      {withAmbient && <BackgroundAmbient variant="landing" className="z-[-1]" />}
+      <BackgroundAmbient variant="landing" className="z-[-1]" />
 
       {/* Fog — tier-aware orb count */}
       {showFog && (

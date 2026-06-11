@@ -30,18 +30,8 @@ export const BackgroundAmbient = memo(({ variant = "landing", className }: Backg
         className
       )}
     >
-      {isLowEnd ? (
-        /* Mobile low-end: static gradient, zero animation */
-        <div
-          className="absolute inset-0 opacity-15"
-          style={{
-            background: "radial-gradient(ellipse at 30% 20%, var(--accent-glow) 0%, transparent 50%)",
-          }}
-        />
-      ) : (
-        /* Medium + High: rotating ambient glow (GPU composited) */
-        <div className="flowing-ambient absolute inset-0 opacity-15 md:opacity-20" />
-      )}
+      {/* Force flowing ambient always */}
+      <div className="flowing-ambient absolute inset-0 opacity-15 md:opacity-20" />
 
       {/* Dark mask for center focus — always static, always present */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.9)_80%)]" />
