@@ -23,7 +23,7 @@ export function Logo({ className = "", size = "md", link = true }: LogoProps) {
         <img
           src={logoImage}
           alt="MindReset"
-          className="max-w-full max-h-full object-contain relative z-10 scale-[1.3]"
+          className="max-w-full max-h-full object-contain relative z-10 scale-[1.8]"
           loading="eager"
         />
       </div>
