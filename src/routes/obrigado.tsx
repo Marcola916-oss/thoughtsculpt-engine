@@ -373,6 +373,7 @@ function ThankYouPage() {
           <div className="text-center text-xs text-gray-600">
             © {new Date().getFullYear()} MindReset Inc. {t.obrigado.copyright}
           </div>
+        </div>
     </div>
   );
 }
