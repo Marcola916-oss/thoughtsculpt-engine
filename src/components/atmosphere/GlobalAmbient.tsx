@@ -14,14 +14,16 @@ export function GlobalAmbient() {
   // Determine atmosphere settings based on route
   const atmosphereProps = useMemo(() => {
     const isLanding = pathname === "/";
-    const isLoader = pathname.includes("loader"); // Custom loaders might use this path pattern
-    const isQuiz = pathname === "/" && !isLanding; // Actually quiz stages are inside index.tsx
     
-    // Default settings for a premium experience
-    const settings = {
-      fog: "normal" as const,
-      symbols: "off" as const,
-      scan: "subtle" as const,
+    const settings: {
+      fog: AtmosphereFog;
+      symbols: AtmosphereSymbols;
+      scan: AtmosphereScan;
+      withAmbient: boolean;
+    } = {
+      fog: "normal",
+      symbols: "off",
+      scan: "subtle",
       withAmbient: true
     };
 
