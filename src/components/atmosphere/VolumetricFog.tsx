@@ -93,10 +93,9 @@ function VolumetricFogImpl({
 
       {/* Orb 1 — always rendered (the mobile "alive" orb) */}
       <div
-        className="absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full"
+        className="absolute -left-[10%] top-[18%] h-[55vmin] w-[55vmin] rounded-full fog-breathe-1"
         style={{
           background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
-          animation: "fog-breathe-static 10s ease-in-out infinite",
           willChange: "transform, opacity",
         }}
       />
@@ -104,10 +103,9 @@ function VolumetricFogImpl({
       {/* Orb 2 — only when 2+ orbs */}
       {orbs >= 2 && (
         <div
-          className="absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full"
+          className="absolute -right-[8%] top-[44%] h-[50vmin] w-[50vmin] rounded-full fog-breathe-2"
           style={{
             background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
-            animation: "fog-breathe-static 15s ease-in-out infinite reverse",
             willChange: "transform, opacity",
           }}
         />
@@ -116,10 +114,9 @@ function VolumetricFogImpl({
       {/* Orb 3 — only at max orbs (desktop) */}
       {orbs >= 3 && (
         <div
-          className="absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full"
+          className="absolute left-[28%] bottom-[10%] h-[42vmin] w-[42vmin] rounded-full fog-breathe-3"
           style={{
             background: "radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)",
-            animation: "fog-breathe-static 12s ease-in-out infinite",
             willChange: "transform, opacity",
           }}
         />

@@ -29,7 +29,8 @@ export function GlobalAmbient() {
 
     if (isLanding) {
       settings.fog = "dramatic";
-      settings.symbols = "normal"; // Ensure symbols are always visible
+      settings.symbols = "normal";
+      settings.scan = "subtle";
     }
 
     return settings;
