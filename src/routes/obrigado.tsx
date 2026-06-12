@@ -190,7 +190,7 @@ function ThankYouPage() {
               <CelebrationBrain size={180} className="mx-auto" />
             </motion.div>
 
-            <h1 className="font-display text-4xl md:text-5xl font-black tracking-tighter leading-tight">
+            <h1 className="font-display text-4xl md:text-6xl font-black uppercase italic tracking-tighter leading-[1.1] py-2">
               {t.obrigado.welcomeHeading}
               <br />
               <TypewriterText text={firstName} className="text-[#CC0000]" />!
@@ -209,7 +209,7 @@ function ThankYouPage() {
           >
             <div className="flex items-center gap-3 mb-6">
               <ShieldCheck className="h-6 w-6 text-[#CC0000]" />
-              <h2 className="font-display text-xl font-bold">{t.obrigado.credentialsHeading}</h2>
+              <h2 className="font-display text-2xl font-black uppercase italic py-1">{t.obrigado.credentialsHeading}</h2>
             </div>
 
             <div className="space-y-4">
@@ -270,7 +270,7 @@ function ThankYouPage() {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="mb-12"
           >
-            <h2 className="font-display text-2xl font-black text-center mb-8 tracking-tight">
+            <h2 className="font-display text-3xl font-black uppercase italic text-center mb-8 tracking-tight py-2">
               {t.obrigado.whatsNextHeading}
             </h2>
             <div className="space-y-4">
@@ -330,7 +330,7 @@ function ThankYouPage() {
             transition={{ delay: 2.2 }}
             className="mb-12"
           >
-            <h3 className="font-display text-xl font-bold text-center mb-6">
+            <h3 className="font-display text-2xl font-black uppercase italic text-center mb-6 py-1">
               {t.obrigado.faqHeading}
             </h3>
             <div className="space-y-3">

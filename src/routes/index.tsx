@@ -517,7 +517,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-[-0.04em] uppercase italic px-4 py-2";
 
         const highlightSpan = hasKeyword ? (
-          <span className="relative inline-block mx-1 md:mx-4 z-10">
+          <span className="relative inline mx-1 md:mx-4 z-10">
             <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">{keyword}</span>
             {isMobileMotion ? (
               <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
@@ -533,7 +533,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         ) : null;
 
         const textSpan = (content: string) => (
-          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+          <span className="relative z-10 text-white/90 drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
             {content}
           </span>
         );
@@ -910,7 +910,7 @@ function Reveal({
            </div>
         </motion.div>
 
-        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[1.1] py-4 text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative">
+        <h1 className="mt-4 font-display text-[12vw] md:text-[8vw] font-black leading-[1.1] py-4 text-foreground tracking-tighter uppercase italic max-w-full relative px-4 break-words">
           {/* Cinema explosion background */}
           <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
           <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
@@ -1065,7 +1065,7 @@ function Sales({
           </MSection>
 
           {isMobileMotion ? (
-            <h1 className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter">
+            <h1 className="font-display text-4xl font-black uppercase italic leading-[1.1] md:text-6xl tracking-tighter py-2">
               {s.h1(
                 name,
                 (
@@ -1080,7 +1080,7 @@ function Sales({
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter"
+              className="font-display text-4xl font-black uppercase italic leading-[1.1] md:text-6xl tracking-tighter py-2"
             >
               {s.h1(
                 name,
@@ -1360,7 +1360,7 @@ function Plans({
           </motion.div>
         )}
         {isMobileMotion ? (
-          <h2 className="font-display text-4xl font-extrabold md:text-7xl mb-6">
+          <h2 className="font-display text-4xl font-black uppercase italic leading-[1.1] md:text-6xl mb-6 py-2">
             {t.plans.title}
           </h2>
         ) : (
@@ -1368,7 +1368,7 @@ function Plans({
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display text-4xl font-extrabold md:text-7xl mb-6"
+            className="font-display text-4xl font-black uppercase italic leading-[1.1] md:text-6xl mb-6 py-2"
           >
             {t.plans.title}
           </motion.h2>
