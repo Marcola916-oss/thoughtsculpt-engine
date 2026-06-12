@@ -21,7 +21,7 @@ export function HowItWorks() {
         </span>
         <h2
           id="how-title"
-          className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-7xl"
+          className="font-display text-4xl font-black italic uppercase leading-[1.1] tracking-[-0.04em] md:text-5xl lg:text-6xl py-2"
         >
           {w.title}
         </h2>

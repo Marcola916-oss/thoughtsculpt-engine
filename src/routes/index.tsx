@@ -514,7 +514,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl font-black leading-[0.95] md:leading-[0.85] tracking-[-0.05em] uppercase italic px-4";
+        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-[-0.04em] uppercase italic px-4 py-2";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
@@ -910,7 +910,7 @@ function Reveal({
            </div>
         </motion.div>
 
-        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative">
+        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[1.1] py-4 text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative">
           {/* Cinema explosion background */}
           <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
           <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
@@ -974,7 +974,7 @@ function Reveal({
           🔒
         </div>
 
-        <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">
+        <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[1.1] py-2 tracking-tighter uppercase italic">
           {t.reveal.sub}
         </p>
 
@@ -1186,7 +1186,7 @@ function Sales({
           <div className="inline-flex items-center justify-center h-32 w-32 rounded-[2.5rem] bg-white/5 border border-white/10 mb-12 shadow-2xl md:backdrop-blur-xl">
             <ShieldCheck className="h-16 w-16 text-arch-primary animate-pulse" />
           </div>
-          <h3 className="font-display text-4xl md:text-8xl font-black mb-12 leading-[0.95] tracking-tighter uppercase italic">
+          <h3 className="font-display text-4xl md:text-8xl font-black mb-12 leading-[1.1] py-2 tracking-tighter uppercase italic">
             {s.science.title}
           </h3>
           <div className="space-y-12 text-2xl md:text-3xl text-muted-foreground leading-relaxed font-medium tracking-tight">
@@ -1264,7 +1264,7 @@ function Sales({
             <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px] animate-pulse [animation-delay:2s]" />
 
             <div className="relative z-10">
-              <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">
+              <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[1.1] py-2 uppercase italic">
                 {s.ctaFinal.title}
               </h3>
               <p className="text-xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">

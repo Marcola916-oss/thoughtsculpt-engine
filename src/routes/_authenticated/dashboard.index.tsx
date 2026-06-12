@@ -127,7 +127,7 @@ function HubPage() {
         <motion.p variants={staggerItem} className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 mb-3">
           {t.dashboard.hub.greeting(hour)}{name ? `, ${name}` : ""}.
         </motion.p>
-        <motion.h1 variants={staggerItem} className="mt-2 font-display text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter italic leading-[0.9]">
+        <motion.h1 variants={staggerItem} className="mt-2 font-display text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter italic leading-[1.1] py-2">
           {archetype ? (
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-4">

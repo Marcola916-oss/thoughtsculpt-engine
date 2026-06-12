@@ -14,8 +14,8 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
       aria-labelledby="faq-title"
       className="relative mx-auto w-full max-w-7xl px-4 py-24 md:px-8 md:py-32"
     >
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20">
-        <Reveal variant="fade-up" className="md:sticky md:top-32 md:self-start">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+        <Reveal variant="fade-up" className="lg:sticky lg:top-32 lg:self-start">
           <span
             aria-hidden
             className="mb-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-arch-primary"
@@ -25,7 +25,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
           </span>
           <h2
             id="faq-title"
-            className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-5xl"
+            className="font-display text-4xl font-black italic uppercase leading-[1.1] tracking-[-0.04em] md:text-5xl lg:text-6xl py-2"
           >
             {f.title}
           </h2>
