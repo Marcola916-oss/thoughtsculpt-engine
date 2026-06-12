@@ -5,10 +5,10 @@
   --font-body: 'Inter', sans-serif;
 
   /* ===== TAMANHOS DE FONTE ===== */
-  --size-h1: clamp(2rem, 5vw, 4rem);
-  --size-h2: clamp(1.5rem, 3.5vw, 2.75rem);
-  --size-h3: clamp(1.25rem, 2.5vw, 2rem);
-  --size-body: clamp(0.95rem, 1.5vw, 1.125rem);
+  --size-h1: clamp(2.5rem, 8vw, 6rem);
+  --size-h2: clamp(2rem, 5vw, 4rem);
+  --size-h3: clamp(1.5rem, 3.5vw, 2.75rem);
+  --size-body: clamp(1rem, 2vw, 1.25rem);
   --size-small: clamp(0.75rem, 1vw, 0.875rem);
 
   /* ===== ESPAÇAMENTOS ===== */
