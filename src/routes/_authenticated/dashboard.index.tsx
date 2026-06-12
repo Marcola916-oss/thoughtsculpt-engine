@@ -222,7 +222,7 @@ function HubPage() {
                     </motion.span>
                   )}
                 </div>
-                <h2 className="font-display text-2xl font-bold tracking-tight">{c.title}</h2>
+                <h2 className="font-display text-xl font-black uppercase italic tracking-tighter py-1 leading-[1.1]">{c.title}</h2>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {typeof c.desc === 'function' ? c.desc(0) : c.desc}
                 </p>

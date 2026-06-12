@@ -750,7 +750,7 @@ function QuestionScreen(props: {
 
   return (
     <div className="w-full">
-      <h2 className="font-display text-2xl font-bold leading-tight md:text-3xl mb-3">
+      <h2 className="font-display text-xl font-black uppercase italic leading-[1.2] md:text-2xl mb-3 py-1">
         {q.q.replace("[NOME]", props.name)}
       </h2>
       <p className="text-muted-foreground mb-8 text-base">{t.questions.intro(props.name)}</p>
@@ -787,7 +787,7 @@ function EmailCapture(props: {
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_20px_var(--accent-glow)] mx-auto">
         <Lock className="h-7 w-7 text-primary animate-pulse" />
       </div>
-      <h2 className="font-display text-2xl font-extrabold md:text-4xl">
+      <h2 className="font-display text-2xl font-black uppercase italic md:text-4xl leading-[1.1] py-1">
         {t.emailCapture.title(props.name)}
       </h2>
       <p className="mt-3 text-base text-muted-foreground leading-relaxed">{t.emailCapture.sub}</p>
@@ -910,10 +910,10 @@ function Reveal({
            </div>
         </motion.div>
 
-        <h1 className="mt-4 font-display text-[12vw] md:text-[8vw] font-black leading-[1.1] py-4 text-foreground tracking-tighter uppercase italic max-w-full relative px-4 break-words">
+        <h1 className="mt-4 font-display text-[12vw] md:text-[8vw] font-black leading-[1.1] py-4 text-foreground tracking-tighter uppercase italic max-w-full relative px-4" style={{ wordBreak: 'keep-all', overflowWrap: 'normal', hyphens: 'none' }}>
           {/* Cinema explosion background */}
           <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
-          <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
+          <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)', wordBreak: 'keep-all', overflowWrap: 'normal', hyphens: 'none', display: 'inline-block', maxWidth: '100%' }}>{text}</span>
           <motion.span
             animate={{ opacity: [1, 0] }}
             transition={{ repeat: Infinity, duration: 0.8 }}
@@ -1145,7 +1145,7 @@ function Sales({
 
           <div className="relative z-10 grid md:grid-cols-2 gap-16">
             <div>
-              <h2 className="font-display text-4xl md:text-6xl font-black text-foreground mb-8 leading-tight tracking-tighter">
+              <h2 className="font-display text-4xl md:text-5xl font-black uppercase italic text-foreground mb-8 leading-[1.1] tracking-tighter py-2">
                 {s.painBlock.title}
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
@@ -1205,7 +1205,7 @@ function Sales({
                     filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"],
                   }}
                   transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                  className="text-arch-primary font-black text-5xl md:text-9xl tracking-[ -0.05em] uppercase italic"
+                  className="text-arch-primary font-display font-black text-5xl md:text-7xl tracking-tighter uppercase italic leading-[1.1] py-2"
                 >
                   {s.science.solution}
                 </motion.p>
@@ -1248,7 +1248,7 @@ function Sales({
               <ShieldCheck size={64} className="text-arch-primary" />
             </div>
             <div className="text-center md:text-left">
-              <h4 className="text-3xl font-black mb-4 tracking-tight">{s.guarantee.title}</h4>
+              <h4 className="font-display text-3xl font-black uppercase italic mb-4 tracking-tight py-1 leading-[1.1]">{s.guarantee.title}</h4>
               <p className="text-xl text-muted-foreground leading-relaxed font-medium">
                 {s.guarantee.body}
               </p>
