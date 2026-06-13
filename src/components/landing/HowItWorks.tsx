@@ -21,7 +21,7 @@ export function HowItWorks() {
         </span>
         <h2
           id="how-title"
-          className="font-display text-4xl font-black italic uppercase leading-[1.1] tracking-[-0.04em] md:text-5xl lg:text-6xl py-2"
+          className="font-display font-black italic uppercase leading-[1.1] tracking-[-0.04em] py-2"
         >
           {w.title}
         </h2>
@@ -44,7 +44,7 @@ export function HowItWorks() {
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-arch-primary/40 bg-arch-primary/[0.04] font-display text-3xl font-black italic text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground group-hover:rotate-6">
               {i + 1}
             </div>
-            <h3 className="mb-3 font-display text-xl font-black uppercase italic tracking-tight text-foreground group-hover:text-arch-primary transition-colors">{step.title}</h3>
+            <h3 className="mb-3 font-display font-black uppercase italic tracking-tight text-foreground group-hover:text-arch-primary transition-colors">{step.title}</h3>
             <p className="max-w-[220px] text-[15px] font-medium leading-relaxed text-white/60 group-hover:text-white/90 transition-colors drop-shadow-md">
               {step.desc}
             </p>

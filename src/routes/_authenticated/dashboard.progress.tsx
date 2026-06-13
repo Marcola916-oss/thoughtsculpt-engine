@@ -64,7 +64,7 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
               <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                 {t.dashboard.progress.report.monthlyReportLabel(report.month_number)}
               </p>
-              <h2 className="font-display text-2xl font-black uppercase italic leading-[1.1] py-1">{t.dashboard.progress.report.behavioralEvolution}</h2>
+              <h2 className="font-display font-black uppercase italic leading-[1.1] py-1">{t.dashboard.progress.report.behavioralEvolution}</h2>
             </div>
           </div>
 
@@ -91,7 +91,7 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
           {/* Summary */}
           {report.summary && (
             <div className="rounded-xl border border-border bg-background p-5">
-              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground text-left">
                 📈 {t.dashboard.progress.report.monthAnalysis}
               </h3>
               <p className="text-sm leading-relaxed text-foreground">{report.summary}</p>
@@ -101,7 +101,7 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
           {/* Pattern */}
           {report.pattern_observed && (
             <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
-              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-primary">
+              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-primary text-left">
                 🔍 {t.dashboard.progress.report.patternIdentified}
               </h3>
               <p className="text-sm leading-relaxed text-foreground">{report.pattern_observed}</p>
@@ -111,7 +111,7 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
           {/* Next Focus */}
           {report.next_focus && (
             <div className="rounded-xl border border-success/20 bg-success/5 p-5">
-              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-success">
+              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-success text-left">
                 🎯 {t.dashboard.progress.report.nextMonthFocus}
               </h3>
               <p className="text-sm leading-relaxed text-foreground">{report.next_focus}</p>
@@ -254,7 +254,7 @@ function ProgressPage() {
       )}
 
       <header className="mb-8">
-        <h1 className="font-display text-3xl font-black uppercase italic md:text-4xl leading-[1.1] py-2">{t.dashboard.progress.pageTitle}</h1>
+        <h1 className="font-display font-black uppercase italic leading-[1.1] py-2">{t.dashboard.progress.pageTitle}</h1>
         <p className="mt-2 text-muted-foreground">{t.dashboard.progress.pageSubtitle}</p>
       </header>
 
@@ -308,7 +308,7 @@ function ProgressPage() {
         <div className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm">
           <div>
             <div className="mb-3 text-3xl">📊</div>
-            <h2 className="font-display text-lg font-black uppercase italic">{t.dashboard.progress.report.widgetTitle}</h2>
+            <h2 className="font-display font-black uppercase italic">{t.dashboard.progress.report.widgetTitle}</h2>
             {report ? (
               <>
                 <div className="mt-2 flex items-center gap-2">
@@ -349,7 +349,7 @@ function ProgressPage() {
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {/* Consistency Grid */}
         <section className="rounded-2xl border border-border bg-card p-6">
-          <h3 className="mb-1 font-display text-lg font-black uppercase italic">{t.dashboard.progress.consistencyGrid.title}</h3>
+          <h3 className="mb-1 font-display font-black uppercase italic text-left">{t.dashboard.progress.consistencyGrid.title}</h3>
           <p className="mb-5 text-xs text-muted-foreground">
             {t.dashboard.progress.consistencyGrid.completedDays(tasks.filter((task) => task.is_completed).length, tasks.length)}
           </p>
@@ -386,7 +386,7 @@ function ProgressPage() {
 
         {/* Achievements */}
         <section className="rounded-2xl border border-border bg-card p-6">
-          <h3 className="mb-4 font-display text-lg font-black uppercase italic">{t.dashboard.progress.achievements.title}</h3>
+          <h3 className="mb-4 font-display font-black uppercase italic text-left">{t.dashboard.progress.achievements.title}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
             {ALL_ACHIEVEMENTS.map((a, i) => {
               const unlocked = achievs?.find((dbA) => dbA.achievement_code === a.code);

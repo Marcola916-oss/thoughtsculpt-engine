@@ -1,0 +1,3 @@
+Quero que o produto(leia TODOS os arquivos para entender) se ajuste a qualquer tamanho de tela de forma global, ou seja, isso deve acontecer em todas as páginas e seções do projeto. Os títulos devem manter o mesmo estilo, mas precisam ter uma margem segura em todos os lados, para que não cortem nas bordas, em nenhum dispositivo. Além disso, o alinhamento dos títulos deve ser sempre centralizado, garantindo que o texto fique bonito e alinhado, sem variações, da página de entrada até a página de saída.
+
+IMPORTANTE: Investique isso afundo, para que não acha erros, bugs e "ruído" na nossa comunicação! NÃO PRODUZA E NÃO ALTERE NADA AINDA, me diga exatamente o que você entendeu? Ok?

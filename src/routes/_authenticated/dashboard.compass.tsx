@@ -85,7 +85,7 @@ function CompassPage() {
       <section>
         <header className="mb-8">
           <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl text-primary shadow-[0_0_20px_var(--accent-glow)]">🧭</div>
-          <h1 className="font-display text-3xl font-extrabold md:text-4xl">Compass</h1>
+          <h1 className="font-display font-extrabold">Compass</h1>
           <p className="mt-2 text-muted-foreground">
             {t.dashboard.compass.subtitle}
           </p>
@@ -103,7 +103,7 @@ function CompassPage() {
             <form onSubmit={handleNext} className="space-y-6">
               {step === 1 && (
                 <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                  <h2 className="mb-6 font-display text-2xl font-bold">{t.dashboard.compass.step1.heading}</h2>
+                  <h2 className="mb-6 font-display font-bold">{t.dashboard.compass.step1.heading}</h2>
                   <div className="space-y-4">
                     <div>
                       <label className="mb-2 block text-sm font-semibold text-foreground">{t.dashboard.compass.step1.nameLabel}</label>
@@ -138,7 +138,7 @@ function CompassPage() {
 
               {step === 2 && (
                 <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                  <h2 className="mb-6 font-display text-2xl font-bold">{t.dashboard.compass.step2.heading(form.target_name)}</h2>
+                  <h2 className="mb-6 font-display font-bold">{t.dashboard.compass.step2.heading(form.target_name)}</h2>
                   <div className="space-y-4">
                     <div>
                       <label className="mb-2 block text-sm font-semibold text-foreground">{t.dashboard.compass.step2.contextLabel}</label>
@@ -183,7 +183,7 @@ function CompassPage() {
             <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_30px_var(--accent-glow)]">
               <span className="text-4xl animate-[spin_3s_linear_infinite]">🧭</span>
             </div>
-            <h2 className="font-display text-2xl font-bold">{t.dashboard.compass.loading.heading(form.target_name)}</h2>
+            <h2 className="font-display font-bold">{t.dashboard.compass.loading.heading(form.target_name)}</h2>
             <p className="mt-2 text-muted-foreground">{t.dashboard.compass.loading.description}</p>
           </div>
         )}
@@ -194,7 +194,7 @@ function CompassPage() {
             <article className="overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-[0_8px_30px_var(--accent-glow)]">
               <div className="bg-primary/10 p-6 md:p-8">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">{t.dashboard.compass.result.probableArchetype}</p>
-                <h2 className="mt-1 font-display text-3xl font-extrabold text-foreground">
+                <h2 className="mt-1 font-display font-extrabold text-foreground">
                   {ARCHETYPE_NAMES[(activeAnalysis.probable_archetype ?? "AO") as Archetype]?.[lang as keyof (typeof ARCHETYPE_NAMES)["AO"]]}
                 </h2>
                 <p className="mt-1 text-sm font-bold text-primary">

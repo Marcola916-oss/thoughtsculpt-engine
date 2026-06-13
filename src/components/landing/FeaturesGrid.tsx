@@ -23,7 +23,7 @@ export function FeaturesGrid() {
         </span>
         <h2
           id="features-title"
-          className="font-display text-4xl font-black italic uppercase leading-[1.1] tracking-[-0.04em] md:text-5xl lg:text-6xl py-2"
+          className="font-display font-black italic uppercase leading-[1.1] tracking-[-0.04em] py-2"
         >
           {f.title}
         </h2>
@@ -49,7 +49,7 @@ export function FeaturesGrid() {
               >
                 <Icon className="h-6 w-6" />
               </span>
-              <h3 className="relative z-10 font-display text-2xl font-extrabold tracking-tight text-white md:text-[26px] group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+              <h3 className="relative z-10 font-display font-extrabold tracking-tight text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
                 {item.title}
               </h3>
               <p className="relative z-10 text-[15px] leading-relaxed text-white/70 md:text-base drop-shadow-sm">

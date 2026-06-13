@@ -313,11 +313,27 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  * {
+  *, *::before, *::after {
+    box-sizing: border-box;
     border-color: var(--color-border);
   }
 
-  h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: 0; }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: 0;
+    text-align: center;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+    /* Compensates for italic font tips that overhang container edges */
+    padding-inline: clamp(0.5rem, 2vw, 1.5rem);
+  }
+
+  /* ─── Fluid typography scale ─────────────────────────────── */
+  h1 { font-size: clamp(2rem, 7vw, 6rem); }
+  h2 { font-size: clamp(1.5rem, 5vw, 4rem); }
+  h3 { font-size: clamp(1.125rem, 3vw, 2.25rem); }
 
   [dir="rtl"] body { font-family: 'Noto Naskh Arabic', var(--font-sans); }
 }

@@ -29,7 +29,7 @@ function ResetPasswordPage() {
       <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 relative z-10">
         <Logo size="xl" className="justify-center mb-8" />
 
-      <h1 className="font-display text-3xl font-bold">{t.resetPassword.title}</h1>
+      <h1 className="font-display font-bold">{t.resetPassword.title}</h1>
       <form onSubmit={submit} className="mt-6 space-y-3">
         <input
           type="password" required minLength={8} placeholder={t.resetPassword.placeholder}

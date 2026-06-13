@@ -55,7 +55,7 @@ function DiagnosisPage() {
         <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_40px_var(--accent-glow)]">
           <span className="text-6xl animate-pulse">🧠</span>
         </div>
-        <h1 className="font-display text-3xl font-extrabold md:text-4xl">{t.dashboard.diagnosis.empty.heading}</h1>
+        <h1 className="font-display font-extrabold">{t.dashboard.diagnosis.empty.heading}</h1>
         <p className="mt-4 max-w-lg text-muted-foreground leading-relaxed">
           {t.dashboard.diagnosis.empty.description}
         </p>
@@ -182,7 +182,7 @@ function DiagnosisPage() {
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-4 py-1.5 shadow-[0_0_15px_var(--arch-glow)]">
               <span className="text-sm font-black uppercase tracking-widest text-arch-primary">{archetypeName}</span>
             </div>
-            <h1 className="font-display text-4xl font-black md:text-5xl tracking-tighter text-gradient">{t.dashboard.diagnosis.result.heading}</h1>
+            <h1 className="font-display font-black tracking-tighter text-gradient">{t.dashboard.diagnosis.result.heading}</h1>
             <p className="mt-2 text-sm text-muted-foreground font-medium">
               {t.dashboard.diagnosis.result.generatedOn} {new Date(diagnosis.generated_at).toLocaleDateString()}
             </p>
@@ -249,7 +249,7 @@ function DiagnosisPage() {
             </div>
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary/20 to-transparent" />
             
-            <h2 className="font-display text-4xl font-black text-arch-primary mb-12 tracking-tighter uppercase italic">
+            <h2 className="font-display font-black text-arch-primary mb-12 tracking-tighter uppercase italic text-left">
               {tabs.find((tabItem) => tabItem.key === tab)?.label}
             </h2>
             <div className="relative z-10 text-xl md:text-2xl font-medium text-foreground/80 selection:bg-arch-primary/30 tracking-tight leading-relaxed">

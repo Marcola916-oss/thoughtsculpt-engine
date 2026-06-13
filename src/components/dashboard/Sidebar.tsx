@@ -351,7 +351,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               {/* Header */}
               <div className="mb-4 flex items-center justify-between border-b border-border pb-4">
                 <div>
-                  <h2 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
+                  <h2 className="font-display font-bold text-foreground flex items-center gap-2">
                     <span>🔔</span> {t.dashboard.sidebar.notifications.title}
                   </h2>
                   <p className="text-xs text-muted-foreground">{t.dashboard.sidebar.notifications.subtitle}</p>

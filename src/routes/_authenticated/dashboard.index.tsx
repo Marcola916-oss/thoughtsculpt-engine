@@ -95,7 +95,7 @@ function HubPage() {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <h2 className="text-lg font-bold text-primary">{t.dashboardErrors.failedLoad}</h2>
+                  <h2 className="font-bold text-primary">{t.dashboardErrors.failedLoad}</h2>
         <p className="text-sm text-muted-foreground">{(error as Error).message}</p>
       </div>
     );
@@ -127,10 +127,10 @@ function HubPage() {
         <motion.p variants={staggerItem} className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 mb-3">
           {t.dashboard.hub.greeting(hour)}{name ? `, ${name}` : ""}.
         </motion.p>
-        <motion.h1 variants={staggerItem} className="mt-2 font-display text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter italic leading-[1.1] py-2">
+        <motion.h1 variants={staggerItem} className="mt-2 font-display font-black tracking-tighter italic leading-[1.1] py-2">
           {archetype ? (
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-4">
+            <div className="flex flex-col gap-2 justify-center">
+              <div className="flex items-center gap-4 justify-center">
                 <span>{t.dashboard.hub.headingWithArchetype(ARCHETYPE_NAMES[archetype][lang])}</span>
                 <div className="inline-flex items-center gap-2 mt-1">
                   <div className="h-10 w-10 border border-primary/20 bg-primary/5 rounded-xl flex items-center justify-center shadow-lg">
@@ -222,7 +222,7 @@ function HubPage() {
                     </motion.span>
                   )}
                 </div>
-                <h2 className="font-display text-xl font-black uppercase italic tracking-tighter py-1 leading-[1.1]">{c.title}</h2>
+                <h2 className="font-display font-black uppercase italic tracking-tighter py-1 leading-[1.1]">{c.title}</h2>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {typeof c.desc === 'function' ? c.desc(0) : c.desc}
                 </p>
@@ -245,7 +245,7 @@ function HubPage() {
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-arch-primary/5 blur-3xl pointer-events-none" />
           <div className="flex items-center justify-between mb-8 relative z-10">
-            <h3 className="font-display text-xl font-black italic tracking-tighter uppercase">{t.dashboard.hub.recentActivity.title}</h3>
+            <h3 className="font-display text-xl font-black italic tracking-tighter uppercase text-left">{t.dashboard.hub.recentActivity.title}</h3>
             <Link to="/dashboard/progress" className="text-[10px] font-black uppercase tracking-widest text-arch-primary hover:underline">{t.dashboard.hub.recentActivity.viewAll} →</Link>
           </div>
           <div className="space-y-3">

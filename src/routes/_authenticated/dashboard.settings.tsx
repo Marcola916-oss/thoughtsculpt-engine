@@ -125,7 +125,7 @@ function SettingsPage() {
     <div className="mx-auto max-w-3xl">
       <header className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-3xl font-black uppercase italic leading-[1.1] py-2">{t.dashboard.settings.pageTitle}</h1>
+          <h1 className="font-display font-black uppercase italic leading-[1.1] py-2">{t.dashboard.settings.pageTitle}</h1>
           <p className="mt-2 text-muted-foreground">{t.dashboard.settings.pageSubtitle}</p>
         </div>
         <Logo size="sm" link={false} className="opacity-20 hidden sm:block" />
@@ -134,7 +134,7 @@ function SettingsPage() {
       <div className="space-y-6">
         {/* Profile Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-lg font-black uppercase italic">{t.dashboard.settings.profile.title}</h2>
+          <h2 className="mb-4 font-display font-black uppercase italic">{t.dashboard.settings.profile.title}</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.profile.nameLabel}</label>
@@ -163,7 +163,7 @@ function SettingsPage() {
 
         {/* Preferences Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-lg font-black uppercase italic">{t.dashboard.settings.preferences.title}</h2>
+          <h2 className="mb-4 font-display font-black uppercase italic">{t.dashboard.settings.preferences.title}</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.preferences.languageLabel}</label>
@@ -195,7 +195,7 @@ function SettingsPage() {
 
         {/* Subscription Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-lg font-black uppercase italic">{t.dashboard.settings.subscription.title}</h2>
+          <h2 className="mb-4 font-display font-black uppercase italic">{t.dashboard.settings.subscription.title}</h2>
           {sub ? (
             <div>
               <div className="mb-6 grid gap-4 md:grid-cols-2">
@@ -246,7 +246,7 @@ function SettingsPage() {
 
         {/* Security Section - Password Change */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-lg font-black uppercase italic">{t.dashboard.settings.security.title}</h2>
+          <h2 className="mb-4 font-display font-black uppercase italic">{t.dashboard.settings.security.title}</h2>
           <p className="mb-4 text-sm text-muted-foreground">
             {t.dashboard.settings.security.desc}
           </p>
@@ -288,7 +288,7 @@ function SettingsPage() {
       {showCancelModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-xl">
-            <h3 className="font-display text-xl font-black uppercase italic leading-[1.1] py-1">{t.dashboard.settings.cancelModal.heading(p?.display_name ?? "")}</h3>
+            <h3 className="font-display text-xl font-black uppercase italic leading-[1.1] py-1 text-left">{t.dashboard.settings.cancelModal.heading(p?.display_name ?? "")}</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               {t.dashboard.settings.cancelModal.body}
             </p>

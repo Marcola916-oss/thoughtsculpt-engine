@@ -67,7 +67,7 @@ function LoginPage() {
           </p>
         </div>
       )}
-      <h1 className="font-display text-3xl font-bold">{t.common.login}</h1>
+      <h1 className="font-display font-bold">{t.common.login}</h1>
       <form onSubmit={submit} className="mt-6 space-y-3">
         <input
           type="email"

@@ -150,11 +150,11 @@ function CalendarPage() {
 
   if (tasks.length === 0) {
     return (
-      <div className="mx-auto flex max-w-2xl flex-col items-center text-center py-12">
+      <div className="mx-auto flex max-w-2xl flex-col items-center justify-center text-center py-12">
         <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_40px_var(--accent-glow)]">
           <span className="text-6xl animate-pulse">📅</span>
         </div>
-        <h1 className="font-display text-3xl font-bold">{t.dashboard.calendar.empty.heading}</h1>
+        <h1 className="font-display font-bold">{t.dashboard.calendar.empty.heading}</h1>
         <p className="mt-3 text-muted-foreground leading-relaxed">
           {t.dashboard.calendar.empty.description}
         </p>
@@ -297,7 +297,7 @@ function CalendarPage() {
     <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_400px]">
       <section>
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="font-display text-3xl font-extrabold">{t.dashboard.calendar.pageTitle}</h1>
+          <h1 className="font-display font-extrabold">{t.dashboard.calendar.pageTitle}</h1>
 
           <div className="relative">
             <button
@@ -420,7 +420,7 @@ function CalendarPage() {
                 <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                   {t.dashboard.calendar.sidebar.phaseLabel(active.phase ?? "")}
                 </p>
-                <h2 className="mt-1 font-display text-2xl font-bold">{t.dashboard.calendar.sidebar.dayHeading(active.day_number)}</h2>
+                <h2 className="mt-1 font-display font-bold">{t.dashboard.calendar.sidebar.dayHeading(active.day_number)}</h2>
               </div>
               {active.is_milestone && (
                 <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary">
