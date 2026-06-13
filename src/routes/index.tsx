@@ -34,6 +34,7 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain } from "@/components/identity";
+import { ArchetypeBrain } from "@/components/ArchetypeBrain";
 import {
   ProofBar,
   ArchetypeShowcase,
