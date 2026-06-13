@@ -15,6 +15,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { CircuitBrain } from "@/components/identity";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
+import { CyberBoardBackground } from "./CyberBoardBackground";
+import { HologramRing } from "./HologramRing";
 
 interface NeuralLoaderProps {
   onComplete: () => void;
@@ -66,36 +68,42 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
   }, [logs]);
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-[70vh] text-center relative w-full max-w-lg mx-auto px-4">
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary opacity-[0.04] blur-[12px] lg:blur-[120px] rounded-full pointer-events-none" />
+    <section className="flex flex-col items-center justify-center min-h-[70vh] text-center relative w-full max-w-lg mx-auto px-4 z-10">
+      {/* Cybernetic Motherboard Background */}
+      <CyberBoardBackground progress={progress} />
 
-      {/* CircuitBrain — central hero */}
-      <div className="relative mb-10">
-        <CircuitBrain
-          variant="loader"
-          size={160}
-          withGlow
-          animated
-          progress={progress}
-          ariaLabel="Cognitive analysis in progress"
-        />
+      {/* Ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary opacity-[0.08] blur-[12px] lg:blur-[120px] rounded-full pointer-events-none z-0" />
+
+      {/* Central Hero: Small Brain + Hologram Ring */}
+      <div className="relative mb-10 flex items-center justify-center" style={{ width: 240, height: 240 }}>
+        <HologramRing size={240} className="absolute inset-0 z-10" />
+        <div className="absolute z-20">
+          <CircuitBrain
+            variant="loader"
+            size={100}
+            withGlow
+            animated
+            progress={progress}
+            ariaLabel="Cognitive analysis in progress"
+          />
+        </div>
       </div>
 
       {/* Percentage */}
-      <p className="text-5xl font-black text-foreground mb-8 tabular-nums tracking-tighter">
+      <p className="text-5xl font-black text-foreground mb-4 tabular-nums tracking-tighter drop-shadow-md z-10">
         {Math.round(progress)}
         <span className="text-2xl text-muted-foreground">%</span>
       </p>
 
       {/* Horizontal progress bar */}
-      <div className="w-full max-w-md mb-10">
-        <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+      <div className="w-full max-w-md mb-8 z-10">
+        <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden shadow-inner relative">
           <motion.div
-            className="h-full bg-gradient-to-r from-primary via-primary to-white/80 rounded-full"
+            className="h-full bg-gradient-to-r from-primary via-primary to-white/90 rounded-full"
             style={{
               width: `${progress}%`,
-              boxShadow: "0 0 12px rgba(204,0,0,0.6), 0 0 24px rgba(204,0,0,0.3)",
+              boxShadow: "0 0 12px rgba(204,0,0,0.8), 0 0 24px rgba(255,255,255,0.4)",
             }}
             transition={{ ease: "linear" }}
           />
