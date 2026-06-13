@@ -59,18 +59,24 @@ export function MagneticCursor({
   const raf = useRef<number | null>(null);
   const isHovering = useRef(false);
   const isPressed = useRef(false);
-  const [isTouch, setIsTouch] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(hover: none)").matches;
-  });
+  const [isMounted, setIsMounted] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (typeof window === "undefined" || isTouch) return;
-
+    setIsMounted(true);
     const touchQuery = window.matchMedia("(hover: none)");
+    setIsTouch(touchQuery.matches);
     const touchListener = (e: MediaQueryListEvent) => setIsTouch(e.matches);
     touchQuery.addEventListener("change", touchListener);
+
+    return () => {
+      touchQuery.removeEventListener("change", touchListener);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || isTouch || reducedMotion) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       target.current.x = e.clientX;
@@ -133,7 +139,6 @@ export function MagneticCursor({
     raf.current = requestAnimationFrame(tick);
 
     return () => {
-      touchQuery.removeEventListener("change", touchListener);
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mousedown", handleMouseDown);
@@ -142,9 +147,7 @@ export function MagneticCursor({
       document.documentElement.removeEventListener("mouseenter", handleDocEnter);
       if (raf.current != null) cancelAnimationFrame(raf.current);
     };
-  }, [size, ease, hoverScale, pressScale]);
-
-  if (isTouch || reducedMotion) return null;
+  }, [size, ease, hoverScale, pressScale, isMounted, isTouch, reducedMotion]);
 
   return (
     <div
