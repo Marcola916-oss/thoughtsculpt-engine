@@ -34,6 +34,7 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain } from "@/components/identity";
+import { ArchetypeBrain } from "@/components/ArchetypeBrain";
 import {
   ProofBar,
   ArchetypeShowcase,
@@ -891,10 +892,11 @@ function Reveal({
           transition={{ type: "spring", damping: 12, stiffness: 100, delay: 0.3 }}
           className="mb-8 flex justify-center"
         >
-          <ArchetypeRevealArt 
-            size={isMobileMotion ? 300 : 540} 
-            archetype={arch}
-            className="animate-in zoom-in-50 duration-1000 ease-out drop-shadow-[0_0_50px_var(--arch-glow)]"
+          <ArchetypeBrain
+            archetype={arch as "AO" | "SS" | "EA" | "HI"}
+            size={isMobileMotion ? 260 : 440}
+            showName={false}
+            className="animate-in zoom-in-50 duration-1000 ease-out"
           />
         </motion.div>
 
