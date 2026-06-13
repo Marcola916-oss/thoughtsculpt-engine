@@ -39,7 +39,7 @@ export function FeaturesGrid() {
             <Reveal
               key={i}
               variant="fade-up"
-              className="group relative flex flex-col gap-5 rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/40 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:p-12 md:hover:-translate-y-2 shadow-2xl will-change-transform lg:backdrop-blur-3xl"
+              className="group relative flex flex-col gap-5 rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/40 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 p-6 md:p-12 md:hover:-translate-y-2 shadow-2xl will-change-transform lg:backdrop-blur-3xl"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-arch-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               
