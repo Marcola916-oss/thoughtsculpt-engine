@@ -47,7 +47,7 @@ export function Testimonials() {
           <Reveal
             key={i}
             variant="fade-up"
-            className="group flex flex-col gap-6 rounded-[2.5rem] border border-white/10 bg-black/40 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 p-6 md:p-10 md:hover:-translate-y-2 shadow-2xl md:backdrop-blur-3xl"
+            className="group flex flex-col gap-6 rounded-[2.5rem] border border-white/10 bg-black/40 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:p-10 md:hover:-translate-y-2 shadow-2xl md:backdrop-blur-3xl"
           >
             <div
               className="flex items-center gap-1 text-amber-400 group-hover:text-amber-300 transition-colors"

@@ -514,7 +514,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display font-black leading-[1.1] tracking-[-0.04em] uppercase italic px-4 py-2 pr-[0.15em]";
+        const headlineClass = "relative mx-auto max-w-6xl font-display font-black leading-[1.1] tracking-[-0.04em] uppercase italic px-4 py-2";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline mx-1 md:mx-4 z-10">
@@ -965,7 +965,7 @@ function Reveal({
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto mt-16 md:mt-32 max-w-5xl rounded-2xl md:rounded-[4rem] border border-white/5 bg-card/40 p-6 md:p-24 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl"
+        className="mx-auto mt-16 md:mt-32 max-w-5xl rounded-[4rem] border border-white/5 bg-card/40 p-6 md:p-24 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl"
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary to-transparent" />
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px]" />
@@ -1111,7 +1111,7 @@ function Sales({
 
           {/* Video Placeholder Section */}
           <MSection
-            className="mt-8 md:mt-20 relative aspect-video w-full rounded-2xl md:rounded-[2.5rem] bg-card border border-border shadow-2xl overflow-hidden group cursor-pointer"
+            className="mt-20 relative aspect-video w-full rounded-[2.5rem] bg-card border border-border shadow-2xl overflow-hidden group cursor-pointer"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/10 to-transparent" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
@@ -1137,7 +1137,7 @@ function Sales({
 
         {/* --- Block 2: Pain Mirror ------------------------------------------- */}
         <MSection
-          className="rounded-2xl md:rounded-[4rem] border border-white/5 bg-white/[0.02] md:backdrop-blur-2xl p-8 md:p-24 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden max-w-6xl mx-auto"
+          className="rounded-[4rem] border border-white/5 bg-white/[0.02] md:backdrop-blur-2xl p-8 md:p-24 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden max-w-6xl mx-auto"
         >
           <div className="absolute top-0 right-0 p-12 opacity-[0.05] -rotate-12 translate-x-24 -translate-y-24">
             <Brain size={600} className="text-white" />
@@ -1417,7 +1417,7 @@ function Plans({
           return (
             <MSection
               key={p}
-              className={`relative flex flex-col rounded-2xl md:rounded-[3.5rem] border bg-card/50 p-6 md:p-12 transition-all md:backdrop-blur-3xl ${
+              className={`relative flex flex-col rounded-[3.5rem] border bg-card/50 p-6 md:p-12 transition-all md:backdrop-blur-3xl ${
                 popular
                   ? "border-arch-primary shadow-[0_40px_100px_-20px_var(--arch-glow)] md:scale-110 z-10"
                   : "border-white/5 hover:border-arch-primary/30"
@@ -1497,7 +1497,7 @@ function Plans({
         })}
       </div>
 
-      <div className="mt-12 md:mt-24 text-center">
+      <div className="mt-24 text-center">
         {/* Guarantee Card */}
         <MSection
           className="mb-10 inline-flex flex-col items-center gap-4 rounded-3xl border border-arch-primary/20 bg-arch-primary/5 px-10 py-8"

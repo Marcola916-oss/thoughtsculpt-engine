@@ -249,7 +249,7 @@ function DiagnosisPage() {
             </div>
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary/20 to-transparent" />
             
-            <h2 className="font-display font-black text-arch-primary mb-12 tracking-tighter uppercase italic">
+            <h2 className="font-display font-black text-arch-primary mb-12 tracking-tighter uppercase italic text-left">
               {tabs.find((tabItem) => tabItem.key === tab)?.label}
             </h2>
             <div className="relative z-10 text-xl md:text-2xl font-medium text-foreground/80 selection:bg-arch-primary/30 tracking-tight leading-relaxed">
