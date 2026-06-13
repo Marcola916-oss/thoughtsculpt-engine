@@ -25,7 +25,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
           </span>
           <h2
             id="faq-title"
-            className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-5xl"
+            className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-[2.5rem] lg:text-5xl text-balance break-words hyphens-auto pr-2"
           >
             {f.title}
           </h2>
