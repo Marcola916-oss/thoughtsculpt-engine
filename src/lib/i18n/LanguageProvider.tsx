@@ -62,31 +62,34 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   // IP detection only if user accepted "all"
   useEffect(() => {
-    if (consent !== "all") return;
+    if (consent !== "all" || typeof window === "undefined") return;
     let cancelled = false;
     (async () => {
       try {
-        // Updated API for geolocation: free, no rate limit, CORS allowed
-        const res = await fetch("https://geo.kamero.ai/api/geo", { cache: "no-store" });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const res = await fetch("https://geo.kamero.ai/api/geo", {
+          cache: "no-store",
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
         if (!res.ok) return;
         const data = await res.json();
         if (cancelled) return;
-        
-        // The new API returns country (code), city, and timezone
+
         const cc: string | undefined = data?.country;
         if (cc) {
           setCountry(cc);
           const c = CURRENCY_BY_COUNTRY[cc] ?? "USD";
           setCurrency(c);
-          // Only switch language if user has not explicitly set one
           if (!safeGet(STORAGE_LANG)) {
             const detected = LANG_BY_COUNTRY[cc];
             if (detected) setLangState(detected);
           }
         }
       } catch (err) {
-        console.warn("Geolocation API failed, using fallback:", err);
-        /* offline / blocked / rate-limited — keep navigator-detected lang */
+        if (cancelled) return;
+        console.debug("Geolocation API unavailable (expected in iframe)");
       }
     })();
     return () => { cancelled = true; };
