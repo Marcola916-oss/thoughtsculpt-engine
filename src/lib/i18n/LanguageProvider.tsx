@@ -63,6 +63,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   // IP detection only if user accepted "all"
   useEffect(() => {
     if (consent !== "all" || typeof window === "undefined") return;
+
+    // Skip geolocation in iframe/preview environments
+    if (window.self !== window.top) return;
+
     let cancelled = false;
     (async () => {
       try {
@@ -89,7 +93,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         }
       } catch (err) {
         if (cancelled) return;
-        console.debug("Geolocation API unavailable (expected in iframe)");
+        console.debug("Geolocation API unavailable");
       }
     })();
     return () => { cancelled = true; };
