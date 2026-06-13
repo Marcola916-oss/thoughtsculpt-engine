@@ -55,7 +55,7 @@ function SuccessPage() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-transparent p-4 text-white">
         <div className="rounded-xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-6 text-center max-w-md">
-          <h2 className="mb-2 font-bold text-[#CC0000]">{t.common.success.errorTitle}</h2>
+          <h2 className="mb-2 text-2xl font-bold text-[#CC0000]">{t.common.success.errorTitle}</h2>
           <p className="text-gray-400">{error}</p>
         </div>
       </div>

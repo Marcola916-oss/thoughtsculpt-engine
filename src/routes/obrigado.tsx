@@ -127,7 +127,7 @@ function ThankYouPage() {
       <div className="flex min-h-screen items-center justify-center bg-transparent p-4 text-white">
         <div className="rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-8 text-center max-w-md md:backdrop-blur-xl">
           <span className="text-4xl">⚠️</span>
-          <h2 className="mt-4 mb-2 font-bold text-[#CC0000]">{t.obrigado.errorHeading}</h2>
+          <h2 className="mt-4 mb-2 text-2xl font-bold text-[#CC0000]">{t.obrigado.errorHeading}</h2>
           <p className="text-gray-400 leading-relaxed">{error}</p>
           <Link
             data-cursor="hover"
@@ -190,7 +190,7 @@ function ThankYouPage() {
               <CelebrationBrain size={180} className="mx-auto" />
             </motion.div>
 
-            <h1 className="font-display font-black uppercase italic tracking-tighter leading-[1.1] py-2">
+            <h1 className="font-display text-4xl md:text-5xl font-black tracking-tighter leading-tight">
               {t.obrigado.welcomeHeading}
               <br />
               <TypewriterText text={firstName} className="text-[#CC0000]" />!
@@ -209,7 +209,7 @@ function ThankYouPage() {
           >
             <div className="flex items-center gap-3 mb-6">
               <ShieldCheck className="h-6 w-6 text-[#CC0000]" />
-              <h2 className="font-display font-black uppercase italic py-1">{t.obrigado.credentialsHeading}</h2>
+              <h2 className="font-display text-xl font-bold">{t.obrigado.credentialsHeading}</h2>
             </div>
 
             <div className="space-y-4">
@@ -270,7 +270,7 @@ function ThankYouPage() {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="mb-12"
           >
-            <h2 className="font-display font-black uppercase italic text-center mb-8 tracking-tight py-2">
+            <h2 className="font-display text-2xl font-black text-center mb-8 tracking-tight">
               {t.obrigado.whatsNextHeading}
             </h2>
             <div className="space-y-4">
@@ -290,7 +290,7 @@ function ThankYouPage() {
                       <step.icon className="h-7 w-7 text-gray-400 group-hover:text-[#CC0000] transition-colors" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-lg text-white group-hover:text-[#CC0000] transition-colors text-left">
+                      <h3 className="font-bold text-lg text-white group-hover:text-[#CC0000] transition-colors">
                         {step.title}
                       </h3>
                       <p className="text-sm text-gray-500 mt-0.5">{step.desc}</p>
@@ -312,7 +312,7 @@ function ThankYouPage() {
             <Link
               to="/dashboard/"
               data-cursor="hover"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-[#CC0000] px-8 md:px-12 py-5 text-xl font-black text-white transition-all hover:scale-105 shadow-[0_20px_60px_-15px_rgba(204,0,0,0.4)]"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-[#CC0000] px-12 py-5 text-xl font-black text-white transition-all hover:scale-105 shadow-[0_20px_60px_-15px_rgba(204,0,0,0.4)]"
             >
               <span className="relative z-10">{t.obrigado.accessCta}</span>
               <ArrowRight
@@ -330,7 +330,7 @@ function ThankYouPage() {
             transition={{ delay: 2.2 }}
             className="mb-12"
           >
-            <h3 className="font-display font-black uppercase italic text-center mb-6 py-1">
+            <h3 className="font-display text-xl font-bold text-center mb-6">
               {t.obrigado.faqHeading}
             </h3>
             <div className="space-y-3">

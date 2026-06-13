@@ -228,7 +228,7 @@ function LandingAndQuiz() {
       
       <TopBar />
 
-      <main className="w-full px-4 sm:px-6 pb-24 pt-16 md:pt-12 relative z-10">
+      <main className="w-full px-0 sm:px-4 pb-24 pt-16 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
           {stage.kind === "hero" && (
             <motion.div
@@ -514,10 +514,10 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display font-black leading-[1.1] tracking-[-0.04em] uppercase italic px-4 py-2";
+        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl font-black leading-[0.95] md:leading-[0.85] tracking-[-0.05em] uppercase italic px-4";
 
         const highlightSpan = hasKeyword ? (
-          <span className="relative inline mx-1 md:mx-4 z-10">
+          <span className="relative inline-block mx-1 md:mx-4 z-10">
             <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">{keyword}</span>
             {isMobileMotion ? (
               <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
@@ -533,7 +533,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         ) : null;
 
         const textSpan = (content: string) => (
-          <span className="relative z-10 text-white/90 drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
             {content}
           </span>
         );
@@ -648,7 +648,7 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       <MFade
         delay={2}
-        className="mt-16 md:mt-32 opacity-20"
+        className="mt-32 opacity-20"
       >
         <ChevronDown className="mx-auto h-6 w-6 animate-bounce text-arch-primary" />
       </MFade>
@@ -669,10 +669,10 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <h2 className="font-display font-black tracking-tighter uppercase italic text-white text-center mx-auto pr-[0.15em] pl-[0.15em] drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+      <h2 className="font-display text-5xl font-black md:text-7xl tracking-tighter uppercase italic text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
         {t.identity.title}
       </h2>
-      <p className="mt-6 text-xl text-muted-foreground leading-relaxed font-medium tracking-tight max-w-xl text-center mx-auto">
+      <p className="mt-6 text-xl text-muted-foreground leading-relaxed font-medium tracking-tight max-w-xl">
         {t.identity.sub}
       </p>
 
@@ -749,11 +749,11 @@ function QuestionScreen(props: {
   const q = t.q[props.index];
 
   return (
-    <div className="w-full text-center">
-      <h2 className="font-display font-black uppercase italic leading-[1.2] mb-3 py-1 text-center mx-auto pr-[0.15em] pl-[0.15em]">
+    <div className="w-full">
+      <h2 className="font-display text-2xl font-bold leading-tight md:text-3xl mb-3">
         {q.q.replace("[NOME]", props.name)}
       </h2>
-      <p className="text-muted-foreground mb-8 text-base text-center mx-auto">{t.questions.intro(props.name)}</p>
+      <p className="text-muted-foreground mb-8 text-base">{t.questions.intro(props.name)}</p>
 
       <div className="grid gap-3.5">
         {q.options.map((opt, i) => (
@@ -787,7 +787,7 @@ function EmailCapture(props: {
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_20px_var(--accent-glow)] mx-auto">
         <Lock className="h-7 w-7 text-primary animate-pulse" />
       </div>
-      <h2 className="font-display font-black uppercase italic leading-[1.1] py-1">
+      <h2 className="font-display text-2xl font-extrabold md:text-4xl">
         {t.emailCapture.title(props.name)}
       </h2>
       <p className="mt-3 text-base text-muted-foreground leading-relaxed">{t.emailCapture.sub}</p>
@@ -910,10 +910,10 @@ function Reveal({
            </div>
         </motion.div>
 
-        <h1 className="mt-4 font-display font-black leading-[1.1] py-4 text-foreground tracking-tighter uppercase italic w-full text-center relative px-8" style={{ fontSize: 'clamp(2.5rem, 10vw, 9rem)', wordBreak: 'break-word', overflowWrap: 'break-word', hyphens: 'none', textWrap: 'balance' }}>
+        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative">
           {/* Cinema explosion background */}
           <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
-          <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)', wordBreak: 'keep-all', overflowWrap: 'normal', hyphens: 'none', maxWidth: '100%' }}>{text}</span>
+          <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
           <motion.span
             animate={{ opacity: [1, 0] }}
             transition={{ repeat: Infinity, duration: 0.8 }}
@@ -927,7 +927,7 @@ function Reveal({
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1 }}
-          className="mx-auto mt-12 max-w-3xl font-black text-foreground tracking-tighter uppercase italic text-center px-4"
+          className="mx-auto mt-12 max-w-3xl text-3xl md:text-5xl font-black text-foreground tracking-tighter uppercase italic"
         >
           {a.tagline}
         </motion.p>
@@ -965,7 +965,7 @@ function Reveal({
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto mt-16 md:mt-32 max-w-5xl rounded-[4rem] border border-white/5 bg-card/40 p-6 md:p-24 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl"
+        className="mx-auto mt-32 max-w-5xl rounded-[4rem] border border-white/5 bg-card/40 p-10 md:p-24 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl"
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary to-transparent" />
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px]" />
@@ -974,7 +974,7 @@ function Reveal({
           🔒
         </div>
 
-        <p className="mb-16 text-center font-display font-black leading-[1.1] py-2 tracking-tighter uppercase italic">
+        <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">
           {t.reveal.sub}
         </p>
 
@@ -1005,7 +1005,7 @@ function Reveal({
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={onContinue}
-          className="group relative mt-12 md:mt-24 w-full overflow-hidden rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
+          className="group relative mt-24 w-full overflow-hidden rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
         >
           <div className="absolute inset-0 overflow-hidden rounded-3xl bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           <span className="relative z-10 flex items-center justify-center gap-6">
@@ -1065,7 +1065,7 @@ function Sales({
           </MSection>
 
           {isMobileMotion ? (
-            <h1 className="font-display font-black uppercase italic leading-[1.1] tracking-tighter py-2">
+            <h1 className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter">
               {s.h1(
                 name,
                 (
@@ -1080,7 +1080,7 @@ function Sales({
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-display font-black uppercase italic leading-[1.1] tracking-tighter py-2"
+              className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter"
             >
               {s.h1(
                 name,
@@ -1145,7 +1145,7 @@ function Sales({
 
           <div className="relative z-10 grid md:grid-cols-2 gap-16">
             <div>
-              <h2 className="font-display font-black uppercase italic text-foreground mb-8 leading-[1.1] tracking-tighter py-2">
+              <h2 className="font-display text-4xl md:text-6xl font-black text-foreground mb-8 leading-tight tracking-tighter">
                 {s.painBlock.title}
               </h2>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
@@ -1186,7 +1186,7 @@ function Sales({
           <div className="inline-flex items-center justify-center h-32 w-32 rounded-[2.5rem] bg-white/5 border border-white/10 mb-12 shadow-2xl md:backdrop-blur-xl">
             <ShieldCheck className="h-16 w-16 text-arch-primary animate-pulse" />
           </div>
-          <h3 className="font-display font-black mb-12 leading-[1.1] py-2 tracking-tighter uppercase italic">
+          <h3 className="font-display text-4xl md:text-8xl font-black mb-12 leading-[0.95] tracking-tighter uppercase italic">
             {s.science.title}
           </h3>
           <div className="space-y-12 text-2xl md:text-3xl text-muted-foreground leading-relaxed font-medium tracking-tight">
@@ -1205,7 +1205,7 @@ function Sales({
                     filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"],
                   }}
                   transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                  className="text-arch-primary font-display font-black text-5xl md:text-7xl tracking-tighter uppercase italic leading-[1.1] py-2"
+                  className="text-arch-primary font-black text-5xl md:text-9xl tracking-[ -0.05em] uppercase italic"
                 >
                   {s.science.solution}
                 </motion.p>
@@ -1220,7 +1220,7 @@ function Sales({
           {s.features.map((f, i) => (
             <MSection
               key={i}
-              className="group rounded-[3rem] border border-white/5 bg-card/40 p-6 md:p-12 transition-all md:backdrop-blur-xl hover:border-arch-primary/30 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden"
+              className="group rounded-[3rem] border border-white/5 bg-card/40 p-12 transition-all md:backdrop-blur-xl hover:border-arch-primary/30 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none group-hover:scale-125 transition-transform duration-700">
                 {featureIcons[i]}
@@ -1248,7 +1248,7 @@ function Sales({
               <ShieldCheck size={64} className="text-arch-primary" />
             </div>
             <div className="text-center md:text-left">
-              <h4 className="font-display font-black uppercase italic mb-4 tracking-tight py-1 leading-[1.1]">{s.guarantee.title}</h4>
+              <h4 className="text-3xl font-black mb-4 tracking-tight">{s.guarantee.title}</h4>
               <p className="text-xl text-muted-foreground leading-relaxed font-medium">
                 {s.guarantee.body}
               </p>
@@ -1256,7 +1256,7 @@ function Sales({
           </MSection>
 
           <MSection
-            className="text-center rounded-2xl md:rounded-[5rem] border border-white/10 bg-white/5 p-8 md:p-32 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl group"
+            className="text-center rounded-[5rem] border border-white/10 bg-white/5 p-12 md:p-32 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl group"
           >
             {/* Animated Background Aura */}
             <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/20 via-transparent to-arch-primary/5 opacity-30 group-hover:opacity-50 transition-opacity duration-1000" />
@@ -1264,7 +1264,7 @@ function Sales({
             <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px] animate-pulse [animation-delay:2s]" />
 
             <div className="relative z-10">
-              <h3 className="font-display font-black text-foreground mb-8 tracking-tighter leading-[1.1] py-2 uppercase italic">
+              <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">
                 {s.ctaFinal.title}
               </h3>
               <p className="text-xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">
@@ -1360,7 +1360,7 @@ function Plans({
           </motion.div>
         )}
         {isMobileMotion ? (
-          <h2 className="font-display font-black uppercase italic leading-[1.1] mb-6 py-2">
+          <h2 className="font-display text-4xl font-extrabold md:text-7xl mb-6">
             {t.plans.title}
           </h2>
         ) : (
@@ -1368,7 +1368,7 @@ function Plans({
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-display font-black uppercase italic leading-[1.1] mb-6 py-2"
+            className="font-display text-4xl font-extrabold md:text-7xl mb-6"
           >
             {t.plans.title}
           </motion.h2>
@@ -1417,7 +1417,7 @@ function Plans({
           return (
             <MSection
               key={p}
-              className={`relative flex flex-col rounded-[3.5rem] border bg-card/50 p-6 md:p-12 transition-all md:backdrop-blur-3xl ${
+              className={`relative flex flex-col rounded-[3.5rem] border bg-card/50 p-12 transition-all md:backdrop-blur-3xl ${
                 popular
                   ? "border-arch-primary shadow-[0_40px_100px_-20px_var(--arch-glow)] md:scale-110 z-10"
                   : "border-white/5 hover:border-arch-primary/30"
@@ -1430,7 +1430,7 @@ function Plans({
               )}
 
               <div className="mb-12 flex-1 text-center">
-                <h3 className="font-display font-black mb-6 uppercase italic tracking-tighter">
+                <h3 className="font-display text-4xl font-black mb-6 uppercase italic tracking-tighter">
                   {p === "30d" ? t.plans.p30 : p === "6m" ? t.plans.p6m : t.plans.p1y}
                 </h3>
 

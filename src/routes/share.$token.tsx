@@ -35,7 +35,7 @@ function SharePage() {
       {isLoading && <p className="mt-10 text-muted-foreground">Loading…</p>}
       {!isLoading && !meta && (
         <>
-          <h1 className="mt-4 font-display font-extrabold">Share not found</h1>
+          <h1 className="mt-4 font-display text-3xl font-extrabold">Share not found</h1>
           <p className="mt-2 text-sm text-muted-foreground">This link is invalid or has expired.</p>
         </>
       )}
@@ -44,7 +44,7 @@ function SharePage() {
           <p className="mt-4 text-sm text-muted-foreground">
             {data?.display_name ?? "Someone"} is a
           </p>
-          <h1 className="mt-2 font-display font-extrabold text-primary">{meta.name}</h1>
+          <h1 className="mt-2 font-display text-5xl font-extrabold text-primary md:text-7xl">{meta.name}</h1>
           <p className="mt-4 text-lg text-foreground/90">{meta.tagline}</p>
         </>
       )}

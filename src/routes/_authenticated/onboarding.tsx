@@ -81,7 +81,7 @@ function AILoader({ onComplete }: { onComplete: () => void }) {
         </div>
 
         <div className="space-y-2">
-          <h2 className="font-display font-black uppercase italic leading-[1.1] py-1 text-foreground">
+          <h2 className="font-display text-2xl font-extrabold text-foreground">
             {t.onboarding.loader.heading}
           </h2>
           <AnimatePresence mode="wait">
@@ -224,7 +224,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display font-black uppercase italic flex items-center leading-[1.1]">
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -271,7 +271,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display font-black uppercase italic flex items-center leading-[1.1]">
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -318,7 +318,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display font-black uppercase italic flex items-center leading-[1.1]">
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -365,7 +365,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display font-black uppercase italic flex items-center leading-[1.1]">
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -408,7 +408,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display font-black uppercase italic flex items-center leading-[1.1]">
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -455,7 +455,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display font-black uppercase italic flex items-center leading-[1.1]">
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -500,7 +500,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display font-black uppercase italic flex items-center leading-[1.1]">
+                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}

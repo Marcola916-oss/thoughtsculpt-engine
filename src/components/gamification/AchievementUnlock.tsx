@@ -85,7 +85,7 @@ export function AchievementUnlock({ achievement, onClose }: AchievementUnlockPro
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-2 block">
                 Conquista Desbloqueada
               </span>
-              <h2 className="font-display font-bold mb-3">{achievement.name}</h2>
+              <h2 className="font-display text-3xl font-bold mb-3">{achievement.name}</h2>
               <p className="text-muted-foreground text-sm leading-relaxed mb-8">
                 {achievement.desc}
               </p>

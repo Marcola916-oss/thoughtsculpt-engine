@@ -64,7 +64,7 @@ function DashboardLayout() {
           <div className="relative h-16 w-16 text-6xl" aria-hidden>⚠️</div>
         </div>
         <div className="max-w-md space-y-6">
-          <h2 className="font-display font-black uppercase italic leading-[1.1] py-1 tracking-tight text-white">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-white">
             {t.dashboardErrors.connectionHeading}
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
@@ -147,7 +147,7 @@ function DashboardLayout() {
           <div className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-background/60 backdrop-blur-sm p-4 text-center">
             <div className="w-full max-w-md rounded-2xl border border-border bg-card p-8 shadow-2xl animate-in zoom-in-95 duration-300">
               <span className="text-5xl" aria-hidden>🔒</span>
-              <h2 className="mt-4 font-display font-black uppercase italic leading-[1.1] py-1">{t.dashboard.layout.locked.heading}</h2>
+              <h2 className="mt-4 font-display text-2xl font-extrabold">{t.dashboard.layout.locked.heading}</h2>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                 {t.dashboard.layout.locked.description}
               </p>
