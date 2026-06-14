@@ -1,4 +1,4 @@
-import { ArrowRight, ShieldCheck, Lock } from "lucide-react";
+import { ShieldCheck, Lock } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Reveal } from "@/components/interaction/Reveal";
@@ -39,14 +39,13 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
         {onCta && (
           <ButtonPress
             onClick={onCta}
-            className="group relative mt-12 inline-flex items-center gap-4 overflow-hidden rounded-2xl bg-white px-10 py-6 font-display text-xl font-black italic uppercase tracking-widest text-black shadow-[0_24px_60px_-12px_rgba(255,255,255,0.2)] transition-all hover:scale-105 hover:-translate-y-1 active:scale-95 md:text-2xl"
+            className="group relative mt-12 h-20 md:h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
-            <span className="relative z-10">{c.cta}</span>
-            <ArrowRight className="relative z-10 h-7 w-7 transition-transform duration-500 group-hover:translate-x-2" />
-            <span
-              aria-hidden
-              className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-            />
+            <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+            <span className="relative z-10 flex items-center justify-center gap-6 text-[21px] md:text-[21px] font-black italic tracking-tighter group-hover:text-white transition-colors mx-[5px] pr-[5px]">
+              {c.cta.toUpperCase()}
+            </span>
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
           </ButtonPress>
         )}
 
