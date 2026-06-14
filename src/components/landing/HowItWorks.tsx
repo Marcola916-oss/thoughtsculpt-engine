@@ -21,7 +21,8 @@ export function HowItWorks() {
         </span>
         <h2
           id="how-title"
-          className="font-display text-4xl font-black italic uppercase leading-[65px] tracking-[-0.05em] md:text-[55px] text-balance break-words pr-2 mx-[-50px]"
+          className="font-display text-[24px] font-black italic uppercase leading-[35px] tracking-[-0.05em] md:text-[24px] text-balance break-words mx-auto"
+          style={{ width: "290px" }}
         >
           {w.title}
         </h2>
