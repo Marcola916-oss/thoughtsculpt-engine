@@ -591,7 +591,6 @@ function Hero({ onStart }: { onStart: () => void }) {
             <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
             <span className="relative z-10 flex items-center justify-center gap-6 text-3xl md:text-4xl font-black italic tracking-tighter group-hover:text-white transition-colors">
               {t.hero.cta.toUpperCase()}
-              <ArrowRight className="h-10 w-10 transition-transform duration-700 group-hover:translate-x-4" />
             </span>
             <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
           </button>
