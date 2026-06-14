@@ -323,7 +323,7 @@ const PT: Dict = {
     },
     faq: {
       tag: "Dúvidas Frequentes",
-      title: "Perguntas",
+      title: "PERGUNTAS\nFREQUENTES",
       sub: "Se ficou alguma dúvida, o botão para começar o diagnóstico resolve a maioria delas em 3 minutos.",
       cta: "Fazer o diagnóstico grátis",
       items: [
