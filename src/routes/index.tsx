@@ -514,7 +514,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[30px] md:text-[30px] lg:text-[30px] xl:text-[30px] font-black leading-[35px] md:leading-[35px] tracking-[0em] uppercase italic px-4 pr-6 md:pr-8 text-balance break-words ml-4";
+        const headlineClass = "relative mx-auto w-full max-w-5xl font-display text-[clamp(1.75rem,6.5vw,2.75rem)] font-black leading-[1.15] tracking-[0em] uppercase italic px-4 md:px-8 text-center text-balance break-words";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
@@ -532,8 +532,8 @@ function Hero({ onStart }: { onStart: () => void }) {
           </span>
         ) : null;
 
-        const textSpan = (content: string, isAfter?: boolean) => (
-          <span className={`relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)] ${isAfter ? "mx-[-15px] tracking-[0em]" : content.includes("Falta-te") ? "mx-[-14px] pr-0" : ""}`}>
+        const textSpan = (content: string) => (
+          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
             {content}
           </span>
         );
@@ -542,7 +542,7 @@ function Hero({ onStart }: { onStart: () => void }) {
           <>
             {textSpan(before)}
             {highlightSpan}
-            {textSpan(after, true)}
+            {textSpan(after)}
           </>
         );
 
