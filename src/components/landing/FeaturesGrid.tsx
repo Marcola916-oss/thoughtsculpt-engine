@@ -39,7 +39,7 @@ export function FeaturesGrid() {
             <Reveal
               key={i}
               variant="fade-up"
-              className="group relative flex flex-col gap-5 rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/40 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:p-12 md:hover:-translate-y-2 shadow-2xl will-change-transform lg:backdrop-blur-3xl"
+              className="group relative flex flex-col gap-5 rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/40 p-6 sm:p-8 md:p-12 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:hover:-translate-y-2 shadow-2xl will-change-transform lg:backdrop-blur-3xl overflow-hidden min-w-0"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-arch-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               
@@ -49,7 +49,7 @@ export function FeaturesGrid() {
               >
                 <Icon className="h-6 w-6" />
               </span>
-              <h3 className="relative z-10 text-[16px] font-black italic uppercase tracking-tight leading-[1.2] text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words">
+              <h3 className="relative z-10 text-[16px] font-black italic uppercase tracking-tight leading-[1.2] text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words hyphens-none [overflow-wrap:break-word]">
                 {item.title}
               </h3>
               <p className="relative z-10 text-[15px] leading-relaxed text-white/70 md:text-base drop-shadow-sm">
