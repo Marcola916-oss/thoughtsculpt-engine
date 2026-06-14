@@ -49,7 +49,7 @@ export function FeaturesGrid() {
               >
                 <Icon className="h-6 w-6" />
               </span>
-              <h3 className="relative z-10 font-display text-2xl font-extrabold tracking-tight text-white md:text-[26px] group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+              <h3 className="relative z-10 text-[16px] font-black italic uppercase tracking-tight leading-[1.2] text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words">
                 {item.title}
               </h3>
               <p className="relative z-10 text-[15px] leading-relaxed text-white/70 md:text-base drop-shadow-sm">
