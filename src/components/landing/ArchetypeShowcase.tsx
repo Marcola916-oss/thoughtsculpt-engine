@@ -74,7 +74,7 @@ export function ArchetypeShowcase() {
                 </span>
               </div>
 
-              <h3 className="relative z-10 font-display text-3xl md:text-4xl lg:text-[42px] font-black italic uppercase tracking-tight leading-[1.05] text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words">
+              <h3 className="relative z-10 font-display text-[16px] font-black italic uppercase tracking-tight leading-[1.2] text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words">
                 {item.name}
               </h3>
 
