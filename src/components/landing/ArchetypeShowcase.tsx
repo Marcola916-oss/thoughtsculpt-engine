@@ -45,7 +45,7 @@ export function ArchetypeShowcase() {
       </Reveal>
 
       <Reveal.Group
-        className="grid grid-cols-1 overflow-hidden rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/30 md:backdrop-blur-3xl sm:grid-cols-2 lg:grid-cols-4 shadow-2xl"
+        className="grid grid-cols-1 gap-6 sm:grid-cols-2"
         stagger="fast"
       >
         {ARCH_KEYS.map((key) => {
@@ -55,34 +55,36 @@ export function ArchetypeShowcase() {
             <Reveal
               key={key}
               variant="fade-up"
-              className="group relative flex min-w-0 flex-col gap-4 overflow-hidden border-b border-white/10 bg-white/[0.02] p-5 sm:p-6 lg:p-8 transition-all duration-500 hover:bg-white/[0.08] last:border-b-0 sm:[&:nth-last-child(-n+2)]:border-b-0 sm:[&:nth-child(odd)]:border-r sm:[&:nth-child(odd)]:border-white/10 lg:[&]:border-b-0 lg:[&:not(:last-child)]:border-r lg:[&:not(:last-child)]:border-white/10 md:hover:-translate-y-1"
+              className="group relative flex min-w-0 flex-col gap-5 overflow-hidden rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/40 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:hover:-translate-y-2 shadow-2xl lg:backdrop-blur-3xl"
             >
-              <span
+              <div
                 aria-hidden
-                className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-arch-primary transition-transform duration-500 ease-out group-hover:scale-x-100 shadow-[0_0_15px_var(--arch-glow)]"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-br from-arch-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               />
 
-              <div className="flex items-center justify-between gap-3 min-w-0">
+              <div className="relative z-10 flex items-center justify-between gap-3 min-w-0">
                 <span
                   aria-hidden
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-arch-primary/20 bg-arch-primary/10 text-arch-primary shadow-[0_0_20px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:rotate-6 group-hover:scale-110"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-arch-primary/20 bg-arch-primary/10 text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:rotate-3 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground"
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon className="h-6 w-6" />
                 </span>
-                <span className="font-display text-[10px] font-black uppercase tracking-[0.3em] text-arch-primary/40 group-hover:text-arch-primary transition-colors">
+                <span className="font-display text-[11px] font-black uppercase tracking-[0.3em] text-arch-primary/50 group-hover:text-arch-primary transition-colors">
                   {CODES[key]}
                 </span>
               </div>
 
-              <h3 className="font-display text-lg sm:text-xl lg:text-2xl font-black italic uppercase tracking-tight text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] text-center whitespace-nowrap">
+              <h3 className="relative z-10 font-display text-3xl md:text-4xl lg:text-[42px] font-black italic uppercase tracking-tight leading-[1.05] text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words">
                 {item.name}
               </h3>
 
-              <p className="border-b border-white/[0.07] pb-4 text-[11px] font-black uppercase tracking-[0.15em] text-white/40 group-hover:text-white/60 transition-colors break-words">
+              <p className="relative z-10 text-[11px] font-black uppercase tracking-[0.2em] text-arch-primary/70 group-hover:text-arch-primary transition-colors break-words">
                 {item.trigger}
               </p>
 
-              <p className="text-sm leading-relaxed text-white/60 group-hover:text-white/80 transition-colors">{item.desc}</p>
+              <p className="relative z-10 text-[15px] leading-relaxed text-white/70 group-hover:text-white/85 transition-colors drop-shadow-sm">
+                {item.desc}
+              </p>
             </Reveal>
           );
         })}
