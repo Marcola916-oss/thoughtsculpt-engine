@@ -305,10 +305,10 @@ const PT: Dict = {
       tag: "O que recebes",
       title: "Quatro ferramentas.\nUma transformação.",
       items: [
-        { icon: "🧠", title: "Diagnóstico Completo por IA", desc: "Um relatório em 4 dimensões escrito exclusivamente para ti: como o teu padrão aparece no dinheiro, no trabalho, nos relacionamentos e na vida pessoal.", meta: "Gerado por GPT-4o · Exclusivo e pessoal" },
-        { icon: "📅", title: "Matriz de Ação Personalizada", desc: "Um calendário de 30, 180 ou 365 dias com missões reflexivas e práticas desbloqueadas aos poucos — como um protocolo de treino comportamental diário.", meta: "Destravado gradualmente · Gamificado" },
-        { icon: "🧭", title: "Compass — Mapa de Pessoas", desc: "Descreve alguém da tua vida e a IA identifica o arquétipo financeiro dessa pessoa. Recebe 5 estratégias específicas para melhorar essa relação com dinheiro.", meta: "Para parceiros, filhos, sócios" },
-        { icon: "📈", title: "Painel de Progresso", desc: "Streak de dias consecutivos, pontos, conquistas desbloqueáveis e um relatório mensal da IA a analisar a tua evolução. Transformação que consegues ver e medir.", meta: "Streak · Pontos · Badges · Relatório mensal" },
+        { icon: "🧠", title: "DIAGNÓSTICO COMPLETO\u00a0 POR\u00a0 IA", desc: "Um relatório em 4 dimensões escrito exclusivamente para ti: como o teu padrão aparece no dinheiro, no trabalho, nos relacionamentos e na vida pessoal.", meta: "Gerado por GPT-4o · Exclusivo e pessoal" },
+        { icon: "📅", title: "MATRIZ\u00a0 DE\u00a0 AÇÃO PERSONALIZADA", desc: "Um calendário de 30, 180 ou 365 dias com missões reflexivas e práticas desbloqueadas aos poucos — como um protocolo de treino comportamental diário.", meta: "Destravado gradualmente · Gamificado" },
+        { icon: "🧭", title: "COMPASS — MAPA\u00a0 DE\u00a0 PESSOAS", desc: "Descreve alguém da tua vida e a IA identifica o arquétipo financeiro dessa pessoa. Recebe 5 estratégias específicas para melhorar essa relação com dinheiro.", meta: "Para parceiros, filhos, sócios" },
+        { icon: "📈", title: "PAINEL\u00a0 DE\u00a0 PROGRESSO", desc: "Streak de dias consecutivos, pontos, conquistas desbloqueáveis e um relatório mensal da IA a analisar a tua evolução. Transformação que consegues ver e medir.", meta: "Streak · Pontos · Badges · Relatório mensal" },
       ],
     },
     testimonials: {
