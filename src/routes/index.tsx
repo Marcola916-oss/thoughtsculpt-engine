@@ -533,7 +533,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         ) : null;
 
         const textSpan = (content: string) => (
-          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)] whitespace-pre-wrap">
             {content}
           </span>
         );
