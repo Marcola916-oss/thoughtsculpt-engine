@@ -283,13 +283,58 @@ const PT: Dict = {
     archetypes: {
       tag: "Os 4 Arquétipos",
       title: "QUAL\u00a0 É\u00a0 O TEU\u00a0 PADRÃO COM\u00a0 DINHEIRO?",
-...
+      sub: "Todo comportamento financeiro tem uma raiz emocional. Descobre a tua em menos de 3 minutos.",
+      items: {
+        AO: { name: "Guardador", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão. Dificuldade em gastar mesmo com saldo. A sensação de segurança nunca parece suficiente." },
+        SS: { name: "pavão", trigger: "Gatilho: aprovação social", desc: "Gasta para impressionar. O estatuto é a moeda emocional. A imagem externa vale mais que a saúde financeira real." },
+        EA: { name: "Fantasma", trigger: "Gatilho: fuga e negação", desc: "Evita falar sobre dinheiro. Ignora extratos e contas. O desconforto financeiro fica anestesiado pela evitação." },
+        HI: { name: "Foguinho", trigger: "Gatilho: prazer imediato", desc: "Compra por impulso, vive o agora. A empolgação do momento sobrepõe qualquer planeamento. O presente vence sempre." },
+      },
+    },
+    howItWorks: {
+      tag: "Como funciona",
+      title: "Simples. Profundo. Eficaz.",
+      sub: "Sem planilhas. Sem dados bancários. Apenas perguntas sobre como te comportas.",
+      steps: [
         { title: "RESPONDE \n8 PERGUNTAS", desc: "Sobre comportamento real, não teoria financeira. Sem julgamento." },
-...
+        { title: "RECEBE O TEU\u00a0\nDIAGNÓSTICO", desc: "A IA mapeia o teu arquétipo em 4 dimensões: financeiro, profissional, amoroso e pessoal." },
+        { title: "SEGUE O\nPROTOCOLO", desc: "Missões diárias desbloqueadas gradualmente. Mudança real, passo a passo." },
+      ],
+    },
+    features: {
+      tag: "O que recebes",
+      title: "Quatro ferramentas.\nUma transformação.",
+      items: [
+        { icon: "🧠", title: "Diagnóstico Completo por IA", desc: "Um relatório em 4 dimensões escrito exclusivamente para ti: como o teu padrão aparece no dinheiro, no trabalho, nos relacionamentos e na vida pessoal.", meta: "Gerado por GPT-4o · Exclusivo e pessoal" },
+        { icon: "📅", title: "Matriz de Ação Personalizada", desc: "Um calendário de 30, 180 ou 365 dias com missões reflexivas e práticas desbloqueadas aos poucos — como um protocolo de treino comportamental diário.", meta: "Destravado gradualmente · Gamificado" },
+        { icon: "🧭", title: "Compass — Mapa de Pessoas", desc: "Descreve alguém da tua vida e a IA identifica o arquétipo financeiro dessa pessoa. Recebe 5 estratégias específicas para melhorar essa relação com dinheiro.", meta: "Para parceiros, filhos, sócios" },
+        { icon: "📈", title: "Painel de Progresso", desc: "Streak de dias consecutivos, pontos, conquistas desbloqueáveis e um relatório mensal da IA a analisar a tua evolução. Transformação que consegues ver e medir.", meta: "Streak · Pontos · Badges · Relatório mensal" },
+      ],
+    },
     testimonials: {
       tag: "Depoimentos",
       title: "QUEM\u00a0 JÁ ENTENDEU\u00a0 O SEU\u00a0 PADRÃO",
-...
+      starsAlt: (n) => `${n} de ${n} estrelas`,
+      items: [
+        { stars: 5, quote: "Nunca entendi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: Hedonista Impulsivo" },
+        { stars: 5, quote: "Eu achava que era disciplinada com dinheiro. O MindReset mostrou que eu tinha medo de gastar — e que isso também é um problema. Foi revelador.", name: "Maria C.", arch: "Arquétipo: Guardadora Obsessiva" },
+        { stars: 5, quote: "O Compass foi a parte mais surpreendente. Analisei o meu sócio e entendi em 2 minutos por que as nossas discussões sobre dinheiro nunca iam a lado nenhum.", name: "Rami S.", arch: "Arquétipo: Fantasma Evasivo" },
+      ],
+    },
+    faq: {
+      tag: "Dúvidas Frequentes",
+      title: "Perguntas",
+      sub: "Se ficou alguma dúvida, o botão para começar o diagnóstico resolve a maioria delas em 3 minutos.",
+      cta: "Fazer o diagnóstico grátis",
+      items: [
+        { q: "O MindReset tem acesso aos meus dados bancários?", a: "Não. O MindReset não acede a contas, extratos nem informações bancárias. O diagnóstico é baseado exclusivamente nas tuas respostas comportamentais ao quiz — sem integração bancária de qualquer tipo." },
+        { q: "O diagnóstico é mesmo personalizado?", a: "Sim. A IA (GPT-4o) gera um relatório único baseado no teu arquétipo, nome, género e respostas individuais. Não é um texto genérico — é escrito especificamente para ti e guardado de forma permanente." },
+        { q: "Funciona para quem não percebe de finanças?", a: "Especialmente para quem não percebe. O MindReset não fala sobre investimentos ou planilhas — fala sobre o comportamento emocional por trás das decisões financeiras. Não é preciso saber nada de finanças para beneficiar." },
+        { q: "O que acontece depois de descobrir o meu arquétipo?", a: "Recebes o diagnóstico completo em 4 dimensões da vida (financeiro, profissional, amoroso, pessoal). Ao assinar, acedes à Matriz de Ação — um calendário de missões diárias por 30, 180 ou 365 dias." },
+        { q: "Em quanto tempo vejo resultados?", a: "A compreensão do próprio padrão acontece já no primeiro acesso — o diagnóstico. A transformação comportamental real ocorre ao longo de 21 a 90 dias de prática consistente com as missões diárias." },
+        { q: "E se eu não gostar?", a: "Garantia de 7 dias sem perguntas. Se o produto não entregar o que promete, reembolsamos 100% do valor pago." },
+      ],
+    },
     finalCta: {
       titleBefore: "O\u00a0 PADRÃO QUE\u00a0 TE TRAVOU\u00a0 TEM NOME.\nESTÁ\u00a0 NA HORA\u00a0 DE ",
       titleHighlight: "DESCOBRIR",
