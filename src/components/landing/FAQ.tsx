@@ -18,14 +18,14 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
         <Reveal variant="fade-up" className="md:sticky md:top-32 md:self-start">
           <span
             aria-hidden
-            className="mb-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-arch-primary"
+            className="mb-[25px] inline-flex items-center gap-2 text-[15px] font-bold uppercase tracking-[0.18em] text-arch-primary ml-[156px] mt-0"
           >
             <span className="h-px w-6 bg-arch-primary" />
             {f.tag}
           </span>
           <h2
             id="faq-title"
-            className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-[2.5rem] lg:text-5xl text-balance break-words hyphens-auto pr-2"
+            className="font-display text-4xl font-black italic uppercase leading-[46.05px] tracking-[-0.05em] md:text-[35px] lg:text-[35px] text-balance break-words hyphens-auto pr-2 text-center mx-[-19px]"
           >
             {f.title}
           </h2>

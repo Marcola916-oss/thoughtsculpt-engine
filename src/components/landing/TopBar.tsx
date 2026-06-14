@@ -27,7 +27,7 @@ export function TopBar() {
           : "bg-transparent py-4 md:py-6"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-6" style={{ paddingTop: "0px", paddingBottom: "0px", marginTop: "-19px", marginBottom: "-19px" }}>
         {/* Logo Left */}
         <Logo size="md" />
 

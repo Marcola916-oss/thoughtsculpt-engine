@@ -285,10 +285,10 @@ const PT: Dict = {
       title: "Qual é o teu padrão com dinheiro?",
       sub: "Todo comportamento financeiro tem uma raiz emocional. Descobre a tua em menos de 3 minutos.",
       items: {
-        AO: { name: "O Guardador", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão. Dificuldade em gastar mesmo com saldo. A sensação de segurança nunca parece suficiente." },
-        SS: { name: "O Pavão", trigger: "Gatilho: aprovação social", desc: "Gasta para impressionar. O estatuto é a moeda emocional. A imagem externa vale mais que a saúde financeira real." },
-        EA: { name: "O Fantasma", trigger: "Gatilho: fuga e negação", desc: "Evita falar sobre dinheiro. Ignora extratos e contas. O desconforto financeiro fica anestesiado pela evitação." },
-        HI: { name: "O Foguinho", trigger: "Gatilho: prazer imediato", desc: "Compra por impulso, vive o agora. A empolgação do momento sobrepõe qualquer planeamento. O presente vence sempre." },
+        AO: { name: "Guardador", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão. Dificuldade em gastar mesmo com saldo. A sensação de segurança nunca parece suficiente." },
+        SS: { name: "pavão", trigger: "Gatilho: aprovação social", desc: "Gasta para impressionar. O estatuto é a moeda emocional. A imagem externa vale mais que a saúde financeira real." },
+        EA: { name: "Fantasma", trigger: "Gatilho: fuga e negação", desc: "Evita falar sobre dinheiro. Ignora extratos e contas. O desconforto financeiro fica anestesiado pela evitação." },
+        HI: { name: "Foguinho", trigger: "Gatilho: prazer imediato", desc: "Compra por impulso, vive o agora. A empolgação do momento sobrepõe qualquer planeamento. O presente vence sempre." },
       },
     },
     howItWorks: {
@@ -323,7 +323,7 @@ const PT: Dict = {
     },
     faq: {
       tag: "Dúvidas Frequentes",
-      title: "Perguntas que\nprovavelmente tens",
+      title: "Perguntas",
       sub: "Se ficou alguma dúvida, o botão para começar o diagnóstico resolve a maioria delas em 3 minutos.",
       cta: "Fazer o diagnóstico grátis",
       items: [

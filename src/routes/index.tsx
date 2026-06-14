@@ -420,7 +420,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
   return (
-    <section className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center items-center text-center overflow-x-hidden px-4 md:px-6">
+    <section className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center items-center text-center overflow-x-hidden px-4 md:px-6" style={{ marginLeft: "-12px", marginRight: "-12px", marginTop: "-50px", marginBottom: "-50px" }}>
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[8px] lg:blur-[120px]" />
@@ -433,7 +433,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         delay={0}
         className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
       >
-        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary md:backdrop-blur-md">
+        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary md:backdrop-blur-md mt-[30px]">
           <ShieldCheck className="h-3.5 w-3.5" />
           {t.archetypes?.AO?.name || "O Guardador"}
         </span>
@@ -485,7 +485,7 @@ function Hero({ onStart }: { onStart: () => void }) {
       <MFade
         delay={0}
         y={-20}
-        className="mb-10 inline-flex items-center gap-2 rounded-full bg-black/40 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/90 shadow-2xl md:backdrop-blur-2xl border-white/10 border-2"
+        className="mb-[50px] inline-flex items-center gap-2 rounded-full bg-black/40 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/90 shadow-2xl md:backdrop-blur-2xl border-white/10 border-2"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
@@ -514,7 +514,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl font-black leading-[0.95] md:leading-[0.85] tracking-[-0.05em] uppercase italic px-4 pr-6 md:pr-8 text-balance break-words";
+        const headlineClass = "relative mx-auto max-w-6xl font-display text-[7.5vw] sm:text-[30px] md:text-[30px] lg:text-[30px] xl:text-[30px] font-black leading-[35px] md:leading-[35px] tracking-[0em] uppercase italic px-4 pr-6 md:pr-8 text-balance break-words ml-4";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
@@ -532,20 +532,17 @@ function Hero({ onStart }: { onStart: () => void }) {
           </span>
         ) : null;
 
-        const textSpan = (content: string) => (
-          <span className="relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+        const textSpan = (content: string, isAfter?: boolean) => (
+          <span className={`relative z-10 bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent drop-shadow-[0_10px_30px_rgba(0,0,0,0.8)] ${isAfter ? "mx-[-15px] tracking-[0em]" : content.includes("Falta-te") ? "mx-[-14px] pr-0" : ""}`}>
             {content}
           </span>
         );
-
-        const bgBlur = <div className="absolute inset-x-[-10%] top-1/2 -translate-y-1/2 h-[120%] bg-black/40 blur-[8px] md:blur-[100px] -z-0 pointer-events-none" />;
 
         const content = (
           <>
             {textSpan(before)}
             {highlightSpan}
-            {textSpan(after)}
-            {bgBlur}
+            {textSpan(after, true)}
           </>
         );
 
@@ -573,7 +570,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         className="relative mx-auto mt-16 max-w-2xl px-6"
       >
         <div className="absolute inset-0 bg-black/60 blur-[8px] md:blur-[40px] -z-10 scale-150" />
-        <p className="relative z-10 text-lg text-white md:text-2xl leading-relaxed font-semibold tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+        <p className="relative z-10 text-lg text-white/85 md:text-2xl leading-relaxed font-semibold tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
           {t.hero.sub}
         </p>
       </MFade>
@@ -589,16 +586,15 @@ function Hero({ onStart }: { onStart: () => void }) {
             className="group relative h-20 md:h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
             <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center gap-6 text-3xl md:text-4xl font-black italic tracking-tighter group-hover:text-white transition-colors">
+            <span className="relative z-10 flex items-center justify-center gap-6 text-[21px] md:text-[21px] font-black italic tracking-tighter group-hover:text-white transition-colors mx-[5px] pr-[5px]">
               {t.hero.cta.toUpperCase()}
-              <ArrowRight className="h-10 w-10 transition-transform duration-700 group-hover:translate-x-4" />
             </span>
             <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
           </button>
         </Magnetic>
 
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex items-center gap-6 text-muted-foreground/60">
+        <div className="flex flex-col items-center gap-4" style={{ lineHeight: "25px" }}>
+          <div className="flex items-center gap-6 text-white/75">
             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
               <ShieldCheck className="h-4 w-4" />
               <span>{t.hero.trustSsl}</span>
@@ -607,13 +603,9 @@ function Hero({ onStart }: { onStart: () => void }) {
               <Lock className="h-4 w-4 text-blue-500/50" />
               <span>{t.hero.trustData}</span>
             </div>
-            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-              <Clock className="h-4 w-4 text-arch-primary/50" />
-              <span>{t.hero.trustGuarantee}</span>
-            </div>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/75">
             <div className="flex text-arch-primary gap-0.5">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Star key={i} className="h-3 w-3 fill-current" />

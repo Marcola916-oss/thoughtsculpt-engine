@@ -35,7 +35,7 @@ export function ArchetypeShowcase() {
         </span>
         <h2
           id="archetypes-title"
-          className="font-display text-4xl md:text-6xl lg:text-7xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] text-balance break-words pr-2"
+          className="font-display text-[24px] md:text-[24px] lg:text-[24px] font-black italic uppercase leading-[35px] tracking-[-0.05em] text-balance break-words"
         >
           {a.title}
         </h2>
@@ -74,7 +74,7 @@ export function ArchetypeShowcase() {
                 </span>
               </div>
 
-              <h3 className="font-display text-2xl font-black italic uppercase tracking-tighter text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+              <h3 className="font-display text-2xl font-black italic uppercase tracking-tighter text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] text-center mx-[-15px]">
                 {item.name}
               </h3>
 
