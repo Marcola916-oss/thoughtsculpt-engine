@@ -260,7 +260,7 @@ const PT: Dict = {
   errorPage: { title: "Esta página não carregou", desc: "Algo correu mal do nosso lado. Podes tentar voltar a carregar ou voltar ao início.", tryAgain: "Tentar novamente", goHome: "Ir para o início" },
   hero: {
     kicker: "Finanças comportamentais • 8 perguntas • 3 minutos",
-    headline: "O DINHEIRO NÃO TE FALTA.\nFALTA-TE CONHECER\nO TEU PADRÃO.",
+    headline: "O DINHEIRO NÃO TE FALTA.\nFALTA-TE\nCONHECER\nO TEU PADRÃO.",
     sub: "MindReset diagnostica o teu arquétipo financeiro e entrega um protocolo personalizado de ação. Sem orçamentos. Sem ligação bancária. Só psicologia que muda comportamento.",
     cta: "Quero meu diagnóstico grátis",
     trust: "+12.000 diagnósticos • Sem cartão para começar",
