@@ -36,7 +36,7 @@ export function Testimonials() {
         </span>
         <h2
           id="testimonials-title"
-          className="font-display text-4xl font-black italic uppercase leading-[0.95] tracking-[-0.05em] md:text-[55px] text-balance break-words pr-2 mx-[-47px]"
+          className="font-display text-[24px] md:text-[24px] lg:text-[24px] font-black italic uppercase leading-[35px] tracking-[-0.05em] text-balance break-words"
         >
           {tt.title}
         </h2>
