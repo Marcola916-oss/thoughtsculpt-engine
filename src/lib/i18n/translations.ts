@@ -296,9 +296,9 @@ const PT: Dict = {
       title: "Simples. Profundo. Eficaz.",
       sub: "Sem planilhas. Sem dados bancários. Apenas perguntas sobre como te comportas.",
       steps: [
-        { title: "Responde 8 perguntas", desc: "Sobre comportamento real, não teoria financeira. Sem julgamento." },
-        { title: "Recebe o teu diagnóstico", desc: "A IA mapeia o teu arquétipo em 4 dimensões: financeiro, profissional, amoroso e pessoal." },
-        { title: "Segue o protocolo", desc: "Missões diárias desbloqueadas gradualmente. Mudança real, passo a passo." },
+        { title: "RESPONDE 8\nPERGUNTAS", desc: "Sobre comportamento real, não teoria financeira. Sem julgamento." },
+        { title: "RECEBE O TEU\u00a0\nDIAGNÓSTICO", desc: "A IA mapeia o teu arquétipo em 4 dimensões: financeiro, profissional, amoroso e pessoal." },
+        { title: "SEGUE O\nPROTOCOLO", desc: "Missões diárias desbloqueadas gradualmente. Mudança real, passo a passo." },
       ],
     },
     features: {
