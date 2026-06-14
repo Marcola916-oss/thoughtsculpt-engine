@@ -45,7 +45,7 @@ export function ArchetypeShowcase() {
       </Reveal>
 
       <Reveal.Group
-        className="grid grid-cols-1 overflow-hidden rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/30 md:backdrop-blur-3xl sm:grid-cols-2 lg:grid-cols-4 shadow-2xl divide-y divide-white/10 sm:divide-y-0"
+        className="grid grid-cols-1 overflow-hidden rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/30 md:backdrop-blur-3xl sm:grid-cols-2 lg:grid-cols-4 shadow-2xl"
         stagger="fast"
       >
         {ARCH_KEYS.map((key) => {
@@ -55,7 +55,7 @@ export function ArchetypeShowcase() {
             <Reveal
               key={key}
               variant="fade-up"
-              className="group relative flex min-w-0 flex-col gap-4 border-white/10 bg-white/[0.02] p-6 sm:p-7 lg:p-8 transition-all duration-500 hover:bg-white/[0.08] sm:[&:not(:nth-child(2n))]:border-r lg:[&:not(:nth-child(2n))]:border-r lg:[&:not(:last-child)]:border-r sm:[&:nth-child(-n+2)]:border-b sm:[&:nth-child(n+3)]:border-t lg:[&:nth-child(-n+2)]:border-b-0 lg:[&:nth-child(n+3)]:border-t-0 md:hover:-translate-y-1"
+              className="group relative flex min-w-0 flex-col gap-4 overflow-hidden border-b border-white/10 bg-white/[0.02] p-5 sm:p-6 lg:p-8 transition-all duration-500 hover:bg-white/[0.08] last:border-b-0 sm:[&:nth-last-child(-n+2)]:border-b-0 sm:[&:nth-child(odd)]:border-r sm:[&:nth-child(odd)]:border-white/10 lg:[&]:border-b-0 lg:[&:not(:last-child)]:border-r lg:[&:not(:last-child)]:border-white/10 md:hover:-translate-y-1"
             >
               <span
                 aria-hidden
@@ -74,7 +74,7 @@ export function ArchetypeShowcase() {
                 </span>
               </div>
 
-              <h3 className="font-display text-[clamp(1.1rem,5vw,1.75rem)] font-black italic uppercase tracking-tight text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] text-center whitespace-nowrap">
+              <h3 className="font-display text-lg sm:text-xl lg:text-2xl font-black italic uppercase tracking-tight text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] text-center whitespace-nowrap">
                 {item.name}
               </h3>
 
