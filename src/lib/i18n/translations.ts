@@ -282,7 +282,7 @@ const PT: Dict = {
     },
     archetypes: {
       tag: "Os 4 Arquétipos",
-      title: "Qual é o teu padrão com dinheiro?",
+      title: "QUAL\u00a0 É\u00a0 O TEU\u00a0 PADRÃO COM\u00a0 DINHEIRO?",
       sub: "Todo comportamento financeiro tem uma raiz emocional. Descobre a tua em menos de 3 minutos.",
       items: {
         AO: { name: "Guardador", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão. Dificuldade em gastar mesmo com saldo. A sensação de segurança nunca parece suficiente." },
@@ -296,7 +296,7 @@ const PT: Dict = {
       title: "Simples. Profundo. Eficaz.",
       sub: "Sem planilhas. Sem dados bancários. Apenas perguntas sobre como te comportas.",
       steps: [
-        { title: "RESPONDE 8\nPERGUNTAS", desc: "Sobre comportamento real, não teoria financeira. Sem julgamento." },
+        { title: "RESPONDE \n8 PERGUNTAS", desc: "Sobre comportamento real, não teoria financeira. Sem julgamento." },
         { title: "RECEBE O TEU\u00a0\nDIAGNÓSTICO", desc: "A IA mapeia o teu arquétipo em 4 dimensões: financeiro, profissional, amoroso e pessoal." },
         { title: "SEGUE O\nPROTOCOLO", desc: "Missões diárias desbloqueadas gradualmente. Mudança real, passo a passo." },
       ],
@@ -313,7 +313,7 @@ const PT: Dict = {
     },
     testimonials: {
       tag: "Depoimentos",
-      title: "Quem já entendeu o seu padrão",
+      title: "QUEM\u00a0 JÁ ENTENDEU\u00a0 O SEU\u00a0 PADRÃO",
       starsAlt: (n) => `${n} de ${n} estrelas`,
       items: [
         { stars: 5, quote: "Nunca entendi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: Hedonista Impulsivo" },
@@ -336,9 +336,9 @@ const PT: Dict = {
       ],
     },
     finalCta: {
-      titleBefore: "O padrão que te travou tem nome.\nEstá na hora de ",
-      titleHighlight: "descobrir",
-      titleAfter: " qual é.",
+      titleBefore: "O\u00a0 PADRÃO QUE\u00a0 TE TRAVOU\u00a0 TEM NOME.\nESTÁ\u00a0 NA HORA\u00a0 DE ",
+      titleHighlight: "DESCOBRIR",
+      titleAfter: " QUAL É.",
       sub: "8 perguntas. 3 minutos. Uma clareza que nenhuma planilha dá.",
       cta: "Iniciar o meu diagnóstico gratuito",
       guarantee: "7 dias de garantia",
