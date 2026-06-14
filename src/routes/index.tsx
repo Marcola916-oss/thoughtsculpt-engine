@@ -497,7 +497,7 @@ function Hero({ onStart }: { onStart: () => void }) {
       {(() => {
         const headline = t.hero.headline;
         // Fix for i18n issue: find the best word to highlight or use a standard one
-        const keywords = ["conhecer", "know", "poznać", "cunoști", "تعرف"];
+        const keywords = ["CONHECER", "know", "poznać", "cunoști", "تعرف"];
         let keyword = "";
         let idx = -1;
         
