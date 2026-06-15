@@ -1,4 +1,5 @@
 import { useRouterState } from "@tanstack/react-router";
+import { useDeviceTier } from "@/hooks/use-device-tier";
 
 const SYMBOLS = ["€", "$", "¥", "₿", "£", "¢", "×", "÷", "≈", "π", "Σ", "∞"];
 
@@ -23,15 +24,26 @@ const SYMBOL_SLOTS = [
  */
 export function GlobalAmbient() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isLanding = pathname === "/";
-  const visibleSymbols = isLanding ? SYMBOL_SLOTS : SYMBOL_SLOTS.slice(0, 8);
+  const tier = useDeviceTier();
+  // The landing route (/) renders its own <Atmosphere> wrapper for the hero,
+  // which already provides fog + symbols + scanlines. Skipping GlobalAmbient
+  // here removes duplicated full-viewport blur/animation layers.
+  if (pathname === "/") return null;
+  // On low-tier devices (mobile/touch), render a much cheaper version:
+  // no animated symbols, no scanbeam — just the static mesh background.
+  const isLow = tier === "low";
+  const visibleSymbols = isLow ? [] : SYMBOL_SLOTS.slice(0, 8);
 
   return (
     <div className="mindreset-global-ambient" aria-hidden="true">
       <div className="mindreset-ambient-mesh" />
-      <div className="mindreset-ambient-fog mindreset-ambient-fog-a" />
-      <div className="mindreset-ambient-fog mindreset-ambient-fog-b" />
-      <div className="mindreset-ambient-fog mindreset-ambient-fog-c" />
+      {!isLow && (
+        <>
+          <div className="mindreset-ambient-fog mindreset-ambient-fog-a" />
+          <div className="mindreset-ambient-fog mindreset-ambient-fog-b" />
+          <div className="mindreset-ambient-fog mindreset-ambient-fog-c" />
+        </>
+      )}
       <div className="mindreset-ambient-symbols">
         {visibleSymbols.map(([x, y, size, delay, drift], index) => (
           <span
@@ -50,7 +62,7 @@ export function GlobalAmbient() {
         ))}
       </div>
       <div className="mindreset-ambient-scanlines" />
-      <div className="mindreset-ambient-scanbeam" />
+      {!isLow && <div className="mindreset-ambient-scanbeam" />}
     </div>
   );
 }

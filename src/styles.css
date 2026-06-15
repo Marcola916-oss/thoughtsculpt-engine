@@ -1313,3 +1313,49 @@ html body .allow-break-all {
   word-break: break-all !important;
   hyphens: none !important;
 }
+
+/* ──────────────────────────────────────────────────────────
+   MOBILE PERFORMANCE OVERRIDES — P0
+   Touch devices (phones/tablets) cannot afford full-viewport
+   blur(34px), saturate filters, multiple rotating gradients,
+   text-shadow glows, or always-on `will-change`. Visual
+   appearance is virtually identical: a clean dark background
+   instead of a glow-saturated one. Desktop is untouched.
+   ────────────────────────────────────────────────────────── */
+@media (hover: none), (max-width: 767px) {
+  /* Kill the rotating radial gradients that were repainting full-screen */
+  .flowing-ambient::before,
+  .flowing-ambient::after { display: none !important; }
+
+  /* GlobalAmbient: drop the expensive saturate animation on the mesh,
+     keep the static gradient background (already painted once). */
+  .mindreset-ambient-mesh {
+    animation: none !important;
+    filter: none !important;
+    will-change: auto !important;
+  }
+  /* Animated fog orbs (blur 34px + screen blend) are the worst case
+     for mobile GPUs. Drop them entirely on touch. */
+  .mindreset-ambient-fog { display: none !important; }
+  /* Symbols: keep them static (no drift animation, no text-shadow glow). */
+  .mindreset-ambient-symbol {
+    animation: none !important;
+    text-shadow: none !important;
+    will-change: auto !important;
+    opacity: 0.22;
+  }
+  /* Static scanlines are cheap; the moving beam isn't. */
+  .mindreset-ambient-scanbeam { display: none !important; }
+
+  /* VolumetricFog orbs use the same `fog-breathe-static` pattern.
+     Disable the breathing animation on mobile; the static gradient
+     orb stays visible. */
+  [data-fog-orbs] .fog-breathe-1,
+  [data-fog-orbs] .fog-breathe-2,
+  [data-fog-orbs] .fog-breathe-3 {
+    animation: none !important;
+    will-change: auto !important;
+  }
+  /* Light beam inside VolumetricFog uses a blurred linear gradient. */
+  [data-fog-orbs] .fog-layer-beam { display: none !important; }
+}

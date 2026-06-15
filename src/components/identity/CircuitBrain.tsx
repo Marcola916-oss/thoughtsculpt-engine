@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { cn } from "@/lib/utils";
-import brainImage from "@/assets/brain-circuit.png";
+import brainImage from "@/assets/brain-circuit.webp";
 
 export type CircuitBrainVariant = "hero" | "loader" | "mini" | "icon";
 export type BrainStyle = "premium" | "neon" | "archetype";

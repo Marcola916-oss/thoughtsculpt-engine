@@ -219,7 +219,10 @@ function FloatingSymbolsImpl({
   const symbols = SYMBOL_SETS[set];
   const opacityMul = DENSITY_OPACITY[density];
   const blurClass = DENSITY_BLUR[density];
-  const visible = SEEDED_SLOTS.slice(0, 12); // Always show all 12 slots for premium feel
+  // Honor the tier-aware count. 0 = render nothing.
+  const clampedCount = Math.max(0, Math.min(SEEDED_SLOTS.length, count));
+  if (clampedCount === 0) return null;
+  const visible = SEEDED_SLOTS.slice(0, clampedCount);
 
   return (
     <div
@@ -246,7 +249,7 @@ function FloatingSymbolsImpl({
             aria-hidden
             className={cn(
               "absolute select-none font-serif leading-none",
-              slot.mobileHidden && "block md:block", // Never hide on mobile
+              slot.mobileHidden && "hidden md:block",
               "symbol-drift",
               blurClass,
               withGlow && "symbol-glow",
