@@ -135,6 +135,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "canonical",
         href: "https://mindreset.app/",
       },
+      {
+        rel: "prefetch",
+        href: "/brain.splinecode",
+        as: "fetch",
+        crossOrigin: "anonymous",
+      },
     ],
     scripts: [
       {

@@ -217,18 +217,17 @@ function LandingAndQuiz() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage.kind]);
 
-  // Preload the 3D brain (Spline runtime + scene file) as soon as the user
-  // reaches the email capture stage, so it's ready by the time the reveal
-  // screen mounts.
+  // Preload the 3D brain (Spline runtime + scene file) as soon as the page
+  // mounts, so it's already in cache by the time the reveal screen renders —
+  // regardless of which stage the user enters from.
   useEffect(() => {
-    if (stage.kind !== "email" && stage.kind !== "loader") return;
     import("@splinetool/react-spline").catch(() => {});
     try {
       fetch("/brain.splinecode", { credentials: "omit" }).catch(() => {});
     } catch {
       /* noop */
     }
-  }, [stage.kind]);
+  }, []);
 
   return (
     <div
@@ -889,30 +888,29 @@ function Reveal({
           {t.reveal.kicker(name)}
         </motion.div>
 
-        {/* ArchetypeRetroBrain — procedural 3-D pixelated brain, colored per archetype */}
+        {/* Spline 3-D brain + archetype icon centered on top of it */}
         <motion.div
           initial={{ opacity: 0, scale: 0.3 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", damping: 12, stiffness: 100, delay: 0.3 }}
           className="mb-8 flex justify-center"
         >
-          <ArchetypeSplineBrain
-            archetype={arch as "AO" | "SS" | "EA" | "HI"}
-            size={isMobileMotion ? 360 : 580}
-            speed={0.004}
-          />
-        </motion.div>
-
-        {/* Archetype icon emerging from brain */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 1, type: "spring", stiffness: 100 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
-        >
-           <div className="h-20 w-20 rounded-full bg-black/80 backdrop-blur-md border border-arch-primary/30 flex items-center justify-center shadow-[0_0_40px_var(--arch-glow)]">
-             <ArchetypeIcon arch={arch} className="h-10 w-10 text-arch-primary" />
-           </div>
+          <div className="relative">
+            <ArchetypeSplineBrain
+              archetype={arch as "AO" | "SS" | "EA" | "HI"}
+              speed={0.004}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ delay: 1, type: "spring", stiffness: 100 }}
+              className="pointer-events-none absolute inset-0 z-30 grid place-items-center"
+            >
+              <div className="h-20 w-20 rounded-full bg-black/80 backdrop-blur-md border border-arch-primary/30 flex items-center justify-center shadow-[0_0_40px_var(--arch-glow)]">
+                <ArchetypeIcon arch={arch} className="h-10 w-10 text-arch-primary" />
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
 
         <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative pr-4 md:pr-8 pl-1 text-balance break-words">
