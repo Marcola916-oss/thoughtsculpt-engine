@@ -45,15 +45,23 @@ import {
   TopBar,
 } from "@/components/landing";
 
+const REDUCED_MOTION_MQ = "(hover: none) and (max-width: 1023px)";
 const useReducedMotion = () => {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(hover: none) and (max-width: 1023px)").matches;
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia(REDUCED_MOTION_MQ);
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return reduced;
 };
 
-let isMobileMotion = false;
-
 const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
-  if (isMobileMotion) return <div className={className} {...props}>{children}</div>;
+  const reducedMotion = useReducedMotion();
+  if (reducedMotion) return <div className={className} {...props}>{children}</div>;
   const { onAnimationStart: _oas, onAnimationEnd: _oae, onDragStart: _ods, onDragEnd: _ode, onDrag: _od, ...rest } = props;
   return (
     <motion.div
@@ -77,7 +85,8 @@ const MFade = ({
   y = 20,
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { delay?: number; y?: number }) => {
-  if (isMobileMotion) {
+  const reducedMotion = useReducedMotion();
+  if (reducedMotion) {
     const delayClass = delay <= 0 ? '' : delay <= 0.2 ? 'hero-fade-delay-1' : delay <= 0.4 ? 'hero-fade-delay-2' : delay <= 0.6 ? 'hero-fade-delay-3' : delay <= 1 ? 'hero-fade-delay-4' : delay <= 1.5 ? 'hero-fade-delay-5' : delay <= 2 ? 'hero-fade-delay-6' : 'hero-fade-delay-7';
     return (
       <div className={`hero-fade ${delayClass} ${className || ''}`} {...props}>
@@ -130,7 +139,6 @@ type Stage =
   | { kind: "plans" };
 
 function LandingAndQuiz() {
-  isMobileMotion = useReducedMotion();
   const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
 
@@ -433,6 +441,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
+  const reducedMotion = useReducedMotion();
   // Gate the 3 desktop-only floating badges by an actual media query so the
   // framer-motion subscriptions don't run idle on mobile (display:none alone
   // does NOT stop framer's rAF loop).
@@ -550,7 +559,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
             <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">{keyword}</span>
-            {isMobileMotion ? (
+            {reducedMotion ? (
               <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
             ) : (
               <motion.span
@@ -577,7 +586,7 @@ function Hero({ onStart }: { onStart: () => void }) {
           </>
         );
 
-        if (isMobileMotion) {
+        if (reducedMotion) {
           return (
             <h1 className={`hero-fade hero-fade-delay-2 ${headlineClass}`} style={headlineStyle}>
               {content}
@@ -1060,6 +1069,7 @@ function Sales({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const s = t.sales;
+  const reducedMotion = useReducedMotion();
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -1087,7 +1097,7 @@ function Sales({
             </span>
           </MSection>
 
-          {isMobileMotion ? (
+          {reducedMotion ? (
             <h1 className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter">
               {s.h1(
                 name,
@@ -1116,7 +1126,7 @@ function Sales({
             </motion.h1>
           )}
 
-          {isMobileMotion ? (
+          {reducedMotion ? (
             <p className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto">
               {s.promise}
             </p>
@@ -1335,6 +1345,7 @@ function Plans({
 }) {
   const { t, currency, lang } = useI18n();
   const startCheckout = useServerFn(createCheckoutSession);
+  const reducedMotion = useReducedMotion();
   const [busy, setBusy] = useState<PlanKey | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const plans: PlanKey[] = ["30d", "6m", "1y"];
@@ -1385,7 +1396,7 @@ function Plans({
             </span>
           </motion.div>
         )}
-        {isMobileMotion ? (
+        {reducedMotion ? (
           <h2 className="font-display text-4xl font-extrabold md:text-7xl mb-6">
             {t.plans.title}
           </h2>
@@ -1399,7 +1410,7 @@ function Plans({
             {t.plans.title}
           </motion.h2>
         )}
-        {isMobileMotion ? (
+        {reducedMotion ? (
           <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             {t.plans.sub}
           </p>

@@ -109,7 +109,7 @@ export function BustLoader({
             strokeWidth="2"
             className="opacity-20"
           />
-          <motion.circle
+          <circle
             cx={bustSize / 2}
             cy={bustSize / 2}
             r={radius}
@@ -120,7 +120,6 @@ export function BustLoader({
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             style={{ filter: "drop-shadow(0 0 6px var(--color-primary))" }}
-            transition={{ ease: "linear" }}
           />
         </svg>
 
@@ -139,9 +138,9 @@ export function BustLoader({
         {ORBITAL_ANGLES.map((angleDeg, i) => {
           const orbitRadius = bustSize / 2 - 2;
           return (
-            <motion.div
+            <div
               key={i}
-              className="absolute"
+              className="absolute bust-orbital"
               style={{
                 top: `calc(50% + ${Math.sin((angleDeg * Math.PI) / 180) * orbitRadius}px)`,
                 left: `calc(50% + ${Math.cos((angleDeg * Math.PI) / 180) * orbitRadius}px)`,
@@ -151,17 +150,7 @@ export function BustLoader({
                 backgroundColor: "var(--color-primary)",
                 marginLeft: -2.5,
                 marginTop: -2.5,
-              }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{
-                opacity: [0.3, 0.9, 0.3],
-                scale: [0.8, 1.3, 0.8],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                delay: i * 0.25,
-                ease: "easeInOut",
+                animationDelay: `${i * 0.25}s`,
               }}
             />
           );
@@ -169,15 +158,9 @@ export function BustLoader({
       </div>
 
       {/* Percentage */}
-      <motion.p
-        className="text-4xl font-bold text-foreground mb-6 tabular-nums"
-        key={Math.round(progress)}
-        initial={{ scale: 0.85 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.1 }}
-      >
+      <p className="text-4xl font-bold text-foreground mb-6 tabular-nums">
         {Math.round(progress)}%
-      </motion.p>
+      </p>
 
       {/* Main cycling message */}
       <div className="h-8 overflow-hidden mb-8 w-full">
