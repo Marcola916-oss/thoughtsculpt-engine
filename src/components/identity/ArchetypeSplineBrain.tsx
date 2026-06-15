@@ -13,12 +13,24 @@ interface Props {
   speed?: number;
 }
 
-/** Hex tint applied as CSS blend on top of the Spline canvas, per archetype. */
+/** Hex tint used for the halo behind the canvas, per archetype. */
 const ARCHETYPE_HEX: Record<ArchetypeKey, string> = {
   AO: "#0F4C5C", // Azul Petróleo
   SS: "#6B2D8C", // Roxo Vibrante
   EA: "#C44900", // Laranja Queimado
   HI: "#2E7D32", // Verde Esmeralda
+};
+
+/**
+ * CSS `filter` per archetype. The base Spline scene is cyan (~190°), so we
+ * hue-rotate from there. Applied directly to the canvas so only the brain
+ * pixels are tinted — empty/transparent areas stay transparent.
+ */
+const ARCHETYPE_FILTER: Record<ArchetypeKey, string> = {
+  AO: "saturate(1.1)", // already cyan/teal, just boost
+  SS: "hue-rotate(95deg) saturate(1.4)", // → purple
+  EA: "hue-rotate(-170deg) saturate(1.8)", // → burnt orange
+  HI: "hue-rotate(-65deg) saturate(1.3)", // → emerald green
 };
 
 const SCENE_URL = "/brain.splinecode";
@@ -113,37 +125,18 @@ export function ArchetypeSplineBrain({
 
       {/* Spline canvas */}
       <Suspense fallback={<SplineFallback hex={hex} />}>
-        <div className="absolute inset-0">
+        <div
+          className="absolute inset-0 [&_canvas]:!bg-transparent [&_a]:!hidden"
+          style={{ filter: ARCHETYPE_FILTER[archetype] }}
+        >
           <Spline scene={SCENE_URL} onLoad={handleLoad} />
         </div>
       </Suspense>
 
-      {/* Color tint — blends the brain particles into the archetype hex */}
+      {/* Cover any "Built with Spline" badge (bottom-right) defensively */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundColor: hex,
-          mixBlendMode: "color",
-          opacity: 0.85,
-        }}
-      />
-      {/* Extra saturation boost */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundColor: hex,
-          mixBlendMode: "overlay",
-          opacity: 0.25,
-        }}
-      />
-
-      {/* Cover the "Built with Spline" badge (bottom-right) */}
-      <div
-        aria-hidden
-        className="pointer-events-auto absolute bottom-0 right-0 z-20 h-12 w-44 bg-black"
-        style={{ borderTopLeftRadius: 6 }}
+        className="pointer-events-auto absolute bottom-0 right-0 z-20 h-10 w-40"
       />
     </div>
   );
