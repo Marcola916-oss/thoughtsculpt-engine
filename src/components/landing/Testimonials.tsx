@@ -1,21 +1,11 @@
 import { Star } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/interaction/Reveal";
+import adamPhoto from "@/assets/testimonials/adam.jpg";
+import mariaPhoto from "@/assets/testimonials/maria.jpg";
+import ramiPhoto from "@/assets/testimonials/rami.jpg";
 
-function initials(name: string): string {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .map((p) => p[0]?.toUpperCase() ?? "")
-    .slice(0, 2)
-    .join("");
-}
-
-const AVATAR_GRADIENTS = [
-  "from-sky-500 to-indigo-600",
-  "from-fuchsia-500 to-purple-600",
-  "from-amber-500 to-orange-600",
-] as const;
+const AVATAR_PHOTOS = [adamPhoto, mariaPhoto, ramiPhoto] as const;
 
 export function Testimonials() {
   const { t } = useI18n();
@@ -64,12 +54,12 @@ export function Testimonials() {
             </blockquote>
 
             <div className="flex items-center gap-4 border-t border-white/[0.07] pt-5">
-              <span
-                aria-hidden
-                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${AVATAR_GRADIENTS[i % AVATAR_GRADIENTS.length]} font-display text-sm font-black text-white shadow-lg transition-transform duration-500 group-hover:scale-110`}
-              >
-                {initials(item.name)}
-              </span>
+              <img
+                src={AVATAR_PHOTOS[i % AVATAR_PHOTOS.length]}
+                alt={item.name}
+                loading="lazy"
+                className="h-11 w-11 shrink-0 rounded-full object-cover object-center shadow-lg ring-1 ring-white/10 transition-transform duration-500 group-hover:scale-110"
+              />
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-black tracking-tight text-white break-words">{item.name}</p>
                 <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary break-words">
