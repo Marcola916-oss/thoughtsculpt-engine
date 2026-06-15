@@ -336,7 +336,7 @@ const PT: Dict = {
       ],
     },
     finalCta: {
-      titleBefore: "O\u00a0 PADRÃO QUE\u00a0 TE TRAVOU\u00a0 TEM NOME.\nESTÁ\u00a0 NA HORA\u00a0 DE ",
+      titleBefore: "O\u00a0 PADRÃO QUE\u00a0 TE TRAVOU\u00a0 TEM NOME.\u00a0\nESTÁ\u00a0 NA HORA\u00a0 DE ",
       titleHighlight: "DESCOBRIR",
       titleAfter: " QUAL É.",
       sub: "8 perguntas. 3 minutos. Uma clareza que nenhuma planilha dá.",
