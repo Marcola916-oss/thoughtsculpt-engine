@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 
 interface HologramRingProps {
   size?: number;
@@ -18,13 +17,11 @@ export function HologramRing({ size = 200, className = "" }: HologramRingProps) 
       style={{ width: size, height: size }}
     >
       {/* Outer spinning ring - Dash array for high-tech look */}
-      <motion.svg
+      <svg
         width={size}
         height={size}
         viewBox={`0 0 ${size} ${size}`}
-        className="absolute inset-0 z-10"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 8, ease: "linear", repeat: Infinity }}
+        className="absolute inset-0 z-10 hologram-spin-cw"
       >
         <circle
           cx={cx}
@@ -49,16 +46,14 @@ export function HologramRing({ size = 200, className = "" }: HologramRingProps) 
           strokeWidth={1}
           strokeDasharray="2 6"
         />
-      </motion.svg>
+      </svg>
 
       {/* Inner fast spinning counter-rotating ring */}
-      <motion.svg
+      <svg
         width={size}
         height={size}
         viewBox={`0 0 ${size} ${size}`}
-        className="absolute inset-0 z-10"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 12, ease: "linear", repeat: Infinity }}
+        className="absolute inset-0 z-10 hologram-spin-ccw"
       >
         <circle
           cx={cx}
@@ -73,7 +68,7 @@ export function HologramRing({ size = 200, className = "" }: HologramRingProps) 
             filter: "drop-shadow(0px 0px 4px rgba(255,255,255,0.5))"
           }}
         />
-      </motion.svg>
+      </svg>
     </div>
   );
 }
