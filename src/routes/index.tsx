@@ -217,6 +217,19 @@ function LandingAndQuiz() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage.kind]);
 
+  // Preload the 3D brain (Spline runtime + scene file) as soon as the user
+  // reaches the email capture stage, so it's ready by the time the reveal
+  // screen mounts.
+  useEffect(() => {
+    if (stage.kind !== "email" && stage.kind !== "loader") return;
+    import("@splinetool/react-spline").catch(() => {});
+    try {
+      fetch("/brain.splinecode", { credentials: "omit" }).catch(() => {});
+    } catch {
+      /* noop */
+    }
+  }, [stage.kind]);
+
   return (
     <div
       className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-hidden relative"
@@ -885,7 +898,7 @@ function Reveal({
         >
           <ArchetypeSplineBrain
             archetype={arch as "AO" | "SS" | "EA" | "HI"}
-            size={isMobileMotion ? 280 : 460}
+            size={isMobileMotion ? 360 : 580}
             speed={0.004}
           />
         </motion.div>
