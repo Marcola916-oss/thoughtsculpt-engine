@@ -220,14 +220,10 @@ function LandingAndQuiz() {
       {stage.kind === "hero" && <TopBar />}
 
       <main className="w-full px-0 sm:px-4 pb-24 pt-16 md:pt-12 relative z-10">
-        <AnimatePresence mode="wait">
+        
           {stage.kind === "hero" && (
-            <motion.div
+            <div
               key="hero"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
             >
               <div className="relative z-10 min-h-screen">
                 <Hero onStart={() => setStage({ kind: "identity" })} />
@@ -245,7 +241,7 @@ function LandingAndQuiz() {
                 <FAQ onCta={() => setStage({ kind: "identity" })} />
                 <FinalCTA onCta={() => setStage({ kind: "identity" })} />
               </div>
-            </motion.div>
+            </div>
           )}
 
           {stage.kind === "identity" && (
@@ -336,11 +332,8 @@ function LandingAndQuiz() {
           )}
 
           {stage.kind === "sales" && archCode && (
-            <motion.div
+            <div
               key="sales"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
             >
               <Sales
                 name={name}
@@ -348,20 +341,17 @@ function LandingAndQuiz() {
                 timeLeft={timerLeft}
                 onContinue={() => setStage({ kind: "plans" })}
               />
-            </motion.div>
+            </div>
           )}
 
           {stage.kind === "plans" && (
-            <motion.div
+            <div
               key="plans"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
             >
               <Plans email={email} displayName={name} leadId={leadId} timeLeft={timerLeft} />
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        
       </main>
 
       {stage.kind === "sales" && <StickyCTA onClick={() => setStage({ kind: "plans" })} />}
@@ -385,12 +375,9 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
   }, []);
 
   return (
-    <AnimatePresence>
+    
       {visible && (
-        <motion.div
-          initial={{ y: 100 }}
-          animate={{ y: 0 }}
-          exit={{ y: 100 }}
+        <div
           className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
         >
           <button
@@ -399,9 +386,9 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
           >
             {t.sales.cta}
           </button>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    
   );
 }
 
@@ -410,7 +397,6 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
-  const reducedMotion = useReducedMotion();
   // Gate the 3 desktop-only floating badges by an actual media query so the
   // framer-motion subscriptions don't run idle on mobile (display:none alone
   // does NOT stop framer's rAF loop).
@@ -445,46 +431,26 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       {isLg && (
         <>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 0.8, x: 0, y: [0, -18, 0] }}
-            transition={{
-              opacity: { duration: 1 },
-              x: { duration: 1 },
-              y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-            }}
+          <div
             className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-bold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
           >
             <Star className="h-3.5 w-3.5" />
             {t.archetypes?.SS?.name || "O Pav├úo"}
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 0.8, x: 0, y: [0, -15, 0] }}
-            transition={{
-              opacity: { duration: 1 },
-              x: { duration: 1 },
-              y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 },
-            }}
+          <div
             className="flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-bold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
           >
             <CompassIcon className="h-3.5 w-3.5" />
             {t.archetypes?.EA?.name || "O Fantasma"}
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 0.8, y: [0, -20, 0] }}
-            transition={{
-              opacity: { duration: 1 },
-              y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
-            }}
+          <div
             className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none"
           >
             <LineChart className="h-3.5 w-3.5" />
             {t.archetypes?.HI?.name || "O Foguinho"}
-          </motion.div>
+          </div>
         </>
       )}
 
@@ -531,10 +497,7 @@ function Hero({ onStart }: { onStart: () => void }) {
             {reducedMotion ? (
               <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
             ) : (
-              <motion.span
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 1, duration: 0.8, ease: "circOut" }}
+              <span
                 className="absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]"
               />
             )}
@@ -563,15 +526,12 @@ function Hero({ onStart }: { onStart: () => void }) {
           );
         }
         return (
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          <h1
             className={headlineClass}
               style={headlineStyle}
           >
             {content}
-          </motion.h1>
+          </h1>
         );
       })()}
 
@@ -631,9 +591,8 @@ function Hero({ onStart }: { onStart: () => void }) {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         <div className="pt-12 md:pt-20 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 opacity-60 lg:opacity-40 hover:opacity-100 transition-opacity duration-1000">
            {['AO', 'SS', 'EA', 'HI'].map((arch) => (
-             <motion.div 
+             <div 
                key={arch}
-               whileHover={{ y: -10, scale: 1.05 }}
                 className="glass-morphism rounded-3xl lg:rounded-[2.5rem] p-5 md:p-8 border border-white/10 bg-black/40 md:backdrop-blur-xl flex flex-col items-center text-center gap-3 md:gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
              >
                <span className="text-3xl md:text-4xl filter grayscale group-hover:grayscale-0 transition-all">
@@ -643,7 +602,7 @@ function Hero({ onStart }: { onStart: () => void }) {
                  <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
                  <span className="block text-sm md:text-lg font-bold tracking-tighter text-foreground/80">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
                </div>
-             </motion.div>
+             </div>
            ))}
         </div>
       </div>
@@ -698,12 +657,10 @@ function Identity(props: {
           </label>
           <div className="grid grid-cols-3 gap-3">
             {(["m", "f", "n"] as const).map((g) => (
-              <motion.button
+              <button
                 key={g}
                 data-cursor="hover"
                 onClick={() => props.setGender(g)}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 className={`rounded-2xl border px-2 py-4 text-[13px] sm:text-base font-black uppercase tracking-tight italic transition-all ${
                   props.gender === g
                     ? "border-primary bg-primary text-primary-foreground shadow-[0_15px_30px_-10px_var(--accent-glow)] scale-105 z-10"
@@ -711,18 +668,16 @@ function Identity(props: {
                 }`}
               >
                 {g === "m" ? t.common.male : g === "f" ? t.common.female : t.common.neutral}
-              </motion.button>
+              </button>
             ))}
           </div>
         </div>
       </div>
 
-      <motion.button
+      <button
         disabled={!ok}
         data-cursor="hover"
         onClick={props.onContinue}
-        whileHover={ok ? { scale: 1.02, boxShadow: "0 20px 40px -10px var(--accent-glow)" } : {}}
-        whileTap={ok ? { scale: 0.98 } : {}}
         className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-black italic tracking-tighter text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
       >
         <div className="absolute inset-0 overflow-hidden rounded-2xl bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -733,7 +688,7 @@ function Identity(props: {
             className="transition-transform duration-500 group-hover:translate-x-2"
           />
         </span>
-      </motion.button>
+      </button>
     </div>
   );
 }
@@ -877,20 +832,14 @@ function Reveal({
       <div className="absolute inset-0 bg-arch-glow blur-[12px] lg:blur-[160px] opacity-20 -z-10" />
       <div className="absolute inset-0 bg-black/35 -z-[5]" />
       <div className="text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ type: "spring", damping: 15, stiffness: 150 }}
+        <div
           className="mb-10 inline-block rounded-full bg-white/5 border border-white/10 px-8 py-3 text-xs font-black uppercase tracking-[0.5em] text-arch-primary shadow-2xl md:backdrop-blur-xl"
         >
           {t.reveal.kicker(name)}
-        </motion.div>
+        </div>
 
         {/* Spline 3-D brain + archetype icon centered on top of it */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.3 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", damping: 12, stiffness: 100, delay: 0.3 }}
+        <div
           className="mb-8 flex justify-center"
         >
           <div className="relative">
@@ -900,46 +849,36 @@ function Reveal({
                 speed={0.004}
               />
             </Suspense>
-            <motion.div
-              initial={{ opacity: 0, scale: 0, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 1, type: "spring", stiffness: 100 }}
+            <div
               className="pointer-events-none absolute left-1/2 -translate-x-1/2 -bottom-8 z-30"
             >
               <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-black/85 backdrop-blur-md border border-arch-primary/40 flex items-center justify-center shadow-[0_0_40px_var(--arch-glow)]">
                 <ArchetypeIcon arch={arch} className="h-8 w-8 sm:h-10 sm:w-10 text-arch-primary" />
               </div>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative pr-4 md:pr-8 pl-1 text-balance break-words">
           {/* Cinema explosion background */}
           <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
           <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
-          <motion.span
-            animate={{ opacity: [1, 0] }}
-            transition={{ repeat: Infinity, duration: 0.8 }}
+          <span
             className="text-arch-primary ml-[-0.05em]"
           >
             _
-          </motion.span>
+          </span>
         </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
+        <p
           className="mx-auto mt-12 max-w-3xl text-3xl md:text-5xl font-black text-foreground tracking-tighter uppercase italic"
         >
           {a.tagline}
-        </motion.p>
+        </p>
       </div>
 
       {leadError && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div
           className="mx-auto mt-12 max-w-2xl rounded-2xl border border-primary/40 bg-primary/5 p-6 md:backdrop-blur-md"
         >
           <div className="flex gap-4">
@@ -961,13 +900,10 @@ function Reveal({
               </button>
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      <div
         className="mx-auto mt-32 max-w-5xl rounded-[4rem] border border-white/5 bg-card/40 p-10 md:p-24 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl"
       >
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary to-transparent" />
@@ -981,17 +917,14 @@ function Reveal({
           {t.reveal.sub}
         </p>
 
-        <motion.div
-          variants={staggerContainer}
+        <div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
           className="grid gap-6"
         >
           {a.hooks.map((h, i) => (
-            <motion.div
+            <div
               key={i}
-              variants={staggerItem}
               className="flex gap-8 rounded-[2.5rem] border border-white/5 bg-background/50 p-8 md:p-12 transition-all hover:border-arch-primary/40 group relative overflow-hidden"
             >
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-arch-primary/10 text-arch-primary font-black text-2xl group-hover:bg-arch-primary group-hover:text-primary-foreground transition-all duration-500 shadow-xl border border-arch-primary/20">
@@ -1000,13 +933,11 @@ function Reveal({
               <p className="text-2xl text-foreground font-medium leading-relaxed tracking-tight self-center">
                 {h}
               </p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.button
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+        <button
           onClick={onContinue}
           className="group relative mt-24 w-full overflow-hidden rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
         >
@@ -1018,8 +949,8 @@ function Reveal({
               className="transition-transform duration-500 group-hover:translate-x-4"
             />
           </span>
-        </motion.button>
-      </motion.div>
+        </button>
+      </div>
     </section>
   );
 }
@@ -1040,8 +971,6 @@ function Sales({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const s = t.sales;
-  const reducedMotion = useReducedMotion();
-
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -1080,10 +1009,7 @@ function Sales({
               )}
             </h1>
           ) : (
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+            <h1
               className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter"
             >
               {s.h1(
@@ -1094,7 +1020,7 @@ function Sales({
                   </span>
                 ) as any,
               )}
-            </motion.h1>
+            </h1>
           )}
 
           {reducedMotion ? (
@@ -1102,15 +1028,11 @@ function Sales({
               {s.promise}
             </p>
           ) : (
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
+            <p
               className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto"
             >
               {s.promise}
-            </motion.p>
+            </p>
           )}
 
           {/* Video Placeholder Section */}
@@ -1203,16 +1125,11 @@ function Sales({
                 {s.science.pivot}
               </p>
               <div className="relative inline-block">
-                <motion.p
-                  animate={{
-                    scale: [1, 1.02, 1],
-                    filter: ["brightness(1)", "brightness(1.5)", "brightness(1)"],
-                  }}
-                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                <p
                   className="text-arch-primary font-black text-5xl md:text-9xl tracking-[ -0.05em] uppercase italic"
                 >
                   {s.science.solution}
-                </motion.p>
+                </p>
                 <div className="absolute -inset-4 bg-arch-primary/10 blur-3xl -z-10" />
               </div>
             </div>
@@ -1316,7 +1233,6 @@ function Plans({
 }) {
   const { t, currency, lang } = useI18n();
   const startCheckout = useServerFn(createCheckoutSession);
-  const reducedMotion = useReducedMotion();
   const [busy, setBusy] = useState<PlanKey | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const plans: PlanKey[] = ["30d", "6m", "1y"];
@@ -1357,55 +1273,44 @@ function Plans({
     <section className="py-12 md:py-32 max-w-7xl mx-auto px-4">
       <div className="text-center mb-20">
         {timeLeft > 0 && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+          <div
             className="mb-8 inline-flex items-center gap-3 rounded-xl bg-arch-primary/10 px-5 py-2.5 border border-arch-primary/20"
           >
             <span className="text-sm font-black uppercase tracking-widest text-arch-primary">
               {t.sales.timer} <span className="font-mono text-xl ml-2">{formatTime(timeLeft)}</span>
             </span>
-          </motion.div>
+          </div>
         )}
         {reducedMotion ? (
           <h2 className="font-display text-4xl font-extrabold md:text-7xl mb-6">
             {t.plans.title}
           </h2>
         ) : (
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <h2
             className="font-display text-4xl font-extrabold md:text-7xl mb-6"
           >
             {t.plans.title}
-          </motion.h2>
+          </h2>
         )}
         {reducedMotion ? (
           <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             {t.plans.sub}
           </p>
         ) : (
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
+          <p
             className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
             {t.plans.sub}
-          </motion.p>
+          </p>
         )}
       </div>
 
       {err && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+        <div
           className="mb-10 p-6 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-center font-bold"
         >
           {err}
-        </motion.div>
+        </div>
       )}
 
       <div className="grid gap-8 md:grid-cols-3">
@@ -1477,9 +1382,7 @@ function Plans({
                 ))}
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+              <button
                 disabled={busy !== null || !email}
                 onClick={() => choose(p)}
                 className={`group relative w-full overflow-hidden rounded-3xl py-8 text-2xl font-black italic tracking-tighter transition-all shadow-2xl ${
@@ -1499,7 +1402,7 @@ function Plans({
                     t.plans.chooseCta.toUpperCase()
                   )}
                 </span>
-              </motion.button>
+              </button>
             </MSection>
           );
         })}
