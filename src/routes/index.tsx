@@ -45,15 +45,23 @@ import {
   TopBar,
 } from "@/components/landing";
 
+const REDUCED_MOTION_MQ = "(hover: none) and (max-width: 1023px)";
 const useReducedMotion = () => {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia("(hover: none) and (max-width: 1023px)").matches;
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia(REDUCED_MOTION_MQ);
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return reduced;
 };
 
-let isMobileMotion = false;
-
 const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
-  if (isMobileMotion) return <div className={className} {...props}>{children}</div>;
+  const reducedMotion = useReducedMotion();
+  if (reducedMotion) return <div className={className} {...props}>{children}</div>;
   const { onAnimationStart: _oas, onAnimationEnd: _oae, onDragStart: _ods, onDragEnd: _ode, onDrag: _od, ...rest } = props;
   return (
     <motion.div
@@ -77,7 +85,8 @@ const MFade = ({
   y = 20,
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { delay?: number; y?: number }) => {
-  if (isMobileMotion) {
+  const reducedMotion = useReducedMotion();
+  if (reducedMotion) {
     const delayClass = delay <= 0 ? '' : delay <= 0.2 ? 'hero-fade-delay-1' : delay <= 0.4 ? 'hero-fade-delay-2' : delay <= 0.6 ? 'hero-fade-delay-3' : delay <= 1 ? 'hero-fade-delay-4' : delay <= 1.5 ? 'hero-fade-delay-5' : delay <= 2 ? 'hero-fade-delay-6' : 'hero-fade-delay-7';
     return (
       <div className={`hero-fade ${delayClass} ${className || ''}`} {...props}>
@@ -130,7 +139,6 @@ type Stage =
   | { kind: "plans" };
 
 function LandingAndQuiz() {
-  isMobileMotion = useReducedMotion();
   const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
 
