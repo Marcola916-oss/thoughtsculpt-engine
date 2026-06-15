@@ -271,24 +271,32 @@
 
 /* ─── Archetype Variations ───────────────────────────────── */
 [data-arch="AO"] {
-  --arch-primary: oklch(0.64 0.12 210);
-  --arch-accent: oklch(0.55 0.15 220);
-  --arch-glow: oklch(0.64 0.12 210 / 0.3);
+  /* Azul Petróleo */
+  --arch-primary: #2A8BA3;
+  --arch-accent: #0F4C5C;
+  --arch-glow: rgba(15, 76, 92, 0.45);
+  --arch-hex: #0F4C5C;
 }
 [data-arch="SS"] {
-  --arch-primary: oklch(0.75 0.12 85);
-  --arch-accent: oklch(0.85 0.1 95);
-  --arch-glow: oklch(0.75 0.12 85 / 0.4);
+  /* Roxo Vibrante */
+  --arch-primary: #9B4DC9;
+  --arch-accent: #6B2D8C;
+  --arch-glow: rgba(107, 45, 140, 0.5);
+  --arch-hex: #6B2D8C;
 }
 [data-arch="EA"] {
-  --arch-primary: oklch(0.7 0.05 280);
-  --arch-accent: oklch(0.6 0.04 290);
-  --arch-glow: oklch(0.7 0.05 280 / 0.25);
+  /* Laranja Queimado */
+  --arch-primary: #E8682B;
+  --arch-accent: #C44900;
+  --arch-glow: rgba(196, 73, 0, 0.45);
+  --arch-hex: #C44900;
 }
 [data-arch="HI"] {
-  --arch-primary: oklch(0.65 0.25 35);
-  --arch-accent: oklch(0.75 0.2 45);
-  --arch-glow: oklch(0.65 0.25 35 / 0.4);
+  /* Verde Esmeralda */
+  --arch-primary: #4CAF50;
+  --arch-accent: #2E7D32;
+  --arch-glow: rgba(46, 125, 50, 0.45);
+  --arch-hex: #2E7D32;
 }
 
 /* ─── Base layer ─────────────────────────────────────────── */

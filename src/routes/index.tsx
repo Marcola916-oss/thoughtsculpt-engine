@@ -33,7 +33,7 @@ import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
-import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain, ArchetypeRetroBrain } from "@/components/identity";
+import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain, ArchetypeRetroBrain, ArchetypeSplineBrain } from "@/components/identity";
 import {
   ProofBar,
   ArchetypeShowcase,
@@ -883,10 +883,10 @@ function Reveal({
           transition={{ type: "spring", damping: 12, stiffness: 100, delay: 0.3 }}
           className="mb-8 flex justify-center"
         >
-          <ArchetypeRetroBrain
+          <ArchetypeSplineBrain
             archetype={arch as "AO" | "SS" | "EA" | "HI"}
-            size={isMobileMotion ? 240 : 420}
-            speed={0.007}
+            size={isMobileMotion ? 280 : 460}
+            speed={0.004}
           />
         </motion.div>
 
