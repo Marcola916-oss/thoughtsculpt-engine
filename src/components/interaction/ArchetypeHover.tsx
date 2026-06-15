@@ -18,9 +18,9 @@
  *   </ArchetypeHover>
  */
 
-import { motion, useReducedMotion } from "framer-motion";
 import { useRef, useState, type ReactNode } from "react";
 import { useMousePosition } from "@/hooks/use-mouse-position";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 export type ArchetypeCode = "AO" | "SS" | "EA" | "HI";

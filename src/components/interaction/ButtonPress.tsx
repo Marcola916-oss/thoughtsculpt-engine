@@ -14,11 +14,16 @@
  *   <ButtonPress variant="ghost" disabled>Can't touch this</ButtonPress>
  */
 
-import { motion, useReducedMotion, type HTMLMotionProps } from "framer-motion";
-import { forwardRef, useRef, type ReactNode } from "react";
+import {
+  forwardRef,
+  useRef,
+  type ButtonHTMLAttributes,
+  type ReactNode,
+} from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
-export interface ButtonPressProps extends Omit<HTMLMotionProps<"button">, "ref"> {
+export interface ButtonPressProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Halo color. Default accent. */
   haloColor?: string;
   /** Halo radius in px. Default 90. */
@@ -64,9 +69,8 @@ export const ButtonPress = forwardRef<HTMLButtonElement, ButtonPressProps>(
     };
 
     return (
-      <motion.button
+      <button
         ref={setRefs}
-        whileTap={disabled || reducedMotion ? undefined : { scale: 0.97 }}
         data-cursor="hover"
         disabled={disabled}
         onMouseMove={(e) => {
@@ -77,7 +81,11 @@ export const ButtonPress = forwardRef<HTMLButtonElement, ButtonPressProps>(
           if (!disabled) updateHaloPosition(e);
           onMouseDown?.(e);
         }}
-        className={cn("button-press relative overflow-hidden", className)}
+        className={cn(
+          "button-press relative overflow-hidden",
+          !disabled && !reducedMotion && "button-press-tap",
+          className,
+        )}
         {...rest}
       >
         {children}
@@ -97,7 +105,7 @@ export const ButtonPress = forwardRef<HTMLButtonElement, ButtonPressProps>(
             }
           />
         )}
-      </motion.button>
+      </button>
     );
   },
 );
