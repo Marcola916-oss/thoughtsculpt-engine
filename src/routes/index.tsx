@@ -433,6 +433,18 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
+  // Gate the 3 desktop-only floating badges by an actual media query so the
+  // framer-motion subscriptions don't run idle on mobile (display:none alone
+  // does NOT stop framer's rAF loop).
+  const [isLg, setIsLg] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    setIsLg(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsLg(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
   return (
     <section className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center items-center text-center overflow-x-hidden px-4 md:px-6" style={{ marginLeft: "-12px", marginRight: "-12px", marginTop: "-50px", marginBottom: "-50px" }}>
       {/* Dynamic Aura Background */}
