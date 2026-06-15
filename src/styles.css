@@ -1288,15 +1288,20 @@
    Palavras longas devem ir inteiras para a próxima linha.
    Exceções: e-mails, tokens e URLs podem usar `.break-all`
    ou `.allow-break-all` explicitamente. */
-:where(body, h1, h2, h3, h4, h5, h6, p, span, a, li, label, button, blockquote, figcaption, dt, dd) {
-  overflow-wrap: normal;
-  word-break: normal;
-  hyphens: none;
+html body,
+html body h1, html body h2, html body h3, html body h4, html body h5, html body h6,
+html body p, html body span, html body a, html body li, html body label,
+html body button, html body blockquote, html body figcaption, html body dt, html body dd,
+html body div {
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
 }
 /* Re-permitir quebras em strings sem espaço (emails, tokens, URLs)
    quando explicitamente marcadas. */
-.break-all,
-.allow-break-all {
+html body .break-all,
+html body .allow-break-all {
   overflow-wrap: anywhere !important;
   word-break: break-all !important;
+  hyphens: none !important;
 }
