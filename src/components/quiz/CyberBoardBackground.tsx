@@ -6,6 +6,12 @@ interface CyberBoardBackgroundProps {
 
 export function CyberBoardBackground({ progress }: CyberBoardBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const progressRef = useRef(progress);
+
+  // Keep latest progress accessible to the rAF loop without re-creating it.
+  useEffect(() => {
+    progressRef.current = progress;
+  }, [progress]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -114,7 +120,8 @@ export function CyberBoardBackground({ progress }: CyberBoardBackgroundProps) {
 
       // Update and draw pulses
       // More pulses spawn as progress increases
-      const spawnRate = progress < 100 ? 0.2 + (progress / 100) * 0.5 : 0.05;
+      const prog = progressRef.current;
+      const spawnRate = prog < 100 ? 0.2 + (prog / 100) * 0.5 : 0.05;
       if (Math.random() < spawnRate) {
         spawnPulse();
       }
@@ -154,24 +161,22 @@ export function CyberBoardBackground({ progress }: CyberBoardBackgroundProps) {
         ctx.beginPath();
         ctx.moveTo(tail.x, tail.y);
         ctx.lineTo(head.x, head.y);
-        
-        // Create glowing gradient for the pulse
+
+        // Cheap fake-glow: a wide low-alpha stroke under the sharp core.
+        // Replaces ctx.shadowBlur which forces CPU-side rasterization on Android.
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "rgba(204, 0, 0, 0.25)";
+        ctx.lineWidth = 8;
+        ctx.stroke();
+
+        // Sharp core with the original gradient (white leading edge → red tail).
         const grad = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
         grad.addColorStop(0, "rgba(204, 0, 0, 0)");
         grad.addColorStop(0.8, "rgba(204, 0, 0, 0.8)");
-        grad.addColorStop(1, "rgba(255, 255, 255, 1)"); // Bright white leading edge
-
+        grad.addColorStop(1, "rgba(255, 255, 255, 1)");
         ctx.strokeStyle = grad;
         ctx.lineWidth = 3;
-        ctx.lineCap = "round";
-        
-        // Add glow effect
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "rgba(204, 0, 0, 1)";
         ctx.stroke();
-        
-        // Reset shadow
-        ctx.shadowBlur = 0;
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -183,7 +188,7 @@ export function CyberBoardBackground({ progress }: CyberBoardBackgroundProps) {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [progress]);
+  }, []);
 
   return (
     <canvas
