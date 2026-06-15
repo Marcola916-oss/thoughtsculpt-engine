@@ -25,4 +25,5 @@ export { ArchetypeRevealArt } from "./ArchetypeRevealArt";
 export { CelebrationBrain } from "./CelebrationBrain";
 export { ArchetypeRetroBrain } from "./ArchetypeRetroBrain";
 export type { ArchetypeRetroBrainProps, ArchetypeKey } from "./ArchetypeRetroBrain";
+export { ArchetypeSplineBrain } from "./ArchetypeSplineBrain";
 export type { CircuitBrainProps, CircuitBrainVariant, BrainStyle } from "./CircuitBrain";
