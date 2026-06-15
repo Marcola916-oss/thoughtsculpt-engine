@@ -1442,3 +1442,48 @@ html body .allow-break-all {
   .button-press-tap { transition: none; }
   .button-press-tap:active { transform: none; }
 }
+
+/* Phase F — quiz stage + loader messages/logs (CSS-only, no framer) */
+@keyframes quiz-stage-enter {
+  from { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.97); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+.quiz-stage-enter {
+  animation: quiz-stage-enter 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes loader-msg-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.loader-msg-enter {
+  animation: loader-msg-enter 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes loader-log-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.loader-log-enter {
+  animation: loader-log-enter 240ms ease-out both;
+}
+.loader-progress-bar {
+  transition: width 120ms linear;
+}
+.quiz-progress-bar {
+  transition: width 480ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .quiz-stage-enter,
+  .loader-msg-enter,
+  .loader-log-enter { animation: none; }
+  .loader-progress-bar,
+  .quiz-progress-bar { transition: none; }
+}
+
+.quiz-back-btn {
+  transition: transform 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out;
+}
+.quiz-back-btn:hover { transform: translateX(-2px) scale(1.1); }
+.quiz-back-btn:active { transform: scale(0.9); }
+@media (prefers-reduced-motion: reduce) {
+  .quiz-back-btn, .quiz-back-btn:hover, .quiz-back-btn:active { transform: none; transition: none; }
+}

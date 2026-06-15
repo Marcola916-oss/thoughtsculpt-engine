@@ -11,7 +11,6 @@
  * - Calls onComplete after `durationMs`
  */
 
-import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
@@ -107,31 +106,21 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
       {/* Horizontal progress bar */}
       <div className="w-full max-w-md mb-8 z-10">
         <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden shadow-inner relative">
-          <motion.div
-            className="h-full bg-gradient-to-r from-primary via-primary to-white/90 rounded-full"
+          <div
+            className="loader-progress-bar h-full bg-gradient-to-r from-primary via-primary to-white/90 rounded-full"
             style={{
               width: `${progress}%`,
               boxShadow: "0 0 12px rgba(204,0,0,0.8), 0 0 24px rgba(255,255,255,0.4)",
             }}
-            transition={{ ease: "linear" }}
           />
         </div>
       </div>
 
       {/* Main cycling message */}
       <div className="h-8 overflow-hidden mb-8 w-full">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={msgIndex}
-            className="text-lg font-semibold text-foreground"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {msgs[msgIndex]}
-          </motion.p>
-        </AnimatePresence>
+        <p key={msgIndex} className="loader-msg-enter text-lg font-semibold text-foreground">
+          {msgs[msgIndex]}
+        </p>
       </div>
 
       {/* Technical Data Stream */}
@@ -141,24 +130,15 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
           <span className="text-[9px] opacity-50">v3.0.0</span>
         </div>
         <div className="h-10 overflow-hidden relative">
-          <AnimatePresence mode="popLayout">
-            <motion.div
-              key={logIndex}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="space-y-1"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-primary font-bold">[SYS]</span>
-                <span>{logs[logIndex]}</span>
-              </div>
-              <div className="opacity-30 text-[9px] truncate">
-                {`0x${(100000 + logIndex * 4096).toString(16).toUpperCase()} // ${new Date().toISOString().slice(11, 19)}`}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          <div key={logIndex} className="loader-log-enter space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-primary font-bold">[SYS]</span>
+              <span>{logs[logIndex]}</span>
+            </div>
+            <div className="opacity-30 text-[9px] truncate">
+              {`0x${(100000 + logIndex * 4096).toString(16).toUpperCase()} // ${new Date().toISOString().slice(11, 19)}`}
+            </div>
+          </div>
         </div>
       </div>
     </section>
