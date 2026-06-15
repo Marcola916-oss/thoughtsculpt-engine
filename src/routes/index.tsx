@@ -901,13 +901,13 @@ function Reveal({
               speed={0.004}
             />
             <motion.div
-              initial={{ opacity: 0, scale: 0, y: 20 }}
+              initial={{ opacity: 0, scale: 0, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 1, type: "spring", stiffness: 100 }}
-              className="pointer-events-none absolute inset-0 z-30 grid place-items-center"
+              className="pointer-events-none absolute left-1/2 -translate-x-1/2 -bottom-8 z-30"
             >
-              <div className="h-20 w-20 rounded-full bg-black/80 backdrop-blur-md border border-arch-primary/30 flex items-center justify-center shadow-[0_0_40px_var(--arch-glow)]">
-                <ArchetypeIcon arch={arch} className="h-10 w-10 text-arch-primary" />
+              <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-black/85 backdrop-blur-md border border-arch-primary/40 flex items-center justify-center shadow-[0_0_40px_var(--arch-glow)]">
+                <ArchetypeIcon arch={arch} className="h-8 w-8 sm:h-10 sm:w-10 text-arch-primary" />
               </div>
             </motion.div>
           </div>
