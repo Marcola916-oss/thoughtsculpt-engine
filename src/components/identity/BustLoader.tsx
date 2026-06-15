@@ -14,7 +14,6 @@
  * Calls onComplete after `durationMs`. Honours prefers-reduced-motion.
  */
 
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { MarbleBust } from "./MarbleBust";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
@@ -164,18 +163,9 @@ export function BustLoader({
 
       {/* Main cycling message */}
       <div className="h-8 overflow-hidden mb-8 w-full">
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={msgIndex}
-            className="text-lg font-semibold text-foreground"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {msgs[msgIndex]}
-          </motion.p>
-        </AnimatePresence>
+        <p key={msgIndex} className="loader-msg-enter text-lg font-semibold text-foreground">
+          {msgs[msgIndex]}
+        </p>
       </div>
 
       {/* Technical Data Stream */}
@@ -187,24 +177,15 @@ export function BustLoader({
           <span className="text-[9px] opacity-50">v3.0.0</span>
         </div>
         <div className="h-14 overflow-hidden relative">
-          <AnimatePresence mode="popLayout">
-            <motion.div
-              key={logIndex}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-1.5"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-primary font-bold">{`[SYS]`}</span>
-                <span>{logs[logIndex]}</span>
-              </div>
-              <div className="opacity-40 text-[10px] truncate">
-                {`ADDR: 0x${(100000 + logIndex * 4096).toString(16).toUpperCase()} // TIME: ${new Date().toISOString()}`}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          <div key={logIndex} className="loader-log-enter space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="text-primary font-bold">{`[SYS]`}</span>
+              <span>{logs[logIndex]}</span>
+            </div>
+            <div className="opacity-40 text-[10px] truncate">
+              {`ADDR: 0x${(100000 + logIndex * 4096).toString(16).toUpperCase()} // TIME: ${new Date().toISOString()}`}
+            </div>
+          </div>
         </div>
       </div>
     </section>

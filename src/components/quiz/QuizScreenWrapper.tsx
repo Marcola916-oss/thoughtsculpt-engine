@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import React from "react";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
@@ -34,15 +33,14 @@ export function QuizScreenWrapper({
         <div className="flex justify-between items-end mb-3">
           <div className="flex items-center gap-3">
             {onBack && (
-              <motion.button
-                whileHover={{ scale: 1.1, x: -2 }}
-                whileTap={{ scale: 0.9 }}
+              <button
+                type="button"
                 onClick={onBack}
-                className="p-2 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition text-muted-foreground hover:text-foreground"
+                className="quiz-back-btn p-2 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 text-muted-foreground hover:text-foreground"
                 aria-label={t.common.back}
               >
                 <ChevronLeft className="h-5 w-5" />
-              </motion.button>
+              </button>
             )}
             {progressTitle && (
               <span className="text-[11px] font-black uppercase tracking-[0.3em] text-primary drop-shadow-[0_0_8px_var(--accent-glow)]">
@@ -55,32 +53,18 @@ export function QuizScreenWrapper({
           </span>
         </div>
         <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 p-[1px]">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${visualProgress}%` }}
-            transition={{ type: "spring", damping: 25, stiffness: 120 }}
-            className="h-full bg-gradient-to-r from-primary to-accent rounded-full shadow-[0_0_15px_var(--accent-glow)]"
+          <div
+            className="quiz-progress-bar h-full bg-gradient-to-r from-primary to-accent rounded-full shadow-[0_0_15px_var(--accent-glow)]"
+            style={{ width: `${visualProgress}%` }}
           />
         </div>
       </div>
 
       {/* Content transition container */}
       <div className="w-full flex-1 flex flex-col justify-center relative z-10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={stepKey}
-            initial={{ opacity: 0, scale: 0.95, y: 10, rotateX: 5 }}
-            animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
-            exit={{ opacity: 0, scale: 1.05, y: -10, rotateX: -5 }}
-            transition={{ 
-              duration: 0.5, 
-              ease: [0.16, 1, 0.3, 1]
-            }}
-            className="w-full flex flex-col justify-center"
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
+        <div key={stepKey} className="quiz-stage-enter w-full flex flex-col justify-center">
+          {children}
+        </div>
       </div>
     </div>
   );
