@@ -1069,6 +1069,7 @@ function Sales({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const s = t.sales;
+  const reducedMotion = useReducedMotion();
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -1344,6 +1345,7 @@ function Plans({
 }) {
   const { t, currency, lang } = useI18n();
   const startCheckout = useServerFn(createCheckoutSession);
+  const reducedMotion = useReducedMotion();
   const [busy, setBusy] = useState<PlanKey | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const plans: PlanKey[] = ["30d", "6m", "1y"];
