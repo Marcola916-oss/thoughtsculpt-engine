@@ -25,10 +25,6 @@ const SYMBOL_SLOTS = [
 export function GlobalAmbient() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const tier = useDeviceTier();
-  // The landing route (/) renders its own <Atmosphere> wrapper for the hero,
-  // which already provides fog + symbols + scanlines. Skipping GlobalAmbient
-  // here removes duplicated full-viewport blur/animation layers.
-  if (pathname === "/") return null;
   // On low-tier devices (mobile/touch), render a much cheaper version:
   // no animated symbols, no scanbeam — just the static mesh background.
   const isLow = tier === "low";
