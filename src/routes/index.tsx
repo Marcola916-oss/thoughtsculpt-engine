@@ -441,6 +441,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
+  const reducedMotion = useReducedMotion();
   // Gate the 3 desktop-only floating badges by an actual media query so the
   // framer-motion subscriptions don't run idle on mobile (display:none alone
   // does NOT stop framer's rAF loop).
