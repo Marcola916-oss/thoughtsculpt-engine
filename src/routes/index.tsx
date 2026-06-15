@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import { useServerFn } from "@tanstack/react-start";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle2,
   Lock,
@@ -31,7 +30,6 @@ import { createCheckoutSession } from "../lib/checkout.functions";
 import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
-import { staggerContainer, staggerItem } from "../lib/animations";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 const ArchetypeSplineBrain = lazy(() =>
@@ -48,7 +46,7 @@ import {
   TopBar,
 } from "@/components/landing";
 
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
+// (Phase F) framer-motion removed — all animations are CSS-only.
 
 /** Scroll-reveal section — CSS-only, GPU-composited. Observer in __root adds .is-visible. */
 const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
