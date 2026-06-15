@@ -21,11 +21,11 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
       <Reveal
         variant="scale-spring"
         amount={0.3}
-        className="relative z-10 mx-auto max-w-3xl px-6 text-center"
+        className="relative z-10 mx-auto max-w-4xl px-6 text-center"
       >
         <h2
           id="final-cta-title"
-          className="font-display text-[clamp(2rem,9vw,3rem)] font-black italic uppercase leading-[0.95] tracking-[-0.05em] text-foreground md:text-7xl lg:text-8xl text-balance pr-2"
+          className="font-display text-[clamp(1.85rem,8vw,5.25rem)] font-black italic uppercase leading-[0.95] tracking-[-0.05em] text-foreground text-balance"
         >
           {c.titleBefore}
           <span className="text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)]">{c.titleHighlight}</span>
