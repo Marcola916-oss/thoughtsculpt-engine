@@ -375,10 +375,10 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
   }, []);
 
   return (
-    
+    <>
       {visible && (
         <div
-          className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
+          className="anim-slide-up fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
         >
           <button
             onClick={onClick}
@@ -388,7 +388,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
           </button>
         </div>
       )}
-    
+    </>
   );
 }
 
