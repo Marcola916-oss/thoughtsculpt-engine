@@ -885,7 +885,7 @@ function Reveal({
         >
           <ArchetypeSplineBrain
             archetype={arch as "AO" | "SS" | "EA" | "HI"}
-            size={isMobileMotion ? 280 : 460}
+            size={isMobileMotion ? 360 : 580}
             speed={0.004}
           />
         </motion.div>
