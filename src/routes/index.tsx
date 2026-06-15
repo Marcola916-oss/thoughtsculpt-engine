@@ -403,7 +403,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
       const threshold = window.innerWidth < 768 ? 800 : 1200;
       setVisible(window.scrollY > threshold);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
