@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import { useServerFn } from "@tanstack/react-start";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
@@ -33,7 +33,10 @@ import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { staggerContainer, staggerItem } from "../lib/animations";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
-import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain, ArchetypeRetroBrain, ArchetypeSplineBrain } from "@/components/identity";
+import { CircuitBrain } from "@/components/identity/CircuitBrain";
+const ArchetypeSplineBrain = lazy(() =>
+  import("@/components/identity/ArchetypeSplineBrain").then((m) => ({ default: m.ArchetypeSplineBrain })),
+);
 import {
   ProofBar,
   ArchetypeShowcase,
@@ -925,10 +928,12 @@ function Reveal({
           className="mb-8 flex justify-center"
         >
           <div className="relative">
-            <ArchetypeSplineBrain
-              archetype={arch as "AO" | "SS" | "EA" | "HI"}
-              speed={0.004}
-            />
+            <Suspense fallback={<CircuitBrain variant="hero" />}>
+              <ArchetypeSplineBrain
+                archetype={arch as "AO" | "SS" | "EA" | "HI"}
+                speed={0.004}
+              />
+            </Suspense>
             <motion.div
               initial={{ opacity: 0, scale: 0, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}

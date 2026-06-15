@@ -6,7 +6,8 @@ import { getMyProfile, updateProfileSettings, changePassword } from "../../lib/p
 import { createCustomerPortalSession } from "../../lib/checkout.functions";
 import { ARCHETYPE_NAMES, type Archetype } from "../../lib/ai/archetypes";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
-import { Logo, CircuitBrain } from "@/components/identity";
+import { Logo } from "@/components/identity/Logo";
+import { CircuitBrain } from "@/components/identity/CircuitBrain";
 
 export const Route = createFileRoute("/_authenticated/dashboard/settings")({
   head: () => ({ meta: [{ title: "Settings — MindReset" }] }),
