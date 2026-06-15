@@ -1,5 +1,10 @@
 import { useEffect } from "react";
 
+type RevealWindow = {
+  __revealObserver?: IntersectionObserver;
+  __revealMutationObserver?: MutationObserver;
+};
+
 /**
  * Sets up a single global IntersectionObserver for CSS-based scroll reveals.
  *
@@ -16,7 +21,8 @@ export function useScrollReveal() {
     if (typeof window === "undefined") return;
 
     // Prevent double-initialization
-    if ((window as { __revealObserver?: IntersectionObserver }).__revealObserver) return;
+    const w = window as RevealWindow;
+    if (w.__revealObserver) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -33,15 +39,37 @@ export function useScrollReveal() {
       },
     );
 
+    const observe = (el: Element) => {
+      if (el.hasAttribute("data-reveal-observed")) return;
+      el.setAttribute("data-reveal-observed", "");
+      observer.observe(el);
+    };
+
     // Observe all current .reveal elements
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+    document.querySelectorAll(".reveal").forEach(observe);
+
+    // Watch for .reveal elements added later (quiz stages, route changes, etc.).
+    // Without this, dynamically mounted .reveal nodes stay invisible forever on mobile.
+    const mo = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        m.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          if (node.matches?.(".reveal")) observe(node);
+          node.querySelectorAll?.(".reveal").forEach(observe);
+        });
+      }
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
 
     // Store for cleanup
-    (window as { __revealObserver?: IntersectionObserver }).__revealObserver = observer;
+    w.__revealObserver = observer;
+    w.__revealMutationObserver = mo;
 
     return () => {
       observer.disconnect();
-      delete (window as { __revealObserver?: IntersectionObserver }).__revealObserver;
+      mo.disconnect();
+      delete w.__revealObserver;
+      delete w.__revealMutationObserver;
     };
   }, []);
 }
