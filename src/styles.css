@@ -1380,3 +1380,28 @@ html body .allow-break-all {
     background-position: 0 0 !important;
   }
 }
+
+/* Fase D — HologramRing rotation as compositor-only CSS (was framer motion) */
+@keyframes hologram-spin-cw  { to { transform: rotate(360deg); } }
+@keyframes hologram-spin-ccw { to { transform: rotate(-360deg); } }
+.hologram-spin-cw  { animation: hologram-spin-cw 8s linear infinite;  transform-origin: center; }
+.hologram-spin-ccw { animation: hologram-spin-ccw 12s linear infinite; transform-origin: center; }
+@media (prefers-reduced-motion: reduce) {
+  .hologram-spin-cw, .hologram-spin-ccw { animation: none !important; }
+}
+
+/* Fase D — BustLoader orbital particles (was 6 motion.div / framer subs) */
+@keyframes bust-orbital-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%      { opacity: 0.9; transform: scale(1.3); }
+}
+.bust-orbital {
+  animation: bust-orbital-pulse 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bust-orbital { animation: none !important; opacity: 0.6; }
+}
+@media (hover: none), (max-width: 767px) {
+  .bust-orbital { animation: none !important; opacity: 0.6; will-change: auto; }
+}
