@@ -559,7 +559,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
             <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">{keyword}</span>
-            {isMobileMotion ? (
+            {reducedMotion ? (
               <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
             ) : (
               <motion.span
@@ -586,7 +586,7 @@ function Hero({ onStart }: { onStart: () => void }) {
           </>
         );
 
-        if (isMobileMotion) {
+        if (reducedMotion) {
           return (
             <h1 className={`hero-fade hero-fade-delay-2 ${headlineClass}`} style={headlineStyle}>
               {content}
@@ -1096,7 +1096,7 @@ function Sales({
             </span>
           </MSection>
 
-          {isMobileMotion ? (
+          {reducedMotion ? (
             <h1 className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter">
               {s.h1(
                 name,
@@ -1125,7 +1125,7 @@ function Sales({
             </motion.h1>
           )}
 
-          {isMobileMotion ? (
+          {reducedMotion ? (
             <p className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto">
               {s.promise}
             </p>
@@ -1394,7 +1394,7 @@ function Plans({
             </span>
           </motion.div>
         )}
-        {isMobileMotion ? (
+        {reducedMotion ? (
           <h2 className="font-display text-4xl font-extrabold md:text-7xl mb-6">
             {t.plans.title}
           </h2>
@@ -1408,7 +1408,7 @@ function Plans({
             {t.plans.title}
           </motion.h2>
         )}
-        {isMobileMotion ? (
+        {reducedMotion ? (
           <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             {t.plans.sub}
           </p>
