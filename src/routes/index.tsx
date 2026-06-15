@@ -217,18 +217,17 @@ function LandingAndQuiz() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage.kind]);
 
-  // Preload the 3D brain (Spline runtime + scene file) as soon as the user
-  // reaches the email capture stage, so it's ready by the time the reveal
-  // screen mounts.
+  // Preload the 3D brain (Spline runtime + scene file) as soon as the page
+  // mounts, so it's already in cache by the time the reveal screen renders —
+  // regardless of which stage the user enters from.
   useEffect(() => {
-    if (stage.kind !== "email" && stage.kind !== "loader") return;
     import("@splinetool/react-spline").catch(() => {});
     try {
       fetch("/brain.splinecode", { credentials: "omit" }).catch(() => {});
     } catch {
       /* noop */
     }
-  }, [stage.kind]);
+  }, []);
 
   return (
     <div
