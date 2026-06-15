@@ -526,7 +526,8 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto w-full max-w-5xl font-display text-[clamp(1.75rem,6.5vw,2.75rem)] md:!text-[45px] font-black leading-[1.15] tracking-[0em] uppercase italic px-4 md:px-8 text-center text-balance break-words";
+        const headlineClass = "relative mx-auto w-full max-w-5xl font-display md:!text-[45px] font-black leading-[1.15] tracking-[0em] uppercase italic px-4 md:px-8 text-center text-balance break-words";
+        const headlineStyle = { fontSize: "clamp(1.75rem, 6.5vw, 2.75rem)" };
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
@@ -560,7 +561,7 @@ function Hero({ onStart }: { onStart: () => void }) {
 
         if (isMobileMotion) {
           return (
-            <h1 className={`hero-fade hero-fade-delay-2 ${headlineClass}`}>
+            <h1 className={`hero-fade hero-fade-delay-2 ${headlineClass}`} style={headlineStyle}>
               {content}
             </h1>
           );
@@ -571,6 +572,7 @@ function Hero({ onStart }: { onStart: () => void }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className={headlineClass}
+              style={headlineStyle}
           >
             {content}
           </motion.h1>
