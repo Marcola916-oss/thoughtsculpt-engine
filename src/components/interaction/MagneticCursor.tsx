@@ -18,8 +18,22 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+
+/** Native matchMedia-based reduced-motion hook. Avoids pulling framer-motion
+ *  into the root chunk just to read a media query. */
+function useReducedMotionNative() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return reduced;
+}
 
 export interface MagneticCursorProps {
   /** Cursor diameter in pixels. Default 18. */
@@ -61,7 +75,7 @@ export function MagneticCursor({
   const isPressed = useRef(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useReducedMotionNative();
 
   useEffect(() => {
     setIsMounted(true);
