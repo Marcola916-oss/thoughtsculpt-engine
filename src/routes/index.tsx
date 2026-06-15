@@ -494,13 +494,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
             <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">{keyword}</span>
-            {reducedMotion ? (
-              <span className="hero-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
-            ) : (
-              <span
-                className="absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]"
-              />
-            )}
+            <span className="anim-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
           </span>
         ) : null;
 
@@ -518,17 +512,10 @@ function Hero({ onStart }: { onStart: () => void }) {
           </>
         );
 
-        if (reducedMotion) {
-          return (
-            <h1 className={`hero-fade hero-fade-delay-2 ${headlineClass}`} style={headlineStyle}>
-              {content}
-            </h1>
-          );
-        }
         return (
           <h1
-            className={headlineClass}
-              style={headlineStyle}
+            className={`anim-fade-in-up delay-300 ${headlineClass}`}
+            style={headlineStyle}
           >
             {content}
           </h1>
@@ -918,14 +905,12 @@ function Reveal({
         </p>
 
         <div
-          initial="hidden"
-          whileInView="visible"
-          className="grid gap-6"
+          className="grid gap-6 reveal-group"
         >
           {a.hooks.map((h, i) => (
             <div
               key={i}
-              className="flex gap-8 rounded-[2.5rem] border border-white/5 bg-background/50 p-8 md:p-12 transition-all hover:border-arch-primary/40 group relative overflow-hidden"
+              className="reveal flex gap-8 rounded-[2.5rem] border border-white/5 bg-background/50 p-8 md:p-12 transition-all hover:border-arch-primary/40 group relative overflow-hidden"
             >
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-arch-primary/10 text-arch-primary font-black text-2xl group-hover:bg-arch-primary group-hover:text-primary-foreground transition-all duration-500 shadow-xl border border-arch-primary/20">
                 {i + 1}
@@ -997,43 +982,20 @@ function Sales({
             </span>
           </MSection>
 
-          {reducedMotion ? (
-            <h1 className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter">
-              {s.h1(
-                name,
-                (
-                  <span className="text-arch-primary underline decoration-arch-primary/30 underline-offset-8 italic">
-                    {a.name}
-                  </span>
-                ) as any,
-              )}
-            </h1>
-          ) : (
-            <h1
-              className="font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter"
-            >
-              {s.h1(
-                name,
-                (
-                  <span className="text-arch-primary underline decoration-arch-primary/30 underline-offset-8 italic">
-                    {a.name}
-                  </span>
-                ) as any,
-              )}
-            </h1>
-          )}
+          <h1 className="reveal font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter">
+            {s.h1(
+              name,
+              (
+                <span className="text-arch-primary underline decoration-arch-primary/30 underline-offset-8 italic">
+                  {a.name}
+                </span>
+              ) as any,
+            )}
+          </h1>
 
-          {reducedMotion ? (
-            <p className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-              {s.promise}
-            </p>
-          ) : (
-            <p
-              className="mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto"
-            >
-              {s.promise}
-            </p>
-          )}
+          <p className="reveal mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+            {s.promise}
+          </p>
 
           {/* Video Placeholder Section */}
           <MSection
@@ -1281,28 +1243,12 @@ function Plans({
             </span>
           </div>
         )}
-        {reducedMotion ? (
-          <h2 className="font-display text-4xl font-extrabold md:text-7xl mb-6">
-            {t.plans.title}
-          </h2>
-        ) : (
-          <h2
-            className="font-display text-4xl font-extrabold md:text-7xl mb-6"
-          >
-            {t.plans.title}
-          </h2>
-        )}
-        {reducedMotion ? (
-          <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            {t.plans.sub}
-          </p>
-        ) : (
-          <p
-            className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-          >
-            {t.plans.sub}
-          </p>
-        )}
+        <h2 className="reveal font-display text-4xl font-extrabold md:text-7xl mb-6">
+          {t.plans.title}
+        </h2>
+        <p className="reveal mt-4 text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          {t.plans.sub}
+        </p>
       </div>
 
       {err && (
