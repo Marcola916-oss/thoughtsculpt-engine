@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/interaction/Reveal";
@@ -37,38 +38,35 @@ export function HowItWorks() {
         amount={0.3}
       >
         {w.steps.map((step, i) => (
-          <Reveal
-            key={i}
-            variant="fade-up"
-            className="group relative flex flex-col items-center text-center"
-          >
-            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-arch-primary/40 bg-arch-primary/[0.04] font-display text-3xl font-black italic text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground group-hover:rotate-6">
-              {i + 1}
-            </div>
-            <h3 className="mb-3 font-display text-xl font-black uppercase italic tracking-tight text-foreground group-hover:text-arch-primary transition-colors whitespace-pre-wrap">{step.title}</h3>
-            <p className="max-w-[220px] text-[15px] font-medium leading-relaxed text-white/60 group-hover:text-white/90 transition-colors drop-shadow-md">
-              {step.desc}
-            </p>
-          </Reveal>
+          <Fragment key={i}>
+            <Reveal
+              variant="fade-up"
+              className="group relative flex flex-col items-center text-center"
+            >
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-arch-primary/40 bg-arch-primary/[0.04] font-display text-3xl font-black italic text-arch-primary shadow-[0_0_22px_-6px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:bg-arch-primary group-hover:text-primary-foreground group-hover:rotate-6">
+                {i + 1}
+              </div>
+              <h3 className="mb-3 font-display text-xl font-black uppercase italic tracking-tight text-foreground group-hover:text-arch-primary transition-colors whitespace-pre-wrap">{step.title}</h3>
+              <p className="max-w-[220px] text-[15px] font-medium leading-relaxed text-white/60 group-hover:text-white/90 transition-colors drop-shadow-md">
+                {step.desc}
+              </p>
+            </Reveal>
+            {i < w.steps.length - 1 && (
+              <>
+                <div
+                  aria-hidden
+                  className="hidden items-center text-white/15 md:flex md:self-start md:pt-8"
+                >
+                  <ArrowRight className="h-7 w-7" strokeWidth={1.5} />
+                </div>
+                <div
+                  aria-hidden
+                  className="mx-auto flex h-8 w-px items-center justify-center bg-gradient-to-b from-transparent via-white/15 to-transparent md:hidden"
+                />
+              </>
+            )}
+          </Fragment>
         ))}
-
-        <div
-          aria-hidden
-          className="hidden items-center self-center text-white/15 md:flex md:self-start md:pt-3"
-        >
-          <ArrowRight className="h-7 w-7" strokeWidth={1.5} />
-        </div>
-        <div
-          aria-hidden
-          className="hidden items-center self-center text-white/15 md:flex md:self-start md:pt-3"
-        >
-          <ArrowRight className="h-7 w-7" strokeWidth={1.5} />
-        </div>
-
-        <div
-          aria-hidden
-          className="mx-auto flex h-8 w-px items-center justify-center bg-gradient-to-b from-transparent via-white/15 to-transparent md:hidden"
-        />
       </Reveal.Group>
     </section>
   );
