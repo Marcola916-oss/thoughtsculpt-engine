@@ -217,17 +217,19 @@ function LandingAndQuiz() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [stage.kind]);
 
-  // Preload the 3D brain (Spline runtime + scene file) as soon as the page
-  // mounts, so it's already in cache by the time the reveal screen renders —
-  // regardless of which stage the user enters from.
+  // Preload the 3D brain (Spline runtime + scene file) only after the user
+  // commits to finishing the quiz (reaches the email stage). This saves
+  // ~860KB of download for visitors who never reach the reveal screen,
+  // while still giving the asset 5-10s to land in cache before reveal.
   useEffect(() => {
+    if (stage.kind !== "email") return;
     import("@splinetool/react-spline").catch(() => {});
     try {
       fetch("/brain.splinecode", { credentials: "omit" }).catch(() => {});
     } catch {
       /* noop */
     }
-  }, []);
+  }, [stage.kind]);
 
   return (
     <div
