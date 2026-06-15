@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { useScroll, motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/identity/Logo";
@@ -11,13 +11,13 @@ export function TopBar() {
   const { t } = useI18n();
   const tier = useDeviceTier();
   const [scrolled, setScrolled] = useState(false);
-  const { scrollY } = useScroll();
 
   useEffect(() => {
-    return scrollY.onChange((latest) => {
-      setScrolled(latest > 20);
-    });
-  }, [scrollY]);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll(); // sync initial state
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header

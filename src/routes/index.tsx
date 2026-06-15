@@ -403,7 +403,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
       const threshold = window.innerWidth < 768 ? 800 : 1200;
       setVisible(window.scrollY > threshold);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -433,6 +433,18 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
+  // Gate the 3 desktop-only floating badges by an actual media query so the
+  // framer-motion subscriptions don't run idle on mobile (display:none alone
+  // does NOT stop framer's rAF loop).
+  const [isLg, setIsLg] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    setIsLg(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsLg(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
   return (
     <section className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center items-center text-center overflow-x-hidden px-4 md:px-6" style={{ marginLeft: "-12px", marginRight: "-12px", marginTop: "-50px", marginBottom: "-50px" }}>
       {/* Dynamic Aura Background */}
@@ -453,46 +465,50 @@ function Hero({ onStart }: { onStart: () => void }) {
         </span>
       </MFade>
 
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 0.8, x: 0, y: [0, -18, 0] }}
-        transition={{ 
-          opacity: { duration: 1 },
-          x: { duration: 1 },
-          y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 } 
-        }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-bold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
-      >
-        <Star className="h-3.5 w-3.5" />
-        {t.archetypes?.SS?.name || "O Pav├úo"}
-      </motion.div>
+      {isLg && (
+        <>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 0.8, x: 0, y: [0, -18, 0] }}
+            transition={{
+              opacity: { duration: 1 },
+              x: { duration: 1 },
+              y: { duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+            }}
+            className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-bold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
+          >
+            <Star className="h-3.5 w-3.5" />
+            {t.archetypes?.SS?.name || "O Pav├úo"}
+          </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 0.8, x: 0, y: [0, -15, 0] }}
-        transition={{ 
-          opacity: { duration: 1 },
-          x: { duration: 1 },
-          y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 } 
-        }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-bold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
-      >
-        <CompassIcon className="h-3.5 w-3.5" />
-        {t.archetypes?.EA?.name || "O Fantasma"}
-      </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 0.8, x: 0, y: [0, -15, 0] }}
+            transition={{
+              opacity: { duration: 1 },
+              x: { duration: 1 },
+              y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 },
+            }}
+            className="flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-bold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
+          >
+            <CompassIcon className="h-3.5 w-3.5" />
+            {t.archetypes?.EA?.name || "O Fantasma"}
+          </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 0.8, y: [0, -20, 0] }}
-        transition={{ 
-          opacity: { duration: 1 },
-          y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 } 
-        }}
-        className="hidden lg:flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none"
-      >
-        <LineChart className="h-3.5 w-3.5" />
-        {t.archetypes?.HI?.name || "O Foguinho"}
-      </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 0.8, y: [0, -20, 0] }}
+            transition={{
+              opacity: { duration: 1 },
+              y: { duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 },
+            }}
+            className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none"
+          >
+            <LineChart className="h-3.5 w-3.5" />
+            {t.archetypes?.HI?.name || "O Foguinho"}
+          </motion.div>
+        </>
+      )}
 
 
 

@@ -1358,4 +1358,25 @@ html body .allow-break-all {
   }
   /* Light beam inside VolumetricFog uses a blurred linear gradient. */
   [data-fog-orbs] .fog-layer-beam { display: none !important; }
+
+  /* Fase C — additional mobile cleanup */
+  /* BackgroundAmbient host + pseudo-elements: pseudo are already hidden,
+     but the host still allocates a GPU layer via will-change. Release it. */
+  .flowing-ambient,
+  .flowing-ambient::before,
+  .flowing-ambient::after { will-change: auto !important; }
+
+  /* CircuitBrain glow/image pulse: at 27px the drop-shadow is invisible
+     but the infinite filter animation forces software rasterization. */
+  .brain-glow-pulse,
+  .brain-image-pulse {
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  /* Ambient mesh: animation already disabled above; freeze background-position
+     so the browser doesn't keep recomposing the gradient texture. */
+  .mindreset-ambient-mesh {
+    background-position: 0 0 !important;
+  }
 }
