@@ -1,5 +1,168 @@
 
-# Fase D — Plano de Execução
+# Fase E — Plano de Execução
+
+**Objetivo:** Reduzir bundle inicial via lazy-load das brains de reveal/loader, eliminar framer remanescente do TopBar, e enxugar a barrel de identity para tree-shaking real. 5 itens, ~6 arquivos, zero mudança visual.
+
+**Escopo:** P2-LAZY1 (reveal brains) · P2-LAZY2 (BustLoader) · P2-BARREL (split identity) · P2-TOPBAR (último framer) · P2-FS (FloatingSymbols mobile audit).
+
+---
+
+## Arquivo 1 · `src/routes/index.tsx` (P2-LAZY1 — reveal brains)
+
+### Problema
+`index.tsx` linha 36:
+```ts
+import { CircuitBrain, ArchetypeRevealArt, CelebrationBrain, ArchetypeRetroBrain, ArchetypeSplineBrain } from "@/components/identity";
+```
+- `ArchetypeRevealArt`, `CelebrationBrain`, `ArchetypeRetroBrain`, `ArchetypeSplineBrain` só renderizam no stage `reveal` (após ~3-5min de quiz). Hoje todos entram no chunk inicial da rota `/`.
+- `ArchetypeRetroBrain` tem canvas + rAF próprio (235 linhas). `ArchetypeSplineBrain` já preload `@splinetool/react-spline` via prefetch, mas a casca do componente ainda é eager.
+- **Estimativa:** ~25-40 kB gzipped fora do chunk de landing.
+
+### Mudança
+- Manter `CircuitBrain` eager (usado em loader stage e em outras rotas).
+- Lazy-load das 4 brains de reveal:
+  ```tsx
+  const ArchetypeRevealArt    = lazy(() => import("@/components/identity/ArchetypeRevealArt").then(m => ({ default: m.ArchetypeRevealArt })));
+  const CelebrationBrain      = lazy(() => import("@/components/identity/CelebrationBrain").then(m => ({ default: m.CelebrationBrain })));
+  const ArchetypeRetroBrain   = lazy(() => import("@/components/identity/ArchetypeRetroBrain").then(m => ({ default: m.ArchetypeRetroBrain })));
+  const ArchetypeSplineBrain  = lazy(() => import("@/components/identity/ArchetypeSplineBrain").then(m => ({ default: m.ArchetypeSplineBrain })));
+  ```
+- Envolver os usos no componente `Reveal` com `<Suspense fallback={<CircuitBrain .../>}>` (CircuitBrain já está no bundle, vira fallback grátis).
+- Prefetch quando `stage.kind === "loader"` (similar ao que já é feito com Spline para `email`):
+  ```tsx
+  useEffect(() => {
+    if (stage.kind !== "loader") return;
+    import("@/components/identity/ArchetypeRevealArt");
+    import("@/components/identity/CelebrationBrain");
+    import("@/components/identity/ArchetypeRetroBrain");
+    import("@/components/identity/ArchetypeSplineBrain");
+  }, [stage.kind]);
+  ```
+  → durante os ~3s do loader o browser baixa as 4 brains. Reveal entra sem flash.
+
+### Impacto visual
+- Zero. Suspense fallback é o CircuitBrain (já existente no chunk), e o prefetch garante que reveal nunca veja o fallback de fato.
+
+### Risco
+- Baixo. Se prefetch falhar (sem rede), reveal mostra CircuitBrain brevemente antes do brain certo aparecer — não quebra.
+
+---
+
+## Arquivo 2 · `src/routes/index.tsx` (P2-LAZY2 — BustLoader)
+
+### Estado atual
+`BustLoader` **não é importado** em `index.tsx` (Sim/Não verificar via grep). Atualmente quem cobre o loader stage é `NeuralLoader`. Pular este item se confirmar não-uso, ou aplicar mesmo padrão lazy se `BustLoader` for adicionado ao quiz futuramente.
+
+### Verificação obrigatória antes
+`rg "BustLoader" src/routes/index.tsx` → se ausente, pular este item e fazer apenas em `/onboarding` ou `/share` quando aplicável.
+
+---
+
+## Arquivo 3 · `src/components/identity/index.ts` (P2-BARREL)
+
+### Problema
+Barrel exporta tudo. Quando uma rota só precisa de `CircuitBrain` (ex: `dashboard.index.tsx`), o bundler ainda tem que avaliar o módulo barrel inteiro — pega `MarbleBust` (468 linhas SVG), `BustLoader` (framer + AnimatePresence), `ArchetypeRetroBrain` (canvas), etc. Tree-shaking funciona em produção (Rollup), mas o grafo de análise fica maior e qualquer import side-effect num desses puxa todos.
+
+### Mudança
+- Manter o barrel para conveniência mas **migrar imports críticos para path direto**:
+  - `routes/index.tsx`: `import { CircuitBrain } from "@/components/identity/CircuitBrain"`.
+  - `routes/_authenticated/dashboard.index.tsx`: idem.
+  - `routes/_authenticated/dashboard.settings.tsx`: `Logo` e `CircuitBrain` direto.
+  - `components/quiz/NeuralLoader.tsx`: `CircuitBrain` direto.
+- Barrel continua existindo para imports menos críticos (`obrigado.tsx`).
+- Validar com `ls dist/assets/` antes/depois pra confirmar redução do chunk dashboard/landing.
+
+### Impacto visual
+- Zero. Mudança puramente de bundler.
+
+### Risco
+- Nenhum. Só refatoração de import paths.
+
+---
+
+## Arquivo 4 · `src/components/landing/TopBar.tsx` (P2-TOPBAR)
+
+### Problema (linhas 47-53)
+Único uso restante de `motion` no TopBar: barra inferior `scaleX 0→1` quando rola. Mantém framer-motion no chunk do TopBar/landing.
+
+### Mudança
+Trocar `motion.div` por `<div>` com classe CSS `topbar-scrollbar`:
+```css
+@keyframes topbar-scrollbar-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.topbar-scrollbar { animation: topbar-scrollbar-in 0.5s ease-out forwards; transform-origin: left; }
+```
+- Remover `import { motion } from "framer-motion"`.
+- `TopBar` fica 100% framer-free.
+
+### Impacto visual
+- Zero. Mesma animação one-shot.
+
+### Risco
+- Nenhum.
+
+---
+
+## Arquivo 5 · `src/components/atmosphere/FloatingSymbols.tsx` (P2-FS — audit mobile)
+
+### Estado atual
+- Comentário no header diz "Each symbol hides on mobile once the count crosses the breakpoint threshold". Cerca de 50% dos slots têm `mobileHidden: true`.
+- 50% restantes ainda podem rodar `animation drift` mesmo em mobile.
+
+### Mudança
+- Confirmar via leitura completa: se o keyframe drift estiver ativo em mobile, adicionar override em `styles.css`:
+  ```css
+  @media (hover: none), (max-width: 767px) {
+    [data-floating-symbols] .symbol-drift { animation: none !important; }
+  }
+  ```
+- Se 50% mobileHidden já garante experiência ok, **reduzir count efetivo no mobile** para 4 max (em vez de 8 default), via prop ou guard interno.
+
+### Impacto visual
+- Desktop: idêntico.
+- Mobile: símbolos param de driftar (já são decoração de baixa opacidade, drift quase imperceptível em telas pequenas).
+
+### Risco
+- Baixíssimo. Decoração pura.
+
+---
+
+## Ordem de execução
+
+1. **P2-BARREL** (arquivo 3) — refator mecânico de imports, ganho imediato de tree-shaking.
+2. **P2-TOPBAR** (arquivo 4) — keyframe CSS + 1 div, ~3 linhas alteradas.
+3. **P2-LAZY1** (arquivo 1) — lazy + Suspense + prefetch, mais cirúrgico.
+4. **P2-FS** (arquivo 5) — CSS-only se aplicável.
+5. **P2-LAZY2** (arquivo 2) — pular se `BustLoader` não estiver em uso na rota.
+6. `npm run build` após cada item.
+
+## Rollback
+- Cada item independente, revert por arquivo.
+- P2-LAZY1 é o maior — se Suspense piscar em algum cenário, basta voltar pro import eager.
+
+## Fora de escopo
+- Sales block 4 refactor (4D product grid) → Fase F.
+- Refator dos Framer remanescentes em `Reveal.tsx`, `ArchetypeHover`, `ButtonPress`, `Logo`, `BustEmptyState`, `QuizScreenWrapper` → Fase F (são onipresentes ou pouco impacto individual).
+- `ArchetypeRetroBrain` canvas internals → Fase F se Lighthouse ainda apontar.
+- CRLF auto-fix do projeto inteiro → janela de manutenção dedicada.
+
+## Tempo estimado
+- P2-BARREL: ~5 min.
+- P2-TOPBAR: ~3 min.
+- P2-LAZY1: ~10 min.
+- P2-FS: ~5 min.
+- Total: ~25 min de edição + builds.
+
+## Ganho esperado
+- **Chunk inicial da rota `/`:** -25 a -40 kB gzipped (4 brains saem para chunks lazy).
+- **TopBar:** sem framer (1 import a menos no chunk landing).
+- **Tree-shaking real do dashboard:** evita avaliar MarbleBust/BustLoader/etc no chunk dashboard.
+- **Mobile FloatingSymbols:** opcional, ainda alguns rAF de CSS a menos.
+- Zero mudança visual.
+- Zero feature removida.
+
+---
+
+# Fase D — Plano de Execução (concluída)
 
 **Objetivo:** Eliminar as últimas subscriptions Framer caras nos loaders/identidade e corrigir o anti-pattern do `isMobileMotion` (variável de módulo). 3 itens, 3 arquivos, zero mudança visual no desktop.
 
