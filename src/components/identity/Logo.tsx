@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import logoImage from "@/assets/logo-official-transparent.webp";
 
@@ -32,13 +31,11 @@ export function Logo({ className = "", size = "md", link = true }: LogoProps) {
 
   if (link) {
     return (
-      <Link to="/" className="group transition-transform active:scale-95 block">
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-        >
-          {content}
-        </motion.div>
+      <Link
+        to="/"
+        className="group block transition-transform duration-200 ease-out hover:scale-105 active:scale-95"
+      >
+        {content}
       </Link>
     );
   }
