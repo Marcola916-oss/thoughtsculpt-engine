@@ -69,7 +69,15 @@ export function ArchetypeSplineBrain({
     const a = app as {
       findObjectByName?: (n: string) => unknown;
       _scene?: { children?: unknown[] };
+      setBackgroundColor?: (c: string) => void;
     };
+    // Make the Spline canvas background transparent so the brain floats
+    // on top of the page instead of sitting inside a dark "box".
+    try {
+      a.setBackgroundColor?.("transparent");
+    } catch {
+      /* noop */
+    }
     let target: unknown = null;
     const candidates = ["Scene", "Group", "Brain", "Particles", "Root"];
     for (const name of candidates) {
