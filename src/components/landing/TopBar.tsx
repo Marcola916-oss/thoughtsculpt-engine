@@ -36,13 +36,10 @@ export function TopBar() {
           <LanguageSwitcher className="opacity-80 hover:opacity-100 transition-opacity" />
           
           <Link to="/login">
-            <PrimaryButton size="sm" className="hidden sm:flex">
+            <PrimaryButton size="sm" className="flex">
               {t.common.login}
             </PrimaryButton>
           </Link>
-          
-          {/* Mobile Login Icon/Button could be added here if needed, 
-              but for now keeping it clean as per plan */}
         </div>
       </div>
       

@@ -226,7 +226,7 @@ function LandingAndQuiz() {
       
       {/* Persistent atmosphere is mounted globally in __root so it stays visible across the whole product. */}
       
-      <TopBar />
+      {stage.kind === "hero" && <TopBar />}
 
       <main className="w-full px-0 sm:px-4 pb-24 pt-16 md:pt-12 relative z-10">
         <AnimatePresence mode="wait">
