@@ -1,49 +1,22 @@
 /**
- * Reveal — Declarative scroll-reveal wrapper.
+ * Reveal — Declarative scroll-reveal wrapper (Phase F: CSS-only, zero framer-motion).
  *
- * Tier-aware approach:
- * - "low"/"medium" (mobile): Pure CSS transitions + single global IntersectionObserver
- *   → Zero Framer Motion cost, GPU composited, 60fps on any device
- * - "high" (desktop): Full Framer Motion whileInView with variants
- *   → Richer animations (scale-spring, slide, stagger) preserved
+ * Uses the global IntersectionObserver from useScrollReveal() registered in __root.tsx.
+ * Variants map to CSS classes defined in src/styles.css (.reveal, .reveal-scale,
+ * .reveal-slide-left, .reveal-slide-right). The observer adds .is-visible on enter.
  *
- * Compound API:
- *   <Reveal variant="fade-up">...</Reveal>              // single
- *   <Reveal.Group>                                       // stagger container
- *     <Reveal variant="fade-up">A</Reveal>
- *     <Reveal variant="fade-up">B</Reveal>
- *   </Reveal.Group>
+ * `delay` (seconds) is applied via inline `transition-delay`.
+ * `Reveal.Group` keeps the stagger nth-child cadence from styles.css.
+ *
+ * Compound API preserved:
+ *   <Reveal variant="fade-up" delay={0.1}>...</Reveal>
+ *   <Reveal.Group>...</Reveal.Group>
  */
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { createContext, useContext, type ReactNode } from "react";
-import {
-  fadeIn,
-  fadeInDown,
-  fadeInUp,
-  scaleIn,
-  scaleInSpring,
-  slideInLeft,
-  slideInRight,
-  staggerContainer,
-  staggerFast,
-  staggerItem,
-} from "@/lib/animations";
+import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { useDeviceTier, type DeviceTier } from "@/hooks/use-device-tier";
 
-const VARIANT_MAP = {
-  fade: fadeIn,
-  "fade-up": fadeInUp,
-  "fade-down": fadeInDown,
-  "slide-left": slideInLeft,
-  "slide-right": slideInRight,
-  scale: scaleIn,
-  "scale-spring": scaleInSpring,
-} as const;
-
-/** CSS class mapping for mobile-tier reveals */
-const CSS_VARIANT_MAP: Record<RevealVariant, string> = {
+const CSS_VARIANT_MAP = {
   fade: "reveal",
   "fade-up": "reveal",
   "fade-down": "reveal",
@@ -51,9 +24,9 @@ const CSS_VARIANT_MAP: Record<RevealVariant, string> = {
   "slide-right": "reveal-slide-right",
   scale: "reveal-scale",
   "scale-spring": "reveal-scale",
-};
+} as const;
 
-export type RevealVariant = keyof typeof VARIANT_MAP;
+export type RevealVariant = keyof typeof CSS_VARIANT_MAP;
 export type RevealStagger = "normal" | "fast";
 export type RevealAs =
   | "div"
@@ -68,153 +41,65 @@ export type RevealAs =
   | "footer"
   | "nav";
 
-const RevealGroupContext = createContext(false);
-const RevealTierContext = createContext<DeviceTier>("high");
-
 export interface RevealProps {
   variant?: RevealVariant;
-  /** Override variants directly (e.g. for custom animations). Wins over `variant`. */
-  variants?: Variants;
   /** Delay in seconds before the visible animation starts. */
   delay?: number;
-  /** Duration in seconds of the visible animation. */
+  /** Duration in seconds of the visible animation (overrides CSS default). */
   duration?: number;
-  /** Viewport intersection amount 0-1. Default 0.2. */
+  /** Viewport intersection amount 0-1. Accepted for API compatibility (unused — observer uses a global threshold). */
   amount?: number;
-  /** Viewport root margin. Default "0px". */
+  /** Viewport root margin. Accepted for API compatibility (unused). */
   margin?: string;
-  /** Animate only the first time the element enters the viewport. Default true. */
+  /** Animate only the first time the element enters the viewport. Accepted for API compatibility (observer animates once). */
   once?: boolean;
   /** HTML element to render. Default 'div'. */
   as?: RevealAs;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
 }
 
 function RevealRoot({
   variant = "fade-up",
-  variants,
   delay,
   duration,
-  amount = 0.2,
-  margin = "0px",
-  once = true,
-  as = "div",
+  as: Tag = "div",
   className,
+  style,
   children,
 }: RevealProps) {
-  const inGroup = useContext(RevealGroupContext);
-  const tier = useContext(RevealTierContext);
-  const reducedMotion = useReducedMotion();
+  const cssClass = CSS_VARIANT_MAP[variant];
+  const inlineStyle: CSSProperties = { ...style };
+  if (delay != null) inlineStyle.transitionDelay = `${delay}s`;
+  if (duration != null) inlineStyle.transitionDuration = `${duration}s`;
 
-  // Mobile/low-end tier: CSS-only reveal (zero Framer Motion cost)
-  if (tier !== "high" || reducedMotion) {
-    const cssClass = CSS_VARIANT_MAP[variant];
-    return (
-      <div className={cn(cssClass, className)}>
-        {children}
-      </div>
-    );
-  }
-
-  // Desktop: full Framer Motion experience
-  const baseVariants: Variants = inGroup
-    ? {
-        hidden: staggerItem.hidden,
-        visible: {
-          ...(typeof staggerItem.visible === "object" ? staggerItem.visible : {}),
-          ...(typeof VARIANT_MAP[variant].visible === "object" ? VARIANT_MAP[variant].visible : {}),
-        },
-      }
-    : (variants ?? VARIANT_MAP[variant]);
-
-  const Component = motion[as] as typeof motion.div;
-
-  const transitionOverride = delay != null || duration != null ? { delay, duration } : undefined;
-
-  if (inGroup) {
-    return (
-      <div className={cn("will-change-transform", className)}>
-        {children}
-      </div>
-    );
-  }
-
+  const Component = Tag as unknown as "div";
   return (
-    <Component
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount, margin }}
-      variants={baseVariants}
-      transition={transitionOverride}
-      className={cn("will-change-[transform,opacity]", className)}
-    >
+    <Component className={cn(cssClass, className)} style={inlineStyle}>
       {children}
     </Component>
   );
 }
 
 export interface RevealGroupProps {
-  /** Stagger cadence. Default 'normal'. */
   stagger?: RevealStagger;
-  /** Pass-through to inner Reveal's viewport. */
   amount?: number;
   margin?: string;
   once?: boolean;
-  /** Element type. Default 'div'. */
   as?: RevealAs;
   className?: string;
   children: ReactNode;
 }
 
-function RevealGroup({
-  stagger = "normal",
-  amount = 0.2,
-  margin = "0px",
-  once = true,
-  as = "div",
-  className,
-  children,
-}: RevealGroupProps) {
-  const tier = useContext(RevealTierContext);
-  const reducedMotion = useReducedMotion();
-
-  // Mobile/low-end: CSS-only group with stagger delays
-  if (tier !== "high" || reducedMotion) {
-    return (
-      <div className={cn("reveal-group", className)}>
-        {children}
-      </div>
-    );
-  }
-
-  // Desktop: Framer Motion stagger container
-  const containerVariants = stagger === "fast" ? staggerFast : staggerContainer;
-  const Component = motion[as] as typeof motion.div;
-
-  return (
-    <RevealGroupContext.Provider value={true}>
-      <Component
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once, amount, margin }}
-        variants={containerVariants}
-        className={cn(className)}
-      >
-        {children}
-      </Component>
-    </RevealGroupContext.Provider>
-  );
+function RevealGroup({ as: Tag = "div", className, children }: RevealGroupProps) {
+  const Component = Tag as unknown as "div";
+  return <Component className={cn("reveal-group", className)}>{children}</Component>;
 }
 
-/** Provider that injects the device tier into all Reveal components */
+/** No-op provider kept for API compatibility (tier-aware logic removed; CSS handles all tiers). */
 export function RevealProvider({ children }: { children: ReactNode }) {
-  const tier = useDeviceTier();
-  return (
-    <RevealTierContext.Provider value={tier}>
-      {children}
-    </RevealTierContext.Provider>
-  );
+  return <>{children}</>;
 }
 
 export const Reveal = Object.assign(RevealRoot, {
