@@ -1230,6 +1230,9 @@ function Sales({
           ))}
         </div>
 
+        {/* --- Block 4.5: Social Proof / Testimonials ------------------------- */}
+        <Testimonials />
+
         {/* ── Block 8: Final CTA + Guarantee ───────────────────────── */}
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Guarantee Section */}
