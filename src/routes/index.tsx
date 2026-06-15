@@ -526,7 +526,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto w-full max-w-5xl font-display text-[clamp(1.75rem,6.5vw,2.75rem)] font-black leading-[1.15] tracking-[0em] uppercase italic px-4 md:px-8 text-center text-balance break-words";
+        const headlineClass = "relative mx-auto w-full max-w-5xl font-display text-[clamp(1.75rem,6.5vw,2.75rem)] md:text-[45px] font-black leading-[1.15] tracking-[0em] uppercase italic px-4 md:px-8 text-center text-balance break-words";
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
