@@ -13,7 +13,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { CircuitBrain } from "@/components/identity";
+import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { CyberBoardBackground } from "./CyberBoardBackground";
 import { HologramRing } from "./HologramRing";

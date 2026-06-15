@@ -1247,6 +1247,23 @@
   animation-play-state: running !important;
 }
 
+/* TopBar scroll indicator — replaces framer-motion scaleX */
+@keyframes topbar-scrollbar-in {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.topbar-scrollbar-in {
+  animation: topbar-scrollbar-in 400ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .topbar-scrollbar-in { animation: none !important; transform: scaleX(1); }
+}
+
+/* Pause atmosphere symbol drift on mobile / touch devices to save battery */
+@media (hover: none) and (max-width: 767px) {
+  .symbol-drift { animation: none !important; }
+}
+
 /* ─── Performance: Pause animations when tab hidden ────────── */
 @media (prefers-reduced-motion: no-preference) {
   :paused .fog-layer-base,

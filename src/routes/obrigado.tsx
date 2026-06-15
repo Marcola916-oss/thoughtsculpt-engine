@@ -17,7 +17,9 @@ import { useI18n } from "../lib/i18n/LanguageProvider";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { IdentitySymbol } from "@/components/identity/IdentitySymbol";
 import { MarbleBust } from "@/components/identity/MarbleBust";
-import { CircuitBrain, CelebrationBrain, Logo } from "@/components/identity";
+import { CircuitBrain } from "@/components/identity/CircuitBrain";
+import { CelebrationBrain } from "@/components/identity/CelebrationBrain";
+import { Logo } from "@/components/identity/Logo";
 
 export const Route = createFileRoute("/obrigado")({
   head: () => ({ meta: [{ title: "Bem-vindo ao MindReset!" }] }),

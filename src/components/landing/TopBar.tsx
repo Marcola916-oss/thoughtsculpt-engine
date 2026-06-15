@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/identity/Logo";
@@ -45,10 +44,9 @@ export function TopBar() {
       
       {/* Scroll indicator for non-low-tier devices */}
       {tier !== "low" && scrolled && (
-        <motion.div 
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          className="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+        <div
+          aria-hidden
+          className="topbar-scrollbar-in absolute bottom-0 left-0 h-[1px] w-full origin-left bg-gradient-to-r from-transparent via-primary/50 to-transparent"
         />
       )}
     </header>
