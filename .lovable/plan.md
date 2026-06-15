@@ -1,5 +1,261 @@
 
-# Fase E — Plano de Execução
+# Fase F — Plano de Execução
+
+**Objetivo:** Eliminar o grosso do `framer-motion` da landing/quiz (rota `/`) e dos primitivos de interação compartilhados (`Reveal`, `ArchetypeHover`, `ButtonPress`, `Logo`, `BustEmptyState`, `QuizScreenWrapper`, `NeuralLoader`), e fechar o BustLoader (mensagens/logs). Meta: rota `/` 100% framer-free; chunk inicial −80 a −120 kB gzipped. Zero mudança visual.
+
+**Escopo:** P3-INDEX (refator `MSection`/`MFade`/`Hero`/`Sales`/`Plans` em `index.tsx`) · P3-REVEAL (Reveal → IntersectionObserver + CSS) · P3-HOVER (ArchetypeHover → CSS vars) · P3-BTN (ButtonPress → CSS) · P3-LOGO (Logo → CSS) · P3-BUSTEMPTY (BustEmptyState → CSS) · P3-QUIZWRAP (QuizScreenWrapper → CSS) · P3-NEURAL (NeuralLoader → CSS/SVG) · P3-BUSTLOADER-FINAL (mensagens/logs → CSS fade) · P3-VERIFY (medir bundle e validar).
+
+**Out of scope (Fase G):** dashboard interno (`dashboard.*`, `Sidebar`, `StreakCounter`, `AchievementUnlock`, `TaskCheckbox`, `PrimaryButton`, `PageTransition`, `onboarding`, `obrigado`), `MarbleBust` (SVG complexa com `motion` em paths internos — refator dedicado), `ArchetypeRetroBrain` canvas internals.
+
+---
+
+## Arquivo 1 · `src/routes/index.tsx` (P3-INDEX — maior cirurgia)
+
+### Problema
+74 ocorrências de `motion.|AnimatePresence|useReducedMotion`. Componentes locais `MSection`, `MFade` envolvem cada bloco da landing e do quiz com `motion.div` + variants. `Hero`, `Sales`, `Plans` usam `motion.div` para entrance + stagger. `AnimatePresence` no switch de stages (`hero|identity|q|email|loader|reveal`).
+
+### Mudança
+1. **`MSection`** → `<section>` com `className="reveal-on-scroll"` (IntersectionObserver compartilhado, igual ao `Reveal` reescrito no item 2). Aceita `delay` como CSS var `--reveal-delay`.
+2. **`MFade`** → `<div className="fade-in-up">` + `style={{ animationDelay }}`. CSS:
+   ```css
+   @keyframes fade-in-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+   .fade-in-up { animation: fade-in-up 600ms ease-out both; }
+   .reveal-on-scroll { opacity: 0; }
+   .reveal-on-scroll.is-visible { animation: fade-in-up 700ms ease-out both; animation-delay: var(--reveal-delay, 0ms); }
+   ```
+3. **Hero / Sales / Plans blocks** → trocar cada `motion.div` por `<div>` com classe `reveal-on-scroll` (entrada por viewport) ou `fade-in-up` (entrada imediata).
+4. **Stagger** → herdar via `style={{ '--reveal-delay': \`${i * 80}ms\` }}` em vez de variants Framer.
+5. **`AnimatePresence` do stage switch** → substituir por componente `<StageTransition>` que renderiza o filho com classe `stage-enter` por 400ms, sem unmount animado. Stages mudam tão raramente (≤6 transições no funil inteiro) que CSS-only basta.
+6. **`useReducedMotion`** → remover o local hook; ler de `useIsReducedMotion()` (já criado na Fase D) só nos pontos que ainda precisam (provavelmente nenhum, pois as classes CSS já têm `@media (prefers-reduced-motion: reduce) { animation: none; }`).
+7. **`isMobileMotion` / `reducedMotion` flags** → remover de uma vez; CSS cuida.
+8. **Import** `framer-motion` removido do topo do arquivo.
+
+### Impacto visual
+- Entrada por viewport idêntica (fade + 16px translateY, 600-700ms ease-out).
+- Stagger idêntico (delay incremental).
+- Stage switch: ganha 400ms de fade em vez de cross-fade (já era praticamente isso; o `mode="wait"` mantinha unmount→mount sem overlap).
+
+### Risco
+- **Alto** (em volume): ~74 sites de mudança em 1 arquivo de 1500+ linhas. Mitigação: refator em 3 passes (1. helpers `MSection`/`MFade`; 2. blocos do Sales; 3. AnimatePresence). Build após cada pass.
+- Visual idêntico se as classes CSS forem fiéis.
+
+### Ganho
+- Remove `framer-motion` do chunk inicial da rota `/` (era ~30-40 kB gzipped do vendor share).
+
+---
+
+## Arquivo 2 · `src/components/interaction/Reveal.tsx` (P3-REVEAL)
+
+### Problema
+`Reveal` usa `motion.div` + `useInView` + variants. É consumido em ~20 lugares (landing inteira, /obrigado, dashboard parcialmente).
+
+### Mudança
+Reescrever com IntersectionObserver nativo + classe CSS `reveal-on-scroll` (já definida no item 1):
+```tsx
+export function Reveal({ children, delay = 0, as: Tag = "div", className }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } }, { rootMargin: "-10% 0px" });
+    io.observe(el); return () => io.disconnect();
+  }, []);
+  return <Tag ref={ref} className={cn("reveal-on-scroll", visible && "is-visible", className)} style={{ "--reveal-delay": `${delay}ms` } as any}>{children}</Tag>;
+}
+```
+`Reveal.Group` → wrapper que injeta `style={{ '--reveal-delay': \`${i * stagger}ms\` }}` nos filhos via Children.map.
+
+### Impacto visual
+- IntersectionObserver fires igual; mesmo threshold (`-10%`); mesma animação CSS.
+- API pública preservada (props `delay`, `as`, `className`, `<Reveal.Group stagger={80}>`).
+
+### Risco
+- Baixo. Reescrita isolada num único componente; consumers não mudam.
+
+### Ganho
+- Reveal vira ~30 linhas sem dependência framer. Todos os ~20 call sites deixam de puxar framer.
+
+---
+
+## Arquivo 3 · `src/components/interaction/ArchetypeHover.tsx` (P3-HOVER)
+
+### Problema
+Wrapper com `motion` + `useMousePosition` para efeito hover de tilt/glow.
+
+### Mudança
+- Trocar `motion.div` por `<div>` com `onPointerMove`/`onPointerLeave` setando CSS vars `--mx`, `--my`, `--hover` no `style`.
+- CSS faz o resto: `transform: perspective(800px) rotateX(calc(var(--my)*-6deg)) rotateY(calc(var(--mx)*6deg))`.
+- `transition: transform 200ms ease-out` para o easing.
+
+### Impacto visual
+- Mesma sensação de tilt.
+- Pode haver micro-diferença no easing comparado a Framer spring — usar `cubic-bezier(0.16, 1, 0.3, 1)` para aproximar.
+
+### Risco
+- Baixo. Componente pequeno, ~40 linhas.
+
+---
+
+## Arquivo 4 · `src/components/interaction/ButtonPress.tsx` (P3-BTN)
+
+### Problema
+Halo vermelho que segue o cursor no botão CTA. `motion` + `useMousePosition`.
+
+### Mudança
+- Mesmo padrão do item 3: `onPointerMove` seta CSS vars `--cursor-x`, `--cursor-y`.
+- Pseudo-elemento `::before` com `background: radial-gradient(120px at var(--cursor-x) var(--cursor-y), color-mix(in oklab, var(--accent) 30%, transparent), transparent)`.
+- `:active` aplica `transform: scale(0.97)` via CSS.
+
+### Impacto visual
+- Idêntico (halo segue cursor com mesma curva).
+
+### Risco
+- Nenhum.
+
+---
+
+## Arquivo 5 · `src/components/identity/Logo.tsx` (P3-LOGO)
+
+### Problema
+2 usos de `motion`/`useReducedMotion` para entrada e hover.
+
+### Mudança
+- Entrada: classe `fade-in-up` (já existe).
+- Hover scale: `transition: transform 200ms; &:hover { transform: scale(1.04); }` puro CSS.
+- Remover import framer.
+
+### Risco
+- Nenhum.
+
+---
+
+## Arquivo 6 · `src/components/identity/BustEmptyState.tsx` (P3-BUSTEMPTY)
+
+### Problema
+2 usos de `motion` para entrada + breathe loop.
+
+### Mudança
+- Entrada: `fade-in-up`.
+- Breathe: keyframe CSS `breathe` (scale 1 → 1.02 → 1, 4s ease-in-out infinite). Já pode existir; senão adicionar.
+
+### Risco
+- Nenhum.
+
+---
+
+## Arquivo 7 · `src/components/quiz/QuizScreenWrapper.tsx` (P3-QUIZWRAP)
+
+### Problema
+8 usos de motion/AnimatePresence para transição entre perguntas do quiz.
+
+### Mudança
+- Trocar `AnimatePresence` por re-mount via `key={questionIndex}` + classe `stage-enter`:
+  ```css
+  @keyframes stage-enter { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: none; } }
+  .stage-enter { animation: stage-enter 350ms cubic-bezier(0.16,1,0.3,1) both; }
+  ```
+- Direção (forward/back) opcional via classe modifier `stage-enter--back` que inverte o `translateX`.
+
+### Impacto visual
+- Mesma transição. Sem cross-fade — outgoing question some instantly. Aceitável: usuário só vê 1 vez por transição, ~10 transições no quiz.
+
+### Risco
+- Médio. Se direção (forward/back) for visualmente importante, garantir que o state da direção chegue como prop.
+
+---
+
+## Arquivo 8 · `src/components/quiz/NeuralLoader.tsx` (P3-NEURAL)
+
+### Problema
+10 usos de motion para anel girando + textos fade-in.
+
+### Mudança
+- Anel girando: keyframe CSS `neural-spin` (já há `hologram-spin-cw` do P1-1 — reaproveitar ou criar variante).
+- Textos: `<p key={msgIndex} className="neural-text fade-in-up">` — fade out via `key` re-mount.
+- Pulsos de partícula: classe `neural-pulse` com `animation-delay` escalonado.
+
+### Risco
+- Baixo.
+
+---
+
+## Arquivo 9 · `src/components/identity/BustLoader.tsx` (P3-BUSTLOADER-FINAL)
+
+### Problema (restante da Fase D)
+`AnimatePresence` ainda envolve mensagens (msgs) e logs (logs scrollable). Cada uma anima entry/exit com `motion.p`.
+
+### Mudança
+- **Mensagens (slot único):** trocar `AnimatePresence mode="wait"` por re-mount via `key={msgIndex}` + classe `fade-in-up`. Outgoing some sem fade-out — aceitável (mensagens trocam a cada 700ms, usuário mal percebe).
+- **Logs (lista crescente):** cada log entra com `motion.p` (slide+fade). Trocar por `<p className="log-enter">`:
+  ```css
+  @keyframes log-enter { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+  .log-enter { animation: log-enter 250ms ease-out both; }
+  ```
+  Logs nunca somem (lista cresce), então não precisa de exit animation.
+- Remover import `motion`, `AnimatePresence`.
+
+### Impacto visual
+- Mensagens: idêntico na entrada, troca instantânea na saída (era 200ms fade-out — imperceptível em ciclo de 700ms).
+- Logs: idêntico.
+
+### Ganho
+- BustLoader 100% framer-free. Ainda mais relevante porque é o loader rendered durante 3s em cada quiz.
+
+---
+
+## Arquivo 10 · `src/styles.css` (consolidar keyframes)
+
+### Mudança
+Adicionar/garantir keyframes globais usados acima:
+- `fade-in-up` (já pode existir como `animate-fade-in-up`).
+- `stage-enter` (+ variante `--back`).
+- `log-enter`.
+- `breathe` (se ainda não houver para BustEmptyState).
+- Bloco `@media (prefers-reduced-motion: reduce) { .reveal-on-scroll, .fade-in-up, .stage-enter, .log-enter, .breathe { animation: none !important; opacity: 1 !important; transform: none !important; } }` no fim.
+
+### Risco
+- Nenhum.
+
+---
+
+## Ordem de execução
+
+1. **Arquivo 10 (styles.css)** — criar keyframes primeiro; nada quebra.
+2. **Arquivo 2 (Reveal)** — fundação compartilhada; build após.
+3. **Arquivos 5/6/3/4 (Logo, BustEmptyState, ArchetypeHover, ButtonPress)** — primitivos pequenos, paralelos. Build.
+4. **Arquivo 8 (NeuralLoader)** + **Arquivo 9 (BustLoader)** — loaders. Build.
+5. **Arquivo 7 (QuizScreenWrapper)** — transições quiz. Build + smoke do quiz inteiro.
+6. **Arquivo 1 (index.tsx)** — maior cirurgia, 3 passes. Build após cada pass.
+7. **Verificação final:** `npm run build`, comparar `dist/assets/index-*.js` antes/depois; `rg "framer-motion" src/routes/index.tsx` deve retornar 0; rota `/` Lighthouse opcional.
+
+## Rollback
+- Cada arquivo é independente. Reveal é o mais crítico (cascata de consumers) — se quebrar, revert isolado e o resto da Fase F segue.
+
+## Fora de escopo (Fase G)
+- Dashboard interno (logged-in): `Sidebar`, `StreakCounter`, `AchievementUnlock`, `TaskCheckbox`, `PrimaryButton`, `PageTransition`, `dashboard.*`, `onboarding`.
+- `MarbleBust` (SVG com motion em paths) — refator dedicado.
+- `ArchetypeRetroBrain` canvas internals.
+- CRLF auto-fix.
+
+## Tempo estimado
+- Arquivo 10: 3 min.
+- Arquivo 2: 10 min.
+- Arquivos 5/6/3/4: 15 min total.
+- Arquivos 8/9: 15 min.
+- Arquivo 7: 10 min.
+- Arquivo 1: 40-60 min (maior risco).
+- **Total: ~95-115 min.**
+
+## Ganho esperado
+- Rota `/` 100% framer-free (era 74 ocorrências em 1 arquivo + cascata dos primitivos).
+- Chunk inicial: **−80 a −120 kB gzipped** (framer-motion sai do vendor share da landing).
+- Dezenas de subscriptions Framer eliminadas permanentemente.
+- API pública dos primitivos (`Reveal`, `ButtonPress`, `ArchetypeHover`) preservada → dashboard pode migrar gradualmente na Fase G sem breaking change.
+- Zero mudança visual.
+
+---
+
+# Fase E — Plano de Execução (concluída)
 
 **Objetivo:** Reduzir bundle inicial via lazy-load das brains de reveal/loader, eliminar framer remanescente do TopBar, e enxugar a barrel de identity para tree-shaking real. 5 itens, ~6 arquivos, zero mudança visual.
 
