@@ -32,16 +32,24 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
   const [logIndex, setLogIndex] = useState(0);
   const startTime = useRef<number | null>(null);
   const raf = useRef<number | null>(null);
+  const lastUpdate = useRef(0);
 
   const msgs = messages ?? t.loader.steps;
   const logs = analysisLogs ?? t.loader.analysis;
 
   useEffect(() => {
     startTime.current = Date.now();
+    lastUpdate.current = 0;
     function tick() {
       const elapsed = Date.now() - (startTime.current ?? 0);
       const pct = Math.min((elapsed / durationMs) * 100, 100);
-      setProgress(pct);
+      const now = Date.now();
+      // Throttle React re-renders to ~10fps; the % counter is visually
+      // indistinguishable from 60fps but costs 6x less main-thread time.
+      if (pct >= 100 || now - lastUpdate.current >= 100) {
+        setProgress(pct);
+        lastUpdate.current = now;
+      }
       if (pct < 100) {
         raf.current = requestAnimationFrame(tick);
       } else {
