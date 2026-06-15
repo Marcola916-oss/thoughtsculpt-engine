@@ -45,8 +45,11 @@ export function useScrollReveal() {
       observer.observe(el);
     };
 
-    // Observe all current .reveal elements
-    document.querySelectorAll(".reveal").forEach(observe);
+    const REVEAL_SELECTOR =
+      ".reveal, .reveal-scale, .reveal-slide-left, .reveal-slide-right";
+
+    // Observe all current reveal elements (any variant)
+    document.querySelectorAll(REVEAL_SELECTOR).forEach(observe);
 
     // Watch for .reveal elements added later (quiz stages, route changes, etc.).
     // Without this, dynamically mounted .reveal nodes stay invisible forever on mobile.
@@ -54,8 +57,8 @@ export function useScrollReveal() {
       for (const m of mutations) {
         m.addedNodes.forEach((node) => {
           if (!(node instanceof Element)) return;
-          if (node.matches?.(".reveal")) observe(node);
-          node.querySelectorAll?.(".reveal").forEach(observe);
+          if (node.matches?.(REVEAL_SELECTOR)) observe(node);
+          node.querySelectorAll?.(REVEAL_SELECTOR).forEach(observe);
         });
       }
     });
