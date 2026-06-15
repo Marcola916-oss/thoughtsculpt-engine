@@ -1282,3 +1282,21 @@
 @media (prefers-reduced-motion: reduce) {
   .brain-glow-pulse, .brain-image-pulse { animation: none !important; }
 }
+
+/* ─── Global word-wrap policy ───────────────────────────────
+   Nunca quebrar palavras ao meio em qualquer página/componente.
+   Palavras longas devem ir inteiras para a próxima linha.
+   Exceções: e-mails, tokens e URLs podem usar `.break-all`
+   ou `.allow-break-all` explicitamente. */
+:where(body, h1, h2, h3, h4, h5, h6, p, span, a, li, label, button, blockquote, figcaption, dt, dd) {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+/* Re-permitir quebras em strings sem espaço (emails, tokens, URLs)
+   quando explicitamente marcadas. */
+.break-all,
+.allow-break-all {
+  overflow-wrap: anywhere !important;
+  word-break: break-all !important;
+}
