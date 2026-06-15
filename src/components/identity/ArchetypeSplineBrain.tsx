@@ -31,15 +31,16 @@ const ARCHETYPE_HEX: Record<ArchetypeKey, string> = {
 };
 
 /**
- * CSS `filter` per archetype. The base Spline scene is cyan (~190°), so we
- * hue-rotate from there. Applied directly to the canvas so only the brain
- * pixels are tinted — empty/transparent areas stay transparent.
+ * CSS `filter` per archetype. The Spline scene renders grayscale particles,
+ * so plain `hue-rotate` is a no-op on gray. We use the classic
+ * `sepia → saturate → hue-rotate` trick: sepia injects a brownish hue
+ * (~36°), saturate boosts it, and hue-rotate remaps to the archetype hue.
  */
 const ARCHETYPE_FILTER: Record<ArchetypeKey, string> = {
-  AO: "saturate(1.1)", // already cyan/teal, just boost
-  SS: "hue-rotate(95deg) saturate(1.4)", // → purple
-  EA: "hue-rotate(-170deg) saturate(1.8)", // → burnt orange
-  HI: "hue-rotate(-65deg) saturate(1.3)", // → emerald green
+  AO: "sepia(1) saturate(6) hue-rotate(154deg) brightness(1.05)", // → petrol blue
+  SS: "sepia(1) saturate(6) hue-rotate(244deg) brightness(1.05)", // → vibrant purple
+  EA: "sepia(1) saturate(8) hue-rotate(-14deg) brightness(1.05)", // → burnt orange
+  HI: "sepia(1) saturate(6) hue-rotate(87deg) brightness(1.05)",  // → emerald green
 };
 
 const SCENE_URL = "/brain.splinecode";
