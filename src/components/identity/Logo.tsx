@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import logoImage from "@/assets/logo-official-transparent.png";
+import logoImage from "@/assets/logo-official-transparent.webp";
 
 interface LogoProps {
   className?: string;
