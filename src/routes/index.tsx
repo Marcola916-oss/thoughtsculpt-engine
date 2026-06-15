@@ -48,66 +48,34 @@ import {
   TopBar,
 } from "@/components/landing";
 
-const REDUCED_MOTION_MQ = "(hover: none) and (max-width: 1023px)";
-const useReducedMotion = () => {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia(REDUCED_MOTION_MQ);
-    setReduced(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return reduced;
-};
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => {
-  const reducedMotion = useReducedMotion();
-  if (reducedMotion) return <div className={className} {...props}>{children}</div>;
-  const { onAnimationStart: _oas, onAnimationEnd: _oae, onDragStart: _ods, onDragEnd: _ode, onDrag: _od, ...rest } = props;
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
-      {...rest}
-    >
-      {children}
-    </motion.div>
-  );
-};
+/** Scroll-reveal section — CSS-only, GPU-composited. Observer in __root adds .is-visible. */
+const MSection = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={`reveal ${className || ""}`} {...props}>
+    {children}
+  </div>
+);
 
-/** Mount animation wrapper — CSS on low tier, Framer Motion on high */
+/** Mount fade — CSS hero-fade with delay bucket. */
 const MFade = ({
   children,
   className,
   delay = 0,
-  y = 20,
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { delay?: number; y?: number }) => {
-  const reducedMotion = useReducedMotion();
-  if (reducedMotion) {
-    const delayClass = delay <= 0 ? '' : delay <= 0.2 ? 'hero-fade-delay-1' : delay <= 0.4 ? 'hero-fade-delay-2' : delay <= 0.6 ? 'hero-fade-delay-3' : delay <= 1 ? 'hero-fade-delay-4' : delay <= 1.5 ? 'hero-fade-delay-5' : delay <= 2 ? 'hero-fade-delay-6' : 'hero-fade-delay-7';
-    return (
-      <div className={`hero-fade ${delayClass} ${className || ''}`} {...props}>
-        {children}
-      </div>
-    );
-  }
-  const { onAnimationStart: _oas, onAnimationEnd: _oae, onDragStart: _ods, onDragEnd: _ode, onDrag: _od, ...rest } = props;
+  const delayClass =
+    delay <= 0 ? "" :
+    delay <= 0.2 ? "hero-fade-delay-1" :
+    delay <= 0.4 ? "hero-fade-delay-2" :
+    delay <= 0.6 ? "hero-fade-delay-3" :
+    delay <= 1 ? "hero-fade-delay-4" :
+    delay <= 1.5 ? "hero-fade-delay-5" :
+    delay <= 2 ? "hero-fade-delay-6" : "hero-fade-delay-7";
   return (
-    <motion.div
-      initial={{ opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
-      {...rest}
-    >
+    <div className={`hero-fade ${delayClass} ${className || ""}`} {...props}>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
