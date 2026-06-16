@@ -1,21 +1,17 @@
 ---
 name: Cores oficiais dos arquétipos
-description: Mapeamento oficial de cor para cada arquétipo (AO/SS/EA/HI) usado no cérebro, halos, badges e qualquer UI por arquétipo
+description: Paleta hex oficial por arquétipo (AO/SS/EA/HI) definida no documento melhoria_visual-3.docx — usada em cérebro, halos, badges, gráficos e toda UI por arquétipo
 type: design
 ---
-Cores OFICIAIS por arquétipo (substituem qualquer mapeamento anterior — sempre confirmar aqui antes de inventar):
+Cores OFICIAIS por arquétipo (do documento `melhoria_visual-3.docx`, Mudança 1). Sempre consultar esta memória antes de inventar cor de arquétipo:
 
-- **AO** (Ansioso/Avoidant) → **azul petróleo** (petrol blue)
-- **SS** (Status Seeker) → **roxo vibrante** (vibrant purple)
-- **EA** (Emocional/Avoidant) → **laranja queimado** (burnt orange)
-- **HI** (Hiperativo/Impulsivo) → **verde esmeralda** (emerald green)
+| Arquétipo | Nome | Hex | Cor |
+|---|---|---|---|
+| **AO** | Accumulator Obsessive | `#CC0000` | vermelho |
+| **SS** | Status Seeker | `#FFD700` | dourado |
+| **EA** | Escapist Alienated | `#4A90D9` | azul |
+| **HI** | Hedonista Impulsivo | `#FF6B00` | laranja |
 
-Filtros CSS atuais que produzem essas cores a partir de cinza (`ArchetypeSplineBrain.tsx`):
-- AO: `sepia(1) saturate(6) hue-rotate(154deg) brightness(1.05)`
-- SS: `sepia(1) saturate(6) hue-rotate(244deg) brightness(1.05)`
-- EA: `sepia(1) saturate(8) hue-rotate(-14deg) brightness(1.05)`
-- HI: `sepia(1) saturate(6) hue-rotate(87deg) brightness(1.05)`
+Aplicar essa paleta em: cérebro do Reveal (vídeo WebM + mix-blend-mode/glow de fundo), halos, badges de arquétipo, gráficos no dashboard, accent borders por arquétipo, qualquer elemento que varie por `data-arch`.
 
-Aplicar a mesma paleta em: cérebro (vídeo WebM + mix-blend-mode), halos, glows, badges de arquétipo, gráficos no dashboard, accent borders por arquétipo.
-
-Vermelho `#CC0000` é cor da MARCA (CTAs, hover, brand), NÃO de arquétipo.
+Observação: como o `#CC0000` (AO) coincide com o vermelho da marca, AO herda o accent global naturalmente. Os outros três precisam de override explícito por `data-arch`.
