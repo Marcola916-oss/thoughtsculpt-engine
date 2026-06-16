@@ -35,6 +35,8 @@ import { CircuitBrain } from "@/components/identity/CircuitBrain";
 const ArchetypeRevealPoster = lazy(() =>
   import("@/components/identity/ArchetypeRevealPoster").then((m) => ({ default: m.ArchetypeRevealPoster })),
 );
+import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
+import { ArchetypeSymbol } from "@/components/identity/symbols";
 import {
   ProofBar,
   ArchetypeShowcase,
@@ -816,8 +818,7 @@ function Reveal({
 
   return (
     <section className="py-12 md:py-40 overflow-hidden relative bg-transparent">
-      <div className="absolute inset-0 bg-arch-glow blur-[12px] lg:blur-[160px] opacity-20 -z-10" />
-      <div className="absolute inset-0 bg-black/35 -z-[5]" />
+      <ArchetypeRevealStage arch={arch as "AO" | "SS" | "EA" | "HI"}>
       <div className="text-center relative z-10">
         <div
           className="mb-10 inline-block rounded-full bg-white/5 border border-white/10 px-8 py-3 text-xs font-black uppercase tracking-[0.5em] text-arch-primary shadow-2xl md:backdrop-blur-xl"
@@ -897,7 +898,10 @@ function Reveal({
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px]" />
 
         <div className="absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-32 rounded-[2.5rem] bg-background border-2 border-arch-primary flex items-center justify-center text-5xl shadow-[0_20px_40px_-10px_var(--arch-glow)] z-20">
-          🔒
+          <ArchetypeSymbol
+            arch={arch as "AO" | "SS" | "EA" | "HI"}
+            className="h-16 w-16 text-arch-primary"
+          />
         </div>
 
         <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">
@@ -936,6 +940,7 @@ function Reveal({
           </span>
         </button>
       </div>
+      </ArchetypeRevealStage>
     </section>
   );
 }

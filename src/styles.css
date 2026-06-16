@@ -271,32 +271,45 @@
 
 /* ─── Archetype Variations ───────────────────────────────── */
 [data-arch="AO"] {
-  /* Azul Petróleo */
-  --arch-primary: #2A8BA3;
+  /* Guardador Obsessivo — azul petróleo */
+  --arch-primary: #1E6B82;
   --arch-accent: #0F4C5C;
-  --arch-glow: rgba(15, 76, 92, 0.45);
+  --arch-edge: #2A8BA3;
+  --arch-ink: #B8DCE6;
+  --arch-glow: rgba(15, 76, 92, 0.55);
+  --arch-fog: rgba(15, 76, 92, 0.35);
   --arch-hex: #0F4C5C;
 }
 [data-arch="SS"] {
-  /* Roxo Vibrante */
-  --arch-primary: #9B4DC9;
-  --arch-accent: #6B2D8C;
-  --arch-glow: rgba(107, 45, 140, 0.5);
-  --arch-hex: #6B2D8C;
+  /* Buscador de Status — roxo imperial + ouro */
+  --arch-primary: #7C3AED;
+  --arch-accent: #4C1D95;
+  --arch-edge: #A78BFA;
+  --arch-ink: #E9D5FF;
+  --arch-gold: #C9A84C;
+  --arch-glow: rgba(124, 58, 237, 0.55);
+  --arch-fog: rgba(76, 29, 149, 0.35);
+  --arch-hex: #4C1D95;
 }
 [data-arch="EA"] {
-  /* Laranja Queimado */
-  --arch-primary: #E8682B;
-  --arch-accent: #C44900;
-  --arch-glow: rgba(196, 73, 0, 0.45);
-  --arch-hex: #C44900;
+  /* Escapista — cinza ardósia / azulado */
+  --arch-primary: #64748B;
+  --arch-accent: #334155;
+  --arch-edge: #94A3B8;
+  --arch-ink: #CBD5E1;
+  --arch-glow: rgba(100, 116, 139, 0.45);
+  --arch-fog: rgba(51, 65, 85, 0.45);
+  --arch-hex: #334155;
 }
 [data-arch="HI"] {
-  /* Verde Esmeralda */
-  --arch-primary: #4CAF50;
-  --arch-accent: #2E7D32;
-  --arch-glow: rgba(46, 125, 50, 0.45);
-  --arch-hex: #2E7D32;
+  /* Hedonista Impulsivo — laranja âmbar / fogo */
+  --arch-primary: #F97316;
+  --arch-accent: #C2410C;
+  --arch-edge: #FB923C;
+  --arch-ink: #FED7AA;
+  --arch-glow: rgba(249, 115, 22, 0.55);
+  --arch-fog: rgba(194, 65, 12, 0.4);
+  --arch-hex: #C2410C;
 }
 
 /* ─── Base layer ─────────────────────────────────────────── */
@@ -704,6 +717,23 @@
   50%       { box-shadow: 0 0 40px var(--arch-glow); }
 }
 @keyframes mr-blink       { 50% { opacity: 0; } }
+@keyframes mr-rain-slow {
+  0%   { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 0 200px, 0 220px, 0 180px; }
+}
+@keyframes mr-shimmer {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50%      { opacity: 0.55; transform: translateY(-8px); }
+}
+@keyframes mr-drift {
+  0%, 100% { transform: translateX(-10%); }
+  50%      { transform: translateX(10%); }
+}
+@keyframes mr-spark-up {
+  0%   { background-position: 0 0, 0 0, 0 0; opacity: 0.2; }
+  50%  { opacity: 0.55; }
+  100% { background-position: 0 -300px, 0 -340px, 0 -280px; opacity: 0.2; }
+}
 @keyframes scan-line {
   0%   { transform: translateY(-100%); opacity: 0; }
   20%  { opacity: 0.5; }
