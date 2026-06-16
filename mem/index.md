@@ -9,4 +9,4 @@ Cache AI generations (diagnóstico/calendário/relatório geram UMA vez).
 
 ## Memories
 - [Pendências pós-Fase F](mem://features/pending-phase-g.md) — Fase G + 4 bugs do audit + tarefa atual cérebro mobile
-- [Cores oficiais dos arquétipos](mem://design/archetype-colors.md) — AO azul petróleo, SS roxo, EA laranja queimado, HI verde esmeralda
+- [Cores oficiais dos arquétipos](mem://design/archetype-colors.md) — AO #CC0000 vermelho, SS #FFD700 dourado, EA #4A90D9 azul, HI #FF6B00 laranja
