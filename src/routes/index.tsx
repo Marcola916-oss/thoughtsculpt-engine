@@ -32,8 +32,8 @@ import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
-const ArchetypeVideoBrain = lazy(() =>
-  import("@/components/identity/ArchetypeVideoBrain").then((m) => ({ default: m.ArchetypeVideoBrain })),
+const ArchetypeRevealPoster = lazy(() =>
+  import("@/components/identity/ArchetypeRevealPoster").then((m) => ({ default: m.ArchetypeRevealPoster })),
 );
 import {
   ProofBar,
@@ -831,8 +831,9 @@ function Reveal({
         >
           <div className="relative">
             <Suspense fallback={<CircuitBrain variant="hero" />}>
-              <ArchetypeVideoBrain
+              <ArchetypeRevealPoster
                 archetype={arch as "AO" | "SS" | "EA" | "HI"}
+                priority
               />
             </Suspense>
             <div
