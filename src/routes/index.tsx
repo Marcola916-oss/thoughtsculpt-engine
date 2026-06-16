@@ -35,6 +35,8 @@ import { CircuitBrain } from "@/components/identity/CircuitBrain";
 const ArchetypeRevealPoster = lazy(() =>
   import("@/components/identity/ArchetypeRevealPoster").then((m) => ({ default: m.ArchetypeRevealPoster })),
 );
+import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
+import { ArchetypeSymbol } from "@/components/identity/symbols";
 import {
   ProofBar,
   ArchetypeShowcase,
