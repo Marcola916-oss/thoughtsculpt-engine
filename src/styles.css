@@ -717,6 +717,23 @@
   50%       { box-shadow: 0 0 40px var(--arch-glow); }
 }
 @keyframes mr-blink       { 50% { opacity: 0; } }
+@keyframes mr-rain-slow {
+  0%   { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 0 200px, 0 220px, 0 180px; }
+}
+@keyframes mr-shimmer {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50%      { opacity: 0.55; transform: translateY(-8px); }
+}
+@keyframes mr-drift {
+  0%, 100% { transform: translateX(-10%); }
+  50%      { transform: translateX(10%); }
+}
+@keyframes mr-spark-up {
+  0%   { background-position: 0 0, 0 0, 0 0; opacity: 0.2; }
+  50%  { opacity: 0.55; }
+  100% { background-position: 0 -300px, 0 -340px, 0 -280px; opacity: 0.2; }
+}
 @keyframes scan-line {
   0%   { transform: translateY(-100%); opacity: 0; }
   20%  { opacity: 0.5; }
