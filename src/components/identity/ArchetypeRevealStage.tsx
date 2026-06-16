@@ -19,37 +19,19 @@ export function ArchetypeRevealStage({
 }) {
   return (
     <div className="relative isolate">
-      {/* Cortina: neutraliza o fog vermelho global mas FUNDE com o bg do projeto
-          (sem caixa visível). Mask gradient suaviza topo/base. */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 -top-32 -bottom-32 -z-30 bg-black/90"
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
-        }}
-      />
-
-      {/* Fog atmosférico na cor do arquétipo */}
+      {/* Fog atmosférico na cor do arquétipo — funde com o bg global do projeto,
+          sem cortina/caixa. Mask radial suaviza todas as bordas. */}
       <div
         aria-hidden
         className="absolute inset-0 -z-20"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 30%, var(--arch-fog) 0%, transparent 60%), radial-gradient(ellipse at 50% 90%, var(--arch-glow) 0%, transparent 70%)",
-          opacity: 0.85,
-        }}
-      />
-
-      {/* Vinheta nas 4 bordas — afunila o olhar pro centro */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%)",
+            "radial-gradient(ellipse at 50% 40%, var(--arch-fog) 0%, transparent 55%), radial-gradient(ellipse at 50% 80%, var(--arch-glow) 0%, transparent 65%)",
+          opacity: 0.95,
+          WebkitMaskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          maskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
         }}
       />
 
