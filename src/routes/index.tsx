@@ -830,7 +830,7 @@ function Reveal({
         <div
           className="mb-8 flex justify-center"
         >
-          <div className="relative">
+          <div className="relative w-full max-w-[440px]">
             <Suspense fallback={<CircuitBrain variant="hero" />}>
               <ArchetypeRevealPoster
                 archetype={arch as "AO" | "SS" | "EA" | "HI"}
