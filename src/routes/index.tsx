@@ -940,6 +940,7 @@ function Reveal({
           </span>
         </button>
       </div>
+      </ArchetypeRevealStage>
     </section>
   );
 }
