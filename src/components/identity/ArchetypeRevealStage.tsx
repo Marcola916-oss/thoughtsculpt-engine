@@ -19,10 +19,17 @@ export function ArchetypeRevealStage({
 }) {
   return (
     <div className="relative isolate">
-      {/* Cortina: escurece o fog vermelho global e estabelece preto puro */}
+      {/* Cortina: neutraliza o fog vermelho global mas FUNDE com o bg do projeto
+          (sem caixa visível). Mask gradient suaviza topo/base. */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-30 bg-black/90"
+        className="absolute inset-x-0 -top-32 -bottom-32 -z-30 bg-black/90"
+        style={{
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)",
+        }}
       />
 
       {/* Fog atmosférico na cor do arquétipo */}
