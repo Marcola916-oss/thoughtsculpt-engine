@@ -831,9 +831,8 @@ function Reveal({
         >
           <div className="relative">
             <Suspense fallback={<CircuitBrain variant="hero" />}>
-              <ArchetypeSplineBrain
+              <ArchetypeVideoBrain
                 archetype={arch as "AO" | "SS" | "EA" | "HI"}
-                speed={0.004}
               />
             </Suspense>
             <div
