@@ -1,0 +1,39 @@
+Preste ATENÇÃO em tudo, vamos refazer toda arte e layout da página Reveal. Quero que você faça a arte para representar os 4 arquéotipos, personalizando toda a página de acordo com o arquéotipo, e as cores são seguir a pessoa por todo o produto desde a página o reveal(quando o arquéotipo é revelado) até a parte interna do produto, caso a pessoa compre! De acordo com os 4 arquéotipos do mindreset, com o visual atual do projeto, estilo, personalidade e ojetivo do projeto, vamos criar a melhor arte para representar os 4 arquéotipos de acordo com as cores que defini para eles.
+Eu queria uma arte animada, com movimento, vivida, ultra profissional, minha ideia inicial era uma arte animada("vídeo"), com efeitos, uma estrutura realmente premium! Preciso de você, pense por mim, me complete, entenda o projeto e as instruções abaixo!
+
+----
+REGRA: 
+
+Eu não quero texto nas artes, eu não quero artes genéricas, a nova arte e layout da página Reveal precisa se misturar/fundir ao fundo atual projeto! Quero algo premium, algo que pareça que foi desenvolvido por 500 engenheiros de programação e design! Se eu quisesse só colocar uma coisa aleatória solta na página, eu tinha pegado em qualquer banco de mídia, estou aqui justamente porque quero algo INCRÍVEL!!! 
+
+Representação das cores dos Arquéotipos:
+Cor principal/secundária/destaque e a sensação que cada cor precisa transmitir:
+
+AO → #0F4C5C Azul Petróleo + #3B82F6 + #7DD3FC — cofre, confiança, controle
+SS → #7C3AED Roxo Imperial + #C084FC + #F5D0FE — luxo, poder, premium
+EA → #64748B Cinza Ardósia + #94A3B8 + #CBD5E1 — neblina, silêncio, reconexão
+HI → #F97316 Laranja + #FBBF24 + #FED7AA — vitalidade, movimento
+----
+
+Eu tive a ideia de colocar um vídeo animado(com movimento) em uma página especifica do projeto para quando revelar o arquétipo da pessoa. Eu vou colocar um vídeo simbolizando todos os 4 arquétipos, para que eu não precise criar um vídeo para cada arquétipo.
+Para eu criar esse vídeo, eu vou precisar que você faça 2 prompts. 1 prompt da imagem inicial(frame inicial) e 1 prompt para a imagem final(frame final), para que eu possa criar o vídeo animado. Vou pegar essas 2 imagens e gerar um vídeo do frame inicial para o frame final, esse vídeo animado vai ser usado em uma parte central e localizada em uma página dentro do produto. O site já tem um fundo definido, o site já tem um layout definido, eu vou só usar essa arte em um ponto específico central no meio da página. Então, a gente precisa fazer de uma forma que eu possa deixar o fundo transparente, para o vídeo se adaptar na página e fazer parte da atmosfera. 
+
+# ATENÇÃO: 
+Depois de tudo criado(vídeo pronto), a minha ideia é dissolver/destrinchar esse vídeo em várias sequências(cenas) imagens JPG, e vou pedir para você transformar essas várias imagens em um "vídeo em looping". Você pegou a ideia? Como se tivesse um "VÍDEO REAL" na página!
+#
+
+Então, eu quero que você imagine o cérebro mais cyberpunk possível, dark e com uma vibe psicológica. Estava pensando em um cérebro cyberpunk SUPER detalhado, com "ligações" neurais com vários detalhes ultra futurista dentro, com fios de energias pulsantes, com símbolos de programação correndo por cérebro, com detalhes psicológicos, com detalhes das "estruturas gregas de mármores" que vão trazer aquela ar de tecnológico e filósofico ao mesmo tempo. 
+
+Quero vários, MUITOS detalhes, várias coisas incríveis, que a cada vez que olhar a pessoa acha um detalhe diferente, quero algo rico em detalhes e premium. 
+
+Eu quero criar uma animação única, uma animação exclusiva, com personalidade, que ninguém nunca viu. NÃO quero algo genérico ou que pareça que tirei de um banco de mídia qualquer, quero algo SUPER bem produto, HIPER REALISTA, ULTRA DETALHADO. Você está entendendo a ideia?
+
+Reforçando, os detalhes que eu comentei com você, quero detalhes, deixar a animação final vívida dentro da página, personalizada, eu quero detalhes na animação. Eu não quero detalhes em volta, eu não quero detalhes na atmosfera, eu quero detalhes na animação, no cérebro, a atmosfera e efeitos eu pedi para a IA que vai mexer no projeto adicionar. Eu quero todo tipo de detalhe possível que você puder adicionar, de acordo com estilo, personalidade e estrutura do MindReset e com tudo que definimos! O Mind Reset é para você resetar a sua mentalidade e começar uma mentalidade nova. Então, eu quero simbolizar isso, você tá entendendo a ideia? O objetivo da animação é representar os 4 arquéotipos
+
+Eu quero que você use sua criatividade e raciocínio, mas apenas de dando uma ideia  dentre várias que você pode ter, você poder usar as cores acima dos arquéotipos para compor os fios de energia, detalhes e afins. Pois a ideia da animação é representar os arquéotipos, uma animação rica em detalhes(falei isso muitas vezes justamente porque quero algo incrível). E lembrando, o fundo precisa ser neutro(vou tentar deixar o fundo da animação transparente) para a arte se adaptar ao fundo do projeto, que já está definido.
+
+Então vamos lá, com base em TUDO que está nesse documento, e m toda estrutura atual do MindReset gere os prompts completo, rico em detalhes, com TODOS os tópicos citados da imagem inicial(frame inicial), imagem final(frame final) e o prompt para a animação entre a imagem inicial para a imagem final! 
+
+Faça um arquivo(um documento em qualquer formato) na pasta 'melhorias e contexto' com todas as instruções para começarmos! NÃO PRODUZA E NÃO ALTERE NADA AINDA, apenas me diga se entendeu a ideia e depois vou te autorizar a criar o arquivo com todas as instruções para a gente ir fazendo junto!
+
+IMPORTANTE: Mantenha o padrão de excelência máximo, use toda sua capacidade, vasculhe todas as informações disponíveis no SEU BANCO de DADOS, na internet e recursos para se inspirar e criarmos uma experiência fantástica ao usuário! Quero um trabalho completo e profissional da sua parte, demore o quanto quiser, mas entregue excelência e um visual fiel ao MindReset, aos arquéotipos e a TUDO que conversamos!!
