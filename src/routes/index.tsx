@@ -32,8 +32,8 @@ import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
-const ArchetypeSplineBrain = lazy(() =>
-  import("@/components/identity/ArchetypeSplineBrain").then((m) => ({ default: m.ArchetypeSplineBrain })),
+const ArchetypeVideoBrain = lazy(() =>
+  import("@/components/identity/ArchetypeVideoBrain").then((m) => ({ default: m.ArchetypeVideoBrain })),
 );
 import {
   ProofBar,
