@@ -825,7 +825,7 @@ function Reveal({
   }, [a.name]);
 
   return (
-    <section className="pt-0 md:pt-2 pb-16 md:pb-32 overflow-hidden relative bg-transparent -mt-10 md:-mt-8">
+    <section className="pt-0 pb-16 md:pb-32 overflow-hidden relative bg-transparent -mt-20 md:-mt-24">
       <ArchetypeRevealStage arch={arch as "AO" | "SS" | "EA" | "HI"}>
       {/* HERO limpo: cérebro animado + título + tagline + CTA. Sem sobreposições. */}
       <div className="relative z-10 flex flex-col items-center text-center px-4">
