@@ -35,6 +35,7 @@ import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
 import { ArchetypeCanvasBrain } from "@/components/identity/ArchetypeCanvasBrain";
+import { ArchetypePedestal } from "@/components/identity/ArchetypePedestal";
 import { ArchetypeSymbol } from "@/components/identity/symbols";
 import {
   ProofBar,
