@@ -34,6 +34,6 @@ Eu quero que você use sua criatividade e raciocínio, mas apenas de dando uma i
 
 Então vamos lá, com base em TUDO que está nesse documento, e m toda estrutura atual do MindReset gere os prompts completo, rico em detalhes, com TODOS os tópicos citados da imagem inicial(frame inicial), imagem final(frame final) e o prompt para a animação entre a imagem inicial para a imagem final! 
 
-Faça um arquivo(um documento em qualquer formato) na pasta 'melhorias e contexto' com todas as instruções para começarmos! NÃO PRODUZA E NÃO ALTERE NADA AINDA, apenas me diga se entendeu a ideia e depois vou te autorizar a criar o arquivo com todas as instruções para a gente ir fazendo junto!
+Faça um arquivo(um documento em qualquer formato) na pasta 'melhorias e contexto' com todas as instruções para começarmos! NÃO PRODUZA E NÃO ALTERE NADA AINDA, apenas me diga se entendeu a ideia e depois vou te autorizar a criar o arquivo com todas as instruções para a gente ir fazendo junto! Escreva de forma que uma criança de 10 anos consiga entender e criar uma arte incrível!
 
 IMPORTANTE: Mantenha o padrão de excelência máximo, use toda sua capacidade, vasculhe todas as informações disponíveis no SEU BANCO de DADOS, na internet e recursos para se inspirar e criarmos uma experiência fantástica ao usuário! Quero um trabalho completo e profissional da sua parte, demore o quanto quiser, mas entregue excelência e um visual fiel ao MindReset, aos arquéotipos e a TUDO que conversamos!!
