@@ -748,6 +748,12 @@
   50%       { box-shadow: 0 0 40px var(--arch-glow); }
 }
 @keyframes mr-blink       { 50% { opacity: 0; } }
+@keyframes ped-spin-cw  { to { transform: rotate(360deg); } }
+@keyframes ped-spin-ccw { to { transform: rotate(-360deg); } }
+@keyframes ped-glow {
+  0%, 100% { opacity: 0.55; filter: blur(8px); }
+  50%      { opacity: 0.95; filter: blur(14px); }
+}
 @keyframes mr-rain-slow {
   0%   { background-position: 0 0, 0 0, 0 0; }
   100% { background-position: 0 200px, 0 220px, 0 180px; }
