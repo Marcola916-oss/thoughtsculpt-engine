@@ -94,9 +94,10 @@ export function ArchetypeCanvasBrain({ className = "" }: Props) {
         aria-label="Animação do cérebro"
         className="max-w-full max-h-full w-auto h-auto"
         style={{
-          mixBlendMode: "screen",
+          mixBlendMode: "normal",
           background: "transparent",
           display: "block",
+          filter: "drop-shadow(0 18px 34px rgba(0, 0, 0, 0.72))",
         }}
       />
     </div>
