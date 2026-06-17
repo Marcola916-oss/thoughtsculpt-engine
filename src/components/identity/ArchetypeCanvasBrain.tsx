@@ -97,7 +97,7 @@ export function ArchetypeCanvasBrain({ className = "" }: Props) {
           mixBlendMode: "normal",
           background: "transparent",
           display: "block",
-          filter: "drop-shadow(0 14px 28px rgba(0, 0, 0, 0.45))",
+          filter: "drop-shadow(0 10px 18px rgba(0, 0, 0, 0.32))",
         }}
       />
     </div>
