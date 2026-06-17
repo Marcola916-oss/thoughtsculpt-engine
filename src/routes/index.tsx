@@ -834,7 +834,7 @@ function Reveal({
           {/* Aura radiante atrás do cérebro — cor do arquétipo (intensificada) */}
           <div
             aria-hidden
-            className="absolute left-1/2 top-[38%] -translate-x-1/2 -translate-y-1/2 w-[160%] h-[160%] rounded-full pointer-events-none"
+            className="absolute left-1/2 top-[38%] w-[160%] h-[160%] rounded-full pointer-events-none"
             style={{
               background:
                 "radial-gradient(circle at center, var(--arch-glow) 0%, color-mix(in oklab, var(--arch-primary) 55%, transparent) 25%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 50%, transparent 72%)",
@@ -896,7 +896,7 @@ function Reveal({
             {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 z-0 h-[58%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+              className="absolute left-1/2 top-1/2 z-0 h-[58%] w-[92%] rounded-full pointer-events-none"
               style={{
                 background:
                   "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 95%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 62%, transparent) 24%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 52%, transparent 76%)",
@@ -907,7 +907,7 @@ function Reveal({
             />
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 z-0 h-[76%] w-[118%] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+              className="absolute left-1/2 top-1/2 z-0 h-[76%] w-[118%] rounded-full pointer-events-none"
               style={{
                 background:
                   "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 42%, transparent 72%)",
