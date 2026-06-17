@@ -18,12 +18,12 @@ export function ArchetypeRevealStage({
   children: ReactNode;
 }) {
   return (
-    <div className="relative isolate">
+    <div className="relative overflow-hidden">
       {/* Fog atmosférico na cor do arquétipo — funde com o bg global do projeto,
           sem cortina/caixa. Mask radial suaviza todas as bordas. */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-20"
+        className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
             "radial-gradient(ellipse at 50% 40%, var(--arch-fog) 0%, transparent 55%), radial-gradient(ellipse at 50% 80%, var(--arch-glow) 0%, transparent 65%)",
@@ -41,7 +41,7 @@ export function ArchetypeRevealStage({
       {/* Símbolo gigantesco no fundo */}
       <div
         aria-hidden
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-[5] w-[min(90vw,800px)] aspect-square text-[var(--arch-edge)] opacity-[0.07]"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-0 aspect-square w-[min(90vw,800px)] -translate-x-1/2 -translate-y-1/2 text-[var(--arch-edge)] opacity-[0.07]"
       >
         <ArchetypeSymbol arch={arch} className="w-full h-full" />
       </div>
