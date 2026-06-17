@@ -26,8 +26,8 @@ export function ArchetypeRevealStage({
         className="pointer-events-none absolute inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 40%, var(--arch-fog) 0%, transparent 55%), radial-gradient(ellipse at 50% 80%, var(--arch-glow) 0%, transparent 65%)",
-          opacity: 0.95,
+            "radial-gradient(ellipse at 50% 30%, var(--arch-fog) 0%, transparent 45%), radial-gradient(ellipse at 50% 85%, var(--arch-glow) 0%, transparent 55%)",
+          opacity: 0.55,
           WebkitMaskImage:
             "radial-gradient(ellipse at center, black 30%, transparent 75%)",
           maskImage:
