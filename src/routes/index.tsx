@@ -32,7 +32,6 @@ import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
-import { ArchetypeRevealHero } from "@/components/identity/ArchetypeRevealHero";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
 import { ArchetypeBrainSprite } from "@/components/identity/ArchetypeBrainSprite";
 import { ArchetypeSymbol } from "@/components/identity/symbols";
