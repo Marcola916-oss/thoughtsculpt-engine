@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import desktopSprite from "@/assets/brain-desktop.webp.asset.json";
-import mobileSprite from "@/assets/brain-mobile.webp.asset.json";
+import desktopSprite from "@/assets/brain-desktop-transparent.webp";
+import mobileSprite from "@/assets/brain-mobile-transparent.webp";
 
 const COLS = 12;
 const ROWS = 10;
@@ -10,8 +10,7 @@ const FRAME_MS = 1000 / FPS;
 
 /**
  * Cérebro animado universal — 120 frames WebP em sprite sheet, loop 4s @30fps.
- * Fundo preto puro do frame é neutralizado por `mix-blend-mode: screen`,
- * fazendo o glow do cérebro herdar a cor do arquétipo do fundo da página.
+ * Usa sprite com alpha real; não depende de blend-mode para esconder fundo preto.
  */
 export function ArchetypeBrainSprite({ className = "" }: { className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -63,14 +62,14 @@ export function ArchetypeBrainSprite({ className = "" }: { className?: string })
         ref={ref}
         className="brain-sprite"
         style={{
-          backgroundImage: `image-set(url(${desktopSprite.url}) 1x)`,
+          backgroundImage: `image-set(url(${desktopSprite}) 1x)`,
         }}
       />
       {/* Mobile override via media query: usa sprite menor */}
       <style>{`
         @media (max-width: 768px) {
           .brain-sprite-wrapper .brain-sprite {
-            background-image: image-set(url(${mobileSprite.url}) 1x) !important;
+            background-image: image-set(url(${mobileSprite}) 1x) !important;
           }
         }
       `}</style>
