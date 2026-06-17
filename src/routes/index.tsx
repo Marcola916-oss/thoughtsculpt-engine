@@ -316,7 +316,10 @@ function LandingAndQuiz() {
             <div className="relative z-10">
               <NeuralLoader
                 key="loader"
-                onComplete={() => setStage({ kind: "reveal" })}
+                /* Advance is gated by the useEffect above (persistLead +
+                 * minDelay + brain frames preload). onComplete is a no-op
+                 * to avoid racing past the frame-readiness gate. */
+                onComplete={() => {}}
                 durationMs={3000}
               />
             </div>
