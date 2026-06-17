@@ -26,6 +26,7 @@ import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring"
 import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
 import { saveQuizLead } from "../lib/quiz.functions";
 import { createCheckoutSession } from "../lib/checkout.functions";
+import { startBrainFramesPreload } from "@/lib/brainFramesCache";
 
 import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
@@ -141,6 +142,10 @@ function LandingAndQuiz() {
     if (stage.kind !== "loader") return;
     let cancelled = false;
     const minDelay = new Promise((r) => setTimeout(r, 2400));
+    // Start downloading + processing the 120 brain frames in parallel with
+    // the lead persistence. The reveal can only mount once all three resolve:
+    // network write, min visual delay, and frames fully in memory.
+    const framesReady = startBrainFramesPreload();
     (async () => {
       try {
         const [row] = await Promise.all([
@@ -158,6 +163,7 @@ function LandingAndQuiz() {
             },
           }),
           minDelay,
+          framesReady,
         ]);
         if (cancelled) return;
         if (row) {
