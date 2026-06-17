@@ -33,7 +33,7 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
-import { ArchetypeVideoBrain } from "@/components/identity/ArchetypeVideoBrain";
+import { ArchetypeCanvasBrain } from "@/components/identity/ArchetypeCanvasBrain";
 import { ArchetypeSymbol } from "@/components/identity/symbols";
 import {
   ProofBar,
@@ -819,7 +819,9 @@ function Reveal({
       <ArchetypeRevealStage arch={arch as "AO" | "SS" | "EA" | "HI"}>
       {/* HERO limpo: cérebro animado + título + tagline + CTA. Sem sobreposições. */}
       <div className="relative z-10 flex flex-col items-center text-center px-4">
-        <ArchetypeVideoBrain archetype={arch as "AO" | "SS" | "EA" | "HI"} />
+        <div className="w-[280px] h-[280px] md:w-[480px] md:h-[480px]">
+          <ArchetypeCanvasBrain archetype={arch as "AO" | "SS" | "EA" | "HI"} />
+        </div>
 
         <div className="mt-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.45em] text-foreground/60">
           {t.reveal.kicker(name)}
