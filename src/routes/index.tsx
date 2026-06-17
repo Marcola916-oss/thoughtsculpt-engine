@@ -35,6 +35,7 @@ import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
 import { ArchetypeCanvasBrain } from "@/components/identity/ArchetypeCanvasBrain";
+import { ArchetypePedestal } from "@/components/identity/ArchetypePedestal";
 import { ArchetypeSymbol } from "@/components/identity/symbols";
 import {
   ProofBar,
@@ -824,15 +825,21 @@ function Reveal({
   }, [a.name]);
 
   return (
-    <section className="py-12 md:py-40 overflow-hidden relative bg-transparent">
+    <section className="pt-6 md:pt-16 pb-16 md:pb-32 overflow-hidden relative bg-transparent">
       <ArchetypeRevealStage arch={arch as "AO" | "SS" | "EA" | "HI"}>
       {/* HERO limpo: cérebro animado + título + tagline + CTA. Sem sobreposições. */}
       <div className="relative z-10 flex flex-col items-center text-center px-4">
-        <div className="w-[280px] h-[280px] md:w-[480px] md:h-[480px]">
-          <ArchetypeCanvasBrain archetype={arch as "AO" | "SS" | "EA" | "HI"} />
+        {/* Cérebro pousado sobre o pedestal holográfico */}
+        <div className="relative w-[300px] h-[300px] md:w-[520px] md:h-[520px]">
+          <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[110%] -left-[5%]">
+            <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
+          </div>
+          <div className="absolute inset-0 z-20 -translate-y-6 md:-translate-y-10">
+            <ArchetypeCanvasBrain archetype={arch as "AO" | "SS" | "EA" | "HI"} />
+          </div>
         </div>
 
-        <div className="mt-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.45em] text-foreground/60">
+        <div className="mt-2 md:mt-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.45em] text-foreground/60">
           {t.reveal.kicker(name)}
         </div>
 
