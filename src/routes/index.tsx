@@ -889,34 +889,38 @@ function Reveal({
           <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[110%] -left-[5%]">
             <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
           </div>
-          <div className="absolute inset-0 z-20 -translate-y-6 md:-translate-y-10">
-            <ArchetypeCanvasBrain archetype={arch as "AO" | "SS" | "EA" | "HI"} />
+          <div
+            className="absolute inset-0 z-20 -translate-y-6 md:-translate-y-10"
+            style={{ isolation: "isolate" }}
+          >
+            {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 z-0 h-[58%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 95%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 62%, transparent) 24%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 52%, transparent 76%)",
+                filter: "blur(38px)",
+                animation: "arch-aura-pulse 5s ease-in-out infinite",
+                opacity: 0.95,
+              }}
+            />
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 z-0 h-[76%] w-[118%] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 42%, transparent 72%)",
+                filter: "blur(78px)",
+                animation: "arch-aura-pulse 6.5s ease-in-out infinite",
+                opacity: 0.82,
+              }}
+            />
+            <ArchetypeCanvasBrain
+              archetype={arch as "AO" | "SS" | "EA" | "HI"}
+              className="relative z-10"
+            />
           </div>
-          {/* Halo dedicado atrás do cérebro — camada independente, sem blend mode, garante visibilidade */}
-          <div
-            aria-hidden
-            className="absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85%] rounded-full pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(circle at center, var(--arch-primary) 0%, color-mix(in oklab, var(--arch-primary) 75%, transparent) 22%, color-mix(in oklab, var(--arch-primary) 35%, transparent) 45%, transparent 70%)",
-              filter: "blur(55px)",
-              animation: "arch-aura-pulse 5s ease-in-out infinite",
-              opacity: 0.85,
-              zIndex: 15,
-            }}
-          />
-          <div
-            aria-hidden
-            className="absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] rounded-full pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(circle at center, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 20%, transparent) 35%, transparent 65%)",
-              filter: "blur(90px)",
-              animation: "arch-aura-pulse 6.5s ease-in-out infinite",
-              opacity: 0.7,
-              zIndex: 15,
-            }}
-          />
         </div>
 
         <div className="relative z-30 -mt-10 md:-mt-16 text-[10px] md:text-xs font-bold uppercase tracking-[0.45em] text-foreground/60">
