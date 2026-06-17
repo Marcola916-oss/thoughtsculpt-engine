@@ -892,6 +892,31 @@ function Reveal({
           <div className="absolute inset-0 z-20 -translate-y-6 md:-translate-y-10">
             <ArchetypeCanvasBrain archetype={arch as "AO" | "SS" | "EA" | "HI"} />
           </div>
+          {/* Halo dedicado atrás do cérebro — camada independente, sem blend mode, garante visibilidade */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85%] rounded-full pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle at center, var(--arch-primary) 0%, color-mix(in oklab, var(--arch-primary) 75%, transparent) 22%, color-mix(in oklab, var(--arch-primary) 35%, transparent) 45%, transparent 70%)",
+              filter: "blur(55px)",
+              animation: "arch-aura-pulse 5s ease-in-out infinite",
+              opacity: 0.85,
+              zIndex: 15,
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-[34%] -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] rounded-full pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle at center, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 20%, transparent) 35%, transparent 65%)",
+              filter: "blur(90px)",
+              animation: "arch-aura-pulse 6.5s ease-in-out infinite",
+              opacity: 0.7,
+              zIndex: 15,
+            }}
+          />
         </div>
 
         <div className="relative z-30 -mt-10 md:-mt-16 text-[10px] md:text-xs font-bold uppercase tracking-[0.45em] text-foreground/60">
