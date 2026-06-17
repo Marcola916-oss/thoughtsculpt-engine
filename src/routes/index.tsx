@@ -896,26 +896,34 @@ function Reveal({
             {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 z-0 h-[58%] w-[92%] rounded-full pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 95%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 62%, transparent) 24%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 52%, transparent 76%)",
-                filter: "blur(38px)",
-                animation: "arch-aura-pulse 5s ease-in-out infinite",
-                opacity: 0.95,
-              }}
-            />
+              className="absolute left-1/2 top-1/2 z-0 h-[58%] w-[92%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            >
+              <div
+                className="h-full w-full rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 95%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 62%, transparent) 24%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 52%, transparent 76%)",
+                  filter: "blur(38px)",
+                  animation: "arch-breathe 5s ease-in-out infinite",
+                  opacity: 0.95,
+                }}
+              />
+            </div>
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 z-0 h-[76%] w-[118%] rounded-full pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 42%, transparent 72%)",
-                filter: "blur(78px)",
-                animation: "arch-aura-pulse 6.5s ease-in-out infinite",
-                opacity: 0.82,
-              }}
-            />
+              className="absolute left-1/2 top-1/2 z-0 h-[76%] w-[118%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            >
+              <div
+                className="h-full w-full rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 42%, transparent 72%)",
+                  filter: "blur(78px)",
+                  animation: "arch-breathe 6.5s ease-in-out infinite",
+                  opacity: 0.82,
+                }}
+              />
+            </div>
             <ArchetypeCanvasBrain
               archetype={arch as "AO" | "SS" | "EA" | "HI"}
               className="relative z-10"
