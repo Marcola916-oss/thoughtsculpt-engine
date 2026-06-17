@@ -41,7 +41,7 @@ export function ArchetypeRevealStage({
       {/* Símbolo gigantesco no fundo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 z-0 aspect-square w-[min(90vw,800px)] -translate-x-1/2 -translate-y-1/2 text-[var(--arch-edge)] opacity-[0.07]"
+        className="pointer-events-none absolute left-1/2 top-[62%] z-0 aspect-square w-[min(90vw,800px)] -translate-x-1/2 -translate-y-1/2 text-[var(--arch-edge)] opacity-[0.07]"
       >
         <ArchetypeSymbol arch={arch} className="w-full h-full" />
       </div>
