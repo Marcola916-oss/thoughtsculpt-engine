@@ -902,10 +902,11 @@ function Reveal({
                 className="h-full w-full rounded-full"
                 style={{
                   background:
-                    "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 95%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 62%, transparent) 24%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 52%, transparent 76%)",
-                  filter: "blur(38px)",
+                    "radial-gradient(ellipse at center, transparent 0%, transparent 48%, color-mix(in oklab, var(--arch-primary) 55%, transparent) 62%, color-mix(in oklab, var(--arch-primary) 20%, transparent) 75%, transparent 88%)",
+                  filter: "blur(34px)",
+                  mixBlendMode: "screen",
                   animation: "arch-breathe 5s ease-in-out infinite",
-                  opacity: 0.95,
+                  opacity: 0.75,
                 }}
               />
             </div>
@@ -917,10 +918,11 @@ function Reveal({
                 className="h-full w-full rounded-full"
                 style={{
                   background:
-                    "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 42%, transparent 72%)",
-                  filter: "blur(78px)",
+                    "radial-gradient(ellipse at center, transparent 0%, transparent 42%, color-mix(in oklab, var(--arch-primary) 28%, transparent) 60%, transparent 82%)",
+                  filter: "blur(72px)",
+                  mixBlendMode: "screen",
                   animation: "arch-breathe 6.5s ease-in-out infinite",
-                  opacity: 0.82,
+                  opacity: 0.7,
                 }}
               />
             </div>
