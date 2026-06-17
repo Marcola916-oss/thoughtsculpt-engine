@@ -1,6 +1,7 @@
 # Project Memory
 
 ## Core
+REGRA PERMANENTE: nunca alterar o projeto sem autorização explícita do usuário. Para todo pedido, explicar o que será feito e perguntar "posso começar?" antes de editar/criar/apagar arquivos, rodar comandos, instalar deps ou migrations. Exceções permitidas sem autorização: leitura de arquivos/logs/console e perguntas de esclarecimento.
 Identidade: preto #000, accent #CC0000, Syne 800 display + Inter body, Noto Naskh AR. MarbleBust é símbolo central.
 Stack: TanStack Start + Supabase + i18n 5 idiomas (PT/EN/PL/RO/AR, AR é RTL). Nunca localStorage (iframe sandboxed).
 Toda tabela Supabase com RLS. Secrets só em Edge Functions. Sem TODOs/placeholders em entregas.
