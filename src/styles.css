@@ -370,7 +370,6 @@
   width: min(640px, 90vw);
   aspect-ratio: 16 / 9;
   margin-inline: auto;
-  isolation: isolate;
 }
 .brain-sprite {
   position: absolute;
@@ -381,15 +380,16 @@
   mix-blend-mode: screen;
   will-change: background-position;
   transform: translateZ(0);
-  z-index: 1;
+  z-index: 2;
 }
 .brain-sprite-halo {
   position: absolute;
-  inset: -8%;
+  inset: -15%;
   background: radial-gradient(circle at 50% 50%, var(--arch-glow) 0%, transparent 60%);
-  filter: blur(40px);
-  opacity: 0.85;
-  z-index: 0;
+  filter: blur(50px);
+  opacity: 0.9;
+  z-index: 1;
+  mix-blend-mode: screen;
   pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) {
