@@ -818,43 +818,47 @@ function Reveal({
   return (
     <section className="py-12 md:py-40 overflow-hidden relative bg-transparent">
       <ArchetypeRevealStage arch={arch as "AO" | "SS" | "EA" | "HI"}>
-      <div className="text-center relative z-10">
-        <div
-          className="mb-10 inline-block rounded-full bg-white/5 border border-white/10 px-8 py-3 text-xs font-black uppercase tracking-[0.5em] text-arch-primary shadow-2xl md:backdrop-blur-xl"
-        >
+      {/* HERO limpo: cérebro animado + título + tagline + CTA. Sem sobreposições. */}
+      <div className="relative z-10 flex flex-col items-center text-center px-4">
+        <ArchetypeBrainSprite />
+
+        <div className="mt-4 text-[10px] md:text-xs font-bold uppercase tracking-[0.45em] text-foreground/60">
           {t.reveal.kicker(name)}
         </div>
 
-        {/* Spline 3-D brain + archetype icon centered on top of it */}
-        <div
-          className="mb-8 flex justify-center"
-        >
-          <div className="relative w-full max-w-[520px]">
-            <ArchetypeRevealHero arch={arch as "AO" | "SS" | "EA" | "HI"} />
-          </div>
-        </div>
-
-        <h1 className="mt-4 font-display text-5xl sm:text-6xl md:text-[10rem] font-black leading-[0.85] text-foreground tracking-tighter uppercase italic overflow-hidden max-w-full relative pr-4 md:pr-8 pl-1 text-balance break-words">
-          {/* Cinema explosion background */}
-          <div className="absolute inset-0 -z-10 bg-arch-primary/10 blur-[100px] animate-pulse" />
-          <span className="text-gradient" style={{ backgroundImage: 'linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 100%)' }}>{text}</span>
+        <h1 className="mt-6 font-display text-5xl sm:text-7xl md:text-[8rem] font-black leading-[0.9] tracking-tighter uppercase italic text-balance">
           <span
-            className="text-arch-primary ml-[-0.05em]"
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 70%)",
+            }}
           >
-            _
+            {text}
           </span>
+          <span className="text-arch-primary">_</span>
         </h1>
 
-        <p
-          className="mx-auto mt-12 max-w-3xl text-3xl md:text-5xl font-black text-foreground tracking-tighter uppercase italic"
-        >
+        <p className="mt-8 max-w-2xl text-xl md:text-2xl text-foreground/80 font-medium leading-relaxed">
           {a.tagline}
         </p>
+
+        <button
+          onClick={onContinue}
+          className="group mt-12 inline-flex items-center gap-4 rounded-full px-10 py-5 text-base md:text-lg font-black uppercase tracking-wider text-background transition-all"
+          style={{
+            backgroundColor: "var(--arch-primary)",
+            boxShadow: "0 20px 60px -10px var(--arch-glow)",
+          }}
+        >
+          {t.reveal.cta}
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+        </button>
       </div>
 
       {leadError && (
         <div
-          className="mx-auto mt-12 max-w-2xl rounded-2xl border border-primary/40 bg-primary/5 p-6 md:backdrop-blur-md"
+          className="relative z-10 mx-auto mt-12 max-w-2xl rounded-2xl border border-primary/40 bg-primary/5 p-6 md:backdrop-blur-md"
         >
           <div className="flex gap-4">
             <div className="h-10 w-10 shrink-0 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
@@ -878,54 +882,32 @@ function Reveal({
         </div>
       )}
 
-      <div
-        className="mx-auto mt-32 max-w-5xl rounded-[4rem] border border-white/5 bg-card/40 p-10 md:p-24 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl"
-      >
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary to-transparent" />
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px]" />
-
-        <div className="absolute -top-16 left-1/2 -translate-x-1/2 h-32 w-32 rounded-[2.5rem] bg-background border-2 border-arch-primary flex items-center justify-center text-5xl shadow-[0_20px_40px_-10px_var(--arch-glow)] z-20">
+      {/* Detalhes (hooks) abaixo do hero — separados, sem competir com a revelação */}
+      <div className="relative z-10 mx-auto mt-28 md:mt-40 max-w-3xl px-4">
+        <div className="mb-10 flex items-center gap-4">
           <ArchetypeSymbol
             arch={arch as "AO" | "SS" | "EA" | "HI"}
-            className="h-16 w-16 text-arch-primary"
+            className="h-8 w-8 text-arch-primary"
           />
+          <p className="font-display text-2xl md:text-3xl font-black tracking-tight uppercase italic">
+            {t.reveal.sub}
+          </p>
         </div>
-
-        <p className="mb-16 text-center font-display text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter uppercase italic">
-          {t.reveal.sub}
-        </p>
-
-        <div
-          className="grid gap-6 reveal-group"
-        >
+        <div className="grid gap-4 reveal-group">
           {a.hooks.map((h, i) => (
             <div
               key={i}
-              className="reveal flex gap-8 rounded-[2.5rem] border border-white/5 bg-background/50 p-8 md:p-12 transition-all hover:border-arch-primary/40 group relative overflow-hidden"
+              className="reveal flex gap-5 rounded-2xl border border-white/5 bg-card/40 p-6 transition-all hover:border-arch-primary/40"
             >
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-arch-primary/10 text-arch-primary font-black text-2xl group-hover:bg-arch-primary group-hover:text-primary-foreground transition-all duration-500 shadow-xl border border-arch-primary/20">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary font-black border border-arch-primary/30">
                 {i + 1}
               </div>
-              <p className="text-2xl text-foreground font-medium leading-relaxed tracking-tight self-center">
+              <p className="text-base md:text-lg text-foreground/85 leading-relaxed self-center">
                 {h}
               </p>
             </div>
           ))}
         </div>
-
-        <button
-          onClick={onContinue}
-          className="group relative mt-24 w-full overflow-hidden rounded-3xl bg-foreground py-10 text-3xl font-black italic tracking-tighter text-background transition-all shadow-2xl"
-        >
-          <div className="absolute inset-0 overflow-hidden rounded-3xl bg-arch-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-          <span className="relative z-10 flex items-center justify-center gap-6">
-            {t.reveal.cta.toUpperCase()}
-            <ArrowRight
-              size={40}
-              className="transition-transform duration-500 group-hover:translate-x-4"
-            />
-          </span>
-        </button>
       </div>
       </ArchetypeRevealStage>
     </section>
