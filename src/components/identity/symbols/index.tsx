@@ -100,44 +100,45 @@ export function HiFlame(props: SymbolProps) {
     <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth={0.8} {...props}>
       {/* Halo discreto */}
       <circle cx="100" cy="100" r="88" opacity="0.18" />
-      {/* Chama principal — ponta afiada assimétrica + ondulações laterais + base arredondada */}
+      {/* Chama principal — silhueta clássica de tocha: ponta afilada, ombros curvos, base arredondada */}
       <path
-        d="M104 26
-           C 96 56 78 70 72 92
-           C 66 112 76 124 70 138
-           C 66 152 74 168 86 174
-           C 70 168 58 152 58 132
-           C 58 108 76 96 82 76
-           C 88 60 92 50 104 26 Z
-           M 104 26
-           C 112 50 124 64 134 86
-           C 144 108 142 128 138 142
-           C 134 158 122 172 110 174
-           C 126 168 138 154 140 134
-           C 142 112 128 100 122 80
-           C 116 62 110 48 104 26 Z"
-        strokeWidth={1.3}
-        fillRule="evenodd"
+        d="M100 28
+           C 108 52 128 70 138 92
+           C 148 116 144 140 128 156
+           C 118 166 108 172 100 174
+           C 92 172 82 166 72 156
+           C 56 140 52 116 62 92
+           C 72 70 92 52 100 28 Z"
+        strokeWidth={1.4}
       />
-      {/* Chama interna (núcleo mais quente) */}
+      {/* Lambida lateral — sugere o movimento da chama */}
       <path
-        d="M102 70
-           C 96 88 86 100 90 118
-           C 92 132 98 142 102 150
-           C 106 142 112 132 114 118
-           C 118 100 108 88 102 70 Z"
+        d="M100 64
+           C 92 82 78 96 80 118
+           C 82 134 92 146 100 154"
         strokeWidth={1}
-        opacity="0.7"
+        opacity="0.55"
       />
-      {/* Faíscas subindo ao redor */}
+      {/* Chama interna (núcleo quente) — gota menor centralizada */}
+      <path
+        d="M100 86
+           C 106 102 116 116 112 134
+           C 110 146 104 154 100 158
+           C 96 154 90 146 88 134
+           C 84 116 94 102 100 86 Z"
+        strokeWidth={1.1}
+        opacity="0.8"
+      />
+      {/* Núcleo brilhante */}
+      <circle cx="100" cy="138" r="3" fill="currentColor" opacity="0.9" />
+      {/* Faíscas subindo discretas */}
       {[
-        [46, 70],
-        [158, 80],
-        [38, 120],
-        [166, 130],
-        [60, 40],
+        [70, 56],
+        [132, 60],
+        [54, 96],
+        [148, 104],
       ].map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r="1.8" fill="currentColor" opacity="0.75" />
+        <circle key={i} cx={x} cy={y} r="1.5" fill="currentColor" opacity="0.7" />
       ))}
     </svg>
   );
