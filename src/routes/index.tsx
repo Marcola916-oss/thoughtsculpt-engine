@@ -845,28 +845,41 @@ function Reveal({
               zIndex: 0,
             }}
           />
-          {/* Feixe holográfico — projetado da BASE para o cérebro (cone invertido, ancorado no pedestal) */}
+          {/* Sombra de contato — faz o cérebro "pesar" no cenário sem escurecer o canvas */}
           <div
             aria-hidden
-            className="absolute left-1/2 -translate-x-1/2 bottom-[14%] w-[78%] h-[52%] pointer-events-none"
+            className="absolute left-1/2 -translate-x-1/2 bottom-[18%] w-[54%] h-[11%] rounded-[50%] pointer-events-none"
             style={{
               background:
-                "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 48%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 18%, transparent) 46%, transparent 78%)",
-              clipPath: "polygon(32% 100%, 68% 100%, 54% 0%, 46% 0%)",
+                "radial-gradient(ellipse at center, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.32) 42%, transparent 76%)",
+              filter: "blur(10px)",
+              opacity: 0.72,
+              zIndex: 1,
+            }}
+          />
+          {/* Feixe holográfico — nasce da BASE e para antes de lavar o cérebro */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 -translate-x-1/2 bottom-[13%] w-[62%] h-[34%] pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 42%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 16%, transparent) 48%, transparent 100%)",
+              clipPath: "polygon(30% 100%, 70% 100%, 57% 0%, 43% 0%)",
               mixBlendMode: "screen",
               animation: "arch-beam-pulse 3.6s ease-in-out infinite",
-              filter: "blur(0.5px)",
+              filter: "blur(2px)",
+              opacity: 0.76,
               zIndex: 1,
             }}
           />
           {/* Scanlines holográficas dentro do feixe — sobem em direção ao cérebro */}
           <div
             aria-hidden
-            className="absolute left-1/2 -translate-x-1/2 bottom-[14%] w-[78%] h-[52%] pointer-events-none opacity-70"
+            className="absolute left-1/2 -translate-x-1/2 bottom-[13%] w-[62%] h-[34%] pointer-events-none opacity-40"
             style={{
               background:
-                "repeating-linear-gradient(to top, transparent 0px, transparent 7px, color-mix(in oklab, var(--arch-primary) 34%, transparent) 8px, transparent 9px)",
-              clipPath: "polygon(32% 100%, 68% 100%, 54% 0%, 46% 0%)",
+                "repeating-linear-gradient(to top, transparent 0px, transparent 8px, color-mix(in oklab, var(--arch-primary) 28%, transparent) 9px, transparent 10px)",
+              clipPath: "polygon(30% 100%, 70% 100%, 57% 0%, 43% 0%)",
               mixBlendMode: "screen",
               backgroundSize: "100% 200%",
               animation: "arch-beam-scan 4s linear infinite",
@@ -879,8 +892,8 @@ function Reveal({
             className="absolute left-1/2 -translate-x-1/2 bottom-[12%] w-[58%] h-[6%] rounded-[50%] pointer-events-none"
             style={{
               background:
-                "radial-gradient(ellipse at center, var(--arch-glow) 0%, color-mix(in oklab, var(--arch-primary) 55%, transparent) 45%, transparent 75%)",
-              filter: "blur(6px)",
+                "radial-gradient(ellipse at center, var(--arch-glow) 0%, color-mix(in oklab, var(--arch-primary) 48%, transparent) 44%, transparent 74%)",
+              filter: "blur(7px)",
               mixBlendMode: "screen",
               animation: "arch-beam-pulse 3.6s ease-in-out infinite",
               zIndex: 2,
@@ -890,7 +903,7 @@ function Reveal({
             <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
           </div>
           <div
-            className="absolute inset-0 z-20 -translate-y-6 md:-translate-y-10"
+            className="absolute inset-0 z-20 -translate-y-4 md:-translate-y-6"
             style={{ isolation: "isolate" }}
           >
             {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
