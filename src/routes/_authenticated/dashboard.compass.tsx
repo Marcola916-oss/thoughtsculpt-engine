@@ -85,8 +85,8 @@ function CompassPage() {
       <section>
         <header className="mb-8">
           <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl text-primary shadow-[0_0_20px_var(--accent-glow)]">🧭</div>
-          <h1 className="font-display text-3xl font-extrabold md:text-4xl">Compass</h1>
-          <p className="mt-2 text-muted-foreground">
+          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">Compass</h1>
+          <p className="mt-3 text-sm md:text-base lg:text-lg leading-relaxed text-foreground/70">
             {t.dashboard.compass.subtitle}
           </p>
         </header>
@@ -103,25 +103,25 @@ function CompassPage() {
             <form onSubmit={handleNext} className="space-y-6">
               {step === 1 && (
                 <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                  <h2 className="mb-6 font-display text-2xl font-bold">{t.dashboard.compass.step1.heading}</h2>
+                  <h2 className="mb-6 font-display text-xl md:text-2xl font-black italic uppercase tracking-tight leading-tight text-balance">{t.dashboard.compass.step1.heading}</h2>
                   <div className="space-y-4">
                     <div>
-                      <label className="mb-2 block text-sm font-semibold text-foreground">{t.dashboard.compass.step1.nameLabel}</label>
+                      <label className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-foreground/70">{t.dashboard.compass.step1.nameLabel}</label>
                       <input
                         required
                         autoFocus
                         placeholder={t.dashboard.compass.step1.namePlaceholder}
                         value={form.target_name}
                         onChange={(e) => setForm({ ...form, target_name: e.target.value })}
-                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-lg outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base md:text-lg font-medium outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-semibold text-foreground">{t.dashboard.compass.step1.relationshipLabel}</label>
+                      <label className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-foreground/70">{t.dashboard.compass.step1.relationshipLabel}</label>
                       <select
                         value={form.relationship_type}
                         onChange={(e) => setForm({ ...form, relationship_type: e.target.value as any })}
-                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-lg outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base md:text-lg font-medium outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
                       >
                         <option value="professional">{t.dashboard.compass.step1.relationshipProfessional}</option>
                         <option value="romantic">{t.dashboard.compass.step1.relationshipRomantic}</option>
@@ -130,7 +130,7 @@ function CompassPage() {
                       </select>
                     </div>
                   </div>
-                  <button type="submit" className="mt-8 w-full rounded-xl bg-primary px-6 py-4 font-bold text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_15px_var(--accent-glow)]">
+                  <button type="submit" className="mt-8 w-full rounded-xl bg-primary px-6 py-4 text-sm md:text-base font-black italic uppercase tracking-tight text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_15px_var(--accent-glow)]">
                     {t.dashboard.compass.step1.continue}
                   </button>
                 </div>
@@ -138,36 +138,36 @@ function CompassPage() {
 
               {step === 2 && (
                 <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                  <h2 className="mb-6 font-display text-2xl font-bold">{t.dashboard.compass.step2.heading(form.target_name)}</h2>
+                  <h2 className="mb-6 font-display text-xl md:text-2xl font-black italic uppercase tracking-tight leading-tight text-balance">{t.dashboard.compass.step2.heading(form.target_name)}</h2>
                   <div className="space-y-4">
                     <div>
-                      <label className="mb-2 block text-sm font-semibold text-foreground">{t.dashboard.compass.step2.contextLabel}</label>
+                      <label className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-foreground/70">{t.dashboard.compass.step2.contextLabel}</label>
                       <input
                         required
                         autoFocus
                         placeholder={t.dashboard.compass.step2.contextPlaceholder}
                         value={form.context}
                         onChange={(e) => setForm({ ...form, context: e.target.value })}
-                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base font-medium outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
                     <div>
-                      <label className="mb-2 block text-sm font-semibold text-foreground">{t.dashboard.compass.step2.observationsLabel(form.target_name)}</label>
+                      <label className="mb-2 block text-[11px] font-black uppercase tracking-[0.18em] text-foreground/70">{t.dashboard.compass.step2.observationsLabel(form.target_name)}</label>
                       <textarea
                         required
                         placeholder={t.dashboard.compass.step2.observationsPlaceholder}
                         value={form.observations}
                         onChange={(e) => setForm({ ...form, observations: e.target.value })}
                         rows={5}
-                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
+                        className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base font-medium leading-relaxed outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
                       />
                     </div>
                   </div>
                   <div className="mt-8 flex gap-4">
-                    <button type="button" onClick={() => setStep(1)} className="rounded-xl border border-border px-6 py-4 font-bold text-muted-foreground hover:text-foreground">
+                    <button type="button" onClick={() => setStep(1)} className="rounded-xl border border-border px-6 py-4 text-sm md:text-base font-black italic uppercase tracking-tight text-muted-foreground hover:text-foreground">
                       {t.dashboard.compass.step2.back}
                     </button>
-                    <button type="submit" className="flex-1 rounded-xl bg-primary px-6 py-4 font-bold text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_15px_var(--accent-glow)]">
+                    <button type="submit" className="flex-1 rounded-xl bg-primary px-6 py-4 text-sm md:text-base font-black italic uppercase tracking-tight text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_15px_var(--accent-glow)]">
                       {t.dashboard.compass.step2.analyze}
                     </button>
                   </div>
@@ -183,8 +183,8 @@ function CompassPage() {
             <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_30px_var(--accent-glow)]">
               <span className="text-4xl animate-[spin_3s_linear_infinite]">🧭</span>
             </div>
-            <h2 className="font-display text-2xl font-bold">{t.dashboard.compass.loading.heading(form.target_name)}</h2>
-            <p className="mt-2 text-muted-foreground">{t.dashboard.compass.loading.description}</p>
+            <h2 className="font-display text-xl md:text-2xl font-black italic uppercase tracking-tight leading-tight text-balance">{t.dashboard.compass.loading.heading(form.target_name)}</h2>
+            <p className="mt-3 text-sm md:text-base text-foreground/70 leading-relaxed">{t.dashboard.compass.loading.description}</p>
           </div>
         )}
 
@@ -193,14 +193,14 @@ function CompassPage() {
           <div className="animate-in slide-in-from-bottom-8 duration-700">
             <article className="overflow-hidden rounded-2xl border border-primary/30 bg-card shadow-[0_8px_30px_var(--accent-glow)]">
               <div className="bg-primary/10 p-6 md:p-8">
-                <p className="text-xs font-bold uppercase tracking-wider text-primary">{t.dashboard.compass.result.probableArchetype}</p>
-                <h2 className="mt-1 font-display text-3xl font-extrabold text-foreground">
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-primary">{t.dashboard.compass.result.probableArchetype}</p>
+                <h2 className="mt-2 font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-tighter leading-[0.95] text-foreground text-balance">
                   {ARCHETYPE_NAMES[(activeAnalysis.probable_archetype ?? "AO") as Archetype]?.[lang as keyof (typeof ARCHETYPE_NAMES)["AO"]]}
                 </h2>
-                <p className="mt-1 text-sm font-bold text-primary">
+                <p className="mt-2 text-xs md:text-sm font-black uppercase tracking-[0.18em] text-primary">
                   {activeAnalysis.probable_archetype}
                 </p>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-3 text-sm text-foreground/70 font-medium">
                   {activeAnalysis.target_name} — {
                     activeAnalysis.relationship_type === "romantic"
                       ? t.dashboard.compass.result.typeRomantic
@@ -211,14 +211,14 @@ function CompassPage() {
                       : t.dashboard.compass.result.typeGeneral
                   }
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/50">
                   {new Date(activeAnalysis.created_at).toLocaleDateString(locale)}
                 </p>
               </div>
               <div className="p-6 md:p-8">
                 <CompassReport data={activeAnalysis.analysis_content as never} />
 
-                <button onClick={handleReset} className="mt-8 w-full rounded-xl border border-border py-4 font-bold text-muted-foreground hover:text-foreground hover:bg-secondary transition">
+                <button onClick={handleReset} className="mt-8 w-full rounded-xl border border-border py-4 text-sm md:text-base font-black italic uppercase tracking-tight text-muted-foreground hover:text-foreground hover:bg-secondary transition">
                   {t.dashboard.compass.result.newAnalysis}
                 </button>
               </div>
@@ -227,7 +227,7 @@ function CompassPage() {
         )}
 
         {mut.error && (
-          <div className="mt-6 rounded-lg bg-primary/20 px-4 py-3 text-sm font-semibold text-primary">
+          <div className="mt-6 rounded-lg bg-primary/20 px-4 py-3 text-sm font-bold text-primary">
             {(mut.error as Error).message}
             <button onClick={() => mut.reset()} className="ml-4 underline">{t.dashboard.compass.error.retry}</button>
           </div>
@@ -237,16 +237,16 @@ function CompassPage() {
       {/* --- SIDEBAR HISTORY --- */}
       <aside>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t.dashboard.compass.history.title}</h2>
+          <h2 className="text-[11px] font-black uppercase tracking-[0.22em] text-arch-primary">{t.dashboard.compass.history.title}</h2>
           {history.length > 0 && (
-            <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-bold text-muted-foreground">
+            <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-black tracking-wider text-foreground/70">
               {history.length}
             </span>
           )}
         </div>
         <ul className="space-y-3">
           {history.length === 0 && (
-            <li className="rounded-xl border border-border border-dashed bg-card/50 p-4 text-center text-xs text-muted-foreground">
+            <li className="rounded-xl border border-border border-dashed bg-card/50 p-4 text-center text-xs font-medium text-foreground/60">
               {t.dashboard.compass.history.empty}
             </li>
           )}
@@ -263,18 +263,18 @@ function CompassPage() {
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="font-display font-bold truncate flex-1 mr-2">{h.target_name}</div>
-                  <div className="shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary">
+                  <div className="font-display text-sm font-black italic uppercase tracking-tight truncate flex-1 mr-2">{h.target_name}</div>
+                  <div className="shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.18em] text-primary">
                     {h.probable_archetype}
                   </div>
                 </div>
-                <div className="mt-1.5 flex items-center gap-2 text-[10px] text-muted-foreground">
-                  <span className="uppercase">{h.relationship_type}</span>
+                <div className="mt-1.5 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em] text-foreground/50">
+                  <span>{h.relationship_type}</span>
                   <span>•</span>
                   <span>{new Date(h.created_at).toLocaleDateString(locale)}</span>
                 </div>
                 {isActive && (
-                  <div className="mt-1.5 text-[10px] font-semibold text-primary">{t.dashboard.compass.history.viewingNow}</div>
+                  <div className="mt-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-primary">{t.dashboard.compass.history.viewingNow}</div>
                 )}
               </li>
             );
@@ -297,24 +297,24 @@ function CompassReport({ data }: { data: { archetype_in_context?: string; dynami
 
       {data.archetype_in_context && (
         <section>
-          <h4 className="mb-2 font-bold text-foreground">{t.dashboard.compass.report.archetypeManifestation}</h4>
-          <p className="text-muted-foreground">{data.archetype_in_context}</p>
+          <h4 className="mb-3 font-display text-sm md:text-base font-black italic uppercase tracking-tight text-foreground">{t.dashboard.compass.report.archetypeManifestation}</h4>
+          <p className="text-sm md:text-base leading-relaxed text-foreground/70">{data.archetype_in_context}</p>
         </section>
       )}
 
       {data.dynamic_analysis && (
         <section>
-          <h4 className="mb-2 font-bold text-foreground">{t.dashboard.compass.report.dynamicWithYou}</h4>
-          <p className="text-muted-foreground">{data.dynamic_analysis}</p>
+          <h4 className="mb-3 font-display text-sm md:text-base font-black italic uppercase tracking-tight text-foreground">{t.dashboard.compass.report.dynamicWithYou}</h4>
+          <p className="text-sm md:text-base leading-relaxed text-foreground/70">{data.dynamic_analysis}</p>
         </section>
       )}
 
       {data.interaction_strategies && (
         <section>
-          <h4 className="mb-2 font-bold text-foreground">{t.dashboard.compass.report.interactionStrategies}</h4>
+          <h4 className="mb-3 font-display text-sm md:text-base font-black italic uppercase tracking-tight text-foreground">{t.dashboard.compass.report.interactionStrategies}</h4>
           <ul className="grid gap-2">
             {data.interaction_strategies.map((s, i) => (
-              <li key={i} className="flex gap-2 rounded-lg bg-secondary p-3 text-foreground">
+              <li key={i} className="flex gap-2 rounded-lg bg-secondary p-3 text-sm leading-relaxed text-foreground/85">
                 <span className="text-primary">✦</span> {s}
               </li>
             ))}
@@ -324,8 +324,8 @@ function CompassReport({ data }: { data: { archetype_in_context?: string; dynami
 
       {data.communication_script && (
         <section>
-          <h4 className="mb-2 font-bold text-foreground">{t.dashboard.compass.report.suggestedScript}</h4>
-          <p className="relative rounded-xl border border-border bg-background p-4 italic text-foreground shadow-sm">
+          <h4 className="mb-3 font-display text-sm md:text-base font-black italic uppercase tracking-tight text-foreground">{t.dashboard.compass.report.suggestedScript}</h4>
+          <p className="relative rounded-xl border border-border bg-background p-5 text-sm md:text-base leading-relaxed italic text-foreground/85 shadow-sm">
             <span className="absolute -top-3 left-4 bg-background px-1 text-2xl text-primary">"</span>
             {data.communication_script}
             <span className="absolute -bottom-5 right-4 bg-background px-1 text-2xl text-primary">"</span>
@@ -335,10 +335,10 @@ function CompassReport({ data }: { data: { archetype_in_context?: string; dynami
 
       {data.what_to_avoid && (
         <section>
-          <h4 className="mb-2 font-bold text-primary">{t.dashboard.compass.report.whatToAvoid}</h4>
+          <h4 className="mb-3 font-display text-sm md:text-base font-black italic uppercase tracking-tight text-primary">{t.dashboard.compass.report.whatToAvoid}</h4>
           <ul className="space-y-2">
             {data.what_to_avoid.map((s, i) => (
-              <li key={i} className="flex gap-2 text-muted-foreground">
+              <li key={i} className="flex gap-2 text-sm leading-relaxed text-foreground/70">
                 <span className="text-primary">✕</span> {s}
               </li>
             ))}
