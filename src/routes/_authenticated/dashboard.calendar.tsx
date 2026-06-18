@@ -154,8 +154,8 @@ function CalendarPage() {
         <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_40px_var(--accent-glow)]">
           <span className="text-6xl animate-pulse">📅</span>
         </div>
-        <h1 className="font-display text-3xl font-bold">{t.dashboard.calendar.empty.heading}</h1>
-        <p className="mt-3 text-muted-foreground leading-relaxed">
+        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">{t.dashboard.calendar.empty.heading}</h1>
+        <p className="mt-4 text-sm md:text-base lg:text-lg leading-relaxed text-foreground/70">
           {t.dashboard.calendar.empty.description}
         </p>
         {generate.error && (
@@ -164,7 +164,7 @@ function CalendarPage() {
         <button
           onClick={() => generate.mutate()}
           disabled={generate.isPending}
-          className="mt-8 group relative overflow-hidden rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(204,0,0,0.45)] disabled:scale-100 disabled:opacity-50"
+          className="mt-8 group relative overflow-hidden rounded-full bg-primary px-8 py-4 text-sm md:text-base font-black italic uppercase tracking-tight text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(204,0,0,0.45)] disabled:scale-100 disabled:opacity-50"
         >
           {generate.isPending ? (
             <span className="flex items-center gap-2">
@@ -297,7 +297,7 @@ function CalendarPage() {
     <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_400px]">
       <section>
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="font-display text-3xl font-extrabold">{t.dashboard.calendar.pageTitle}</h1>
+          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">{t.dashboard.calendar.pageTitle}</h1>
 
           <div className="relative">
             <button
@@ -417,10 +417,10 @@ function CalendarPage() {
           <>
             <div className="mb-4 flex items-center justify-between border-b border-border pb-4">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-arch-primary">
                   {t.dashboard.calendar.sidebar.phaseLabel(active.phase ?? "")}
                 </p>
-                <h2 className="mt-1 font-display text-2xl font-bold">{t.dashboard.calendar.sidebar.dayHeading(active.day_number)}</h2>
+                <h2 className="mt-2 font-display text-xl md:text-2xl font-black italic uppercase tracking-tight leading-tight">{t.dashboard.calendar.sidebar.dayHeading(active.day_number)}</h2>
               </div>
               {active.is_milestone && (
                 <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary">
