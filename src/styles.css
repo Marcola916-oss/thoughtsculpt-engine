@@ -1691,3 +1691,11 @@ html body .allow-break-all {
   .btn-press-soft:hover,
   .btn-press-soft:active { transform: none; box-shadow: none; }
 }
+
+/* Quiz question / email capture titles — typography spec from reference */
+.quiz-question-title {
+  font-size: 20px;
+  line-height: 25px;
+  letter-spacing: -1.2px;
+  font-weight: 600;
+}
