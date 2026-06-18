@@ -857,6 +857,29 @@ function Reveal({
               zIndex: 1,
             }}
           />
+          {/* Condutores sutis — conectam visualmente a base ao cérebro, sempre atrás do canvas */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 -translate-x-1/2 bottom-[23%] h-[34%] w-[22%] pointer-events-none"
+            style={{ zIndex: 1 }}
+          >
+            {[-1, 1].map((side) => (
+              <span
+                key={side}
+                className="absolute bottom-0 top-0 w-px origin-bottom rounded-full"
+                style={{
+                  left: side < 0 ? "31%" : "69%",
+                  transform: `rotate(${side * 7}deg)`,
+                  background:
+                    "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 58%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 52%, transparent 100%)",
+                  boxShadow:
+                    "0 0 10px color-mix(in oklab, var(--arch-primary) 38%, transparent)",
+                  opacity: 0.52,
+                  animation: "arch-connector-pulse 3.8s ease-in-out infinite",
+                }}
+              />
+            ))}
+          </div>
           {/* Feixe holográfico — nasce da BASE e para antes de lavar o cérebro */}
           <div
             aria-hidden
@@ -903,7 +926,7 @@ function Reveal({
             <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
           </div>
           <div
-            className="absolute inset-0 z-20 -translate-y-4 md:-translate-y-6"
+            className="absolute inset-0 z-20 translate-y-1 md:translate-y-2"
             style={{ isolation: "isolate" }}
           >
             {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
