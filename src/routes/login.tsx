@@ -61,8 +61,8 @@ function LoginPage() {
           role="alert"
           className="mb-4 rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-sm text-foreground"
         >
-          <p className="font-semibold text-primary">{t.login.subscriptionEnded}</p>
-          <p className="mt-1 text-muted-foreground">
+          <p className="font-display text-sm md:text-base font-black italic uppercase tracking-tight text-primary">{t.login.subscriptionEnded}</p>
+          <p className="mt-1 text-sm leading-relaxed text-foreground/70">
             {t.login.subscriptionRenew}
           </p>
         </div>
