@@ -55,13 +55,13 @@ function DiagnosisPage() {
         <div className="mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_40px_var(--accent-glow)]">
           <span className="text-6xl animate-pulse">🧠</span>
         </div>
-        <h1 className="font-display text-3xl font-extrabold md:text-4xl">{t.dashboard.diagnosis.empty.heading}</h1>
-        <p className="mt-4 max-w-lg text-muted-foreground leading-relaxed">
+        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">{t.dashboard.diagnosis.empty.heading}</h1>
+        <p className="mt-5 max-w-lg text-base md:text-lg leading-relaxed text-foreground/70">
           {t.dashboard.diagnosis.empty.description}
         </p>
         
         {mutation.error && (
-          <div className="mt-6 rounded-lg bg-primary/20 px-4 py-3 text-sm font-semibold text-primary">
+          <div className="mt-6 rounded-lg bg-primary/20 px-4 py-3 text-sm font-bold text-primary">
             {(mutation.error as Error).message}
           </div>
         )}
@@ -69,7 +69,7 @@ function DiagnosisPage() {
         <button
           onClick={() => mutation.mutate()}
           disabled={mutation.isPending}
-          className="mt-8 group relative overflow-hidden rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_20px_var(--accent-glow)] disabled:scale-100 disabled:opacity-50"
+          className="mt-8 group relative overflow-hidden rounded-full bg-primary px-8 py-4 text-sm md:text-base font-black italic uppercase tracking-tight text-primary-foreground transition-all hover:scale-105 hover:shadow-[0_0_20px_var(--accent-glow)] disabled:scale-100 disabled:opacity-50"
         >
           {mutation.isPending ? (
             <span className="flex items-center gap-2">
@@ -180,10 +180,10 @@ function DiagnosisPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-4 py-1.5 shadow-[0_0_15px_var(--arch-glow)]">
-              <span className="text-sm font-black uppercase tracking-widest text-arch-primary">{archetypeName}</span>
+              <span className="text-[11px] md:text-xs font-black uppercase tracking-[0.25em] text-arch-primary">{archetypeName}</span>
             </div>
-            <h1 className="font-display text-4xl font-black md:text-5xl tracking-tighter text-gradient">{t.dashboard.diagnosis.result.heading}</h1>
-            <p className="mt-2 text-sm text-muted-foreground font-medium">
+            <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-black italic uppercase tracking-[-0.05em] leading-[0.95] text-gradient text-balance">{t.dashboard.diagnosis.result.heading}</h1>
+            <p className="mt-3 text-xs md:text-sm font-bold uppercase tracking-[0.18em] text-foreground/60">
               {t.dashboard.diagnosis.result.generatedOn} {new Date(diagnosis.generated_at).toLocaleDateString()}
             </p>
           </div>
@@ -192,19 +192,19 @@ function DiagnosisPage() {
           <div className="flex flex-wrap gap-2 print:hidden">
             <button 
               onClick={handleDownloadPdf}
-              className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold transition hover:bg-secondary"
+              className="rounded-lg border border-border bg-background px-4 py-2 text-xs md:text-sm font-black italic uppercase tracking-tight transition hover:bg-secondary"
             >
               {t.dashboard.diagnosis.actions.downloadPdf}
             </button>
             <button 
               onClick={handleShareWhatsApp}
-              className="rounded-lg bg-[#25D366] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+              className="rounded-lg bg-[#25D366] px-4 py-2 text-xs md:text-sm font-black italic uppercase tracking-tight text-white transition hover:opacity-90"
             >
               🟢 {t.dashboard.diagnosis.actions.whatsapp}
             </button>
             <button 
               onClick={handleShare}
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_10px_var(--accent-glow)]"
+              className="rounded-lg bg-primary px-4 py-2 text-xs md:text-sm font-black italic uppercase tracking-tight text-primary-foreground transition hover:opacity-90 hover:shadow-[0_0_10px_var(--accent-glow)]"
             >
               {copied ? t.dashboard.diagnosis.actions.copied : t.dashboard.diagnosis.actions.copyLink}
             </button>
@@ -217,7 +217,7 @@ function DiagnosisPage() {
           <button
             key={tabItem.key}
             onClick={() => setTab(tabItem.key)}
-            className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+            className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-xs md:text-sm font-black italic uppercase tracking-tight transition-colors ${
               tab === tabItem.key ? "text-foreground" : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -249,10 +249,10 @@ function DiagnosisPage() {
             </div>
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-arch-primary/20 to-transparent" />
             
-            <h2 className="font-display text-4xl font-black text-arch-primary mb-12 tracking-tighter uppercase italic">
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-[-0.05em] leading-[0.95] text-arch-primary mb-10 md:mb-12 text-balance">
               {tabs.find((tabItem) => tabItem.key === tab)?.label}
             </h2>
-            <div className="relative z-10 text-xl md:text-2xl font-medium text-foreground/80 selection:bg-arch-primary/30 tracking-tight leading-relaxed">
+            <div className="relative z-10 text-base md:text-lg lg:text-xl font-medium text-foreground/80 selection:bg-arch-primary/30 tracking-tight leading-relaxed">
               {content}
             </div>
           </motion.article>
@@ -260,7 +260,7 @@ function DiagnosisPage() {
       </div>
 
 
-      <p className="mt-8 text-center text-xs text-muted-foreground print:text-left">
+      <p className="mt-8 text-center text-[11px] font-medium leading-relaxed text-foreground/50 print:text-left">
         {t.dashboard.diagnosis.disclaimer}
       </p>
     </div>

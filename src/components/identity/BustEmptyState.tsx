@@ -36,9 +36,9 @@ export function BustEmptyState({
       <div className="mb-8">
         <MarbleBust size={bustSize} variant="empty" intensity={intensity} ariaLabel="" />
       </div>
-      <h2 className="text-2xl font-bold text-foreground mb-3 tracking-tight">{title}</h2>
+      <h2 className="font-display text-xl md:text-2xl font-black italic uppercase tracking-tight text-foreground mb-3">{title}</h2>
       {description && (
-        <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-sm">{description}</p>
+        <p className="text-sm text-foreground/70 leading-relaxed mb-6 max-w-sm">{description}</p>
       )}
       {action && <div className="flex items-center gap-2">{action}</div>}
     </div>

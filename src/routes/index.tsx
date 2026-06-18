@@ -627,10 +627,10 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <h2 className="font-display text-5xl font-black md:text-7xl tracking-tighter uppercase italic text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+      <h2 className="font-display text-[clamp(1.75rem,6vw,3rem)] font-black italic uppercase leading-[1.05] tracking-tighter text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
         {t.identity.title}
       </h2>
-      <p className="mt-6 text-xl text-muted-foreground leading-relaxed font-medium tracking-tight max-w-xl">
+      <p className="mt-4 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed">
         {t.identity.sub}
       </p>
 
@@ -704,10 +704,12 @@ function QuestionScreen(props: {
 
   return (
     <div className="w-full">
-      <h2 className="font-display text-2xl font-bold leading-tight md:text-3xl mb-3">
+      <h2 className="font-display text-[clamp(1.75rem,6vw,3rem)] font-black italic uppercase leading-[1.05] tracking-tighter text-balance mb-4">
         {q.q.replace("[NOME]", props.name)}
       </h2>
-      <p className="text-muted-foreground mb-8 text-base">{t.questions.intro(props.name)}</p>
+      <p className="mb-8 text-base md:text-lg text-foreground/70 leading-relaxed">
+        {t.questions.intro(props.name)}
+      </p>
 
       <div className="grid gap-3.5">
         {q.options.map((opt, i) => (
@@ -741,10 +743,12 @@ function EmailCapture(props: {
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_20px_var(--accent-glow)] mx-auto">
         <Lock className="h-7 w-7 text-primary animate-pulse" />
       </div>
-      <h2 className="font-display text-2xl font-extrabold md:text-4xl">
+      <h2 className="font-display text-[clamp(1.75rem,6vw,3rem)] font-black italic uppercase leading-[1.05] tracking-tighter text-balance">
         {t.emailCapture.title(props.name)}
       </h2>
-      <p className="mt-3 text-base text-muted-foreground leading-relaxed">{t.emailCapture.sub}</p>
+      <p className="mt-4 text-base md:text-lg text-foreground/70 leading-relaxed">
+        {t.emailCapture.sub}
+      </p>
 
       <form
         onSubmit={(e) => {
@@ -845,28 +849,64 @@ function Reveal({
               zIndex: 0,
             }}
           />
-          {/* Feixe holográfico — projetado da BASE para o cérebro (cone invertido, ancorado no pedestal) */}
+          {/* Sombra de contato — faz o cérebro "pesar" no cenário sem escurecer o canvas */}
           <div
             aria-hidden
-            className="absolute left-1/2 -translate-x-1/2 bottom-[14%] w-[78%] h-[52%] pointer-events-none"
+            className="absolute left-1/2 -translate-x-1/2 bottom-[18%] w-[54%] h-[11%] rounded-[50%] pointer-events-none"
             style={{
               background:
-                "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 48%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 18%, transparent) 46%, transparent 78%)",
-              clipPath: "polygon(32% 100%, 68% 100%, 54% 0%, 46% 0%)",
+                "radial-gradient(ellipse at center, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.32) 42%, transparent 76%)",
+              filter: "blur(10px)",
+              opacity: 0.72,
+              zIndex: 1,
+            }}
+          />
+          {/* Condutores sutis — conectam visualmente a base ao cérebro, sempre atrás do canvas */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 -translate-x-1/2 bottom-[23%] h-[34%] w-[22%] pointer-events-none"
+            style={{ zIndex: 1 }}
+          >
+            {[-1, 1].map((side) => (
+              <span
+                key={side}
+                className="absolute bottom-0 top-0 w-px origin-bottom rounded-full"
+                style={{
+                  left: side < 0 ? "31%" : "69%",
+                  transform: `rotate(${side * 7}deg)`,
+                  background:
+                    "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 58%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 52%, transparent 100%)",
+                  boxShadow:
+                    "0 0 10px color-mix(in oklab, var(--arch-primary) 38%, transparent)",
+                  opacity: 0.52,
+                  animation: "arch-connector-pulse 3.8s ease-in-out infinite",
+                }}
+              />
+            ))}
+          </div>
+          {/* Feixe holográfico — nasce da BASE e para antes de lavar o cérebro */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 -translate-x-1/2 bottom-[13%] w-[62%] h-[34%] pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 42%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 16%, transparent) 48%, transparent 100%)",
+              clipPath: "polygon(30% 100%, 70% 100%, 57% 0%, 43% 0%)",
               mixBlendMode: "screen",
               animation: "arch-beam-pulse 3.6s ease-in-out infinite",
-              filter: "blur(0.5px)",
+              filter: "blur(2px)",
+              opacity: 0.76,
               zIndex: 1,
             }}
           />
           {/* Scanlines holográficas dentro do feixe — sobem em direção ao cérebro */}
           <div
             aria-hidden
-            className="absolute left-1/2 -translate-x-1/2 bottom-[14%] w-[78%] h-[52%] pointer-events-none opacity-70"
+            className="absolute left-1/2 -translate-x-1/2 bottom-[13%] w-[62%] h-[34%] pointer-events-none opacity-40"
             style={{
               background:
-                "repeating-linear-gradient(to top, transparent 0px, transparent 7px, color-mix(in oklab, var(--arch-primary) 34%, transparent) 8px, transparent 9px)",
-              clipPath: "polygon(32% 100%, 68% 100%, 54% 0%, 46% 0%)",
+                "repeating-linear-gradient(to top, transparent 0px, transparent 8px, color-mix(in oklab, var(--arch-primary) 28%, transparent) 9px, transparent 10px)",
+              clipPath: "polygon(30% 100%, 70% 100%, 57% 0%, 43% 0%)",
               mixBlendMode: "screen",
               backgroundSize: "100% 200%",
               animation: "arch-beam-scan 4s linear infinite",
@@ -879,8 +919,8 @@ function Reveal({
             className="absolute left-1/2 -translate-x-1/2 bottom-[12%] w-[58%] h-[6%] rounded-[50%] pointer-events-none"
             style={{
               background:
-                "radial-gradient(ellipse at center, var(--arch-glow) 0%, color-mix(in oklab, var(--arch-primary) 55%, transparent) 45%, transparent 75%)",
-              filter: "blur(6px)",
+                "radial-gradient(ellipse at center, var(--arch-glow) 0%, color-mix(in oklab, var(--arch-primary) 48%, transparent) 44%, transparent 74%)",
+              filter: "blur(7px)",
               mixBlendMode: "screen",
               animation: "arch-beam-pulse 3.6s ease-in-out infinite",
               zIndex: 2,
@@ -890,7 +930,7 @@ function Reveal({
             <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
           </div>
           <div
-            className="absolute inset-0 z-20 -translate-y-6 md:-translate-y-10"
+            className="absolute inset-0 z-20 translate-y-1 md:translate-y-2"
             style={{ isolation: "isolate" }}
           >
             {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
@@ -1078,7 +1118,7 @@ function Sales({
             )}
           </h1>
 
-          <p className="reveal mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+          <p className="reveal mt-12 text-base md:text-xl lg:text-2xl font-medium text-foreground/70 leading-relaxed max-w-3xl mx-auto">
             {s.promise}
           </p>
 
@@ -1121,7 +1161,7 @@ function Sales({
               <h2 className="font-display text-4xl md:text-6xl font-black text-foreground mb-8 leading-tight tracking-tighter">
                 {s.painBlock.title}
               </h2>
-              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
+              <p className="text-base md:text-lg lg:text-xl text-foreground/70 leading-relaxed mb-10">
                 {s.painBlock.body}
               </p>
               <div className="flex items-center gap-4 text-sm font-black uppercase tracking-widest text-arch-primary">
@@ -1162,7 +1202,7 @@ function Sales({
           <h3 className="font-display text-4xl md:text-8xl font-black mb-12 leading-[0.95] tracking-tighter uppercase italic">
             {s.science.title}
           </h3>
-          <div className="space-y-12 text-2xl md:text-3xl text-muted-foreground leading-relaxed font-medium tracking-tight">
+          <div className="space-y-12 text-lg md:text-xl lg:text-2xl text-foreground/70 leading-relaxed font-medium tracking-tight">
             <p>{s.science.body}</p>
             <p className="text-sm font-black uppercase tracking-[0.5em] text-arch-primary/40">
               {s.science.references}
@@ -1199,7 +1239,7 @@ function Sales({
               <h4 className="font-display text-3xl font-black mb-6 tracking-tight uppercase italic">
                 {f.title}
               </h4>
-              <p className="text-muted-foreground text-xl leading-relaxed font-medium">
+              <p className="text-foreground/70 text-base md:text-lg leading-relaxed font-medium">
                 {f.description}
               </p>
             </MSection>
@@ -1219,8 +1259,8 @@ function Sales({
               <ShieldCheck size={64} className="text-arch-primary" />
             </div>
             <div className="text-center md:text-left">
-              <h4 className="text-3xl font-black mb-4 tracking-tight">{s.guarantee.title}</h4>
-              <p className="text-xl text-muted-foreground leading-relaxed font-medium">
+              <h4 className="font-display text-2xl md:text-3xl font-black italic uppercase mb-4 tracking-tight">{s.guarantee.title}</h4>
+              <p className="text-base md:text-lg text-foreground/70 leading-relaxed font-medium">
                 {s.guarantee.body}
               </p>
             </div>
@@ -1238,7 +1278,7 @@ function Sales({
               <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">
                 {s.ctaFinal.title}
               </h3>
-              <p className="text-xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">
+              <p className="text-base md:text-xl lg:text-2xl text-foreground/70 mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">
                 {s.ctaFinal.subtitle}
               </p>
 

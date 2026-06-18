@@ -129,8 +129,8 @@ function ThankYouPage() {
       <div className="flex min-h-screen items-center justify-center bg-transparent p-4 text-white">
         <div className="rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-8 text-center max-w-md md:backdrop-blur-xl">
           <span className="text-4xl">⚠️</span>
-          <h2 className="mt-4 mb-2 text-2xl font-bold text-[#CC0000]">{t.obrigado.errorHeading}</h2>
-          <p className="text-gray-400 leading-relaxed">{error}</p>
+          <h2 className="mt-4 mb-2 font-display text-xl md:text-2xl font-black italic uppercase tracking-tight text-[#CC0000]">{t.obrigado.errorHeading}</h2>
+          <p className="text-foreground/70 leading-relaxed">{error}</p>
           <Link
             data-cursor="hover"
             to="/"
@@ -192,12 +192,12 @@ function ThankYouPage() {
               <CelebrationBrain size={180} className="mx-auto" />
             </motion.div>
 
-            <h1 className="font-display text-4xl md:text-5xl font-black tracking-tighter leading-tight">
+            <h1 className="font-display text-[clamp(2rem,8vw,3.75rem)] font-black italic uppercase leading-[0.95] tracking-[-0.05em] text-balance">
               {t.obrigado.welcomeHeading}
               <br />
               <TypewriterText text={firstName} className="text-[#CC0000]" />!
             </h1>
-            <p className="mt-4 text-lg text-gray-400 leading-relaxed max-w-xl mx-auto">
+            <p className="mt-5 text-base md:text-lg leading-relaxed text-white/70 max-w-xl mx-auto">
               {t.obrigado.welcomeSub}
             </p>
           </motion.div>
@@ -211,7 +211,7 @@ function ThankYouPage() {
           >
             <div className="flex items-center gap-3 mb-6">
               <ShieldCheck className="h-6 w-6 text-[#CC0000]" />
-              <h2 className="font-display text-xl font-bold">{t.obrigado.credentialsHeading}</h2>
+              <h2 className="font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.obrigado.credentialsHeading}</h2>
             </div>
 
             <div className="space-y-4">
@@ -219,7 +219,7 @@ function ThankYouPage() {
                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 block mb-1">
                   {t.obrigado.emailLabel}
                 </label>
-                <p className="text-lg font-bold text-white break-all">
+                <p className="text-base md:text-lg font-bold text-white break-all">
                   {email || t.obrigado.emailUnavailable}
                 </p>
               </div>
@@ -229,7 +229,7 @@ function ThankYouPage() {
                   {t.obrigado.passwordLabel}
                 </label>
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-xl font-mono font-bold text-[#CC0000] tracking-wider">
+                  <p className="text-lg md:text-xl font-mono font-bold text-[#CC0000] tracking-wider break-all">
                     {defaultPassword}
                   </p>
                   <ButtonPress
@@ -244,7 +244,7 @@ function ThankYouPage() {
                     {copied ? t.obrigado.copySuccess : t.obrigado.copyDefault}
                   </ButtonPress>
                 </div>
-                <p className="mt-2 text-xs text-gray-500">
+                <p className="mt-2 text-xs text-white/50">
                   {t.obrigado.passwordInstruction}
                 </p>
               </div>
@@ -259,7 +259,7 @@ function ThankYouPage() {
             className="mb-10 flex items-center justify-center gap-3 rounded-full border border-[#CC0000]/20 bg-[#CC0000]/5 px-6 py-3 md:backdrop-blur-xl"
           >
             <Clock className="h-4 w-4 text-[#CC0000]" />
-            <span className="text-sm font-bold text-gray-400">
+            <span className="text-xs md:text-sm font-bold text-white/70">
               {t.obrigado.diagnosisTimerLabel}{" "}
               <span className="font-mono text-[#CC0000] text-lg">{formatTime(timeLeft)}</span>
             </span>
@@ -272,7 +272,7 @@ function ThankYouPage() {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="mb-12"
           >
-            <h2 className="font-display text-2xl font-black text-center mb-8 tracking-tight">
+            <h2 className="font-display text-xl md:text-2xl lg:text-3xl font-black italic uppercase text-center mb-8 tracking-tighter leading-tight text-balance">
               {t.obrigado.whatsNextHeading}
             </h2>
             <div className="space-y-4">
@@ -292,10 +292,10 @@ function ThankYouPage() {
                       <step.icon className="h-7 w-7 text-gray-400 group-hover:text-[#CC0000] transition-colors" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-lg text-white group-hover:text-[#CC0000] transition-colors">
+                      <h3 className="font-display text-base md:text-lg font-black italic uppercase tracking-tight leading-[1.2] text-white group-hover:text-[#CC0000] transition-colors">
                         {step.title}
                       </h3>
-                      <p className="text-sm text-gray-500 mt-0.5">{step.desc}</p>
+                      <p className="text-sm text-white/60 mt-1 leading-relaxed">{step.desc}</p>
                     </div>
                     <ArrowRight className="h-5 w-5 text-gray-600 group-hover:text-[#CC0000] group-hover:translate-x-1 transition-all shrink-0" />
                   </Link>
@@ -314,7 +314,7 @@ function ThankYouPage() {
             <Link
               to="/dashboard/"
               data-cursor="hover"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-[#CC0000] px-12 py-5 text-xl font-black text-white transition-all hover:scale-105 shadow-[0_20px_60px_-15px_rgba(204,0,0,0.4)]"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-[#CC0000] px-8 py-4 md:px-12 md:py-5 text-base md:text-xl font-black italic uppercase tracking-tight text-white transition-all hover:scale-105 shadow-[0_20px_60px_-15px_rgba(204,0,0,0.4)]"
             >
               <span className="relative z-10">{t.obrigado.accessCta}</span>
               <ArrowRight
@@ -332,7 +332,7 @@ function ThankYouPage() {
             transition={{ delay: 2.2 }}
             className="mb-12"
           >
-            <h3 className="font-display text-xl font-bold text-center mb-6">
+            <h3 className="font-display text-lg md:text-xl font-black italic uppercase text-center mb-6 tracking-tight">
               {t.obrigado.faqHeading}
             </h3>
             <div className="space-y-3">
@@ -354,13 +354,13 @@ function ThankYouPage() {
                   key={i}
                   className="group rounded-xl border border-white/5 bg-white/5 overflow-hidden"
                 >
-                  <summary className="flex cursor-pointer items-center justify-between p-4 font-bold text-sm text-white select-none hover:bg-white/5 transition">
+                  <summary className="flex cursor-pointer items-center justify-between gap-3 p-4 font-display text-sm md:text-base font-black italic uppercase tracking-tight text-white select-none hover:bg-white/5 transition">
                     {item.q}
-                    <span className="text-[#CC0000] transition-transform group-open:rotate-180">
+                    <span className="text-[#CC0000] shrink-0 not-italic transition-transform group-open:rotate-180">
                       ▼
                     </span>
                   </summary>
-                  <div className="px-4 pb-4 text-sm text-gray-400 leading-relaxed border-t border-white/5 pt-3">
+                  <div className="px-4 pb-4 text-sm text-white/70 leading-relaxed border-t border-white/5 pt-3">
                     {item.a}
                   </div>
                 </details>
@@ -369,7 +369,7 @@ function ThankYouPage() {
           </motion.div>
 
           {/* Footer */}
-          <div className="text-center text-xs text-gray-600">
+          <div className="text-center text-[11px] font-bold uppercase tracking-[0.18em] text-white/40">
             © {new Date().getFullYear()} MindReset Inc. {t.obrigado.copyright}
           </div>
         </div>

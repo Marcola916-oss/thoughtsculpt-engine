@@ -61,10 +61,10 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
           <div className="flex items-center gap-3">
             <span className="text-3xl">📊</span>
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <p className="text-[11px] font-black uppercase tracking-[0.22em] text-arch-primary">
                 {t.dashboard.progress.report.monthlyReportLabel(report.month_number)}
               </p>
-              <h2 className="font-display text-2xl font-extrabold">{t.dashboard.progress.report.behavioralEvolution}</h2>
+              <h2 className="font-display text-xl md:text-2xl font-black italic uppercase tracking-tight leading-tight text-balance">{t.dashboard.progress.report.behavioralEvolution}</h2>
             </div>
           </div>
 
@@ -72,14 +72,14 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
           {report.consistency_score != null && (
             <div className="mt-4 flex items-center gap-4 rounded-2xl border border-border bg-background p-5">
               <div className="flex h-20 w-20 shrink-0 flex-col items-center justify-center rounded-full border-4 border-primary shadow-[0_0_20px_rgba(204,0,0,0.35)]">
-                <span className="font-display text-2xl font-extrabold text-primary">
+                <span className="font-display text-2xl font-black italic text-primary">
                   {report.consistency_score}
                 </span>
-                <span className="text-[10px] font-bold uppercase text-muted-foreground">Score</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/60">Score</span>
               </div>
               <div>
-                <p className={`font-display text-lg font-extrabold ${badge.color}`}>{badge.label}</p>
-                <p className="mt-1 text-sm text-muted-foreground leading-snug">
+                <p className={`font-display text-base md:text-lg font-black italic uppercase tracking-tight ${badge.color}`}>{badge.label}</p>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/70">
                   {t.dashboard.progress.report.scoreDescription(report.consistency_score)}
                 </p>
               </div>
@@ -91,41 +91,41 @@ function ReportModal({ report, onClose }: { report: Report; onClose: () => void 
           {/* Summary */}
           {report.summary && (
             <div className="rounded-xl border border-border bg-background p-5">
-              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <h3 className="mb-3 text-[11px] font-black uppercase tracking-[0.2em] text-foreground/60">
                 📈 {t.dashboard.progress.report.monthAnalysis}
               </h3>
-              <p className="text-sm leading-relaxed text-foreground">{report.summary}</p>
+              <p className="text-sm md:text-base leading-relaxed text-foreground/85">{report.summary}</p>
             </div>
           )}
 
           {/* Pattern */}
           {report.pattern_observed && (
             <div className="rounded-xl border border-primary/20 bg-primary/5 p-5">
-              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-primary">
+              <h3 className="mb-3 text-[11px] font-black uppercase tracking-[0.2em] text-primary">
                 🔍 {t.dashboard.progress.report.patternIdentified}
               </h3>
-              <p className="text-sm leading-relaxed text-foreground">{report.pattern_observed}</p>
+              <p className="text-sm md:text-base leading-relaxed text-foreground/85">{report.pattern_observed}</p>
             </div>
           )}
 
           {/* Next Focus */}
           {report.next_focus && (
             <div className="rounded-xl border border-success/20 bg-success/5 p-5">
-              <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-success">
+              <h3 className="mb-3 text-[11px] font-black uppercase tracking-[0.2em] text-success">
                 🎯 {t.dashboard.progress.report.nextMonthFocus}
               </h3>
-              <p className="text-sm leading-relaxed text-foreground">{report.next_focus}</p>
+              <p className="text-sm md:text-base leading-relaxed text-foreground/85">{report.next_focus}</p>
             </div>
           )}
 
           {/* Motivational close */}
           {report.motivational_close && (
-            <blockquote className="border-l-4 border-primary pl-5 italic text-muted-foreground">
+            <blockquote className="border-l-4 border-primary pl-5 text-sm md:text-base italic leading-relaxed text-foreground/75">
               "{report.motivational_close}"
             </blockquote>
           )}
 
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/50">
             {t.dashboard.progress.report.generatedOn} {new Date(report.generated_at).toLocaleDateString(locale, { day: "2-digit", month: "long", year: "numeric" })}
           </p>
         </div>
@@ -254,8 +254,8 @@ function ProgressPage() {
       )}
 
       <header className="mb-8">
-        <h1 className="font-display text-3xl font-extrabold md:text-4xl">{t.dashboard.progress.pageTitle}</h1>
-        <p className="mt-2 text-muted-foreground">{t.dashboard.progress.pageSubtitle}</p>
+        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">{t.dashboard.progress.pageTitle}</h1>
+        <p className="mt-3 text-sm md:text-base lg:text-lg leading-relaxed text-foreground/70">{t.dashboard.progress.pageSubtitle}</p>
       </header>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -292,14 +292,14 @@ function ProgressPage() {
                 variants={numberRollUp}
                 initial="hidden"
                 animate="visible"
-                className="font-display text-2xl font-bold"
+                className="font-display text-2xl md:text-3xl font-black italic tracking-tighter"
               >
                 {points}
               </motion.span>
             </AnimatePresence>
-            <span className="text-[10px] uppercase text-muted-foreground">{t.dashboard.progress.points.label}</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/60">{t.dashboard.progress.points.label}</span>
           </div>
-          <p className="mt-2 text-center text-xs text-muted-foreground">
+          <p className="mt-3 text-center text-[11px] font-medium text-foreground/60">
             {t.dashboard.progress.points.nextReward(nextRewardTier - points)}
           </p>
         </div>
@@ -308,25 +308,25 @@ function ProgressPage() {
         <div className="flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm">
           <div>
             <div className="mb-3 text-3xl">📊</div>
-            <h2 className="font-display text-xl font-bold">{t.dashboard.progress.report.widgetTitle}</h2>
+            <h2 className="font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.dashboard.progress.report.widgetTitle}</h2>
             {report ? (
               <>
                 <div className="mt-2 flex items-center gap-2">
                   {report.consistency_score != null && (
-                    <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-bold text-primary">
+                    <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-black uppercase tracking-[0.15em] text-primary">
                       {report.consistency_score}% {t.dashboard.progress.consistencyGrid.title.toLowerCase()}
                     </span>
                   )}
-                  <span className={`text-xs font-bold ${consistencyBadge(report.consistency_score ?? null, t).color}`}>
+                  <span className={`text-[10px] font-black uppercase tracking-[0.15em] ${consistencyBadge(report.consistency_score ?? null, t).color}`}>
                     {consistencyBadge(report.consistency_score ?? null, t).label}
                   </span>
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+                <p className="mt-3 text-sm leading-relaxed text-foreground/70 line-clamp-2">
                   {report.summary ?? t.dashboard.progress.report.readyFallback}
                 </p>
               </>
             ) : (
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm leading-relaxed text-foreground/70">
                 {t.dashboard.progress.report.notYetAvailable}
               </p>
             )}
@@ -334,12 +334,12 @@ function ProgressPage() {
           {report ? (
             <button
               onClick={() => setShowReport(true)}
-              className="mt-4 w-full rounded-lg bg-primary/10 px-4 py-2 font-semibold text-primary transition hover:bg-primary/20 hover:shadow-[0_0_15px_rgba(204,0,0,0.25)]"
+              className="mt-4 w-full rounded-lg bg-primary/10 px-4 py-2 text-xs md:text-sm font-black italic uppercase tracking-tight text-primary transition hover:bg-primary/20 hover:shadow-[0_0_15px_rgba(204,0,0,0.25)]"
             >
               {t.dashboard.progress.report.viewFull}
             </button>
           ) : (
-            <div className="mt-4 rounded-lg bg-secondary px-4 py-2 text-center text-sm font-semibold text-muted-foreground">
+            <div className="mt-4 rounded-lg bg-secondary px-4 py-2 text-center text-[11px] font-black uppercase tracking-[0.2em] text-foreground/60">
               {t.dashboard.progress.report.comingSoon}
             </div>
           )}
@@ -349,8 +349,8 @@ function ProgressPage() {
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {/* Consistency Grid */}
         <section className="rounded-2xl border border-border bg-card p-6">
-          <h3 className="mb-1 font-display text-lg font-bold">{t.dashboard.progress.consistencyGrid.title}</h3>
-          <p className="mb-5 text-xs text-muted-foreground">
+          <h3 className="mb-2 font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.dashboard.progress.consistencyGrid.title}</h3>
+          <p className="mb-5 text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/60">
             {t.dashboard.progress.consistencyGrid.completedDays(tasks.filter((task) => task.is_completed).length, tasks.length)}
           </p>
           <div className="grid grid-cols-6 gap-2 sm:grid-cols-10">
@@ -364,7 +364,7 @@ function ProgressPage() {
             ))}
           </div>
           {/* Legend */}
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+          <div className="mt-5 flex flex-wrap items-center gap-4 text-[11px] font-bold uppercase tracking-[0.15em] text-foreground/60">
             <div className="flex items-center gap-1.5">
               <div className="h-3 w-3 rounded-sm bg-card/20 border border-border/40" />
               {t.dashboard.progress.consistencyGrid.legendLocked}
@@ -386,7 +386,7 @@ function ProgressPage() {
 
         {/* Achievements */}
         <section className="rounded-2xl border border-border bg-card p-6">
-          <h3 className="mb-4 font-display text-lg font-bold">{t.dashboard.progress.achievements.title}</h3>
+          <h3 className="mb-5 font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.dashboard.progress.achievements.title}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
             {ALL_ACHIEVEMENTS.map((a, i) => {
               const unlocked = achievs?.find((dbA) => dbA.achievement_code === a.code);
@@ -404,10 +404,10 @@ function ProgressPage() {
                 >
                   <div className="text-2xl">{unlocked ? a.icon : "🔒"}</div>
                   <div>
-                    <h4 className={`text-sm font-bold ${unlocked ? "text-foreground" : "text-muted-foreground"}`}>
+                    <h4 className={`font-display text-sm font-black italic uppercase tracking-tight ${unlocked ? "text-foreground" : "text-foreground/50"}`}>
                       {a.name}
                     </h4>
-                    <p className="text-[10px] text-muted-foreground">
+                    <p className="mt-1 text-[11px] font-medium leading-relaxed text-foreground/60">
                       {unlocked ? t.dashboard.progress.achievements.unlocked : a.desc}
                     </p>
                   </div>

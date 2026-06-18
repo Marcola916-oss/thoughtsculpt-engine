@@ -224,7 +224,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-tighter leading-tight flex items-center text-balance">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -236,7 +236,7 @@ function OnboardingPage() {
                   </motion.span>
                   {t.onboarding.step1.heading}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step1.description}</p>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70 mb-8">{t.onboarding.step1.description}</p>
                 <div className="grid gap-3">
                   {[
                     { value: "before-6am", label: t.onboarding.step1.option.before6am, emoji: "🌙" },
@@ -271,7 +271,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-tighter leading-tight flex items-center text-balance">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -283,7 +283,7 @@ function OnboardingPage() {
                   </motion.span>
                   {t.onboarding.step2.heading}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step2.description}</p>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70 mb-8">{t.onboarding.step2.description}</p>
                 <div className="grid gap-3">
                   {[
                     { value: "before-10pm", label: t.onboarding.step2.option.before10pm, emoji: "🌙" },
@@ -318,7 +318,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-tighter leading-tight flex items-center text-balance">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -330,7 +330,7 @@ function OnboardingPage() {
                   </motion.span>
                   {t.onboarding.step3.heading}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step3.description}</p>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70 mb-8">{t.onboarding.step3.description}</p>
                 <div className="grid gap-3">
                   {[
                     { value: 15, label: t.onboarding.step3.option.min15, emoji: "⚡" },
@@ -365,7 +365,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-tighter leading-tight flex items-center text-balance">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -377,7 +377,7 @@ function OnboardingPage() {
                   </motion.span>
                   {t.onboarding.step4.heading}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step4.description}</p>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70 mb-8">{t.onboarding.step4.description}</p>
                 <input
                   required
                   autoFocus
@@ -408,7 +408,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-tighter leading-tight flex items-center text-balance">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -420,7 +420,7 @@ function OnboardingPage() {
                   </motion.span>
                   {t.onboarding.step5.heading}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step5.description}</p>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70 mb-8">{t.onboarding.step5.description}</p>
                 <div className="grid gap-3">
                   {[
                     { value: "debt", label: t.onboarding.step5.option.debt, emoji: "🔗" },
@@ -455,7 +455,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-tighter leading-tight flex items-center text-balance">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -467,7 +467,7 @@ function OnboardingPage() {
                   </motion.span>
                   {t.onboarding.step6.heading}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step6.description}</p>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70 mb-8">{t.onboarding.step6.description}</p>
                 <div className="grid gap-3">
                   {[
                     { value: "hardcore", label: t.onboarding.step6.option.hardcore, emoji: "🔥" },
@@ -500,7 +500,7 @@ function OnboardingPage() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h2 className="font-display text-2xl font-extrabold md:text-3xl flex items-center">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-black italic uppercase tracking-tighter leading-tight flex items-center text-balance">
                   <motion.span
                     key={`icon-${step}`}
                     initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
@@ -512,7 +512,7 @@ function OnboardingPage() {
                   </motion.span>
                   {t.onboarding.step7.heading}
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground mb-8">{t.onboarding.step7.description}</p>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70 mb-8">{t.onboarding.step7.description}</p>
                 <div className="grid gap-3">
                   {[
                     { value: "ios", label: t.onboarding.step7.option.ios, emoji: "🍎" },

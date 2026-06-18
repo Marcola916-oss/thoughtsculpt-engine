@@ -351,10 +351,10 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               {/* Header */}
               <div className="mb-4 flex items-center justify-between border-b border-border pb-4">
                 <div>
-                  <h2 className="font-display text-xl font-bold text-foreground flex items-center gap-2">
+                  <h2 className="font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2] text-foreground flex items-center gap-2">
                     <span>🔔</span> {t.dashboard.sidebar.notifications.title}
                   </h2>
-                  <p className="text-xs text-muted-foreground">{t.dashboard.sidebar.notifications.subtitle}</p>
+                  <p className="mt-1 text-xs font-medium text-foreground/60">{t.dashboard.sidebar.notifications.subtitle}</p>
                 </div>
                 <button 
                   onClick={() => setNotifOpen(false)}
@@ -422,9 +422,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                         
                         {/* Details */}
                         <div className="flex-1 min-w-0 pr-4">
-                          <h4 className="font-semibold text-sm text-foreground truncate">{n.title}</h4>
-                          <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{n.body}</p>
-                          <span className="mt-2 block text-[10px] text-muted-foreground/60">
+                          <h4 className="font-display text-sm font-black italic uppercase tracking-tight text-foreground truncate">{n.title}</h4>
+                          <p className="mt-1 text-xs text-foreground/70 leading-relaxed">{n.body}</p>
+                          <span className="mt-2 block text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/50">
                             {new Date(n.created_at).toLocaleDateString(lang === "pt" ? "pt-BR" : lang === "pl" ? "pl-PL" : lang === "ro" ? "ro-RO" : "en-US", {
                               day: "2-digit",
                               month: "2-digit",

@@ -65,11 +65,11 @@ export function BuilderPage({ urlPath }: BuilderPageProps) {
   if (notFound && !isPreviewing) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-black px-6 text-center">
-        <span className="text-6xl font-black text-[#CC0000]">404</span>
-        <h1 className="font-display text-2xl font-black text-white">
+        <span className="font-display text-[clamp(4rem,15vw,6rem)] font-black italic uppercase leading-[0.9] tracking-[-0.05em] text-[#CC0000]">404</span>
+        <h1 className="font-display text-xl md:text-2xl font-black italic uppercase tracking-tight text-white">
           Página não encontrada
         </h1>
-        <p className="max-w-sm text-white/50">
+        <p className="max-w-sm text-white/70 leading-relaxed">
           Essa URL não existe em nosso site. Verifique o endereço ou volte à
           página inicial.
         </p>

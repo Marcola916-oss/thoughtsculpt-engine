@@ -25,8 +25,8 @@ function TermsPage() {
           </Link>
         </div>
 
-      <h1 className="mt-4 font-display text-4xl font-extrabold">{t.common.terms}</h1>
-      <p className="mt-6 whitespace-pre-line text-muted-foreground">{t.legal.termsBody}</p>
+      <h1 className="mt-4 font-display text-3xl md:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">{t.common.terms}</h1>
+      <p className="mt-8 whitespace-pre-line text-sm md:text-base leading-relaxed text-foreground/70">{t.legal.termsBody}</p>
       </div>
     </div>
 

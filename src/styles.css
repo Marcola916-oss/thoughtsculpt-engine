@@ -766,6 +766,10 @@
   0%   { background-position: 0% -120%; }
   100% { background-position: 0% 220%; }
 }
+@keyframes arch-connector-pulse {
+  0%, 100% { opacity: 0.34; filter: blur(0.3px); }
+  50%      { opacity: 0.62; filter: blur(0.8px); }
+}
 @keyframes mr-rain-slow {
   0%   { background-position: 0 0, 0 0, 0 0; }
   100% { background-position: 0 200px, 0 220px, 0 180px; }
