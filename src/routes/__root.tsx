@@ -27,9 +27,9 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">{t.notFound.title}</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <h1 className="font-display text-[clamp(4rem,15vw,7rem)] font-black italic uppercase leading-[0.9] tracking-[-0.05em] text-foreground">404</h1>
+        <h2 className="mt-4 font-display text-lg md:text-xl font-black italic uppercase tracking-tight text-foreground">{t.notFound.title}</h2>
+        <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
           {t.notFound.desc}
         </p>
         <div className="mt-6">
@@ -56,10 +56,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+        <h1 className="font-display text-lg md:text-xl font-black italic uppercase tracking-tight text-foreground">
           {t.errorPage.title}
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
           {t.errorPage.desc}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">

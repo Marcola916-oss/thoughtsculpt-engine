@@ -1118,7 +1118,7 @@ function Sales({
             )}
           </h1>
 
-          <p className="reveal mt-12 text-xl md:text-3xl font-medium text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+          <p className="reveal mt-12 text-base md:text-xl lg:text-2xl font-medium text-foreground/70 leading-relaxed max-w-3xl mx-auto">
             {s.promise}
           </p>
 
@@ -1161,7 +1161,7 @@ function Sales({
               <h2 className="font-display text-4xl md:text-6xl font-black text-foreground mb-8 leading-tight tracking-tighter">
                 {s.painBlock.title}
               </h2>
-              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
+              <p className="text-base md:text-lg lg:text-xl text-foreground/70 leading-relaxed mb-10">
                 {s.painBlock.body}
               </p>
               <div className="flex items-center gap-4 text-sm font-black uppercase tracking-widest text-arch-primary">
@@ -1202,7 +1202,7 @@ function Sales({
           <h3 className="font-display text-4xl md:text-8xl font-black mb-12 leading-[0.95] tracking-tighter uppercase italic">
             {s.science.title}
           </h3>
-          <div className="space-y-12 text-2xl md:text-3xl text-muted-foreground leading-relaxed font-medium tracking-tight">
+          <div className="space-y-12 text-lg md:text-xl lg:text-2xl text-foreground/70 leading-relaxed font-medium tracking-tight">
             <p>{s.science.body}</p>
             <p className="text-sm font-black uppercase tracking-[0.5em] text-arch-primary/40">
               {s.science.references}
@@ -1239,7 +1239,7 @@ function Sales({
               <h4 className="font-display text-3xl font-black mb-6 tracking-tight uppercase italic">
                 {f.title}
               </h4>
-              <p className="text-muted-foreground text-xl leading-relaxed font-medium">
+              <p className="text-foreground/70 text-base md:text-lg leading-relaxed font-medium">
                 {f.description}
               </p>
             </MSection>
@@ -1259,8 +1259,8 @@ function Sales({
               <ShieldCheck size={64} className="text-arch-primary" />
             </div>
             <div className="text-center md:text-left">
-              <h4 className="text-3xl font-black mb-4 tracking-tight">{s.guarantee.title}</h4>
-              <p className="text-xl text-muted-foreground leading-relaxed font-medium">
+              <h4 className="font-display text-2xl md:text-3xl font-black italic uppercase mb-4 tracking-tight">{s.guarantee.title}</h4>
+              <p className="text-base md:text-lg text-foreground/70 leading-relaxed font-medium">
                 {s.guarantee.body}
               </p>
             </div>
@@ -1278,7 +1278,7 @@ function Sales({
               <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">
                 {s.ctaFinal.title}
               </h3>
-              <p className="text-xl md:text-3xl text-muted-foreground mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">
+              <p className="text-base md:text-xl lg:text-2xl text-foreground/70 mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">
                 {s.ctaFinal.subtitle}
               </p>
 
