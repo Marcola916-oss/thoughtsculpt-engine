@@ -23,7 +23,7 @@ export function QuizScreenWrapper({
   const visualProgress = progress >= 80 ? 95 : progress;
 
   return (
-    <div className="relative min-h-[60vh] md:min-h-[70vh] flex flex-col justify-center items-center py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px]">
+    <div className="relative flex flex-col items-center pt-2 pb-6 md:min-h-[70vh] md:justify-center md:py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px]">
       {/* Decorative circuit line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent z-0" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent z-0" />
