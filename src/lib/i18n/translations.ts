@@ -353,7 +353,7 @@ const PT: Dict = {
     intro: (name) => `${name}, escolhe a opção que mais se parece contigo — não há respostas erradas.`,
   },
   q: [
-    { q: "RECEBES\u00a0 UMA\u00a0 QUANTIA\u00a0 INESPERADA\u00a0 EQUIVALENTE\u00a0 AO\u00a0 TEU\u00a0 SALÁRIO.\nQUAL\u00a0 É\u00a0 O\u00a0 TEU\u00a0 PRIMEIRO\u00a0 IMPULSO?",
+    { q: "RECEBES\u00a0 UMA\u00a0 QUANTIA\u00a0 INESPERADA\u00a0 EQUIVALENTE\u00a0 AO\u00a0 TEU\u00a0 SALÁRIO,\u00a0 QUAL\u00a0 É\u00a0 O\u00a0 TEU\u00a0 PRIMEIRO\u00a0 IMPULSO?",
       options: ["Guardo quase tudo — segurança em primeiro lugar","Aproveito para algo que vai impressionar quem está à minha volta","Deixo na conta e tento não pensar nisso","Compro o que sempre quis — vivo agora, planeio depois"] },
     { q: "QUANDO\u00a0 GASTAS\u00a0 MAIS\u00a0 DO\u00a0 QUE DEVIAS,\u00a0 O\u00a0 GATILHO\u00a0 COSTUMA\u00a0 SER:",
       options: ["Medo de que o dinheiro não chegue (e gasto a controlar)","Pressão social ou desejo de pertencer","Cansaço, evitar pensar em dinheiro","Emoção do momento — vejo, quero, levo"] },
