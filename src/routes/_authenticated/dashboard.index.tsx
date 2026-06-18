@@ -96,8 +96,8 @@ function HubPage() {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <h2 className="text-lg font-bold text-primary">{t.dashboardErrors.failedLoad}</h2>
-        <p className="text-sm text-muted-foreground">{(error as Error).message}</p>
+        <h2 className="font-display text-xl md:text-2xl font-black italic uppercase tracking-tight leading-tight text-primary">{t.dashboardErrors.failedLoad}</h2>
+        <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70">{(error as Error).message}</p>
       </div>
     );
   }
@@ -128,7 +128,7 @@ function HubPage() {
         <motion.p variants={staggerItem} className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/40 mb-3">
           {t.dashboard.hub.greeting(hour)}{name ? `, ${name}` : ""}.
         </motion.p>
-        <motion.h1 variants={staggerItem} className="mt-2 font-display text-3xl sm:text-4xl md:text-6xl font-black tracking-tighter italic leading-[0.9]">
+        <motion.h1 variants={staggerItem} className="mt-2 font-display text-[clamp(1.85rem,7vw,4.25rem)] font-black italic uppercase tracking-[-0.05em] leading-[0.9] text-balance">
           {archetype ? (
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-4">
@@ -154,10 +154,10 @@ function HubPage() {
             <div className="absolute top-0 right-0 p-2 opacity-10">
               <Logo link={false} size="sm" className="opacity-40 grayscale" />
             </div>
-            <p className="text-sm italic" style={{ color: "var(--arch-primary)" }}>
+            <p className="font-display text-sm md:text-base font-medium italic leading-relaxed" style={{ color: "var(--arch-primary)" }}>
               &ldquo;{t.dashboard.hub.quotes[archetype]}&rdquo;
             </p>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="mt-2 text-[11px] font-black uppercase tracking-[0.2em] text-foreground/60">
               {ARCHETYPE_NAMES[archetype][lang]} — {new Date().toLocaleDateString(lang === "pt" ? "pt-BR" : lang === "pl" ? "pl-PL" : lang === "ro" ? "ro-RO" : "en-US", { weekday: "long", day: "numeric", month: "long" })}
             </p>
           </motion.div>
@@ -184,7 +184,7 @@ function HubPage() {
             transition={{ duration: 0.2 }}
           >
             <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">{stat.icon}</div>
-            <div className="text-2xl font-black text-foreground tabular-nums tracking-tighter">{stat.value}</div>
+            <div className="font-display text-2xl md:text-3xl font-black italic text-foreground tabular-nums tracking-tighter">{stat.value}</div>
             <div className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mt-1">{stat.label}</div>
           </motion.div>
         ))}
@@ -223,11 +223,11 @@ function HubPage() {
                     </motion.span>
                   )}
                 </div>
-                <h2 className="font-display text-2xl font-bold tracking-tight">{c.title}</h2>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                <h2 className="font-display text-lg md:text-xl lg:text-2xl font-black italic uppercase tracking-tight leading-[1.15]">{c.title}</h2>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70">
                   {typeof c.desc === 'function' ? c.desc(0) : c.desc}
                 </p>
-                <div className="mt-6 flex items-center gap-2 text-xs font-black uppercase tracking-widest text-arch-primary opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
+                <div className="mt-6 flex items-center gap-2 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-arch-primary opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">
                   {c.cta} <span>→</span>
                 </div>
               </BentoCard>
@@ -246,16 +246,16 @@ function HubPage() {
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-arch-primary/5 blur-3xl pointer-events-none" />
           <div className="flex items-center justify-between mb-8 relative z-10">
-            <h3 className="font-display text-xl font-black italic tracking-tighter uppercase">{t.dashboard.hub.recentActivity.title}</h3>
-            <Link to="/dashboard/progress" className="text-[10px] font-black uppercase tracking-widest text-arch-primary hover:underline">{t.dashboard.hub.recentActivity.viewAll} →</Link>
+            <h3 className="font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.dashboard.hub.recentActivity.title}</h3>
+            <Link to="/dashboard/progress" className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-arch-primary hover:underline">{t.dashboard.hub.recentActivity.viewAll} →</Link>
           </div>
           <div className="space-y-3">
             {notifications.map((n) => (
               <div key={n.id} className="flex items-start gap-4 rounded-2xl bg-white/5 border border-white/5 p-5 transition-all hover:bg-white/10 group">
                 <span className="text-2xl transition-transform group-hover:scale-110">{n.icon || "🔔"}</span>
                 <div>
-                  <h4 className="text-sm font-black text-foreground uppercase tracking-tight">{n.title}</h4>
-                  <p className="mt-1 text-xs text-muted-foreground/80 leading-relaxed font-medium">{n.body}</p>
+                  <h4 className="font-display text-sm font-black italic uppercase tracking-tight text-foreground">{n.title}</h4>
+                  <p className="mt-1 text-xs md:text-sm text-foreground/70 leading-relaxed font-medium">{n.body}</p>
                 </div>
               </div>
             ))}

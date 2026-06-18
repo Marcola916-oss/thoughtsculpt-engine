@@ -29,15 +29,15 @@ function ResetPasswordPage() {
       <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 relative z-10">
         <Logo size="xl" className="justify-center mb-8" />
 
-      <h1 className="font-display text-3xl font-bold">{t.resetPassword.title}</h1>
+      <h1 className="font-display text-3xl md:text-4xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">{t.resetPassword.title}</h1>
       <form onSubmit={submit} className="mt-6 space-y-3">
         <input
           type="password" required minLength={8} placeholder={t.resetPassword.placeholder}
           value={password} onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-lg border border-border bg-card px-4 py-3 outline-none focus:border-primary"
+          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-base font-medium outline-none focus:border-primary"
         />
-        {msg && <p className="text-sm text-muted-foreground">{msg}</p>}
-        <button disabled={busy} className="w-full rounded-full bg-primary px-4 py-3 font-semibold text-primary-foreground disabled:opacity-50">
+        {msg && <p className="text-sm font-medium text-foreground/70">{msg}</p>}
+        <button disabled={busy} className="w-full rounded-full bg-primary px-4 py-3 text-sm font-black italic uppercase tracking-tight text-primary-foreground disabled:opacity-50 transition hover:-translate-y-0.5">
           {busy ? t.resetPassword.updating : t.resetPassword.updateButton}
         </button>
       </form>

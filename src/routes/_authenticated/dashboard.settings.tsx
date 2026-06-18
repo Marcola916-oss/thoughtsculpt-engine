@@ -126,8 +126,8 @@ function SettingsPage() {
     <div className="mx-auto max-w-3xl">
       <header className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="font-display text-3xl font-extrabold">{t.dashboard.settings.pageTitle}</h1>
-          <p className="mt-2 text-muted-foreground">{t.dashboard.settings.pageSubtitle}</p>
+          <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">{t.dashboard.settings.pageTitle}</h1>
+          <p className="mt-3 text-sm md:text-base lg:text-lg leading-relaxed text-foreground/70">{t.dashboard.settings.pageSubtitle}</p>
         </div>
         <Logo size="sm" link={false} className="opacity-20 hidden sm:block" />
       </header>
@@ -135,7 +135,7 @@ function SettingsPage() {
       <div className="space-y-6">
         {/* Profile Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-xl font-bold">{t.dashboard.settings.profile.title}</h2>
+          <h2 className="mb-5 font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.dashboard.settings.profile.title}</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.profile.nameLabel}</label>
@@ -164,7 +164,7 @@ function SettingsPage() {
 
         {/* Preferences Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-xl font-bold">{t.dashboard.settings.preferences.title}</h2>
+          <h2 className="mb-5 font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.dashboard.settings.preferences.title}</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t.dashboard.settings.preferences.languageLabel}</label>
@@ -196,7 +196,7 @@ function SettingsPage() {
 
         {/* Subscription Section */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-xl font-bold">{t.dashboard.settings.subscription.title}</h2>
+          <h2 className="mb-5 font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.dashboard.settings.subscription.title}</h2>
           {sub ? (
             <div>
               <div className="mb-6 grid gap-4 md:grid-cols-2">
@@ -247,8 +247,8 @@ function SettingsPage() {
 
         {/* Security Section - Password Change */}
         <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="mb-4 font-display text-xl font-bold">{t.dashboard.settings.security.title}</h2>
-          <p className="mb-4 text-sm text-muted-foreground">
+          <h2 className="mb-3 font-display text-lg md:text-xl font-black italic uppercase tracking-tight leading-[1.2]">{t.dashboard.settings.security.title}</h2>
+          <p className="mb-5 text-sm md:text-base leading-relaxed text-foreground/70">
             {t.dashboard.settings.security.desc}
           </p>
           <div className="grid gap-4 md:grid-cols-2">
@@ -289,8 +289,8 @@ function SettingsPage() {
       {showCancelModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-xl">
-            <h3 className="font-display text-xl font-bold">{t.dashboard.settings.cancelModal.heading(p?.display_name ?? "")}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            <h3 className="font-display text-xl md:text-2xl font-black italic uppercase tracking-tight leading-tight text-balance">{t.dashboard.settings.cancelModal.heading(p?.display_name ?? "")}</h3>
+            <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70">
               {t.dashboard.settings.cancelModal.body}
             </p>
             <div className="mt-6 flex flex-col gap-3">

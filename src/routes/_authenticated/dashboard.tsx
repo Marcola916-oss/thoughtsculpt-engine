@@ -64,10 +64,10 @@ function DashboardLayout() {
           <div className="relative h-16 w-16 text-6xl" aria-hidden>⚠️</div>
         </div>
         <div className="max-w-md space-y-6">
-          <h2 className="font-display text-2xl font-bold tracking-tight text-white">
+          <h2 className="font-display text-2xl md:text-3xl font-black italic uppercase tracking-tighter leading-tight text-white text-balance">
             {t.dashboardErrors.connectionHeading}
           </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-sm md:text-base leading-relaxed text-foreground/70">
             {t.dashboardErrors.connectionDesc}
           </p>
           <div className="flex flex-col gap-3">
@@ -147,13 +147,13 @@ function DashboardLayout() {
           <div className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-background/60 backdrop-blur-sm p-4 text-center">
             <div className="w-full max-w-md rounded-2xl border border-border bg-card p-8 shadow-2xl animate-in zoom-in-95 duration-300">
               <span className="text-5xl" aria-hidden>🔒</span>
-              <h2 className="mt-4 font-display text-2xl font-extrabold">{t.dashboard.layout.locked.heading}</h2>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+              <h2 className="mt-4 font-display text-2xl md:text-3xl font-black italic uppercase tracking-tighter leading-tight text-balance">{t.dashboard.layout.locked.heading}</h2>
+              <p className="mt-3 text-sm md:text-base leading-relaxed text-foreground/70">
                 {t.dashboard.layout.locked.description}
               </p>
               <Link
                 to="/dashboard/settings"
-                className="mt-6 inline-block rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-[0_0_20px_rgba(204,0,0,0.45)] transition-all hover:scale-105 hover:shadow-lg pointer-events-auto"
+                className="mt-6 inline-block rounded-full bg-primary px-8 py-4 text-sm md:text-base font-black italic uppercase tracking-tight text-primary-foreground shadow-[0_0_20px_rgba(204,0,0,0.45)] transition-all hover:scale-105 hover:shadow-lg pointer-events-auto"
               >
                 {t.dashboard.layout.locked.reactivateButton}
               </Link>

@@ -30,25 +30,25 @@ function SharePage() {
   const meta = arch ? t.archetypes[arch] : null;
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-16 text-center">
-      <p className="text-xs uppercase tracking-widest text-muted-foreground">MindReset</p>
-      {isLoading && <p className="mt-10 text-muted-foreground">Loading…</p>}
+    <div className="mx-auto max-w-2xl px-4 py-16 md:py-24 text-center">
+      <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-arch-primary">MindReset</p>
+      {isLoading && <p className="mt-10 text-sm font-medium text-foreground/60">Loading…</p>}
       {!isLoading && !meta && (
         <>
-          <h1 className="mt-4 font-display text-3xl font-extrabold">Share not found</h1>
-          <p className="mt-2 text-sm text-muted-foreground">This link is invalid or has expired.</p>
+          <h1 className="mt-4 font-display text-3xl md:text-4xl font-black italic uppercase tracking-tighter leading-tight">Share not found</h1>
+          <p className="mt-3 text-sm md:text-base text-foreground/70 leading-relaxed">This link is invalid or has expired.</p>
         </>
       )}
       {meta && (
         <>
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/60">
             {data?.display_name ?? "Someone"} is a
           </p>
-          <h1 className="mt-2 font-display text-5xl font-extrabold text-primary md:text-7xl">{meta.name}</h1>
-          <p className="mt-4 text-lg text-foreground/90">{meta.tagline}</p>
+          <h1 className="mt-3 font-display text-[clamp(2.75rem,11vw,5.5rem)] font-black italic uppercase leading-[0.9] tracking-[-0.05em] text-primary text-balance">{meta.name}</h1>
+          <p className="mt-5 text-base md:text-lg leading-relaxed text-foreground/85">{meta.tagline}</p>
         </>
       )}
-      <Link to="/" className="mr-glow mt-10 inline-flex rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">
+      <Link to="/" className="mr-glow mt-10 inline-flex rounded-full bg-primary px-6 py-3 text-sm font-black italic uppercase tracking-tight text-primary-foreground transition hover:-translate-y-0.5">
         {t.share.cta} →
       </Link>
     </div>
