@@ -228,7 +228,7 @@ function LandingAndQuiz() {
       {stage.kind === "hero" && <TopBar />}
 
       <main
-        className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-0 md:pt-12" : "pt-16 md:pt-12"} relative z-10`}
+        className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-5 md:pt-12" : "pt-16 md:pt-12"} relative z-10`}
       >
         
           {stage.kind === "hero" && (
