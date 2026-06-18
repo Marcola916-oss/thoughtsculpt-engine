@@ -67,7 +67,7 @@ function LoginPage() {
           </p>
         </div>
       )}
-      <h1 className="font-display text-3xl font-bold">{t.common.login}</h1>
+      <h1 className="font-display text-3xl md:text-4xl font-black italic uppercase tracking-tighter leading-[0.95] text-balance">{t.common.login}</h1>
       <form onSubmit={submit} className="mt-6 space-y-3">
         <input
           type="email"
@@ -75,7 +75,7 @@ function LoginPage() {
           placeholder={t.common.emailPlaceholder}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-lg border border-border bg-card px-4 py-3 outline-none focus:border-primary"
+          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-base font-medium outline-none focus:border-primary"
         />
         <input
           type="password"
@@ -83,19 +83,19 @@ function LoginPage() {
           placeholder="••••••••"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-lg border border-border bg-card px-4 py-3 outline-none focus:border-primary"
+          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-base font-medium outline-none focus:border-primary"
         />
-        {err && <p className="text-sm text-primary">{err}</p>}
+        {err && <p className="text-sm font-medium text-primary">{err}</p>}
         <button
           disabled={busy}
-          className="w-full rounded-full bg-primary px-4 py-3 font-semibold text-primary-foreground disabled:opacity-50"
+          className="w-full rounded-full bg-primary px-4 py-3 text-sm font-black italic uppercase tracking-tight text-primary-foreground disabled:opacity-50 transition hover:-translate-y-0.5"
         >
           {busy ? t.common.loading : t.common.login}
         </button>
       </form>
       <button
         onClick={forgot}
-        className="mt-6 text-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors p-2"
+        className="mt-6 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground hover:text-primary transition-colors p-2"
       >
         {t.login.forgotPassword}
       </button>
