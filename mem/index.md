@@ -6,6 +6,7 @@ Identidade: preto #000, accent #CC0000, Syne 800 display + Inter body, Noto Nask
 Stack: TanStack Start + Supabase + i18n 5 idiomas (PT/EN/PL/RO/AR, AR é RTL). Nunca localStorage (iframe sandboxed).
 Toda tabela Supabase com RLS. Secrets só em Edge Functions. Sem TODOs/placeholders em entregas.
 Micro-interações obrigatórias (hover translateY+glow, click scale 0.97). Sem isso = entrega rejeitada.
+Pedidos de padronização global exigem auditoria completa + validação visual em todas as rotas antes de afirmar concluído.
 Cache AI generations (diagnóstico/calendário/relatório geram UMA vez).
 
 ## Memories
