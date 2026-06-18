@@ -112,6 +112,7 @@ type Stage =
 function LandingAndQuiz() {
   const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
+  const isQuizCaptureStage = stage.kind === "identity" || stage.kind === "q" || stage.kind === "email";
 
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -226,7 +227,9 @@ function LandingAndQuiz() {
       
       {stage.kind === "hero" && <TopBar />}
 
-      <main className="w-full px-0 sm:px-4 pb-24 pt-16 md:pt-12 relative z-10">
+      <main
+        className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-0 md:pt-12" : "pt-16 md:pt-12"} relative z-10`}
+      >
         
           {stage.kind === "hero" && (
             <div
