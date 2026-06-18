@@ -1239,7 +1239,7 @@ function Sales({
               <h4 className="font-display text-3xl font-black mb-6 tracking-tight uppercase italic">
                 {f.title}
               </h4>
-              <p className="text-muted-foreground text-xl leading-relaxed font-medium">
+              <p className="text-foreground/70 text-base md:text-lg leading-relaxed font-medium">
                 {f.description}
               </p>
             </MSection>
