@@ -1698,4 +1698,5 @@ html body .allow-break-all {
   line-height: 25px;
   letter-spacing: -1.2px;
   font-weight: 600;
+  white-space: pre-line;
 }

@@ -23,15 +23,15 @@ export function QuizScreenWrapper({
   const visualProgress = progress >= 80 ? 95 : progress;
 
   return (
-    <div className="relative min-h-[60vh] md:min-h-[70vh] flex flex-col justify-center items-center py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px]">
+    <div className="relative flex flex-col items-center pt-2 pb-6 md:min-h-[70vh] md:justify-center md:py-6 w-full max-w-2xl mx-auto px-4 perspective-[1000px]">
       {/* Decorative circuit line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent z-0" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent z-0" />
 
       {/* Fixed top progress bar */}
       <div className="w-full mb-6 md:mb-12 relative z-20">
-        <div className="flex justify-between items-end mb-3">
-          <div className="flex items-center gap-3">
+        <div className="relative flex justify-between items-center mb-3">
+          <div className="flex items-center">
             {onBack && (
               <button
                 type="button"
@@ -42,12 +42,12 @@ export function QuizScreenWrapper({
                 <ChevronLeft className="h-5 w-5" />
               </button>
             )}
-            {progressTitle && (
-              <span className="text-[11px] font-black uppercase tracking-[0.3em] text-primary drop-shadow-[0_0_8px_var(--accent-glow)]">
-                {progressTitle}
-              </span>
-            )}
           </div>
+          {progressTitle && (
+            <span className="absolute left-1/2 -translate-x-1/2 text-[11px] font-black uppercase tracking-[0.3em] text-primary drop-shadow-[0_0_8px_var(--accent-glow)] whitespace-nowrap pointer-events-none">
+              {progressTitle}
+            </span>
+          )}
           <span className="text-xs font-black text-muted-foreground/60 tabular-nums">
             {Math.round(progress)}%
           </span>
