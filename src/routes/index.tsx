@@ -627,10 +627,10 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <h2 className="font-display text-5xl font-black md:text-7xl tracking-tighter uppercase italic text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+      <h2 className="font-display text-[clamp(1.75rem,6vw,3rem)] font-black italic uppercase leading-[1.05] tracking-tighter text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
         {t.identity.title}
       </h2>
-      <p className="mt-6 text-xl text-muted-foreground leading-relaxed font-medium tracking-tight max-w-xl">
+      <p className="mt-4 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed">
         {t.identity.sub}
       </p>
 
@@ -704,10 +704,12 @@ function QuestionScreen(props: {
 
   return (
     <div className="w-full">
-      <h2 className="font-display text-3xl md:text-4xl font-black uppercase italic leading-[1.05] tracking-tighter mb-4">
+      <h2 className="font-display text-[clamp(1.75rem,6vw,3rem)] font-black italic uppercase leading-[1.05] tracking-tighter text-balance mb-4">
         {q.q.replace("[NOME]", props.name)}
       </h2>
-      <p className="text-muted-foreground mb-8 text-base">{t.questions.intro(props.name)}</p>
+      <p className="mb-8 text-base md:text-lg text-foreground/70 leading-relaxed">
+        {t.questions.intro(props.name)}
+      </p>
 
       <div className="grid gap-3.5">
         {q.options.map((opt, i) => (
@@ -741,10 +743,12 @@ function EmailCapture(props: {
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_20px_var(--accent-glow)] mx-auto">
         <Lock className="h-7 w-7 text-primary animate-pulse" />
       </div>
-      <h2 className="font-display text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-[1.05]">
+      <h2 className="font-display text-[clamp(1.75rem,6vw,3rem)] font-black italic uppercase leading-[1.05] tracking-tighter text-balance">
         {t.emailCapture.title(props.name)}
       </h2>
-      <p className="mt-3 text-base text-muted-foreground leading-relaxed">{t.emailCapture.sub}</p>
+      <p className="mt-4 text-base md:text-lg text-foreground/70 leading-relaxed">
+        {t.emailCapture.sub}
+      </p>
 
       <form
         onSubmit={(e) => {
