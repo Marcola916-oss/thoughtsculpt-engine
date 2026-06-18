@@ -707,7 +707,7 @@ function QuestionScreen(props: {
       <h2 className="font-display text-3xl md:text-4xl font-black uppercase italic leading-[1.05] tracking-tighter mb-4">
         {q.q.replace("[NOME]", props.name)}
       </h2>
-      <p className="text-muted-foreground mb-8 text-base font-medium tracking-tight">{t.questions.intro(props.name)}</p>
+      <p className="text-muted-foreground mb-8 text-base">{t.questions.intro(props.name)}</p>
 
       <div className="grid gap-3.5">
         {q.options.map((opt, i) => (
@@ -744,7 +744,7 @@ function EmailCapture(props: {
       <h2 className="font-display text-3xl md:text-5xl font-black uppercase italic tracking-tighter leading-[1.05]">
         {t.emailCapture.title(props.name)}
       </h2>
-      <p className="mt-4 text-base text-muted-foreground leading-relaxed font-medium tracking-tight">{t.emailCapture.sub}</p>
+      <p className="mt-3 text-base text-muted-foreground leading-relaxed">{t.emailCapture.sub}</p>
 
       <form
         onSubmit={(e) => {
