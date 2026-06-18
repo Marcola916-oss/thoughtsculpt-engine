@@ -129,8 +129,8 @@ function ThankYouPage() {
       <div className="flex min-h-screen items-center justify-center bg-transparent p-4 text-white">
         <div className="rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/10 p-8 text-center max-w-md md:backdrop-blur-xl">
           <span className="text-4xl">⚠️</span>
-          <h2 className="mt-4 mb-2 text-2xl font-bold text-[#CC0000]">{t.obrigado.errorHeading}</h2>
-          <p className="text-gray-400 leading-relaxed">{error}</p>
+          <h2 className="mt-4 mb-2 font-display text-xl md:text-2xl font-black italic uppercase tracking-tight text-[#CC0000]">{t.obrigado.errorHeading}</h2>
+          <p className="text-foreground/70 leading-relaxed">{error}</p>
           <Link
             data-cursor="hover"
             to="/"
