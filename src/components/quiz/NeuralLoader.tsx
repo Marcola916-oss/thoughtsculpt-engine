@@ -98,9 +98,9 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
       </div>
 
       {/* Percentage */}
-      <p className="text-5xl font-black text-foreground mb-4 tabular-nums tracking-tighter drop-shadow-md z-10">
+      <p className="font-display text-5xl md:text-6xl font-black italic text-foreground mb-4 tabular-nums tracking-tighter drop-shadow-md z-10">
         {Math.round(progress)}
-        <span className="text-2xl text-muted-foreground">%</span>
+        <span className="text-2xl text-muted-foreground not-italic">%</span>
       </p>
 
       {/* Horizontal progress bar */}
@@ -118,7 +118,7 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
 
       {/* Main cycling message */}
       <div className="h-8 overflow-hidden mb-8 w-full">
-        <p key={msgIndex} className="loader-msg-enter text-lg font-semibold text-foreground">
+        <p key={msgIndex} className="loader-msg-enter text-base md:text-lg font-bold uppercase tracking-[0.15em] text-foreground">
           {msgs[msgIndex]}
         </p>
       </div>
