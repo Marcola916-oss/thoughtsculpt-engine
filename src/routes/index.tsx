@@ -218,7 +218,7 @@ function LandingAndQuiz() {
 
   return (
     <div
-      className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-hidden relative flex flex-col"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay pointer-events-none z-0" />
@@ -228,7 +228,7 @@ function LandingAndQuiz() {
       {stage.kind === "hero" && <TopBar />}
 
       <main
-        className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-5 md:pt-12" : "pt-16 md:pt-12"} relative z-10`}
+        className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-5 md:pt-12" : "pt-16 md:pt-12"} relative z-10 flex-1`}
       >
         
           {stage.kind === "hero" && (
@@ -1525,7 +1525,7 @@ function Plans({
 function Footer() {
   const { t } = useI18n();
   return (
-    <footer className="mt-12 border-t border-border bg-card">
+    <footer className="border-t border-border bg-card">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-muted-foreground">
         <p className="font-semibold text-foreground">© {new Date().getFullYear()} MindReset Inc.</p>
         <div className="flex gap-6">
