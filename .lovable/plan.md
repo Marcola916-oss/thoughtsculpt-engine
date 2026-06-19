@@ -1,63 +1,48 @@
-## Objetivo
+# Intensificar a iluminação do cérebro na cena do Reveal
 
-Dois ajustes na página Reveal, **sem mexer em mais nada**:
+Aumentar a intensidade visual das camadas de luz ao redor do cérebro 3D na página de revelação do arquétipo, incluindo o feixe holográfico que sobe do pedestal. Os ajustes são puramente visuais (opacity, % de cor, blur, box-shadow) — nada de estrutura, JSX ou lógica é alterado.
 
-1. **Descer o símbolo de marca d'água** para ficar entre o texto e o botão (não mais "garrado" na base do cérebro).
-2. **Redesenhar os 4 símbolos** (AO, SS, EA, HI) com formas mais legíveis e fiéis ao conceito de cada arquétipo.
+## Arquivo afetado
 
----
+- `src/routes/index.tsx` (linhas ~880–975, dentro do `stage="reveal"`)
 
-## Arquivos envolvidos (só 2)
+## Mudanças por camada
 
-- `src/components/identity/ArchetypeRevealStage.tsx` → muda **só** a classe de posição do símbolo de fundo.
-- `src/components/identity/symbols/index.tsx` → reescreve **só** os 4 paths SVG (mesmas assinaturas, mesmos exports, mesmo viewBox `0 0 200 200`, mesmo `stroke="currentColor"`).
+### 1. Aura interna do cérebro (linhas 943–958)
+- `color-mix` de `--arch-primary`: **36% → 55%** (centro) e **14% → 26%** (borda)
+- `opacity`: **0.58 → 0.82**
 
-Nada mais é tocado. Cor, opacidade (0.07), tamanho (`min(90vw, 800px)`), atmosfera, hero animado, layout do reveal — tudo continua igual.
+### 2. Aura externa / halo amplo (linhas 959–974)
+- `color-mix` de `--arch-primary`: **18% → 34%**
+- `opacity`: **0.48 → 0.72**
+- `blur`: **58px → 72px** (halo um pouco mais espalhado)
 
----
+### 3. Feixe holográfico que sobe da base (linhas 894–907)
+- `color-mix` de `--arch-primary` no gradiente: **42% → 62%** (base) e **16% → 30%** (meio)
+- `opacity`: **0.76 → 0.95**
+- Adicionar leve `filter: blur(2px) brightness(1.15)` para reforçar a luz sem perder o formato
 
-## 1) Reposicionamento do símbolo
+### 4. Scanlines dentro do feixe (linhas 908–921)
+- `opacity` do container: **0.40 → 0.6**
+- `color-mix` das linhas: **28% → 45%** (deixa as scanlines mais visíveis dentro do feixe mais forte)
 
-No `ArchetypeRevealStage.tsx`, linha 44, a única alteração é:
+### 5. Disco de emissão na base do feixe (linhas 922–934)
+- `color-mix` de `--arch-primary`: **48% → 68%**
+- Adicionar `opacity: 0.95` explícito (hoje herda 1.0, mas com as outras camadas mais fortes fica equilibrado)
 
-```text
-top-[62%]  →  top-[92%]
-```
+### 6. Conectores laterais (linhas ~880–890)
+- `color-mix` no gradiente: **58% → 72%** (topo) e **24% → 38%** (meio)
+- `boxShadow`: 10px → **16px** e 38% → **55%**
+- `opacity`: **0.52 → 0.72**
 
-Como o símbolo usa `-translate-y-1/2`, o centro do SVG cai a 92% da altura da seção — bem abaixo da base do cérebro, ocupando o espaço entre o texto descritivo e o botão "Continuar", exatamente como na imagem de referência.
+## Garantias de segurança
 
-O `ArchetypeRevealHero` (símbolo central animado dentro do orbe) **não muda** — continua centralizado na arte principal.
+- Todas as camadas já usam `mix-blend-mode: screen` — aumentar opacidade intensifica o brilho sem "lavar" o cérebro.
+- Variáveis `--arch-primary` / `--arch-glow` são temadas por arquétipo (AO/SS/EA/HI), então cada cor segue sendo a do arquétipo certo.
+- Nenhuma mudança em z-index, layout, animações, `prefers-reduced-motion` ou no canvas do cérebro.
+- Build e tipagem não são afetados (apenas valores em `style={{}}`).
 
-## 2) Redesign dos símbolos (mesmo estilo line-art, traço fino, monocromático)
+## Validação após aplicar
 
-Cada símbolo mantém: `viewBox="0 0 200 200"`, `fill="none"`, `stroke="currentColor"`, `strokeWidth` base 0.8 (mesmo peso visual atual, para não estourar contraste em opacity 0.07).
-
-- **AO — Escudo heráldico (Avarento Oculto)**
-  Escudo com ombros retos no topo, lados verticais e ponta inferior definida (formato heráldico clássico, não arredondado). Dentro: um cadeado pequeno centralizado — reforça "guardar / trancar". Removo os 3 anéis concêntricos (poluíam).
-
-- **SS — Coroa solar (Soberano do Status)**
-  Mantém a estrutura atual (que o usuário aprovou): 12 raios solares ao redor + coroa de 3 pontas + base + gema central. Apenas refino: pontas da coroa mais simétricas e raios com comprimento uniforme.
-
-- **EA — Lótus geométrica (Evasor Ansioso)**
-  Baseada na referência que você enviou: 6 pétalas geométricas sobrepostas formando uma flor de lótus / mandala simétrica, com um círculo central pequeno. Representa reconexão / observação / centro — bate com o conceito de neblina/dissolução de forma muito mais reconhecível que os pontilhados atuais.
-
-- **HI — Chama real (Hedonista Impulsivo)**
-  Silhueta de chama de verdade: ponta superior afiada e assimétrica, ondulações nas laterais (não mais a gota geométrica). Chama interna menor para dar profundidade + 5 faíscas subindo ao redor.
-
----
-
-## Como evito quebrar coisas
-
-- Assinaturas exportadas (`AoShield`, `SsCrown`, `EaMist`, `HiFlame`, `ArchetypeSymbol`) ficam idênticas — qualquer outro consumidor (ex.: `ArchetypeRevealHero`) continua funcionando sem ajuste.
-- `viewBox`, `stroke`, `fill` e props (`...rest`) inalterados — herdam className/color de quem chama.
-- Nenhum token CSS, nenhum import novo, nenhuma rota tocada.
-- Verifico build após a alteração para confirmar 0 erros.
-
----
-
-## Fora do escopo (não vou mexer)
-
-- Hero animado (`ArchetypeRevealHero`) — fica como está.
-- Cores, fog, atmosfera, partículas — ficam como estão.
-- Layout do reveal, copy, botões — ficam como estão.
-- i18n, dashboard, quiz — não tocados.
+- `npm run build` para confirmar zero erros novos.
+- Conferência visual nos 4 arquétipos (AO, SS, EA, HI) para garantir que a cor temática continua correta e o cérebro continua legível sobre o halo mais forte.
