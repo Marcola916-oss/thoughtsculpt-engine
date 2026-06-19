@@ -218,7 +218,7 @@ function LandingAndQuiz() {
 
   return (
     <div
-      className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-hidden relative"
+      className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-hidden relative flex flex-col"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay pointer-events-none z-0" />
@@ -228,7 +228,7 @@ function LandingAndQuiz() {
       {stage.kind === "hero" && <TopBar />}
 
       <main
-        className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-5 md:pt-12" : "pt-16 md:pt-12"} relative z-10`}
+        className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-5 md:pt-12" : "pt-16 md:pt-12"} relative z-10 flex-1`}
       >
         
           {stage.kind === "hero" && (
@@ -630,7 +630,10 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <h2 className="font-display text-[clamp(1.75rem,6vw,3rem)] font-black italic uppercase leading-[1.05] tracking-tighter text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+      <h2
+        className="font-display italic uppercase text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+        style={{ fontSize: "25px", lineHeight: "25px", letterSpacing: "-1.35px", fontWeight: 700 }}
+      >
         {t.identity.title}
       </h2>
       <p className="mt-4 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed">
@@ -1522,7 +1525,7 @@ function Plans({
 function Footer() {
   const { t } = useI18n();
   return (
-    <footer className="mt-12 border-t border-border bg-card">
+    <footer className="border-t border-border bg-card">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-8 text-sm text-muted-foreground">
         <p className="font-semibold text-foreground">© {new Date().getFullYear()} MindReset Inc.</p>
         <div className="flex gap-6">
