@@ -369,7 +369,7 @@ function ThankYouPage() {
           </motion.div>
 
           {/* Footer */}
-          <div className="text-center text-[11px] font-bold uppercase tracking-[0.18em] text-white/40">
+          <div className="mt-auto pt-12 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-white/40">
             © {new Date().getFullYear()} MindReset Inc. {t.obrigado.copyright}
           </div>
         </div>
