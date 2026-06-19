@@ -12,10 +12,8 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
-import { CyberBoardBackground } from "./CyberBoardBackground";
-import { HologramRing } from "./HologramRing";
+import { LoaderAmbient } from "./LoaderAmbient";
 
 interface NeuralLoaderProps {
   onComplete: () => void;
@@ -76,64 +74,65 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
 
   return (
     <section className="flex flex-col items-center justify-center min-h-[70vh] text-center relative w-full max-w-lg mx-auto px-4 z-10">
-      {/* Cybernetic Motherboard Background */}
-      <CyberBoardBackground progress={progress} />
+      {/* Exclusive ambient layer — neural grid, data streams, drifting symbols */}
+      <LoaderAmbient />
 
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary opacity-[0.08] blur-[12px] lg:blur-[120px] rounded-full pointer-events-none z-0" />
-
-      {/* Central Hero: Small Brain + Hologram Ring */}
-      <div className="relative mb-10 flex items-center justify-center" style={{ width: 240, height: 240 }}>
-        <HologramRing size={240} className="absolute inset-0 z-10" />
-        <div className="absolute z-20">
-          <CircuitBrain
-            variant="loader"
-            size={100}
-            withGlow
-            animated
-            progress={progress}
-            ariaLabel="Cognitive analysis in progress"
-          />
-        </div>
-      </div>
-
-      {/* Percentage */}
-      <p className="text-5xl font-black text-foreground mb-4 tabular-nums tracking-tighter drop-shadow-md z-10">
-        {Math.round(progress)}
-        <span className="text-2xl text-muted-foreground">%</span>
-      </p>
-
-      {/* Horizontal progress bar */}
-      <div className="w-full max-w-md mb-8 z-10">
-        <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden shadow-inner relative">
-          <div
-            className="loader-progress-bar h-full bg-gradient-to-r from-primary via-primary to-white/90 rounded-full"
-            style={{
-              width: `${progress}%`,
-              boxShadow: "0 0 12px rgba(204,0,0,0.8), 0 0 24px rgba(255,255,255,0.4)",
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Main cycling message */}
-      <div className="h-8 overflow-hidden mb-8 w-full">
-        <p key={msgIndex} className="loader-msg-enter text-lg font-semibold text-foreground">
+      {/* Cycling message — protagonist of the upper composition */}
+      <div
+        role="status"
+        aria-live="polite"
+        className="h-9 overflow-hidden w-full mb-10 z-10"
+      >
+        <p
+          key={msgIndex}
+          className="loader-msg-enter text-lg md:text-xl font-medium tracking-tight text-foreground/90"
+        >
           {msgs[msgIndex]}
         </p>
       </div>
 
-      {/* Technical Data Stream */}
-      <div className="bg-card/40 border border-border/60 rounded-2xl p-4 w-full text-left font-mono text-xs text-muted-foreground/80 shadow-inner relative overflow-hidden">
-        <div className="flex items-center justify-between mb-2 border-b border-border/40 pb-2">
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/80">MindReset Cognitive Analyzer</span>
-          <span className="text-[9px] opacity-50">v3.0.0</span>
+      {/* Progress bar — protagonist */}
+      <div className="w-full max-w-md z-10">
+        <div className="h-[2px] w-full bg-foreground/[0.06] rounded-full overflow-hidden relative">
+          <div
+            className="loader-progress-bar h-full rounded-full"
+            style={{
+              width: `${progress}%`,
+              background:
+                "linear-gradient(90deg, hsl(var(--accent) / 0.7) 0%, hsl(var(--accent)) 50%, hsl(var(--accent) / 0.7) 100%)",
+              boxShadow:
+                "0 0 16px hsl(var(--accent) / 0.55), 0 0 32px hsl(var(--accent) / 0.25)",
+            }}
+          />
+        </div>
+        <div className="mt-3 flex items-baseline justify-between font-mono text-[11px] tracking-[0.2em] uppercase text-foreground/40">
+          <span>analyzing</span>
+          <span className="tabular-nums text-foreground/70">
+            {Math.round(progress).toString().padStart(2, "0")}
+            <span className="text-foreground/40 ml-0.5">%</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Terminal — refined, calmer */}
+      <div className="mt-12 w-full bg-card/30 backdrop-blur-md border border-border/40 rounded-xl p-4 text-left font-mono text-xs text-foreground/70 z-10">
+        <div className="flex items-center justify-between mb-3 border-b border-border/30 pb-2">
+          <div className="flex items-center gap-2">
+            <span className="relative inline-flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--accent))] opacity-75 animate-ping" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[hsl(var(--accent))]" />
+            </span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/60">
+              MindReset Cognitive Analyzer
+            </span>
+          </div>
+          <span className="text-[9px] opacity-40">v3.0.0</span>
         </div>
         <div className="h-10 overflow-hidden relative">
           <div key={logIndex} className="loader-log-enter space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-primary font-bold">[SYS]</span>
-              <span>{logs[logIndex]}</span>
+              <span className="text-[hsl(var(--accent))] font-semibold">[SYS]</span>
+              <span className="text-foreground/75">{logs[logIndex]}</span>
             </div>
             <div className="opacity-30 text-[9px] truncate">
               {`0x${(100000 + logIndex * 4096).toString(16).toUpperCase()} // ${new Date().toISOString().slice(11, 19)}`}
