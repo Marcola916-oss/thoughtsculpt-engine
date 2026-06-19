@@ -632,7 +632,7 @@ function Identity(props: {
     <div className="w-full">
       <h2
         className="font-display italic uppercase text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-        style={{ fontSize: "25px", lineHeight: "25px", letterSpacing: "-1.35px", fontWeight: 700 }}
+        style={{ fontSize: "27px", lineHeight: "27px", letterSpacing: "-1.35px", fontWeight: 700 }}
       >
         {t.identity.title}
       </h2>
