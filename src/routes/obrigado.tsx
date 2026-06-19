@@ -170,10 +170,10 @@ function ThankYouPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-transparent text-white relative overflow-hidden">
+    <div className="min-h-screen bg-transparent text-white relative overflow-hidden flex flex-col">
       <div className="noise-overlay pointer-events-none z-0" />
 
-        <div className="relative z-10 mx-auto max-w-3xl px-4 py-12 md:py-20">
+        <div className="relative z-10 mx-auto max-w-3xl px-4 py-12 md:py-20 flex-1 w-full flex flex-col">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
