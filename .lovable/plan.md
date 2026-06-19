@@ -1,48 +1,81 @@
-# Intensificar a iluminação do cérebro na cena do Reveal
 
-Aumentar a intensidade visual das camadas de luz ao redor do cérebro 3D na página de revelação do arquétipo, incluindo o feixe holográfico que sobe do pedestal. Os ajustes são puramente visuais (opacity, % de cor, blur, box-shadow) — nada de estrutura, JSX ou lógica é alterado.
+# Reestruturação visual do NeuralLoader
 
-## Arquivo afetado
+Página: `src/components/quiz/NeuralLoader.tsx` (entre captura de e-mail e reveal do arquétipo). **Função e fluxo permanecem idênticos** — só a estética muda.
 
-- `src/routes/index.tsx` (linhas ~880–975, dentro do `stage="reveal"`)
+## Objetivo estético
 
-## Mudanças por camada
+Premium, calmo, profissional — referência Linear / Vercel / Apple Vision Pro. Espera vira parte da experiência: silêncio, profundidade, precisão. Sem poluição visual, sem hologramas saturados.
 
-### 1. Aura interna do cérebro (linhas 943–958)
-- `color-mix` de `--arch-primary`: **36% → 55%** (centro) e **14% → 26%** (borda)
-- `opacity`: **0.58 → 0.82**
+## O que sai
 
-### 2. Aura externa / halo amplo (linhas 959–974)
-- `color-mix` de `--arch-primary`: **18% → 34%**
-- `opacity`: **0.48 → 0.72**
-- `blur`: **58px → 72px** (halo um pouco mais espalhado)
+- `HologramRing` (anel holográfico rotativo) — removido daqui (continua existindo no projeto, só não é usado nesta tela).
+- `CircuitBrain` central + ambient glow vermelho de 400px — removidos.
+- `CyberBoardBackground` local (motherboard cyber) — removido.
+- Percentual gigante `5xl` no centro — removido como protagonista.
 
-### 3. Feixe holográfico que sobe da base (linhas 894–907)
-- `color-mix` de `--arch-primary` no gradiente: **42% → 62%** (base) e **16% → 30%** (meio)
-- `opacity`: **0.76 → 0.95**
-- Adicionar leve `filter: blur(2px) brightness(1.15)` para reforçar a luz sem perder o formato
+## O que fica e sobe de qualidade
 
-### 4. Scanlines dentro do feixe (linhas 908–921)
-- `opacity` do container: **0.40 → 0.6**
-- `color-mix` das linhas: **28% → 45%** (deixa as scanlines mais visíveis dentro do feixe mais forte)
+- **Barra de progresso 0→100%** vira a protagonista: fina, longa, centralizada, com glow vermelho sutil viajando junto. Acima dela um percentual menor, tipográfico, tabular-nums (texto `text-foreground/90`, tracking apertado, `Syne`/display).
+- **Terminal "MINDRESET COGNITIVE ANALYZER"** mantido, mas refinado: borda mais sutil, fundo `bg-card/30 backdrop-blur-md`, cabeçalho com dot vermelho pulsante + versão, logs com fade cruzado mais lento (1.2s) e tipografia mono mais leve.
+- **Mensagem cíclica** acima da barra, tipografia maior e mais respirada, fade vertical suave.
 
-### 5. Disco de emissão na base do feixe (linhas 922–934)
-- `color-mix` de `--arch-primary`: **48% → 68%**
-- Adicionar `opacity: 0.95` explícito (hoje herda 1.0, mas com as outras camadas mais fortes fica equilibrado)
+## O que entra (camada de fundo exclusiva desta tela)
 
-### 6. Conectores laterais (linhas ~880–890)
-- `color-mix` no gradiente: **58% → 72%** (topo) e **24% → 38%** (meio)
-- `boxShadow`: 10px → **16px** e 38% → **55%**
-- `opacity`: **0.52 → 0.72**
+Componente novo: **`src/components/quiz/LoaderAmbient.tsx`** — render APENAS nesta tela, posicionado `absolute inset-0 -z-10` dentro do wrapper do loader. Mescla com a `Atmosphere` global (não substitui, sobrepõe-se com `mix-blend-screen` e baixíssima opacidade).
 
-## Garantias de segurança
+Três camadas, todas em SVG/CSS puro (zero canvas, zero libs novas):
 
-- Todas as camadas já usam `mix-blend-mode: screen` — aumentar opacidade intensifica o brilho sem "lavar" o cérebro.
-- Variáveis `--arch-primary` / `--arch-glow` são temadas por arquétipo (AO/SS/EA/HI), então cada cor segue sendo a do arquétipo certo.
-- Nenhuma mudança em z-index, layout, animações, `prefers-reduced-motion` ou no canvas do cérebro.
-- Build e tipagem não são afetados (apenas valores em `style={{}}`).
+1. **Neural grid pulsante** — linhas finas (`stroke-width: 0.5`) formando uma malha sutil; nós nos cruzamentos com pulse alternado a cada 2.5s; cor `--accent` a 8% opacidade. Sensação de "circuito vivo respirando".
+2. **Data streams diagonais** — 3–4 linhas finas atravessando a tela em diagonal lenta (translate 18s linear infinite), gradiente do `--accent` → transparente. Como pacotes de dados viajando.
+3. **Símbolos filosófico-técnicos flutuantes** — Φ Ψ ∞ ☯ λ `{ }` `</>` `01` — 6–8 símbolos, `font-mono`, tamanho 11–16px, opacidade 4–10%, drift muito lento (40–60s por ciclo), blur sutil. Fade in/out individual.
 
-## Validação após aplicar
+Todas as três camadas: `prefers-reduced-motion` → estáticas; `pointer-events: none`; `aria-hidden`.
 
-- `npm run build` para confirmar zero erros novos.
-- Conferência visual nos 4 arquétipos (AO, SS, EA, HI) para garantir que a cor temática continua correta e o cérebro continua legível sobre o halo mais forte.
+## Composição final (de cima para baixo)
+
+```text
+┌─────────────────────────────────────────┐
+│   [fundo: Atmosphere + LoaderAmbient]    │
+│                                          │
+│        mensagem cíclica (lg, fade)        │
+│                                          │
+│   ────────[ progress bar 0→100% ]────    │
+│              42%   (tabular, sm)         │
+│                                          │
+│   ┌──────────────────────────────────┐   │
+│   │ • MINDRESET COGNITIVE ANALYZER   │   │
+│   │   [SYS] analyzing pattern…       │   │
+│   │   0x18000 // 14:22:07            │   │
+│   └──────────────────────────────────┘   │
+│                                          │
+└─────────────────────────────────────────┘
+```
+
+Vertical centralizado, `max-w-lg`, respiração generosa entre blocos (gap 8/10).
+
+## Tokens e detalhes
+
+- Cores via tokens existentes (`--accent`, `--foreground`, `--card`, `--border`) — zero hex novo.
+- Barra: `h-[2px]`, trilho `bg-white/5`, preenchimento `bg-gradient-to-r from-accent/70 via-accent to-accent/70`, box-shadow `0 0 16px hsl(var(--accent)/0.5)`.
+- Easing: tudo `ease-out`, durações 300–500ms (UI) / 2–60s (ambient).
+- Mensagem cíclica: `text-lg md:text-xl font-medium tracking-tight`, fade-y 8px em 400ms.
+
+## Acessibilidade e performance
+
+- `role="status"` + `aria-live="polite"` no bloco da mensagem.
+- `prefers-reduced-motion: reduce` → ambient estático, progress bar mantém a animação de largura (essencial à função).
+- Sem novos pacotes; ambient ~2–3kB gzipped; nenhuma alteração no fluxo (`onComplete`, `durationMs`, `messages`, `analysisLogs` inalterados).
+
+## Arquivos afetados
+
+- **Novo:** `src/components/quiz/LoaderAmbient.tsx`
+- **Reescrito (apresentação):** `src/components/quiz/NeuralLoader.tsx`
+- **Sem mudança:** props, callers, i18n, fluxo do quiz, `Atmosphere` global no estágio `loader`.
+
+## Validação
+
+1. `npm run build` limpo.
+2. Visual: viewport mobile (375px) e desktop (1440px) — nenhum overflow, terminal legível.
+3. Contraste WCAG AA da mensagem e do terminal sobre o novo fundo.
+4. `prefers-reduced-motion` honrado.
