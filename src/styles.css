@@ -1570,6 +1570,55 @@ html body .allow-break-all {
   .quiz-progress-bar { transition: none; }
 }
 
+/* LoaderAmbient — exclusive ambient layer for NeuralLoader */
+@keyframes loader-ambient-node-pulse {
+  0%, 100% { opacity: 0.15; r: 1.2; }
+  50%      { opacity: 0.85; r: 2.2; }
+}
+.loader-ambient-node {
+  animation: loader-ambient-node-pulse 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px hsl(var(--accent) / 0.6));
+}
+@keyframes loader-ambient-stream {
+  0%   { transform: translate3d(-30%, 0, 0); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translate3d(130%, 0, 0); opacity: 0; }
+}
+.loader-ambient-stream {
+  position: absolute;
+  left: 0;
+  height: 1px;
+  width: 38%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--accent) / 0.55) 50%,
+    transparent 100%
+  );
+  animation: loader-ambient-stream linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes loader-ambient-symbol-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(8px, -14px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.loader-ambient-symbol {
+  animation: loader-ambient-symbol-drift ease-in-out infinite;
+  will-change: transform;
+}
+.loader-ambient-grid {
+  animation: fade-in 1.2s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .loader-ambient-node,
+  .loader-ambient-stream,
+  .loader-ambient-symbol,
+  .loader-ambient-grid { animation: none; }
+  .loader-ambient-stream { opacity: 0.4; }
+}
+
 .quiz-back-btn {
   transition: transform 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out;
 }
