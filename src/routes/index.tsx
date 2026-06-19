@@ -630,7 +630,10 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <h2 className="font-display text-[clamp(1.75rem,6vw,3rem)] font-black italic uppercase leading-[1.05] tracking-tighter text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+      <h2
+        className="font-display italic uppercase text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+        style={{ fontSize: "25px", lineHeight: "25px", letterSpacing: "-1.35px", fontWeight: 700 }}
+      >
         {t.identity.title}
       </h2>
       <p className="mt-4 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed">
