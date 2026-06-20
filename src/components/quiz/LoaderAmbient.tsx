@@ -137,54 +137,39 @@ export function LoaderAmbient() {
         </defs>
         {WIRES.map((w, i) => {
           const pathId = `loader-wire-path-${i}`;
+          const from = w.reverse ? -94 : 6;
+          const to = w.reverse ? 6 : -94;
+          const layers: Array<{ cls: string; dash: string }> = [
+            { cls: "loader-wire-comet loader-wire-comet-tail", dash: "9 100" },
+            { cls: "loader-wire-comet loader-wire-comet-mid", dash: "5 100" },
+            { cls: "loader-wire-comet loader-wire-comet-head", dash: "1.6 100" },
+          ];
           return (
             <g key={i}>
               <path id={pathId} d={w.d} className="loader-wire-trace" />
-              {/* Gradient energy trail — short streak traveling along the trace */}
-              <path
-                d={w.d}
-                pathLength={100}
-                className="loader-wire-trail"
-                strokeDasharray="6 100"
-              >
-                <animate
-                  attributeName="stroke-dashoffset"
-                  from={w.reverse ? -94 : 6}
-                  to={w.reverse ? 6 : -94}
-                  dur={`${w.duration}s`}
-                  begin={`${-w.delay}s`}
-                  repeatCount="indefinite"
-                  calcMode="spline"
-                  keySplines="0.45 0 0.55 1"
-                  keyTimes="0;1"
-                />
-              </path>
-              {/* Leading spark — large soft halo */}
-              <circle r="0.6" fill="url(#loader-spark)" className="loader-wire-spark-halo">
-                <animateMotion
-                  dur={`${w.duration}s`}
-                  repeatCount="indefinite"
-                  begin={`${-w.delay}s`}
-                  keyPoints={w.reverse ? "1;0" : "0;1"}
-                  keyTimes="0;1"
-                  rotate="auto"
+              {/* Unified comet — stacked dashed strokes sharing one animated offset,
+                  building a single fading tail with a bright head (⎯•). */}
+              {layers.map((l, j) => (
+                <path
+                  key={j}
+                  d={w.d}
+                  pathLength={100}
+                  className={l.cls}
+                  strokeDasharray={l.dash}
                 >
-                  <mpath href={`#${pathId}`} />
-                </animateMotion>
-              </circle>
-              {/* Bright core dot */}
-              <circle r="0.2" fill="var(--accent)" className="loader-wire-spark-core">
-                <animateMotion
-                  dur={`${w.duration}s`}
-                  repeatCount="indefinite"
-                  begin={`${-w.delay}s`}
-                  keyPoints={w.reverse ? "1;0" : "0;1"}
-                  keyTimes="0;1"
-                >
-                  <mpath href={`#${pathId}`} />
-                </animateMotion>
-              </circle>
-              {/* Trailing fade dot */}
+                  <animate
+                    attributeName="stroke-dashoffset"
+                    from={from}
+                    to={to}
+                    dur={`${w.duration}s`}
+                    begin={`${-w.delay}s`}
+                    repeatCount="indefinite"
+                    calcMode="spline"
+                    keySplines="0.45 0 0.55 1"
+                    keyTimes="0;1"
+                  />
+                </path>
+              ))}
             </g>
           );
         })}
