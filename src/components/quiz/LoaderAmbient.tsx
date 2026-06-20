@@ -145,7 +145,7 @@ export function LoaderAmbient() {
                 d={w.d}
                 pathLength={100}
                 className="loader-wire-trail"
-                strokeDasharray="7 100"
+                strokeDasharray="14 100"
               >
                 <animate
                   attributeName="stroke-dashoffset"
@@ -154,10 +154,13 @@ export function LoaderAmbient() {
                   dur={`${w.duration}s`}
                   begin={`${-w.delay}s`}
                   repeatCount="indefinite"
+                  calcMode="spline"
+                  keySplines="0.45 0 0.55 1"
+                  keyTimes="0;1"
                 />
               </path>
               {/* Leading spark — large soft halo */}
-              <circle r="0.85" fill="url(#loader-spark)" className="loader-wire-spark-halo">
+              <circle r="0.6" fill="url(#loader-spark)" className="loader-wire-spark-halo">
                 <animateMotion
                   dur={`${w.duration}s`}
                   repeatCount="indefinite"
@@ -170,7 +173,7 @@ export function LoaderAmbient() {
                 </animateMotion>
               </circle>
               {/* Bright core dot */}
-              <circle r="0.28" fill="var(--accent)" className="loader-wire-spark-core">
+              <circle r="0.2" fill="var(--accent)" className="loader-wire-spark-core">
                 <animateMotion
                   dur={`${w.duration}s`}
                   repeatCount="indefinite"
