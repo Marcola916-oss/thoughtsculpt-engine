@@ -1699,38 +1699,31 @@ html body .allow-break-all {
 }
 
 /* Circuit wires — pulses flowing along polyline traces */
-.loader-wire {
+/* Energy wires — faint organic traces with glowing dots flowing along them */
+.loader-wire-trace {
   fill: none;
-  stroke: color-mix(in oklab, var(--accent) 55%, transparent);
-  stroke-width: 1.1;
+  stroke: color-mix(in oklab, var(--accent) 22%, transparent);
+  stroke-width: 0.18;
   stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 0 4px color-mix(in oklab, var(--accent) 55%, transparent));
   opacity: 0.55;
+  animation: loader-wire-trace-breathe 7s ease-in-out infinite;
 }
-.loader-wire-base {
-  stroke: color-mix(in oklab, var(--accent) 18%, transparent);
-  stroke-width: 0.6;
-  filter: none;
-  opacity: 0.35;
+@keyframes loader-wire-trace-breathe {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.7;  }
 }
-@keyframes loader-wire-pulse {
-  0%   { stroke-dashoffset: 600; opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { stroke-dashoffset: 0;   opacity: 0; }
+.loader-wire-spark-halo {
+  filter: drop-shadow(0 0 1.2px var(--accent))
+          drop-shadow(0 0 2.4px color-mix(in oklab, var(--accent) 70%, transparent));
+  opacity: 0.9;
 }
-.loader-wire-pulse {
-  stroke-dasharray: 90 510;
-  animation: loader-wire-pulse linear infinite;
-  will-change: stroke-dashoffset, opacity;
+.loader-wire-spark-core {
+  filter: drop-shadow(0 0 0.6px #fff)
+          drop-shadow(0 0 1.2px var(--accent));
 }
-@keyframes loader-wire-glow {
-  0%, 100% { opacity: 0.25; }
-  50%      { opacity: 0.6;  }
-}
-.loader-wire-base {
-  animation: loader-wire-glow 6s ease-in-out infinite;
+.loader-wire-spark-trail {
+  opacity: 0.55;
+  filter: drop-shadow(0 0 0.8px color-mix(in oklab, var(--accent) 80%, transparent));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1746,8 +1739,7 @@ html body .allow-break-all {
   .loader-aurora-b,
   .loader-aurora-c,
   .loader-conic-sweep,
-  .loader-wire-pulse,
-  .loader-wire-base { animation: none; }
+  .loader-wire-trace { animation: none; }
   .loader-ambient-stream { opacity: 0.4; }
 }
 
