@@ -1724,13 +1724,24 @@ html body .allow-break-all {
 .loader-wire-spark-trail {
   opacity: 0;
 }
-.loader-wire-trail {
+.loader-wire-comet {
   fill: none;
   stroke: var(--accent);
-  stroke-width: 0.22;
   stroke-linecap: round;
-  opacity: 0.55;
-  filter: drop-shadow(0 0 0.35px color-mix(in oklab, var(--accent) 55%, transparent));
+}
+.loader-wire-comet-tail {
+  stroke-width: 0.18;
+  opacity: 0.18;
+}
+.loader-wire-comet-mid {
+  stroke-width: 0.22;
+  opacity: 0.45;
+}
+.loader-wire-comet-head {
+  stroke-width: 0.3;
+  opacity: 1;
+  filter: drop-shadow(0 0 0.5px var(--accent))
+          drop-shadow(0 0 1.2px color-mix(in oklab, var(--accent) 55%, transparent));
 }
 
 @media (prefers-reduced-motion: reduce) {
