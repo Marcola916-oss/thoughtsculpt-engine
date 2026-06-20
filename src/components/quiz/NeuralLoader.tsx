@@ -109,9 +109,12 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
           <div
             className="loader-progress-fill h-full rounded-full relative"
             style={{ width: `${progress}%` }}
-          >
-            <span className="loader-progress-head" aria-hidden="true" />
-          </div>
+          />
+          <span
+            className="loader-progress-head"
+            style={{ left: `${progress}%` }}
+            aria-hidden="true"
+          />
         </div>
         <div className="mt-3 flex items-baseline justify-between font-mono text-[11px] tracking-[0.22em] uppercase text-foreground/45">
           <span className="flex items-center gap-1.5">
