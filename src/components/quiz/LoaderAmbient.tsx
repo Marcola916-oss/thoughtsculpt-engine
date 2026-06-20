@@ -145,12 +145,12 @@ export function LoaderAmbient() {
                 d={w.d}
                 pathLength={100}
                 className="loader-wire-trail"
-                strokeDasharray="14 100"
+                strokeDasharray="6 100"
               >
                 <animate
                   attributeName="stroke-dashoffset"
-                  from={w.reverse ? -100 : 0}
-                  to={w.reverse ? 0 : -100}
+                  from={w.reverse ? -94 : 6}
+                  to={w.reverse ? 6 : -94}
                   dur={`${w.duration}s`}
                   begin={`${-w.delay}s`}
                   repeatCount="indefinite"
