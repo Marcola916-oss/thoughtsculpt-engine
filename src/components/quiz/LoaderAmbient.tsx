@@ -1,10 +1,12 @@
 /**
  * LoaderAmbient — Exclusive ambient layer for the NeuralLoader screen.
  *
- * Renders three calm, premium layers on top of the global Atmosphere:
- *  1. Neural grid (SVG, pulsing nodes)
- *  2. Diagonal data streams (CSS-animated gradient lines)
- *  3. Floating philosophy/tech symbols (low opacity, slow drift)
+ * Renders five calm, premium layers behind the loader content:
+ *  1. Central pulsing core halo (red glow heartbeat)
+ *  2. Two slow-orbiting concentric rings (dashed)
+ *  3. Neural grid (SVG, pulsing nodes)
+ *  4. Diagonal data streams (CSS-animated gradient lines)
+ *  5. Floating philosophy/tech symbols (slow drift)
  *
  * All decorative, non-interactive, reduced-motion aware.
  */
@@ -29,8 +31,8 @@ export function LoaderAmbient() {
       ch: SYMBOLS[i % SYMBOLS.length],
       top: `${8 + ((i * 53) % 84)}%`,
       left: `${6 + ((i * 71) % 88)}%`,
-      size: 11 + ((i * 3) % 6),
-      opacity: 0.04 + ((i * 0.013) % 0.06),
+      size: 13 + ((i * 4) % 9),
+      opacity: 0.18 + ((i * 0.04) % 0.18),
       duration: 42 + ((i * 7) % 22),
       delay: -(i * 4.7),
     }));
@@ -39,8 +41,54 @@ export function LoaderAmbient() {
   return (
     <div
       aria-hidden="true"
-      className="loader-ambient pointer-events-none absolute inset-0 overflow-hidden -z-10"
+      className="loader-ambient pointer-events-none absolute inset-0 overflow-hidden z-0"
     >
+      {/* 0. Central pulsing core halo — the "heartbeat" */}
+      <div
+        className="loader-ambient-core absolute top-1/2 left-1/2"
+        style={{
+          width: "min(70vh, 720px)",
+          height: "min(70vh, 720px)",
+          background:
+            "radial-gradient(circle, color-mix(in oklab, var(--accent) 28%, transparent) 0%, color-mix(in oklab, var(--accent) 10%, transparent) 35%, transparent 70%)",
+          filter: "blur(20px)",
+        }}
+      />
+
+      {/* 0b. Orbiting concentric rings */}
+      <svg
+        className="loader-ambient-ring absolute top-1/2 left-1/2"
+        style={{ width: "min(60vh, 560px)", height: "min(60vh, 560px)" }}
+        viewBox="0 0 200 200"
+      >
+        <circle
+          cx="100"
+          cy="100"
+          r="96"
+          fill="none"
+          stroke="var(--accent)"
+          strokeOpacity="0.35"
+          strokeWidth="0.6"
+          strokeDasharray="2 14"
+        />
+      </svg>
+      <svg
+        className="loader-ambient-ring-reverse absolute top-1/2 left-1/2"
+        style={{ width: "min(82vh, 760px)", height: "min(82vh, 760px)" }}
+        viewBox="0 0 200 200"
+      >
+        <circle
+          cx="100"
+          cy="100"
+          r="96"
+          fill="none"
+          stroke="var(--accent)"
+          strokeOpacity="0.22"
+          strokeWidth="0.4"
+          strokeDasharray="1 22"
+        />
+      </svg>
+
       {/* 1. Neural grid */}
       <svg
         className="absolute inset-0 h-full w-full loader-ambient-grid"
@@ -58,9 +106,9 @@ export function LoaderAmbient() {
             <path
               d="M 48 0 L 0 0 0 48"
               fill="none"
-              stroke="hsl(var(--accent))"
-              strokeOpacity="0.08"
-              strokeWidth="0.5"
+              stroke="var(--accent)"
+              strokeOpacity="0.22"
+              strokeWidth="0.6"
             />
           </pattern>
           <radialGradient id="loader-grid-fade" cx="50%" cy="50%" r="50%">
@@ -86,13 +134,15 @@ export function LoaderAmbient() {
           [432, 288],
           [96, 432],
           [480, 432],
+          [288, 96],
+          [192, 480],
         ].map(([cx, cy], i) => (
           <circle
             key={i}
             cx={cx}
             cy={cy}
-            r="1.4"
-            fill="hsl(var(--accent))"
+            r="2"
+            fill="var(--accent)"
             className="loader-ambient-node"
             style={{ animationDelay: `${i * 0.42}s` }}
           />
@@ -101,14 +151,14 @@ export function LoaderAmbient() {
 
       {/* 2. Diagonal data streams */}
       <div className="absolute inset-0">
-        {[0, 1, 2, 3].map((i) => (
+        {[0, 1, 2, 3, 4, 5].map((i) => (
           <span
             key={i}
             className="loader-ambient-stream"
             style={{
-              top: `${15 + i * 22}%`,
-              animationDuration: `${16 + i * 3}s`,
-              animationDelay: `${-i * 5}s`,
+              top: `${8 + i * 15}%`,
+              animationDuration: `${11 + i * 2.5}s`,
+              animationDelay: `${-i * 3.2}s`,
             }}
           />
         ))}
@@ -119,15 +169,15 @@ export function LoaderAmbient() {
         {drifts.map((d, i) => (
           <span
             key={i}
-            className="loader-ambient-symbol absolute select-none text-foreground"
+            className="loader-ambient-symbol absolute select-none"
             style={{
               top: d.top,
               left: d.left,
               fontSize: `${d.size}px`,
               opacity: d.opacity,
+              color: "var(--accent)",
               animationDuration: `${d.duration}s`,
               animationDelay: `${d.delay}s`,
-              filter: "blur(0.3px)",
             }}
           >
             {d.ch}

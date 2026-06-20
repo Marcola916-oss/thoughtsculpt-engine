@@ -73,7 +73,7 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
   }, [logs]);
 
   return (
-    <section className="flex flex-col items-center justify-center min-h-[70vh] text-center relative w-full max-w-lg mx-auto px-4 z-10">
+    <section className="flex flex-col items-center justify-center min-h-[70vh] text-center relative w-full max-w-lg mx-auto px-4">
       {/* Exclusive ambient layer — neural grid, data streams, drifting symbols */}
       <LoaderAmbient />
 
@@ -81,7 +81,7 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
       <div
         role="status"
         aria-live="polite"
-        className="h-9 overflow-hidden w-full mb-10 z-10"
+        className="relative h-9 overflow-hidden w-full mb-10 z-10"
       >
         <p
           key={msgIndex}
@@ -92,16 +92,16 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
       </div>
 
       {/* Progress bar — protagonist */}
-      <div className="w-full max-w-md z-10">
+      <div className="relative w-full max-w-md z-10">
         <div className="h-[2px] w-full bg-foreground/[0.06] rounded-full overflow-hidden relative">
           <div
             className="loader-progress-bar h-full rounded-full"
             style={{
               width: `${progress}%`,
               background:
-                "linear-gradient(90deg, hsl(var(--accent) / 0.7) 0%, hsl(var(--accent)) 50%, hsl(var(--accent) / 0.7) 100%)",
+                "linear-gradient(90deg, color-mix(in oklab, var(--accent) 70%, transparent) 0%, var(--accent) 50%, color-mix(in oklab, var(--accent) 70%, transparent) 100%)",
               boxShadow:
-                "0 0 16px hsl(var(--accent) / 0.55), 0 0 32px hsl(var(--accent) / 0.25)",
+                "0 0 16px color-mix(in oklab, var(--accent) 55%, transparent), 0 0 32px color-mix(in oklab, var(--accent) 25%, transparent)",
             }}
           />
         </div>
@@ -115,12 +115,12 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
       </div>
 
       {/* Terminal — refined, calmer */}
-      <div className="mt-12 w-full bg-card/30 backdrop-blur-md border border-border/40 rounded-xl p-4 text-left font-mono text-xs text-foreground/70 z-10">
+      <div className="relative mt-12 w-full bg-card/40 backdrop-blur-md border border-border/40 rounded-xl p-4 text-left font-mono text-xs text-foreground/70 z-10">
         <div className="flex items-center justify-between mb-3 border-b border-border/30 pb-2">
           <div className="flex items-center gap-2">
             <span className="relative inline-flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-[hsl(var(--accent))] opacity-75 animate-ping" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[hsl(var(--accent))]" />
+              <span className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping" style={{ background: "var(--accent)" }} />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
             </span>
             <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/60">
               MindReset Cognitive Analyzer
@@ -131,7 +131,7 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
         <div className="h-10 overflow-hidden relative">
           <div key={logIndex} className="loader-log-enter space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-[hsl(var(--accent))] font-semibold">[SYS]</span>
+              <span className="font-semibold" style={{ color: "var(--accent)" }}>[SYS]</span>
               <span className="text-foreground/75">{logs[logIndex]}</span>
             </div>
             <div className="opacity-30 text-[9px] truncate">

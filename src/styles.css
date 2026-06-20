@@ -1572,30 +1572,32 @@ html body .allow-break-all {
 
 /* LoaderAmbient — exclusive ambient layer for NeuralLoader */
 @keyframes loader-ambient-node-pulse {
-  0%, 100% { opacity: 0.15; r: 1.2; }
-  50%      { opacity: 0.85; r: 2.2; }
+  0%, 100% { opacity: 0.35; r: 1.6; }
+  50%      { opacity: 1;    r: 3.2; }
 }
 .loader-ambient-node {
   animation: loader-ambient-node-pulse 2.6s ease-in-out infinite;
-  filter: drop-shadow(0 0 4px hsl(var(--accent) / 0.6));
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent) 75%, transparent))
+          drop-shadow(0 0 12px color-mix(in oklab, var(--accent) 45%, transparent));
 }
 @keyframes loader-ambient-stream {
   0%   { transform: translate3d(-30%, 0, 0); opacity: 0; }
-  15%  { opacity: 1; }
-  85%  { opacity: 1; }
+  15%  { opacity: 0.9; }
+  85%  { opacity: 0.9; }
   100% { transform: translate3d(130%, 0, 0); opacity: 0; }
 }
 .loader-ambient-stream {
   position: absolute;
   left: 0;
-  height: 1px;
-  width: 38%;
+  height: 1.5px;
+  width: 45%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    hsl(var(--accent) / 0.55) 50%,
+    color-mix(in oklab, var(--accent) 90%, transparent) 50%,
     transparent 100%
   );
+  box-shadow: 0 0 10px color-mix(in oklab, var(--accent) 55%, transparent);
   animation: loader-ambient-stream linear infinite;
   will-change: transform, opacity;
 }
@@ -1607,15 +1609,35 @@ html body .allow-break-all {
 .loader-ambient-symbol {
   animation: loader-ambient-symbol-drift ease-in-out infinite;
   will-change: transform;
+  text-shadow: 0 0 8px color-mix(in oklab, var(--accent) 30%, transparent);
 }
 .loader-ambient-grid {
   animation: fade-in 1.2s ease-out both;
+}
+@keyframes loader-ambient-core-pulse {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.92); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.08); }
+}
+.loader-ambient-core {
+  animation: loader-ambient-core-pulse 4.5s ease-in-out infinite;
+}
+@keyframes loader-ambient-ring-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.loader-ambient-ring {
+  animation: loader-ambient-ring-spin 22s linear infinite;
+}
+.loader-ambient-ring-reverse {
+  animation: loader-ambient-ring-spin 34s linear infinite reverse;
 }
 @media (prefers-reduced-motion: reduce) {
   .loader-ambient-node,
   .loader-ambient-stream,
   .loader-ambient-symbol,
-  .loader-ambient-grid { animation: none; }
+  .loader-ambient-grid,
+  .loader-ambient-core,
+  .loader-ambient-ring,
+  .loader-ambient-ring-reverse { animation: none; }
   .loader-ambient-stream { opacity: 0.4; }
 }
 
