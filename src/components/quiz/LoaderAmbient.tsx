@@ -141,7 +141,7 @@ export function LoaderAmbient() {
             <g key={i}>
               <path id={pathId} d={w.d} className="loader-wire-trace" />
               {/* Leading spark — large soft halo */}
-              <circle r="1.6" fill="url(#loader-spark)" className="loader-wire-spark-halo">
+              <circle r="0.85" fill="url(#loader-spark)" className="loader-wire-spark-halo">
                 <animateMotion
                   dur={`${w.duration}s`}
                   repeatCount="indefinite"
@@ -154,7 +154,7 @@ export function LoaderAmbient() {
                 </animateMotion>
               </circle>
               {/* Bright core dot */}
-              <circle r="0.55" fill="var(--accent)" className="loader-wire-spark-core">
+              <circle r="0.28" fill="var(--accent)" className="loader-wire-spark-core">
                 <animateMotion
                   dur={`${w.duration}s`}
                   repeatCount="indefinite"
@@ -166,17 +166,6 @@ export function LoaderAmbient() {
                 </animateMotion>
               </circle>
               {/* Trailing fade dot */}
-              <circle r="0.35" fill="var(--accent)" className="loader-wire-spark-trail">
-                <animateMotion
-                  dur={`${w.duration}s`}
-                  repeatCount="indefinite"
-                  begin={`${-w.delay + 0.18}s`}
-                  keyPoints={w.reverse ? "1;0" : "0;1"}
-                  keyTimes="0;1"
-                >
-                  <mpath href={`#${pathId}`} />
-                </animateMotion>
-              </circle>
             </g>
           );
         })}
