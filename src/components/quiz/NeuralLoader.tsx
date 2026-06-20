@@ -77,6 +77,18 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
       {/* Exclusive ambient layer — neural grid, data streams, drifting symbols */}
       <LoaderAmbient />
 
+      {/* Scrim — darkens ambient layer so loader content gets visual focus */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-[1]"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--background) 55%, transparent) 0%, color-mix(in oklab, var(--background) 78%, transparent) 45%, color-mix(in oklab, var(--background) 92%, transparent) 100%)",
+          backdropFilter: "blur(2px)",
+          WebkitBackdropFilter: "blur(2px)",
+        }}
+      />
+
       {/* Cycling message — protagonist of the upper composition */}
       <div
         role="status"
