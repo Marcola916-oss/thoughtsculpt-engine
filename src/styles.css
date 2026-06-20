@@ -1643,13 +1643,8 @@ html body .allow-break-all {
 }
 
 @keyframes loader-ambient-node-pulse {
-  0%, 100% { opacity: 0.35; r: 1.6; }
-  50%      { opacity: 1;    r: 3.2; }
-}
-.loader-ambient-node {
-  animation: loader-ambient-node-pulse 2.6s ease-in-out infinite;
-  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--accent) 75%, transparent))
-          drop-shadow(0 0 12px color-mix(in oklab, var(--accent) 45%, transparent));
+  0%, 100% { opacity: 0.4; transform: scale(0.7); }
+  50%      { opacity: 1;   transform: scale(1.6); }
 }
 @keyframes loader-ambient-stream {
   0%   { transform: translate3d(-30%, 0, 0); opacity: 0; }
