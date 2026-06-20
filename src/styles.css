@@ -1572,6 +1572,7 @@ html body .allow-break-all {
 }
 .loader-progress-fill {
   position: relative;
+  overflow: hidden;
   background:
     linear-gradient(90deg,
       color-mix(in oklab, var(--accent) 55%, transparent) 0%,
