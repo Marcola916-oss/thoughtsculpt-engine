@@ -53,46 +53,8 @@ export function LoaderAmbient() {
   return (
     <div
       aria-hidden="true"
-      className="loader-ambient pointer-events-none absolute inset-0 overflow-hidden z-0"
+      className="loader-ambient pointer-events-none fixed inset-0 overflow-hidden z-0"
     >
-      {/* -1. Conic radar sweep (deepest layer) */}
-      <div className="loader-conic-sweep" />
-
-      {/* -0.5. Aurora blobs — slow breathing colored fog */}
-      <div
-        className="loader-aurora-blob loader-aurora-a"
-        style={{
-          top: "-10%",
-          left: "-10%",
-          width: "55vmax",
-          height: "55vmax",
-          background:
-            "radial-gradient(circle, color-mix(in oklab, var(--accent) 55%, transparent) 0%, transparent 65%)",
-        }}
-      />
-      <div
-        className="loader-aurora-blob loader-aurora-b"
-        style={{
-          top: "20%",
-          right: "-15%",
-          width: "50vmax",
-          height: "50vmax",
-          background:
-            "radial-gradient(circle, color-mix(in oklab, var(--accent) 45%, transparent) 0%, transparent 70%)",
-        }}
-      />
-      <div
-        className="loader-aurora-blob loader-aurora-c"
-        style={{
-          bottom: "-12%",
-          left: "20%",
-          width: "60vmax",
-          height: "60vmax",
-          background:
-            "radial-gradient(circle, color-mix(in oklab, var(--accent) 40%, transparent) 0%, transparent 65%)",
-        }}
-      />
-
       {/* 0. Central pulsing core halo — the "heartbeat" */}
       <div
         className="loader-ambient-core absolute top-1/2 left-1/2"
@@ -100,7 +62,7 @@ export function LoaderAmbient() {
           width: "min(70vh, 720px)",
           height: "min(70vh, 720px)",
           background:
-            "radial-gradient(circle, color-mix(in oklab, var(--accent) 28%, transparent) 0%, color-mix(in oklab, var(--accent) 10%, transparent) 35%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in oklab, var(--accent) 18%, transparent) 0%, color-mix(in oklab, var(--accent) 6%, transparent) 35%, transparent 70%)",
           filter: "blur(20px)",
         }}
       />
