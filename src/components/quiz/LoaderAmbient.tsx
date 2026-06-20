@@ -137,12 +137,15 @@ export function LoaderAmbient() {
         </defs>
         {WIRES.map((w, i) => {
           const pathId = `loader-wire-path-${i}`;
-          const from = w.reverse ? -94 : 6;
-          const to = w.reverse ? 6 : -94;
-          const layers: Array<{ cls: string; dash: string }> = [
-            { cls: "loader-wire-comet loader-wire-comet-tail", dash: "7 100" },
-            { cls: "loader-wire-comet loader-wire-comet-mid", dash: "2.5 100" },
-            { cls: "loader-wire-comet loader-wire-comet-head", dash: "0.6 100" },
+          const baseFrom = w.reverse ? -94 : 6;
+          const baseTo = w.reverse ? 6 : -94;
+          // Forward direction (not reversed): lower offset = further along path,
+          // so the head needs a more-negative offset to lead the tail.
+          const dir = w.reverse ? 1 : -1;
+          const layers: Array<{ cls: string; dash: string; shift: number }> = [
+            { cls: "loader-wire-comet loader-wire-comet-tail", dash: "7 100", shift: 0 },
+            { cls: "loader-wire-comet loader-wire-comet-mid", dash: "2.5 100", shift: dir * 4.5 },
+            { cls: "loader-wire-comet loader-wire-comet-head", dash: "0.6 100", shift: dir * 6.4 },
           ];
           return (
             <g key={i}>
@@ -159,8 +162,8 @@ export function LoaderAmbient() {
                 >
                   <animate
                     attributeName="stroke-dashoffset"
-                    from={from}
-                    to={to}
+                    from={baseFrom + l.shift}
+                    to={baseTo + l.shift}
                     dur={`${w.duration}s`}
                     begin={`${-w.delay}s`}
                     repeatCount="indefinite"
