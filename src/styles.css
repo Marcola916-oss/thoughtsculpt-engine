@@ -277,7 +277,7 @@
   --arch-edge: #2A8BA3;
   --arch-ink: #B8DCE6;
   --arch-glow: rgba(15, 76, 92, 0.55);
-  --arch-fog: rgba(15, 76, 92, 0.35);
+  --arch-fog: rgba(15, 76, 92, 0.4);
   --arch-hex: #0F4C5C;
 }
 [data-arch="SS"] {
@@ -288,7 +288,7 @@
   --arch-ink: #E9D5FF;
   --arch-gold: #C9A84C;
   --arch-glow: rgba(124, 58, 237, 0.55);
-  --arch-fog: rgba(76, 29, 149, 0.35);
+  --arch-fog: rgba(76, 29, 149, 0.4);
   --arch-hex: #4C1D95;
 }
 [data-arch="EA"] {
@@ -297,8 +297,8 @@
   --arch-accent: #334155;
   --arch-edge: #94A3B8;
   --arch-ink: #CBD5E1;
-  --arch-glow: rgba(100, 116, 139, 0.45);
-  --arch-fog: rgba(51, 65, 85, 0.45);
+  --arch-glow: rgba(100, 116, 139, 0.55);
+  --arch-fog: rgba(51, 65, 85, 0.4);
   --arch-hex: #334155;
 }
 [data-arch="HI"] {
