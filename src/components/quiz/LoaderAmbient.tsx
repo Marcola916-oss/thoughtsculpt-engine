@@ -40,17 +40,18 @@ const NODES: Array<{ top: string; left: string; delay: number }> = [
   { top: "14%", left: "48%", delay: 2.9 },
 ];
 
-// Organic energy wires — smooth bezier curves snaking across the viewport.
-// Each path is drawn as a faint base stroke; a glowing dot then travels along
-// it via SMIL <animateMotion>, simulating energy flowing through the wire.
+// PCB-style circuit traces — orthogonal paths with 90° corners, like a
+// real circuit board. Each path is drawn as a faint base stroke; a
+// glowing dot then travels along it via SMIL <animateMotion>,
+// simulating energy flowing through the trace.
 const WIRES: Array<{ d: string; duration: number; delay: number; reverse?: boolean }> = [
-  { d: "M -5 22 C 18 10, 34 38, 52 26 S 84 14, 110 30", duration: 8.5, delay: 0 },
-  { d: "M -5 48 C 20 60, 38 36, 58 50 S 90 64, 110 46", duration: 11, delay: 1.4 },
-  { d: "M -5 74 C 22 82, 40 60, 60 72 S 88 88, 110 70", duration: 9.5, delay: 2.6 },
-  { d: "M 18 -5 C 10 22, 38 36, 26 60 S 14 86, 22 110", duration: 12, delay: 0.8, reverse: true },
-  { d: "M 82 -5 C 92 24, 64 38, 76 60 S 90 84, 80 110", duration: 10, delay: 3.2 },
-  { d: "M -5 12 C 30 28, 60 6, 88 24 S 104 42, 110 36", duration: 7.5, delay: 4.1, reverse: true },
-  { d: "M -5 90 C 28 78, 56 96, 82 84 S 102 70, 110 84", duration: 13, delay: 1.9 },
+  { d: "M -5 18 L 22 18 L 22 32 L 48 32 L 48 20 L 78 20 L 78 38 L 110 38", duration: 9, delay: 0 },
+  { d: "M -5 52 L 14 52 L 14 44 L 36 44 L 36 58 L 62 58 L 62 48 L 88 48 L 88 60 L 110 60", duration: 11.5, delay: 1.4 },
+  { d: "M -5 78 L 26 78 L 26 88 L 54 88 L 54 72 L 80 72 L 80 84 L 110 84", duration: 10, delay: 2.6 },
+  { d: "M 16 -5 L 16 18 L 30 18 L 30 46 L 18 46 L 18 72 L 28 72 L 28 110", duration: 12.5, delay: 0.8, reverse: true },
+  { d: "M 84 -5 L 84 22 L 70 22 L 70 50 L 88 50 L 88 78 L 76 78 L 76 110", duration: 10.5, delay: 3.2 },
+  { d: "M -5 8 L 40 8 L 40 24 L 66 24 L 66 12 L 96 12 L 96 30 L 110 30", duration: 8, delay: 4.1, reverse: true },
+  { d: "M -5 96 L 32 96 L 32 82 L 58 82 L 58 94 L 86 94 L 86 80 L 110 80", duration: 13.5, delay: 1.9 },
 ];
 
 export function LoaderAmbient() {
