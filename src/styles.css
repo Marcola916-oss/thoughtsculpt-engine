@@ -1697,6 +1697,42 @@ html body .allow-break-all {
 .loader-ambient-ring-reverse {
   animation: loader-ambient-ring-spin 34s linear infinite reverse;
 }
+
+/* Circuit wires — pulses flowing along polyline traces */
+.loader-wire {
+  fill: none;
+  stroke: color-mix(in oklab, var(--accent) 55%, transparent);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px color-mix(in oklab, var(--accent) 55%, transparent));
+  opacity: 0.55;
+}
+.loader-wire-base {
+  stroke: color-mix(in oklab, var(--accent) 18%, transparent);
+  stroke-width: 0.6;
+  filter: none;
+  opacity: 0.35;
+}
+@keyframes loader-wire-pulse {
+  0%   { stroke-dashoffset: 600; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { stroke-dashoffset: 0;   opacity: 0; }
+}
+.loader-wire-pulse {
+  stroke-dasharray: 90 510;
+  animation: loader-wire-pulse linear infinite;
+  will-change: stroke-dashoffset, opacity;
+}
+@keyframes loader-wire-glow {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 0.6;  }
+}
+.loader-wire-base {
+  animation: loader-wire-glow 6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .loader-ambient-node,
   .loader-ambient-stream,
@@ -1709,7 +1745,9 @@ html body .allow-break-all {
   .loader-aurora-a,
   .loader-aurora-b,
   .loader-aurora-c,
-  .loader-conic-sweep { animation: none; }
+  .loader-conic-sweep,
+  .loader-wire-pulse,
+  .loader-wire-base { animation: none; }
   .loader-ambient-stream { opacity: 0.4; }
 }
 
