@@ -1738,10 +1738,10 @@ html body .allow-break-all {
   opacity: 0.45;
 }
 .loader-wire-comet-head {
-  stroke-width: 0.3;
+  stroke-width: 0.55;
   opacity: 1;
-  filter: drop-shadow(0 0 0.5px var(--accent))
-          drop-shadow(0 0 1.2px color-mix(in oklab, var(--accent) 55%, transparent));
+  filter: drop-shadow(0 0 0.6px var(--accent))
+          drop-shadow(0 0 1.4px color-mix(in oklab, var(--accent) 60%, transparent));
 }
 
 @media (prefers-reduced-motion: reduce) {
