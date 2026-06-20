@@ -140,9 +140,9 @@ export function LoaderAmbient() {
           const from = w.reverse ? -94 : 6;
           const to = w.reverse ? 6 : -94;
           const layers: Array<{ cls: string; dash: string }> = [
-            { cls: "loader-wire-comet loader-wire-comet-tail", dash: "9 100" },
-            { cls: "loader-wire-comet loader-wire-comet-mid", dash: "5 100" },
-            { cls: "loader-wire-comet loader-wire-comet-head", dash: "1.6 100" },
+            { cls: "loader-wire-comet loader-wire-comet-tail", dash: "7 100" },
+            { cls: "loader-wire-comet loader-wire-comet-mid", dash: "2.5 100" },
+            { cls: "loader-wire-comet loader-wire-comet-head", dash: "0.6 100" },
           ];
           return (
             <g key={i}>
