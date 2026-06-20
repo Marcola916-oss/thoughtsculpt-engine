@@ -140,6 +140,22 @@ export function LoaderAmbient() {
           return (
             <g key={i}>
               <path id={pathId} d={w.d} className="loader-wire-trace" />
+              {/* Gradient energy trail — short streak traveling along the trace */}
+              <path
+                d={w.d}
+                pathLength={100}
+                className="loader-wire-trail"
+                strokeDasharray="7 100"
+              >
+                <animate
+                  attributeName="stroke-dashoffset"
+                  from={w.reverse ? -100 : 0}
+                  to={w.reverse ? 0 : -100}
+                  dur={`${w.duration}s`}
+                  begin={`${-w.delay}s`}
+                  repeatCount="indefinite"
+                />
+              </path>
               {/* Leading spark — large soft halo */}
               <circle r="0.85" fill="url(#loader-spark)" className="loader-wire-spark-halo">
                 <animateMotion
