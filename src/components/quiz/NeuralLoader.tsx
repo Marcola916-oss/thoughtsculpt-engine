@@ -83,9 +83,9 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
         className="pointer-events-none fixed inset-0 z-[1]"
         style={{
           background:
-            "radial-gradient(ellipse at center, color-mix(in oklab, var(--background) 27%, transparent) 0%, color-mix(in oklab, var(--background) 41%, transparent) 50%, color-mix(in oklab, var(--background) 51%, transparent) 100%)",
-          backdropFilter: "blur(1px)",
-          WebkitBackdropFilter: "blur(1px)",
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--background) 45%, transparent) 0%, color-mix(in oklab, var(--background) 60%, transparent) 50%, color-mix(in oklab, var(--background) 72%, transparent) 100%)",
+          backdropFilter: "blur(1.5px)",
+          WebkitBackdropFilter: "blur(1.5px)",
         }}
       />
 
