@@ -37,6 +37,19 @@ const NODES: Array<{ top: string; left: string; delay: number }> = [
   { top: "14%", left: "48%", delay: 2.9 },
 ];
 
+// Circuit wire paths (viewBox 100x100, slice-fitted to viewport).
+// Each path is a polyline that snakes across the screen with right-angle bends,
+// like a PCB trace. A pulse travels along it via stroke-dashoffset.
+const WIRES: Array<{ d: string; duration: number; delay: number }> = [
+  { d: "M -5 18 L 22 18 L 22 34 L 48 34 L 48 22 L 78 22 L 78 40 L 105 40", duration: 7,  delay: 0 },
+  { d: "M 105 62 L 80 62 L 80 48 L 56 48 L 56 66 L 30 66 L 30 54 L -5 54", duration: 9,  delay: 1.2 },
+  { d: "M -5 82 L 18 82 L 18 70 L 42 70 L 42 86 L 70 86 L 70 74 L 105 74", duration: 11, delay: 2.4 },
+  { d: "M 12 -5 L 12 24 L 38 24 L 38 50 L 62 50 L 62 28 L 88 28 L 88 -5", duration: 8.5, delay: 0.6 },
+  { d: "M 92 105 L 92 78 L 66 78 L 66 58 L 40 58 L 40 80 L 14 80 L 14 105", duration: 10, delay: 3.1 },
+  { d: "M -5 38 L 14 38 L 14 50 L 32 50 L 32 38 L 50 38", duration: 6.5, delay: 1.8 },
+  { d: "M 50 62 L 68 62 L 68 50 L 86 50 L 86 62 L 105 62", duration: 7.5, delay: 4.0 },
+];
+
 export function LoaderAmbient() {
   const drifts = useMemo<Drift[]>(() => {
     return Array.from({ length: 8 }, (_, i) => ({
@@ -103,6 +116,28 @@ export function LoaderAmbient() {
 
       {/* 1. Neural grid — pure CSS, no SVG viewBox edges */}
       <div className="loader-ambient-grid-css" />
+
+      {/* 1c. Circuit wires — pulses flowing along PCB-style traces */}
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        {WIRES.map((w, i) => (
+          <g key={i}>
+            <path d={w.d} className="loader-wire loader-wire-base" />
+            <path
+              d={w.d}
+              className="loader-wire loader-wire-pulse"
+              style={{
+                animationDuration: `${w.duration}s`,
+                animationDelay: `${-w.delay}s`,
+              }}
+            />
+          </g>
+        ))}
+      </svg>
 
       {/* 1b. Pulsing nodes positioned in % */}
       {NODES.map((n, i) => (
