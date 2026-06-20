@@ -13,7 +13,10 @@
 
 import { useMemo } from "react";
 
-const SYMBOLS = ["Φ", "Ψ", "∞", "☯", "λ", "{ }", "</>", "01", "#", "Ω"];
+const SYMBOLS = [
+  "Φ", "Ψ", "∞", "☯", "λ", "Ω", "Δ", "Σ", "π", "∇",
+  "{ }", "</>", "01", "#!", "=>", "&&", "[]", "()", "::", "fn",
+];
 
 interface Drift {
   ch: string;
@@ -37,17 +40,17 @@ const NODES: Array<{ top: string; left: string; delay: number }> = [
   { top: "14%", left: "48%", delay: 2.9 },
 ];
 
-// Circuit wire paths (viewBox 100x100, slice-fitted to viewport).
-// Each path is a polyline that snakes across the screen with right-angle bends,
-// like a PCB trace. A pulse travels along it via stroke-dashoffset.
-const WIRES: Array<{ d: string; duration: number; delay: number }> = [
-  { d: "M -5 18 L 22 18 L 22 34 L 48 34 L 48 22 L 78 22 L 78 40 L 105 40", duration: 7,  delay: 0 },
-  { d: "M 105 62 L 80 62 L 80 48 L 56 48 L 56 66 L 30 66 L 30 54 L -5 54", duration: 9,  delay: 1.2 },
-  { d: "M -5 82 L 18 82 L 18 70 L 42 70 L 42 86 L 70 86 L 70 74 L 105 74", duration: 11, delay: 2.4 },
-  { d: "M 12 -5 L 12 24 L 38 24 L 38 50 L 62 50 L 62 28 L 88 28 L 88 -5", duration: 8.5, delay: 0.6 },
-  { d: "M 92 105 L 92 78 L 66 78 L 66 58 L 40 58 L 40 80 L 14 80 L 14 105", duration: 10, delay: 3.1 },
-  { d: "M -5 38 L 14 38 L 14 50 L 32 50 L 32 38 L 50 38", duration: 6.5, delay: 1.8 },
-  { d: "M 50 62 L 68 62 L 68 50 L 86 50 L 86 62 L 105 62", duration: 7.5, delay: 4.0 },
+// Organic energy wires — smooth bezier curves snaking across the viewport.
+// Each path is drawn as a faint base stroke; a glowing dot then travels along
+// it via SMIL <animateMotion>, simulating energy flowing through the wire.
+const WIRES: Array<{ d: string; duration: number; delay: number; reverse?: boolean }> = [
+  { d: "M -5 22 C 18 10, 34 38, 52 26 S 84 14, 110 30", duration: 8.5, delay: 0 },
+  { d: "M -5 48 C 20 60, 38 36, 58 50 S 90 64, 110 46", duration: 11, delay: 1.4 },
+  { d: "M -5 74 C 22 82, 40 60, 60 72 S 88 88, 110 70", duration: 9.5, delay: 2.6 },
+  { d: "M 18 -5 C 10 22, 38 36, 26 60 S 14 86, 22 110", duration: 12, delay: 0.8, reverse: true },
+  { d: "M 82 -5 C 92 24, 64 38, 76 60 S 90 84, 80 110", duration: 10, delay: 3.2 },
+  { d: "M -5 12 C 30 28, 60 6, 88 24 S 104 42, 110 36", duration: 7.5, delay: 4.1, reverse: true },
+  { d: "M -5 90 C 28 78, 56 96, 82 84 S 102 70, 110 84", duration: 13, delay: 1.9 },
 ];
 
 export function LoaderAmbient() {
@@ -117,26 +120,65 @@ export function LoaderAmbient() {
       {/* 1. Neural grid — pure CSS, no SVG viewBox edges */}
       <div className="loader-ambient-grid-css" />
 
-      {/* 1c. Circuit wires — pulses flowing along PCB-style traces */}
+      {/* 1c. Energy wires — faint organic curves with a light dot flowing along each */}
       <svg
         className="absolute inset-0 w-full h-full"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        {WIRES.map((w, i) => (
-          <g key={i}>
-            <path d={w.d} className="loader-wire loader-wire-base" />
-            <path
-              d={w.d}
-              className="loader-wire loader-wire-pulse"
-              style={{
-                animationDuration: `${w.duration}s`,
-                animationDelay: `${-w.delay}s`,
-              }}
-            />
-          </g>
-        ))}
+        <defs>
+          <radialGradient id="loader-spark" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="var(--accent)" stopOpacity="1" />
+            <stop offset="40%" stopColor="var(--accent)" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        {WIRES.map((w, i) => {
+          const pathId = `loader-wire-path-${i}`;
+          return (
+            <g key={i}>
+              <path id={pathId} d={w.d} className="loader-wire-trace" />
+              {/* Leading spark — large soft halo */}
+              <circle r="1.6" fill="url(#loader-spark)" className="loader-wire-spark-halo">
+                <animateMotion
+                  dur={`${w.duration}s`}
+                  repeatCount="indefinite"
+                  begin={`${-w.delay}s`}
+                  keyPoints={w.reverse ? "1;0" : "0;1"}
+                  keyTimes="0;1"
+                  rotate="auto"
+                >
+                  <mpath href={`#${pathId}`} />
+                </animateMotion>
+              </circle>
+              {/* Bright core dot */}
+              <circle r="0.55" fill="var(--accent)" className="loader-wire-spark-core">
+                <animateMotion
+                  dur={`${w.duration}s`}
+                  repeatCount="indefinite"
+                  begin={`${-w.delay}s`}
+                  keyPoints={w.reverse ? "1;0" : "0;1"}
+                  keyTimes="0;1"
+                >
+                  <mpath href={`#${pathId}`} />
+                </animateMotion>
+              </circle>
+              {/* Trailing fade dot */}
+              <circle r="0.35" fill="var(--accent)" className="loader-wire-spark-trail">
+                <animateMotion
+                  dur={`${w.duration}s`}
+                  repeatCount="indefinite"
+                  begin={`${-w.delay + 0.18}s`}
+                  keyPoints={w.reverse ? "1;0" : "0;1"}
+                  keyTimes="0;1"
+                >
+                  <mpath href={`#${pathId}`} />
+                </animateMotion>
+              </circle>
+            </g>
+          );
+        })}
       </svg>
 
       {/* 1b. Pulsing nodes positioned in % */}
