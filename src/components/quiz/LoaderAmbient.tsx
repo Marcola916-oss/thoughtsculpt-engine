@@ -25,6 +25,18 @@ interface Drift {
   delay: number;
 }
 
+// Pulsing nodes positioned in % of the container (no SVG viewBox).
+const NODES: Array<{ top: string; left: string; delay: number }> = [
+  { top: "18%", left: "22%", delay: 0 },
+  { top: "26%", left: "68%", delay: 0.4 },
+  { top: "42%", left: "12%", delay: 0.9 },
+  { top: "48%", left: "82%", delay: 1.3 },
+  { top: "62%", left: "30%", delay: 1.7 },
+  { top: "72%", left: "72%", delay: 2.1 },
+  { top: "80%", left: "44%", delay: 2.5 },
+  { top: "14%", left: "48%", delay: 2.9 },
+];
+
 export function LoaderAmbient() {
   const drifts = useMemo<Drift[]>(() => {
     return Array.from({ length: 8 }, (_, i) => ({
@@ -43,6 +55,44 @@ export function LoaderAmbient() {
       aria-hidden="true"
       className="loader-ambient pointer-events-none absolute inset-0 overflow-hidden z-0"
     >
+      {/* -1. Conic radar sweep (deepest layer) */}
+      <div className="loader-conic-sweep" />
+
+      {/* -0.5. Aurora blobs — slow breathing colored fog */}
+      <div
+        className="loader-aurora-blob loader-aurora-a"
+        style={{
+          top: "-10%",
+          left: "-10%",
+          width: "55vmax",
+          height: "55vmax",
+          background:
+            "radial-gradient(circle, color-mix(in oklab, var(--accent) 55%, transparent) 0%, transparent 65%)",
+        }}
+      />
+      <div
+        className="loader-aurora-blob loader-aurora-b"
+        style={{
+          top: "20%",
+          right: "-15%",
+          width: "50vmax",
+          height: "50vmax",
+          background:
+            "radial-gradient(circle, color-mix(in oklab, var(--accent) 45%, transparent) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="loader-aurora-blob loader-aurora-c"
+        style={{
+          bottom: "-12%",
+          left: "20%",
+          width: "60vmax",
+          height: "60vmax",
+          background:
+            "radial-gradient(circle, color-mix(in oklab, var(--accent) 40%, transparent) 0%, transparent 65%)",
+        }}
+      />
+
       {/* 0. Central pulsing core halo — the "heartbeat" */}
       <div
         className="loader-ambient-core absolute top-1/2 left-1/2"
@@ -58,7 +108,7 @@ export function LoaderAmbient() {
       {/* 0b. Orbiting concentric rings */}
       <svg
         className="loader-ambient-ring absolute top-1/2 left-1/2"
-        style={{ width: "min(60vh, 560px)", height: "min(60vh, 560px)" }}
+        style={{ width: "min(80vmin, 720px)", height: "min(80vmin, 720px)" }}
         viewBox="0 0 200 200"
       >
         <circle
@@ -74,7 +124,7 @@ export function LoaderAmbient() {
       </svg>
       <svg
         className="loader-ambient-ring-reverse absolute top-1/2 left-1/2"
-        style={{ width: "min(82vh, 760px)", height: "min(82vh, 760px)" }}
+        style={{ width: "min(110vmin, 980px)", height: "min(110vmin, 980px)" }}
         viewBox="0 0 200 200"
       >
         <circle
@@ -89,76 +139,37 @@ export function LoaderAmbient() {
         />
       </svg>
 
-      {/* 1. Neural grid */}
-      <svg
-        className="absolute inset-0 h-full w-full loader-ambient-grid"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 600 600"
-      >
-        <defs>
-          <pattern
-            id="loader-grid"
-            width="48"
-            height="48"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 48 0 L 0 0 0 48"
-              fill="none"
-              stroke="var(--accent)"
-              strokeOpacity="0.22"
-              strokeWidth="0.6"
-            />
-          </pattern>
-          <radialGradient id="loader-grid-fade" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="white" stopOpacity="1" />
-            <stop offset="70%" stopColor="white" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="white" stopOpacity="0" />
-          </radialGradient>
-          <mask id="loader-grid-mask">
-            <rect width="600" height="600" fill="url(#loader-grid-fade)" />
-          </mask>
-        </defs>
-        <rect
-          width="600"
-          height="600"
-          fill="url(#loader-grid)"
-          mask="url(#loader-grid-mask)"
-        />
-        {/* Pulsing nodes at intersections */}
-        {[
-          [144, 192],
-          [336, 144],
-          [240, 336],
-          [432, 288],
-          [96, 432],
-          [480, 432],
-          [288, 96],
-          [192, 480],
-        ].map(([cx, cy], i) => (
-          <circle
-            key={i}
-            cx={cx}
-            cy={cy}
-            r="2"
-            fill="var(--accent)"
-            className="loader-ambient-node"
-            style={{ animationDelay: `${i * 0.42}s` }}
-          />
-        ))}
-      </svg>
+      {/* 1. Neural grid — pure CSS, no SVG viewBox edges */}
+      <div className="loader-ambient-grid-css" />
 
-      {/* 2. Diagonal data streams */}
+      {/* 1b. Pulsing nodes positioned in % */}
+      {NODES.map((n, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            top: n.top,
+            left: n.left,
+            width: 5,
+            height: 5,
+            background: "var(--accent)",
+            boxShadow:
+              "0 0 8px color-mix(in oklab, var(--accent) 80%, transparent), 0 0 18px color-mix(in oklab, var(--accent) 45%, transparent)",
+            animation: `loader-ambient-node-pulse 2.6s ease-in-out ${n.delay}s infinite`,
+          }}
+        />
+      ))}
+
+      {/* 2. Horizontal data streams — densified */}
       <div className="absolute inset-0">
-        {[0, 1, 2, 3, 4, 5].map((i) => (
+        {Array.from({ length: 10 }).map((_, i) => (
           <span
             key={i}
             className="loader-ambient-stream"
             style={{
-              top: `${8 + i * 15}%`,
-              animationDuration: `${11 + i * 2.5}s`,
-              animationDelay: `${-i * 3.2}s`,
+              top: `${4 + i * 9.5}%`,
+              animationDuration: `${8 + (i % 5) * 1.8}s`,
+              animationDelay: `${-i * 2.3}s`,
             }}
           />
         ))}
