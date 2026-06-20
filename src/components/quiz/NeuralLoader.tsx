@@ -105,23 +105,29 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
 
       {/* Progress bar — protagonist */}
       <div className="relative w-full max-w-md z-10">
-        <div className="h-[2px] w-full bg-foreground/[0.06] rounded-full overflow-hidden relative">
+        <div className="loader-progress-track h-[10px] w-full rounded-full overflow-visible">
           <div
-            className="loader-progress-bar h-full rounded-full"
-            style={{
-              width: `${progress}%`,
-              background:
-                "linear-gradient(90deg, color-mix(in oklab, var(--accent) 70%, transparent) 0%, var(--accent) 50%, color-mix(in oklab, var(--accent) 70%, transparent) 100%)",
-              boxShadow:
-                "0 0 16px color-mix(in oklab, var(--accent) 55%, transparent), 0 0 32px color-mix(in oklab, var(--accent) 25%, transparent)",
-            }}
-          />
+            className="loader-progress-fill h-full rounded-full relative"
+            style={{ width: `${progress}%` }}
+          >
+            <span className="loader-progress-head" aria-hidden="true" />
+          </div>
         </div>
-        <div className="mt-3 flex items-baseline justify-between font-mono text-[11px] tracking-[0.2em] uppercase text-foreground/40">
-          <span>analyzing</span>
-          <span className="tabular-nums text-foreground/70">
+        <div className="mt-3 flex items-baseline justify-between font-mono text-[11px] tracking-[0.22em] uppercase text-foreground/45">
+          <span className="flex items-center gap-1.5">
+            <span
+              className="inline-block h-1 w-1 rounded-full"
+              style={{ background: "var(--accent)", boxShadow: "0 0 8px var(--accent)" }}
+              aria-hidden="true"
+            />
+            analyzing
+          </span>
+          <span
+            className="tabular-nums text-sm font-semibold tracking-normal"
+            style={{ color: "var(--accent)", textShadow: "0 0 12px color-mix(in oklab, var(--accent) 60%, transparent)" }}
+          >
             {Math.round(progress).toString().padStart(2, "0")}
-            <span className="text-foreground/40 ml-0.5">%</span>
+            <span className="text-foreground/40 ml-0.5 text-[11px] font-normal">%</span>
           </span>
         </div>
       </div>

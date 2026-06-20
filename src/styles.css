@@ -1559,6 +1559,76 @@ html body .allow-break-all {
 .loader-progress-bar {
   transition: width 120ms linear;
 }
+.loader-progress-track {
+  position: relative;
+  background:
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--foreground) 4%, transparent) 0%,
+      color-mix(in oklab, var(--foreground) 7%, transparent) 100%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--foreground) 6%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--background) 60%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, var(--foreground) 5%, transparent);
+}
+.loader-progress-fill {
+  position: relative;
+  background:
+    linear-gradient(90deg,
+      color-mix(in oklab, var(--accent) 55%, transparent) 0%,
+      var(--accent) 45%,
+      color-mix(in oklab, var(--accent) 90%, white 18%) 70%,
+      var(--accent) 100%);
+  box-shadow:
+    0 0 12px color-mix(in oklab, var(--accent) 70%, transparent),
+    0 0 28px color-mix(in oklab, var(--accent) 40%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 35%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, black 25%, transparent);
+  transition: width 140ms linear;
+}
+.loader-progress-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, white 55%, transparent) 50%,
+    transparent 100%
+  );
+  mix-blend-mode: overlay;
+  transform: translateX(-100%);
+  animation: loader-progress-shimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+.loader-progress-head {
+  position: absolute;
+  top: 50%;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  transform: translate(50%, -50%);
+  background: radial-gradient(circle at 35% 35%,
+    color-mix(in oklab, white 70%, transparent) 0%,
+    var(--accent) 45%,
+    color-mix(in oklab, var(--accent) 60%, black 20%) 100%);
+  box-shadow:
+    0 0 10px color-mix(in oklab, var(--accent) 90%, transparent),
+    0 0 22px color-mix(in oklab, var(--accent) 55%, transparent),
+    0 0 40px color-mix(in oklab, var(--accent) 30%, transparent);
+  animation: loader-progress-head-pulse 1.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes loader-progress-shimmer {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes loader-progress-head-pulse {
+  0%, 100% { opacity: 0.85; transform: translate(50%, -50%) scale(1); }
+  50%      { opacity: 1;    transform: translate(50%, -50%) scale(1.18); }
+}
 .quiz-progress-bar {
   transition: width 480ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1567,7 +1637,10 @@ html body .allow-break-all {
   .loader-msg-enter,
   .loader-log-enter { animation: none; }
   .loader-progress-bar,
+  .loader-progress-fill,
   .quiz-progress-bar { transition: none; }
+  .loader-progress-fill::after,
+  .loader-progress-head { animation: none; }
 }
 
 /* LoaderAmbient — exclusive ambient layer for NeuralLoader */
