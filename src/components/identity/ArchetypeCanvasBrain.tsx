@@ -98,6 +98,10 @@ export function ArchetypeCanvasBrain({ className = "" }: Props) {
           background: "transparent",
           display: "block",
           filter: "drop-shadow(0 10px 18px rgba(0, 0, 0, 0.32))",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 62% 62% at 50% 50%, black 55%, rgba(0,0,0,0.6) 75%, transparent 96%)",
+          maskImage:
+            "radial-gradient(ellipse 62% 62% at 50% 50%, black 55%, rgba(0,0,0,0.6) 75%, transparent 96%)",
         }}
       />
     </div>
