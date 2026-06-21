@@ -136,29 +136,12 @@ export function ArchetypeVideoBrain({ archetype, size, className }: Props) {
           background: `radial-gradient(circle at 50% 50%, ${palette.glow}66 0%, ${palette.primary}33 40%, transparent 70%)`,
         }}
       />
-      {/*
-       * Silhouette glow: a duplicate of the brain video, blurred and tinted,
-       * rendered BEHIND the main video. Because both videos use the same
-       * `object-contain` sizing and the same source, the glow naturally
-       * emerges from the brain's real silhouette — not from a circular
-       * gradient around the square container. `mix-blend-mode: screen`
-       * drops the black background, leaving only the colored halo hugging
-       * the brain's surface.
-       */}
-      <video
-        src={brainAsset.url}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
+      {/* Inner halo: primary color, tighter and more saturated */}
+      <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-90"
+        className="pointer-events-none absolute inset-[-5%] -z-10 rounded-full blur-[40px] opacity-80"
         style={{
-          mixBlendMode: "screen",
-          filter: `${ARCHETYPE_FILTER[archetype]} blur(18px) saturate(1.6) brightness(1.2)`,
-          transform: "scale(1.04)",
-          transformOrigin: "center",
+          background: `radial-gradient(circle at 50% 50%, ${palette.primary}99 0%, transparent 60%)`,
         }}
       />
 
