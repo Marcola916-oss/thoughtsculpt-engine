@@ -11,9 +11,15 @@ const FRAME_MS = 1000 / FPS;
 type Props = {
   className?: string;
   archetype?: "AO" | "SS" | "EA" | "HI";
+  /**
+   * Quando true, renderiza o cérebro como silhueta preta sólida (mesma
+   * forma, mesmos frames), funcionando como "cortina" entre o glow e o
+   * cérebro real para evitar que a luz vaze pela frente.
+   */
+  silhouette?: boolean;
 };
 
-export function ArchetypeCanvasBrain({ className = "" }: Props) {
+export function ArchetypeCanvasBrain({ className = "", silhouette = false }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const framesRef = useRef<HTMLCanvasElement[]>([]);
   const rafRef = useRef<number | null>(null);
@@ -97,7 +103,9 @@ export function ArchetypeCanvasBrain({ className = "" }: Props) {
           mixBlendMode: "normal",
           background: "transparent",
           display: "block",
-          filter: "drop-shadow(0 10px 18px rgba(0, 0, 0, 0.32))",
+          filter: silhouette
+            ? "brightness(0) blur(1.5px)"
+            : "drop-shadow(0 10px 18px rgba(0, 0, 0, 0.32))",
         }}
       />
     </div>

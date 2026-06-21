@@ -973,6 +973,12 @@ function Reveal({
                 }}
               />
             </div>
+            {/* Cortina/silhueta: bloqueia o glow de vazar pela frente do cérebro */}
+            <ArchetypeCanvasBrain
+              archetype={arch as "AO" | "SS" | "EA" | "HI"}
+              silhouette
+              className="absolute inset-0 z-[5]"
+            />
             <ArchetypeCanvasBrain
               archetype={arch as "AO" | "SS" | "EA" | "HI"}
               className="relative z-10"
