@@ -155,6 +155,17 @@ export function ArchetypeCanvasBrain({ className = "", archetype }: Props) {
   const tier = useDeviceTier();
   const [reducedMotion, setReducedMotion] = useState(false);
 
+  const getRimColor = () => {
+    const element = containerRef.current;
+    if (!element || typeof window === "undefined") return "rgba(255, 255, 255, 0.95)";
+    const styles = window.getComputedStyle(element);
+    return (
+      styles.getPropertyValue("--arch-edge").trim() ||
+      styles.getPropertyValue("--arch-primary").trim() ||
+      "rgba(255, 255, 255, 0.95)"
+    );
+  };
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -198,18 +209,14 @@ export function ArchetypeCanvasBrain({ className = "", archetype }: Props) {
     if (!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(first, 0, 0, canvas.width, canvas.height);
-    // Mirror first frame into the glow canvas too.
+    // Real rim-light: build a closed silhouette from the brain alpha, blur it,
+    // then subtract the solid core. The canvas contains only the OUTSIDE halo,
+    // so light never appears inside the brain's transparent neural gaps.
     const glow = glowCanvasRef.current;
     if (glow) {
-      glow.width = first.width;
-      glow.height = first.height;
-      const gctx = glow.getContext("2d", { alpha: true });
-      if (gctx) {
-        gctx.clearRect(0, 0, glow.width, glow.height);
-        gctx.drawImage(first, 0, 0, glow.width, glow.height);
-      }
+      drawRimLight(first, glow, getRimColor(), tier);
     }
-  }, [ready]);
+  }, [ready, tier, archetype]);
 
   // 30fps loop, pulling straight from the in-memory cache.
   useEffect(() => {
@@ -219,7 +226,6 @@ export function ArchetypeCanvasBrain({ className = "", archetype }: Props) {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
     const glow = glowCanvasRef.current;
-    const gctx = glow ? glow.getContext("2d", { alpha: true }) : null;
 
     let frame = 1; // frame 0 already drawn by the layout effect
     let last = performance.now();
@@ -231,9 +237,8 @@ export function ArchetypeCanvasBrain({ className = "", archetype }: Props) {
         if (img) {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-          if (gctx && glow) {
-            gctx.clearRect(0, 0, glow.width, glow.height);
-            gctx.drawImage(img, 0, 0, glow.width, glow.height);
+          if (glow && frame % 4 === 0) {
+            drawRimLight(img, glow, getRimColor(), tier);
           }
         }
         frame = (frame + 1) % FRAME_COUNT;
@@ -246,56 +251,31 @@ export function ArchetypeCanvasBrain({ className = "", archetype }: Props) {
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
-  }, [ready]);
+  }, [ready, tier, archetype]);
 
   return (
     <div
+      ref={containerRef}
+      data-arch={archetype}
       className={`relative w-full h-full flex items-center justify-center ${className}`}
       style={{ background: "transparent" }}
     >
-      {/* Rim-light backlight — a blurred + tinted copy of the SAME brain
-          frame, sitting behind the main canvas. Because it's the exact
-          silhouette (not a circle), the glow follows the brain shape and
-          only escapes around the edges — no bleed through the gaps
-          between neurons. Low-tier devices fall back to a soft radial
-          glow to avoid GPU blur cost on old Android. */}
-      {useRimLight ? (
-        <canvas
-          ref={glowCanvasRef}
-          aria-hidden
-          className="pointer-events-none absolute inset-0 m-auto max-w-full max-h-full w-auto h-auto"
-          style={{
-            zIndex: 0,
-            // Heavy blur smears the silhouette outward → rim halo.
-            // drop-shadow re-colors the alpha into the archetype hue.
-            filter:
-              "blur(18px) saturate(1.4) drop-shadow(0 0 14px var(--arch-primary)) drop-shadow(0 0 28px var(--arch-glow))",
-            opacity: 0.95,
-            willChange: "filter",
-            animation: reducedMotion
-              ? undefined
-              : "arch-breathe 5.5s ease-in-out infinite",
-          }}
-        />
-      ) : (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 flex items-center justify-center"
-          style={{ zIndex: 0 }}
-        >
-          <div
-            className="rounded-full"
-            style={{
-              width: "70%",
-              height: "70%",
-              background:
-                "radial-gradient(circle at 50% 50%, var(--arch-primary) 0%, var(--arch-glow) 35%, transparent 70%)",
-              filter: "blur(28px)",
-              opacity: 0.75,
-            }}
-          />
-        </div>
-      )}
+      <canvas
+        ref={glowCanvasRef}
+        aria-hidden
+        className="pointer-events-none absolute inset-0 m-auto max-w-full max-h-full w-auto h-auto"
+        style={{
+          zIndex: 0,
+          opacity: 1,
+          mixBlendMode: "screen",
+          willChange: "opacity, transform",
+          filter:
+            "saturate(1.35) drop-shadow(0 0 18px var(--arch-edge, var(--arch-primary))) drop-shadow(0 0 42px var(--arch-glow))",
+          animation: reducedMotion
+            ? undefined
+            : "arch-breathe 5.5s ease-in-out infinite",
+        }}
+      />
 
       <canvas
         ref={canvasRef}
