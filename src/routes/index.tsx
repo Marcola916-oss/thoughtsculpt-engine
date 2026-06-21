@@ -632,7 +632,7 @@ function Identity(props: {
     <div className="w-full">
       <h2
         className="font-display italic uppercase text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-        style={{ fontSize: "25px", lineHeight: "25px", letterSpacing: "-1.35px", fontWeight: 700 }}
+        style={{ fontSize: "26px", lineHeight: "26px", letterSpacing: "-1.35px", fontWeight: 700 }}
       >
         {t.identity.title}
       </h2>
@@ -847,8 +847,8 @@ function Reveal({
             className="absolute left-1/2 top-[46%] w-[148%] h-[148%] rounded-full pointer-events-none"
             style={{
               background:
-                "radial-gradient(circle at center, transparent 0%, transparent 33%, color-mix(in oklab, var(--arch-primary) 38%, transparent) 48%, color-mix(in oklab, var(--arch-primary) 16%, transparent) 64%, transparent 78%)",
-              filter: "blur(40px)",
+                  "radial-gradient(circle at center, color-mix(in oklab, var(--arch-primary) 24%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 18%, transparent) 36%, color-mix(in oklab, var(--arch-primary) 10%, transparent) 56%, transparent 74%)",
+              filter: "blur(28px)",
               mixBlendMode: "screen",
               animation: "arch-aura-pulse 5s ease-in-out infinite",
               opacity: 0.72,
@@ -881,10 +881,10 @@ function Reveal({
                   left: side < 0 ? "31%" : "69%",
                   transform: `rotate(${side * 7}deg)`,
                   background:
-                    "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 58%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 52%, transparent 100%)",
+                    "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 72%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 38%, transparent) 52%, transparent 100%)",
                   boxShadow:
-                    "0 0 10px color-mix(in oklab, var(--arch-primary) 38%, transparent)",
-                  opacity: 0.52,
+                    "0 0 16px color-mix(in oklab, var(--arch-primary) 55%, transparent)",
+                  opacity: 0.72,
                   animation: "arch-connector-pulse 3.8s ease-in-out infinite",
                 }}
               />
@@ -896,22 +896,22 @@ function Reveal({
             className="absolute left-1/2 -translate-x-1/2 bottom-[13%] w-[62%] h-[34%] pointer-events-none"
             style={{
               background:
-                "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 42%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 16%, transparent) 48%, transparent 100%)",
+                  "linear-gradient(to top, color-mix(in oklab, var(--arch-primary) 82%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 46%, transparent) 48%, transparent 100%)",
               clipPath: "polygon(30% 100%, 70% 100%, 57% 0%, 43% 0%)",
               mixBlendMode: "screen",
               animation: "arch-beam-pulse 3.6s ease-in-out infinite",
-              filter: "blur(2px)",
-              opacity: 0.76,
+                filter: "blur(2px) brightness(1.35)",
+                opacity: 1,
               zIndex: 1,
             }}
           />
           {/* Scanlines holográficas dentro do feixe — sobem em direção ao cérebro */}
           <div
             aria-hidden
-            className="absolute left-1/2 -translate-x-1/2 bottom-[13%] w-[62%] h-[34%] pointer-events-none opacity-40"
+              className="absolute left-1/2 -translate-x-1/2 bottom-[13%] w-[62%] h-[34%] pointer-events-none opacity-80"
             style={{
               background:
-                "repeating-linear-gradient(to top, transparent 0px, transparent 8px, color-mix(in oklab, var(--arch-primary) 28%, transparent) 9px, transparent 10px)",
+                  "repeating-linear-gradient(to top, transparent 0px, transparent 8px, color-mix(in oklab, var(--arch-primary) 62%, transparent) 9px, transparent 10px)",
               clipPath: "polygon(30% 100%, 70% 100%, 57% 0%, 43% 0%)",
               mixBlendMode: "screen",
               backgroundSize: "100% 200%",
@@ -925,10 +925,11 @@ function Reveal({
             className="absolute left-1/2 -translate-x-1/2 bottom-[12%] w-[58%] h-[6%] rounded-[50%] pointer-events-none"
             style={{
               background:
-                "radial-gradient(ellipse at center, var(--arch-glow) 0%, color-mix(in oklab, var(--arch-primary) 48%, transparent) 44%, transparent 74%)",
+                  "radial-gradient(ellipse at center, var(--arch-glow) 0%, color-mix(in oklab, var(--arch-primary) 80%, transparent) 44%, transparent 74%)",
               filter: "blur(7px)",
               mixBlendMode: "screen",
               animation: "arch-beam-pulse 3.6s ease-in-out infinite",
+                opacity: 1,
               zIndex: 2,
             }}
           />
@@ -948,11 +949,11 @@ function Reveal({
                 className="h-full w-full rounded-full"
                 style={{
                   background:
-                    "radial-gradient(ellipse at center, transparent 0%, transparent 58%, color-mix(in oklab, var(--arch-primary) 36%, transparent) 70%, color-mix(in oklab, var(--arch-primary) 14%, transparent) 82%, transparent 92%)",
-                  filter: "blur(30px)",
+                    "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 34%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 42%, color-mix(in oklab, var(--arch-primary) 10%, transparent) 62%, transparent 82%)",
+                  filter: "blur(22px)",
                   mixBlendMode: "screen",
                   animation: "arch-breathe 5s ease-in-out infinite",
-                  opacity: 0.58,
+                  opacity: 0.9,
                 }}
               />
             </div>
@@ -964,11 +965,11 @@ function Reveal({
                 className="h-full w-full rounded-full"
                 style={{
                   background:
-                    "radial-gradient(ellipse at center, transparent 0%, transparent 55%, color-mix(in oklab, var(--arch-primary) 18%, transparent) 72%, transparent 88%)",
-                  filter: "blur(58px)",
+                    "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 20%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 12%, transparent) 48%, transparent 76%)",
+                  filter: "blur(46px)",
                   mixBlendMode: "screen",
                   animation: "arch-breathe 6.5s ease-in-out infinite",
-                  opacity: 0.48,
+                  opacity: 0.8,
                 }}
               />
             </div>
@@ -1113,7 +1114,7 @@ function Sales({
             </span>
           </MSection>
 
-          <h1 className="reveal font-display text-4xl font-extrabold leading-[1.1] md:text-8xl tracking-tighter">
+          <h1 className="reveal font-display text-4xl font-black uppercase italic leading-[1.1] md:text-8xl tracking-tighter">
             {s.h1(
               name,
               (
@@ -1164,7 +1165,7 @@ function Sales({
 
           <div className="relative z-10 grid md:grid-cols-2 gap-16">
             <div>
-              <h2 className="font-display text-4xl md:text-6xl font-black text-foreground mb-8 leading-tight tracking-tighter">
+              <h2 className="font-display text-4xl md:text-6xl font-black uppercase italic text-foreground mb-8 leading-tight tracking-tighter">
                 {s.painBlock.title}
               </h2>
               <p className="text-base md:text-lg lg:text-xl text-foreground/70 leading-relaxed mb-10">

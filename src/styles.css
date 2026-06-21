@@ -276,8 +276,8 @@
   --arch-accent: #0F4C5C;
   --arch-edge: #2A8BA3;
   --arch-ink: #B8DCE6;
-  --arch-glow: rgba(15, 76, 92, 0.55);
-  --arch-fog: rgba(15, 76, 92, 0.35);
+  --arch-glow: rgba(42, 139, 163, 0.65);
+  --arch-fog: rgba(30, 107, 130, 0.5);
   --arch-hex: #0F4C5C;
 }
 [data-arch="SS"] {
@@ -287,8 +287,8 @@
   --arch-edge: #A78BFA;
   --arch-ink: #E9D5FF;
   --arch-gold: #C9A84C;
-  --arch-glow: rgba(124, 58, 237, 0.55);
-  --arch-fog: rgba(76, 29, 149, 0.35);
+  --arch-glow: rgba(167, 139, 250, 0.6);
+  --arch-fog: rgba(124, 58, 237, 0.5);
   --arch-hex: #4C1D95;
 }
 [data-arch="EA"] {
@@ -297,8 +297,8 @@
   --arch-accent: #334155;
   --arch-edge: #94A3B8;
   --arch-ink: #CBD5E1;
-  --arch-glow: rgba(100, 116, 139, 0.45);
-  --arch-fog: rgba(51, 65, 85, 0.45);
+  --arch-glow: rgba(148, 163, 184, 0.7);
+  --arch-fog: rgba(100, 116, 139, 0.55);
   --arch-hex: #334155;
 }
 [data-arch="HI"] {
@@ -1559,6 +1559,78 @@ html body .allow-break-all {
 .loader-progress-bar {
   transition: width 120ms linear;
 }
+.loader-progress-track {
+  position: relative;
+  background:
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--foreground) 4%, transparent) 0%,
+      color-mix(in oklab, var(--foreground) 7%, transparent) 100%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--foreground) 6%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--background) 60%, transparent),
+    inset 0 0 0 1px color-mix(in oklab, var(--foreground) 5%, transparent);
+}
+.loader-progress-fill {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg,
+      color-mix(in oklab, var(--accent) 55%, transparent) 0%,
+      var(--accent) 45%,
+      color-mix(in oklab, var(--accent) 90%, white 18%) 70%,
+      var(--accent) 100%);
+  box-shadow:
+    0 0 12px color-mix(in oklab, var(--accent) 70%, transparent),
+    0 0 28px color-mix(in oklab, var(--accent) 40%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 35%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, black 25%, transparent);
+  transition: width 140ms linear;
+}
+.loader-progress-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, white 55%, transparent) 50%,
+    transparent 100%
+  );
+  mix-blend-mode: overlay;
+  transform: translateX(-100%);
+  animation: loader-progress-shimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+.loader-progress-head {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  transition: left 140ms linear;
+  background: radial-gradient(circle at 35% 35%,
+    color-mix(in oklab, white 70%, transparent) 0%,
+    var(--accent) 45%,
+    color-mix(in oklab, var(--accent) 60%, black 20%) 100%);
+  box-shadow:
+    0 0 10px color-mix(in oklab, var(--accent) 90%, transparent),
+    0 0 22px color-mix(in oklab, var(--accent) 55%, transparent),
+    0 0 40px color-mix(in oklab, var(--accent) 30%, transparent);
+  animation: loader-progress-head-pulse 1.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes loader-progress-shimmer {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes loader-progress-head-pulse {
+  0%, 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.18); }
+}
 .quiz-progress-bar {
   transition: width 480ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1567,7 +1639,201 @@ html body .allow-break-all {
   .loader-msg-enter,
   .loader-log-enter { animation: none; }
   .loader-progress-bar,
+  .loader-progress-fill,
   .quiz-progress-bar { transition: none; }
+  .loader-progress-fill::after,
+  .loader-progress-head { animation: none; }
+}
+
+/* LoaderAmbient — exclusive ambient layer for NeuralLoader */
+.loader-ambient {
+  /* gentle vignette so the grid fades into the global background, no hard rect */
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at center, black 0%, black 55%, transparent 100%);
+          mask-image: radial-gradient(ellipse 90% 80% at center, black 0%, black 55%, transparent 100%);
+}
+
+/* CSS grid replacement (no SVG, no viewBox, no rectangular edge) */
+.loader-ambient-grid-css {
+  position: absolute;
+  inset: -10%;
+  background-image:
+    linear-gradient(to right,  color-mix(in oklab, var(--accent) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--accent) 14%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.28;
+  animation: loader-grid-drift 38s linear infinite;
+  will-change: background-position;
+}
+@keyframes loader-grid-drift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 56px 56px, 56px 56px; }
+}
+
+/* Aurora blobs — slow breathing drift */
+.loader-aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.55;
+  will-change: transform, opacity;
+  mix-blend-mode: screen;
+}
+@keyframes loader-aurora-a {
+  0%,100% { transform: translate3d(-10%, -8%, 0) scale(1); opacity: 0.45; }
+  50%     { transform: translate3d(12%, 10%, 0) scale(1.15); opacity: 0.75; }
+}
+@keyframes loader-aurora-b {
+  0%,100% { transform: translate3d(14%, -6%, 0) scale(1.05); opacity: 0.4; }
+  50%     { transform: translate3d(-12%, 12%, 0) scale(0.95); opacity: 0.65; }
+}
+@keyframes loader-aurora-c {
+  0%,100% { transform: translate3d(0%, 12%, 0) scale(0.9); opacity: 0.35; }
+  50%     { transform: translate3d(-8%, -10%, 0) scale(1.1); opacity: 0.6; }
+}
+.loader-aurora-a { animation: loader-aurora-a 32s ease-in-out infinite; }
+.loader-aurora-b { animation: loader-aurora-b 40s ease-in-out infinite; }
+.loader-aurora-c { animation: loader-aurora-c 28s ease-in-out infinite; }
+
+/* Conic radar sweep — slow, premium */
+.loader-conic-sweep {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 180vmax; height: 180vmax;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    color-mix(in oklab, var(--accent) 18%, transparent) 30deg,
+    transparent 90deg,
+    transparent 180deg,
+    color-mix(in oklab, var(--accent) 10%, transparent) 220deg,
+    transparent 290deg
+  );
+  filter: blur(40px);
+  opacity: 0.35;
+  animation: loader-conic-spin 60s linear infinite;
+  will-change: transform;
+}
+@keyframes loader-conic-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes loader-ambient-node-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.7); }
+  50%      { opacity: 1;   transform: scale(1.6); }
+}
+@keyframes loader-ambient-stream {
+  0%   { transform: translate3d(-30%, 0, 0); opacity: 0; }
+  15%  { opacity: 0.9; }
+  85%  { opacity: 0.9; }
+  100% { transform: translate3d(130%, 0, 0); opacity: 0; }
+}
+.loader-ambient-stream {
+  position: absolute;
+  left: 0;
+  height: 1.5px;
+  width: 45%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--accent) 90%, transparent) 50%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px color-mix(in oklab, var(--accent) 55%, transparent);
+  animation: loader-ambient-stream linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes loader-ambient-symbol-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(8px, -14px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.loader-ambient-symbol {
+  animation: loader-ambient-symbol-drift ease-in-out infinite;
+  will-change: transform;
+  text-shadow: 0 0 8px color-mix(in oklab, var(--accent) 30%, transparent);
+}
+.loader-ambient-grid {
+  animation: fade-in 1.2s ease-out both;
+}
+@keyframes loader-ambient-core-pulse {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(0.92); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.08); }
+}
+.loader-ambient-core {
+  animation: loader-ambient-core-pulse 4.5s ease-in-out infinite;
+}
+@keyframes loader-ambient-ring-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.loader-ambient-ring {
+  animation: loader-ambient-ring-spin 22s linear infinite;
+}
+.loader-ambient-ring-reverse {
+  animation: loader-ambient-ring-spin 34s linear infinite reverse;
+}
+
+/* Circuit wires — pulses flowing along polyline traces */
+/* Energy wires — faint organic traces with glowing dots flowing along them */
+.loader-wire-trace {
+  fill: none;
+  stroke: color-mix(in oklab, var(--accent) 22%, transparent);
+  stroke-width: 0.18;
+  stroke-linecap: round;
+  opacity: 0.55;
+  animation: loader-wire-trace-breathe 7s ease-in-out infinite;
+}
+@keyframes loader-wire-trace-breathe {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.7;  }
+}
+.loader-wire-spark-halo {
+  filter: drop-shadow(0 0 0.4px color-mix(in oklab, var(--accent) 80%, transparent))
+          drop-shadow(0 0 1px color-mix(in oklab, var(--accent) 30%, transparent));
+  opacity: 0.35;
+}
+.loader-wire-spark-core {
+  filter: drop-shadow(0 0 0.25px var(--accent));
+  opacity: 0.9;
+}
+.loader-wire-spark-trail {
+  opacity: 0;
+}
+.loader-wire-comet {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linecap: round;
+}
+.loader-wire-comet-tail {
+  stroke-width: 0.18;
+  opacity: 0.18;
+}
+.loader-wire-comet-mid {
+  stroke-width: 0.22;
+  opacity: 0.45;
+}
+.loader-wire-comet-head {
+  stroke-width: 0.55;
+  opacity: 1;
+  filter: drop-shadow(0 0 0.6px var(--accent))
+          drop-shadow(0 0 1.4px color-mix(in oklab, var(--accent) 60%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-ambient-node,
+  .loader-ambient-stream,
+  .loader-ambient-symbol,
+  .loader-ambient-grid,
+  .loader-ambient-core,
+  .loader-ambient-ring,
+  .loader-ambient-ring-reverse,
+  .loader-ambient-grid-css,
+  .loader-aurora-a,
+  .loader-aurora-b,
+  .loader-aurora-c,
+  .loader-conic-sweep,
+  .loader-wire-trace { animation: none; }
+  .loader-ambient-stream { opacity: 0.4; }
 }
 
 .quiz-back-btn {
