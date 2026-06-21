@@ -133,7 +133,7 @@ export function ArchetypeCanvasBrain({ className = "" }: Props) {
         <canvas
           ref={glowCanvasRef}
           aria-hidden
-          className="pointer-events-none absolute max-w-full max-h-full w-auto h-auto"
+          className="pointer-events-none absolute inset-0 m-auto max-w-full max-h-full w-auto h-auto"
           style={{
             zIndex: 0,
             // Heavy blur smears the silhouette outward → rim halo.
