@@ -8,8 +8,8 @@
  */
 
 export const FRAME_COUNT = 120;
-const BLACK_CUTOFF = 10;
-const FULL_ALPHA_AT = 150;
+const BLACK_CUTOFF = 38;
+const FULL_ALPHA_AT = 205;
 
 const frameUrl = (i: number) =>
   `/brain-frames/0617_${String(i).padStart(3, "0")}.webp`;
@@ -38,7 +38,7 @@ function removeBlackMatte(img: HTMLImageElement): HTMLCanvasElement {
       data[i + 3] = 0;
       continue;
     }
-    const alpha = smoothstep(BLACK_CUTOFF, FULL_ALPHA_AT, max);
+    const alpha = Math.pow(smoothstep(BLACK_CUTOFF, FULL_ALPHA_AT, max), 1.28);
     data[i + 3] = Math.round(alpha * 255);
     if (alpha > 0) {
       const recover = Math.min(3.5, 1 / alpha);

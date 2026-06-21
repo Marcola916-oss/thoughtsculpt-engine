@@ -97,11 +97,12 @@ export function ArchetypeCanvasBrain({ className = "" }: Props) {
           mixBlendMode: "normal",
           background: "transparent",
           display: "block",
-          filter: "drop-shadow(0 10px 18px rgba(0, 0, 0, 0.32))",
+          filter:
+            "drop-shadow(0 0 7px color-mix(in oklab, var(--arch-primary) 62%, transparent)) drop-shadow(0 0 18px color-mix(in oklab, var(--arch-primary) 34%, transparent))",
           WebkitMaskImage:
-            "radial-gradient(ellipse 62% 62% at 50% 50%, black 55%, rgba(0,0,0,0.6) 75%, transparent 96%)",
+            "radial-gradient(ellipse 58% 70% at 50% 50%, black 60%, rgba(0,0,0,0.74) 78%, transparent 96%)",
           maskImage:
-            "radial-gradient(ellipse 62% 62% at 50% 50%, black 55%, rgba(0,0,0,0.6) 75%, transparent 96%)",
+            "radial-gradient(ellipse 58% 70% at 50% 50%, black 60%, rgba(0,0,0,0.74) 78%, transparent 96%)",
         }}
       />
     </div>
