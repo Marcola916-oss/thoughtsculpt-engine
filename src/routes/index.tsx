@@ -1220,7 +1220,7 @@ function Sales({
               </p>
               <div className="relative inline-block">
                 <p
-                  className="text-arch-primary font-black text-5xl md:text-9xl tracking-[ -0.05em] uppercase italic"
+                  className="text-arch-primary font-black text-5xl md:text-9xl tracking-[-0.05em] uppercase italic"
                 >
                   {s.science.solution}
                 </p>
