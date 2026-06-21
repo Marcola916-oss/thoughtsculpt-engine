@@ -14,16 +14,146 @@ type Props = {
   archetype?: "AO" | "SS" | "EA" | "HI";
 };
 
-export function ArchetypeCanvasBrain({ className = "" }: Props) {
+function dilateMask(mask: Uint8Array, width: number, height: number, passes: number) {
+  let current = mask;
+  for (let pass = 0; pass < passes; pass++) {
+    const next = new Uint8Array(current);
+    for (let y = 1; y < height - 1; y++) {
+      const row = y * width;
+      for (let x = 1; x < width - 1; x++) {
+        const idx = row + x;
+        if (current[idx]) continue;
+        if (
+          current[idx - width - 1] || current[idx - width] || current[idx - width + 1] ||
+          current[idx - 1] || current[idx + 1] ||
+          current[idx + width - 1] || current[idx + width] || current[idx + width + 1]
+        ) {
+          next[idx] = 255;
+        }
+      }
+    }
+    current = next;
+  }
+  return current;
+}
+
+function fillClosedSilhouette(mask: Uint8Array, width: number, height: number) {
+  const outside = new Uint8Array(width * height);
+  const queue: number[] = [];
+  const push = (idx: number) => {
+    if (idx < 0 || idx >= outside.length || outside[idx] || mask[idx]) return;
+    outside[idx] = 1;
+    queue.push(idx);
+  };
+
+  for (let x = 0; x < width; x++) {
+    push(x);
+    push((height - 1) * width + x);
+  }
+  for (let y = 0; y < height; y++) {
+    push(y * width);
+    push(y * width + width - 1);
+  }
+
+  for (let i = 0; i < queue.length; i++) {
+    const idx = queue[i];
+    const x = idx % width;
+    if (x > 0) push(idx - 1);
+    if (x < width - 1) push(idx + 1);
+    if (idx >= width) push(idx - width);
+    if (idx < width * (height - 1)) push(idx + width);
+  }
+
+  const filled = new Uint8Array(width * height);
+  for (let i = 0; i < filled.length; i++) {
+    filled[i] = outside[i] ? 0 : 255;
+  }
+  return filled;
+}
+
+function makeMaskCanvas(mask: Uint8Array, width: number, height: number) {
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d", { alpha: true });
+  if (!ctx) return canvas;
+  const imageData = ctx.createImageData(width, height);
+  for (let i = 0; i < mask.length; i++) {
+    imageData.data[i * 4] = 255;
+    imageData.data[i * 4 + 1] = 255;
+    imageData.data[i * 4 + 2] = 255;
+    imageData.data[i * 4 + 3] = mask[i];
+  }
+  ctx.putImageData(imageData, 0, 0);
+  return canvas;
+}
+
+function drawRimLight(
+  source: HTMLCanvasElement,
+  target: HTMLCanvasElement,
+  color: string,
+  tier: "low" | "medium" | "high",
+) {
+  target.width = source.width;
+  target.height = source.height;
+
+  const targetCtx = target.getContext("2d", { alpha: true });
+  if (!targetCtx) return;
+
+  const scale = 0.25;
+  const maskWidth = Math.max(1, Math.round(source.width * scale));
+  const maskHeight = Math.max(1, Math.round(source.height * scale));
+  const sample = document.createElement("canvas");
+  sample.width = maskWidth;
+  sample.height = maskHeight;
+  const sampleCtx = sample.getContext("2d", { alpha: true, willReadFrequently: true });
+  if (!sampleCtx) return;
+
+  sampleCtx.clearRect(0, 0, maskWidth, maskHeight);
+  sampleCtx.drawImage(source, 0, 0, maskWidth, maskHeight);
+  const data = sampleCtx.getImageData(0, 0, maskWidth, maskHeight).data;
+  const rawMask = new Uint8Array(maskWidth * maskHeight);
+  for (let i = 0; i < rawMask.length; i++) {
+    rawMask[i] = data[i * 4 + 3] > 18 ? 255 : 0;
+  }
+
+  const closedMask = fillClosedSilhouette(dilateMask(rawMask, maskWidth, maskHeight, 9), maskWidth, maskHeight);
+  const solidMask = makeMaskCanvas(closedMask, maskWidth, maskHeight);
+
+  targetCtx.clearRect(0, 0, target.width, target.height);
+
+  const strongBlur = tier === "low" ? 28 : tier === "medium" ? 38 : 48;
+  const edgeBlur = tier === "low" ? 8 : 12;
+
+  targetCtx.save();
+  targetCtx.filter = `blur(${strongBlur}px)`;
+  targetCtx.globalAlpha = tier === "low" ? 0.9 : 1;
+  targetCtx.drawImage(solidMask, 0, 0, target.width, target.height);
+  targetCtx.restore();
+
+  targetCtx.save();
+  targetCtx.filter = `blur(${edgeBlur}px)`;
+  targetCtx.globalAlpha = 0.95;
+  targetCtx.drawImage(solidMask, 0, 0, target.width, target.height);
+  targetCtx.restore();
+
+  targetCtx.globalCompositeOperation = "source-in";
+  targetCtx.fillStyle = color;
+  targetCtx.fillRect(0, 0, target.width, target.height);
+
+  targetCtx.globalCompositeOperation = "destination-out";
+  targetCtx.drawImage(solidMask, 0, 0, target.width, target.height);
+  targetCtx.globalCompositeOperation = "source-over";
+}
+
+export function ArchetypeCanvasBrain({ className = "", archetype }: Props) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const glowCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const framesRef = useRef<HTMLCanvasElement[]>([]);
   const rafRef = useRef<number | null>(null);
   const tier = useDeviceTier();
   const [reducedMotion, setReducedMotion] = useState(false);
-  // Rim-light backlight only on mid/high tiers — uses GPU `filter: blur`
-  // which is fine on modern devices but expensive on old Android.
-  const useRimLight = tier !== "low";
 
   useEffect(() => {
     if (typeof window === "undefined") return;
