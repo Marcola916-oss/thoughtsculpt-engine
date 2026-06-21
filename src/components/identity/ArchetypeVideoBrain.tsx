@@ -159,10 +159,6 @@ export function ArchetypeVideoBrain({ archetype, size, className }: Props) {
           mixBlendMode: "screen",
           filter: ARCHETYPE_FILTER[archetype],
           transition: "filter 600ms ease-out",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 62% 62% at 50% 50%, black 55%, rgba(0,0,0,0.6) 75%, transparent 96%)",
-          maskImage:
-            "radial-gradient(ellipse 62% 62% at 50% 50%, black 55%, rgba(0,0,0,0.6) 75%, transparent 96%)",
         }}
       />
     </div>
