@@ -1165,7 +1165,7 @@ function Sales({
 
           <div className="relative z-10 grid md:grid-cols-2 gap-16">
             <div>
-              <h2 className="font-display text-[20px] md:text-[30px] font-black uppercase italic text-foreground mb-8 leading-tight tracking-tighter">
+              <h2 className="font-display text-[26px] md:text-[30px] font-black uppercase italic text-foreground mb-8 leading-[35px] md:leading-tight tracking-[-2.5px] md:tracking-tighter">
                 {s.painBlock.title}
               </h2>
               <p className="text-base md:text-lg lg:text-xl text-foreground/70 leading-relaxed mb-10">
