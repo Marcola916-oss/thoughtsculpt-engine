@@ -139,9 +139,9 @@ export function ArchetypeVideoBrain({ archetype, size, className }: Props) {
       {/* Inner halo: primary color, tighter and more saturated */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-[-5%] -z-10 rounded-full blur-[40px] opacity-80"
+        className="pointer-events-none absolute inset-[5%] -z-10 rounded-full blur-[28px] opacity-85"
         style={{
-          background: `radial-gradient(circle at 50% 50%, ${palette.primary}99 0%, transparent 60%)`,
+          background: `radial-gradient(circle at 50% 50%, transparent 30%, ${palette.primary}cc 46%, ${palette.primary}55 62%, transparent 78%)`,
         }}
       />
 
