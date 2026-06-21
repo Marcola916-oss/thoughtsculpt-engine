@@ -89,11 +89,47 @@ export function ArchetypeCanvasBrain({ className = "" }: Props) {
       className={`relative w-full h-full flex items-center justify-center ${className}`}
       style={{ background: "transparent" }}
     >
+      {/* Backlight (eclipse / contraluz) — sits BEHIND the canvas.
+          The brain pixels are opaque after matte removal, so this glow
+          is occluded by the silhouette and only leaks around the edges,
+          never bleeding through the inside. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        style={{ zIndex: 0 }}
+      >
+        <div
+          className="rounded-full"
+          style={{
+            width: "78%",
+            height: "78%",
+            background:
+              "radial-gradient(circle at 50% 50%, var(--arch-primary) 0%, var(--arch-glow) 28%, transparent 62%)",
+            filter: "blur(38px) saturate(1.15)",
+            opacity: 0.95,
+            animation: "arch-breathe 5.5s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: "55%",
+            height: "55%",
+            background:
+              "radial-gradient(circle at 50% 50%, var(--arch-edge) 0%, var(--arch-primary) 40%, transparent 70%)",
+            filter: "blur(22px)",
+            opacity: 0.85,
+            mixBlendMode: "screen",
+          }}
+        />
+      </div>
+
       <canvas
         ref={canvasRef}
         aria-label="Animação do cérebro"
-        className="max-w-full max-h-full w-auto h-auto"
+        className="relative max-w-full max-h-full w-auto h-auto"
         style={{
+          zIndex: 1,
           mixBlendMode: "normal",
           background: "transparent",
           display: "block",
