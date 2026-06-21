@@ -984,7 +984,7 @@ function Reveal({
           {t.reveal.kicker(name)}
         </div>
 
-        <h1 className="relative z-30 mt-6 font-display text-5xl sm:text-7xl md:text-[8rem] font-black leading-[0.9] tracking-tighter uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)]">
+        <h1 className="relative z-30 mt-6 font-display text-5xl sm:text-7xl md:text-[8rem] font-black leading-[0.9] tracking-tighter uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch">
           <span
             className="bg-clip-text text-transparent"
             style={{
@@ -994,7 +994,6 @@ function Reveal({
           >
             {text}
           </span>
-          <span className="text-arch-primary">_</span>
         </h1>
 
         <p className="mt-8 max-w-2xl text-xl md:text-2xl text-foreground/80 font-medium leading-relaxed">
