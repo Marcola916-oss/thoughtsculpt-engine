@@ -994,7 +994,7 @@ function Reveal({
           >
             {text}
           </span>
-          <span className="text-arch-primary">_</span>
+          <span className="text-arch-primary"></span>
         </h1>
 
         <p className="mt-8 max-w-2xl text-xl md:text-2xl text-foreground/80 font-medium leading-relaxed">
