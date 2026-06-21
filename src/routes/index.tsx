@@ -841,6 +841,20 @@ function Reveal({
       <div className="relative z-10 flex flex-col items-center text-center px-4">
         {/* Cérebro pousado sobre o pedestal holográfico */}
         <div className="relative w-[300px] h-[300px] md:w-[520px] md:h-[520px]">
+          {/* Aura radiante atrás do cérebro — cor do arquétipo (intensificada) */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-[46%] w-[148%] h-[148%] rounded-full pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle at center, transparent 0%, transparent 33%, color-mix(in oklab, var(--arch-primary) 38%, transparent) 48%, color-mix(in oklab, var(--arch-primary) 16%, transparent) 64%, transparent 78%)",
+              filter: "blur(40px)",
+              mixBlendMode: "screen",
+              animation: "arch-aura-pulse 5s ease-in-out infinite",
+              opacity: 0.72,
+              zIndex: 0,
+            }}
+          />
           {/* Sombra de contato — faz o cérebro "pesar" no cenário sem escurecer o canvas */}
           <div
             aria-hidden
@@ -927,6 +941,38 @@ function Reveal({
             style={{ isolation: "isolate" }}
           >
             {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 z-0 h-[58%] w-[92%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            >
+              <div
+                className="h-full w-full rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, transparent 0%, transparent 58%, color-mix(in oklab, var(--arch-primary) 62%, transparent) 70%, color-mix(in oklab, var(--arch-primary) 30%, transparent) 82%, transparent 92%)",
+                  filter: "blur(30px)",
+                  mixBlendMode: "screen",
+                  animation: "arch-breathe 5s ease-in-out infinite",
+                  opacity: 0.9,
+                }}
+              />
+            </div>
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 z-0 h-[76%] w-[118%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            >
+              <div
+                className="h-full w-full rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, transparent 0%, transparent 55%, color-mix(in oklab, var(--arch-primary) 40%, transparent) 72%, transparent 88%)",
+                  filter: "blur(72px)",
+                  mixBlendMode: "screen",
+                  animation: "arch-breathe 6.5s ease-in-out infinite",
+                  opacity: 0.8,
+                }}
+              />
+            </div>
             <ArchetypeCanvasBrain
               archetype={arch as "AO" | "SS" | "EA" | "HI"}
               className="relative z-10"
