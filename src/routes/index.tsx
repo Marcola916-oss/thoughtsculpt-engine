@@ -1114,7 +1114,7 @@ function Sales({
             </span>
           </MSection>
 
-          <h1 className="reveal font-display text-4xl font-black uppercase italic leading-[1.1] md:text-8xl tracking-tighter">
+          <h1 className="reveal font-display text-[25px] md:text-[50px] font-black uppercase italic leading-[1.1] tracking-tighter">
             {s.h1(
               name,
               (
