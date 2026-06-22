@@ -44,7 +44,7 @@ function SharePage() {
           <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/60">
             {data?.display_name ?? "Someone"} is a
           </p>
-          <h1 className="mt-3 font-display text-[clamp(2.75rem,11vw,5.5rem)] font-black italic uppercase leading-[0.9] tracking-[-0.05em] text-primary text-balance">{meta.name}</h1>
+          <h1 className="mt-3 font-display text-[clamp(2.75rem,11vw,5.5rem)] font-black italic uppercase leading-[1.05] pt-2 pb-1 tracking-[-0.05em] text-primary text-balance">{meta.name}</h1>
           <p className="mt-5 text-base md:text-lg leading-relaxed text-foreground/85">{meta.tagline}</p>
         </>
       )}

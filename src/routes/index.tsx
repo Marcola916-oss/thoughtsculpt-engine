@@ -984,7 +984,7 @@ function Reveal({
           {t.reveal.kicker(name)}
         </div>
 
-        <h1 className="relative z-30 mt-6 font-display text-5xl sm:text-7xl md:text-[8rem] font-black leading-[0.9] tracking-tighter uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch">
+        <h1 className="relative z-30 mt-6 font-display text-5xl sm:text-7xl md:text-[8rem] font-black leading-[1.05] md:leading-[1.02] pt-2 pb-1 tracking-tighter uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)]">
           <span
             className="bg-clip-text text-transparent"
             style={{
@@ -994,6 +994,7 @@ function Reveal({
           >
             {text}
           </span>
+          <span className="text-arch-primary"></span>
         </h1>
 
         <p className="mt-8 max-w-2xl text-xl md:text-2xl text-foreground/80 font-medium leading-relaxed">
@@ -1219,7 +1220,7 @@ function Sales({
               </p>
               <div className="relative inline-block">
                 <p
-                  className="text-arch-primary font-black text-5xl md:text-9xl tracking-[ -0.05em] uppercase italic"
+                  className="text-arch-primary font-black text-5xl md:text-9xl tracking-[-0.05em] uppercase italic"
                 >
                   {s.science.solution}
                 </p>
@@ -1281,7 +1282,7 @@ function Sales({
             <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px] animate-pulse [animation-delay:2s]" />
 
             <div className="relative z-10">
-              <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[0.9] uppercase italic">
+              <h3 className="font-display text-4xl md:text-8xl font-black text-foreground mb-8 tracking-tighter leading-[1.02] pt-2 uppercase italic">
                 {s.ctaFinal.title}
               </h3>
               <p className="text-base md:text-xl lg:text-2xl text-foreground/70 mb-16 max-w-3xl mx-auto font-medium tracking-tight leading-relaxed">
