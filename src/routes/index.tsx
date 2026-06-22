@@ -832,12 +832,14 @@ function ArchetypeIcon({ arch, className }: { arch: Archetype; className?: strin
 function Reveal({
   name,
   arch,
+  answers,
   onContinue,
   leadError,
   onRetry,
 }: {
   name: string;
   arch: Archetype;
+  answers: Answers;
   onContinue: () => void;
   leadError: string | null;
   onRetry: () => void;
@@ -845,6 +847,7 @@ function Reveal({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const [text, setText] = useState("");
+  const areaScores = useMemo(() => computeAreaScores(answers).areas, [answers]);
 
   useEffect(() => {
     let i = 0;
