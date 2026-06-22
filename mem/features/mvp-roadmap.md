@@ -18,7 +18,20 @@ Mantidos: landing/*, quiz/*, atmosphere/*, interaction/*, MarbleBust+CircuitBrai
 Stubs temporários no index.tsx (PRICES/formatPrice/useStubCheckout) e obrigado.tsx (placeholder) — Fase B/D reescrevem.
 
 ## Fase B — Funil de vendas premium
-Reescrever index.tsx em 14 etapas (landing→quiz→email→loader→reveal→vsl→checkout). Foco:
+Reescrever index.tsx em 14 etapas (landing→quiz→email→loader→reveal→vsl→checkout). Plano completo em `.lovable/plan.md`.
+
+Sub-passos:
+- B1 — Infra de estágios (Stage type + scaffolding) ✅
+- Fundamentos: `src/lib/funnel/area-scores.ts` (4 áreas derivadas do scoreAnswers) ✅
+- Fundamentos: `src/lib/funnel/pricing-stub.ts` (BRL/USD/PLN/RON/SAR/EUR) ✅
+- B2 — Email capture refinada (i18n)
+- B3 — Reveal premium com 4 AreaScoreCards
+- B4 — VSL com 8 blocos (sales/VSL.tsx)
+- B5 — Landing copy refresh (4 áreas, não só dinheiro)
+- B6 — Checkout stub visual (plug-and-play Fase D)
+- B7 — Polish + RTL + responsivo + build clean
+
+Foco:
 - Reveal premium com dor centrada nas 4 áreas (não só dinheiro).
 - VSL com 8 blocos (âncora emocional, espelho de dor, revelação científica, produto, prova social, preço, FAQ, CTA final).
 - Adaptar copy para "diagnóstico de comportamento humano" (não só finanças).

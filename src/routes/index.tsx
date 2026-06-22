@@ -125,6 +125,8 @@ type Stage =
   | { kind: "loader" }
   | { kind: "reveal" }
   | { kind: "sales" }
+  | { kind: "vsl" }
+  | { kind: "checkout" }
   | { kind: "plans" };
 
 function LandingAndQuiz() {
