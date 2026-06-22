@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
-import { useServerFn } from "@tanstack/react-start";
 import {
   CheckCircle2,
   Lock,
@@ -23,10 +22,29 @@ import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { Magnetic } from "../components/PageTransition";
 import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring";
-import { PRICES, pricePerDay, formatPrice, type PlanKey } from "../lib/pricing";
 import { saveQuizLead } from "../lib/quiz.functions";
-import { createCheckoutSession } from "../lib/checkout.functions";
 import { startBrainFramesPreload } from "@/lib/brainFramesCache";
+
+// ── Phase A placeholders (will be replaced in Phase B/D when checkout is rebuilt) ──
+type PlanKey = "30d" | "6m" | "1y";
+const PRICES: Record<string, Record<PlanKey, number>> = {
+  PLN: { "30d": 79, "6m": 199, "1y": 319 },
+  RON: { "30d": 89, "6m": 229, "1y": 369 },
+  SAR: { "30d": 89, "6m": 229, "1y": 369 },
+  USD: { "30d": 22, "6m": 55, "1y": 89 },
+  EUR: { "30d": 20, "6m": 50, "1y": 82 },
+};
+const formatPrice = (currency: string, amount: number) => `${amount} ${currency}`;
+const pricePerDay = (currency: string, plan: PlanKey) => {
+  const days = plan === "30d" ? 30 : plan === "6m" ? 180 : 365;
+  return formatPrice(currency, +(PRICES[currency][plan] / days).toFixed(2));
+};
+/** Phase A stub — Phase D wires Stripe Elements with new $9.90 one-shot offer. */
+const useStubCheckout = () => async (_args: unknown) => {
+  console.warn("[Phase A] Checkout will be rebuilt in Phase D.");
+  alert("Checkout em reformulação. Em breve!");
+  return { url: null as string | null };
+};
 
 import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
