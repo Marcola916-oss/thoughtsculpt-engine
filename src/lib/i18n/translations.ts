@@ -888,6 +888,47 @@ const EN: Dict = {
     errorBody: "Your reveal still appears below, but the share link isn't available.",
     errorRetry: "Try again",
     comparison: (name, arch) => `Comparison: ${name} vs. ${arch} average`,
+    areasTitle: "Same pattern. 4 areas of your life.",
+    areasIntro: (name) => `${name}, your archetype doesn't live only in your bank account. See where it shows up — and how much it's costing you.`,
+    areas: {
+      money: {
+        label: "Money",
+        byArch: {
+          AO: "You stack savings but never feel safe — scarcity runs deep even when balances rise.",
+          SS: "You spend to signal belonging. Money becomes a window display, not freedom.",
+          EA: "You avoid looking at your finances — bills pile up and debt grows in silence.",
+          HI: "It all comes in, it all goes out. The now always weighs more than any spreadsheet.",
+        },
+      },
+      career: {
+        label: "Career",
+        byArch: {
+          AO: "You accept less than you're worth in exchange for security. Decades lost in the safe zone.",
+          SS: "You chase titles for prestige, not for the life they actually build.",
+          EA: "You delay raises, hard conversations and changes — until they become emergencies.",
+          HI: "You jump from project to project chasing the next high. Rarely reap what you sow.",
+        },
+      },
+      love: {
+        label: "Love",
+        byArch: {
+          AO: "You measure affection in usefulness. Receiving without owing feels uncomfortable.",
+          SS: "You pick partners who validate your image. Real connection comes second.",
+          EA: "You dodge the conversations that matter. Conflict becomes distance — long and quiet.",
+          HI: "You live in short, intense passions. Commitment feels like a cage — until regret arrives.",
+        },
+      },
+      personal: {
+        label: "Personal",
+        byArch: {
+          AO: "You postpone rest, pleasure and care chasing a security that never arrives.",
+          SS: "You build a flawless outer identity — and inside feel that no one truly knows you.",
+          EA: "You numb boredom and anxiety with distractions. Life happens in a fog.",
+          HI: "Energy spikes and crashes. Healthy habits last days, not months.",
+        },
+      },
+    },
+    areasCta: "Show me the full diagnosis",
   },
   sales: {
     h1: (name, arch) => `${name}, this is why nothing you tried before worked.`,
