@@ -55,7 +55,7 @@ export function ArchetypeShowcase() {
             <Reveal
               key={key}
               variant="fade-up"
-              className="group relative flex min-w-0 flex-col gap-5 overflow-hidden rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/40 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:hover:-translate-y-2 shadow-2xl lg:backdrop-blur-3xl"
+              className="group relative flex min-w-0 flex-col gap-5 overflow-hidden rounded-3xl lg:rounded-[2.5rem] border border-white/10 bg-black/40 p-8 md:p-10 lg:p-12 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:hover:-translate-y-2 shadow-2xl lg:backdrop-blur-3xl w-full max-w-[400px] mx-auto lg:max-w-[1400px]"
             >
               <div
                 aria-hidden
