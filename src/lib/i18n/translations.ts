@@ -398,7 +398,7 @@ const PT: Dict = {
       hooks: ["Gastas para sinalizar pertença","Tens medo de parecer pequeno","Trocas conta corrente por validação"] },
     EA: { name: "Evasivo Alienado", tagline: "O dinheiro existe — tu evitas olhar.",
       hooks: ["Não abres extratos","Decides rápido para acabar com o desconforto","Pagas a paz com juros invisíveis"] },
-    HI: { name: "Hedonista Impulsivo", tagline: "Vives o agora — e o agora é sempre caro.",
+    HI: { name: "HEDONISTA\nIMPULSIVO", tagline: "Vives o agora — e o agora é sempre caro.",
       hooks: ["Compras pela emoção, justificas depois","Adiar parece-te perder","Tens tudo, menos margem"] },
   },
   reveal: {
