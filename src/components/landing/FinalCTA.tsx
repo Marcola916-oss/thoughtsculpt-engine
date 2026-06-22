@@ -25,7 +25,7 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
       >
         <h2
           id="final-cta-title"
-          className="font-display text-[clamp(1.85rem,8vw,5.25rem)] font-black italic uppercase leading-[0.95] tracking-[-0.05em] text-foreground text-balance"
+          className="font-display text-[clamp(1.5rem,8vw,5.25rem)] font-black italic uppercase leading-[1.2] tracking-[-0.05em] text-foreground text-balance mx-[-18px]"
         >
           {c.titleBefore}
           <span className="text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)]">{c.titleHighlight}</span>
@@ -42,7 +42,7 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
             className="group relative mt-12 h-20 md:h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
             <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center gap-6 text-[21px] md:text-[21px] font-black italic tracking-tighter group-hover:text-white transition-colors mx-[5px] pr-[5px]">
+            <span className="relative z-10 flex items-center justify-center gap-6 text-[21px] md:text-[21px] font-black italic tracking-tighter group-hover:text-white transition-colors mx-[9px] pr-[9px]">
               {c.cta.toUpperCase()}
             </span>
             <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />

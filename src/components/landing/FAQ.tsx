@@ -17,7 +17,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
       <Reveal variant="fade-up" className="mx-auto mb-14 max-w-2xl text-center md:mb-20">
         <span
           aria-hidden
-          className="mb-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-arch-primary"
+          className="mb-5 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-arch-primary mx-auto"
         >
           <span className="h-px w-6 bg-arch-primary" />
           {f.tag}
