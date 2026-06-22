@@ -392,11 +392,11 @@ const PT: Dict = {
     ]
   },
   archetypes: {
-    AO: { name: "Acumulador Obsessivo", tagline: "Vives em modo escassez — mesmo quando há.",
+    AO: { name: "ACUMULADOR\nOBSESSIVO", tagline: "Vives em modo escassez — mesmo quando há.",
       hooks: ["Poupas mas nunca te sentes seguro","Sentes culpa quando gastas em ti","Trocas presente por um futuro que nunca chega"] },
-    SS: { name: "Status Seeker", tagline: "Compras a versão de ti que queres que os outros vejam.",
+    SS: { name: "STATUS\nSEEKER", tagline: "Compras a versão de ti que queres que os outros vejam.",
       hooks: ["Gastas para sinalizar pertença","Tens medo de parecer pequeno","Trocas conta corrente por validação"] },
-    EA: { name: "Evasivo Alienado", tagline: "O dinheiro existe — tu evitas olhar.",
+    EA: { name: "EVASIVO\nALIENADO", tagline: "O dinheiro existe — tu evitas olhar.",
       hooks: ["Não abres extratos","Decides rápido para acabar com o desconforto","Pagas a paz com juros invisíveis"] },
     HI: { name: "HEDONISTA\nIMPULSIVO", tagline: "Vives o agora — e o agora é sempre caro.",
       hooks: ["Compras pela emoção, justificas depois","Adiar parece-te perder","Tens tudo, menos margem"] },
@@ -819,13 +819,13 @@ const EN: Dict = {
     ]
   },
   archetypes: {
-    AO: { name: "Obsessive Accumulator", tagline: "You live in scarcity mode — even when there's plenty.",
+    AO: { name: "OBSESSIVE\nACCUMULATOR", tagline: "You live in scarcity mode — even when there's plenty.",
       hooks: ["You save but never feel safe","You feel guilty spending on yourself","You trade today for a future that never arrives"] },
-    SS: { name: "Status Seeker", tagline: "You buy the version of you you want others to see.",
+    SS: { name: "STATUS\nSEEKER", tagline: "You buy the version of you you want others to see.",
       hooks: ["You spend to signal belonging","You're afraid of looking small","You trade balance for validation"] },
-    EA: { name: "Avoidant Escapist", tagline: "Money exists — you choose not to look.",
+    EA: { name: "AVOIDANT\nESCAPIST", tagline: "Money exists — you choose not to look.",
       hooks: ["You don't open statements","You decide fast to end the discomfort","You pay for peace with invisible interest"] },
-    HI: { name: "Impulsive Hedonist", tagline: "You live for now — and now is always expensive.",
+    HI: { name: "IMPULSIVE\nHEDONIST", tagline: "You live for now — and now is always expensive.",
       hooks: ["You buy with emotion, justify after","Delay feels like losing","You have everything except margin"] },
   },
   reveal: {
