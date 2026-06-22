@@ -356,6 +356,7 @@ function LandingAndQuiz() {
               <Reveal
                 name={name}
                 arch={archCode}
+                answers={answers}
                 onContinue={() => setStage({ kind: "sales" })}
                 leadError={leadError}
                 onRetry={() => {
