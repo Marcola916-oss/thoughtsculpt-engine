@@ -600,7 +600,7 @@ function Hero({ onStart }: { onStart: () => void }) {
                </span>
                <div className="space-y-1">
                  <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
-                 <span className="block text-sm md:text-lg font-bold tracking-tighter text-foreground/80">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
+                 <span className="block text-sm md:text-lg font-bold tracking-tighter text-foreground/80 whitespace-pre-line">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
                </div>
              </div>
            ))}
