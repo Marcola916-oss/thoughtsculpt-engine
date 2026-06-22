@@ -62,7 +62,7 @@ export function Testimonials() {
               />
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-black tracking-tight text-white break-words">{item.name}</p>
-                <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary break-words">
+                <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary break-words whitespace-pre-line">
                   {item.arch}
                 </p>
               </div>
