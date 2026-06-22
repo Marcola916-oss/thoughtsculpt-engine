@@ -459,7 +459,7 @@ function Hero({ onStart }: { onStart: () => void }) {
           </div>
 
           <div
-            className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none"
+            className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none whitespace-pre-line"
           >
             <LineChart className="h-3.5 w-3.5" />
             {t.archetypes?.HI?.name || "O Foguinho"}
@@ -600,7 +600,7 @@ function Hero({ onStart }: { onStart: () => void }) {
                </span>
                <div className="space-y-1">
                  <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
-                 <span className="block text-sm md:text-lg font-bold tracking-tighter text-foreground/80">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
+                 <span className="block text-sm md:text-lg font-bold tracking-tighter text-foreground/80 whitespace-pre-line">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
                </div>
              </div>
            ))}
@@ -986,7 +986,7 @@ function Reveal({
 
         <h1 className="relative z-30 mt-6 font-display text-5xl sm:text-7xl md:text-[8rem] font-black leading-[1.05] md:leading-[1.02] pt-2 pb-1 tracking-tighter uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch">
           <span
-            className="bg-clip-text text-transparent"
+            className="bg-clip-text text-transparent whitespace-pre-line"
             style={{
               backgroundImage:
                 "linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 70%)",

@@ -316,7 +316,7 @@ const PT: Dict = {
       title: "QUEM\u00a0 JÁ\u00a0 ENTENDEU\u00a0 O\u00a0 SEU\u00a0 PADRÃO",
       starsAlt: (n) => `${n} de ${n} estrelas`,
       items: [
-        { stars: 5, quote: "Nunca entendi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: Hedonista Impulsivo" },
+        { stars: 5, quote: "Nunca entendi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: HEDONISTA\nIMPULSIVO" },
         { stars: 5, quote: "Eu achava que era disciplinada com dinheiro. O MindReset mostrou que eu tinha medo de gastar — e que isso também é um problema. Foi revelador.", name: "Maria C.", arch: "Arquétipo: Guardadora Obsessiva" },
         { stars: 5, quote: "O Compass foi a parte mais surpreendente. Analisei o meu sócio e entendi em 2 minutos por que as nossas discussões sobre dinheiro nunca iam a lado nenhum.", name: "Rami S.", arch: "Arquétipo: Fantasma Evasivo" },
       ],
@@ -398,7 +398,7 @@ const PT: Dict = {
       hooks: ["Gastas para sinalizar pertença","Tens medo de parecer pequeno","Trocas conta corrente por validação"] },
     EA: { name: "Evasivo Alienado", tagline: "O dinheiro existe — tu evitas olhar.",
       hooks: ["Não abres extratos","Decides rápido para acabar com o desconforto","Pagas a paz com juros invisíveis"] },
-    HI: { name: "Hedonista Impulsivo", tagline: "Vives o agora — e o agora é sempre caro.",
+    HI: { name: "HEDONISTA\nIMPULSIVO", tagline: "Vives o agora — e o agora é sempre caro.",
       hooks: ["Compras pela emoção, justificas depois","Adiar parece-te perder","Tens tudo, menos margem"] },
   },
   reveal: {
