@@ -420,6 +420,47 @@ const PT: Dict = {
     errorBody: "A tua revelação ainda aparece abaixo, mas o link de partilha não está disponível.",
     errorRetry: "Tentar novamente",
     comparison: (name, arch) => `Comparação: ${name} vs. Média do ${arch}`,
+    areasTitle: "O mesmo padrão. 4 áreas da sua vida.",
+    areasIntro: (name) => `${name}, o teu arquétipo não vive só no extrato. Veja onde ele aparece — e o quanto está custando.`,
+    areas: {
+      money: {
+        label: "Dinheiro",
+        byArch: {
+          AO: "Acumula sem nunca sentir suficiente — escassez interna mesmo com saldo positivo.",
+          SS: "Gasta para sinalizar pertencimento. O dinheiro vira vitrine, não liberdade.",
+          EA: "Evita olhar para o dinheiro — boletos viram boletos e dívidas crescem em silêncio.",
+          HI: "Tudo entra, tudo sai. O agora pesa mais que qualquer planilha.",
+        },
+      },
+      career: {
+        label: "Carreira",
+        byArch: {
+          AO: "Aceita menos do que vale para garantir estabilidade. Perde décadas em zonas seguras.",
+          SS: "Escolhe trabalhos pelo prestígio do cargo, não pela vida que ele constrói.",
+          EA: "Adia decisões importantes — promoções, mudanças, conversas duras — até virarem urgência.",
+          HI: "Pula de projeto em projeto buscando o próximo pico. Raramente colhe o que plantou.",
+        },
+      },
+      love: {
+        label: "Amor",
+        byArch: {
+          AO: "Mede afeto em utilidade. Dificuldade de receber sem sentir que está devendo.",
+          SS: "Escolhe parceiros que validam sua imagem. Conexão real fica em segundo plano.",
+          EA: "Foge das conversas que importam. O conflito vira distância — silenciosa, longa.",
+          HI: "Vive paixões intensas e curtas. Comprometimento parece prisão até virar arrependimento.",
+        },
+      },
+      personal: {
+        label: "Pessoal",
+        byArch: {
+          AO: "Adia descanso, prazer e cuidado em nome de uma segurança que nunca chega.",
+          SS: "Constrói uma identidade externa impecável — e por dentro sente que ninguém te conhece.",
+          EA: "Anestesia tédio, ansiedade e tristeza com distrações. A vida acontece em modo neblina.",
+          HI: "Energia em picos e quedas. Hábitos saudáveis duram dias, não meses.",
+        },
+      },
+    },
+    areasCta: "Quero ver o diagnóstico completo",
   },
   sales: {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
