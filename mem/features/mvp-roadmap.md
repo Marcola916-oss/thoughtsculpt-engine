@@ -25,7 +25,7 @@ Sub-passos:
 - Fundamentos: `src/lib/funnel/area-scores.ts` (4 áreas derivadas do scoreAnswers) ✅
 - Fundamentos: `src/lib/funnel/pricing-stub.ts` (BRL/USD/PLN/RON/SAR/EUR) ✅
 - B2 — Email capture refinada (i18n)
-- B3 — Reveal premium com 4 AreaScoreCards
+- B3 — Reveal premium com 4 AreaScoreCards ✅ (PT/EN copy próprio + PL/RO/AR traduzidos; barra de progresso animada; CTA "Ver diagnóstico completo")
 - B4 — VSL com 8 blocos (sales/VSL.tsx)
 - B5 — Landing copy refresh (4 áreas, não só dinheiro)
 - B6 — Checkout stub visual (plug-and-play Fase D)

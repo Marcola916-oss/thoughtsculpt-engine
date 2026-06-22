@@ -68,6 +68,16 @@ export type Dict = {
     kicker: (name: string) => string; sub: string; cta: string; share: string;
     errorTitle: string; errorBody: string; errorRetry: string;
     comparison: (name: string, arch: string) => string;
+    areasTitle: string;
+    areasIntro: (name: string) => string;
+    areas: Record<
+      "money" | "career" | "love" | "personal",
+      {
+        label: string;
+        byArch: Record<"AO" | "SS" | "EA" | "HI", string>;
+      }
+    >;
+    areasCta: string;
   };
   sales: {
     h1: (name: string, arch: string) => string;
@@ -410,6 +420,47 @@ const PT: Dict = {
     errorBody: "A tua revelação ainda aparece abaixo, mas o link de partilha não está disponível.",
     errorRetry: "Tentar novamente",
     comparison: (name, arch) => `Comparação: ${name} vs. Média do ${arch}`,
+    areasTitle: "O mesmo padrão. 4 áreas da sua vida.",
+    areasIntro: (name) => `${name}, o teu arquétipo não vive só no extrato. Veja onde ele aparece — e o quanto está custando.`,
+    areas: {
+      money: {
+        label: "Dinheiro",
+        byArch: {
+          AO: "Acumula sem nunca sentir suficiente — escassez interna mesmo com saldo positivo.",
+          SS: "Gasta para sinalizar pertencimento. O dinheiro vira vitrine, não liberdade.",
+          EA: "Evita olhar para o dinheiro — boletos viram boletos e dívidas crescem em silêncio.",
+          HI: "Tudo entra, tudo sai. O agora pesa mais que qualquer planilha.",
+        },
+      },
+      career: {
+        label: "Carreira",
+        byArch: {
+          AO: "Aceita menos do que vale para garantir estabilidade. Perde décadas em zonas seguras.",
+          SS: "Escolhe trabalhos pelo prestígio do cargo, não pela vida que ele constrói.",
+          EA: "Adia decisões importantes — promoções, mudanças, conversas duras — até virarem urgência.",
+          HI: "Pula de projeto em projeto buscando o próximo pico. Raramente colhe o que plantou.",
+        },
+      },
+      love: {
+        label: "Amor",
+        byArch: {
+          AO: "Mede afeto em utilidade. Dificuldade de receber sem sentir que está devendo.",
+          SS: "Escolhe parceiros que validam sua imagem. Conexão real fica em segundo plano.",
+          EA: "Foge das conversas que importam. O conflito vira distância — silenciosa, longa.",
+          HI: "Vive paixões intensas e curtas. Comprometimento parece prisão até virar arrependimento.",
+        },
+      },
+      personal: {
+        label: "Pessoal",
+        byArch: {
+          AO: "Adia descanso, prazer e cuidado em nome de uma segurança que nunca chega.",
+          SS: "Constrói uma identidade externa impecável — e por dentro sente que ninguém te conhece.",
+          EA: "Anestesia tédio, ansiedade e tristeza com distrações. A vida acontece em modo neblina.",
+          HI: "Energia em picos e quedas. Hábitos saudáveis duram dias, não meses.",
+        },
+      },
+    },
+    areasCta: "Quero ver o diagnóstico completo",
   },
   sales: {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
@@ -837,6 +888,47 @@ const EN: Dict = {
     errorBody: "Your reveal still appears below, but the share link isn't available.",
     errorRetry: "Try again",
     comparison: (name, arch) => `Comparison: ${name} vs. ${arch} average`,
+    areasTitle: "Same pattern. 4 areas of your life.",
+    areasIntro: (name) => `${name}, your archetype doesn't live only in your bank account. See where it shows up — and how much it's costing you.`,
+    areas: {
+      money: {
+        label: "Money",
+        byArch: {
+          AO: "You stack savings but never feel safe — scarcity runs deep even when balances rise.",
+          SS: "You spend to signal belonging. Money becomes a window display, not freedom.",
+          EA: "You avoid looking at your finances — bills pile up and debt grows in silence.",
+          HI: "It all comes in, it all goes out. The now always weighs more than any spreadsheet.",
+        },
+      },
+      career: {
+        label: "Career",
+        byArch: {
+          AO: "You accept less than you're worth in exchange for security. Decades lost in the safe zone.",
+          SS: "You chase titles for prestige, not for the life they actually build.",
+          EA: "You delay raises, hard conversations and changes — until they become emergencies.",
+          HI: "You jump from project to project chasing the next high. Rarely reap what you sow.",
+        },
+      },
+      love: {
+        label: "Love",
+        byArch: {
+          AO: "You measure affection in usefulness. Receiving without owing feels uncomfortable.",
+          SS: "You pick partners who validate your image. Real connection comes second.",
+          EA: "You dodge the conversations that matter. Conflict becomes distance — long and quiet.",
+          HI: "You live in short, intense passions. Commitment feels like a cage — until regret arrives.",
+        },
+      },
+      personal: {
+        label: "Personal",
+        byArch: {
+          AO: "You postpone rest, pleasure and care chasing a security that never arrives.",
+          SS: "You build a flawless outer identity — and inside feel that no one truly knows you.",
+          EA: "You numb boredom and anxiety with distractions. Life happens in a fog.",
+          HI: "Energy spikes and crashes. Healthy habits last days, not months.",
+        },
+      },
+    },
+    areasCta: "Show me the full diagnosis",
   },
   sales: {
     h1: (name, arch) => `${name}, this is why nothing you tried before worked.`,
@@ -1124,7 +1216,45 @@ const PL: Dict = {
   emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp teraz" },
   quizProgress: { identity: "Identyfikacja", email: "Finalizacja" },
   loader: { ...EN.loader, title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…"] },
-  reveal: { ...EN.reveal, kicker: (name) => `${name}, Twój archetyp to:`, sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.", cta: "Chcę swój protokół teraz", share: "Udostępnij mój archetyp", errorTitle: "Nie udało się zapisać diagnozy.", errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.", errorRetry: "Spróbuj ponownie" },
+  reveal: {
+    ...EN.reveal,
+    kicker: (name) => `${name}, Twój archetyp to:`,
+    sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.",
+    cta: "Chcę swój protokół teraz",
+    share: "Udostępnij mój archetyp",
+    errorTitle: "Nie udało się zapisać diagnozy.",
+    errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.",
+    errorRetry: "Spróbuj ponownie",
+    areasTitle: "Ten sam wzorzec. 4 obszary Twojego życia.",
+    areasIntro: (name) => `${name}, Twój archetyp nie żyje tylko na koncie. Zobacz, gdzie się ujawnia — i ile Cię kosztuje.`,
+    areas: {
+      money: { label: "Pieniądze", byArch: { ...EN.reveal.areas.money.byArch,
+        AO: "Oszczędzasz, ale nigdy nie czujesz się bezpiecznie — niedobór tkwi głębiej niż saldo.",
+        SS: "Wydajesz, żeby pokazać przynależność. Pieniądze stają się wystawą, nie wolnością.",
+        EA: "Unikasz patrzenia na finanse — rachunki rosną, długi pęcznieją w ciszy.",
+        HI: "Wszystko wpływa, wszystko wypływa. Tu i teraz zawsze waży więcej niż plan.",
+      } },
+      career: { label: "Kariera", byArch: { ...EN.reveal.areas.career.byArch,
+        AO: "Przyjmujesz mniej, niż jesteś wart, w imię stabilności. Tracisz dekady w strefie bezpieczeństwa.",
+        SS: "Wybierasz stanowiska dla prestiżu, nie dla życia, jakie naprawdę budują.",
+        EA: "Odkładasz podwyżki, trudne rozmowy, zmiany — aż stają się nagłymi wypadkami.",
+        HI: "Skaczesz między projektami w pogoni za nowym dreszczem. Rzadko zbierasz, co posiałeś.",
+      } },
+      love: { label: "Miłość", byArch: { ...EN.reveal.areas.love.byArch,
+        AO: "Mierzysz uczucie użytecznością. Przyjmowanie bez zobowiązania jest niewygodne.",
+        SS: "Wybierasz partnerów, którzy potwierdzają Twój wizerunek. Prawdziwa bliskość schodzi na drugi plan.",
+        EA: "Unikasz rozmów, które się liczą. Konflikt zamienia się w dystans — długi i cichy.",
+        HI: "Żyjesz krótkimi, intensywnymi pasjami. Zobowiązanie wydaje się klatką — aż przychodzi żal.",
+      } },
+      personal: { label: "Życie osobiste", byArch: { ...EN.reveal.areas.personal.byArch,
+        AO: "Odraczasz odpoczynek, przyjemność i troskę o siebie w imię bezpieczeństwa, które nigdy nie nadchodzi.",
+        SS: "Budujesz nienaganną tożsamość zewnętrzną — a wewnątrz czujesz, że nikt Cię naprawdę nie zna.",
+        EA: "Zagłuszasz nudę i lęk rozproszeniem. Życie dzieje się jak we mgle.",
+        HI: "Energia skokowa. Zdrowe nawyki trwają dni, nie miesiące.",
+      } },
+    },
+    areasCta: "Chcę zobaczyć pełną diagnozę",
+  },
   plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan", guarantee: "7 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
   archetypes: {
@@ -1294,7 +1424,45 @@ const RO: Dict = {
   emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul acum" },
   quizProgress: { identity: "Identificare", email: "Finalizare" },
   loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…"] },
-  reveal: { ...EN.reveal, kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu acum", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
+  reveal: {
+    ...EN.reveal,
+    kicker: (name) => `${name}, arhetipul tău este:`,
+    sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.",
+    cta: "Vreau protocolul meu acum",
+    share: "Distribuie arhetipul meu",
+    errorTitle: "Nu am putut salva diagnoza.",
+    errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.",
+    errorRetry: "Încearcă din nou",
+    areasTitle: "Același tipar. 4 zone din viața ta.",
+    areasIntro: (name) => `${name}, arhetipul tău nu trăiește doar în cont. Uite unde apare — și cât te costă.`,
+    areas: {
+      money: { label: "Bani", byArch: { ...EN.reveal.areas.money.byArch,
+        AO: "Economisești, dar nu te simți niciodată în siguranță — lipsa e mai adâncă decât soldul.",
+        SS: "Cheltuiești ca să arăți apartenență. Banii devin vitrină, nu libertate.",
+        EA: "Eviți să te uiți la finanțe — facturile se adună, datoriile cresc în liniște.",
+        HI: "Tot intră, tot iese. Acum-ul cântărește mereu mai mult decât orice plan.",
+      } },
+      career: { label: "Carieră", byArch: { ...EN.reveal.areas.career.byArch,
+        AO: "Accepți mai puțin decât meriți pentru siguranță. Pierzi decenii în zona de confort.",
+        SS: "Alegi funcții pentru prestigiu, nu pentru viața pe care o construiesc cu adevărat.",
+        EA: "Amâni măriri, conversații dificile și schimbări — până devin urgențe.",
+        HI: "Sari de la un proiect la altul după următoarea descărcare. Rar culegi ce semeni.",
+      } },
+      love: { label: "Iubire", byArch: { ...EN.reveal.areas.love.byArch,
+        AO: "Măsori afecțiunea în utilitate. Să primești fără să datorezi e incomod.",
+        SS: "Alegi parteneri care îți validează imaginea. Conexiunea reală vine pe locul doi.",
+        EA: "Eviți conversațiile care contează. Conflictul devine distanță — lungă și tăcută.",
+        HI: "Trăiești pasiuni scurte și intense. Angajamentul pare cușcă — până vine regretul.",
+      } },
+      personal: { label: "Viața personală", byArch: { ...EN.reveal.areas.personal.byArch,
+        AO: "Amâni odihna, plăcerea și grija de tine în numele unei siguranțe care nu mai vine.",
+        SS: "Construiești o identitate exterioară impecabilă — pe dinăuntru simți că nimeni nu te cunoaște.",
+        EA: "Amorțești plictisul și anxietatea cu distrageri. Viața se petrece prin ceață.",
+        HI: "Energie în vârfuri și prăbușiri. Obiceiurile sănătoase țin zile, nu luni.",
+      } },
+    },
+    areasCta: "Vreau diagnoza completă",
+  },
   plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan", guarantee: "7 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
   archetypes: {
@@ -1465,7 +1633,45 @@ const AR: Dict = {
   emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي الآن" },
   quizProgress: { identity: "التعرف", email: "الإنجاز" },
   loader: { ...EN.loader, title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…"] },
-  reveal: { ...EN.reveal, kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي الآن", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
+  reveal: {
+    ...EN.reveal,
+    kicker: (name) => `${name}، نمطك هو:`,
+    sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.",
+    cta: "أريد بروتوكولي الآن",
+    share: "شارك نمطي",
+    errorTitle: "لم نتمكن من حفظ تشخيصك.",
+    errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.",
+    errorRetry: "حاول مجدداً",
+    areasTitle: "نفس النمط. 4 مجالات في حياتك.",
+    areasIntro: (name) => `${name}، نمطك لا يعيش في حسابك المصرفي فقط. شاهد أين يظهر — وكم يكلفك.`,
+    areas: {
+      money: { label: "المال", byArch: { ...EN.reveal.areas.money.byArch,
+        AO: "تدّخر دون أن تشعر بالأمان — النقص يسكنك حتى عندما يرتفع رصيدك.",
+        SS: "تنفق لتُظهر الانتماء. المال يتحوّل إلى واجهة، لا إلى حرية.",
+        EA: "تتجنب النظر إلى ماليتك — الفواتير تتراكم والديون تنمو في صمت.",
+        HI: "يدخل كل شيء ويخرج كل شيء. اللحظة الحاضرة أثقل من أي خطة.",
+      } },
+      career: { label: "العمل", byArch: { ...EN.reveal.areas.career.byArch,
+        AO: "تقبل أقل مما تستحق مقابل الاستقرار. تفقد سنوات في منطقة الأمان.",
+        SS: "تختار المناصب من أجل الهيبة، لا من أجل الحياة التي تبنيها فعلاً.",
+        EA: "تؤجل الترقيات والحوارات الصعبة والقرارات — حتى تتحول إلى طوارئ.",
+        HI: "تنتقل من مشروع إلى مشروع بحثاً عن النشوة التالية. نادراً ما تحصد ما زرعت.",
+      } },
+      love: { label: "الحب", byArch: { ...EN.reveal.areas.love.byArch,
+        AO: "تقيس العاطفة بالفائدة. التلقي دون مقابل يُشعرك بعدم الراحة.",
+        SS: "تختار شركاء يدعمون صورتك. الاتصال الحقيقي يأتي ثانياً.",
+        EA: "تتجنب الأحاديث المهمة. الخلاف يتحوّل إلى مسافة — طويلة وصامتة.",
+        HI: "تعيش شغفاً قصيراً وحاداً. الالتزام يبدو قفصاً — حتى يأتي الندم.",
+      } },
+      personal: { label: "الحياة الشخصية", byArch: { ...EN.reveal.areas.personal.byArch,
+        AO: "تؤجل الراحة والمتعة ورعاية نفسك مقابل أمان لا يأتي أبداً.",
+        SS: "تبني هوية خارجية مثالية — وداخلياً تشعر أن لا أحد يعرفك حقاً.",
+        EA: "تخدّر الملل والقلق بالملهيات. الحياة تمر في ضباب.",
+        HI: "طاقة بقمم وانهيارات. العادات الصحية تدوم أياماً، لا أشهراً.",
+      } },
+    },
+    areasCta: "أرني التشخيص الكامل",
+  },
   plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد هذا الخطة", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
   archetypes: {
