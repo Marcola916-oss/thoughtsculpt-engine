@@ -1093,6 +1093,41 @@ function Reveal({
           ))}
         </div>
       </div>
+
+      {/* Diagnóstico multi-área — 4 cards (Money / Career / Love / Personal) */}
+      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-5xl px-4">
+        <header className="mb-10 text-center">
+          <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.45em] text-arch-primary/80">
+            {t.reveal.areasTitle}
+          </div>
+          <p className="mx-auto max-w-2xl text-base md:text-lg text-foreground/70 leading-relaxed">
+            {t.reveal.areasIntro(name)}
+          </p>
+        </header>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          {AREA_ORDER.map((area: LifeArea, i) => (
+            <AreaScoreCard
+              key={area}
+              area={area}
+              label={t.reveal.areas[area].label}
+              description={t.reveal.areas[area].byArch[arch as "AO" | "SS" | "EA" | "HI"]}
+              score={areaScores[area]}
+              delayMs={i * 120}
+            />
+          ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <button
+            onClick={onContinue}
+            className="group inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-8 py-4 text-sm font-black uppercase tracking-widest text-arch-primary transition-all hover:bg-arch-primary hover:text-background hover:-translate-y-0.5"
+          >
+            {t.reveal.areasCta}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </button>
+        </div>
+      </div>
       </ArchetypeRevealStage>
     </section>
   );
