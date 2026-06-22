@@ -1127,6 +1127,12 @@ const PL: Dict = {
   reveal: { ...EN.reveal, kicker: (name) => `${name}, Twój archetyp to:`, sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.", cta: "Chcę swój protokół teraz", share: "Udostępnij mój archetyp", errorTitle: "Nie udało się zapisać diagnozy.", errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.", errorRetry: "Spróbuj ponownie" },
   plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan", guarantee: "7 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
+  archetypes: {
+    AO: { ...EN.archetypes.AO, name: "KOMPULSYWNY\nCIUŁACZ" },
+    SS: { ...EN.archetypes.SS, name: "ŁOWCA\nSTATUSU" },
+    EA: { ...EN.archetypes.EA, name: "UNIKAJĄCY\nUCIEKINIER" },
+    HI: { ...EN.archetypes.HI, name: "IMPULSYWNY\nHEDONISTA" },
+  },
   landing: {
     proofBar: {
       ariaLabel: "Wskaźniki zaufania",
@@ -1291,6 +1297,12 @@ const RO: Dict = {
   reveal: { ...EN.reveal, kicker: (name) => `${name}, arhetipul tău este:`, sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.", cta: "Vreau protocolul meu acum", share: "Distribuie arhetipul meu", errorTitle: "Nu am putut salva diagnoza.", errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.", errorRetry: "Încearcă din nou" },
   plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan", guarantee: "7 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
+  archetypes: {
+    AO: { ...EN.archetypes.AO, name: "ACUMULATOR\nOBSESIV" },
+    SS: { ...EN.archetypes.SS, name: "CĂUTĂTOR\nDE STATUT" },
+    EA: { ...EN.archetypes.EA, name: "EVAZIV\nALIENAT" },
+    HI: { ...EN.archetypes.HI, name: "HEDONIST\nIMPULSIV" },
+  },
   landing: {
     proofBar: {
       ariaLabel: "Indicatori de încredere",
@@ -1456,6 +1468,12 @@ const AR: Dict = {
   reveal: { ...EN.reveal, kicker: (name) => `${name}، نمطك هو:`, sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.", cta: "أريد بروتوكولي الآن", share: "شارك نمطي", errorTitle: "لم نتمكن من حفظ تشخيصك.", errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.", errorRetry: "حاول مجدداً" },
   plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد هذا الخطة", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
+  archetypes: {
+    AO: { ...EN.archetypes.AO, name: "المُكدِّس\nالقهري" },
+    SS: { ...EN.archetypes.SS, name: "الباحث\nعن المكانة" },
+    EA: { ...EN.archetypes.EA, name: "الهارب\nالمُتجنِّب" },
+    HI: { ...EN.archetypes.HI, name: "المُتَنَعِّم\nالاندفاعي" },
+  },
   landing: {
     proofBar: {
       ariaLabel: "مؤشرات الثقة",
