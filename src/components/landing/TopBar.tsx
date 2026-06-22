@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/identity/Logo";
-import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { useDeviceTier } from "@/hooks/use-device-tier";
 
 export function TopBar() {
-  const { t } = useI18n();
   const tier = useDeviceTier();
   const [scrolled, setScrolled] = useState(false);
 
@@ -34,11 +30,7 @@ export function TopBar() {
         <div className="flex items-center gap-3 md:gap-6">
           <LanguageSwitcher className="opacity-80 hover:opacity-100 transition-opacity" />
           
-          <Link to="/login">
-            <PrimaryButton size="sm" className="flex">
-              {t.common.login}
-            </PrimaryButton>
-          </Link>
+          {/* Login removed in Phase A (one-shot product — no user accounts). */}
         </div>
       </div>
       

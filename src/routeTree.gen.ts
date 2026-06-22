@@ -10,37 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SuccessRouteImport } from './routes/success'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ShareTokenRouteImport } from './routes/share.$token'
-import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
-import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard.settings'
-import { Route as AuthenticatedDashboardProgressRouteImport } from './routes/_authenticated/dashboard.progress'
-import { Route as AuthenticatedDashboardDiagnosisRouteImport } from './routes/_authenticated/dashboard.diagnosis'
-import { Route as AuthenticatedDashboardCompassRouteImport } from './routes/_authenticated/dashboard.compass'
-import { Route as AuthenticatedDashboardCalendarRouteImport } from './routes/_authenticated/dashboard.calendar'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SuccessRoute = SuccessRouteImport.update({
-  id: '/success',
-  path: '/success',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -53,15 +30,6 @@ const ObrigadoRoute = ObrigadoRouteImport.update({
   path: '/obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SplatRoute = SplatRouteImport.update({
   id: '/$',
   path: '/$',
@@ -72,187 +40,43 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ShareTokenRoute = ShareTokenRouteImport.update({
-  id: '/share/$token',
-  path: '/share/$token',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedDashboardIndexRoute =
-  AuthenticatedDashboardIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
-const AuthenticatedDashboardSettingsRoute =
-  AuthenticatedDashboardSettingsRouteImport.update({
-    id: '/settings',
-    path: '/settings',
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
-const AuthenticatedDashboardProgressRoute =
-  AuthenticatedDashboardProgressRouteImport.update({
-    id: '/progress',
-    path: '/progress',
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
-const AuthenticatedDashboardDiagnosisRoute =
-  AuthenticatedDashboardDiagnosisRouteImport.update({
-    id: '/diagnosis',
-    path: '/diagnosis',
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
-const AuthenticatedDashboardCompassRoute =
-  AuthenticatedDashboardCompassRouteImport.update({
-    id: '/compass',
-    path: '/compass',
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
-const AuthenticatedDashboardCalendarRoute =
-  AuthenticatedDashboardCalendarRouteImport.update({
-    id: '/calendar',
-    path: '/calendar',
-    getParentRoute: () => AuthenticatedDashboardRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/login': typeof LoginRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacy': typeof PrivacyRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
-  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
-  '/onboarding': typeof AuthenticatedOnboardingRoute
-  '/share/$token': typeof ShareTokenRoute
-  '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
-  '/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
-  '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
-  '/dashboard/progress': typeof AuthenticatedDashboardProgressRoute
-  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
-  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/login': typeof LoginRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacy': typeof PrivacyRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
-  '/onboarding': typeof AuthenticatedOnboardingRoute
-  '/share/$token': typeof ShareTokenRoute
-  '/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
-  '/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
-  '/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
-  '/dashboard/progress': typeof AuthenticatedDashboardProgressRoute
-  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
-  '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/login': typeof LoginRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacy': typeof PrivacyRoute
-  '/reset-password': typeof ResetPasswordRoute
-  '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
-  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
-  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
-  '/share/$token': typeof ShareTokenRoute
-  '/_authenticated/dashboard/calendar': typeof AuthenticatedDashboardCalendarRoute
-  '/_authenticated/dashboard/compass': typeof AuthenticatedDashboardCompassRoute
-  '/_authenticated/dashboard/diagnosis': typeof AuthenticatedDashboardDiagnosisRoute
-  '/_authenticated/dashboard/progress': typeof AuthenticatedDashboardProgressRoute
-  '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
-  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/$'
-    | '/login'
-    | '/obrigado'
-    | '/privacy'
-    | '/reset-password'
-    | '/success'
-    | '/terms'
-    | '/dashboard'
-    | '/onboarding'
-    | '/share/$token'
-    | '/dashboard/calendar'
-    | '/dashboard/compass'
-    | '/dashboard/diagnosis'
-    | '/dashboard/progress'
-    | '/dashboard/settings'
-    | '/dashboard/'
+  fullPaths: '/' | '/$' | '/obrigado' | '/privacy' | '/terms'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/$'
-    | '/login'
-    | '/obrigado'
-    | '/privacy'
-    | '/reset-password'
-    | '/success'
-    | '/terms'
-    | '/onboarding'
-    | '/share/$token'
-    | '/dashboard/calendar'
-    | '/dashboard/compass'
-    | '/dashboard/diagnosis'
-    | '/dashboard/progress'
-    | '/dashboard/settings'
-    | '/dashboard'
-  id:
-    | '__root__'
-    | '/'
-    | '/$'
-    | '/_authenticated'
-    | '/login'
-    | '/obrigado'
-    | '/privacy'
-    | '/reset-password'
-    | '/success'
-    | '/terms'
-    | '/_authenticated/dashboard'
-    | '/_authenticated/onboarding'
-    | '/share/$token'
-    | '/_authenticated/dashboard/calendar'
-    | '/_authenticated/dashboard/compass'
-    | '/_authenticated/dashboard/diagnosis'
-    | '/_authenticated/dashboard/progress'
-    | '/_authenticated/dashboard/settings'
-    | '/_authenticated/dashboard/'
+  to: '/' | '/$' | '/obrigado' | '/privacy' | '/terms'
+  id: '__root__' | '/' | '/$' | '/obrigado' | '/privacy' | '/terms'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  LoginRoute: typeof LoginRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacyRoute: typeof PrivacyRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
-  SuccessRoute: typeof SuccessRoute
   TermsRoute: typeof TermsRoute
-  ShareTokenRoute: typeof ShareTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -262,20 +86,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/success': {
-      id: '/success'
-      path: '/success'
-      fullPath: '/success'
-      preLoaderRoute: typeof SuccessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -292,20 +102,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ObrigadoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/$': {
       id: '/$'
       path: '/$'
@@ -320,132 +116,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/share/$token': {
-      id: '/share/$token'
-      path: '/share/$token'
-      fullPath: '/share/$token'
-      preLoaderRoute: typeof ShareTokenRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/onboarding': {
-      id: '/_authenticated/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/dashboard/': {
-      id: '/_authenticated/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
-    '/_authenticated/dashboard/settings': {
-      id: '/_authenticated/dashboard/settings'
-      path: '/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof AuthenticatedDashboardSettingsRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
-    '/_authenticated/dashboard/progress': {
-      id: '/_authenticated/dashboard/progress'
-      path: '/progress'
-      fullPath: '/dashboard/progress'
-      preLoaderRoute: typeof AuthenticatedDashboardProgressRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
-    '/_authenticated/dashboard/diagnosis': {
-      id: '/_authenticated/dashboard/diagnosis'
-      path: '/diagnosis'
-      fullPath: '/dashboard/diagnosis'
-      preLoaderRoute: typeof AuthenticatedDashboardDiagnosisRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
-    '/_authenticated/dashboard/compass': {
-      id: '/_authenticated/dashboard/compass'
-      path: '/compass'
-      fullPath: '/dashboard/compass'
-      preLoaderRoute: typeof AuthenticatedDashboardCompassRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
-    '/_authenticated/dashboard/calendar': {
-      id: '/_authenticated/dashboard/calendar'
-      path: '/calendar'
-      fullPath: '/dashboard/calendar'
-      preLoaderRoute: typeof AuthenticatedDashboardCalendarRouteImport
-      parentRoute: typeof AuthenticatedDashboardRoute
-    }
   }
 }
-
-interface AuthenticatedDashboardRouteChildren {
-  AuthenticatedDashboardCalendarRoute: typeof AuthenticatedDashboardCalendarRoute
-  AuthenticatedDashboardCompassRoute: typeof AuthenticatedDashboardCompassRoute
-  AuthenticatedDashboardDiagnosisRoute: typeof AuthenticatedDashboardDiagnosisRoute
-  AuthenticatedDashboardProgressRoute: typeof AuthenticatedDashboardProgressRoute
-  AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
-  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
-}
-
-const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
-  {
-    AuthenticatedDashboardCalendarRoute: AuthenticatedDashboardCalendarRoute,
-    AuthenticatedDashboardCompassRoute: AuthenticatedDashboardCompassRoute,
-    AuthenticatedDashboardDiagnosisRoute: AuthenticatedDashboardDiagnosisRoute,
-    AuthenticatedDashboardProgressRoute: AuthenticatedDashboardProgressRoute,
-    AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
-    AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
-  }
-
-const AuthenticatedDashboardRouteWithChildren =
-  AuthenticatedDashboardRoute._addFileChildren(
-    AuthenticatedDashboardRouteChildren,
-  )
-
-interface AuthenticatedRouteChildren {
-  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
-  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
-}
-
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
-  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
-}
-
-const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
-  AuthenticatedRoute: AuthenticatedRouteWithChildren,
-  LoginRoute: LoginRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacyRoute: PrivacyRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
-  SuccessRoute: SuccessRoute,
   TermsRoute: TermsRoute,
-  ShareTokenRoute: ShareTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

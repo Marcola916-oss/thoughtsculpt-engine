@@ -1,14 +1,11 @@
 /**
  * MindReset identity module — barrel export.
- *
- *   import { MarbleBust, BustMini, BustLoader, BustEmptyState, IdentitySymbol, CircuitBrain } from "@/components/identity";
+ * Trimmed in Phase A (MVP cleanup). Variants kept here are those still
+ * used by the funnel (landing → quiz → reveal → checkout → thanks).
  */
 
 export { MarbleBust } from "./MarbleBust";
 export type { MarbleBustProps, MarbleBustVariant, MarbleBustIntensity } from "./MarbleBust";
-
-export { BustMini } from "./BustMini";
-export type { BustMiniProps } from "./BustMini";
 
 export { BustLoader } from "./BustLoader";
 export type { BustLoaderProps } from "./BustLoader";
@@ -20,10 +17,7 @@ export { IdentitySymbol } from "./IdentitySymbol";
 export type { IdentitySymbolProps } from "./IdentitySymbol";
 
 export { CircuitBrain } from "./CircuitBrain";
+export type { CircuitBrainProps, CircuitBrainVariant, BrainStyle } from "./CircuitBrain";
+
 export { Logo } from "./Logo";
 export { ArchetypeRevealArt } from "./ArchetypeRevealArt";
-export { CelebrationBrain } from "./CelebrationBrain";
-export { ArchetypeRetroBrain } from "./ArchetypeRetroBrain";
-export type { ArchetypeRetroBrainProps, ArchetypeKey } from "./ArchetypeRetroBrain";
-export { ArchetypeSplineBrain } from "./ArchetypeSplineBrain";
-export type { CircuitBrainProps, CircuitBrainVariant, BrainStyle } from "./CircuitBrain";
