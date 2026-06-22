@@ -24,6 +24,8 @@ import { Magnetic } from "../components/PageTransition";
 import { scoreAnswers, type Answers, type Archetype } from "../lib/quiz/scoring";
 import { saveQuizLead } from "../lib/quiz.functions";
 import { startBrainFramesPreload } from "@/lib/brainFramesCache";
+import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-scores";
+import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
 
 // ── Phase A placeholders (will be replaced in Phase B/D when checkout is rebuilt) ──
 type PlanKey = "30d" | "6m" | "1y";
