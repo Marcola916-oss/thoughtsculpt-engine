@@ -34,11 +34,7 @@ export function TopBar() {
         <div className="flex items-center gap-3 md:gap-6">
           <LanguageSwitcher className="opacity-80 hover:opacity-100 transition-opacity" />
           
-          <Link to="/login">
-            <PrimaryButton size="sm" className="flex">
-              {t.common.login}
-            </PrimaryButton>
-          </Link>
+          {/* Login removed in Phase A (one-shot product — no user accounts). */}
         </div>
       </div>
       
