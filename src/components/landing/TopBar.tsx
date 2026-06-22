@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/identity/Logo";
-import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { useDeviceTier } from "@/hooks/use-device-tier";
 
 export function TopBar() {
-  const { t } = useI18n();
   const tier = useDeviceTier();
   const [scrolled, setScrolled] = useState(false);
 
