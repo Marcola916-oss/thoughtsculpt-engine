@@ -68,6 +68,16 @@ export type Dict = {
     kicker: (name: string) => string; sub: string; cta: string; share: string;
     errorTitle: string; errorBody: string; errorRetry: string;
     comparison: (name: string, arch: string) => string;
+    areasTitle: string;
+    areasIntro: (name: string) => string;
+    areas: Record<
+      "money" | "career" | "love" | "personal",
+      {
+        label: string;
+        byArch: Record<"AO" | "SS" | "EA" | "HI", string>;
+      }
+    >;
+    areasCta: string;
   };
   sales: {
     h1: (name: string, arch: string) => string;
