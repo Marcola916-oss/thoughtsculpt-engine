@@ -169,9 +169,10 @@ const COPY: Record<string, Copy> = {
 interface Props {
   email: string;
   name: string;
+  leadId: string | null;
 }
 
-export function CheckoutStub({ email, name }: Props) {
+export function CheckoutStub({ email, name, leadId }: Props) {
   const { lang } = useI18n();
   const navigate = useNavigate();
   const copy = COPY[lang] ?? COPY.en;
@@ -206,7 +207,14 @@ export function CheckoutStub({ email, name }: Props) {
     setSubmitting(true);
     // Phase D: replace this with stripe.confirmPayment() then redirect on webhook success.
     setTimeout(() => {
-      navigate({ to: "/obrigado", search: { ob1: bump1 ? 1 : 0, ob2: bump2 ? 1 : 0 } as never });
+      navigate({
+        to: "/obrigado",
+        search: {
+          ob1: bump1 ? 1 : 0,
+          ob2: bump2 ? 1 : 0,
+          lead: leadId ?? undefined,
+        } as never,
+      });
     }, 1200);
   };
 
