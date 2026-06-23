@@ -28,6 +28,7 @@ import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
 import { VSL } from "@/components/sales/VSL";
 import { CheckoutStub } from "@/components/funnel/CheckoutStub";
+import { track, EVENTS } from "@/lib/analytics";
 
 // ── Phase A placeholders (will be replaced in Phase B/D when checkout is rebuilt) ──
 type PlanKey = "30d" | "6m" | "1y";
