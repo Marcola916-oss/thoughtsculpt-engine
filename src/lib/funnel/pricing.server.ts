@@ -14,12 +14,13 @@ interface PriceRow {
 }
 
 const TABLE: Record<Currency, PriceRow> = {
-  usd: { currency: "usd", main: 990,  bump1: 499,  bump2: 799  },
-  eur: { currency: "eur", main: 990,  bump1: 499,  bump2: 799  },
-  brl: { currency: "brl", main: 4990, bump1: 2490, bump2: 3990 },
-  pln: { currency: "pln", main: 3900, bump1: 1900, bump2: 3100 },
-  ron: { currency: "ron", main: 4500, bump1: 2200, bump2: 3600 },
-  sar: { currency: "sar", main: 3700, bump1: 1900, bump2: 2900 },
+  // bump2 alinhado à Conversion Bible V2: $14 (D1 aprovada).
+  usd: { currency: "usd", main: 990,  bump1: 499,  bump2: 1400 },
+  eur: { currency: "eur", main: 990,  bump1: 499,  bump2: 1400 },
+  brl: { currency: "brl", main: 4990, bump1: 2490, bump2: 6990 },
+  pln: { currency: "pln", main: 3900, bump1: 1900, bump2: 5500 },
+  ron: { currency: "ron", main: 4500, bump1: 2200, bump2: 6500 },
+  sar: { currency: "sar", main: 3700, bump1: 1900, bump2: 5200 },
 };
 
 const LANG_TO_CURRENCY: Record<string, Currency> = {
