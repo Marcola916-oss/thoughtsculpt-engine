@@ -1,119 +1,97 @@
+# Fase 3 — Quiz Flow + Reveal Conversion
 
-# Fase 2 — Landing Page reescrita (1 PR, sem mexer em backend)
+## Objetivo
 
-Objetivo único: **visitor → quiz_start ≥ 65%** (hoje ~30-45%). Mantém Fase 1 intacta (preço, banner recovery, analytics, getLocalPrice).
+Elevar **quiz_start → reveal_view de ~60% para ≥85%** e **reveal_view → checkout_click de ~8% para ≥18%**.
 
----
+Fase 1 (infra) e Fase 2 (landing) permanecem intactas. Esta fase ataca o meio e o fim do funil: a experiência do quiz em si e a página de revelação do arquétipo, que é o momento de máxima atenção emocional do utilizador.
 
-## Princípios da fase
+## Diretrizes (não-negociáveis)
 
-- **Só toca em UI da landing pré-quiz** (`stage === "hero"`). Funil 0–14 fica congelado para Fase 3+.
-- **Copy da Bible V2 é a fonte de verdade** — nada de paráfrase. "SABOTANDO" é literal.
-- **5 idiomas em paridade total antes do merge.** Sem chave faltando = build quebra (script `i18n-sync` da Fase 1).
-- **Dispara `track(EVENTS.LANDING_VIEW)`** no mount do hero e `track(EVENTS.QUIZ_START)` em todos os CTAs que setam stage `identity`.
-- **Preço local via `getLocalPrice` da Fase 1** já visível na landing (Hero subtítulo + FinalCTA) para reduzir surpresa no checkout.
+- **Copy estritamente Bible V2** — nada inventado.
+- **5 idiomas em paridade** (PT/EN/PL/RO/AR) — `i18n-sync` verde antes de fechar cada commit.
+- **Zero quebra de rotas existentes** — mudanças cirúrgicas em `index.tsx` stages `identity/q/email/loader/reveal`.
+- **Mobile-first** — todo o quiz é consumido em 375-414px; desktop é polish.
+- **Acessibilidade AA** — focus rings visíveis, `aria-live` nas transições, contraste verificado.
+- **RTL preservado** para árabe em todas as novas peças.
+- **Analytics canônicos** — cada microinteração relevante dispara `track()` com `source` apropriado.
 
----
+## Ordem de execução (5 commits)
 
-## Ordem de execução (1 PR, 5 commits lógicos)
+### Commit 1 — Quiz progress + back stack confiável
 
-### Commit 1 — Hero V2 (`src/components/landing/Hero.tsx` — novo)
+**Ficheiros:** `src/components/quiz/QuizScreenWrapper.tsx`, `src/routes/index.tsx`.
 
-Extrai o hero inline de `src/routes/index.tsx:258-280` para componente dedicado.
+- Barra de progresso com gradiente vermelho + label "Pergunta N de 8" + percentagem real animada (`transition: width 0.6s ease-out`).
+- Botão `← Voltar` em TODAS as etapas exceto a primeira; restaura a resposta anterior em vez de a apagar (atualmente perde estado).
+- `track(EVENTS.QUIZ_BACK, { from_step })` em cada uso — para medir hesitação por pergunta.
+- Persistência das respostas em `sessionStorage` (chave `mr_quiz_draft`) com TTL 30min, para recuperar se o utilizador refrescar acidentalmente.
 
-- **H1** Syne 800, 56px desktop / 36px mobile:
-  > "Seu cérebro tem um padrão que está **SABOTANDO** suas finanças."
-  - `SABOTANDO` em `text-arch-primary` com glow `text-shadow: 0 0 24px rgba(204,0,0,0.5)`.
-- **Sub** Inter 20px / 16px mobile, `text-foreground/75`:
-  > "Não é falta de força de vontade. É um arquétipo comportamental que você nunca soube que tinha."
-- **MarbleBust** central já existente — manter, com glow vermelho + neblina via `Atmosphere fog="dramatic"`.
-- **CTA primário**: PrimaryButton vermelho 18/700, padding 18×36, glow `0 0 20px rgba(204,0,0,0.4)`, hover `translateY(-2px) + glow-strong`, click `scale(0.97) 100ms`. Texto: "Quero descobrir meu arquétipo →".
-- **Microcopy** abaixo: "⚡ 3 minutos · 100% gratuito · Resultado imediato".
-- **Sem CTA secundário** acima da dobra (remove distração).
+### Commit 2 — Loader emocional (pré-revelação)
 
-### Commit 2 — Quebra de crença (`src/components/landing/BeliefBreak.tsx` — novo)
+**Ficheiro:** `src/components/quiz/NeuralLoader.tsx`.
 
-Nova section entre `ProofBar` e `ArchetypeShowcase`. Layout asymmetric 60/40.
+- Substituir os 5 steps actuais por um ciclo de **3 fases narrativas** (8s total, não mais):
+  1. "A cruzar as tuas 8 respostas com 12.000 perfis…" (0-2.5s)
+  2. "A identificar o teu padrão dominante…" (2.5-5s)
+  3. "A preparar a tua revelação…" (5-8s)
+- MarbleBust no centro com pulso vermelho sincronizado às transições.
+- `track(EVENTS.LOADER_VIEW)` no mount, `track(EVENTS.LOADER_COMPLETE)` no fim.
+- Reduzir para `prefers-reduced-motion`: substituir pulso por fade simples.
+- Copy localizada nos 5 idiomas via `t.loader.steps` (já existe — só ajustar para 3 entradas).
 
-- **H2**: "Por que planilhas e apps de orçamento não funcionam para você."
-- **3 cards horizontais** com nome + 1 linha:
-  - **Kahneman** — "90% das decisões financeiras são automáticas, não racionais."
-  - **Thaler** — "Você gasta diferente conforme a origem do dinheiro — sem perceber."
-  - **Ariely** — "Pequenas escolhas previsíveis destroem grandes planos."
-- **Punch line** Syne 800 32px: "O problema não é o teu dinheiro. É o teu padrão."
-- Reveal.Group stagger 80ms.
+### Commit 3 — Reveal: hierarquia visual + prova social ancorada
 
-### Commit 3 — ArchetypeShowcase, ProofBar, Testimonials, FinalCTA — alinhamento Bible
+**Ficheiro:** `src/components/reveal/` (novos sub-componentes) + `src/routes/index.tsx` stage `reveal`.
 
-- **ArchetypeShowcase**: trocar copy dos 4 cards para os nomes provocativos Bible:
-  - Acumulador Obsessivo · Buscador de Status · Alienado Financeiro · Hedonista Impulsivo
-  - 1 linha de descrição cada (já curta da Bible).
-- **ProofBar**: substituir números genéricos por "**14.832** diagnósticos · **4** países · Desde **2025**". Animar contadores leve (CountUp on intersect).
-- **Testimonials**: 3 depoimentos curtos da Bible com país + arquétipo (PT/PL/RO/BR ou US).
-- **FinalCTA**: headline urgência Bible + mesmo CTA do Hero + microcopy de preço local (`getLocalPrice` → "Diagnóstico completo por R$ 49,90 / $9.90 / etc.").
+Estrutura nova da página de reveal (mobile-first, fold por fold):
 
-### Commit 4 — Limpeza de distração
+1. **Fold 1 — Nome do arquétipo (typewriter 1 char/40ms) + tagline + MarbleBust pulsando**. Sem CTA aqui — o utilizador respira o impacto.
+2. **Fold 2 — "O que isto significa para ti, {nome}"**: 3 bullets vindos de `t.archetypes[arch].hooks` (já existem). Cada bullet com ícone Lucide.
+3. **Fold 3 — Score por área** (AreaScoreCard × 4: dinheiro/carreira/amor/pessoal). Barras animadas 0→valor sobre `IntersectionObserver`.
+4. **Fold 4 — Comparação ancorada**: "73% dos {arquétipo} relatam o mesmo padrão em pelo menos 3 áreas." Número derivado de `computeAreaScores`.
+5. **Fold 5 — CTA primário** ("Quero o meu diagnóstico completo") com timer de 15 min visível (escassez genuína baseada no `recover` window) + microcopy "7 dias de garantia · Pagamento único · Sem assinatura".
 
-- Auditar `TopBar` e remover qualquer link externo/secundário acima da dobra (manter só logo + LanguageSwitcher).
-- Remover `HowItWorks` e `FeaturesGrid` da landing pré-quiz **OU** movê-los para baixo dos testemunhos (decisão no Gate 2 baseado em altura mobile). Recomendação: manter, mas comprimir altura.
-- Auditar `FAQ` — só 3 perguntas (objeções top, não FAQ longo).
-- Validar que **não há scroll horizontal em 375px**.
+`track(EVENTS.REVEAL_VIEW)` no mount, `track(EVENTS.REVEAL_CTA_CLICK)` no botão.
 
-### Commit 5 — i18n + analytics + instrumentação
+### Commit 4 — Checkout bump alinhado ao Bible V2 + Apple Pay/Google Pay
 
-- Adicionar chaves `landing.hero.*`, `landing.belief.*`, `landing.archetypes.*`, `landing.proof.*`, `landing.testimonials.*`, `landing.faq.*`, `landing.cta.*` em `src/lib/i18n/types.ts` + `translations.ts` (PT/EN/PL/RO/AR).
-- Revisar AR culturalmente (zero referência a juros/riba; "SABOTANDO" = "يُخرّب" não "يُدمّر").
-- `track(EVENTS.LANDING_VIEW, { lang, country })` no mount do Hero.
-- `track(EVENTS.QUIZ_START, { source: 'hero' | 'final_cta' | 'sticky' })` em cada CTA.
-- Carregar `getLocalPrice` em paralelo (useQuery), mostrar skeleton até resolver.
+**Ficheiros:** `src/components/funnel/CheckoutStub.tsx` (rewrite) + nova `src/lib/funnel/checkout.functions.ts`.
 
----
+- Produto principal: PDF do diagnóstico (preço local via `getLocalPrice` da Fase 1).
+- **Order bump pré-tickado** (`bump2`): "Plano de 30 dias guiado por arquétipo — +$14.00" com checkbox visível e copy de valor.
+- Stripe Elements com Apple Pay / Google Pay no topo, cartão abaixo.
+- `track(EVENTS.CHECKOUT_VIEW)`, `track(EVENTS.BUMP_TOGGLE)`, `track(EVENTS.CHECKOUT_SUBMIT)`.
+- Em caso de cancelamento Stripe → redirect para `/?canceled=1&recover={orderId}` (já tratado na Fase 1).
+- Server function `createCheckoutSession` em `checkout.functions.ts` com `inputValidator` Zod + Stripe SDK; retorna `{ url }` para `window.location.assign`.
 
-## Gate 2 — Critérios objetivos antes de avançar para Fase 3
+### Commit 5 — i18n parity + analytics sweep + Gate 3
 
-| # | Critério | Como medir |
-|---|---|---|
-| G2.1 | Build verde | `tsgo --noEmit` + `npm run build` |
-| G2.2 | Lighthouse mobile Perf ≥ 90 | Chrome DevTools → device emulation 375x667 |
-| G2.3 | Contraste AA em todas as superfícies novas | `contrast-audit` tool sobre #000 + #1A1A1A |
-| G2.4 | 375 / 768 / 1440 sem scroll horizontal e com hierarquia preservada | Visual diff |
-| G2.5 | i18n-sync verde nos 5 idiomas | Script local |
-| G2.6 | PostHog (ou console em dev) recebendo `landing_view` + `quiz_start` | DevTools console |
-| G2.7 | `getLocalPrice` renderiza preço local correto em PT/EN | Preview test BR/US |
-| G2.8 | Banner de recovery da Fase 1 não conflita com Hero novo | Testar `?canceled=1&recover=test-id` |
+- Adicionar chaves novas (`quiz.back`, `quiz.progress`, `reveal.fold2Title`, `reveal.fold4Anchor`, `checkout.*`) aos 5 idiomas em `translations.ts` + tipo em `Dict`.
+- Confirmar que **todos** os 16 eventos canónicos de `EVENTS` estão a disparar pelo menos uma vez no fluxo end-to-end.
+- Rodar `bunx tsgo --noEmit` (verde) e smoke test manual: PT desktop + AR mobile (RTL).
 
----
+## Critérios de Gate 3 (antes de Fase 4)
 
-## Riscos e mitigações
+- ✅ Build limpa, tsgo limpo, i18n-sync nos 5 idiomas.
+- ✅ Quiz: voltar restaura resposta, refresh recupera draft, progress animada.
+- ✅ Loader: 8s, 3 fases narrativas, sem flicker.
+- ✅ Reveal: 5 folds, scores animados, timer de 15 min visível, CTA único.
+- ✅ Checkout: Apple Pay visível em iOS, bump pré-tickado, recovery banner se cancelar.
+- ✅ PostHog (se configurado) a receber `QUIZ_START`, `QUIZ_BACK`, `LOADER_VIEW`, `REVEAL_VIEW`, `REVEAL_CTA_CLICK`, `CHECKOUT_VIEW`, `BUMP_TOGGLE`, `CHECKOUT_SUBMIT`.
 
-| Risco | Mitigação |
-|---|---|
-| MarbleBust + Atmosphere derruba Lighthouse mobile | `use-device-tier` desativa fog em low-tier; lazy MarbleBust |
-| Glow vermelho no H1 falha contraste AA sobre preto puro | Testar `text-shadow` glow não conta como cor de texto; texto base permanece #F5F5F7 |
-| Copy "SABOTANDO" em AR (RTL) quebra alinhamento | Validar com `dir="rtl"` antes do merge; usar `unicode-bidi: isolate` se preciso |
-| `BeliefBreak` adiciona muita altura mobile | Comprimir para 1 card por linha em <768px com swiper horizontal opcional |
-| ArchetypeShowcase nomes novos quebram chaves Reveal existentes | Manter ids dos cards; só trocar strings |
+## Estimativas de impacto
 
----
+- **Back stack confiável + draft recovery** → +5-8pp no quiz_start→reveal_view (reduz abandono por engano).
+- **Loader narrativo 8s** → mantém atenção emocional (vs. ansiedade do loader atual).
+- **Reveal em 5 folds + score animado** → +6-10pp no reveal_view→checkout_click (prova ancorada).
+- **Apple Pay/Google Pay + bump pré-tickado** → +3-5pp no checkout_click→purchase + AOV +$8-12.
 
-## Estimativa de impacto
+## Gates do utilizador antes de implementar
 
-- Hero V2 (headline + glow + first-person CTA) → **+8-12pp**
-- Quebra de crença (Kahneman/Thaler/Ariely) → **+3-5pp**
-- Preço local visível pré-checkout → **+2-3pp**
-- Limpeza de distração + microcopy → **+2pp**
-- **Total esperado:** visitor→quiz_start de ~40% → **~57-62%**. Restante alcançado em Fase 3 (quiz auto-advance + Reveal multi-área).
+- **Stripe:** preciso de confirmação que `STRIPE_SECRET_KEY` está nos Secrets do projeto (já deve estar da Fase 1) e que o domínio Apple Pay foi adicionado.
+- **Preço do bump:** confirmar `$14.00` para USD/EUR (já no `pricing.server.ts`).
 
----
+## Próximo passo
 
-## Entregáveis ao final da Fase 2
-
-1. `src/components/landing/Hero.tsx` novo (extraído + V2).
-2. `src/components/landing/BeliefBreak.tsx` novo.
-3. `ArchetypeShowcase`, `ProofBar`, `Testimonials`, `FinalCTA`, `TopBar` refinados.
-4. Chaves `landing.*` completas em 5 idiomas.
-5. PostHog/console capturando `landing_view` + `quiz_start`.
-6. `getLocalPrice` consumido na landing.
-7. Lighthouse mobile baseline registrado em `tmp/audit/LH-FASE2.md`.
-
-**Próximo passo:** aprovar este plano → começo pelo Commit 1 (Hero V2) e mando para revisão antes de seguir para o Commit 2.
+Aprovar este plano → começar pelo **Commit 1 (Quiz progress + back stack)** e enviar para revisão antes de avançar.
