@@ -4,6 +4,7 @@
  * Estilo: revista/zine premium. Tipografia massiva atrás de objeto, grid técnica,
  * duotone cor-do-arquétipo × creme × vermelho-marca. 14 páginas A4.
  */
+import React from "react";
 import {
   Document,
   Page,
@@ -550,6 +551,3 @@ export function DiagnosisDocument({ name, archetype, lang, areaScores, diagnosis
     </Document>
   );
 }
-
-// React import required by JSX
-import React from "react";
