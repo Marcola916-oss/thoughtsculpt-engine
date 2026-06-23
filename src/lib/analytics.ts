@@ -48,7 +48,8 @@ async function getPostHog(): Promise<PostHogLike | null> {
   if (posthogPromise) return posthogPromise;
   posthogPromise = (async () => {
     try {
-      const mod = await import(/* @vite-ignore */ "posthog-js");
+      const pkg = "posthog-js";
+      const mod = await import(/* @vite-ignore */ pkg);
       const ph = (mod.default ?? mod) as PostHogLike;
       ph.init(key, {
         api_host: (import.meta.env.VITE_POSTHOG_HOST as string) || "https://us.i.posthog.com",
