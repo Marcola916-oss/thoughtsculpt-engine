@@ -64,8 +64,6 @@ import {
   ProofBar,
   BeliefBreak,
   ArchetypeShowcase,
-  HowItWorks,
-  FeaturesGrid,
   Testimonials,
   FAQ,
   FinalCTA,
@@ -326,14 +324,8 @@ function LandingAndQuiz() {
               <div className="relative z-10 bg-transparent shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
                 <BeliefBreak />
-                <div className="bg-transparent">
-                  <ArchetypeShowcase />
-                  <HowItWorks />
-                </div>
-                <div className="bg-transparent">
-                  <FeaturesGrid />
-                  <Testimonials />
-                </div>
+                <ArchetypeShowcase />
+                <Testimonials />
                 <FAQ onCta={() => setStage({ kind: "identity" })} />
                 <FinalCTA onCta={() => setStage({ kind: "identity" })} />
               </div>
