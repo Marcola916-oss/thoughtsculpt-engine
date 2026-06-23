@@ -70,7 +70,7 @@ export function AreaScoreCard({ area, label, description, score, delayMs = 0 }: 
       {/* Barra de progresso animada */}
       <div className="relative h-2 w-full overflow-hidden rounded-full bg-white/5">
         <div
-          className="absolute inset-y-0 left-0 rounded-full"
+          className="absolute inset-y-0 start-0 rounded-full"
           style={{
             width: `${animated}%`,
             backgroundImage:
