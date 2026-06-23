@@ -152,6 +152,23 @@ function LandingAndQuiz() {
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [leadError, setLeadError] = useState<string | null>(null);
   const [timerLeft, setTimerLeft] = useState(900); // 15 minutes shared across Sales + Plans
+  // Fase 1 — Recovery banner para usuários que cancelaram no Stripe Checkout.
+  // Stripe redireciona para `/?canceled=1&recover=<orderId>` quando o user fecha
+  // o checkout hosted. Mostramos um banner não-intrusivo no topo do hero.
+  const [recoverOrderId, setRecoverOrderId] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("canceled") === "1") {
+      const order = params.get("recover");
+      if (order) setRecoverOrderId(order);
+      // Limpa query string sem recarregar — evita re-trigger no refresh.
+      const url = new URL(window.location.href);
+      url.searchParams.delete("canceled");
+      url.searchParams.delete("recover");
+      window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+    }
+  }, []);
 
   useEffect(() => {
     if (timerLeft <= 0) return;
