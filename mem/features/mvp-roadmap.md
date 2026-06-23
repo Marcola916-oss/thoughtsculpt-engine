@@ -24,9 +24,9 @@ Sub-passos:
 - B1 — Infra de estágios (Stage type + scaffolding) ✅
 - Fundamentos: `src/lib/funnel/area-scores.ts` (4 áreas derivadas do scoreAnswers) ✅
 - Fundamentos: `src/lib/funnel/pricing-stub.ts` (BRL/USD/PLN/RON/SAR/EUR) ✅
-- B2 — Email capture refinada (i18n)
+- B2 — Email capture refinada (i18n) ✅ (stage `email` + `emailCapture` keys nos 5 idiomas + GDPR check)
 - B3 — Reveal premium com 4 AreaScoreCards ✅ (PT/EN copy próprio + PL/RO/AR traduzidos; barra de progresso animada; CTA "Ver diagnóstico completo")
-- B4 — VSL com 8 blocos (sales/VSL.tsx)
+- B4 — VSL com 8 blocos (sales/VSL.tsx) ✅ (componente único com copy embedded nos 5 idiomas, 4 painCards por arquétipo, PDF mockup, 3 testimonials, pricing card com 2 order bumps, FAQ 6Q, CTA final)
 - B5 — Landing copy refresh (4 áreas, não só dinheiro)
 - B6 — Checkout stub visual (plug-and-play Fase D)
 - B7 — Polish + RTL + responsivo + build clean
