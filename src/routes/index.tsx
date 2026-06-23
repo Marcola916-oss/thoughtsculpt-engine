@@ -152,6 +152,23 @@ function LandingAndQuiz() {
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [leadError, setLeadError] = useState<string | null>(null);
   const [timerLeft, setTimerLeft] = useState(900); // 15 minutes shared across Sales + Plans
+  // Fase 1 — Recovery banner para usuários que cancelaram no Stripe Checkout.
+  // Stripe redireciona para `/?canceled=1&recover=<orderId>` quando o user fecha
+  // o checkout hosted. Mostramos um banner não-intrusivo no topo do hero.
+  const [recoverOrderId, setRecoverOrderId] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("canceled") === "1") {
+      const order = params.get("recover");
+      if (order) setRecoverOrderId(order);
+      // Limpa query string sem recarregar — evita re-trigger no refresh.
+      const url = new URL(window.location.href);
+      url.searchParams.delete("canceled");
+      url.searchParams.delete("recover");
+      window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+    }
+  }, []);
 
   useEffect(() => {
     if (timerLeft <= 0) return;
@@ -250,6 +267,48 @@ function LandingAndQuiz() {
       {/* Persistent atmosphere is mounted globally in __root so it stays visible across the whole product. */}
       
       {stage.kind === "hero" && <TopBar />}
+      {stage.kind === "hero" && recoverOrderId && (
+        <div className="relative z-20 mx-auto mt-2 max-w-3xl px-4">
+          <div
+            role="status"
+            className="flex items-start gap-3 rounded-xl border border-arch-primary/40 bg-arch-primary/10 px-4 py-3 text-sm text-foreground/90 shadow-[0_0_24px_-8px_rgba(204,0,0,0.6)] backdrop-blur-md"
+          >
+            <Clock className="h-5 w-5 shrink-0 text-arch-primary" aria-hidden />
+            <div className="flex-1">
+              <p className="font-medium">
+                {lang === "pt"
+                  ? "Tu paraste mesmo antes do final."
+                  : lang === "pl"
+                  ? "Zatrzymałeś się tuż przed końcem."
+                  : lang === "ro"
+                  ? "Te-ai oprit chiar înainte de final."
+                  : lang === "ar"
+                  ? "توقفت قبل النهاية مباشرة."
+                  : "You stopped right before the finish."}
+              </p>
+              <p className="text-foreground/70">
+                {lang === "pt"
+                  ? "O teu diagnóstico ainda está reservado por 30 min. Retoma agora — sem perder progresso."
+                  : lang === "pl"
+                  ? "Twoja diagnoza jest zarezerwowana jeszcze przez 30 min. Dokończ teraz — bez utraty postępu."
+                  : lang === "ro"
+                  ? "Diagnoza ta este rezervată încă 30 min. Reia acum — fără să pierzi progresul."
+                  : lang === "ar"
+                  ? "تشخيصك محجوز لمدة 30 دقيقة. أكمل الآن — دون فقدان تقدمك."
+                  : "Your diagnosis is still reserved for 30 min. Resume now — no progress lost."}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setRecoverOrderId(null)}
+              className="text-foreground/60 hover:text-foreground"
+              aria-label="Close"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
 
       <main
         className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-5 md:pt-12" : "pt-16 md:pt-12"} relative z-10 flex-1`}
