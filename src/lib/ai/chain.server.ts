@@ -73,9 +73,7 @@ export async function callAIChain<T>(opts: ChainOptions<T>): Promise<ChainResult
       if (!res.ok) {
         const text = await res.text();
         attempts.push({ model, ok: false, latency_ms: latency, status: res.status, error: text.slice(0, 240) });
-        // Hard-stop on quota errors so we don't waste the next model.
-        if (res.status === 402) throw new Error("AI credits exhausted (402).");
-        if (res.status === 429) continue; // try next
+        // Try next model — different tiers can be billed/rate-limited separately.
         continue;
       }
 
