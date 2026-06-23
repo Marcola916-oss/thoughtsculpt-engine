@@ -28,6 +28,7 @@ import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
 import { VSL } from "@/components/sales/VSL";
 import { CheckoutStub } from "@/components/funnel/CheckoutStub";
+import { track, EVENTS } from "@/lib/analytics";
 
 // ── Phase A placeholders (will be replaced in Phase B/D when checkout is rebuilt) ──
 type PlanKey = "30d" | "6m" | "1y";
@@ -510,6 +511,14 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
+  // Fase 2 — fire LANDING_VIEW once when hero mounts (browser-only via track()).
+  useEffect(() => {
+    track(EVENTS.LANDING_VIEW);
+  }, []);
+  const handleStart = () => {
+    track(EVENTS.QUIZ_START, { source: "hero" });
+    onStart();
+  };
   // Gate the 3 desktop-only floating badges by an actual media query so the
   // framer-motion subscriptions don't run idle on mobile (display:none alone
   // does NOT stop framer's rAF loop).
@@ -583,8 +592,12 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       {(() => {
         const headline = t.hero.headline;
-        // Fix for i18n issue: find the best word to highlight or use a standard one
-        const keywords = ["CONHECER", "know", "poznać", "cunoști", "تعرف"];
+        // Bible V2 highlight tokens — the "sabotar" verb in each language.
+        // Old tokens kept as fallback for backward compat if copy diverges mid-deploy.
+        const keywords = [
+          "SABOTAR", "SABOTANDO", "SABOTAGING", "SABOTUJE", "SABOTEAZĂ", "يُخرّب",
+          "CONHECER", "know", "poznać", "cunoști", "تعرف",
+        ];
         let keyword = "";
         let idx = -1;
         
@@ -651,7 +664,7 @@ function Hero({ onStart }: { onStart: () => void }) {
       >
         <Magnetic>
           <button
-            onClick={onStart}
+            onClick={handleStart}
             data-cursor="hover"
             className="group relative h-20 md:h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
@@ -664,16 +677,10 @@ function Hero({ onStart }: { onStart: () => void }) {
         </Magnetic>
 
         <div className="flex flex-col items-center gap-4" style={{ lineHeight: "25px" }}>
-          <div className="flex items-center gap-6 text-white/75">
-            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-              <ShieldCheck className="h-4 w-4" />
-              <span>{t.hero.trustSsl}</span>
-            </div>
-            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest">
-              <Lock className="h-4 w-4 text-blue-500/50" />
-              <span>{t.hero.trustData}</span>
-            </div>
-          </div>
+          {/* Bible V2 microcopy — replaces SSL/Data trust badges above the fold. */}
+          <p className="text-[12px] md:text-sm font-semibold tracking-wide text-foreground/75 whitespace-nowrap">
+            {t.hero.microcopy}
+          </p>
 
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/75">
             <div className="flex text-arch-primary gap-0.5">
@@ -686,26 +693,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         </div>
       </MFade>
 
-      {/* Floating Archetype Display */}
-      <div className="mt-20 md:mt-40 relative px-4 max-w-7xl mx-auto overflow-visible">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="pt-12 md:pt-20 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8 opacity-60 lg:opacity-40 hover:opacity-100 transition-opacity duration-1000">
-           {['AO', 'SS', 'EA', 'HI'].map((arch) => (
-             <div 
-               key={arch}
-                className="glass-morphism rounded-3xl lg:rounded-[2.5rem] p-5 md:p-8 border border-white/10 bg-black/40 md:backdrop-blur-xl flex flex-col items-center text-center gap-3 md:gap-4 transition-all hover:border-arch-primary/50 hover:bg-black/60 group shadow-2xl"
-             >
-               <span className="text-3xl md:text-4xl filter grayscale group-hover:grayscale-0 transition-all">
-                 {arch === 'AO' ? '🛡️' : arch === 'SS' ? '👑' : arch === 'EA' ? '👻' : '🔥'}
-               </span>
-               <div className="space-y-1">
-                 <span className="block text-[8px] md:text-[10px] font-black uppercase tracking-widest text-arch-primary">{arch}</span>
-                 <span className="block text-sm md:text-lg font-bold tracking-tighter text-foreground/80 whitespace-pre-line">{t.archetypes?.[arch as 'AO']?.name || arch}</span>
-               </div>
-             </div>
-           ))}
-        </div>
-      </div>
+      {/* Removed: duplicate archetype grid (now lives only in ArchetypeShowcase below). */}
 
       <MFade
         delay={2}
