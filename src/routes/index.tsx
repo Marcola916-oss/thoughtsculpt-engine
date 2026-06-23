@@ -381,7 +381,7 @@ function LandingAndQuiz() {
 
           {stage.kind === "checkout" && (
             <div key="checkout">
-              <CheckoutStub email={email} name={name} />
+              <CheckoutStub email={email} name={name} leadId={leadId} />
             </div>
           )}
 
