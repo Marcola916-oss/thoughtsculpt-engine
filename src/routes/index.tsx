@@ -373,8 +373,14 @@ function LandingAndQuiz() {
               <VSL
                 name={name}
                 arch={archCode}
-                onCheckout={() => setStage({ kind: "plans" })}
+                onCheckout={() => setStage({ kind: "checkout" })}
               />
+            </div>
+          )}
+
+          {stage.kind === "checkout" && (
+            <div key="checkout">
+              <CheckoutStub email={email} name={name} />
             </div>
           )}
 
