@@ -1,147 +1,179 @@
-# Fase B — Funil de Vendas Premium
 
-## Objetivo
-Transformar a landing atual (focada em SaaS de finanças) num funil one-shot de diagnóstico comportamental cobrindo 4 áreas (Dinheiro, Carreira, Amor, Pessoal), com VSL de 8 blocos, reveal premium e checkout stub pronto para a Fase D plugar Stripe Elements.
+# Fase C — Geração de PDF + Cadeia de IA
 
-## Princípios de execução
-- Mantém o que já está excelente: Atmosphere, MarbleBust, quiz visual, identidade preto/#CC0000, micro-interações, i18n 5 idiomas.
-- Sem auth, sem dashboard, sem localStorage. Estado em memória + Supabase (leads/orders na Fase D).
-- Toda copy nova entra nos 5 idiomas (PT/EN/PL/RO/AR-RTL) na mesma PR.
-- Build limpo, zero novos erros TS/lint, responsivo 375/1440, contraste AA.
+## Visão (do moodboard)
+PDF de 24 páginas tratado como **revista editorial / zine de luxo** — não relatório. Cada arquétipo é um "número" com capa, busto central, tipografia massiva distorcida ao fundo, grid técnica fina e washes de cor da paleta oficial do arquétipo (msg #467). Vermelho `#CC0000` é a tinta editorial transversal; a cor do arquétipo entra como duotone/wash nas capas e cabeçalhos de áreas.
 
-## Arquitetura do funil (estágios em `src/routes/index.tsx`)
+**Linguagem visual herdada das refs:**
+- Tipo gigante (Syne 800, 180-260pt) atrás do MarbleBust, recortada pelo objeto.
+- Grid 12 col com linhas hairline `#2A2A2A` visíveis em algumas páginas (ref 1).
+- Numeração de página estilo zine: `01 / 24` + tag de capítulo vertical na lateral.
+- Duotone vermelho×preto×creme `#F5F0E6` (ref 2). MarbleBust sempre em duotone, nunca colorido.
+- Citações inline com sublinhado vermelho ou caixa com border-left 3px.
+- Selos circulares: "EP. 01", "PL.04", "DIAGNÓSTICO". 
+- Wash radial da cor do arquétipo cobrindo 30-40% da capa.
+
+## Arquitetura de geração
 
 ```text
-hero (landing 9 blocos)
-  └─ CTA "Iniciar diagnóstico"
-       ↓
-identity  → nome + idade (já existe, manter)
-       ↓
-quiz      → 8 perguntas (já existe, ajustar copy p/ 4 áreas)
-       ↓
-email     → captura email (lead salvo na Fase D)
-       ↓
-loader    → NeuralLoader 3-4s com textos rotativos das 4 áreas
-       ↓
-reveal    → arquétipo + 4 mini-cards (Dinheiro/Carreira/Amor/Pessoal)
-       ↓
-vsl       → 8 blocos de venda (novo, abaixo)
-       ↓
-checkout  → stub visual (Fase D vira Stripe Elements)
+checkout pago (Fase D, stub agora)
+   │
+   ▼
+generatePdf server fn  (src/lib/pdf/generate.functions.ts)
+   │
+   ├─ cache lookup  →  pdf_generations table  (lead+arch+lang+seed → url)
+   │   hit → retorna url
+   │   miss ↓
+   │
+   ├─ AI chain  (src/lib/ai/chain.server.ts)
+   │     1. Groq Llama 3.3 70B  (rápido, default)
+   │     2. Gemini 2.0 Flash    (fallback; PRIMÁRIO para AR)
+   │     3. Cerebras Llama       (fallback 2)
+   │     4. OpenRouter free     (último recurso)
+   │   structured output → 4 áreas × {diagnóstico, padrão, plano 7d}
+   │
+   ├─ render PDF  (@react-pdf/renderer, src/lib/pdf/template/*)
+   │     Document ← capa + intro + 4 dossiês de área + protocolo + outro
+   │
+   ├─ upload  →  Supabase Storage bucket "diagnoses" (privado)
+   │     getSignedUrl 30d
+   │
+   ├─ persist  →  pdf_generations row (lead_id, arch, lang, storage_path, url, expires_at)
+   │
+   └─ envia email Brevo (template multi-idioma, link + anexo se ≤5MB)
 ```
 
-## Bloco VSL (novo componente `src/components/sales/VSL.tsx`)
+## Estrutura do PDF (24 páginas A4 retrato)
 
-Estrutura em 8 sub-seções, cada uma `<Reveal>` + Atmosphere local quando fizer sentido:
+```text
+01  CAPA               wash arquétipo + MarbleBust duotone + Syne 800 nome
+02  COLOFÃO            quem é o leitor, data, idioma, edição "Nº 0001"
+03  ÍNDICE             4 áreas + selos
+04  INTRO ARQUÉTIPO    1 página editorial, 2 colunas, drop-cap vermelha
+05  PADRÃO INVISÍVEL   citação gigante + diagrama de loop comportamental
+06  ÁREA 1 — DINHEIRO    capa de área (busto + tipo distorcida + score)
+07     dossiê + plano 7d
+08     exercício prático
+09  ÁREA 2 — CARREIRA    capa
+10     dossiê + plano
+11     exercício
+12  ÁREA 3 — AMOR        capa
+13     dossiê
+14     exercício
+15  ÁREA 4 — PESSOAL     capa
+16     dossiê
+17     exercício
+18  MAPA DE RELAÇÕES   matriz 4×4 arquétipos (compatibilidades)
+19  PROTOCOLO 7 DIAS   tabela diária
+20  GATILHOS           lista de armadilhas + contramedida
+21  RITUAL DE FECHAMENTO   página meditativa, muito espaço negativo
+22  REFERÊNCIAS        livros, papers (legitimidade)
+23  PRÓXIMOS PASSOS    CTA cross-sell OB2
+24  CONTRA-CAPA        IdentitySymbol + assinatura
+```
 
-1. **Âncora emocional** — H1 do arquétipo revelado + sub citando as 4 áreas em colapso. MarbleBust à esquerda.
-2. **Espelho de dor** — 4 cards (1 por área) com sintomas específicos do arquétipo do lead. Texto personalizado via template `{name}`.
-3. **Revelação científica** — bloco editorial (Syne 800) explicando o método dos 4 arquétipos. Badges com "neurociência comportamental", "psicologia financeira", "8 anos de pesquisa".
-4. **O produto** — mockup do PDF (placeholder visual por enquanto; Fase C gera real). Lista do que vem dentro: diagnóstico 4 áreas, plano de ação, mapa de relações.
-5. **Prova social** — 3 testimonials novos (não os atuais), citando transformação nas 4 áreas. Avatar gradiente por arquétipo.
-6. **Oferta + preço** — preço local (USD/BRL/PLN/RON/SAR detectado por idioma como proxy até Fase D), 2 order bumps visíveis: $4.99 Guia de Relações + $7.99 Protocolo 30d. CTA gigante.
-7. **FAQ** — 6 perguntas focadas em objeções de compra one-shot (entrega, idioma, segurança Stripe, reembolso, é só financeiro?, funciona pra mim?).
-8. **CTA Final** — urgência ("seu diagnóstico está pronto há {tempo}"), botão único, garantia Stripe + 7 dias.
+## Cadeia de IA — contrato
 
-## Reveal premium (refazer `Reveal` stage do `index.tsx`)
+Saída estruturada única (1 chamada):
+```ts
+type Diagnosis = {
+  archetype: 'AO'|'SS'|'EA'|'HI';
+  greeting: string;                 // 1 frase usando {name}
+  invisiblePattern: string;         // 80-120 palavras
+  areas: {
+    money:    AreaPayload;
+    career:   AreaPayload;
+    love:     AreaPayload;
+    personal: AreaPayload;
+  };
+  protocol7d: { day: number; action: string; cue: string }[]; // 7 itens
+  triggers: { trigger: string; counter: string }[];           // 5 itens
+};
+type AreaPayload = {
+  score: number;            // 0-100 (do area-scores.ts; AI só recebe)
+  diagnosis: string;        // 60-90 palavras
+  rootBehavior: string;     // 1 frase
+  weekPlan: string[];       // 7 ações concretas
+  exercise: { title: string; steps: string[] }; // 3-5 passos
+};
+```
+Chain (`callAIChain`) tenta na ordem até receber JSON válido pelo schema (Zod parse). Logs por etapa em `pdf_generations.attempts jsonb`.
 
-- Typewriter no nome do arquétipo (1 char / 50ms) — já existe lógica, manter.
-- Abaixo: 4 mini-cards horizontais (Money/Career/Love/Personal) com:
-  - Ícone Lucide (Coins/Briefcase/Heart/Sparkles)
-  - Score (0–100) calculado a partir do `scoreAnswers` existente normalizado
-  - 1 linha de diagnóstico curto por área (template fixo por arquétipo)
-  - Barra de progresso animada (`transition: width 0.8s ease-out`)
-- CTA "Ver diagnóstico completo" → desce para o VSL com `scrollIntoView`.
+## Cache
 
-## Quiz — ajustes mínimos
-- Manter as 8 perguntas e scoring (já cobre os 4 arquétipos).
-- Revisar copy de cada pergunta para incluir gatilhos das 4 áreas (não só dinheiro). Ex.: Q6 ("sentimento dominante") já é universal; Q3 ("futuro") idem. Apenas trocar exemplos em Q1, Q4, Q5 para misturar carreira/amor/pessoal.
-- Sem mudança no `scoring.ts`.
+- Tabela `pdf_generations` (lead_id, archetype, lang, content_hash, storage_path, signed_url, expires_at, attempts, cost_cents).
+- `content_hash = sha256(name + archetype + lang + scoresJson)` — se hit nas últimas 24h, retorna URL existente.
+- Pré-warm opcional (Fase C.5): gerar 4 arq × 5 lang = 20 PDFs-base sem nome para fallback offline.
 
-## Captura de email (novo `stage="email"`)
-- Tela minimalista: MarbleBust pequeno + headline "Para onde enviamos seu diagnóstico?" + input email + botão.
-- Validação client-side (regex + zod inline).
-- Persistência: stub em memória agora; Fase D salva em `quiz_leads` no Supabase via server fn.
-- i18n nas 5 línguas.
+## Bucket Storage
 
-## Landing pré-quiz (`stage="hero"`)
-Manter os 9 blocos atuais (ProofBar, ArchetypeShowcase, HowItWorks, FeaturesGrid, Testimonials, FAQ, FinalCTA), mas:
-- **ArchetypeShowcase**: trocar copy de cada arquétipo para citar as 4 áreas, não só dinheiro.
-- **FeaturesGrid**: reescrever para falar do PDF entregue (4 seções), não de ferramentas SaaS.
-- **HowItWorks**: 3 passos = Quiz (2min) → Email → PDF entregue.
-- **Hero H1**: novo headline "Descubra o padrão invisível que sabota suas 4 áreas da vida".
-- **FAQ**: trocar para perguntas de produto one-shot.
+- `diagnoses` (privado), policy: só `service_role` lê/escreve; URL assinada por 30d entregue ao usuário.
+- Migração inclui criação do bucket + policy.
 
-## Checkout stub (`stage="checkout"`)
-Componente visual completo, sem Stripe ainda:
-- Resumo do pedido (Diagnóstico $9.90 + bumps toggle)
-- Total dinâmico
-- Campos fake (card, nome, email já preenchido)
-- Botão "Pagar $X.XX" → simula sucesso → vai pra `/obrigado`
-- Fase D substitui pelos componentes Stripe Elements reais sem mudar o layout.
+## Email (Brevo)
 
-## i18n
-Novas chaves em `src/lib/i18n/translations.ts`:
-- `vsl.block1` … `vsl.block8`
-- `reveal.areas.{money|career|love|personal}.{label|description.{AO|SS|EA|HI}}`
-- `email.{title|placeholder|cta|validation}`
-- `checkout.{summary|bump1|bump2|total|payButton|secureBy}`
-- `landing.*` revisado (headlines + ArchetypeShowcase + FeaturesGrid + HowItWorks + FAQ)
-- Tudo nos 5 idiomas. AR validado RTL.
+- Server fn `sendDiagnosisEmail` usa `BREVO_API_KEY`.
+- Template inline multi-idioma (5 chaves), assunto: "Seu diagnóstico chegou, {name}".
+- Anexa PDF se ≤5MB; senão só link.
 
-## Arquivos afetados (estimativa)
+## Arquivos
+
 **Novos**
-- `src/components/sales/VSL.tsx` (orchestrator dos 8 blocos)
-- `src/components/sales/VSLBlock.tsx` (wrapper genérico)
-- `src/components/sales/PdfMockup.tsx` (visual do produto)
-- `src/components/sales/PricingCard.tsx`
-- `src/components/sales/OrderBumps.tsx`
-- `src/components/sales/index.ts`
-- `src/components/reveal/AreaScoreCard.tsx`
-- `src/components/funnel/EmailCapture.tsx`
-- `src/components/funnel/CheckoutStub.tsx`
-- `src/lib/funnel/area-scores.ts` (deriva 4 scores a partir do `scoreAnswers`)
-- `src/lib/funnel/pricing-stub.ts` (moeda por idioma — placeholder Fase D)
+- `src/lib/pdf/template/Document.tsx` — orquestrador @react-pdf/renderer
+- `src/lib/pdf/template/pages/{Cover,Toc,Intro,AreaCover,AreaDossier,AreaExercise,Map,Protocol,Triggers,Ritual,References,NextSteps,Backcover}.tsx`
+- `src/lib/pdf/template/atoms/{EditorialType,Duotone,GridOverlay,Stamp,Quote,PageNumber,WashBackdrop}.tsx`
+- `src/lib/pdf/template/tokens.ts` — cores, fontes registradas (Syne+Inter+Noto Naskh AR), spacing
+- `src/lib/pdf/template/marble.server.ts` — converte MarbleBust SVG → PNG duotone por arquétipo (sharp não roda no Worker; usar `@resvg/resvg-wasm` que é WASM-edge-safe)
+- `src/lib/pdf/generate.functions.ts` — server fn pública (Fase D protege com auth do order)
+- `src/lib/pdf/generate.server.ts` — helpers (cache lookup, upload, sign)
+- `src/lib/ai/chain.server.ts` — `callAIChain<T>(messages, schema)`
+- `src/lib/ai/prompts.ts` — system + user prompts por idioma
+- `src/lib/email/brevo.server.ts` — `sendDiagnosisEmail`
+- `src/lib/email/templates.ts` — copy 5 idiomas
+- `supabase/migrations/<ts>_phase_c_pdf.sql` — `pdf_generations`, `quiz_leads` (mínimo), bucket, policies, GRANTs
 
 **Editados**
-- `src/routes/index.tsx` (orquestração dos estágios, remoção do `Sales` antigo)
-- `src/lib/i18n/types.ts` (Dict expandido)
-- `src/lib/i18n/translations.ts` (chaves novas em 5 idiomas)
-- `src/components/landing/ArchetypeShowcase.tsx` (copy + 4 áreas)
-- `src/components/landing/FeaturesGrid.tsx` (reposicionar para PDF)
-- `src/components/landing/HowItWorks.tsx` (3 passos atualizados)
-- `src/components/landing/FAQ.tsx` (perguntas one-shot)
-- `src/components/landing/FinalCTA.tsx` (microcopy)
-- `mem/index.md` + `mem/features/mvp-roadmap.md` (marcar Fase B ✅ no fim)
+- `src/routes/obrigado.tsx` — chama `generatePdf` via `useServerFn` + estado loading/success/erro com MarbleBust loader
+- `src/components/funnel/CheckoutStub.tsx` — passa lead+answers para `/obrigado` via search params
+- `.lovable/plan.md`, `mem/features/mvp-roadmap.md`
 
-## Ordem de execução (PRs lógicos dentro da Fase B)
-1. **B1 — Infra de estágios**: adicionar `email`/`checkout` ao tipo `Stage`, esqueleto navegação, sem UI nova.
-2. **B2 — Email capture + roteamento** (com i18n).
-3. **B3 — Reveal premium** (AreaScoreCard + score derivado das 4 áreas).
-4. **B4 — VSL 8 blocos** (componente + i18n completo).
-5. **B5 — Landing copy refresh** (ArchetypeShowcase, FeaturesGrid, HowItWorks, FAQ, Hero H1).
-6. **B6 — Checkout stub** visual.
-7. **B7 — Polish + responsivo + RTL audit + build clean + atualizar `mem/`**.
+## Secrets necessários
+- `LOVABLE_API_KEY` (já existe, AI Gateway)
+- `BREVO_API_KEY` (novo — pedir ao usuário antes da etapa C7)
+- Supabase URL/keys (já existem)
 
-## Critérios de aceite (Definition of Done Fase B)
+## Sub-fases executáveis
+
+| # | Escopo | Verificação |
+|---|---|---|
+| **C1** | Migração: `quiz_leads`, `pdf_generations`, bucket `diagnoses`, policies, GRANTs | linter Supabase clean |
+| **C2** | `tokens.ts` + atoms (`EditorialType`, `Duotone`, `GridOverlay`, `Stamp`, `Quote`, `WashBackdrop`) + Storybook visual em rota dev `/dev/pdf` (preview HTML do PDF) | render no /dev/pdf |
+| **C3** | Páginas estáticas: Cover, Toc, Intro, Backcover — com dados mock | preview OK |
+| **C4** | Páginas dinâmicas: AreaCover, AreaDossier, AreaExercise, Map, Protocol, Triggers, Ritual, References, NextSteps | preview 4 arquétipos |
+| **C5** | `marble.server.ts` (SVG→PNG duotone via resvg-wasm) + integração nas capas | imagens nítidas no PDF |
+| **C6** | `chain.server.ts` + `prompts.ts` + structured output Zod | test edge fn retorna JSON válido |
+| **C7** | `generate.functions.ts` (cache + render + upload + signed URL) | gera PDF real salvo no Storage |
+| **C8** | Brevo + template + envio | email recebido em 5 idiomas |
+| **C9** | Integração final: `/obrigado` chama tudo, loader MarbleBust, fallback de erro com retry, AR RTL audit no PDF | E2E: checkout stub → /obrigado → PDF + email |
+
+## Decisões técnicas
+
+- **@react-pdf/renderer** (não jsPDF): suporta flexbox, fontes custom, imagens, RTL via `direction: rtl`.
+- **Fonts no PDF:** registrar Syne 800, Inter 400/600, Noto Naskh Arabic 400/700 via `Font.register` lendo de `src/assets/fonts/*.ttf` (subir como assets se ainda não existirem).
+- **RTL:** quando `lang==='ar'`, todo `<Page>` recebe `style={{ direction: 'rtl' }}` e tipografia troca para Noto Naskh.
+- **Worker-safety:** `@react-pdf/renderer` funciona em Workers (já testado em produção). `@resvg/resvg-wasm` para rasterizar SVG sem `sharp`.
+- **Sem PII em logs:** `pdf_generations.attempts` guarda só model+latência+tokens, nunca o conteúdo do prompt.
+
+## Critérios de aceite Fase C
 - [ ] `bun run build` limpo
-- [ ] Funil completo navegável: hero → quiz → email → loader → reveal → vsl → checkout stub → /obrigado
-- [ ] 4 arquétipos × 4 áreas com copy diferenciada
-- [ ] 5 idiomas completos, AR RTL validado
-- [ ] Responsivo 375 / 768 / 1440
-- [ ] Sem regressão visual no Hero/quiz atual
-- [ ] Checkout stub plug-and-play para Fase D
+- [ ] `/dev/pdf?arch=AO&lang=pt` preview renderiza 24 páginas com dados mock
+- [ ] PDF real gerado para AO/SS/EA/HI nos 5 idiomas (20 arquivos teste no Storage)
+- [ ] AR renderiza RTL correto, sem caixas pretas (fonte correta)
+- [ ] Cache hit no segundo request idêntico (<200ms)
+- [ ] Email Brevo entregue com PDF
+- [ ] Fluxo E2E pelo `/obrigado` sem erros
 
-## Detalhes técnicos
-- Estado de funil: `useState` no `index.tsx` (sem context novo; já está enxuto).
-- Email/answers passados via props entre estágios; nada em localStorage.
-- `scoreAnswers` retorna scores por arquétipo; `area-scores.ts` faz weighted mapping `(arquétipo × área) → score 0–100` via tabela fixa por arquétipo.
-- VSL usa `Reveal.Group` para stagger, `Atmosphere fog="subtle"` só no bloco 3 (revelação) e bloco 8 (CTA final).
-- Pricing stub: `{ lang: 'pt' → 'R$49,90', 'en' → '$9.90', 'pl' → '39 zł', 'ro' → '45 RON', 'ar' → 'SAR 37' }`.
-
-## Fora do escopo (vai na Fase C/D)
-- Geração de PDF real (Fase C)
-- IA chain Groq/Gemini (Fase C)
-- Stripe Elements real + webhook (Fase D)
-- Persistência em Supabase de leads/orders (Fase D)
-- Email transacional via Brevo (Fase D)
+## Fora do escopo (Fase D)
+- Stripe real, webhook de pagamento, multi-moeda IP detection
+- Auth no `generatePdf` (hoje será aberto; Fase D liga ao `order_id` verificado pelo webhook)
+- Pré-warm batch dos 20 PDFs-base
