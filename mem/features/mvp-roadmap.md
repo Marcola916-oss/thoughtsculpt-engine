@@ -38,11 +38,14 @@ Foco:
 - Manter quiz visual atual, ajustar perguntas se necessário p/ scoring multi-dimensional.
 
 ## Fase C — Geração PDF + IA chain
-- @react-pdf/renderer com template por arquétipo (cores oficiais: AO/SS/EA/HI).
-- Server fn `generatePdf` chain: Groq → Gemini → Cerebras → OpenRouter. AR usa Gemini primeiro.
-- Cache: pré-gerar 4 arquétipos × 5 idiomas = 20 PDFs-base, personalizar só nome+scores.
-- Storage: Supabase bucket `diagnoses` (público com URL assinada 30d).
-- Email: Brevo (anexo PDF + link download), template multi-idioma.
+Plano completo em `.lovable/plan.md` (sub-fases C1–C9).
+
+- C1 — Migração ✅ (tabela `pdf_generations` com cache por content_hash, bucket privado `diagnoses`, policies só para `service_role`).
+- C2/C3/C4/C5 — Template editorial ✅ (`src/lib/pdf/tokens.ts` + `Document.tsx`): 14 páginas A4 inspiradas em ref editorial zine/revista (tipografia massiva atrás de objeto, grid 12-col, duotone cor-arquétipo×creme×vermelho-marca, números de página estilo `01 / 14`, tags verticais, stamps, scoreBars). Capa, abertura, índice de scores, 4×(capa de área + dossiê com plano 7d + exercício box), protocolo 7 dias, gatilhos×5, contra-capa/ritual. Fontes via Google Fonts CDN (Syne 800, Inter 400/600/700, Noto Naskh Arabic). Paleta oficial por arquétipo aplicada em wash + chips.
+- C6 — Cadeia de IA ✅ (`src/lib/ai/chain.server.ts` + `diagnosis-prompts.ts` + `diagnosis-schema.ts`): Zod schema completo, JSON Schema para tool-call forçado, 3 modelos em chain (Gemini 2.5 Flash → 2.5 Flash Lite → 2.0 Flash Exp), prompt system+user por idioma (PT-PT, EN, PL, RO, AR) com tom editorial provocador, attempts persistidas sem PII.
+- C7 — Server fn `generateDiagnosisPdf` ✅ (`src/lib/pdf/generate.functions.ts`): cache lookup por sha256(name+arch+lang+areaScores+v), reserva de row, chain de IA, render @react-pdf/renderer dynamic import (out of client bundle), upload para Storage, signed URL 30d, persistência de status/attempts/error. Validações de lead, fallback de lang.
+- C8 — Email Brevo ⏳ PENDENTE — requer secret `BREVO_API_KEY` do usuário. Template multi-idioma + envio com link signed URL.
+- C9 — Integração `/obrigado` ✅: chama generateDiagnosisPdf via useServerFn, exibe MarbleBust loader durante geração, botão CTA vermelho de download quando ready, retry em caso de erro, indicador "fromCache" quando aplicável. CheckoutStub agora passa `leadId` via search params. Atmosphere subtle de fundo. Copy em 5 idiomas embedded.
 
 ## Fase D — Checkout Stripe Elements + multi-moeda
 - Checkout custom (não hosted) com Stripe Elements para visual + OB1 toggle visível.
