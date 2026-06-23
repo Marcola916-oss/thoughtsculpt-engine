@@ -314,10 +314,10 @@ const PT: Dict = {
       title: "QUAL\u00a0 É\u00a0 O TEU\u00a0 PADRÃO INVISÍVEL?",
       sub: "O mesmo padrão emocional aparece em 4 áreas: dinheiro, carreira, amor e vida pessoal. Descobre o teu em menos de 3 minutos.",
       items: {
-        AO: { name: "Guardador", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão e mede tudo pela utilidade — no dinheiro, na carreira segura demais, no amor utilitário, no descanso adiado." },
-        SS: { name: "Pavão", trigger: "Gatilho: aprovação social", desc: "Vive pela imagem — gasta para impressionar, escolhe cargos pelo prestígio, parceiros que validam, e cuida do exterior enquanto o interior se desgasta." },
-        EA: { name: "Fantasma", trigger: "Gatilho: fuga e negação", desc: "Evita conversas difíceis — sobre dinheiro, promoções, conflitos no amor, e até consigo próprio. O desconforto é anestesiado pela ausência." },
-        HI: { name: "Foguinho", trigger: "Gatilho: prazer imediato", desc: "Vive de picos — compras por impulso, projetos abandonados, paixões intensas e curtas, hábitos saudáveis que duram dias." },
+        AO: { name: "Acumulador Obsessivo", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão e mede tudo pela utilidade — no dinheiro, na carreira segura demais, no amor utilitário, no descanso adiado." },
+        SS: { name: "Status Seeker", trigger: "Gatilho: aprovação social", desc: "Vive pela imagem — gasta para impressionar, escolhe cargos pelo prestígio, parceiros que validam, e cuida do exterior enquanto o interior se desgasta." },
+        EA: { name: "Alienado Financeiro", trigger: "Gatilho: fuga e negação", desc: "Evita conversas difíceis — sobre dinheiro, promoções, conflitos no amor, e até consigo próprio. O desconforto é anestesiado pela ausência." },
+        HI: { name: "Hedonista Impulsivo", trigger: "Gatilho: prazer imediato", desc: "Vive de picos — compras por impulso, projetos abandonados, paixões intensas e curtas, hábitos saudáveis que duram dias." },
       },
     },
     howItWorks: {
@@ -794,10 +794,10 @@ const EN: Dict = {
       title: "What's your invisible pattern?",
       sub: "The same emotional pattern shows up in 4 areas: money, career, love, and personal life. Find yours in under 3 minutes.",
       items: {
-        AO: { name: "The Saver", trigger: "Trigger: fear of running out", desc: "Hoards obsessively and measures everything by utility — in money, in over-safe career choices, in transactional love, in rest postponed." },
-        SS: { name: "The Peacock", trigger: "Trigger: social approval", desc: "Lives by the image — spends to impress, picks roles for prestige, partners who validate, polishes the outside while the inside erodes." },
-        EA: { name: "The Ghost", trigger: "Trigger: avoidance and denial", desc: "Avoids the hard conversations — about money, raises, conflict in love, even with yourself. Discomfort is numbed by absence." },
-        HI: { name: "The Spark", trigger: "Trigger: immediate pleasure", desc: "Lives in spikes — impulse buys, abandoned projects, short intense passions, healthy habits that last days." },
+        AO: { name: "Obsessive Accumulator", trigger: "Trigger: fear of running out", desc: "Hoards obsessively and measures everything by utility — in money, in over-safe career choices, in transactional love, in rest postponed." },
+        SS: { name: "Status Seeker", trigger: "Trigger: social approval", desc: "Lives by the image — spends to impress, picks roles for prestige, partners who validate, polishes the outside while the inside erodes." },
+        EA: { name: "Financial Avoider", trigger: "Trigger: avoidance and denial", desc: "Avoids the hard conversations — about money, raises, conflict in love, even with yourself. Discomfort is numbed by absence." },
+        HI: { name: "Impulsive Hedonist", trigger: "Trigger: immediate pleasure", desc: "Lives in spikes — impulse buys, abandoned projects, short intense passions, healthy habits that last days." },
       },
     },
     howItWorks: {
@@ -1319,10 +1319,10 @@ const PL: Dict = {
       title: "Jaki jest Twój niewidzialny wzorzec?",
       sub: "Ten sam emocjonalny wzorzec pojawia się w 4 obszarach: pieniądze, kariera, miłość, życie osobiste. Odkryj swój w mniej niż 3 minuty.",
       items: {
-        AO: { name: "Oszczędny", trigger: "Wyzwalacz: strach przed brakiem", desc: "Gromadzi z obsesją. Trudność w wydawaniu nawet przy zdrowym saldzie. Poczucie bezpieczeństwa nigdy nie wydaje się wystarczające." },
-        SS: { name: "Paw", trigger: "Wyzwalacz: aprobata społeczna", desc: "Wydaje, by imponować. Status jest emocjonalną walutą. Zewnętrzny wizerunek ważniejszy niż realne zdrowie finansowe." },
-        EA: { name: "Duch", trigger: "Wyzwalacz: ucieczka i zaprzeczenie", desc: "Unika rozmów o pieniądzach. Ignoruje wyciągi i rachunki. Dyskomfort finansowy znieczulany unikaniem." },
-        HI: { name: "Iskra", trigger: "Wyzwalacz: natychmiastowa przyjemność", desc: "Kupuje impulsywnie, żyje tu i teraz. Ekscytacja chwili przesłania każdy plan. Teraźniejszość zawsze wygrywa." },
+        AO: { name: "Obsesyjny Zbieracz", trigger: "Wyzwalacz: strach przed brakiem", desc: "Gromadzi z obsesją. Trudność w wydawaniu nawet przy zdrowym saldzie. Poczucie bezpieczeństwa nigdy nie wydaje się wystarczające." },
+        SS: { name: "Łowca Statusu", trigger: "Wyzwalacz: aprobata społeczna", desc: "Wydaje, by imponować. Status jest emocjonalną walutą. Zewnętrzny wizerunek ważniejszy niż realne zdrowie finansowe." },
+        EA: { name: "Finansowy Unik", trigger: "Wyzwalacz: ucieczka i zaprzeczenie", desc: "Unika rozmów o pieniądzach. Ignoruje wyciągi i rachunki. Dyskomfort finansowy znieczulany unikaniem." },
+        HI: { name: "Impulsywny Hedonista", trigger: "Wyzwalacz: natychmiastowa przyjemność", desc: "Kupuje impulsywnie, żyje tu i teraz. Ekscytacja chwili przesłania każdy plan. Teraźniejszość zawsze wygrywa." },
       },
     },
     howItWorks: {
@@ -1539,10 +1539,10 @@ const RO: Dict = {
       title: "Care este tiparul tău invizibil?",
       sub: "Același tipar emoțional apare în 4 zone: bani, carieră, dragoste și viață personală. Descoperă-l pe al tău în mai puțin de 3 minute.",
       items: {
-        AO: { name: "Economul", trigger: "Declanșator: teama de a nu avea", desc: "Acumulează cu obsesia. Dificultate în a cheltui chiar și cu un sold sănătos. Senzația de siguranță nu pare niciodată suficientă." },
-        SS: { name: "Păunul", trigger: "Declanșator: aprobarea socială", desc: "Cheltuie ca să impresioneze. Statutul este moneda emoțională. Imaginea externă valorează mai mult decât sănătatea financiară reală." },
-        EA: { name: "Fantasma", trigger: "Declanșator: fugă și negare", desc: "Evită să vorbească despre bani. Ignoră extrase și facturi. Disconfortul financiar este anesteziat de evitare." },
-        HI: { name: "Scânteia", trigger: "Declanșator: plăcerea imediată", desc: "Cumpără impulsiv, trăiește acum. Emoția momentului suprascrie orice plan. Prezentul câștigă întotdeauna." },
+        AO: { name: "Acumulator Obsesiv", trigger: "Declanșator: teama de a nu avea", desc: "Acumulează cu obsesia. Dificultate în a cheltui chiar și cu un sold sănătos. Senzația de siguranță nu pare niciodată suficientă." },
+        SS: { name: "Căutător de Statut", trigger: "Declanșator: aprobarea socială", desc: "Cheltuie ca să impresioneze. Statutul este moneda emoțională. Imaginea externă valorează mai mult decât sănătatea financiară reală." },
+        EA: { name: "Evitant Financiar", trigger: "Declanșator: fugă și negare", desc: "Evită să vorbească despre bani. Ignoră extrase și facturi. Disconfortul financiar este anesteziat de evitare." },
+        HI: { name: "Hedonist Impulsiv", trigger: "Declanșator: plăcerea imediată", desc: "Cumpără impulsiv, trăiește acum. Emoția momentului suprascrie orice plan. Prezentul câștigă întotdeauna." },
       },
     },
     howItWorks: {
@@ -1760,10 +1760,10 @@ const AR: Dict = {
       title: "ما هو نمطك الخفي؟",
       sub: "نفس النمط العاطفي يظهر في 4 مجالات: المال، العمل، الحب والحياة الشخصية. اكتشف نمطك في أقل من 3 دقائق.",
       items: {
-        AO: { name: "المدخر القهري", trigger: "المحفّز: خوف النفاد", desc: "يكدّس بهوس. صعوبة في الإنفاق حتى مع رصيد صحي. الشعور بالأمان لا يبدو كافياً أبداً." },
-        SS: { name: "الطاووس", trigger: "المحفّز: القبول الاجتماعي", desc: "ينفق لإبهار الآخرين. المكانة هي العملة العاطفية. الصورة الخارجية أهم من الصحة المالية الحقيقية." },
-        EA: { name: "الشبح", trigger: "المحفّز: الهروب والإنكار", desc: "يتجنب الحديث عن المال. يتجاهل الكشوف والفواتير. discomfort المالي مخدر بالهروب." },
-        HI: { name: "الشرارة", trigger: "المحفّز: المتعة الفورية", desc: "يشتري باندفاع، يعيش اللحظة. إثارة الآن تطغى على أي تخطيط. الحاضر يفوز دائماً." },
+        AO: { name: "المُكدِّس القهري", trigger: "المحفّز: خوف النفاد", desc: "يكدّس بهوس. صعوبة في الإنفاق حتى مع رصيد صحي. الشعور بالأمان لا يبدو كافياً أبداً." },
+        SS: { name: "الباحث عن المكانة", trigger: "المحفّز: القبول الاجتماعي", desc: "ينفق لإبهار الآخرين. المكانة هي العملة العاطفية. الصورة الخارجية أهم من الصحة المالية الحقيقية." },
+        EA: { name: "المُتجنِّب المالي", trigger: "المحفّز: الهروب والإنكار", desc: "يتجنب الحديث عن المال. يتجاهل الكشوف والفواتير. الانزعاج المالي يُخدَّر بالتجنب." },
+        HI: { name: "الانفعالي المُتعوي", trigger: "المحفّز: المتعة الفورية", desc: "يشتري باندفاع، يعيش اللحظة. إثارة الآن تطغى على أي تخطيط. الحاضر يفوز دائماً." },
       },
     },
     howItWorks: {
