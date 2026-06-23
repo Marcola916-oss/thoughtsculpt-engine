@@ -341,6 +341,65 @@ export type Database = {
         }
         Relationships: []
       }
+      pdf_generations: {
+        Row: {
+          archetype: Database["public"]["Enums"]["archetype"]
+          attempts: Json
+          content_hash: string
+          cost_cents: number
+          created_at: string
+          error: string | null
+          expires_at: string | null
+          id: string
+          lang: string
+          lead_id: string | null
+          signed_url: string | null
+          status: string
+          storage_path: string | null
+          updated_at: string
+        }
+        Insert: {
+          archetype: Database["public"]["Enums"]["archetype"]
+          attempts?: Json
+          content_hash: string
+          cost_cents?: number
+          created_at?: string
+          error?: string | null
+          expires_at?: string | null
+          id?: string
+          lang: string
+          lead_id?: string | null
+          signed_url?: string | null
+          status?: string
+          storage_path?: string | null
+          updated_at?: string
+        }
+        Update: {
+          archetype?: Database["public"]["Enums"]["archetype"]
+          attempts?: Json
+          content_hash?: string
+          cost_cents?: number
+          created_at?: string
+          error?: string | null
+          expires_at?: string | null
+          id?: string
+          lang?: string
+          lead_id?: string | null
+          signed_url?: string | null
+          status?: string
+          storage_path?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pdf_generations_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "quiz_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           access_level: string
