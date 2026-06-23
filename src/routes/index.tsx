@@ -26,6 +26,7 @@ import { saveQuizLead } from "../lib/quiz.functions";
 import { startBrainFramesPreload } from "@/lib/brainFramesCache";
 import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-scores";
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
+import { VSL } from "@/components/sales/VSL";
 
 // ── Phase A placeholders (will be replaced in Phase B/D when checkout is rebuilt) ──
 type PlanKey = "30d" | "6m" | "1y";
