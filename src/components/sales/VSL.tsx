@@ -334,7 +334,7 @@ export interface VSLProps {
 export function VSL({ name, arch, onCheckout }: VSLProps) {
   const { lang, currency } = useI18n();
   const L = lang as Lang;
-  const pricing = getPricing(L, currency ?? null);
+  const pricing = getPricing(L, currency);
   const archLabel = ARCH_LABEL[arch][L];
   const painSet = COPY.pain[arch];
 
@@ -355,9 +355,9 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
                 {COPY.anchorSub[L]}
               </p>
             </Reveal>
-            <Reveal delay={150}>
+            <Reveal delay={0.15}>
               <div className="hidden md:block">
-                <MarbleBust width={240} height={300} />
+                <MarbleBust size={260} />
               </div>
             </Reveal>
           </div>
@@ -372,7 +372,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
               {COPY.painTitle[L]}
             </h2>
           </Reveal>
-          <Reveal.Group className="grid gap-5 md:grid-cols-2 lg:grid-cols-4" stagger={100}>
+          <Reveal.Group className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {(["money", "career", "love", "personal"] as const).map((area) => (
               <PainCard
                 key={area}
@@ -397,7 +397,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
                 {COPY.scienceH2[L]}
               </h2>
             </Reveal>
-            <Reveal delay={120}>
+            <Reveal delay={0.12}>
               <p className="text-lg leading-relaxed text-foreground/75">{COPY.scienceBody[L]}</p>
               <div className="mt-8 flex flex-wrap gap-2">
                 {COPY.scienceBadges[L].map((b, i) => {
@@ -424,7 +424,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
           <Reveal>
             <PdfMockup archLabel={archLabel} pages={COPY.pdfPages[L]} langLabel={COPY.pdfLanguage[L]} />
           </Reveal>
-          <Reveal delay={120}>
+          <Reveal delay={0.12}>
             <div className="mb-3 text-[11px] uppercase tracking-[0.2em] text-[var(--accent)]">
               {COPY.productEyebrow[L]}
             </div>
@@ -454,7 +454,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
               {COPY.socialH2[L]}
             </h2>
           </Reveal>
-          <Reveal.Group className="grid gap-5 md:grid-cols-3" stagger={120}>
+          <Reveal.Group className="grid gap-5 md:grid-cols-3">
             {TESTIMONIALS[L].map((t) => (
               <div key={t.name} className="rounded-2xl border border-white/8 bg-[#0D0D0D] p-6 transition hover:border-white/20">
                 <div className="mb-3 flex gap-0.5 text-[var(--accent)]">
@@ -487,7 +487,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
               {COPY.pricingH2[L]}
             </h2>
           </Reveal>
-          <Reveal delay={100}>
+          <Reveal delay={0.1}>
             <PricingBlock
               pricing={pricing}
               mainLabel={COPY.pricingMainLabel[L]}
@@ -514,7 +514,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
             </div>
             <h2 className="mb-10 font-display text-3xl leading-tight text-foreground md:text-4xl">FAQ</h2>
           </Reveal>
-          <Reveal delay={80}>
+          <Reveal delay={0.08}>
             <div>
               {COPY.faq[L].map((item, i) => (
                 <FaqItem key={item.q} q={item.q} a={item.a} defaultOpen={i === 0} />
@@ -536,7 +536,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
                 {COPY.finalH2[L]}
               </h2>
             </Reveal>
-            <Reveal delay={120}>
+            <Reveal delay={0.12}>
               <ButtonPress
                 onClick={onCheckout}
                 className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[var(--accent)] px-8 py-5 text-base font-semibold text-white shadow-[0_10px_40px_-10px_rgba(204,0,0,0.6)] transition hover:-translate-y-0.5"
