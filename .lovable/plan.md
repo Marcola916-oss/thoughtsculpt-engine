@@ -1,151 +1,133 @@
 
-# Fase D — Pagamento Stripe + Gating do Diagnóstico
+# Opção A — Checkout de alta conversão (sem fricção dupla)
 
-Objetivo: o utilizador só recebe o PDF + e-mail **depois de pagar**. Stripe Checkout cria a ordem, o webhook verifica e marca como paga, o `/obrigado` só gera com `order_id` válido.
+Objetivo: eliminar o formulário falso de cartão, levar o usuário direto ao Stripe Checkout (hosted), e cercar a transição com elementos de conversão para mirar ≥30%.
 
-## Visão Geral do Fluxo
+---
 
-```text
-Quiz → Reveal (showsa preview) → CTA "Comprar diagnóstico" (D2)
-   ↓
-[server fn] createCheckoutSession(leadId, bumps)
-   ↓ Stripe Checkout (hosted)
-   ↓ success_url=/obrigado?order={order_id}
-[webhook] POST /api/public/stripe/webhook
-   ↓ verifica assinatura HMAC + idempotência
-   ↓ marca orders.status='paid'
-/obrigado lê order_id → valida 'paid' → gera PDF (C7) → envia email (C8)
-```
+## 1) Página do produto (`CheckoutStub.tsx`) — redesenho focado em conversão
 
-## D1 — Schema: tabela `orders`
+Remover por completo o painel direito (email/cartão/exp/cvc/nome falsos). A página passa a ser uma **landing de pré-checkout** centrada (1 coluna em mobile, 2 colunas em desktop com lado direito = "trust stack"), com:
 
-Criar via migration (não usar `subscriptions`, é para outro fluxo):
+### Acima do CTA (lado esquerdo / topo)
+- **Headline curta** ("A 1 clique do teu diagnóstico") — em 5 idiomas.
+- **Order Summary** (já existe) com:
+  - Item principal + descrição
+  - Bumps clicáveis (mantém atual)
+  - **De/Por riscado** no item principal (preço ancora): ex. ~~R$ 149,90~~ → **R$ 49,90** (-66%)
+  - **Badge "Oferta única — não reaparece"** abaixo do total
+  - **Countdown discreto de 10 min** (sessão), reseta se sair — cria urgência sem ser cafona
+- **Total** grande + microcopy "Pagamento único · Sem renovação"
 
-```text
-orders
-├─ id              uuid PK
-├─ lead_id         uuid FK quiz_leads(id)  not null
-├─ stripe_session_id  text unique           not null
-├─ stripe_payment_intent  text
-├─ status          text  default 'pending'  -- pending|paid|failed|expired|refunded
-├─ amount_cents    integer not null
-├─ currency        text not null            -- iso lowercase (usd/eur/brl/...)
-├─ bumps           jsonb default '[]'       -- ['bump1','bump2'] selecionados
-├─ customer_email  text
-├─ paid_at         timestamptz
-├─ raw_event       jsonb                    -- último evento processado
-├─ created_at      timestamptz default now()
-└─ updated_at      timestamptz default now()
-```
+### CTA primário (substitui o form falso)
+- Botão GIGANTE: **"Pagar [Total] com segurança →"** (full-width, altura 64px desktop / 56px mobile)
+- Microtexto abaixo: "Serás levado(a) para o ambiente seguro do **Stripe**. Aceitamos cartão, Apple Pay, Google Pay e Pix¹."
+- ¹Pix só PT/BR — mostrar condicional por `lang`.
+- Loading state: spinner + "A abrir checkout seguro…" (evita double-click)
 
-- `GRANT SELECT, INSERT, UPDATE ON public.orders TO service_role` (escrita só do webhook/server fn admin).
-- `GRANT SELECT ON public.orders TO anon` apenas via RPC com filtro por `id` (não SELECT direto).
-- RLS ON, sem policies para `anon`/`authenticated`.
-- RPC `get_order_status(_id uuid) RETURNS text` security definer → devolve só `status`.
-- Tabela `stripe_events` para idempotência: `event_id text PK, processed_at timestamptz`.
+### Lado direito — Trust Stack (novo componente `TrustStack`)
+Sticky em desktop, acordeão em mobile. Conteúdo:
+1. **Garantia 7 dias** — ícone shield + "Reembolso integral, sem perguntas"
+2. **Pagamento processado por Stripe** — logo Stripe + "Mesma infra de Apple, Google, Amazon"
+3. **SSL 256-bit · PCI-DSS Nível 1** — nunca tocamos no teu cartão
+4. **Entrega em minutos** — PDF no email assim que pagares
+5. **Mini-depoimento** (1 só, curto, com nome+foto+arquétipo) — prova social no momento da decisão
+6. **FAQ rápido (3 perguntas)** — accordion:
+   - "Vou ter que assinar algo?" → Não, pagamento único.
+   - "E se não gostar?" → 7 dias, reembolso total.
+   - "Quanto tempo até receber?" → Minutos, no email.
 
-## D2 — Reveal: CTA de compra
+### Below the fold (mobile)
+- Repete CTA fixo no rodapé (sticky bottom bar com Total + botão) — padrão Shopify mobile, +5-10% conversão mobile.
 
-Em `index.tsx` no estágio `reveal`, depois do preview do arquétipo, substituir o botão atual ("Ver diagnóstico completo" que vai direto para /obrigado) por:
+---
 
-- Cartão de oferta: preço principal + 2 order bumps (checkboxes) usando `getPricing(lang)`.
-- CTA "Desbloquear diagnóstico" → chama server fn `createCheckoutSession({ leadId, bumps })`.
-- Redirect para a URL do Stripe Checkout (hosted, sem ter de embed nada).
-- Mantém o look MindReset (CC0000, hover translateY, micro-interações).
+## 2) Transição → Stripe (server: `checkout.functions.ts`)
 
-## D3 — Server fn `createCheckoutSession`
+Otimizar a Stripe Checkout Session para máxima conversão:
 
-`src/lib/payments/checkout.functions.ts` (público, sem auth — quiz não tem login):
+- `payment_method_types`: **omitir** → Stripe auto-detecta e habilita Apple Pay / Google Pay / Link / cartão / métodos locais (Pix p/ BRL, BLIK p/ PLN, etc).
+- `payment_method_options[card][request_three_d_secure]`: `automatic` (default — não forçar).
+- `customer_creation`: `always` — habilita Link (auto-fill de cartão = +conversão recorrente).
+- `phone_number_collection`: `disabled` (fricção desnecessária p/ produto digital).
+- `billing_address_collection`: `auto` (Stripe decide pelo método).
+- `allow_promotion_codes`: `true` (campo de cupom — usaremos depois p/ recuperação de carrinho).
+- `consent_collection[terms_of_service]`: `none` (já aceitamos antes; evita 1 clique extra).
+- `locale`: já está ok (pt-BR, pl, ro, ar, en).
+- `custom_text[submit][message]`: **microcopy de fechamento** ("Garantia 7 dias · Entrega imediata por email") — aparece acima do botão "Pagar" do Stripe. Isso é o elemento que pediste DENTRO do Stripe.
+- `custom_text[after_submit][message]`: "Estamos a preparar o teu diagnóstico…" (pós-clique, antes do redirect).
+- `payment_intent_data[description]`: "Diagnóstico Comportamental — [Arquétipo]" (aparece na fatura do cartão = reduz chargeback).
+- `payment_intent_data[statement_descriptor_suffix]`: "MINDRESET" (mesmo motivo).
+- `expires_at`: `now + 30min` (libera estoque/intenção, força decisão).
+- `success_url`: já redireciona p/ `/obrigado?order=...&session_id={CHECKOUT_SESSION_ID}` — adicionar `session_id` p/ analytics.
+- `cancel_url`: novo destino → `/?canceled=1&recover=[orderId]` (vamos exibir banner "Quase lá! Retoma onde paraste" — recuperação).
 
-- Input: `{ leadId: uuid, bumps: ('bump1'|'bump2')[] }`
-- Valida lead existe + tem winner.
-- Calcula `amount_cents` server-side a partir de tabela autoritativa em `src/lib/funnel/pricing.server.ts` (NUNCA confiar no client).
-- Cria `orders` row `status='pending'`.
-- Cria Stripe Checkout Session via REST `https://api.stripe.com/v1/checkout/sessions` (sem SDK — bundle leve em Worker):
-  - `mode=payment`
-  - `line_items[]` com `price_data` (currency/unit_amount/product name por arquétipo+lang)
-  - `success_url={origin}/obrigado?order={ORDER_ID}` (placeholder real, não session)
-  - `cancel_url={origin}/?canceled=1`
-  - `client_reference_id=<order.id>`
-  - `metadata={ lead_id, order_id, archetype, lang }`
-  - `customer_email=lead.email`
-  - `payment_intent_data.metadata` espelhada
-- Atualiza `orders.stripe_session_id` com o id retornado.
-- Devolve `{ url: session.url }`.
+---
 
-## D4 — Webhook `/api/public/stripe/webhook`
+## 3) Analytics & tracking de conversão (mínimo viável)
 
-`src/routes/api/public/stripe/webhook.ts`:
+Adicionar eventos em `src/lib/analytics.ts`:
+- `checkout_viewed` (entrou na página do produto)
+- `bump_toggled` (qual bump, on/off)
+- `checkout_cta_clicked` (clicou em pagar)
+- `stripe_session_created` (server confirmou)
+- `checkout_canceled` (voltou via cancel_url)
+- `purchase_completed` (webhook → frontend via `/obrigado`)
 
-- Lê body raw (`request.text()`).
-- Verifica assinatura `Stripe-Signature` com `STRIPE_WEBHOOK_SECRET` (HMAC SHA-256 com timing-safe compare + tolerância 5 min).
-- Idempotência: insert em `stripe_events(event_id)`; se já existe → 200 OK no-op.
-- Eventos tratados:
-  - `checkout.session.completed` → marca order `paid`, guarda `payment_intent`, `paid_at`, `customer_email`, `raw_event`.
-  - `checkout.session.async_payment_succeeded` → idem (boleto/SEPA).
-  - `checkout.session.async_payment_failed` / `expired` → `failed`/`expired`.
-  - `charge.refunded` → `refunded`.
-- Tudo via `supabaseAdmin` carregado dentro do handler.
-- Responde sempre 200 a eventos válidos (evita retry storm); 401 só em assinatura inválida.
+Sem isso, não dá pra medir os 30%. Stack: já existe `posthog` no projeto (pelos MCPs). Confirmar.
 
-## D5 — Gating no `/obrigado`
+---
 
-Refactor de `src/routes/obrigado.tsx`:
+## 4) Recuperação de carrinho (cancel_url)
 
-- Search params passam de `?lead=<uuid>` para `?order=<uuid>` (lead vem via order no servidor).
-- Novo estado inicial: `verifying` (polling).
-- `verifyOrderStatus({ orderId })` server fn → RPC `get_order_status` → devolve `{ status, leadId }`.
-- Polling com backoff (2s → 4s → 6s, máx 30s) enquanto `status='pending'` (webhook pode demorar ~1-3s).
-- Quando `status='paid'`: chama `generateDiagnosisPdf({ leadId })` (já existe, C7).
-- Quando `status='failed'/'expired'`: mostra "Pagamento não confirmado" + link de retry para checkout.
-- `pending` após timeout: mensagem "Estamos a confirmar…" + botão refresh.
-- Email C8 dispara igual depois de `ready`.
+Na home, se vier `?canceled=1&recover=X`:
+- Banner topo: "Voltaste? O teu diagnóstico ainda está reservado por 30 min. **Continuar →**"
+- Botão chama `createCheckoutSession` de novo com mesmo `orderId` (reaproveita order pending).
 
-## D6 — Hardening
+---
 
-- **Rate limit do checkout**: `daily_limits` table já existe — limita 5 sessions/IP/hora.
-- **Replay protection**: campo `created` do evento Stripe vs `now()`, rejeita > 5 min.
-- **Anti-tampering**: server reusa `getPricing(lang)` autoritativo, ignora qualquer `amount` do client.
-- **`/obrigado?order=` sem order válido**: 404 friendly.
-- **Logs**: `audit_logs` table — escrever em cada `paid`/`failed`/`refunded`.
+## 5) Arquivos afetados
 
-## D7 — i18n dos textos novos
+| Arquivo | Mudança |
+|---|---|
+| `src/components/funnel/CheckoutStub.tsx` | Remover form fake; adicionar countdown, preço-âncora, sticky mobile CTA, microcopy de trust |
+| `src/components/funnel/TrustStack.tsx` (novo) | Componente trust stack + mini-FAQ + depoimento |
+| `src/components/funnel/CountdownPill.tsx` (novo) | Countdown 10min discreto |
+| `src/lib/payments/checkout.functions.ts` | Adicionar custom_text, expires_at, customer_creation, allow_promotion_codes, statement_descriptor, description |
+| `src/lib/i18n/translations.ts` | +chaves `checkout.*` (headline, trust items, FAQ, microcopy) nos 5 idiomas |
+| `src/lib/i18n/types.ts` | Tipos das novas chaves |
+| `src/routes/index.tsx` | Banner de recuperação se `?canceled=1` |
+| `src/lib/analytics.ts` | Eventos novos |
 
-Adicionar a `landing.checkout.*` em PT/EN/PL/RO/AR:
-- `unlockCta`, `bumpsTitle`, `bump1Title/Desc`, `bump2Title/Desc`, `securePayment`, `moneyBackGuarantee`, `verifying`, `paymentFailed`, `retryPayment`.
+---
 
-## D8 — Smoke test
+## 6) Detalhes técnicos relevantes
 
-Antes de fechar a fase:
-1. Quiz completo → reveal → checkout (Stripe test mode card `4242 4242 4242 4242`).
-2. Webhook recebido em ≤3s → order `paid`.
-3. `/obrigado?order=…` gera PDF + envia email Brevo.
-4. Refresh em `/obrigado?order=…` → usa cache do `pdf_generations` (não regenera).
-5. Card `4000 0000 0000 0002` (decline) → order `failed` → UI mostra retry.
-6. Webhook duplicado → 200 OK sem efeito (idempotência via `stripe_events`).
+- Stripe auto-habilita Apple/Google Pay quando o domínio está registrado em Stripe Dashboard → **TODO p/ ti**: registrar `thoughtsculpt-engine.lovable.app` em Settings → Payment Methods → Apple Pay → Add domain. Sem isso, AP não aparece (perda de ~20% mobile).
+- Pix exige Stripe BR ativo na conta. Confirmar.
+- Link (autofill Stripe) só funciona se `customer_creation: always` E o user já tiver Link em outro merchant. Ativar e deixar Stripe decidir.
+- `expires_at` >30min é o mínimo do Stripe.
+- Countdown é UI-only (não bloqueia compra após expirar — só cria urgência). Se quiseres bloqueio real, é outra fase.
 
-## Detalhes Técnicos
+---
 
-- **Stripe API**: chamada REST direta (`fetch` com `Authorization: Bearer ${STRIPE_SECRET_KEY}`). Evita o SDK Node-only no Worker.
-- **Webhook URL fixa**: `https://thoughtsculpt-engine.lovable.app/api/public/stripe/webhook` (estável, prod). Tu configuras no painel Stripe depois do deploy.
-- **Test vs Live**: o mesmo código serve. Secret atual é live ou test conforme o `STRIPE_SECRET_KEY` definido. Para a Fase D, recomendo modo **test** até validares ponta a ponta.
-- **`createServerFn` público**: `createCheckoutSession` não usa `requireSupabaseAuth` — quiz é pré-login. Validação por `lead.id` + `lead.winner` é suficiente; rate limit por IP cobre abuso.
+## 7) Fora de escopo (proposto p/ depois — Fase G+)
 
-## O Que Não Entra Nesta Fase
+- A/B test de headline e preço-âncora (precisa de tráfego mínimo)
+- Email de recuperação de carrinho abandonado (precisa cron + template)
+- Upsell pós-compra na `/obrigado` (one-click via saved payment method)
+- Order bump dinâmico baseado em arquétipo (AO vê bump1, HI vê bump2, etc)
 
-- Conta de utilizador / login (vem depois, Fase E).
-- Subscrições recorrentes (tabela `subscriptions` fica intocada).
-- Order bumps no PDF gerado (afeta só `total_amount` no Stripe; o PDF já é único pelo arquétipo).
-- Recibo/invoice — Stripe envia automaticamente se `customer_email` estiver presente.
+---
 
-## Ordem de Implementação
+## 8) Resultado esperado
 
-1. D1 (migration `orders` + `stripe_events` + RPC) — primeiro, base de tudo.
-2. D3 (server fn checkout) — testável isoladamente com curl.
-3. D4 (webhook) — depende de D1, testável com `stripe trigger`.
-4. D5 (gating /obrigado) — depende de D1+D4.
-5. D2 (CTA no reveal) — wires tudo no front.
-6. D6+D7 (hardening + i18n) — polish.
-7. D8 (smoke).
+- Elimina re-digitação de cartão (-15-30% abandono recuperado)
+- Apple/Google Pay ativos = +20-30% mobile
+- Trust stack lateral + microcopy dentro do Stripe = redução de "vou pensar"
+- Countdown + preço-âncora = urgência + valor percebido
+- Cancel recovery = recupera 5-10% dos que saem
 
-Confirma e arranco por D1.
+**Estimativa: passar de ~baseline atual para 25-35% em 2-4 semanas com tráfego real.** Os 30% são alcançáveis se o tráfego YouTube for qualificado.
+
+Aprova p/ implementar?
