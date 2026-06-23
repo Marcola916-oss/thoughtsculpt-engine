@@ -27,7 +27,7 @@ Sub-passos:
 - B2 — Email capture refinada (i18n) ✅ (stage `email` + `emailCapture` keys nos 5 idiomas + GDPR check)
 - B3 — Reveal premium com 4 AreaScoreCards ✅ (PT/EN copy próprio + PL/RO/AR traduzidos; barra de progresso animada; CTA "Ver diagnóstico completo")
 - B4 — VSL com 8 blocos (sales/VSL.tsx) ✅ (componente único com copy embedded nos 5 idiomas, 4 painCards por arquétipo, PDF mockup, 3 testimonials, pricing card com 2 order bumps, FAQ 6Q, CTA final)
-- B5 — Landing copy refresh (4 áreas, não só dinheiro)
+- B5 — Landing copy refresh ✅ (Hero H1 "padrão invisível 4 áreas", ArchetypeShowcase com descs multi-área, HowItWorks step 3 "PDF entregue", FeaturesGrid reescrito como 4 dimensões do PDF Financeira/Profissional/Amorosa/Pessoal, FAQ sem Matriz/Compass/assinatura, FinalCTA com mensagem 4 áreas. 5 idiomas: PT/EN/PL/RO/AR)
 - B6 — Checkout stub visual (plug-and-play Fase D)
 - B7 — Polish + RTL + responsivo + build clean
 
