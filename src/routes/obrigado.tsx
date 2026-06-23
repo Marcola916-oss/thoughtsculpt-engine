@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { generateDiagnosisPdf } from "@/lib/pdf/generate.functions";
-import { BustLoader } from "@/components/identity";
+import { MarbleBust } from "@/components/identity";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
 
@@ -137,7 +137,7 @@ function ThankYouPage() {
 
           {state.kind === "generating" && (
             <div className="mt-10 flex flex-col items-center gap-6">
-              <BustLoader size={140} />
+              <MarbleBust size={140} variant="loader" intensity="dramatic" />
               <p className="text-base md:text-lg text-foreground/80">
                 {copy.generating}
               </p>
