@@ -358,12 +358,22 @@ function LandingAndQuiz() {
                 name={name}
                 arch={archCode}
                 answers={answers}
-                onContinue={() => setStage({ kind: "sales" })}
+                onContinue={() => setStage({ kind: "vsl" })}
                 leadError={leadError}
                 onRetry={() => {
                   setLeadError(null);
                   setStage({ kind: "loader" });
                 }}
+              />
+            </div>
+          )}
+
+          {stage.kind === "vsl" && archCode && (
+            <div key="vsl">
+              <VSL
+                name={name}
+                arch={archCode}
+                onCheckout={() => setStage({ kind: "plans" })}
               />
             </div>
           )}
