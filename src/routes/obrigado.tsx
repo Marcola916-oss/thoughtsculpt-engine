@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { generateDiagnosisPdf } from "@/lib/pdf/generate.functions";
+import { sendDiagnosisEmail } from "@/lib/email/send-diagnosis.functions";
 import { MarbleBust } from "@/components/identity";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
@@ -99,6 +100,7 @@ function ThankYouPage() {
   const { lead } = useSearch({ from: "/obrigado" });
   const copy = COPY[lang] ?? COPY.en;
   const generate = useServerFn(generateDiagnosisPdf);
+  const sendEmail = useServerFn(sendDiagnosisEmail);
 
   const [state, setState] = useState<
     | { kind: "idle" }
@@ -115,6 +117,10 @@ function ThankYouPage() {
     try {
       const res = await generate({ data: { leadId: lead } });
       setState({ kind: "ready", url: res.url, fromCache: res.fromCache });
+      // Fire-and-forget: deliver PDF link to the user's inbox.
+      sendEmail({ data: { leadId: lead, url: res.url } }).catch((err) => {
+        console.error("[sendDiagnosisEmail]", err);
+      });
     } catch (e) {
       setState({ kind: "error", message: (e as Error).message ?? "Unknown error" });
     }
