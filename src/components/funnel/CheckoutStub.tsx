@@ -1,9 +1,10 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
 import { createCheckoutSession } from "@/lib/payments/checkout.functions";
+import { getCheckoutQuote } from "@/lib/payments/quote.functions";
 import { Lock, ShieldCheck, CreditCard, Check } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
-import { getPricing } from "@/lib/funnel/pricing-stub";
 import { Reveal } from "@/components/interaction/Reveal";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 
@@ -176,31 +177,27 @@ interface Props {
 export function CheckoutStub({ email, name, leadId }: Props) {
   const { lang } = useI18n();
   const startCheckout = useServerFn(createCheckoutSession);
+  const fetchQuote = useServerFn(getCheckoutQuote);
   const copy = COPY[lang] ?? COPY.en;
-  const pricing = getPricing(lang);
 
   const [bump1, setBump1] = useState(false);
   const [bump2, setBump2] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // Numeric totals derived from the stub strings — Phase D replaces this with Stripe Prices.
-  const totals = useMemo(() => {
-    const parse = (s: string) => {
-      const n = parseFloat(s.replace(/[^\d.,]/g, "").replace(",", "."));
-      return Number.isFinite(n) ? n : 0;
-    };
-    const main = parse(pricing.main);
-    const b1 = parse(pricing.bump1);
-    const b2 = parse(pricing.bump2);
-    const sum = main + (bump1 ? b1 : 0) + (bump2 ? b2 : 0);
-    // Reformat keeping the original symbol style.
-    const formatted = pricing.symbol.includes("R$") || pricing.symbol === "€"
-      ? `${pricing.symbol}${sum.toFixed(2).replace(".", ",")}`
-      : pricing.symbol === "$"
-        ? `${pricing.symbol}${sum.toFixed(2)}`
-        : `${sum.toFixed(0)} ${pricing.symbol}`;
-    return { sum, formatted };
-  }, [pricing, bump1, bump2]);
+  // Single source of truth: o servidor calcula tudo a partir do lang+bumps.
+  // Mesma função usada para criar a Stripe Checkout Session.
+  const bumps: ("bump1" | "bump2")[] = [];
+  if (bump1) bumps.push("bump1");
+  if (bump2) bumps.push("bump2");
+
+  const quoteQuery = useQuery({
+    queryKey: ["checkout-quote", lang, bump1, bump2],
+    queryFn: () => fetchQuote({ data: { lang, bumps } }),
+    staleTime: 60_000,
+  });
+
+  const prices = quoteQuery.data?.prices;
+  const totalFormatted = prices?.total.formatted ?? "—";
 
   const handlePay = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -211,11 +208,8 @@ export function CheckoutStub({ email, name, leadId }: Props) {
     }
     setSubmitting(true);
     try {
-      const bumps: ("bump1" | "bump2")[] = [];
-      if (bump1) bumps.push("bump1");
-      if (bump2) bumps.push("bump2");
       const res = await startCheckout({
-        data: { leadId, bumps, origin: window.location.origin },
+        data: { leadId, bumps, lang, origin: window.location.origin },
       });
       window.location.href = res.url;
     } catch (err) {
