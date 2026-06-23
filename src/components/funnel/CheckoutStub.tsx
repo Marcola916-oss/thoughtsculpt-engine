@@ -245,7 +245,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
                 <p className="font-display text-base font-black uppercase italic tracking-tight">{copy.mainItem}</p>
                 <p className="mt-1 text-sm text-white/60">{copy.mainDesc}</p>
               </div>
-              <p className="shrink-0 font-mono text-base font-bold text-arch-primary">{pricing.main}</p>
+              <p className="shrink-0 font-mono text-base font-bold text-arch-primary">{prices?.main.formatted ?? "—"}</p>
             </div>
 
             {/* Bumps */}
@@ -254,7 +254,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
               onToggle={() => setBump1((v) => !v)}
               title={copy.bump1Title}
               desc={copy.bump1Desc}
-              price={pricing.bump1}
+              price={prices?.bump1.formatted ?? "—"}
               addLabel={copy.addLabel}
               addedLabel={copy.addedLabel}
             />
@@ -263,7 +263,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
               onToggle={() => setBump2((v) => !v)}
               title={copy.bump2Title}
               desc={copy.bump2Desc}
-              price={pricing.bump2}
+              price={prices?.bump2.formatted ?? "—"}
               addLabel={copy.addLabel}
               addedLabel={copy.addedLabel}
             />
@@ -272,7 +272,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
             <div className="mt-6 flex items-center justify-between border-t border-white/15 pt-5">
               <span className="text-sm font-bold uppercase tracking-[0.15em] text-white/80">{copy.total}</span>
               <span className="font-display text-2xl font-black italic text-arch-primary md:text-3xl">
-                {totals.formatted}
+                {totalFormatted}
               </span>
             </div>
 
@@ -349,7 +349,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
                 className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-arch-primary px-6 py-4 text-base font-black uppercase tracking-wide text-primary-foreground shadow-[0_0_30px_-6px_var(--arch-glow)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-arch-primary/90 disabled:opacity-60"
               >
                 <Lock className="h-4 w-4" />
-                {submitting ? copy.processing : copy.payButton(totals.formatted)}
+                {submitting ? copy.processing : copy.payButton(totalFormatted)}
               </button>
             </ButtonPress>
 
