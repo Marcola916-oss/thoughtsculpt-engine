@@ -326,9 +326,36 @@ export function CheckoutStub({ email, name, leadId }: Props) {
     }
   };
 
+  // Anchor price = ~3x the main price (shown struck-through to anchor value).
+  const anchorFormatted = useMemo(() => {
+    if (!prices) return null;
+    const cents3x = prices.main.cents * 3;
+    return formatCentsLike(cents3x, prices.main.formatted, prices.main.cents);
+  }, [prices]);
+
+  const handleClick = async () => {
+    if (submitting) return;
+    if (!leadId) {
+      console.error("[checkout] missing leadId");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await startCheckout({
+        data: { leadId, bumps, lang, origin: window.location.origin },
+      });
+      window.location.href = res.url;
+    } catch (err) {
+      console.error("[checkout]", err);
+      setSubmitting(false);
+    }
+  };
+  // suppress unused-var warning for legacy form handler
+  void handlePay;
+
   return (
-    <section className="relative mx-auto w-full max-w-5xl px-4 py-16 md:px-8 md:py-24">
-      <Reveal variant="fade-up" className="mx-auto mb-10 max-w-2xl text-center">
+    <section className="relative mx-auto w-full max-w-6xl px-4 py-12 md:px-8 md:py-20 pb-32 md:pb-20">
+      <Reveal variant="fade-up" className="mx-auto mb-8 max-w-2xl text-center">
         <span aria-hidden className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-arch-primary">
           <Lock className="h-3 w-3" />
           {copy.secureBy}
@@ -339,13 +366,16 @@ export function CheckoutStub({ email, name, leadId }: Props) {
         <p className="mt-4 text-base text-white/70 md:text-lg">{copy.sub}</p>
       </Reveal>
 
-      <form onSubmit={handlePay} className="grid grid-cols-1 gap-8 lg:grid-cols-[1.1fr_1fr]">
-        {/* ──────── Order summary ──────── */}
-        <Reveal variant="fade-up" className="order-2 lg:order-1">
-          <div className="rounded-3xl border border-white/10 bg-black/40 p-6 md:p-8 backdrop-blur-xl">
-            <h2 className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-white/60">
-              {copy.summary}
-            </h2>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.25fr_1fr] lg:gap-8">
+        {/* ──────── Order + CTA ──────── */}
+        <Reveal variant="fade-up">
+          <div className="rounded-3xl border border-white/10 bg-black/50 p-6 md:p-8 backdrop-blur-xl">
+            <div className="mb-5 flex items-center justify-between gap-3">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
+                {copy.summary}
+              </h2>
+              <CountdownPill minutes={10} label={copy.countdownLabel} />
+            </div>
 
             {/* Main item */}
             <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
@@ -353,7 +383,14 @@ export function CheckoutStub({ email, name, leadId }: Props) {
                 <p className="font-display text-base font-black uppercase italic tracking-tight">{copy.mainItem}</p>
                 <p className="mt-1 text-sm text-white/60">{copy.mainDesc}</p>
               </div>
-              <p className="shrink-0 font-mono text-base font-bold text-arch-primary">{prices?.main.formatted ?? "—"}</p>
+              <div className="shrink-0 text-end">
+                {anchorFormatted && (
+                  <p className="text-xs text-white/40 line-through">
+                    {copy.anchorLabel} {anchorFormatted}
+                  </p>
+                )}
+                <p className="font-mono text-base font-bold text-arch-primary">{prices?.main.formatted ?? "—"}</p>
+              </div>
             </div>
 
             {/* Bumps */}
@@ -377,108 +414,205 @@ export function CheckoutStub({ email, name, leadId }: Props) {
             />
 
             {/* Total */}
-            <div className="mt-6 flex items-center justify-between border-t border-white/15 pt-5">
-              <span className="text-sm font-bold uppercase tracking-[0.15em] text-white/80">{copy.total}</span>
-              <span className="font-display text-2xl font-black italic text-arch-primary md:text-3xl">
+            <div className="mt-6 flex items-end justify-between border-t border-white/15 pt-5">
+              <div>
+                <span className="block text-sm font-bold uppercase tracking-[0.15em] text-white/80">{copy.total}</span>
+                <span className="mt-1 block text-[11px] uppercase tracking-[0.12em] text-white/45">{copy.oneTimeNote}</span>
+              </div>
+              <span className="font-display text-3xl font-black italic text-arch-primary md:text-4xl">
                 {totalFormatted}
               </span>
             </div>
 
-            <p className="mt-5 flex items-start gap-2 text-xs text-white/60">
-              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-arch-primary" />
-              <span>{copy.guarantee}</span>
-            </p>
-          </div>
-        </Reveal>
-
-        {/* ──────── Payment form ──────── */}
-        <Reveal variant="fade-up" className="order-1 lg:order-2">
-          <div className="rounded-3xl border border-white/10 bg-black/40 p-6 md:p-8 backdrop-blur-xl">
-            <div className="space-y-4">
-              <Field label={copy.emailLabel}>
-                <input
-                  type="email"
-                  defaultValue={email}
-                  required
-                  autoComplete="email"
-                  className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-sm text-white placeholder-white/40 outline-none transition-all focus:border-arch-primary focus:bg-black/70"
-                />
-              </Field>
-
-              <Field label={copy.cardLabel}>
-                <div className="relative">
-                  <input
-                    inputMode="numeric"
-                    placeholder={copy.cardPlaceholder}
-                    required
-                    autoComplete="cc-number"
-                    className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 pe-12 text-sm font-mono text-white placeholder-white/30 outline-none transition-all focus:border-arch-primary focus:bg-black/70"
-                  />
-                  <CreditCard aria-hidden className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
-                </div>
-              </Field>
-
-              <div className="grid grid-cols-2 gap-4">
-                <Field label={copy.expLabel}>
-                  <input
-                    inputMode="numeric"
-                    placeholder="MM / YY"
-                    required
-                    autoComplete="cc-exp"
-                    className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-sm font-mono text-white placeholder-white/30 outline-none transition-all focus:border-arch-primary focus:bg-black/70"
-                  />
-                </Field>
-                <Field label={copy.cvcLabel}>
-                  <input
-                    inputMode="numeric"
-                    placeholder="123"
-                    required
-                    autoComplete="cc-csc"
-                    className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-sm font-mono text-white placeholder-white/30 outline-none transition-all focus:border-arch-primary focus:bg-black/70"
-                  />
-                </Field>
-              </div>
-
-              <Field label={copy.nameLabel}>
-                <input
-                  type="text"
-                  defaultValue={name}
-                  required
-                  autoComplete="cc-name"
-                  className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-sm text-white placeholder-white/40 outline-none transition-all focus:border-arch-primary focus:bg-black/70"
-                />
-              </Field>
+            {/* Offer badge */}
+            <div
+              aria-hidden
+              className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-arch-primary"
+            >
+              <Zap className="h-3 w-3" />
+              {copy.offerBadge}
             </div>
 
+            {/* CTA — direct redirect to Stripe Checkout */}
             <ButtonPress>
               <button
-                type="submit"
-                disabled={submitting}
-                className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-arch-primary px-6 py-4 text-base font-black uppercase tracking-wide text-primary-foreground shadow-[0_0_30px_-6px_var(--arch-glow)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-arch-primary/90 disabled:opacity-60"
+                type="button"
+                onClick={handleClick}
+                disabled={submitting || !leadId}
+                className="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-arch-primary px-6 py-5 text-base md:text-lg font-black uppercase tracking-wide text-primary-foreground shadow-[0_0_40px_-6px_var(--arch-glow)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-arch-primary/90 disabled:opacity-60"
               >
-                <Lock className="h-4 w-4" />
+                <Lock className="h-5 w-5" />
                 {submitting ? copy.processing : copy.payButton(totalFormatted)}
+                {!submitting && <ArrowRight className="h-5 w-5" />}
               </button>
             </ButtonPress>
 
-            <p className="mt-4 text-center text-[11px] uppercase tracking-[0.15em] text-white/40">
+            <p className="mt-4 text-center text-xs text-white/55">
+              {copy.ctaSubcopy(copy.paymentMethods)}
+            </p>
+            <p className="mt-3 text-center text-[10px] uppercase tracking-[0.18em] text-white/35">
               {copy.poweredBy}
             </p>
           </div>
         </Reveal>
-      </form>
+
+        {/* ──────── Trust stack ──────── */}
+        <Reveal variant="fade-up">
+          <div className="lg:sticky lg:top-24 space-y-4">
+            <div className="rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-xl">
+              <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-white/60">
+                {copy.trustTitle}
+              </h3>
+              <ul className="space-y-4">
+                <TrustItem icon={ShieldCheck} title={copy.trustGuarantee} desc={copy.trustGuaranteeDesc} />
+                <TrustItem icon={Lock} title={copy.trustStripe} desc={copy.trustStripeDesc} />
+                <TrustItem icon={Check} title={copy.trustSecure} desc={copy.trustSecureDesc} />
+                <TrustItem icon={Mail} title={copy.trustDelivery} desc={copy.trustDeliveryDesc} />
+              </ul>
+            </div>
+
+            {/* Mini-testimonial */}
+            <div className="rounded-3xl border border-arch-primary/20 bg-arch-primary/[0.04] p-6 backdrop-blur-xl">
+              <div className="mb-2 flex gap-0.5 text-arch-primary" aria-label="5 stars">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <svg key={i} aria-hidden viewBox="0 0 20 20" className="h-4 w-4 fill-current">
+                    <path d="M10 1.5l2.6 5.4 6 .9-4.3 4.2 1 6L10 15.3l-5.3 2.7 1-6L1.4 7.8l6-.9z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-sm leading-relaxed text-white/85 italic">"{copy.testimonialQuote}"</p>
+              <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white/55">
+                {copy.testimonialAuthor}
+              </p>
+            </div>
+
+            {/* FAQ */}
+            <div className="rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-xl">
+              <h3 className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-white/60">
+                {copy.faqTitle}
+              </h3>
+              <div className="divide-y divide-white/10">
+                {copy.faq.map((f, i) => (
+                  <FAQItem key={i} q={f.q} a={f.a} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
+      {/* ──────── Sticky mobile CTA ──────── */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/90 px-4 py-3 backdrop-blur-xl lg:hidden">
+        <div className="mx-auto flex max-w-md items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-white/50">{copy.total}</p>
+            <p className="font-display text-lg font-black italic text-arch-primary">{totalFormatted}</p>
+          </div>
+          <button
+            type="button"
+            onClick={handleClick}
+            disabled={submitting || !leadId}
+            className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-arch-primary px-4 py-3 text-sm font-black uppercase tracking-wide text-primary-foreground shadow-[0_0_24px_-6px_var(--arch-glow)] transition-all active:scale-[0.98] disabled:opacity-60"
+          >
+            <Lock className="h-4 w-4" />
+            {submitting ? "…" : copy.payButton(totalFormatted)}
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+/**
+ * Format cents using same currency formatting as the server quote.
+ * Quick heuristic: replace the digits in the formatted main price with
+ * the anchor amount, preserving prefix/suffix (R$, €, $, zł, etc).
+ */
+function formatCentsLike(targetCents: number, mainFormatted: string, mainCents: number): string {
+  // Replace the numeric portion of mainFormatted with the scaled amount.
+  const ratio = targetCents / mainCents;
+  return mainFormatted.replace(/[\d.,]+/, (num) => {
+    const sep = num.includes(",") && !num.includes(".") ? "," : ".";
+    const cleaned = num.replace(/[^\d]/g, "");
+    const numeric = Number(cleaned) / 100; // cents → value
+    const scaled = numeric * ratio;
+    return scaled.toFixed(2).replace(".", sep);
+  });
+}
+
+/** Countdown pill — UI-only urgency cue. Uses sessionStorage so it doesn't reset on rerender. */
+function CountdownPill({ minutes, label }: { minutes: number; label: string }) {
+  const [remaining, setRemaining] = useState<number>(minutes * 60);
+
+  useEffect(() => {
+    const KEY = "checkout-countdown-deadline";
+    let deadline = Number(sessionStorage.getItem(KEY) || 0);
+    const now = Date.now();
+    if (!deadline || deadline < now) {
+      deadline = now + minutes * 60 * 1000;
+      sessionStorage.setItem(KEY, String(deadline));
+    }
+    const tick = () => {
+      const sec = Math.max(0, Math.floor((deadline - Date.now()) / 1000));
+      setRemaining(sec);
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [minutes]);
+
+  const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const ss = String(remaining % 60).padStart(2, "0");
+
   return (
-    <label className="block">
-      <span className="mb-2 block text-[11px] font-bold uppercase tracking-[0.15em] text-white/60">
-        {label}
+    <div
+      aria-hidden
+      className="inline-flex items-center gap-1.5 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-arch-primary"
+    >
+      <Clock className="h-3 w-3" />
+      <span className="hidden sm:inline">{label}</span>
+      <span className="font-mono tabular-nums">{mm}:{ss}</span>
+    </div>
+  );
+}
+
+function TrustItem({
+  icon: Icon,
+  title,
+  desc,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <li className="flex items-start gap-3">
+      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary">
+        <Icon className="h-4 w-4" />
       </span>
-      {children}
-    </label>
+      <div className="min-w-0">
+        <p className="text-sm font-bold text-white">{title}</p>
+        <p className="mt-0.5 text-xs leading-relaxed text-white/60">{desc}</p>
+      </div>
+    </li>
+  );
+}
+
+function FAQItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="py-3">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between gap-3 text-start text-sm font-bold text-white/90 transition-colors hover:text-white"
+      >
+        <span>{q}</span>
+        <ChevronDown className={`h-4 w-4 shrink-0 text-white/50 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && <p className="mt-2 text-xs leading-relaxed text-white/65">{a}</p>}
+    </div>
   );
 }
 
