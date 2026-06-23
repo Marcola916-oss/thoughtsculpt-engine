@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { createCheckoutSession } from "@/lib/payments/checkout.functions";
 import { Lock, ShieldCheck, CreditCard, Check } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { getPricing } from "@/lib/funnel/pricing-stub";
@@ -174,7 +175,7 @@ interface Props {
 
 export function CheckoutStub({ email, name, leadId }: Props) {
   const { lang } = useI18n();
-  const navigate = useNavigate();
+  const startCheckout = useServerFn(createCheckoutSession);
   const copy = COPY[lang] ?? COPY.en;
   const pricing = getPricing(lang);
 
@@ -201,21 +202,26 @@ export function CheckoutStub({ email, name, leadId }: Props) {
     return { sum, formatted };
   }, [pricing, bump1, bump2]);
 
-  const handlePay = (e: React.FormEvent) => {
+  const handlePay = async (e: React.FormEvent) => {
     e.preventDefault();
     if (submitting) return;
+    if (!leadId) {
+      console.error("[checkout] missing leadId");
+      return;
+    }
     setSubmitting(true);
-    // Phase D: replace this with stripe.confirmPayment() then redirect on webhook success.
-    setTimeout(() => {
-      navigate({
-        to: "/obrigado",
-        search: {
-          ob1: bump1 ? 1 : 0,
-          ob2: bump2 ? 1 : 0,
-          lead: leadId ?? undefined,
-        } as never,
+    try {
+      const bumps: ("bump1" | "bump2")[] = [];
+      if (bump1) bumps.push("bump1");
+      if (bump2) bumps.push("bump2");
+      const res = await startCheckout({
+        data: { leadId, bumps, origin: window.location.origin },
       });
-    }, 1200);
+      window.location.href = res.url;
+    } catch (err) {
+      console.error("[checkout]", err);
+      setSubmitting(false);
+    }
   };
 
   return (
