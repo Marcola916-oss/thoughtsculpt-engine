@@ -92,3 +92,45 @@ export function buildLineItems(lang: string, bumps: Bump[], hint?: string | null
   const totalCents = items.reduce((s, i) => s + i.amount_cents, 0);
   return { items, totalCents, currency };
 }
+
+/**
+ * Formata centavos numa string localizada por moeda.
+ * Único formatador do projeto — UI e Stripe partilham este output.
+ */
+export function formatPrice(cents: number, currency: Currency): string {
+  const amount = cents / 100;
+  switch (currency) {
+    case "brl":
+      return `R$ ${amount.toFixed(2).replace(".", ",")}`;
+    case "eur":
+      return `€${amount.toFixed(2).replace(".", ",")}`;
+    case "usd":
+      return `$${amount.toFixed(2)}`;
+    case "pln":
+      return `${amount.toFixed(2).replace(".", ",")} zł`;
+    case "ron":
+      return `${amount.toFixed(2).replace(".", ",")} RON`;
+    case "sar":
+      return `SAR ${amount.toFixed(2)}`;
+  }
+}
+
+/**
+ * Quote completo: preços individuais + total + formatação pronta.
+ */
+export function buildQuote(lang: string, bumps: Bump[], hint?: string | null) {
+  const currency = resolveCurrency(lang, hint);
+  const row = TABLE[currency];
+  const { items, totalCents } = buildLineItems(lang, bumps, hint);
+  return {
+    currency,
+    totalCents,
+    items,
+    prices: {
+      main: { cents: row.main, formatted: formatPrice(row.main, currency) },
+      bump1: { cents: row.bump1, formatted: formatPrice(row.bump1, currency) },
+      bump2: { cents: row.bump2, formatted: formatPrice(row.bump2, currency) },
+      total: { cents: totalCents, formatted: formatPrice(totalCents, currency) },
+    },
+  };
+}
