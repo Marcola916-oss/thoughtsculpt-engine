@@ -62,6 +62,7 @@ import { ArchetypePedestal } from "@/components/identity/ArchetypePedestal";
 import { ArchetypeSymbol } from "@/components/identity/symbols";
 import {
   ProofBar,
+  BeliefBreak,
   ArchetypeShowcase,
   HowItWorks,
   FeaturesGrid,
@@ -324,6 +325,7 @@ function LandingAndQuiz() {
               </div>
               <div className="relative z-10 bg-transparent shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
                 <ProofBar />
+                <BeliefBreak />
                 <div className="bg-transparent">
                   <ArchetypeShowcase />
                   <HowItWorks />
