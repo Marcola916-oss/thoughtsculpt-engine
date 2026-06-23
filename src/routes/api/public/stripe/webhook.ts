@@ -58,9 +58,8 @@ export const Route = createFileRoute("/api/public/stripe/webhook")({
   },
 });
 
-type SbAdmin = Awaited<
-  ReturnType<typeof import("@/integrations/supabase/client.server").then>
->["supabaseAdmin"];
+type ClientServerModule = typeof import("@/integrations/supabase/client.server");
+type SbAdmin = ClientServerModule["supabaseAdmin"];
 
 async function handleEvent(
   event: { id: string; type: string; data: { object: Record<string, unknown> } },
