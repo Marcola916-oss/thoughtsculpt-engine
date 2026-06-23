@@ -63,9 +63,30 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     form.set("mode", "payment");
     form.set("client_reference_id", order.id);
     if (lead.email) form.set("customer_email", lead.email);
-    form.set("success_url", `${origin}/obrigado?order=${order.id}`);
-    form.set("cancel_url", `${origin}/?canceled=1`);
+    form.set(
+      "success_url",
+      `${origin}/obrigado?order=${order.id}&session_id={CHECKOUT_SESSION_ID}`,
+    );
+    form.set("cancel_url", `${origin}/?canceled=1&recover=${order.id}`);
     form.set("locale", stripeLocale(lang));
+    // ── Conversion-tuned Checkout Session options ──
+    // Don't restrict payment_method_types → Stripe auto-enables Apple Pay,
+    // Google Pay, Link, Pix (BRL), BLIK (PLN), cards, etc. by locale/currency.
+    form.set("customer_creation", "always");         // enables Stripe Link autofill
+    form.set("allow_promotion_codes", "true");        // coupon field
+    form.set("billing_address_collection", "auto");
+    form.set("phone_number_collection[enabled]", "false");
+    // Expire pending session after 30 min (Stripe minimum) — frees order intent.
+    form.set("expires_at", String(Math.floor(Date.now() / 1000) + 30 * 60));
+    // Microcopy INSIDE Stripe Checkout (above the Pay button + after submit).
+    form.set("custom_text[submit][message]", stripeSubmitCopy(lang));
+    form.set("custom_text[after_submit][message]", stripeAfterSubmitCopy(lang));
+    // Card statement / receipt clarity (reduces chargebacks & refund requests).
+    form.set(
+      "payment_intent_data[description]",
+      `MindReset — ${productLabel(lang)} (${lead.winner})`,
+    );
+    form.set("payment_intent_data[statement_descriptor_suffix]", "MINDRESET");
     form.set("payment_intent_data[metadata][order_id]", order.id);
     form.set("payment_intent_data[metadata][lead_id]", lead.id);
     form.set("payment_intent_data[metadata][archetype]", lead.winner);
