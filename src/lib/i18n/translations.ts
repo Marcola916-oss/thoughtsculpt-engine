@@ -270,8 +270,8 @@ const PT: Dict = {
   errorPage: { title: "Esta página não carregou", desc: "Algo correu mal do nosso lado. Podes tentar voltar a carregar ou voltar ao início.", tryAgain: "Tentar novamente", goHome: "Ir para o início" },
   hero: {
     kicker: "Finanças comportamentais • 8 perguntas • 3 minutos",
-    headline: "O DINHEIRO NÃO TE FALTA.\nFALTA-TE\nCONHECER\nO TEU PADRÃO.",
-    sub: "MindReset diagnostica o teu arquétipo financeiro e entrega um protocolo personalizado de ação. Sem orçamentos. Sem ligação bancária. Só psicologia que muda comportamento.",
+    headline: "DESCOBRE O PADRÃO\nINVISÍVEL QUE SABOTA\nAS TUAS 4 ÁREAS\nDA VIDA.",
+    sub: "Em 3 minutos recebes um diagnóstico em PDF que mostra como o teu arquétipo afeta dinheiro, carreira, amor e vida pessoal. Sem app. Sem assinatura. Pagamento único.",
     cta: "Quero meu diagnóstico grátis",
     trust: "+12.000 diagnósticos • Sem cartão para começar",
     trustSsl: "SSL Seguro",
@@ -292,13 +292,13 @@ const PT: Dict = {
     },
     archetypes: {
       tag: "Os 4 Arquétipos",
-      title: "QUAL\u00a0 É\u00a0 O TEU\u00a0 PADRÃO COM\u00a0 DINHEIRO?",
-      sub: "Todo comportamento financeiro tem uma raiz emocional. Descobre a tua em menos de 3 minutos.",
+      title: "QUAL\u00a0 É\u00a0 O TEU\u00a0 PADRÃO INVISÍVEL?",
+      sub: "O mesmo padrão emocional aparece em 4 áreas: dinheiro, carreira, amor e vida pessoal. Descobre o teu em menos de 3 minutos.",
       items: {
-        AO: { name: "Guardador", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão. Dificuldade em gastar mesmo com saldo. A sensação de segurança nunca parece suficiente." },
-        SS: { name: "pavão", trigger: "Gatilho: aprovação social", desc: "Gasta para impressionar. O estatuto é a moeda emocional. A imagem externa vale mais que a saúde financeira real." },
-        EA: { name: "Fantasma", trigger: "Gatilho: fuga e negação", desc: "Evita falar sobre dinheiro. Ignora extratos e contas. O desconforto financeiro fica anestesiado pela evitação." },
-        HI: { name: "Foguinho", trigger: "Gatilho: prazer imediato", desc: "Compra por impulso, vive o agora. A empolgação do momento sobrepõe qualquer planeamento. O presente vence sempre." },
+        AO: { name: "Guardador", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão e mede tudo pela utilidade — no dinheiro, na carreira segura demais, no amor utilitário, no descanso adiado." },
+        SS: { name: "Pavão", trigger: "Gatilho: aprovação social", desc: "Vive pela imagem — gasta para impressionar, escolhe cargos pelo prestígio, parceiros que validam, e cuida do exterior enquanto o interior se desgasta." },
+        EA: { name: "Fantasma", trigger: "Gatilho: fuga e negação", desc: "Evita conversas difíceis — sobre dinheiro, promoções, conflitos no amor, e até consigo próprio. O desconforto é anestesiado pela ausência." },
+        HI: { name: "Foguinho", trigger: "Gatilho: prazer imediato", desc: "Vive de picos — compras por impulso, projetos abandonados, paixões intensas e curtas, hábitos saudáveis que duram dias." },
       },
     },
     howItWorks: {
@@ -308,17 +308,17 @@ const PT: Dict = {
       steps: [
         { title: "RESPONDE \n8  PERGUNTAS", desc: "Sobre comportamento real, não teoria financeira. Sem julgamento." },
         { title: "RECEBE  O  TEU\u00a0\nDIAGNÓSTICO", desc: "A IA mapeia o teu arquétipo em 4 dimensões: financeiro, profissional, amoroso e pessoal." },
-        { title: "SEGUE  O \nPROTOCOLO", desc: "Missões diárias desbloqueadas gradualmente. Mudança real, passo a passo." },
+        { title: "RECEBE  O \nPDF", desc: "Um PDF de 30+ páginas no teu email com o diagnóstico completo nas 4 áreas. Para leres quando quiseres." },
       ],
     },
     features: {
       tag: "O que recebes",
-      title: "QUATRO\u00a0 FERRAMENTAS. UMA\u00a0 TRANSFORMAÇÃO.",
+      title: "UM\u00a0 PDF. QUATRO\u00a0 ÁREAS. ZERO\u00a0 APPS.",
       items: [
-        { icon: "🧠", title: "DIAGNÓSTICO COMPLETO\u00a0 POR\u00a0 IA", desc: "Um relatório em 4 dimensões escrito exclusivamente para ti: como o teu padrão aparece no dinheiro, no trabalho, nos relacionamentos e na vida pessoal.", meta: "Gerado por GPT-4o · Exclusivo e pessoal" },
-        { icon: "📅", title: "MATRIZ\u00a0 DE\u00a0 AÇÃO PERSONALIZADA", desc: "Um calendário de 30, 180 ou 365 dias com missões reflexivas e práticas desbloqueadas aos poucos — como um protocolo de treino comportamental diário.", meta: "Destravado gradualmente · Gamificado" },
-        { icon: "🧭", title: "COMPASS — MAPA\u00a0 DE\u00a0 PESSOAS", desc: "Descreve alguém da tua vida e a IA identifica o arquétipo financeiro dessa pessoa. Recebe 5 estratégias específicas para melhorar essa relação com dinheiro.", meta: "Para parceiros, filhos, sócios" },
-        { icon: "📈", title: "PAINEL\u00a0 DE\u00a0 PROGRESSO", desc: "Streak de dias consecutivos, pontos, conquistas desbloqueáveis e um relatório mensal da IA a analisar a tua evolução. Transformação que consegues ver e medir.", meta: "Streak · Pontos · Badges · Relatório mensal" },
+        { icon: "💰", title: "DIMENSÃO\u00a0 FINANCEIRA", desc: "Como o teu arquétipo distorce decisões com dinheiro — e o plano específico para sair do loop de escassez, status ou impulso.", meta: "Diagnóstico + 5 ações" },
+        { icon: "💼", title: "DIMENSÃO\u00a0 PROFISSIONAL", desc: "Por que aceitas menos do que mereces (ou saltas de projeto em projeto). Como o padrão sabota a tua carreira sem teres reparado.", meta: "Diagnóstico + 5 ações" },
+        { icon: "❤️", title: "DIMENSÃO\u00a0 AMOROSA", desc: "O teu arquétipo escolhe parceiros, evita conflitos e mede o afeto. Como interrompes o ciclo nas relações que mais te importam.", meta: "Diagnóstico + 5 ações" },
+        { icon: "🧘", title: "DIMENSÃO\u00a0 PESSOAL", desc: "Saúde, descanso, identidade, hábitos. Onde o padrão te custa anos sem que percebas — e como construir o reset.", meta: "Diagnóstico + 5 ações" },
       ],
     },
     testimonials: {
@@ -328,7 +328,7 @@ const PT: Dict = {
       items: [
         { stars: 5, quote: "Nunca entendi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: HEDONISTA\nIMPULSIVO" },
         { stars: 5, quote: "Eu achava que era disciplinada com dinheiro. O MindReset mostrou que eu tinha medo de gastar — e que isso também é um problema. Foi revelador.", name: "Maria C.", arch: "Arquétipo: Guardadora Obsessiva" },
-        { stars: 5, quote: "O Compass foi a parte mais surpreendente. Analisei o meu sócio e entendi em 2 minutos por que as nossas discussões sobre dinheiro nunca iam a lado nenhum.", name: "Rami S.", arch: "Arquétipo: Fantasma Evasivo" },
+        { stars: 5, quote: "A parte sobre carreira e relacionamentos doeu — e foi exatamente onde eu precisava ver. Não é só um relatório financeiro, é um espelho.", name: "Rami S.", arch: "Arquétipo: Fantasma Evasivo" },
       ],
     },
     faq: {
@@ -339,14 +339,14 @@ const PT: Dict = {
       items: [
         { q: "O MindReset tem acesso aos meus dados bancários?", a: "Não. O MindReset não acede a contas, extratos nem informações bancárias. O diagnóstico é baseado exclusivamente nas tuas respostas comportamentais ao quiz — sem integração bancária de qualquer tipo." },
         { q: "O diagnóstico é mesmo personalizado?", a: "Sim. A IA (GPT-4o) gera um relatório único baseado no teu arquétipo, nome, género e respostas individuais. Não é um texto genérico — é escrito especificamente para ti e guardado de forma permanente." },
-        { q: "Funciona para quem não percebe de finanças?", a: "Especialmente para quem não percebe. O MindReset não fala sobre investimentos ou planilhas — fala sobre o comportamento emocional por trás das decisões financeiras. Não é preciso saber nada de finanças para beneficiar." },
-        { q: "O que acontece depois de descobrir o meu arquétipo?", a: "Recebes o diagnóstico completo em 4 dimensões da vida (financeiro, profissional, amoroso, pessoal). Ao assinar, acedes à Matriz de Ação — um calendário de missões diárias por 30, 180 ou 365 dias." },
-        { q: "Em quanto tempo vejo resultados?", a: "A compreensão do próprio padrão acontece já no primeiro acesso — o diagnóstico. A transformação comportamental real ocorre ao longo de 21 a 90 dias de prática consistente com as missões diárias." },
+        { q: "Isto é só sobre dinheiro?", a: "Não. O diagnóstico cobre 4 áreas: dinheiro, carreira, amor e vida pessoal. O mesmo padrão emocional aparece em todas — só muda a forma como te custa." },
+        { q: "O que recebo exatamente?", a: "Um PDF de 30+ páginas no teu email, em minutos. Diagnóstico do teu arquétipo nas 4 áreas, 20 ações específicas (5 por área) e mapa das tuas relações por arquétipo." },
+        { q: "É assinatura ou pagamento único?", a: "Pagamento único. Sem app, sem mensalidade, sem lock-in. Compras uma vez, recebes o PDF, é teu para sempre." },
         { q: "E se eu não gostar?", a: "Garantia de 7 dias sem perguntas. Se o produto não entregar o que promete, reembolsamos 100% do valor pago." },
       ],
     },
     finalCta: {
-      titleBefore: "O\u00a0 PADRÃO QUE\u00a0 TE TRAVOU\u00a0 TEM NOME.\u00a0 ESTÁ\u00a0 NA HORA\u00a0 DE ",
+      titleBefore: "O\u00a0 PADRÃO QUE\u00a0 SABOTA AS\u00a0 TUAS 4\u00a0 ÁREAS\u00a0 TEM NOME.\u00a0 ESTÁ\u00a0 NA HORA\u00a0 DE ",
       titleHighlight: "DESCOBRIR",
       titleAfter: " QUAL\u00a0 É.",
       sub: "8 perguntas. 3 minutos. Uma clareza que nenhuma planilha dá.",
@@ -738,8 +738,8 @@ const EN: Dict = {
   errorPage: { title: "This page didn't load", desc: "Something went wrong on our end. You can try refreshing or head back home.", tryAgain: "Try again", goHome: "Go home" },
   hero: {
     kicker: "Behavioral finance • 8 questions • 3 minutes",
-    headline: "It's not the money. It's the pattern you need to know.",
-    sub: "MindReset diagnoses your financial archetype and ships a personalized action protocol. No budgets. No bank linking. Just psychology that changes behavior.",
+    headline: "Discover the invisible pattern\nsabotaging your 4 life areas.",
+    sub: "In 3 minutes, get a PDF diagnosis showing how your archetype shapes money, career, love, and personal life. No app. No subscription. One-time payment.",
     cta: "I want my free diagnosis",
     trust: "+12,000 diagnoses • No card to start",
     trustSsl: "Secure SSL",
@@ -760,13 +760,13 @@ const EN: Dict = {
     },
     archetypes: {
       tag: "The 4 Archetypes",
-      title: "What's your pattern with money?",
-      sub: "Every financial behavior has an emotional root. Find yours in under 3 minutes.",
+      title: "What's your invisible pattern?",
+      sub: "The same emotional pattern shows up in 4 areas: money, career, love, and personal life. Find yours in under 3 minutes.",
       items: {
-        AO: { name: "The Saver", trigger: "Trigger: fear of running out", desc: "Hoards obsessively. Difficulty spending even with a healthy balance. The feeling of safety never feels like enough." },
-        SS: { name: "The Peacock", trigger: "Trigger: social approval", desc: "Spends to impress. Status is the emotional currency. External image matters more than real financial health." },
-        EA: { name: "The Ghost", trigger: "Trigger: avoidance and denial", desc: "Avoids talking about money. Ignores statements and bills. Financial discomfort is numbed by evasion." },
-        HI: { name: "The Spark", trigger: "Trigger: immediate pleasure", desc: "Impulse buys, lives for now. The thrill of the moment overrides any plan. The present always wins." },
+        AO: { name: "The Saver", trigger: "Trigger: fear of running out", desc: "Hoards obsessively and measures everything by utility — in money, in over-safe career choices, in transactional love, in rest postponed." },
+        SS: { name: "The Peacock", trigger: "Trigger: social approval", desc: "Lives by the image — spends to impress, picks roles for prestige, partners who validate, polishes the outside while the inside erodes." },
+        EA: { name: "The Ghost", trigger: "Trigger: avoidance and denial", desc: "Avoids the hard conversations — about money, raises, conflict in love, even with yourself. Discomfort is numbed by absence." },
+        HI: { name: "The Spark", trigger: "Trigger: immediate pleasure", desc: "Lives in spikes — impulse buys, abandoned projects, short intense passions, healthy habits that last days." },
       },
     },
     howItWorks: {
@@ -776,17 +776,17 @@ const EN: Dict = {
       steps: [
         { title: "Answer 8 questions", desc: "About real behavior — not financial theory. No judgment." },
         { title: "Get your diagnosis", desc: "AI maps your archetype across 4 dimensions: financial, professional, romantic, personal." },
-        { title: "Follow the protocol", desc: "Daily missions unlock gradually. Real change, step by step." },
+        { title: "Get the PDF", desc: "A 30+ page PDF in your inbox with the full diagnosis across all 4 areas. Yours to read whenever." },
       ],
     },
     features: {
       tag: "What you get",
-      title: "Four tools.\nOne transformation.",
+      title: "One PDF. Four areas.\nZero apps.",
       items: [
-        { icon: "🧠", title: "Full AI Diagnosis", desc: "A 4-dimension report written exclusively for you: how your pattern shows up in money, work, relationships, and personal life.", meta: "Powered by GPT-4o · Exclusive & personal" },
-        { icon: "📅", title: "Personalized Action Matrix", desc: "A 30, 180, or 365-day calendar with reflective missions and practices unlocked gradually — like a daily behavioral training protocol.", meta: "Unlocked gradually · Gamified" },
-        { icon: "🧭", title: "Compass — People Map", desc: "Describe someone in your life and the AI identifies their financial archetype. Get 5 specific strategies to improve that money relationship.", meta: "For partners, kids, co-founders" },
-        { icon: "📈", title: "Progress Dashboard", desc: "Daily streak, points, unlockable achievements, and a monthly AI report analyzing your evolution. Transformation you can see and measure.", meta: "Streak · Points · Badges · Monthly report" },
+        { icon: "💰", title: "Money Dimension", desc: "How your archetype warps decisions with money — and the specific plan to break the scarcity, status, or impulse loop.", meta: "Diagnosis + 5 actions" },
+        { icon: "💼", title: "Career Dimension", desc: "Why you accept less than you're worth (or jump from project to project). How the pattern sabotages your career without you noticing.", meta: "Diagnosis + 5 actions" },
+        { icon: "❤️", title: "Love Dimension", desc: "Your archetype picks partners, avoids conflict, and measures affection. How to break the cycle in the relationships that matter most.", meta: "Diagnosis + 5 actions" },
+        { icon: "🧘", title: "Personal Dimension", desc: "Health, rest, identity, habits. Where the pattern costs you years without you noticing — and how to build the reset.", meta: "Diagnosis + 5 actions" },
       ],
     },
     testimonials: {
@@ -796,7 +796,7 @@ const EN: Dict = {
       items: [
         { stars: 5, quote: "I never understood why I spent everything before the 15th. The diagnosis named exactly what I felt — like someone finally explained me to myself.", name: "Adam K.", arch: "Archetype: Impulsive Hedonist" },
         { stars: 5, quote: "I thought I was disciplined with money. MindReset showed me I was afraid to spend — and that this is also a problem. It was revealing.", name: "Maria C.", arch: "Archetype: Obsessive Saver" },
-        { stars: 5, quote: "Compass was the most surprising part. I analyzed my co-founder and understood in 2 minutes why our money discussions never went anywhere.", name: "Rami S.", arch: "Archetype: Avoidant Ghost" },
+        { stars: 5, quote: "The career and relationships sections hurt — and that's exactly where I needed to look. It's not just a money report, it's a mirror.", name: "Rami S.", arch: "Archetype: Avoidant Ghost" },
       ],
     },
     faq: {
@@ -807,14 +807,14 @@ const EN: Dict = {
       items: [
         { q: "Does MindReset access my bank data?", a: "No. MindReset never accesses accounts, statements, or any banking information. The diagnosis is based exclusively on your behavioral answers to the quiz — no bank integration of any kind." },
         { q: "Is the diagnosis really personalized?", a: "Yes. The AI (GPT-4o) generates a unique report based on your archetype, name, gender, and individual answers. Not a generic text — written specifically for you and saved permanently." },
-        { q: "Does it work for people who don't understand finance?", a: "Especially for them. MindReset doesn't talk about investments or spreadsheets — it talks about the emotional behavior behind financial decisions. You don't need to know anything about finance to benefit." },
-        { q: "What happens after I discover my archetype?", a: "You receive the full diagnosis in 4 life dimensions (financial, professional, romantic, personal). When you subscribe, you unlock the Action Matrix — a calendar of daily missions for 30, 180, or 365 days." },
-        { q: "How soon will I see results?", a: "Understanding your own pattern happens on first access — the diagnosis itself. Real behavioral transformation occurs over 21 to 90 days of consistent practice with the daily missions." },
+        { q: "Is this only about money?", a: "No. The diagnosis covers 4 areas: money, career, love, and personal life. The same emotional pattern shows up in all of them — only the cost changes." },
+        { q: "What exactly do I get?", a: "A 30+ page PDF in your inbox within minutes. Diagnosis of your archetype across all 4 areas, 20 specific actions (5 per area), and a map of your relationships by archetype." },
+        { q: "Is it a subscription or one-time?", a: "One-time payment. No app, no monthly fee, no lock-in. Buy once, get the PDF, it's yours forever." },
         { q: "What if I don't like it?", a: "7-day no-questions-asked guarantee. If the product doesn't deliver what it promises, we refund 100% of what you paid." },
       ],
     },
     finalCta: {
-      titleBefore: "The pattern that held you back has a name.\nIt's time to ",
+      titleBefore: "The pattern sabotaging your 4 life areas has a name.\nIt's time to ",
       titleHighlight: "discover",
       titleAfter: " what it is.",
       sub: "8 questions. 3 minutes. A clarity no spreadsheet can give you.",
@@ -1203,8 +1203,8 @@ const PL: Dict = {
   errorPage: { title: "Ta strona nie załadowała się", desc: "Coś poszło nie tak po naszej stronie. Możesz spróbować odświeżyć lub wrócić do strony głównej.", tryAgain: "Spróbuj ponownie", goHome: "Strona główna" },
   hero: {
     kicker: "Finanse behawioralne • 14 pytań • 3 minuty",
-    headline: "To nie pieniądze. To wzorzec, który musisz poznać.",
-    sub: "MindReset diagnozuje Twój finansowy archetyp i dostarcza spersonalizowany protokół działania. Bez budżetów. Bez łączenia z bankiem. Tylko psychologia, która zmienia zachowanie.",
+    headline: "Odkryj niewidzialny wzorzec\nsabotujący 4 obszary Twojego życia.",
+    sub: "W 3 minuty otrzymasz diagnozę PDF pokazującą, jak Twój archetyp kształtuje pieniądze, karierę, miłość i życie osobiste. Bez aplikacji. Bez subskrypcji. Płatność jednorazowa.",
     cta: "Chcę darmową diagnozę",
     trust: "+12 000 diagnoz • Bez karty na start",
     trustSsl: "Bezpieczne SSL",
@@ -1273,8 +1273,8 @@ const PL: Dict = {
     },
     archetypes: {
       tag: "4 Archetypy",
-      title: "Jaki jest Twój wzorzec z pieniędzmi?",
-      sub: "Każde zachowanie finansowe ma emocjonalny rdzeń. Odkryj swój w mniej niż 3 minuty.",
+      title: "Jaki jest Twój niewidzialny wzorzec?",
+      sub: "Ten sam emocjonalny wzorzec pojawia się w 4 obszarach: pieniądze, kariera, miłość, życie osobiste. Odkryj swój w mniej niż 3 minuty.",
       items: {
         AO: { name: "Oszczędny", trigger: "Wyzwalacz: strach przed brakiem", desc: "Gromadzi z obsesją. Trudność w wydawaniu nawet przy zdrowym saldzie. Poczucie bezpieczeństwa nigdy nie wydaje się wystarczające." },
         SS: { name: "Paw", trigger: "Wyzwalacz: aprobata społeczna", desc: "Wydaje, by imponować. Status jest emocjonalną walutą. Zewnętrzny wizerunek ważniejszy niż realne zdrowie finansowe." },
@@ -1289,17 +1289,17 @@ const PL: Dict = {
       steps: [
         { title: "Odpowiedz na 8 pytań", desc: "O realnym zachowaniu, nie teorii finansowej. Bez oceniania." },
         { title: "Otrzymaj swoją diagnozę", desc: "AI mapuje Twój archetyp w 4 wymiarach: finansowym, zawodowym, miłosnym i osobistym." },
-        { title: "Stosuj protokół", desc: "Codzienne misje odblokowywane stopniowo. Realna zmiana, krok po kroku." },
+        { title: "Odbierz PDF", desc: "PDF 30+ stron w skrzynce z pełną diagnozą we wszystkich 4 obszarach. Czytasz, kiedy chcesz." },
       ],
     },
     features: {
       tag: "Co otrzymujesz",
-      title: "Cztery narzędzia.\nJedna transformacja.",
+      title: "Jeden PDF. Cztery obszary.\nZero aplikacji.",
       items: [
-        { icon: "🧠", title: "Pełna Diagnoza AI", desc: "Raport w 4 wymiarach napisany wyłącznie dla Ciebie: jak Twój wzorzec pojawia się w pieniądzach, pracy, relacjach i życiu osobistym.", meta: "Generowany przez GPT-4o · Wyłączny i osobisty" },
-        { icon: "📅", title: "Spersonalizowana Matryca Działań", desc: "Kalendarz 30, 180 lub 365 dni z refleksyjnymi misjami i praktykami odblokowywanymi stopniowo — jak codzienny protokół treningu behawioralnego.", meta: "Odblokowywane stopniowo · Gamifikacja" },
-        { icon: "🧭", title: "Compass — Mapa Ludzi", desc: "Opisz kogoś ze swojego życia, a AI zidentyfikuje jego archetyp finansowy. Otrzymasz 5 konkretnych strategii, by poprawić tę relację z pieniędzmi.", meta: "Dla partnerów, dzieci, wspólników" },
-        { icon: "📈", title: "Panel Postępów", desc: "Seria kolejnych dni, punkty, odblokowywane osiągnięcia i miesięczny raport AI analizujący Twoją ewolucję. Transformacja, którą widać i zmierzysz.", meta: "Seria · Punkty · Odznaki · Raport miesięczny" },
+        { icon: "💰", title: "Wymiar Finansowy", desc: "Jak Twój archetyp wykrzywia decyzje finansowe — i konkretny plan wyjścia z pętli niedoboru, statusu lub impulsu.", meta: "Diagnoza + 5 działań" },
+        { icon: "💼", title: "Wymiar Zawodowy", desc: "Dlaczego akceptujesz mniej, niż jesteś wart (albo skaczesz od projektu do projektu). Jak wzorzec sabotuje karierę, a Ty tego nie widzisz.", meta: "Diagnoza + 5 działań" },
+        { icon: "❤️", title: "Wymiar Miłosny", desc: "Twój archetyp wybiera partnerów, unika konfliktów i mierzy uczucie. Jak przerwać cykl w relacjach, które najbardziej się liczą.", meta: "Diagnoza + 5 działań" },
+        { icon: "🧘", title: "Wymiar Osobisty", desc: "Zdrowie, odpoczynek, tożsamość, nawyki. Gdzie wzorzec kradnie Ci lata, a Ty tego nie widzisz — i jak zbudować reset.", meta: "Diagnoza + 5 działań" },
       ],
     },
     testimonials: {
@@ -1309,7 +1309,7 @@ const PL: Dict = {
       items: [
         { stars: 5, quote: "Nigdy nie rozumiałem, dlaczego wydawałem wszystko przed 15. dniem miesiąca. Diagnoza nazwała dokładnie to, co czułem. Jakby ktoś w końcu wytłumaczył mnie mnie samemu.", name: "Adam K.", arch: "Archetyp: Impulsywny Hedonista" },
         { stars: 5, quote: "Myślałam, że jestem zdyscyplinowana z pieniędzmi. MindReset pokazał mi, że bałam się wydawać — i że to też jest problem. To było objawienie.", name: "Maria C.", arch: "Archetyp: Obsesyjna Oszczędna" },
-        { stars: 5, quote: "Compass był najbardziej zaskakującą częścią. Przeanalizowałam mojego wspólnika i w 2 minuty zrozumiałam, dlaczego nasze dyskusje o pieniądzach nigdzie nie prowadziły.", name: "Rami S.", arch: "Archetyp: Unikający Duch" },
+        { stars: 5, quote: "Sekcje o karierze i relacjach zabolały — i właśnie tam musiałem spojrzeć. To nie jest tylko raport finansowy, to lustro.", name: "Rami S.", arch: "Archetyp: Unikający Duch" },
       ],
     },
     faq: {
@@ -1320,14 +1320,14 @@ const PL: Dict = {
       items: [
         { q: "Czy MindReset ma dostęp do moich danych bankowych?", a: "Nie. MindReset nigdy nie uzyskuje dostępu do kont, wyciągów ani żadnych informacji bankowych. Diagnoza opiera się wyłącznie na Twoich behawioralnych odpowiedziach w quizie — bez żadnej integracji bankowej." },
         { q: "Czy diagnoza jest naprawdę spersonalizowana?", a: "Tak. AI (GPT-4o) generuje unikalny raport na podstawie Twojego archetypu, imienia, płci i indywidualnych odpowiedzi. To nie jest generyczny tekst — jest napisany specjalnie dla Ciebie i trwale zapisany." },
-        { q: "Czy to działa dla osób, które nie znają się na finansach?", a: "Szczególnie dla nich. MindReset nie mówi o inwestycjach ani arkuszach — mówi o emocjonalnym zachowaniu stojącym za decyzjami finansowymi. Nie musisz znać się na finansach, by czerpać korzyści." },
-        { q: "Co się dzieje po odkryciu mojego archetypu?", a: "Otrzymujesz pełną diagnozę w 4 wymiarach życia (finansowym, zawodowym, miłosnym, osobistym). Po wykupieniu subskrypcji odblokowujesz Matrycę Działań — kalendarz codziennych misji na 30, 180 lub 365 dni." },
-        { q: "Jak szybko zobaczę efekty?", a: "Zrozumienie własnego wzorca następuje przy pierwszym dostępie — w diagnozie. Realna transformacja behawioralna zachodzi w ciągu 21 do 90 dni konsekwentnej praktyki z codziennymi misjami." },
+        { q: "Czy to dotyczy tylko pieniędzy?", a: "Nie. Diagnoza obejmuje 4 obszary: pieniądze, karierę, miłość i życie osobiste. Ten sam emocjonalny wzorzec pojawia się we wszystkich — zmienia się tylko koszt." },
+        { q: "Co dokładnie otrzymam?", a: "PDF 30+ stron na e-mail w ciągu kilku minut. Diagnozę archetypu we wszystkich 4 obszarach, 20 konkretnych działań (5 na obszar) i mapę Twoich relacji według archetypów." },
+        { q: "Czy to subskrypcja czy płatność jednorazowa?", a: "Płatność jednorazowa. Bez aplikacji, bez miesięcznej opłaty, bez lock-inu. Kupujesz raz, dostajesz PDF, jest Twój na zawsze." },
         { q: "A jeśli mi się nie spodoba?", a: "7-dniowa gwarancja bez pytań. Jeśli produkt nie dostarczy tego, co obiecuje, zwracamy 100% zapłaconej kwoty." },
       ],
     },
     finalCta: {
-      titleBefore: "Wzorzec, który Cię blokował, ma nazwę.\nCzas ",
+      titleBefore: "Wzorzec sabotujący 4 obszary Twojego życia ma nazwę.\nCzas ",
       titleHighlight: "odkryć",
       titleAfter: ", jaki to.",
       sub: "8 pytań. 3 minuty. Jasność, której żaden arkusz nie da.",
@@ -1411,8 +1411,8 @@ const RO: Dict = {
   errorPage: { title: "Această pagină nu s-a încărcat", desc: "Ceva a mers greșit la noi. Poți încerca să reîncarci sau să te întorci acasă.", tryAgain: "Încearcă din nou", goHome: "Acasă" },
   hero: {
     kicker: "Finanțe comportamentale • 14 întrebări • 3 minute",
-    headline: "Nu sunt banii. E tiparul pe care nu-l vezi.",
-    sub: "MindReset îți diagnostichează arhetipul financiar și îți livrează un protocol personalizat. Fără bugete. Fără cont bancar. Doar psihologie care schimbă comportamentul.",
+    headline: "Descoperă tiparul invizibil\ncare îți sabotează 4 zone din viață.",
+    sub: "În 3 minute primești o diagnoză PDF care arată cum arhetipul tău modelează banii, cariera, dragostea și viața personală. Fără aplicație. Fără abonament. Plată unică.",
     cta: "Vreau diagnoza gratuită",
     trust: "+12.000 de diagnoze • Fără card pentru a începe",
     trustSsl: "SSL Securizat",
@@ -1481,8 +1481,8 @@ const RO: Dict = {
     },
     archetypes: {
       tag: "Cele 4 Arhetipuri",
-      title: "Care este tiparul tău cu banii?",
-      sub: "Orice comportament financiar are o rădăcină emoțională. Descoperă-l pe al tău în mai puțin de 3 minute.",
+      title: "Care este tiparul tău invizibil?",
+      sub: "Același tipar emoțional apare în 4 zone: bani, carieră, dragoste și viață personală. Descoperă-l pe al tău în mai puțin de 3 minute.",
       items: {
         AO: { name: "Economul", trigger: "Declanșator: teama de a nu avea", desc: "Acumulează cu obsesia. Dificultate în a cheltui chiar și cu un sold sănătos. Senzația de siguranță nu pare niciodată suficientă." },
         SS: { name: "Păunul", trigger: "Declanșator: aprobarea socială", desc: "Cheltuie ca să impresioneze. Statutul este moneda emoțională. Imaginea externă valorează mai mult decât sănătatea financiară reală." },
@@ -1497,17 +1497,17 @@ const RO: Dict = {
       steps: [
         { title: "Răspunde la 8 întrebări", desc: "Despre comportamentul real, nu teoria financiară. Fără judecată." },
         { title: "Primește diagnosticul", desc: "AI-ul îți mapează arhetipul în 4 dimensiuni: financiar, profesional, amoros și personal." },
-        { title: "Urmează protocolul", desc: "Misiuni zilnice deblocate treptat. Schimbare reală, pas cu pas." },
+        { title: "Primește PDF-ul", desc: "Un PDF de 30+ pagini în inbox cu diagnoza completă în toate cele 4 zone. Îl citești când vrei." },
       ],
     },
     features: {
       tag: "Ce primești",
-      title: "Patru unelte.\nO transformare.",
+      title: "Un PDF. Patru zone.\nZero aplicații.",
       items: [
-        { icon: "🧠", title: "Diagnostic Complet prin AI", desc: "Un raport în 4 dimensiuni scris exclusiv pentru tine: cum apare tiparul tău în bani, muncă, relații și viața personală.", meta: "Generat de GPT-4o · Exclusiv și personal" },
-        { icon: "📅", title: "Matrice de Acțiune Personalizată", desc: "Un calendar de 30, 180 sau 365 de zile cu misiuni reflexive și practici deblocate treptat — ca un protocol zilnic de antrenament comportamental.", meta: "Deblocat treptat · Gamificat" },
-        { icon: "🧭", title: "Compass — Harta Persoanelor", desc: "Descrie pe cineva din viața ta și AI-ul identifică arhetipul financiar al acelei persoane. Primești 5 strategii specifice pentru a îmbunătăți relația aceea cu banii.", meta: "Pentru parteneri, copii, asociați" },
-        { icon: "📈", title: "Panou de Progres", desc: "Streak zilnic, puncte, realizări deblocate și un raport lunar al AI care îți analizează evoluția. Transformare pe care o poți vedea și măsura.", meta: "Streak · Puncte · Insigne · Raport lunar" },
+        { icon: "💰", title: "Dimensiunea Financiară", desc: "Cum îți distorsionează arhetipul deciziile cu banii — și planul concret de ieșire din bucla scărimii, statutului sau impulsului.", meta: "Diagnoză + 5 acțiuni" },
+        { icon: "💼", title: "Dimensiunea Profesională", desc: "De ce accepți mai puțin decât meriți (sau sari de la un proiect la altul). Cum tiparul îți sabotează cariera fără să-ți dai seama.", meta: "Diagnoză + 5 acțiuni" },
+        { icon: "❤️", title: "Dimensiunea Amoroasă", desc: "Arhetipul tău alege parteneri, evită conflicte și măsoară afecțiunea. Cum rupi ciclul în relațiile care contează cel mai mult.", meta: "Diagnoză + 5 acțiuni" },
+        { icon: "🧘", title: "Dimensiunea Personală", desc: "Sănătate, odihnă, identitate, obiceiuri. Unde tiparul te costă ani fără să observi — și cum construiești reset-ul.", meta: "Diagnoză + 5 acțiuni" },
       ],
     },
     testimonials: {
@@ -1517,7 +1517,7 @@ const RO: Dict = {
       items: [
         { stars: 5, quote: "Nu am înțeles niciodată de ce cheltuiam totul înainte de data de 15. Diagnosticul a numit exact ceea ce simțeam. Parcă cineva m-a explicat, în sfârșit, pe mine mie.", name: "Adam K.", arch: "Arhetip: Hedonist Impulsiv" },
         { stars: 5, quote: "Credeam că sunt disciplinată cu banii. MindReset mi-a arătat că îmi era frică să cheltuiesc — și că asta este tot o problemă. A fost revelator.", name: "Maria C.", arch: "Arhetip: Econom Obsesiv" },
-        { stars: 5, quote: "Compass a fost partea cea mai surprinzătoare. L-am analizat pe asociatul meu și am înțeles în 2 minute de ce discuțiile noastre despre bani nu duceau nicăieri.", name: "Rami S.", arch: "Arhetip: Fantasmă Evazionistă" },
+        { stars: 5, quote: "Secțiunile despre carieră și relații au durut — și exact acolo trebuia să mă uit. Nu e doar un raport financiar, e o oglindă.", name: "Rami S.", arch: "Arhetip: Fantasmă Evazionistă" },
       ],
     },
     faq: {
@@ -1528,14 +1528,14 @@ const RO: Dict = {
       items: [
         { q: "MindReset are acces la datele mele bancare?", a: "Nu. MindReset nu accesează conturi, extrase sau orice informații bancare. Diagnosticul se bazează exclusiv pe răspunsurile tale comportamentale la quiz — fără nicio integrare bancară." },
         { q: "Diagnosticul este într-adevăr personalizat?", a: "Da. AI-ul (GPT-4o) generează un raport unic pe baza arhetipului, numelui, genului și răspunsurilor tale individuale. Nu este un text generic — este scris special pentru tine și salvat permanent." },
-        { q: "Funcționează pentru cei care nu se pricep la finanțe?", a: "Mai ales pentru ei. MindReset nu vorbește despre investiții sau foi de calcul — vorbește despre comportamentul emoțional din spatele deciziilor financiare. Nu trebuie să știi nimic despre finanțe ca să beneficiezi." },
-        { q: "Ce se întâmplă după ce îmi descopăr arhetipul?", a: "Primești diagnosticul complet în 4 dimensiuni ale vieții (financiar, profesional, amoros, personal). Când te abonezi, deblochezi Matricea de Acțiune — un calendar de misiuni zilnice pentru 30, 180 sau 365 de zile." },
-        { q: "În cât timp văd rezultate?", a: "Înțelegerea propriului tipar se întâmplă la primul acces — diagnosticul. Transformarea comportamentală reală are loc de-a lungul a 21 până la 90 de zile de practică consecventă cu misiunile zilnice." },
+        { q: "Este doar despre bani?", a: "Nu. Diagnoza acoperă 4 zone: bani, carieră, dragoste și viață personală. Același tipar emoțional apare în toate — se schimbă doar costul." },
+        { q: "Ce primesc exact?", a: "Un PDF de 30+ pagini pe e-mail în câteva minute. Diagnoză a arhetipului în toate cele 4 zone, 20 acțiuni specifice (5 pe zonă) și o hartă a relațiilor tale pe arhetipuri." },
+        { q: "Este abonament sau plată unică?", a: "Plată unică. Fără aplicație, fără taxă lunară, fără lock-in. Cumperi o dată, primești PDF-ul, este al tău pentru totdeauna." },
         { q: "Și dacă nu îmi place?", a: "Garanție de 7 zile fără întrebări. Dacă produsul nu livrează ce promite, returnăm 100% din suma plătită." },
       ],
     },
     finalCta: {
-      titleBefore: "Tiparul care te-a blocat are un nume.\nE timpul să ",
+      titleBefore: "Tiparul care îți sabotează 4 zone din viață are un nume.\nE timpul să ",
       titleHighlight: "afli",
       titleAfter: " care e.",
       sub: "8 întrebări. 3 minute. O claritate pe care nicio foaie de calcul nu ți-o dă.",
@@ -1620,8 +1620,8 @@ const AR: Dict = {
   errorPage: { title: "هذه الصفحة لم تُحمّل", desc: "حدث خطأ من طرفنا. يمكنك المحاولة مرة أخرى أو العودة للرئيسية.", tryAgain: "حاول مرة أخرى", goHome: "الرئيسية" },
   hero: {
     kicker: "السلوك المالي • ٨ أسئلة • ٣ دقائق",
-    headline: "ليست المشكلة في المال. المشكلة في النمط الذي لا تراه.",
-    sub: "MindReset يشخّص نمطك المالي ويقدّم بروتوكول عمل مخصّصاً لك. بدون ميزانيات. بدون ربط بنكي. علم نفس يغيّر السلوك.",
+    headline: "اكتشف النمط الخفي\nالذي يسبق 4 مجالات في حياتك.",
+    sub: "في 3 دقائق احصل على تشخيص PDF يُظهر كيف يشكّل نمطك المال، العمل، الحب والحياة الشخصية. بدون تطبيق. بدون اشتراك. دفعة واحدة.",
     cta: "أريد تشخيصي المجاني",
     trust: "+12,000 تشخيص • بدون بطاقة للبدء",
     trustSsl: "SSL آمن",
@@ -1690,8 +1690,8 @@ const AR: Dict = {
     },
     archetypes: {
       tag: "الأنماط الأربعة",
-      title: "ما هو نمطك مع المال؟",
-      sub: "لكل سلوك مالي جذر عاطفي. اكتشف نمطك في أقل من 3 دقائق.",
+      title: "ما هو نمطك الخفي؟",
+      sub: "نفس النمط العاطفي يظهر في 4 مجالات: المال، العمل، الحب والحياة الشخصية. اكتشف نمطك في أقل من 3 دقائق.",
       items: {
         AO: { name: "المدخر القهري", trigger: "المحفّز: خوف النفاد", desc: "يكدّس بهوس. صعوبة في الإنفاق حتى مع رصيد صحي. الشعور بالأمان لا يبدو كافياً أبداً." },
         SS: { name: "الطاووس", trigger: "المحفّز: القبول الاجتماعي", desc: "ينفق لإبهار الآخرين. المكانة هي العملة العاطفية. الصورة الخارجية أهم من الصحة المالية الحقيقية." },
@@ -1706,17 +1706,17 @@ const AR: Dict = {
       steps: [
         { title: "أجب عن 8 أسئلة", desc: "عن سلوك حقيقي، لا نظرية مالية. بدون أحكام." },
         { title: "احصل على تشخيصك", desc: "الذكاء الاصطناعي يرسم نمطك في 4 أبعاد: المالي، المهني، العاطفي والشخصي." },
-        { title: "اتبع البروتوكول", desc: "مهمات يومية تُفتح تدريجياً. تغيير حقيقي، خطوة بخطوة." },
+        { title: "استلم الـ PDF", desc: "ملف PDF بأكثر من 30 صفحة في بريدك يحتوي على التشخيص الكامل في المجالات الأربعة. اقرأه متى شئت." },
       ],
     },
     features: {
       tag: "ما ستحصل عليه",
-      title: "أربع أدوات.\nتحوّل واحد.",
+      title: "PDF واحد. أربع مجالات.\nصفر تطبيقات.",
       items: [
-        { icon: "🧠", title: "تشخيص كامل بالذكاء الاصطناعي", desc: "تقرير في 4 أبعاد مكتوب خصيصاً لك: كيف يظهر نمطك في المال، العمل، العلاقات والحياة الشخصية.", meta: "مدعوم بـ GPT-4o · حصري وشخصي" },
-        { icon: "📅", title: "مصفوفة إجراءات مخصصة", desc: "تقويم 30 أو 180 أو 365 يوماً بمهمات تأملية وممارسات تُفتح تدريجياً — كبروتوكول تدريبي سلوكي يومي.", meta: "يُفتح تدريجياً · تفاعلي" },
-        { icon: "🧭", title: "Compass — خريطة الأشخاص", desc: "صِف شخصاً من حياتك وسيقوم الذكاء الاصطناعي بتحديد نمطه المالي. ستحصل على 5 استراتيجيات محددة لتحسين هذه العلاقة مع المال.", meta: "للشركاء، الأبناء، الشركاء التجاريين" },
-        { icon: "📈", title: "لوحة التقدم", desc: "سلسلة أيام متتالية، نقاط، إنجازات قابلة للفتح، وتقرير شهري يحلل الذكاء الاصطناعي تطورك. تحويل يمكنك رؤيته وقياسه.", meta: "سلسلة · نقاط · شارات · تقرير شهري" },
+        { icon: "💰", title: "البُعد المالي", desc: "كيف يشوّه نمطك قراراتك مع المال — وخطة محددة للخروج من حلقة الشحّ أو المكانة أو الاندفاع.", meta: "تشخيص + 5 إجراءات" },
+        { icon: "💼", title: "البُعد المهني", desc: "لماذا تقبل أقل مما تستحق (أو تقفز من مشروع لآخر). كيف يسبق النمط مسيرتك دون أن تلاحظ.", meta: "تشخيص + 5 إجراءات" },
+        { icon: "❤️", title: "البُعد العاطفي", desc: "نمطك يختار الشركاء ويتجنّب الخلاف ويقيس المودة. كيف تكسر الحلقة في العلاقات الأكثر أهمية.", meta: "تشخيص + 5 إجراءات" },
+        { icon: "🧘", title: "البُعد الشخصي", desc: "الصحة، الراحة، الهوية، العادات. حيث يكلّفك النمط سنوات دون أن تلاحظ — وكيف تبني الـ Reset.", meta: "تشخيص + 5 إجراءات" },
       ],
     },
     testimonials: {
@@ -1726,7 +1726,7 @@ const AR: Dict = {
       items: [
         { stars: 5, quote: "لم أفهم أبداً لماذا كنتُ أنفق كل شيء قبل اليوم الخامس عشر. التشخيص سمّى بالضبط ما شعرت به. كأن أحداً أخيراً شرحني لنفسي.", name: "آدم ك.", arch: "النمط: الملذّ المندفع" },
         { stars: 5, quote: "كنت أظن أنني منظبط مع المال. أظهر لي MindReset أنني كنت أخشى الإنفاق — وأن هذه أيضاً مشكلة. كان كشفاً.", name: "ماريا س.", arch: "النمط: المدخر القهري" },
-        { stars: 5, quote: "كان Compass الجزء الأكثر إثارة. حلّلت شريكي وفهمت في دقيقتين لماذا كانت نقاشاتنا حول المال لا تذهب لأي مكان.", name: "رامي س.", arch: "النمط: الشبح المتجنب" },
+        { stars: 5, quote: "أقسام العمل والعلاقات كانت موجعة — وهناك بالضبط احتجت أن أنظر. ليس مجرد تقرير مالي، بل مرآة.", name: "رامي س.", arch: "النمط: الشبح المتجنب" },
       ],
     },
     faq: {
@@ -1737,14 +1737,14 @@ const AR: Dict = {
       items: [
         { q: "هل يصل MindReset إلى بياناتي البنكية؟", a: "لا. لا يصل MindReset إلى الحسابات أو الكشوف أو أي معلومات بنكية. يعتمد التشخيص حصرياً على إجاباتك السلوكية للاختبار — بدون أي تكامل بنكي." },
         { q: "هل التشخيص مخصص فعلاً لي؟", a: "نعم. يُنشئ الذكاء الاصطناعي (GPT-4o) تقريراً فريداً بناءً على نمطك واسمك وجنسك وإجاباتك الفردية. ليس نصاً عاماً — بل مكتوب خصيصاً لك ومحفوظ بشكل دائم." },
-        { q: "هل يعمل لمن لا يفهم في المال؟", a: "خاصة لمن لا يفهم. لا يتحدث MindReset عن استثمارات أو جداول — بل عن السلوك العاطفي وراء القرارات المالية. لا تحتاج لمعرفة أي شيء في المال لتستفيد." },
-        { q: "ماذا يحدث بعد أن أكتشف نمطي؟", a: "تحصل على التشخيص الكامل في 4 أبعاد من الحياة (مالي، مهني، عاطفي، شخصي). عند الاشتراك، تفتح مصفوفة الإجراءات — تقويم مهمات يومية لـ 30 أو 180 أو 365 يوماً." },
-        { q: "متى سأرى النتائج؟", a: "فهم نمطك الخاص يحدث من أول دخول — في التشخيص. التحول السلوكي الحقيقي يحدث على مدى 21 إلى 90 يوماً من الممارسة المتواصلة مع المهمات اليومية." },
+        { q: "هل هذا عن المال فقط؟", a: "لا. التشخيص يغطي 4 مجالات: المال، العمل، الحب والحياة الشخصية. نفس النمط العاطفي يظهر في كلها — تتغير فقط التكلفة." },
+        { q: "ما الذي أحصل عليه بالضبط؟", a: "ملف PDF بأكثر من 30 صفحة على بريدك خلال دقائق. تشخيص لنمطك في المجالات الأربعة، 20 إجراءً محدداً (5 لكل مجال)، وخريطة لعلاقاتك حسب الأنماط." },
+        { q: "هل هو اشتراك أم دفعة واحدة؟", a: "دفعة واحدة. بدون تطبيق، بدون رسوم شهرية، بدون التزام. تشتري مرة واحدة، تستلم الـ PDF، يبقى ملكك للأبد." },
         { q: "ماذا لو لم يعجبني؟", a: "ضمان 7 أيام بدون أسئلة. إذا لم يُلبِّ المنتج ما وعد به، نُرجع 100% من المبلغ المدفوع." },
       ],
     },
     finalCta: {
-      titleBefore: "النمط الذي أعاقك له اسم.\nحان وقت ",
+      titleBefore: "النمط الذي يسبق 4 مجالات في حياتك له اسم.\nحان وقت ",
       titleHighlight: "اكتشاف",
       titleAfter: " ما هو.",
       sub: "8 أسئلة. 3 دقائق. وضوح لا يمنحك إياه أي جدول بيانات.",
