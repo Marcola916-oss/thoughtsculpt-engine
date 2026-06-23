@@ -139,3 +139,40 @@ function stripeLocale(lang: string): string {
     default: return "en";
   }
 }
+
+// Microcopy that appears ABOVE the "Pay" button on Stripe's hosted page.
+// Max 1200 chars per field, plain text only.
+function stripeSubmitCopy(lang: string): string {
+  switch (lang) {
+    case "pt":
+      return "✓ Garantia de 7 dias — reembolso integral. ✓ Acesso imediato por email. ✓ Pagamento único, sem subscrição.";
+    case "pl":
+      return "✓ Gwarancja 7 dni — pełen zwrot. ✓ Natychmiastowy dostęp na e-mail. ✓ Płatność jednorazowa, bez subskrypcji.";
+    case "ro":
+      return "✓ Garanție 7 zile — rambursare integrală. ✓ Acces imediat pe e-mail. ✓ Plată unică, fără abonament.";
+    case "ar":
+      return "✓ ضمان 7 أيام — استرداد كامل. ✓ وصول فوري عبر البريد الإلكتروني. ✓ دفعة واحدة، بدون اشتراك.";
+    default:
+      return "✓ 7-day money-back guarantee. ✓ Instant delivery to your email. ✓ One-time payment, no subscription.";
+  }
+}
+
+function stripeAfterSubmitCopy(lang: string): string {
+  switch (lang) {
+    case "pt": return "A preparar o teu diagnóstico…";
+    case "pl": return "Przygotowujemy twoją diagnozę…";
+    case "ro": return "Pregătim diagnoza ta…";
+    case "ar": return "نُجهّز تشخيصك…";
+    default:   return "Preparing your diagnosis…";
+  }
+}
+
+function productLabel(lang: string): string {
+  switch (lang) {
+    case "pt": return "Diagnóstico Comportamental";
+    case "pl": return "Diagnoza Behawioralna";
+    case "ro": return "Diagnoză Comportamentală";
+    case "ar": return "التشخيص السلوكي";
+    default:   return "Behavioral Diagnosis";
+  }
+}
