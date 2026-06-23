@@ -33,6 +33,13 @@ export type Dict = {
       noBank: { value: string; label: string };
       languages: { value: string; label: string };
     };
+    beliefBreak: {
+      tag: string;
+      title: string;
+      intro: string;
+      cards: Array<{ author: string; quote: string; insight: string }>;
+      punchline: string;
+    };
     archetypes: {
       tag: string; title: string; sub: string;
       items: Record<"AO" | "SS" | "EA" | "HI", { name: string; trigger: string; desc: string }>;
