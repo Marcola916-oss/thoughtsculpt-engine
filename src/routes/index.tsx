@@ -592,8 +592,12 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       {(() => {
         const headline = t.hero.headline;
-        // Fix for i18n issue: find the best word to highlight or use a standard one
-        const keywords = ["CONHECER", "know", "poznać", "cunoști", "تعرف"];
+        // Bible V2 highlight tokens — the "sabotar" verb in each language.
+        // Old tokens kept as fallback for backward compat if copy diverges mid-deploy.
+        const keywords = [
+          "SABOTAR", "SABOTANDO", "SABOTAGING", "SABOTUJE", "SABOTEAZĂ", "يُخرّب",
+          "CONHECER", "know", "poznać", "cunoști", "تعرف",
+        ];
         let keyword = "";
         let idx = -1;
         
