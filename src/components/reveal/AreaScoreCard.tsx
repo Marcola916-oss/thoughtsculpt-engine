@@ -59,7 +59,7 @@ export function AreaScoreCard({ area, label, description, score, delayMs = 0 }: 
             </h3>
           </div>
         </div>
-        <div className="text-right">
+        <div className="text-end">
           <div className="font-display text-3xl font-black leading-none text-arch-primary tabular-nums">
             {animated}
           </div>

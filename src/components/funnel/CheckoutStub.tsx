@@ -381,7 +381,7 @@ function BumpRow(props: {
       type="button"
       onClick={onToggle}
       aria-pressed={active}
-      className={`mt-4 flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition-all ${
+      className={`mt-4 flex w-full items-start gap-3 rounded-2xl border p-4 text-start transition-all ${
         active
           ? "border-arch-primary/60 bg-arch-primary/[0.08]"
           : "border-white/10 bg-black/30 hover:border-white/25"
