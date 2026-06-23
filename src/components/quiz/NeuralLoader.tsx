@@ -14,6 +14,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useI18n } from "../../lib/i18n/LanguageProvider";
 import { LoaderAmbient } from "./LoaderAmbient";
+import { track, EVENTS } from "@/lib/analytics";
 
 interface NeuralLoaderProps {
   onComplete: () => void;
@@ -22,7 +23,7 @@ interface NeuralLoaderProps {
   analysisLogs?: string[];
 }
 
-export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysisLogs }: NeuralLoaderProps) {
+export function NeuralLoader({ onComplete, durationMs = 6000, messages, analysisLogs }: NeuralLoaderProps) {
   const { t } = useI18n();
   const [progress, setProgress] = useState(0);
   const [msgIndex, setMsgIndex] = useState(0);
@@ -33,6 +34,11 @@ export function NeuralLoader({ onComplete, durationMs = 3000, messages, analysis
 
   const msgs = messages ?? t.loader.steps;
   const logs = analysisLogs ?? t.loader.analysis;
+
+  // Fase 3 — fire LOADER_VIEW once when the loader mounts.
+  useEffect(() => {
+    track(EVENTS.LOADER_VIEW);
+  }, []);
 
   useEffect(() => {
     startTime.current = Date.now();
