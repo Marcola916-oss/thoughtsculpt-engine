@@ -299,7 +299,7 @@ function PdfMockup({ archLabel, pages, langLabel }: { archLabel: string; pages: 
             </div>
           ))}
         </div>
-        <div className="absolute bottom-6 left-8 right-8 flex items-center justify-between text-[10px] text-foreground/40">
+        <div className="absolute bottom-6 inset-x-8 flex items-center justify-between text-[10px] text-foreground/40">
           <span>{langLabel}</span>
           <FileText className="h-3.5 w-3.5" />
         </div>

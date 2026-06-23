@@ -296,9 +296,9 @@ export function CheckoutStub({ email, name }: Props) {
                     placeholder={copy.cardPlaceholder}
                     required
                     autoComplete="cc-number"
-                    className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 pr-12 text-sm font-mono text-white placeholder-white/30 outline-none transition-all focus:border-arch-primary focus:bg-black/70"
+                    className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 pe-12 text-sm font-mono text-white placeholder-white/30 outline-none transition-all focus:border-arch-primary focus:bg-black/70"
                   />
-                  <CreditCard aria-hidden className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
+                  <CreditCard aria-hidden className="pointer-events-none absolute end-4 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
                 </div>
               </Field>
 
@@ -381,7 +381,7 @@ function BumpRow(props: {
       type="button"
       onClick={onToggle}
       aria-pressed={active}
-      className={`mt-4 flex w-full items-start gap-3 rounded-2xl border p-4 text-left transition-all ${
+      className={`mt-4 flex w-full items-start gap-3 rounded-2xl border p-4 text-start transition-all ${
         active
           ? "border-arch-primary/60 bg-arch-primary/[0.08]"
           : "border-white/10 bg-black/30 hover:border-white/25"

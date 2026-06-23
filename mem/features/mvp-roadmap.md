@@ -29,7 +29,7 @@ Sub-passos:
 - B4 — VSL com 8 blocos (sales/VSL.tsx) ✅ (componente único com copy embedded nos 5 idiomas, 4 painCards por arquétipo, PDF mockup, 3 testimonials, pricing card com 2 order bumps, FAQ 6Q, CTA final)
 - B5 — Landing copy refresh ✅ (Hero H1 "padrão invisível 4 áreas", ArchetypeShowcase com descs multi-área, HowItWorks step 3 "PDF entregue", FeaturesGrid reescrito como 4 dimensões do PDF Financeira/Profissional/Amorosa/Pessoal, FAQ sem Matriz/Compass/assinatura, FinalCTA com mensagem 4 áreas. 5 idiomas: PT/EN/PL/RO/AR)
 - B6 — Checkout stub visual ✅ (CheckoutStub.tsx: resumo do pedido com OB1/OB2 toggleáveis, total dinâmico, formulário fake card/exp/cvc/email pré-preenchido, botão "Pagar $X" → /obrigado após 1.2s. i18n embedded 5 idiomas. VSL agora roteia para `checkout` em vez de `plans`. Layout plug-and-play para Fase D: trocar `<input>` por Stripe Elements + `setTimeout` por `stripe.confirmPayment()` sem mudar wireframe.)
-- B7 — Polish + RTL + responsivo + build clean
+- B7 — Polish + RTL + responsivo + build clean ✅ (auditoria de classes direcionais nos artefatos B3/B4/B6: `pr-12`/`right-4` → `pe-12`/`end-4` no CheckoutStub, `left-0` → `start-0` na barra de progresso do AreaScoreCard, `text-right`/`text-left` → `text-end`/`text-start`, `left-8 right-8` → `inset-x-8` no PDF mockup. Resto do funil já usava `text-start`, `inset-x-*`, `gap-*` e flex naturais — totalmente RTL-safe.)
 
 Foco:
 - Reveal premium com dor centrada nas 4 áreas (não só dinheiro).
