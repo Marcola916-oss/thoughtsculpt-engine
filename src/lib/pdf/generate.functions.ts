@@ -90,9 +90,10 @@ export const generateDiagnosisPdf = createServerFn({ method: "POST" })
 
       const chain = await callAIChain({
         models: [
+          "google/gemini-3-flash-preview",
           "google/gemini-2.5-flash",
           "google/gemini-2.5-flash-lite",
-          "google/gemini-2.0-flash-exp",
+          "google/gemini-2.5-pro",
         ],
         system: prompt.system,
         user: prompt.user,
