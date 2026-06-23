@@ -254,10 +254,12 @@ function LandingAndQuiz() {
           setLeadId(row.id);
           setShareToken(row.share_token);
         }
+        track(EVENTS.LOADER_COMPLETE);
         setStage({ kind: "reveal" });
       } catch (e) {
         if (cancelled) return;
         setLeadError((e as Error).message);
+        track(EVENTS.LOADER_COMPLETE, { error: true });
         setStage({ kind: "reveal" });
       }
     })();
