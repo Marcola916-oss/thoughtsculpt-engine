@@ -1,5 +1,6 @@
 export { TopBar } from "./TopBar";
 export { ProofBar } from "./ProofBar";
+export { BeliefBreak } from "./BeliefBreak";
 export { ArchetypeShowcase } from "./ArchetypeShowcase";
 export { HowItWorks } from "./HowItWorks";
 export { FeaturesGrid } from "./FeaturesGrid";

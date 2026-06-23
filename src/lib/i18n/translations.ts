@@ -33,6 +33,13 @@ export type Dict = {
       noBank: { value: string; label: string };
       languages: { value: string; label: string };
     };
+    beliefBreak: {
+      tag: string;
+      title: string;
+      intro: string;
+      cards: Array<{ author: string; quote: string; insight: string }>;
+      punchline: string;
+    };
     archetypes: {
       tag: string; title: string; sub: string;
       items: Record<"AO" | "SS" | "EA" | "HI", { name: string; trigger: string; desc: string }>;
@@ -290,6 +297,17 @@ const PT: Dict = {
       rating: { value: "4.9 / 5", label: "Avaliação média" },
       noBank: { value: "100%", label: "Sem dados bancários" },
       languages: { value: "5", label: "Idiomas suportados" },
+    },
+    beliefBreak: {
+      tag: "A\u00a0 CIÊNCIA\u00a0 POR\u00a0 TRÁS",
+      title: "O\u00a0 PROBLEMA\u00a0 NÃO\u00a0 É\u00a0 O\u00a0 TEU\u00a0 DINHEIRO.\u00a0 É\u00a0 O\u00a0 TEU\u00a0 PADRÃO.",
+      intro: "Três Prémios Nobel já o disseram. Tu apenas nunca tinhas ouvido assim.",
+      cards: [
+        { author: "Daniel Kahneman", quote: "Sistema 1 decide. Sistema 2 racionaliza.", insight: "95% das tuas decisões financeiras são automáticas — não pensadas." },
+        { author: "Richard Thaler", quote: "Não somos racionais. Somos previsíveis.", insight: "Repetes os mesmos erros — sempre nos mesmos gatilhos." },
+        { author: "Dan Ariely", quote: "Não controlas o dinheiro. O teu padrão controla-te.", insight: "Até saberes qual é o padrão, ele decide por ti." },
+      ],
+      punchline: "O problema não é o teu dinheiro. É o teu padrão.",
     },
     archetypes: {
       tag: "Os 4 Arquétipos",
@@ -759,6 +777,17 @@ const EN: Dict = {
       rating: { value: "4.9 / 5", label: "Average rating" },
       noBank: { value: "100%", label: "No bank data needed" },
       languages: { value: "5", label: "Languages supported" },
+    },
+    beliefBreak: {
+      tag: "THE\u00a0 SCIENCE\u00a0 BEHIND\u00a0 IT",
+      title: "THE\u00a0 PROBLEM\u00a0 ISN'T\u00a0 YOUR\u00a0 MONEY.\u00a0 IT'S\u00a0 YOUR\u00a0 PATTERN.",
+      intro: "Three Nobel laureates already proved it. You just never heard it this way.",
+      cards: [
+        { author: "Daniel Kahneman", quote: "System 1 decides. System 2 rationalizes.", insight: "95% of your financial decisions are automatic — not thought through." },
+        { author: "Richard Thaler", quote: "We're not rational. We're predictable.", insight: "You repeat the same mistakes — always on the same triggers." },
+        { author: "Dan Ariely", quote: "You don't control money. Your pattern controls you.", insight: "Until you name the pattern, it decides for you." },
+      ],
+      punchline: "The problem isn't your money. It's your pattern.",
     },
     archetypes: {
       tag: "The 4 Archetypes",
@@ -1274,6 +1303,17 @@ const PL: Dict = {
       noBank: { value: "100%", label: "Bez danych bankowych" },
       languages: { value: "5", label: "Obsługiwanych języków" },
     },
+    beliefBreak: {
+      tag: "NAUKA\u00a0 ZA\u00a0 TYM",
+      title: "PROBLEMEM\u00a0 NIE\u00a0 SĄ\u00a0 TWOJE\u00a0 PIENIĄDZE.\u00a0 PROBLEMEM\u00a0 JEST\u00a0 TWÓJ\u00a0 WZORZEC.",
+      intro: "Trzech laureatów Nagrody Nobla już to udowodniło. Tylko nigdy nie usłyszałeś tego w ten sposób.",
+      cards: [
+        { author: "Daniel Kahneman", quote: "System 1 decyduje. System 2 racjonalizuje.", insight: "95% twoich decyzji finansowych jest automatycznych — nie przemyślanych." },
+        { author: "Richard Thaler", quote: "Nie jesteśmy racjonalni. Jesteśmy przewidywalni.", insight: "Powtarzasz te same błędy — zawsze na te same wyzwalacze." },
+        { author: "Dan Ariely", quote: "Nie kontrolujesz pieniędzy. Twój wzorzec kontroluje ciebie.", insight: "Dopóki nie nazwiesz wzorca, on decyduje za ciebie." },
+      ],
+      punchline: "Problemem nie są twoje pieniądze. Problemem jest twój wzorzec.",
+    },
     archetypes: {
       tag: "4 Archetypy",
       title: "Jaki jest Twój niewidzialny wzorzec?",
@@ -1482,6 +1522,17 @@ const RO: Dict = {
       rating: { value: "4.9 / 5", label: "Evaluare medie" },
       noBank: { value: "100%", label: "Fără date bancare" },
       languages: { value: "5", label: "Limbi suportate" },
+    },
+    beliefBreak: {
+      tag: "ȘTIINȚA\u00a0 DIN\u00a0 SPATE",
+      title: "PROBLEMA\u00a0 NU\u00a0 SUNT\u00a0 BANII\u00a0 TĂI.\u00a0 ESTE\u00a0 TIPARUL\u00a0 TĂU.",
+      intro: "Trei laureați ai Premiului Nobel au demonstrat-o deja. Tu doar nu ai auzit-o așa.",
+      cards: [
+        { author: "Daniel Kahneman", quote: "Sistemul 1 decide. Sistemul 2 raționalizează.", insight: "95% dintre deciziile tale financiare sunt automate — nu gândite." },
+        { author: "Richard Thaler", quote: "Nu suntem raționali. Suntem previzibili.", insight: "Repeți aceleași greșeli — mereu pe aceiași declanșatori." },
+        { author: "Dan Ariely", quote: "Nu controlezi banii. Tiparul tău te controlează pe tine.", insight: "Până nu numești tiparul, el decide pentru tine." },
+      ],
+      punchline: "Problema nu sunt banii tăi. Este tiparul tău.",
     },
     archetypes: {
       tag: "Cele 4 Arhetipuri",
@@ -1692,6 +1743,17 @@ const AR: Dict = {
       rating: { value: "4.9 / 5", label: "متوسط التقييم" },
       noBank: { value: "100%", label: "بدون بيانات بنكية" },
       languages: { value: "5", label: "لغات مدعومة" },
+    },
+    beliefBreak: {
+      tag: "العِلم\u00a0 وراء\u00a0 ذلك",
+      title: "المشكلة\u00a0 ليست\u00a0 في\u00a0 أموالك.\u00a0 المشكلة\u00a0 في\u00a0 نمطك.",
+      intro: "ثلاثة حائزين على جائزة نوبل أثبتوا ذلك. أنت فقط لم تسمعه بهذه الطريقة.",
+      cards: [
+        { author: "Daniel Kahneman", quote: "النظام 1 يقرر. النظام 2 يبرر.", insight: "95% من قراراتك المالية تلقائية — ليست مدروسة." },
+        { author: "Richard Thaler", quote: "لسنا عقلانيين. نحن متوقعون.", insight: "تكرر الأخطاء نفسها — دائمًا على نفس المحفزات." },
+        { author: "Dan Ariely", quote: "أنت لا تتحكم في المال. نمطك يتحكم بك.", insight: "حتى تُسمّي النمط، هو من يقرر بدلًا عنك." },
+      ],
+      punchline: "المشكلة ليست في أموالك. المشكلة في نمطك.",
     },
     archetypes: {
       tag: "الأنماط الأربعة",
