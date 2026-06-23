@@ -170,6 +170,47 @@ function LandingAndQuiz() {
     }
   }, []);
 
+  // Fase 3 — Quiz draft persistence (sessionStorage, TTL 30min).
+  // Restaura name/gender/answers se o utilizador refrescar acidentalmente durante o quiz.
+  const DRAFT_KEY = "mr_quiz_draft";
+  const DRAFT_TTL_MS = 30 * 60 * 1000;
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = window.sessionStorage.getItem(DRAFT_KEY);
+      if (!raw) return;
+      const draft = JSON.parse(raw) as {
+        savedAt: number;
+        name?: string;
+        gender?: "m" | "f" | "n" | "";
+        answers?: Answers;
+      };
+      if (Date.now() - draft.savedAt > DRAFT_TTL_MS) {
+        window.sessionStorage.removeItem(DRAFT_KEY);
+        return;
+      }
+      if (draft.name) setName(draft.name);
+      if (draft.gender) setGender(draft.gender);
+      if (Array.isArray(draft.answers) && draft.answers.length === 8) setAnswers(draft.answers);
+    } catch {
+      /* ignore corrupted draft */
+    }
+  }, []);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // Only persist once the user actually engaged the quiz (entered identity).
+    const hasContent = name.length > 0 || answers.some((a) => a != null);
+    if (!hasContent) return;
+    try {
+      window.sessionStorage.setItem(
+        DRAFT_KEY,
+        JSON.stringify({ savedAt: Date.now(), name, gender, answers }),
+      );
+    } catch {
+      /* quota / privacy mode — silently ignore */
+    }
+  }, [name, gender, answers]);
+
   useEffect(() => {
     if (timerLeft <= 0) return;
     const interval = setInterval(() => setTimerLeft((t) => t - 1), 1000);
@@ -367,9 +408,11 @@ function LandingAndQuiz() {
                 stepKey={`q-${stage.index}`}
                 progress={((stage.index + 1) / 8) * 85}
                 onBack={() =>
-                  stage.index === 0
-                    ? setStage({ kind: "identity" })
-                    : setStage({ kind: "q", index: stage.index - 1 })
+                  {
+                    track(EVENTS.QUIZ_BACK, { from_step: stage.index + 1 });
+                    if (stage.index === 0) setStage({ kind: "identity" });
+                    else setStage({ kind: "q", index: stage.index - 1 });
+                  }
                 }
                 progressTitle={t.questions.title(stage.index + 1, 8)}
               >
@@ -389,7 +432,10 @@ function LandingAndQuiz() {
               <QuizScreenWrapper
                 stepKey="email"
                 progress={90}
-                onBack={() => setStage({ kind: "q", index: 7 })}
+                onBack={() => {
+                  track(EVENTS.QUIZ_BACK, { from_step: "email" });
+                  setStage({ kind: "q", index: 7 });
+                }}
                 progressTitle={t.quizProgress.email}
               >
                 <EmailCapture
