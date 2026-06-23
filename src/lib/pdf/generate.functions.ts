@@ -90,10 +90,10 @@ export const generateDiagnosisPdf = createServerFn({ method: "POST" })
 
       const chain = await callAIChain({
         models: [
-          "google/gemini-3-flash-preview",
-          "google/gemini-2.5-flash",
-          "google/gemini-2.5-flash-lite",
-          "google/gemini-2.5-pro",
+          { provider: "groq", model: "llama-3.3-70b-versatile" },
+          { provider: "groq", model: "llama-3.1-8b-instant" },
+          { provider: "openai", model: "gpt-4o-mini" },
+          { provider: "openai", model: "gpt-4o" },
         ],
         system: prompt.system,
         user: prompt.user,
