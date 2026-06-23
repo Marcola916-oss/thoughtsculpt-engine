@@ -387,7 +387,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
 
       {/* Block 3 — Science */}
       <section className="relative border-b border-white/5 py-28">
-        <Atmosphere fog="subtle" symbols="none" scan="none">
+        <Atmosphere fog="subtle" symbols="off" scan="off">
           <div className="container mx-auto grid gap-10 px-6 lg:grid-cols-[1fr_1fr]">
             <Reveal>
               <div className="mb-3 text-[11px] uppercase tracking-[0.2em] text-[var(--accent)]">
