@@ -341,6 +341,65 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          amount_cents: number
+          bumps: Json
+          created_at: string
+          currency: string
+          customer_email: string | null
+          id: string
+          ip_hash: string | null
+          lead_id: string
+          paid_at: string | null
+          raw_event: Json | null
+          status: Database["public"]["Enums"]["order_status"]
+          stripe_payment_intent: string | null
+          stripe_session_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount_cents: number
+          bumps?: Json
+          created_at?: string
+          currency: string
+          customer_email?: string | null
+          id?: string
+          ip_hash?: string | null
+          lead_id: string
+          paid_at?: string | null
+          raw_event?: Json | null
+          status?: Database["public"]["Enums"]["order_status"]
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount_cents?: number
+          bumps?: Json
+          created_at?: string
+          currency?: string
+          customer_email?: string | null
+          id?: string
+          ip_hash?: string | null
+          lead_id?: string
+          paid_at?: string | null
+          raw_event?: Json | null
+          status?: Database["public"]["Enums"]["order_status"]
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "quiz_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pdf_generations: {
         Row: {
           archetype: Database["public"]["Enums"]["archetype"]
@@ -522,6 +581,24 @@ export type Database = {
         }
         Relationships: []
       }
+      stripe_events: {
+        Row: {
+          event_id: string
+          processed_at: string
+          type: string
+        }
+        Insert: {
+          event_id: string
+          processed_at?: string
+          type: string
+        }
+        Update: {
+          event_id?: string
+          processed_at?: string
+          type?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           amount_cents: number
@@ -694,6 +771,13 @@ export type Database = {
             }
             Returns: undefined
           }
+      get_order_status: {
+        Args: { _id: string }
+        Returns: {
+          lead_id: string
+          status: Database["public"]["Enums"]["order_status"]
+        }[]
+      }
       get_shared_quiz: {
         Args: { _token: string }
         Returns: {
@@ -724,6 +808,7 @@ export type Database = {
     }
     Enums: {
       archetype: "AO" | "SS" | "EA" | "HI"
+      order_status: "pending" | "paid" | "failed" | "expired" | "refunded"
       plan_kind: "p30d" | "p6m" | "p1y"
       share_channel: "whatsapp" | "x" | "facebook" | "copy" | "other"
       sub_status: "incomplete" | "active" | "past_due" | "canceled" | "expired"
@@ -855,6 +940,7 @@ export const Constants = {
   public: {
     Enums: {
       archetype: ["AO", "SS", "EA", "HI"],
+      order_status: ["pending", "paid", "failed", "expired", "refunded"],
       plan_kind: ["p30d", "p6m", "p1y"],
       share_channel: ["whatsapp", "x", "facebook", "copy", "other"],
       sub_status: ["incomplete", "active", "past_due", "canceled", "expired"],
