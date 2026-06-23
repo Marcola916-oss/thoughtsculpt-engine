@@ -510,6 +510,14 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
 
 function Hero({ onStart }: { onStart: () => void }) {
   const { t } = useI18n();
+  // Fase 2 — fire LANDING_VIEW once when hero mounts (browser-only via track()).
+  useEffect(() => {
+    track(EVENTS.LANDING_VIEW);
+  }, []);
+  const handleStart = () => {
+    track(EVENTS.QUIZ_START, { source: "hero" });
+    onStart();
+  };
   // Gate the 3 desktop-only floating badges by an actual media query so the
   // framer-motion subscriptions don't run idle on mobile (display:none alone
   // does NOT stop framer's rAF loop).
