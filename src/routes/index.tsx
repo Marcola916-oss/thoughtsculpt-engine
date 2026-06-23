@@ -664,7 +664,7 @@ function Hero({ onStart }: { onStart: () => void }) {
       >
         <Magnetic>
           <button
-            onClick={onStart}
+            onClick={handleStart}
             data-cursor="hover"
             className="group relative h-20 md:h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
