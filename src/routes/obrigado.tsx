@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { generateDiagnosisPdf } from "@/lib/pdf/generate.functions";
 import { sendDiagnosisEmail } from "@/lib/email/send-diagnosis.functions";
+import { verifyOrderStatus } from "@/lib/payments/verify.functions";
 import { MarbleBust } from "@/components/identity";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
@@ -13,9 +14,10 @@ export const Route = createFileRoute("/obrigado")({
   component: ThankYouPage,
   validateSearch: (
     search: Record<string, unknown>,
-  ): { session_id?: string; lead?: string; ob1?: number; ob2?: number } => ({
+  ): { session_id?: string; lead?: string; order?: string; ob1?: number; ob2?: number } => ({
     session_id: typeof search.session_id === "string" ? search.session_id : undefined,
     lead: typeof search.lead === "string" ? search.lead : undefined,
+    order: typeof search.order === "string" ? search.order : undefined,
     ob1: typeof search.ob1 === "number" ? search.ob1 : undefined,
     ob2: typeof search.ob2 === "number" ? search.ob2 : undefined,
   }),
@@ -32,6 +34,11 @@ const COPY: Record<string, {
   retry: string;
   back: string;
   fromCache: string;
+  verifying: string;
+  verifyingHint: string;
+  paymentFailed: string;
+  paymentPending: string;
+  refresh: string;
 }> = {
   pt: {
     title: "O teu diagnóstico está pronto",
@@ -44,6 +51,11 @@ const COPY: Record<string, {
     retry: "Tentar novamente",
     back: "Voltar ao início",
     fromCache: "Recuperado do teu histórico.",
+    verifying: "A confirmar o teu pagamento…",
+    verifyingHint: "Demora 2–5 segundos. Não feches esta página.",
+    paymentFailed: "O pagamento não foi confirmado.",
+    paymentPending: "O teu pagamento ainda está em processamento. Volta dentro de minutos.",
+    refresh: "Atualizar",
   },
   en: {
     title: "Your diagnosis is ready",
@@ -56,6 +68,11 @@ const COPY: Record<string, {
     retry: "Try again",
     back: "Back to start",
     fromCache: "Recovered from your history.",
+    verifying: "Confirming your payment…",
+    verifyingHint: "Takes 2–5 seconds. Don't close this page.",
+    paymentFailed: "Your payment wasn't confirmed.",
+    paymentPending: "Your payment is still processing. Come back in a few minutes.",
+    refresh: "Refresh",
   },
   pl: {
     title: "Twoja diagnoza jest gotowa",
@@ -68,6 +85,11 @@ const COPY: Record<string, {
     retry: "Spróbuj ponownie",
     back: "Powrót",
     fromCache: "Odzyskane z twojej historii.",
+    verifying: "Potwierdzam płatność…",
+    verifyingHint: "Trwa 2–5 sekund. Nie zamykaj strony.",
+    paymentFailed: "Płatność nie została potwierdzona.",
+    paymentPending: "Twoja płatność jest jeszcze przetwarzana. Wróć za kilka minut.",
+    refresh: "Odśwież",
   },
   ro: {
     title: "Diagnosticul tău este gata",
@@ -80,6 +102,11 @@ const COPY: Record<string, {
     retry: "Încearcă din nou",
     back: "Înapoi",
     fromCache: "Recuperat din istoricul tău.",
+    verifying: "Confirmăm plata ta…",
+    verifyingHint: "Durează 2–5 secunde. Nu închide pagina.",
+    paymentFailed: "Plata nu a fost confirmată.",
+    paymentPending: "Plata ta este încă în procesare. Revino în câteva minute.",
+    refresh: "Reîmprospătează",
   },
   ar: {
     title: "تشخيصك جاهز",
@@ -92,38 +119,81 @@ const COPY: Record<string, {
     retry: "أعد المحاولة",
     back: "العودة",
     fromCache: "مُستردّ من سجلّك.",
+    verifying: "نؤكّد دفعتك…",
+    verifyingHint: "يستغرق 2-5 ثوانٍ. لا تُغلق الصفحة.",
+    paymentFailed: "لم يتم تأكيد دفعتك.",
+    paymentPending: "دفعتك لا تزال قيد المعالجة. عُد بعد بضع دقائق.",
+    refresh: "تحديث",
   },
 };
 
 function ThankYouPage() {
   const { lang } = useI18n();
-  const { lead } = useSearch({ from: "/obrigado" });
+  const { lead, order } = useSearch({ from: "/obrigado" });
   const copy = COPY[lang] ?? COPY.en;
   const generate = useServerFn(generateDiagnosisPdf);
   const sendEmail = useServerFn(sendDiagnosisEmail);
+  const verify = useServerFn(verifyOrderStatus);
 
   const [state, setState] = useState<
     | { kind: "idle" }
+    | { kind: "verifying" }
+    | { kind: "paymentFailed" }
+    | { kind: "paymentPending" }
     | { kind: "generating" }
     | { kind: "ready"; url: string; fromCache: boolean }
     | { kind: "error"; message: string }
-  >({ kind: lead ? "generating" : "idle" });
+  >({ kind: order ? "verifying" : lead ? "generating" : "idle" });
 
   const ranOnce = useRef(false);
 
-  const run = async () => {
-    if (!lead) return;
+  const runPdf = async (leadId: string) => {
     setState({ kind: "generating" });
     try {
-      const res = await generate({ data: { leadId: lead } });
+      const res = await generate({ data: { leadId } });
       setState({ kind: "ready", url: res.url, fromCache: res.fromCache });
-      // Fire-and-forget: deliver PDF link to the user's inbox.
-      sendEmail({ data: { leadId: lead, url: res.url } }).catch((err) => {
+      sendEmail({ data: { leadId, url: res.url } }).catch((err) => {
         console.error("[sendDiagnosisEmail]", err);
       });
     } catch (e) {
       setState({ kind: "error", message: (e as Error).message ?? "Unknown error" });
     }
+  };
+
+  const run = async () => {
+    // Caminho legacy: ?lead=... (sem pagamento — só usado em dev/QA)
+    if (lead && !order) {
+      await runPdf(lead);
+      return;
+    }
+    if (!order) return;
+
+    // Fluxo D5: ?order=... — polling com backoff até webhook confirmar.
+    setState({ kind: "verifying" });
+    const delays = [1500, 2000, 3000, 4000, 5000, 6000, 6000]; // ~27s max
+    for (let i = 0; i < delays.length; i++) {
+      try {
+        const res = await verify({ data: { orderId: order } });
+        if (!res.found) {
+          setState({ kind: "error", message: "Order not found" });
+          return;
+        }
+        if (res.status === "paid") {
+          await runPdf(res.leadId);
+          return;
+        }
+        if (res.status === "failed" || res.status === "expired" || res.status === "refunded") {
+          setState({ kind: "paymentFailed" });
+          return;
+        }
+        // pending → aguarda
+      } catch (e) {
+        setState({ kind: "error", message: (e as Error).message ?? "verify failed" });
+        return;
+      }
+      await new Promise((r) => setTimeout(r, delays[i]));
+    }
+    setState({ kind: "paymentPending" });
   };
 
   useEffect(() => {
@@ -140,6 +210,14 @@ function ThankYouPage() {
           <h1 className="font-display text-3xl md:text-5xl font-black italic uppercase tracking-tight leading-tight">
             {copy.title}
           </h1>
+
+          {state.kind === "verifying" && (
+            <div className="mt-10 flex flex-col items-center gap-6">
+              <MarbleBust size={140} variant="loader" intensity="subtle" />
+              <p className="text-base md:text-lg text-foreground/80">{copy.verifying}</p>
+              <p className="max-w-md text-sm text-foreground/55">{copy.verifyingHint}</p>
+            </div>
+          )}
 
           {state.kind === "generating" && (
             <div className="mt-10 flex flex-col items-center gap-6">
@@ -187,6 +265,30 @@ function ThankYouPage() {
               <pre className="max-w-md whitespace-pre-wrap text-xs text-foreground/40">
                 {state.message}
               </pre>
+            </div>
+          )}
+
+          {state.kind === "paymentFailed" && (
+            <div className="mt-10 flex flex-col items-center gap-5">
+              <p className="text-base text-foreground/80">{copy.paymentFailed}</p>
+              <Link
+                to="/"
+                className="inline-flex items-center justify-center rounded-full bg-[#CC0000] px-8 py-3 text-sm font-black italic uppercase tracking-[0.18em] text-white transition hover:scale-[1.03]"
+              >
+                {copy.retry}
+              </Link>
+            </div>
+          )}
+
+          {state.kind === "paymentPending" && (
+            <div className="mt-10 flex flex-col items-center gap-5">
+              <p className="text-base text-foreground/80">{copy.paymentPending}</p>
+              <button
+                onClick={run}
+                className="inline-flex items-center justify-center rounded-full border border-white/30 bg-transparent px-8 py-3 text-sm font-bold uppercase tracking-[0.18em] text-white transition hover:border-[#CC0000] hover:bg-[#CC0000]/10"
+              >
+                {copy.refresh}
+              </button>
             </div>
           )}
 
