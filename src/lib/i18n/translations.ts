@@ -23,7 +23,7 @@ export type Dict = {
   };
   notFound: { title: string; desc: string; goHome: string };
   errorPage: { title: string; desc: string; tryAgain: string; goHome: string };
-  hero: { kicker: string; headline: string; sub: string; cta: string; trust: string; trustSsl: string; trustData: string; trustGuarantee: string };
+  hero: { kicker: string; headline: string; sub: string; cta: string; microcopy: string; trust: string; trustSsl: string; trustData: string; trustGuarantee: string };
   features: { title: string; subtitle: string };
   landing: {
     proofBar: {
