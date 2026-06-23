@@ -5,6 +5,8 @@ const Input = z.object({
   leadId: z.string().uuid(),
   bumps: z.array(z.enum(["bump1", "bump2"])).max(2).default([]),
   origin: z.string().url().optional(),
+  /** Idioma autoritativo do UI no momento do checkout — sobrepõe lead.lang */
+  lang: z.string().min(2).max(5).optional(),
 });
 
 /**
@@ -30,8 +32,10 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
     if (!lead) throw new Error("Lead not found");
     if (!lead.winner) throw new Error("Lead has no resolved archetype");
 
-    const lang = lead.lang || "en";
-    const { items, totalCents, currency } = buildLineItems(lang, data.bumps, lead.currency);
+    const lang = data.lang || lead.lang || "en";
+    // Currency é resolvida do `lang` autoritativo. NÃO usar lead.currency
+    // (pode estar stale ou em fallback "usd" de um lead antigo).
+    const { items, totalCents, currency } = buildLineItems(lang, data.bumps);
 
     /* 2) reserva order pending */
     const { data: order, error: orderErr } = await supabaseAdmin
