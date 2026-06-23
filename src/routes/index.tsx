@@ -326,8 +326,18 @@ function LandingAndQuiz() {
                 <BeliefBreak />
                 <ArchetypeShowcase />
                 <Testimonials />
-                <FAQ onCta={() => setStage({ kind: "identity" })} />
-                <FinalCTA onCta={() => setStage({ kind: "identity" })} />
+                <FAQ
+                  onCta={() => {
+                    track(EVENTS.QUIZ_START, { source: "faq" });
+                    setStage({ kind: "identity" });
+                  }}
+                />
+                <FinalCTA
+                  onCta={() => {
+                    track(EVENTS.QUIZ_START, { source: "final_cta" });
+                    setStage({ kind: "identity" });
+                  }}
+                />
               </div>
             </div>
           )}
