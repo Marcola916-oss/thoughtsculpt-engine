@@ -20,12 +20,12 @@ type Node = {
 };
 
 const NODES: Node[] = [
-  { icon: Brain,       x: 50, y: 24, delay: 0.0 },  // topo
-  { icon: Briefcase,   x: 12, y: 40, delay: 0.4 },  // sup-esq
-  { icon: TrendingUp,  x: 88, y: 40, delay: 0.8 },  // sup-dir
-  { icon: Coins,       x: 6,  y: 74, delay: 1.2 },  // meio-esq
-  { icon: Sparkles,    x: 94, y: 74, delay: 1.6 },  // meio-dir
-  { icon: Heart,       x: 50, y: 92, delay: 2.0 },  // base (escondido em mobile-tight)
+  { icon: Brain,       x: 50, y: 21, delay: 0.0 },  // topo
+  { icon: Briefcase,   x: 12, y: 37, delay: 0.4 },  // sup-esq
+  { icon: TrendingUp,  x: 88, y: 37, delay: 0.8 },  // sup-dir
+  { icon: Coins,       x: 6,  y: 71, delay: 1.2 },  // meio-esq
+  { icon: Sparkles,    x: 94, y: 71, delay: 1.6 },  // meio-dir
+  { icon: Heart,       x: 50, y: 89, delay: 2.0 },  // base (escondido em mobile-tight)
 ];
 
 const HEX_SIZE = 56; // px — tamanho do hexágono
