@@ -1,32 +1,35 @@
 /**
- * Fase 4 — SalesPageV2 (substitui VSL.tsx)
+ * SalesPageV2 v3 — "The Awakening"
  *
- * Esqueleto da página de vendas em 11 blocos fixos:
- *   B1 Emotional Anchor → B2 Pain Mirror → B3 Scientific Breakthrough →
- *   B4 Produto 4D → B5 Value Anchor → B6 Social Proof → OB1 →
- *   B7 Preço + CTA → B8 FAQ → B9 Final CTA → OB2
+ * Editorial premium sales page: archetype palette continuity from Reveal,
+ * scroll-driven MarbleBust sculpture, inline checkout monolith, brand-red
+ * CTA reserved for the single purchase moment.
  *
- * Commit 1: skeleton + props + state + sticky observer + exit-intent hook +
- * analytics events. Blocos contêm placeholders + reusam copy `t.sales.*`
- * existente onde já há texto pronto. Commits 2-5 vão preencher cada bloco
- * com copy Bible V2 completa em 5 idiomas, plus StickyVSLBar e
- * ExitIntentModal dedicados.
+ * Same export + props as previous version. Inline OB1/OB2 inside the
+ * OfferMonolith; `onContinue({ bumps })` still gateway to hosted Stripe.
  */
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Check, Star, X as XIcon, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import type { Archetype } from "@/lib/quiz/scoring";
 import type { AreaScores } from "@/lib/funnel/area-scores";
 import { getPricing } from "@/lib/funnel/pricing-stub";
-import { Atmosphere } from "@/components/atmosphere";
 import { Reveal } from "@/components/interaction";
-import { ButtonPress } from "@/components/interaction/ButtonPress";
-import { MarbleBust } from "@/components/identity/MarbleBust";
 import { EVENTS, track } from "@/lib/analytics";
 import { useExitIntent } from "@/hooks/use-exit-intent";
 import { fillTpl } from "@/lib/sales/template";
 import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
+
+import { HeroScene } from "./v3/HeroScene";
+import { SceneFrame } from "./v3/SceneFrame";
+import { PainScar } from "./v3/PainScar";
+import { AreaPoster, type Area } from "./v3/AreaPoster";
+import { OfferMonolith } from "./v3/OfferMonolith";
+import { ScrollSculpture } from "./v3/ScrollSculpture";
+import { StickyOfferBar } from "./v3/StickyOfferBar";
+import { ExitIntentModal } from "./v3/ExitIntentModal";
+import { parseMoney, formatMoneyLike } from "@/lib/sales/sigils";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -54,6 +57,8 @@ const ARCH_SECONDARY: Record<Archetype, Archetype> = {
   HI: "SS",
 };
 
+const AREA_ORDER: Area[] = ["money", "career", "love", "personal"];
+
 export default function SalesPageV2({
   archetype,
   displayName,
@@ -74,6 +79,7 @@ export default function SalesPageV2({
   const [showSticky, setShowSticky] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
   const finalRef = useRef<HTMLDivElement | null>(null);
 
@@ -120,408 +126,299 @@ export default function SalesPageV2({
     onContinue({ bumps });
   };
 
-  // Reuse existing dict where pronto. Os textos longos serão preenchidos
-  // nos commits 2-3 via novas chaves t.sales.*.
-  const dict = t.sales;
   const v2 = t.salesV2;
   const tpl = (s: string) => fillTpl(s, tplVars);
 
+  // Sticky logic + dynamic total (used by sticky bar)
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const obsHero = new IntersectionObserver(([e]) => setShowSticky(!e.isIntersecting), { threshold: 0.1 });
+    const obsFinal = new IntersectionObserver(([e]) => { if (e.isIntersecting) setShowSticky(false); }, { threshold: 0.1 });
+    if (heroRef.current) obsHero.observe(heroRef.current);
+    if (finalRef.current) obsFinal.observe(finalRef.current);
+    return () => { obsHero.disconnect(); obsFinal.disconnect(); };
+  }, []);
+
+  const totalNumeric =
+    parseMoney(price.main) +
+    (bump1 ? parseMoney(price.bump1) : 0) +
+    (bump2 ? parseMoney(price.bump2) : 0);
+  const totalLabel = formatMoneyLike(price.main, totalNumeric);
+
   return (
-    <div className="relative">
-      {/* ─── B1 Emotional Anchor (HERO com Atmosphere isolada) ── */}
-      <Atmosphere fog="dramatic" symbols="sparse" scan="subtle">
-        <section
-          ref={heroRef}
-          className="relative z-10 mx-auto w-full max-w-3xl px-4 sm:px-6 pt-16 pb-20 text-center"
-        >
-          <div className="pointer-events-none absolute inset-x-0 -top-2 mx-auto flex justify-center">
-            <div className="h-48 w-48 sm:h-56 sm:w-56 opacity-60 drop-shadow-[0_0_40px_hsl(var(--accent)/0.45)]">
-              <MarbleBust variant="mini" />
-            </div>
+    <div ref={rootRef} data-arch={archetype} className="relative bg-background text-foreground">
+      {/* ─── Layout split: copy column + sculpture column ───── */}
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-0 px-5 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12 lg:px-12">
+        {/* COPY COLUMN ─────────────────────────────────────── */}
+        <div className="relative z-10">
+          {/* B1 — Hero */}
+          <div ref={heroRef}>
+            <HeroScene
+              eyebrow={v2.b1.eyebrow}
+              title={tpl(v2.b1.h1)}
+              promise={tpl(v2.b1.promise)}
+              cta={v2.b1.cta}
+              timer={v2.b1.timer}
+              onCta={() => advance("b1")}
+              proofs={[
+                { value: "+12.000", label: v2.b6.counter.replace(/[+\d.,\s]+/g, " ").trim() || "Diagnoses" },
+                { value: "4.9★", label: v2.b6.rating.replace(/[★⭐\d.,/\s]+/g, " ").trim() || "Rating" },
+                { value: "60s", label: "PDF" },
+                { value: "5", label: "Languages" },
+              ]}
+            />
           </div>
-          <div className="pt-44 sm:pt-52">
-            <Reveal>
-              <p className="text-[11px] uppercase tracking-[0.4em] text-[hsl(var(--accent))]/90 font-semibold">
-                {v2.b1.eyebrow}
+
+          {/* I — Pain Mirror */}
+          <SceneFrame
+            sceneId="pain"
+            index={1}
+            eyebrow={v2.b3.title.split(" ").slice(0, 2).join(" ")}
+            title={tpl(v2.b2.title)}
+          >
+            <p className="sales-dropcap text-foreground/85">{tpl(v2.b2.body)}</p>
+            <ul className="mt-8 space-y-1">
+              {v2.b2.bullets.map((b, i) => (
+                <PainScar key={i}>{tpl(b)}</PainScar>
+              ))}
+            </ul>
+            <p className="mt-8 text-lg italic text-foreground/70">{tpl(v2.b2.conclusion)}</p>
+          </SceneFrame>
+
+          {/* II — Scientific Breakthrough */}
+          <SceneFrame sceneId="science" index={2} title={v2.b3.title}>
+            <p className="text-foreground/85 leading-[1.75] text-[17px]">{v2.b3.body}</p>
+            <blockquote
+              className="mt-8 border-s-2 ps-5 text-sm italic text-foreground/55"
+              style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 50%, transparent)" }}
+            >
+              {v2.b3.references}
+            </blockquote>
+            <p className="mt-8 text-[17px] leading-relaxed text-foreground/90">
+              <strong style={{ color: "var(--arch-primary)" }}>{v2.b3.pivot}</strong>{" "}
+              {tpl(v2.b3.solution)}
+            </p>
+          </SceneFrame>
+
+          {/* III — 4D Diagnosis */}
+          <SceneFrame sceneId="4d" index={3} title={tpl(v2.b4.title)}>
+            <p className="mb-8 text-foreground/70 text-base">{tpl(v2.b4.subtitle)}</p>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              {AREA_ORDER.map((area, i) => {
+                const feat = v2.b4.features[i];
+                return (
+                  <AreaPoster
+                    key={area}
+                    area={area}
+                    title={feat?.title ?? area}
+                    description={tpl(feat?.description ?? "")}
+                    score={areaScores[area]}
+                  />
+                );
+              })}
+            </div>
+          </SceneFrame>
+
+          {/* Value Anchor (B5) */}
+          <SceneFrame sceneId="anchor">
+            <div className="text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-foreground/55">
+                {v2.b5.eyebrow}
               </p>
-              <h1 className="mt-5 text-4xl sm:text-6xl font-display font-extrabold leading-[1.05] tracking-tight">
-                {tpl(v2.b1.h1)}
-              </h1>
-              <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg text-foreground/85">
-                {tpl(v2.b1.promise)}
-              </p>
-              <div className="mt-10">
-                <ButtonPress>
+              <div className="mt-6 space-y-1 text-sm">
+                <p className="text-foreground/35 line-through">{v2.b5.was}</p>
+                <p className="text-foreground/45 line-through">{v2.b5.then}</p>
+                <p className="mt-3 text-foreground/70">{v2.b5.now}</p>
+                <p
+                  className="pt-4 font-display font-extrabold tabular-nums"
+                  style={{ fontSize: "clamp(3rem, 8vw, 5.5rem)", color: "var(--arch-primary)" }}
+                >
+                  {price.main}
+                </p>
+              </div>
+              <p className="mt-4 text-xs text-foreground/50">{v2.b5.note}</p>
+            </div>
+          </SceneFrame>
+
+          {/* IV — Social Proof */}
+          <SceneFrame
+            sceneId="proof"
+            index={4}
+            title={
+              <span>
+                <AnimatedCounter end={12000} prefix="+" />{" "}
+                {v2.b6.counter.replace(/\+\s?12[.,]?000\s?/, "").trim()}
+              </span> as unknown as string
+            }
+          >
+            <p className="mb-8 text-sm uppercase tracking-widest text-foreground/55">
+              {v2.b6.rating}
+            </p>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+              {v2.b6.testimonials.map((tst, i) => (
+                <figure
+                  key={i}
+                  className="rounded-2xl p-5 sales-card-arch transition-transform hover:-translate-y-1"
+                >
+                  <div
+                    className="mb-3 inline-flex h-1 w-10 rounded-full"
+                    style={{ background: "var(--arch-primary)" }}
+                  />
+                  <blockquote className="text-[15px] leading-relaxed text-foreground/90">
+                    &ldquo;{tpl(tst.quote)}&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-4 text-xs text-foreground/55">
+                    <span className="font-semibold text-foreground/75">{tst.author}</span>
+                    {" · "}
+                    {tst.country} · {tst.arch}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </SceneFrame>
+
+          {/* ★ OFFER MONOLITH (B7 + OB1 + OB2 embedded) */}
+          <SceneFrame sceneId="offer">
+            <OfferMonolith
+              eyebrow={tpl(v2.b7.eyebrow)}
+              productTitle={tpl(v2.b4.title)}
+              productSubtitle={tpl(v2.b4.subtitle)}
+              price={price}
+              bumps={{
+                bump1: {
+                  active: bump1,
+                  title: v2.ob1.title,
+                  description: tpl(v2.ob1.desc),
+                  badge: v2.ob1.badge,
+                },
+                bump2: {
+                  active: bump2,
+                  title: v2.ob2.title,
+                  description: tpl(v2.ob2.desc),
+                  badge: v2.ob2.eyebrow,
+                },
+              }}
+              onToggle={toggleBump}
+              cta={tpl(v2.b7.cta)}
+              trust={v2.b7.trust}
+              onCta={() => advance("b7")}
+            />
+          </SceneFrame>
+
+          {/* V — FAQ */}
+          <SceneFrame sceneId="faq" index={5} title={v2.b8.title}>
+            <ul
+              className="divide-y rounded-2xl border"
+              style={{
+                borderColor: "color-mix(in oklab, var(--arch-primary) 22%, transparent)",
+                background: "color-mix(in oklab, var(--arch-primary) 4%, rgba(0,0,0,0.3))",
+              }}
+            >
+              {v2.b8.items.map((it, i) => (
+                <li key={i} style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 18%, transparent)" }}>
                   <button
                     type="button"
-                    onClick={() => advance("b1")}
-                    className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-10 py-5 text-base sm:text-lg font-semibold text-white shadow-2xl shadow-[hsl(var(--accent))]/40 transition-transform hover:-translate-y-0.5 hover:shadow-[hsl(var(--accent))]/60"
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    aria-expanded={openFaq === i}
+                    className="flex w-full items-center justify-between gap-4 p-5 text-start"
                   >
-                    {v2.b1.cta} <ArrowRight size={20} />
+                    <span className="font-medium text-foreground">{it.q}</span>
+                    <ChevronDown
+                      size={18}
+                      className={`shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
+                      style={{ color: "var(--arch-primary)" }}
+                    />
                   </button>
-                </ButtonPress>
-                <p className="mt-4 text-xs text-foreground/60">{v2.b1.timer}</p>
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      </Atmosphere>
+                  {openFaq === i && (
+                    <div className="px-5 pb-5 text-[15px] leading-relaxed text-foreground/75">
+                      {tpl(it.a)}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </SceneFrame>
 
-      {/* ─── Curtain: blocos pós-hero sobre fundo escuro estável ── */}
-      <div className="relative z-10 bg-background/85 backdrop-blur-md">
-        <div className="mx-auto w-full max-w-3xl px-4 sm:px-6 pb-32 pt-4 text-foreground">
-
-        {/* ─── B2 Pain Mirror ─────────────────────────────────── */}
-        <Section title={tpl(v2.b2.title)}>
-          <p className="mb-6 text-foreground/80">{tpl(v2.b2.body)}</p>
-          <ul className="space-y-3">
-            {v2.b2.bullets.map((b, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <XIcon size={18} className="mt-1 shrink-0 text-destructive" aria-hidden />
-                <span className="text-foreground/85">{tpl(b)}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-6 italic text-foreground/70">{tpl(v2.b2.conclusion)}</p>
-        </Section>
-
-        {/* ─── B3 Scientific Breakthrough ─────────────────────── */}
-        <Section title={v2.b3.title}>
-          <p className="mb-4 text-foreground/80">{v2.b3.body}</p>
-          <p className="mb-4 text-sm text-foreground/60">{v2.b3.references}</p>
-          <p className="text-foreground/85">
-            <strong>{v2.b3.pivot}</strong> {tpl(v2.b3.solution)}
-          </p>
-        </Section>
-
-        {/* ─── B4 Produto 4D ──────────────────────────────────── */}
-        <Section title={tpl(v2.b4.title)}>
-          <p className="mb-5 text-sm text-foreground/70">{tpl(v2.b4.subtitle)}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {(["money", "career", "love", "personal"] as const).map((area, i) => {
-              const feat = v2.b4.features[i];
-              return (
-                <div key={area} className="rounded-2xl border border-border bg-card/60 p-5">
-                  <div className="mb-2 flex items-center justify-between">
-                    <h3 className="text-lg font-semibold">{feat?.title ?? area}</h3>
-                    <span className="rounded-full bg-[hsl(var(--accent))]/15 px-2 py-0.5 text-xs font-bold text-[hsl(var(--accent))]">
-                      {areaScores[area]}/100
-                    </span>
-                  </div>
-                  <p className="text-sm text-foreground/75">{tpl(feat?.description ?? "")}</p>
-                </div>
-              );
-            })}
-          </div>
-        </Section>
-
-        {/* ─── B5 Value Anchor ────────────────────────────────── */}
-        <Section>
-          <div className="rounded-3xl border border-border bg-card/60 p-6 text-center">
-            <p className="text-sm uppercase tracking-widest text-foreground/60">{v2.b5.eyebrow}</p>
-            <div className="mt-4 space-y-1 text-sm">
-              <p className="text-foreground/45 line-through">{v2.b5.was}</p>
-              <p className="text-foreground/55 line-through">{v2.b5.then}</p>
-              <p className="mt-2 text-foreground/70">{v2.b5.now}</p>
-              <p className="pt-2 text-4xl font-extrabold text-[hsl(var(--accent))]">{price.main}</p>
-            </div>
-            <p className="mt-4 text-xs text-foreground/55">{v2.b5.note}</p>
-          </div>
-        </Section>
-
-        {/* ─── B6 Social Proof ────────────────────────────────── */}
-        <Section>
-          <h2 className="mb-2 text-2xl sm:text-3xl font-display font-bold">
-            <AnimatedCounter end={12000} prefix="+" className="text-[hsl(var(--accent))]" />{" "}
-            <span className="text-foreground">
-              {v2.b6.counter.replace(/\+\s?12[.,]?000\s?/, "").trim()}
-            </span>
-          </h2>
-          <p className="mb-5 text-sm text-foreground/60">{v2.b6.rating}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {v2.b6.testimonials.map((tst, i) => (
-              <figure key={i} className="rounded-2xl border border-border bg-card/60 p-4">
-                <div className="mb-2 flex" role="img" aria-label="5 stars">
-                  {Array.from({ length: 5 }).map((_, k) => (
-                    <Star key={k} size={14} className="fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <blockquote className="text-sm text-foreground/85">&ldquo;{tpl(tst.quote)}&rdquo;</blockquote>
-                <figcaption className="mt-3 text-xs text-foreground/60">
-                  {tst.author} · {tst.country} · {tst.arch}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </Section>
-
-        {/* ─── OB1 — Guia de Relações ─────────────────────────── */}
-        <BumpCard
-          checked={bump1}
-          onToggle={() => toggleBump("bump1")}
-          title={v2.ob1.title}
-          desc={tpl(v2.ob1.desc)}
-          price={`+${price.bump1}`}
-          badge={v2.ob1.badge}
-          ctaLabel={v2.ob1.cta}
-        />
-
-        {/* ─── B7 Preço + CTA ─────────────────────────────────── */}
-        <Section>
-          <div className="rounded-3xl border-2 border-[hsl(var(--accent))]/40 bg-card/80 p-6 sm:p-8 text-center">
-            <p className="text-xs uppercase tracking-widest text-foreground/55">{tpl(v2.b7.eyebrow)}</p>
-            <p className="mt-3 text-sm text-foreground/55 line-through">{v2.b7.was}</p>
-            <p className="text-sm text-foreground/55 line-through">{v2.b7.then}</p>
-            <p className="mt-1 text-xs uppercase tracking-widest text-foreground/65">{v2.b7.price}</p>
-            <p className="mt-2 text-5xl sm:text-6xl font-extrabold text-[hsl(var(--accent))]">
-              {price.main}
-            </p>
-            <ButtonPress>
-              <button
-                type="button"
-                onClick={() => advance("b7")}
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[hsl(var(--accent))] px-8 py-4 text-lg font-semibold text-white sm:w-auto"
+          {/* B9 — Final */}
+          <section ref={finalRef} className="relative py-24 text-center">
+            <Reveal>
+              <h2
+                className="font-display font-extrabold leading-[1.02]"
+                style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)" }}
               >
-                {tpl(v2.b7.cta)} <ArrowRight size={18} />
-              </button>
-            </ButtonPress>
-            <p className="mt-4 text-xs text-foreground/60">{v2.b7.trust}</p>
-          </div>
-        </Section>
-
-        {/* ─── B8 FAQ ─────────────────────────────────────────── */}
-        <Section title={v2.b8.title}>
-          <ul className="divide-y divide-border rounded-2xl border border-border bg-card/40">
-            {v2.b8.items.map((it, i) => (
-              <li key={i}>
-                <button
-                  type="button"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  aria-expanded={openFaq === i}
-                  className="flex w-full items-center justify-between gap-4 p-4 text-start"
-                >
-                  <span className="font-medium">{it.q}</span>
-                  <ChevronDown
-                    size={18}
-                    className={`transition-transform ${openFaq === i ? "rotate-180" : ""}`}
-                  />
-                </button>
-                {openFaq === i && (
-                  <div className="px-4 pb-4 text-sm text-foreground/75">{tpl(it.a)}</div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        {/* ─── B9 Final CTA ───────────────────────────────────── */}
-        <section ref={finalRef} className="py-12 text-center">
-          <Reveal>
-            <h2 className="text-3xl sm:text-4xl font-display font-extrabold">
-              {tpl(v2.b9.title)}
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-foreground/80">
-              {tpl(v2.b9.subtitle)}
-            </p>
-            <p className="mt-3 text-sm text-foreground/70">
-              {tpl(v2.b9.tagline)}
-            </p>
-            <ButtonPress>
+                {tpl(v2.b9.title)}
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl text-foreground/80 text-lg">
+                {tpl(v2.b9.subtitle)}
+              </p>
+              <p className="mt-3 text-sm text-foreground/60">{tpl(v2.b9.tagline)}</p>
               <button
                 type="button"
                 onClick={() => advance("b9")}
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-10 py-5 text-lg font-semibold text-white"
-              >
-                {v2.b9.cta} <ArrowRight size={20} />
-              </button>
-            </ButtonPress>
-            <p className="mt-3 text-xs text-foreground/60">{v2.b9.trust}</p>
-          </Reveal>
-        </section>
-
-        {/* ─── OB2 — Protocolo 30 dias ────────────────────────── */}
-        <Section>
-          <div className="rounded-3xl border border-border bg-card/60 p-6">
-            <p className="text-xs uppercase tracking-widest text-foreground/60">
-              {v2.ob2.eyebrow}
-            </p>
-            <h3 className="mt-2 text-xl font-semibold">{v2.ob2.title}</h3>
-            <p className="mt-2 text-sm text-foreground/75">
-              {tpl(v2.ob2.desc)}
-            </p>
-            <label className="mt-4 flex cursor-pointer items-center gap-3">
-              <input
-                type="checkbox"
-                checked={bump2}
-                onChange={() => toggleBump("bump2")}
-                className="h-5 w-5 accent-[hsl(var(--accent))]"
-              />
-              <span className="text-sm">
-                {v2.ob2.cta} <strong>{price.bump2}</strong>
-              </span>
-            </label>
-            <button
-              type="button"
-              onClick={() => { if (bump2) toggleBump("bump2"); }}
-              className="mt-3 text-xs text-foreground/50 underline-offset-2 hover:underline"
-            >
-              {v2.ob2.decline}
-            </button>
-          </div>
-        </Section>
-
-        {onBack && (
-          <div className="mt-12 text-center">
-            <button
-              type="button"
-              onClick={onBack}
-              className="text-xs text-foreground/50 underline-offset-2 hover:underline"
-            >
-              ← {t.common.back}
-            </button>
-          </div>
-        )}
-        </div>
-      </div>
-
-      {/* Sticky CTA bar */}
-      {showSticky && (
-        <div
-          role="region"
-          aria-label="Sticky checkout"
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-[hsl(var(--accent))]/30 bg-background/95 px-4 py-3 shadow-2xl shadow-[hsl(var(--accent))]/10 backdrop-blur-md animate-fade-in"
-        >
-          <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="hidden sm:inline text-foreground/55 line-through">{v2.b5.then}</span>
-              <strong className="text-base text-[hsl(var(--accent))]">{price.main}</strong>
-              <span className="hidden sm:inline rounded-full bg-[hsl(var(--accent))]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[hsl(var(--accent))]">
-                -76%
-              </span>
-            </div>
-            <ButtonPress>
-              <button
-                type="button"
-                onClick={() => advance("sticky")}
-                className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-5 py-2.5 text-sm font-semibold text-white"
-              >
-                {v2.b1.cta} <ArrowRight size={16} />
-              </button>
-            </ButtonPress>
-          </div>
-        </div>
-      )}
-
-      {/* Exit intent modal (skeleton — visual completo no Commit 4) */}
-      {exit.triggered && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-live="assertive"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 animate-fade-in"
-          onClick={() => {
-            track(EVENTS.EXIT_INTENT_DISMISS, { stage: "vsl" });
-            exit.markDismissed();
-          }}
-        >
-          <div
-            className="w-full max-w-md rounded-3xl border border-[hsl(var(--accent))]/40 bg-background p-6 text-center shadow-2xl shadow-[hsl(var(--accent))]/20"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="mx-auto mb-3 h-16 w-16 opacity-60">
-              <MarbleBust variant="mini" />
-            </div>
-            <h2 className="text-2xl font-display font-extrabold">
-              {tpl(v2.exit.title)}
-            </h2>
-            <p className="mt-3 text-sm text-foreground/75">
-              {tpl(v2.exit.body)}
-            </p>
-            <div className="mt-6 space-y-3">
-              <ButtonPress>
-                <button
-                  type="button"
-                  onClick={() => {
-                    track(EVENTS.EXIT_INTENT_CTA, { stage: "vsl" });
-                    exit.markDismissed();
-                    advance("exit_intent");
-                  }}
-                  className="w-full rounded-full bg-[hsl(var(--accent))] px-6 py-3 text-sm font-semibold text-white"
-                >
-                  {tpl(v2.exit.cta)}
-                </button>
-              </ButtonPress>
-              <button
-                type="button"
-                onClick={() => {
-                  track(EVENTS.EXIT_INTENT_DISMISS, { stage: "vsl" });
-                  exit.markDismissed();
+                className="mt-10 inline-flex items-center gap-3 rounded-full px-10 py-5 text-lg font-bold uppercase tracking-wide text-white transition-all hover:brightness-110 sales-final-pulse"
+                style={{
+                  background: "#CC0000",
+                  boxShadow: "0 30px 80px -20px rgba(204,0,0,0.6)",
                 }}
-                className="text-xs text-foreground/50 underline-offset-2 hover:underline"
               >
-                {v2.exit.decline}
+                {v2.b9.cta}
+              </button>
+              <p className="mt-4 text-xs text-foreground/55">{v2.b9.trust}</p>
+            </Reveal>
+          </section>
+
+          {onBack && (
+            <div className="pb-16 text-center">
+              <button
+                type="button"
+                onClick={onBack}
+                className="text-xs text-foreground/45 underline-offset-4 hover:underline"
+              >
+                ← {t.common.back}
               </button>
             </div>
-          </div>
+          )}
         </div>
-      )}
-    </div>
-  );
-}
 
-/* ─── Subcomponents ─────────────────────────────────────── */
-
-function Section(props: { title?: string; children: React.ReactNode }) {
-  return (
-    <section className="py-10">
-      <Reveal>
-        {props.title && (
-          <h2 className="mb-5 text-2xl sm:text-3xl font-display font-bold">{props.title}</h2>
-        )}
-        {props.children}
-      </Reveal>
-    </section>
-  );
-}
-
-function BumpCard(props: {
-  checked: boolean;
-  onToggle: () => void;
-  title: string;
-  desc: string;
-  price: string;
-  badge?: string;
-  ctaLabel?: string;
-}) {
-  return (
-    <Section>
-      <div className="relative rounded-3xl border-2 border-amber-500/40 bg-amber-500/5 p-5">
-        {props.badge && (
-          <span className="absolute -top-3 end-4 rounded-full bg-[hsl(var(--accent))] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-            {props.badge}
-          </span>
-        )}
-        <label className="flex cursor-pointer items-start gap-4">
-          <input
-            type="checkbox"
-            checked={props.checked}
-            onChange={props.onToggle}
-            className="mt-1 h-5 w-5 accent-[hsl(var(--accent))]"
-          />
-          <div className="flex-1">
-            <div className="flex items-baseline justify-between gap-3">
-              <h3 className="font-semibold">{props.title}</h3>
-              <span className="font-bold text-[hsl(var(--accent))]">{props.price}</span>
-            </div>
-            <p className="mt-1 text-sm text-foreground/70">{props.desc}</p>
-            {props.checked && (
-              <p className="mt-2 inline-flex items-center gap-1 text-xs text-emerald-500">
-                <Check size={14} /> {props.ctaLabel ?? "Added"}
-              </p>
-            )}
+        {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
+        <aside className="pointer-events-none relative hidden lg:block">
+          <div className="sticky top-0 h-screen w-full">
+            <ScrollSculpture archetype={archetype} targetRef={rootRef} />
           </div>
-        </label>
+        </aside>
       </div>
-    </Section>
+
+      {/* Mobile/tablet sculpture — fixed ambient behind copy */}
+      <div
+        className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
+        style={{ opacity: 0.32, mixBlendMode: "screen" }}
+      >
+        <ScrollSculpture archetype={archetype} targetRef={rootRef} />
+      </div>
+
+      <StickyOfferBar
+        show={showSticky}
+        price={totalLabel}
+        cta={v2.b1.cta}
+        onCta={() => advance("sticky")}
+      />
+
+      <ExitIntentModal
+        open={exit.triggered}
+        title={tpl(v2.exit.title)}
+        body={tpl(v2.exit.body)}
+        cta={tpl(v2.exit.cta)}
+        decline={v2.exit.decline}
+        onAccept={() => {
+          track(EVENTS.EXIT_INTENT_CTA, { stage: "vsl" });
+          exit.markDismissed();
+          advance("exit_intent");
+        }}
+        onDismiss={() => {
+          track(EVENTS.EXIT_INTENT_DISMISS, { stage: "vsl" });
+          exit.markDismissed();
+        }}
+      />
+    </div>
   );
 }
