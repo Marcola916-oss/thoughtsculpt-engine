@@ -1979,3 +1979,85 @@ html body .allow-break-all {
   font-weight: 600;
   white-space: pre-line;
 }
+
+/* ─── Sales v3 — "The Awakening" tokens & animations ────── */
+@keyframes sales-roman-float {
+  0%, 100% { transform: translateY(0); opacity: 0.06; }
+  50%      { transform: translateY(-8px); opacity: 0.10; }
+}
+@keyframes sales-marble-fade {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    filter: blur(0); }
+}
+@keyframes sales-bump-glow {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--arch-primary) 40%, transparent); }
+  50%      { box-shadow: 0 0 28px 4px color-mix(in oklab, var(--arch-primary) 35%, transparent); }
+}
+@keyframes sales-core-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes sales-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.03); }
+}
+@keyframes sales-final-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(204, 0, 0, 0); }
+  50%      { box-shadow: 0 0 80px 20px rgba(204, 0, 0, 0.55); }
+}
+
+.sales-roman {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "Syne", serif; font-weight: 800;
+  font-size: clamp(180px, 30vw, 360px);
+  line-height: 1;
+  color: color-mix(in oklab, var(--arch-primary) 18%, transparent);
+  letter-spacing: -0.05em;
+  pointer-events: none;
+  user-select: none;
+  animation: sales-roman-float 12s ease-in-out infinite;
+  z-index: 0;
+}
+.sales-dropcap::first-letter {
+  font-family: "Syne", serif;
+  font-weight: 800;
+  font-size: 4.5em;
+  float: inline-start;
+  line-height: 0.85;
+  padding-inline-end: 0.12em;
+  padding-top: 0.08em;
+  color: var(--arch-primary);
+}
+.sales-card-arch {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--arch-primary) 8%, transparent) 0%,
+    color-mix(in oklab, var(--arch-primary) 2%, transparent) 100%
+  );
+  border: 1px solid color-mix(in oklab, var(--arch-primary) 28%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 12%, transparent),
+    0 24px 60px -30px color-mix(in oklab, var(--arch-primary) 50%, transparent);
+}
+.sales-bump-active {
+  animation: sales-bump-glow 2.4s ease-in-out infinite;
+  border-color: var(--arch-primary) !important;
+}
+.sales-core-spin { animation: sales-core-spin 24s linear infinite; transform-origin: center; }
+.sales-breathe   { animation: sales-breathe 6s ease-in-out infinite; }
+.sales-final-pulse { animation: sales-final-pulse 1.6s ease-in-out infinite; }
+
+/* Vignette + grain for SceneBackground */
+.sales-vignette::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sales-roman,
+  .sales-bump-active,
+  .sales-core-spin,
+  .sales-breathe,
+  .sales-final-pulse { animation: none !important; }
+}

@@ -28,6 +28,7 @@ export const EVENTS = {
   VSL_SCROLL_DEPTH: "vsl_scroll_depth",
   VSL_CTA_CLICK: "vsl_cta_click",
   VSL_BUMP_TOGGLED: "vsl_bump_toggled",
+  VSL_SCENE_VIEW: "vsl_scene_view",
   CHECKOUT_VIEW: "checkout_view",
   BUMP_TOGGLED: "bump_toggled",
   CHECKOUT_CTA_CLICKED: "checkout_cta_clicked",
