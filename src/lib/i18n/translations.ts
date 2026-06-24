@@ -486,6 +486,12 @@ const PT: Dict = {
       },
     },
     areasCta: "Quero ver o diagnóstico completo",
+    anchor: (arch) => `73% dos ${arch} relatam o mesmo padrão em pelo menos 3 destas 4 áreas. Tu não estás sozinho — e isso é exatamente o que torna o padrão resolvível.`,
+    urgency: "Esta análise expira em",
+    guarantee: "7 dias de garantia · Pagamento único · Sem assinatura",
+    finalTitle: (name) => `${name}, podes parar de adivinhar.`,
+    finalSub: "O diagnóstico completo mostra-te o gatilho exato, o padrão por trás dele e os 30 dias guiados para o desfazeres.",
+    finalCta: "Quero o meu diagnóstico completo",
   },
   sales: {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
