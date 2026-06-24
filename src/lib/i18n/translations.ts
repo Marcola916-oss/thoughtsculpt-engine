@@ -85,6 +85,12 @@ export type Dict = {
       }
     >;
     areasCta: string;
+    anchor: (arch: string) => string;
+    urgency: string;
+    guarantee: string;
+    finalTitle: (name: string) => string;
+    finalSub: string;
+    finalCta: string;
   };
   sales: {
     h1: (name: string, arch: string) => string;
