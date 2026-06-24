@@ -737,13 +737,11 @@ function Hero({ onStart }: { onStart: () => void }) {
         delay={0.6}
         className="mt-12 md:mt-24 flex flex-col items-center gap-12"
       >
-        <div className="w-full max-w-2xl">
-          <Magnetic>
-            <LandingCTAButton onClick={handleStart}>
-              {t.hero.cta.toUpperCase()}
-            </LandingCTAButton>
-          </Magnetic>
-        </div>
+        <Magnetic className="block w-full max-w-2xl">
+          <LandingCTAButton onClick={handleStart}>
+            {t.hero.cta.toUpperCase()}
+          </LandingCTAButton>
+        </Magnetic>
 
         <div className="flex flex-col items-center gap-4" style={{ lineHeight: "25px" }}>
           {/* Bible V2 microcopy — replaces SSL/Data trust badges above the fold. */}
