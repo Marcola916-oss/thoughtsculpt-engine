@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, type RefObject } from "react";
-import { motion, useScroll, useSpring, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { MarbleBust } from "@/components/identity/MarbleBust";
 import { useDeviceTier } from "@/hooks/use-device-tier";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
@@ -214,22 +214,9 @@ export function ScrollSculpture({ archetype, targetRef, className = "" }: Props)
       {!reduced && (
         <div className="absolute inset-0 flex items-center justify-center">
           <svg viewBox="-100 -100 200 200" className="h-[60vh] max-h-[540px] w-[60vh] max-w-[540px]" style={{ overflow: "visible" }}>
-            {shards.map((s) => {
-              const x = useTransform(shardOffset, [0, 1], [0, s.dx]);
-              const y = useTransform(shardOffset, [0, 1], [0, s.dy]);
-              const r = useTransform(shardOffset, [0, 1], [0, s.id === "head" ? -8 : s.id === "base" ? 6 : s.dx > 0 ? 10 : -10]);
-              const op = useTransform(reassembly, [0, 1], [0, 0.85]);
-              return (
-                <motion.path
-                  key={s.id}
-                  d={s.d}
-                  style={{ x, y, rotate: r, opacity: op, willChange: "transform" }}
-                  fill="color-mix(in oklab, var(--arch-primary) 18%, #1a1a1a)"
-                  stroke="color-mix(in oklab, var(--arch-primary) 60%, transparent)"
-                  strokeWidth={0.6}
-                />
-              );
-            })}
+            {shards.map((s) => (
+              <Shard key={s.id} d={s.d} dx={s.dx} dy={s.dy} rot={s.id === "head" ? -8 : s.id === "base" ? 6 : s.dx > 0 ? 10 : -10} shardOffset={shardOffset} reassembly={reassembly} />
+            ))}
           </svg>
         </div>
       )}
@@ -293,3 +280,24 @@ export function ScrollSculpture({ archetype, targetRef, className = "" }: Props)
 }
 
 export default ScrollSculpture;
+
+function Shard({
+  d, dx, dy, rot, shardOffset, reassembly,
+}: {
+  d: string; dx: number; dy: number; rot: number;
+  shardOffset: MotionValue<number>; reassembly: MotionValue<number>;
+}) {
+  const x = useTransform(shardOffset, [0, 1], [0, dx]);
+  const y = useTransform(shardOffset, [0, 1], [0, dy]);
+  const r = useTransform(shardOffset, [0, 1], [0, rot]);
+  const op = useTransform(reassembly, [0, 1], [0, 0.85]);
+  return (
+    <motion.path
+      d={d}
+      style={{ x, y, rotate: r, opacity: op, willChange: "transform" }}
+      fill="color-mix(in oklab, var(--arch-primary) 18%, #1a1a1a)"
+      stroke="color-mix(in oklab, var(--arch-primary) 60%, transparent)"
+      strokeWidth={0.6}
+    />
+  );
+}
