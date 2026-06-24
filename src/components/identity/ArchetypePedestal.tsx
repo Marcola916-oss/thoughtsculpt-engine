@@ -120,8 +120,8 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
 
       <style>{`
         @keyframes arch-beam-pulse {
-          0%, 100% { opacity: var(--beam-min, 0.15); transform: translateX(-50%) scaleY(0.96); }
-          50%      { opacity: 0.45; transform: translateX(-50%) scaleY(1.02); }
+          0%, 100% { opacity: 0.18; transform: scaleY(0.96); }
+          50%      { opacity: 0.45; transform: scaleY(1.02); }
         }
       `}</style>
 
