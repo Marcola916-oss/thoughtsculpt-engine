@@ -56,6 +56,7 @@ import { QuizScreenWrapper } from "../components/quiz/QuizScreenWrapper";
 import { QuizOption } from "../components/quiz/QuizOption";
 import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
+import { LandingCTAButton } from "@/components/landing/LandingCTAButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
 import { ArchetypeCanvasBrain } from "@/components/identity/ArchetypeCanvasBrain";
