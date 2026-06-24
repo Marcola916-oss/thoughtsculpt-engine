@@ -830,6 +830,35 @@ const PT: Dict = {
       cta: "Quero o meu diagnóstico [PRIMARY] agora →",
       trust: "✓ 7 dias garantia · ✓ Pagamento único · ✓ SSL · ✓ Sem subscrição",
     },
+    b8: {
+      title: "Perguntas frequentes",
+      items: [
+        { q: "Isto é diferente de apps de orçamento como YNAB ou Mint?", a: "Sim. Esses apps ensinam o QUE fazer com dinheiro. O MindReset revela PORQUE como [PRIMARY] não consegues fazer o que já sabes que devias. É a diferença entre mudança sustentável e abandono em 30 dias." },
+        { q: "Preciso de ligar a minha conta bancária?", a: "Não. O MindReset trabalha com comportamento — não com extracto. Nenhum dado bancário é pedido nem armazenado." },
+        { q: "E se eu quiser cancelar ou pedir reembolso?", a: "Tens 7 dias para pedir reembolso integral, sem perguntas. Cancelamento em 2 cliques no portal do cliente." },
+        { q: "A IA substitui um psicólogo?", a: "Não. É uma ferramenta de autoconhecimento comportamental. Útil para identificares padrões — não substitui aconselhamento profissional." },
+      ],
+    },
+    b9: {
+      title: "[NOME], chega de repetir o mesmo padrão.",
+      subtitle: "Ser [PRIMARY] não é o teu destino. É o teu ponto de partida.",
+      tagline: "[NOME], és [PRIMARY] com traço de [SECONDARY].",
+      cta: "Começar o meu MindReset agora →",
+      trust: "🔒 Stripe · 🛡️ SSL · Cancelar quando quiseres",
+    },
+    ob2: {
+      eyebrow: "ANTES DE AVANÇARES…",
+      title: "Protocolo de Reset 30 dias",
+      desc: "Plano diário com 30 micro-acções calibradas para sair do padrão [PRIMARY]. Recebes junto com o diagnóstico.",
+      cta: "Sim, quero adicionar",
+      decline: "Não, prefiro descobrir sozinho",
+    },
+    exit: {
+      title: "[NOME], espera.",
+      body: "Já és [PRIMARY]. Sair agora apaga o teu diagnóstico — e o gatilho que o mantém activo.",
+      cta: "Quero entender o meu padrão →",
+      decline: "Prefiro sair sem descobrir",
+    },
   },
 };
 
