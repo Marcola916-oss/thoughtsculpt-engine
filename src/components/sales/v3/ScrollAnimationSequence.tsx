@@ -76,10 +76,14 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
     // Check if the image loaded successfully (naturalWidth > 0)
     if (!img || img.naturalWidth === 0) return;
 
+    // Set canvas dimensions to match image to avoid squishing
+    if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw the image scaled to fit the 1080x1080 canvas
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
   };
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -105,15 +109,13 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden ${className}`}
+      className={`pointer-events-none absolute inset-0 flex items-center justify-center ${className}`}
       style={{ zIndex: 1 }}
     >
-      {/* We use a high-res base canvas to avoid blurry upscaling, then CSS downscales it */}
       <canvas
         ref={canvasRef}
-        width={1080}
-        height={1080}
-        className="h-full w-full object-contain"
+        className="w-full h-full object-contain object-center transition-opacity duration-300"
+        style={{ maxWidth: "600px", maxHeight: "600px", opacity: loaded ? 1 : 0 }}
       />
     </div>
   );
