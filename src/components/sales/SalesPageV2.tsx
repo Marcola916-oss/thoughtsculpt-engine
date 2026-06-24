@@ -248,7 +248,7 @@ export default function SalesPageV2({
               <span>
                 <AnimatedCounter end={12000} prefix="+" />{" "}
                 {v2.b6.counter.replace(/\+\s?12[.,]?000\s?/, "").trim()}
-              </span> as unknown as string
+              </span>
             }
           >
             <p className="mb-8 text-sm uppercase tracking-widest text-foreground/55">

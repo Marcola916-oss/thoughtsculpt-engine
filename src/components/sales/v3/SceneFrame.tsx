@@ -20,7 +20,7 @@ export function SceneFrame({
 }: {
   index?: number;
   eyebrow?: string;
-  title?: string;
+  title?: React.ReactNode;
   children: ReactNode;
   sceneId: string;
   dropCap?: boolean;
