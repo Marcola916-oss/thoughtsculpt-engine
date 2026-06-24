@@ -27,8 +27,8 @@ import { startBrainFramesPreload } from "@/lib/brainFramesCache";
 import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-scores";
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
 import { BrainOrbit } from "@/components/reveal/BrainOrbit";
-import { VSL } from "@/components/sales/VSL";
 import { CheckoutStub } from "@/components/funnel/CheckoutStub";
+const SalesPageV2 = lazy(() => import("@/components/sales/SalesPageV2"));
 import { track, EVENTS } from "@/lib/analytics";
 
 // ── Phase A placeholders (will be replaced in Phase B/D when checkout is rebuilt) ──
@@ -152,6 +152,7 @@ function LandingAndQuiz() {
   const [leadId, setLeadId] = useState<string | null>(null);
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [leadError, setLeadError] = useState<string | null>(null);
+  const [selectedBumps, setSelectedBumps] = useState<("bump1" | "bump2")[]>([]);
   const [timerLeft, setTimerLeft] = useState(900); // 15 minutes shared across Sales + Plans
   // Fase 1 — Recovery banner para usuários que cancelaram no Stripe Checkout.
   // Stripe redireciona para `/?canceled=1&recover=<orderId>` quando o user fecha
@@ -496,17 +497,25 @@ function LandingAndQuiz() {
 
           {stage.kind === "vsl" && archCode && (
             <div key="vsl">
-              <VSL
-                name={name}
-                arch={archCode}
-                onCheckout={() => setStage({ kind: "checkout" })}
-              />
+              <Suspense fallback={<div className="py-24 text-center text-foreground/60">…</div>}>
+                <SalesPageV2
+                  archetype={archCode}
+                  displayName={name}
+                  areaScores={computeAreaScores(answers).areas}
+                  leadId={leadId}
+                  onContinue={({ bumps }) => {
+                    setSelectedBumps(bumps);
+                    setStage({ kind: "checkout" });
+                  }}
+                  onBack={() => setStage({ kind: "reveal" })}
+                />
+              </Suspense>
             </div>
           )}
 
           {stage.kind === "checkout" && (
             <div key="checkout">
-              <CheckoutStub email={email} name={name} leadId={leadId} />
+              <CheckoutStub email={email} name={name} leadId={leadId} initialBumps={selectedBumps} />
             </div>
           )}
 

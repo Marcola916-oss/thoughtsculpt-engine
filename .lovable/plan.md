@@ -1,97 +1,172 @@
-# Fase 3 — Quiz Flow + Reveal Conversion
+# Fase 4 — Tela 12: Página de Vendas (VSL) do zero
 
 ## Objetivo
 
-Elevar **quiz_start → reveal_view de ~60% para ≥85%** e **reveal_view → checkout_click de ~8% para ≥18%**.
+Elevar **reveal → checkout de ~18% (pós-Fase 3) para ≥45%**. Esta é a tela de maior gap do funil: hoje o reveal envia direto para `CheckoutStub`, sem uma página de vendas estruturada que ancore valor, mostre prova e neutralize objeções. O `VSL.tsx` atual é placeholder leve — vamos **substituir** por uma página de vendas premium, modular, com 11 blocos fixos, exit-intent, sticky CTA e i18n completo.
 
-Fase 1 (infra) e Fase 2 (landing) permanecem intactas. Esta fase ataca o meio e o fim do funil: a experiência do quiz em si e a página de revelação do arquétipo, que é o momento de máxima atenção emocional do utilizador.
+## Decisão arquitetural — estágio vs rota
+
+Vai como **estágio `vsl`** dentro de `src/routes/index.tsx`, **não** como rota `/diagnostico`. Razões:
+- Preserva `winner`, `displayName`, `areaScores`, `leadId`, `currency`, `email` em memória sem precisar de loader server-side ou query params na URL.
+- Mantém transições `Atmosphere` consistentes com o resto do funil.
+- Evita exposição pública de URL — VSL é um destino interno pós-reveal.
+- Compatível com analytics: `track(EVENTS.VSL_VIEW, { source: "reveal" })` sem confusão de rota.
+
+Fluxo novo: `reveal → vsl → checkout` (atual: `reveal → checkout`).
 
 ## Diretrizes (não-negociáveis)
 
-- **Copy estritamente Bible V2** — nada inventado.
-- **5 idiomas em paridade** (PT/EN/PL/RO/AR) — `i18n-sync` verde antes de fechar cada commit.
-- **Zero quebra de rotas existentes** — mudanças cirúrgicas em `index.tsx` stages `identity/q/email/loader/reveal`.
-- **Mobile-first** — todo o quiz é consumido em 375-414px; desktop é polish.
-- **Acessibilidade AA** — focus rings visíveis, `aria-live` nas transições, contraste verificado.
-- **RTL preservado** para árabe em todas as novas peças.
-- **Analytics canônicos** — cada microinteração relevante dispara `track()` com `source` apropriado.
+- **Copy Bible V2** — sem invenção; placeholders `[NOME]`, `[PRIMARY]`, `[SECONDARY]` substituídos em runtime via template functions.
+- **5 idiomas em paridade** (PT/EN/PL/RO/AR) — chave nova `sales.*` ~12k chars/idioma. `i18n-sync` verde.
+- **Mobile-first** — layout 375-414px é o caso de teste. Desktop é polish.
+- **Preço local via `getLocalPrice`** (Fase 1) — já implementado, consumir.
+- **Acessibilidade AA** — `aria-live` no exit-intent, focus trap no modal, sticky CTA com `aria-label`.
+- **RTL completo** para árabe.
+- **Lighthouse Perf ≥85 mobile** — lazy-load imagens, sem framer-motion novo (CSS keyframes), sem libs novas exceto `react-countup` (~3kb).
+- **Zero quebra do funil atual** — só adiciona `stage="vsl"` entre reveal e checkout.
 
 ## Ordem de execução (5 commits)
 
-### Commit 1 — Quiz progress + back stack confiável
+### Commit 1 — Esqueleto da página + integração no funil
 
-**Ficheiros:** `src/components/quiz/QuizScreenWrapper.tsx`, `src/routes/index.tsx`.
+**Ficheiros:**
+- `src/components/sales/SalesPageV2.tsx` (novo, ~400 linhas)
+- `src/routes/index.tsx` (adicionar stage `vsl`, redirect reveal→vsl→checkout)
+- `src/lib/i18n/types.ts` (`sales: { ... }` no `Dict`)
+- Remoção: `src/components/sales/VSL.tsx` é mantido temporariamente para fallback, deletado no Commit 5.
 
-- Barra de progresso com gradiente vermelho + label "Pergunta N de 8" + percentagem real animada (`transition: width 0.6s ease-out`).
-- Botão `← Voltar` em TODAS as etapas exceto a primeira; restaura a resposta anterior em vez de a apagar (atualmente perde estado).
-- `track(EVENTS.QUIZ_BACK, { from_step })` em cada uso — para medir hesitação por pergunta.
-- Persistência das respostas em `sessionStorage` (chave `mr_quiz_draft`) com TTL 30min, para recuperar se o utilizador refrescar acidentalmente.
+Tipagem props:
+```ts
+type SalesPageV2Props = {
+  archetype: Archetype;
+  displayName: string;
+  areaScores: AreaScores;
+  leadId: string;
+  localPrice: LocalPriceQuote;
+  onContinue: (payload: { bumps: ("bump1"|"bump2")[] }) => void;
+  onBack: () => void;
+};
+```
 
-### Commit 2 — Loader emocional (pré-revelação)
+Estado interno:
+- `bump1`, `bump2` (booleans, default `false`).
+- `showSticky` (boolean, ativa via IntersectionObserver no fim do B1).
+- `showExitIntent` (boolean, controlado por hook).
 
-**Ficheiro:** `src/components/quiz/NeuralLoader.tsx`.
+Estrutura JSX em ordem fixa: B1 → B2 → B3 → B4 → B5 → B6 → OB1 → B7 → B8 → B9 → OB2.
 
-- Substituir os 5 steps actuais por um ciclo de **3 fases narrativas** (8s total, não mais):
-  1. "A cruzar as tuas 8 respostas com 12.000 perfis…" (0-2.5s)
-  2. "A identificar o teu padrão dominante…" (2.5-5s)
-  3. "A preparar a tua revelação…" (5-8s)
-- MarbleBust no centro com pulso vermelho sincronizado às transições.
-- `track(EVENTS.LOADER_VIEW)` no mount, `track(EVENTS.LOADER_COMPLETE)` no fim.
-- Reduzir para `prefers-reduced-motion`: substituir pulso por fade simples.
-- Copy localizada nos 5 idiomas via `t.loader.steps` (já existe — só ajustar para 3 entradas).
+`track(EVENTS.VSL_VIEW)` no mount com `{ arch, has_lead }`.
 
-### Commit 3 — Reveal: hierarquia visual + prova social ancorada
+### Commit 2 — Blocos B1–B5 (acima da dobra + dor + ciência + produto + âncora)
 
-**Ficheiro:** `src/components/reveal/` (novos sub-componentes) + `src/routes/index.tsx` stage `reveal`.
+Implementa os 5 primeiros blocos com copy embedded via `t.sales.b1Anchor`, etc. PT canónico, traduções PL/RO/AR feitas em batch (volume).
 
-Estrutura nova da página de reveal (mobile-first, fold por fold):
+- **B1 Emotional Anchor**: H1 com `[NOME], o teu padrão tem nome.` + parágrafo de validação + CTA primário ("Quero o diagnóstico completo").
+- **B2 Pain Mirror**: checklist 6 itens com `<X className="text-destructive">` — situações específicas do arquétipo (puxa de `t.sales.painList[arch]`, 6 itens × 4 arquétipos).
+- **B3 Scientific Breakthrough**: 3 cards (Kahneman / Thaler / Ariely) com citação + ano + tema. Componente `ScienceCard` interno.
+- **B4 Produto 4D**: grid 2×2 (Financeiro / Profissional / Amor / Pessoal). Cada card mostra score do utilizador (puxa de `areaScores`) + 1 frase do que o PDF entrega naquela área.
+- **B5 Value Anchor**: linha visual `$200 (consulta) ❯ $47 (curso médio) ❯ $9.90 (tu)` com strikethrough animado on scroll (CSS keyframe).
 
-1. **Fold 1 — Nome do arquétipo (typewriter 1 char/40ms) + tagline + MarbleBust pulsando**. Sem CTA aqui — o utilizador respira o impacto.
-2. **Fold 2 — "O que isto significa para ti, {nome}"**: 3 bullets vindos de `t.archetypes[arch].hooks` (já existem). Cada bullet com ícone Lucide.
-3. **Fold 3 — Score por área** (AreaScoreCard × 4: dinheiro/carreira/amor/pessoal). Barras animadas 0→valor sobre `IntersectionObserver`.
-4. **Fold 4 — Comparação ancorada**: "73% dos {arquétipo} relatam o mesmo padrão em pelo menos 3 áreas." Número derivado de `computeAreaScores`.
-5. **Fold 5 — CTA primário** ("Quero o meu diagnóstico completo") com timer de 15 min visível (escassez genuína baseada no `recover` window) + microcopy "7 dias de garantia · Pagamento único · Sem assinatura".
+### Commit 3 — B6 Social Proof + OB1 + B7 Preço + B8 FAQ + B9 Final CTA + OB2
 
-`track(EVENTS.REVEAL_VIEW)` no mount, `track(EVENTS.REVEAL_CTA_CLICK)` no botão.
+- **B6 Social Proof**: `AnimatedCounter` (componente novo `src/components/sales/AnimatedCounter.tsx`, usa `react-countup`, dispara em `IntersectionObserver`) — "12.847 diagnósticos entregues". Abaixo, 3 cards de depoimento com nome + arquétipo + texto longo + estrelas.
+- **OB1**: card destacável (border amarelo) com checkbox unchecked, badge "MAIS PEDIDO" (top-right absoluto, fundo vermelho), preço `+$4.99` formatado por `localPrice`.
+- **B7 Preço + CTA**: bloco hero de preço com 3 linhas (de $200 risca, por $47 risca, hoje $localPrice em destaque vermelho 6xl). Botão CTA máximo (full-width mobile, large desktop). Microcopy segurança ("✓ 7 dias garantia · ✓ Pagamento único · ✓ SSL · ✓ Sem subscrição").
+- **B8 FAQ**: 4 accordions (genérico? entrega? vs apps? garantia?). Reusa pattern do `landing/FAQ.tsx` (sem importar — copy embedded em `t.sales.faq`).
+- **B9 Final CTA**: urgência ("Esta análise expira em MM:SS" — timer real reusando hook de Fase 3) + botão máximo + linha "[NOME], você é [PRIMARY] com traço de [SECONDARY]" (substituição via template).
+- **OB2**: seção separada pós-B9 com fundo `bg-card`, título "Antes de avançar…", proposta "Protocolo 30 Dias +$14.00", checkbox + link `<button>` discreto "Não, prefiro descobrir sozinho" que apenas fecha visualmente a seção (não bloqueia avanço).
 
-### Commit 4 — Checkout bump alinhado ao Bible V2 + Apple Pay/Google Pay
+Handler `onContinue`:
+```ts
+const handleAdvance = () => {
+  const bumps = [bump1 && "bump1", bump2 && "bump2"].filter(Boolean);
+  track(EVENTS.VSL_CTA_CLICK, { bumps, source });
+  onContinue({ bumps });
+};
+```
 
-**Ficheiros:** `src/components/funnel/CheckoutStub.tsx` (rewrite) + nova `src/lib/funnel/checkout.functions.ts`.
+### Commit 4 — StickyNavbar + ExitIntentModal + AnimatedCounter polish
 
-- Produto principal: PDF do diagnóstico (preço local via `getLocalPrice` da Fase 1).
-- **Order bump pré-tickado** (`bump2`): "Plano de 30 dias guiado por arquétipo — +$14.00" com checkbox visível e copy de valor.
-- Stripe Elements com Apple Pay / Google Pay no topo, cartão abaixo.
-- `track(EVENTS.CHECKOUT_VIEW)`, `track(EVENTS.BUMP_TOGGLE)`, `track(EVENTS.CHECKOUT_SUBMIT)`.
-- Em caso de cancelamento Stripe → redirect para `/?canceled=1&recover={orderId}` (já tratado na Fase 1).
-- Server function `createCheckoutSession` em `checkout.functions.ts` com `inputValidator` Zod + Stripe SDK; retorna `{ url }` para `window.location.assign`.
+- **`src/components/sales/StickyVSLBar.tsx`**: barra fixed top que aparece via `IntersectionObserver` quando B1 sai do viewport. Slide-down 400ms (CSS `@keyframes slide-down-bar`). Mostra: preço local + botão CTA mini. Esconde quando B9 entra em viewport (evita duplicação visual).
+- **`src/components/sales/ExitIntentModal.tsx`** + **`src/hooks/use-exit-intent.ts`**:
+  - Desktop: listener `mouseleave` no `document.documentElement` quando `clientY <= 0`.
+  - Mobile: listener `popstate` (history back) + fallback `visibilitychange` ao trocar de aba.
+  - Dispara uma única vez por sessão (flag em memória, não localStorage — iframe sandbox).
+  - Modal centralizado com backdrop, focus trap, ESC fecha. Copy: H2 "[NOME], espera." + sub "Tu já és [ARQUÉTIPO]. Sair agora apaga o teu diagnóstico." + botão primário "Quero entender meu padrão →" (avança para checkout sem bumps) + link negativo "Prefiro sair sem descobrir" (fecha modal e marca como visto).
+  - `track(EVENTS.EXIT_INTENT_SHOWN)`, `track(EVENTS.EXIT_INTENT_CTA)`, `track(EVENTS.EXIT_INTENT_DISMISS)`.
+- **AnimatedCounter** polish: respeita `prefers-reduced-motion` (mostra valor final imediatamente).
 
-### Commit 5 — i18n parity + analytics sweep + Gate 3
+### Commit 5 — i18n batch + analytics sweep + cleanup + smoke
 
-- Adicionar chaves novas (`quiz.back`, `quiz.progress`, `reveal.fold2Title`, `reveal.fold4Anchor`, `checkout.*`) aos 5 idiomas em `translations.ts` + tipo em `Dict`.
-- Confirmar que **todos** os 16 eventos canónicos de `EVENTS` estão a disparar pelo menos uma vez no fluxo end-to-end.
-- Rodar `bunx tsgo --noEmit` (verde) e smoke test manual: PT desktop + AR mobile (RTL).
+- **i18n**: adiciona ~60 chaves `sales.*` × 5 idiomas. Estrutura:
+  - `sales.b1Title(name)`, `sales.b1Sub`, `sales.b1Cta`
+  - `sales.painList[arch]: string[6]` (24 strings × 5)
+  - `sales.scienceCards: { name, quote, year }[3]`
+  - `sales.area4d: { financial, professional, love, personal }`
+  - `sales.valueAnchor: { consult, course, you }`
+  - `sales.socialCount`, `sales.testimonials[3]`
+  - `sales.bump1: { title, desc, badge }`, `sales.bump2: { title, desc, declineLink }`
+  - `sales.priceBlock: { from, was, now, cta, micro }`
+  - `sales.faq[4]: { q, a }`
+  - `sales.finalCta: { urgency, cta, identity(name, primary, secondary) }`
+  - `sales.exitIntent: { title(name), sub(arch), cta, dismiss }`
+  - `sales.stickyCta`
+- AR revisado culturalmente (sem juros/riba; "أنت" tom direto).
+- **Analytics**: 6 eventos novos no `EVENTS`: `VSL_VIEW`, `VSL_CTA_CLICK`, `VSL_BUMP_TOGGLED`, `EXIT_INTENT_SHOWN`, `EXIT_INTENT_CTA`, `EXIT_INTENT_DISMISS`.
+- **Cleanup**: deletar `src/components/sales/VSL.tsx` antigo.
+- **Smoke**: `bunx tsgo --noEmit` verde + checklist manual PT desktop / AR mobile.
+- **Lighthouse mobile**: rodar `lighthouse` em `/?stage=vsl` (modo dev) e confirmar Perf ≥85 — gate.
 
-## Critérios de Gate 3 (antes de Fase 4)
+## Critérios de Gate 4 (antes de Fase 5)
 
-- ✅ Build limpa, tsgo limpo, i18n-sync nos 5 idiomas.
-- ✅ Quiz: voltar restaura resposta, refresh recupera draft, progress animada.
-- ✅ Loader: 8s, 3 fases narrativas, sem flicker.
-- ✅ Reveal: 5 folds, scores animados, timer de 15 min visível, CTA único.
-- ✅ Checkout: Apple Pay visível em iOS, bump pré-tickado, recovery banner se cancelar.
-- ✅ PostHog (se configurado) a receber `QUIZ_START`, `QUIZ_BACK`, `LOADER_VIEW`, `REVEAL_VIEW`, `REVEAL_CTA_CLICK`, `CHECKOUT_VIEW`, `BUMP_TOGGLE`, `CHECKOUT_SUBMIT`.
+- ✅ Build limpa, tsgo verde, i18n-sync verde 5 idiomas.
+- ✅ VSL renderiza com `[NOME]`, `[PRIMARY]`, `[SECONDARY]` e preço local correto por país (testar BR/PT/PL/RO/SA via override `?country=`).
+- ✅ Sticky CTA aparece após hero, esconde ao chegar em B9.
+- ✅ Exit intent: dispara 1× por sessão, focus trap, ESC fecha, copy correta.
+- ✅ Bumps enviam payload correto: `onContinue({ bumps: ["bump1","bump2"] })` → `CheckoutStub` recebe e o `createCheckoutSession` cria sessão Stripe com line items corretos.
+- ✅ Lighthouse Perf ≥85 mobile em `/?stage=vsl`.
+- ✅ AR RTL: layout espelhado, sem `left`/`right` hardcoded (auditar `pe-*`/`ps-*`/`start-*`/`end-*`).
 
-## Estimativas de impacto
+## Detalhes técnicos
 
-- **Back stack confiável + draft recovery** → +5-8pp no quiz_start→reveal_view (reduz abandono por engano).
-- **Loader narrativo 8s** → mantém atenção emocional (vs. ansiedade do loader atual).
-- **Reveal em 5 folds + score animado** → +6-10pp no reveal_view→checkout_click (prova ancorada).
-- **Apple Pay/Google Pay + bump pré-tickado** → +3-5pp no checkout_click→purchase + AOV +$8-12.
+**Substituição de placeholders** (helper interno `src/lib/sales/template.ts`):
+```ts
+export const fillTpl = (
+  tpl: string,
+  vars: { name: string; primary: string; secondary: string }
+) => tpl
+  .replace(/\[NOME\]/g, vars.name)
+  .replace(/\[PRIMARY\]/g, vars.primary)
+  .replace(/\[SECONDARY\]/g, vars.secondary);
+```
+
+**Dependência nova:**
+```bash
+bun add react-countup  # ~3kb gzipped, mantido
+```
+
+**Reusos:**
+- `getLocalPrice` (Fase 1) — preço.
+- `t.archetypes[arch].colors.primary` para acentos do bloco.
+- `MarbleBust` (mini, opacidade reduzida) como ornamento em B1.
+- `Reveal` + `Reveal.Group` para entrada por scroll.
+- Atmosphere wrapper já aplicado no estágio.
+
+**Risco de bundle:** SalesPageV2 fica em chunk próprio via dynamic import no `index.tsx` (`React.lazy(() => import("@/components/sales/SalesPageV2"))`) — só carrega quando o utilizador chega ao reveal CTA.
 
 ## Gates do utilizador antes de implementar
 
-- **Stripe:** preciso de confirmação que `STRIPE_SECRET_KEY` está nos Secrets do projeto (já deve estar da Fase 1) e que o domínio Apple Pay foi adicionado.
-- **Preço do bump:** confirmar `$14.00` para USD/EUR (já no `pricing.server.ts`).
+- Confirmar copy V2 do Bible para os 11 blocos (PT canónico) — se já está em `melhorias e contexto/`, indicar caminho.
+- Aprovar preço-âncora `$200` (consulta) e `$47` (curso médio) ou ajustar.
+- Confirmar adição da dependência `react-countup`.
+
+## Estimativas de impacto
+
+- **VSL estruturado vs ausente** → +20-27pp em reveal→checkout (de ~18% para ~45%).
+- **Exit intent** → recupera 5-9% dos abandonos pré-checkout.
+- **Sticky CTA** → +3-5pp em mobile (reduz fricção de scroll).
+- **OB1 com badge "MAIS PEDIDO"** → +12-18% attach rate vs OB1 plano.
 
 ## Próximo passo
 
-Aprovar este plano → começar pelo **Commit 1 (Quiz progress + back stack)** e enviar para revisão antes de avançar.
+Aprovar plano → começar **Commit 1 (esqueleto + integração no funil)** e enviar para revisão antes de avançar para os blocos.

@@ -281,17 +281,24 @@ interface Props {
   email: string;
   name: string;
   leadId: string | null;
+  /** Bumps pré-seleccionados na página VSL (Fase 4). Sobrepõe defaults. */
+  initialBumps?: ("bump1" | "bump2")[];
 }
 
-export function CheckoutStub({ email, name, leadId }: Props) {
+export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
   const { lang } = useI18n();
   const startCheckout = useServerFn(createCheckoutSession);
   const fetchQuote = useServerFn(getCheckoutQuote);
   const copy = COPY[lang] ?? COPY.en;
 
-  const [bump1, setBump1] = useState(false);
-  // Bump2 (30-day reset protocol) pre-ticked — Bible V2 default; user can opt-out.
-  const [bump2, setBump2] = useState(true);
+  const [bump1, setBump1] = useState(
+    initialBumps ? initialBumps.includes("bump1") : false,
+  );
+  // Bump2 (30-day reset protocol) pre-ticked por Bible V2 quando o utilizador
+  // não vem da VSL; quando vem, respeita a escolha feita lá.
+  const [bump2, setBump2] = useState(
+    initialBumps ? initialBumps.includes("bump2") : true,
+  );
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
