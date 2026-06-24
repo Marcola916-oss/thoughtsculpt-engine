@@ -114,7 +114,7 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
     >
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-contain object-center lg:translate-x-16 transition-opacity duration-300"
+        className="w-full h-full object-contain object-center lg:translate-x-16 transition-opacity duration-300 mix-blend-screen"
         style={{ maxWidth: "600px", maxHeight: "600px", opacity: loaded ? 1 : 0 }}
       />
     </div>
