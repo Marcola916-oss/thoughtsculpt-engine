@@ -216,18 +216,19 @@ export default function SalesPageV2({
         </Section>
 
         {/* ─── B6 Social Proof ────────────────────────────────── */}
-        <Section title={dict.socialProof?.counterText ?? ""}>
+        <Section title={v2.b6.counter}>
+          <p className="mb-5 text-sm text-foreground/60">{v2.b6.rating}</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {(dict.socialProof?.testimonials ?? []).map((tst, i) => (
+            {v2.b6.testimonials.map((tst, i) => (
               <figure key={i} className="rounded-2xl border border-border bg-card/60 p-4">
                 <div className="mb-2 flex" role="img" aria-label="5 stars">
                   {Array.from({ length: 5 }).map((_, k) => (
                     <Star key={k} size={14} className="fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <blockquote className="text-sm text-foreground/85">"{tst.quote}"</blockquote>
+                <blockquote className="text-sm text-foreground/85">&ldquo;{tpl(tst.quote)}&rdquo;</blockquote>
                 <figcaption className="mt-3 text-xs text-foreground/60">
-                  {tst.author} · {tst.country}
+                  {tst.author} · {tst.country} · {tst.arch}
                 </figcaption>
               </figure>
             ))}
@@ -238,17 +239,20 @@ export default function SalesPageV2({
         <BumpCard
           checked={bump1}
           onToggle={() => toggleBump("bump1")}
-          title="Guia de Relações por Arquétipo"
-          desc="Como cada arquétipo se relaciona — útil para parceiros, família, sócios."
+          title={v2.ob1.title}
+          desc={tpl(v2.ob1.desc)}
           price={`+${price.bump1}`}
-          badge="MAIS PEDIDO"
+          badge={v2.ob1.badge}
+          ctaLabel={v2.ob1.cta}
         />
 
         {/* ─── B7 Preço + CTA ─────────────────────────────────── */}
         <Section>
           <div className="rounded-3xl border-2 border-[hsl(var(--accent))]/40 bg-card/80 p-6 sm:p-8 text-center">
-            <p className="text-sm text-foreground/60 line-through">$200</p>
-            <p className="text-sm text-foreground/60 line-through">$47</p>
+            <p className="text-xs uppercase tracking-widest text-foreground/55">{tpl(v2.b7.eyebrow)}</p>
+            <p className="mt-3 text-sm text-foreground/55 line-through">{v2.b7.was}</p>
+            <p className="text-sm text-foreground/55 line-through">{v2.b7.then}</p>
+            <p className="mt-1 text-xs uppercase tracking-widest text-foreground/65">{v2.b7.price}</p>
             <p className="mt-2 text-5xl sm:text-6xl font-extrabold text-[hsl(var(--accent))]">
               {price.main}
             </p>
@@ -258,12 +262,10 @@ export default function SalesPageV2({
                 onClick={() => advance("b7")}
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[hsl(var(--accent))] px-8 py-4 text-lg font-semibold text-white sm:w-auto"
               >
-                {dict.ctaFinal?.cta ?? dict.cta} <ArrowRight size={18} />
+                {tpl(v2.b7.cta)} <ArrowRight size={18} />
               </button>
             </ButtonPress>
-            <p className="mt-4 text-xs text-foreground/60">
-              ✓ 7d garantia · ✓ Pagamento único · ✓ SSL · ✓ Sem subscrição
-            </p>
+            <p className="mt-4 text-xs text-foreground/60">{v2.b7.trust}</p>
           </div>
         </Section>
 
@@ -462,6 +464,7 @@ function BumpCard(props: {
   desc: string;
   price: string;
   badge?: string;
+  ctaLabel?: string;
 }) {
   return (
     <Section>
@@ -486,7 +489,7 @@ function BumpCard(props: {
             <p className="mt-1 text-sm text-foreground/70">{props.desc}</p>
             {props.checked && (
               <p className="mt-2 inline-flex items-center gap-1 text-xs text-emerald-500">
-                <Check size={14} /> Adicionado
+                <Check size={14} /> {props.ctaLabel ?? "Added"}
               </p>
             )}
           </div>

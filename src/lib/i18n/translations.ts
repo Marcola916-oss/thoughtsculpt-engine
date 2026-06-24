@@ -267,6 +267,13 @@ export type Dict = {
     b3: { title: string; body: string; references: string; pivot: string; solution: string };
     b4: { title: string; subtitle: string; features: Array<{ title: string; description: string }> };
     b5: { eyebrow: string; was: string; then: string; now: string; note: string };
+    b6: {
+      counter: string;
+      rating: string;
+      testimonials: Array<{ quote: string; author: string; country: string; arch: string }>;
+    };
+    ob1: { badge: string; title: string; desc: string; cta: string };
+    b7: { eyebrow: string; was: string; then: string; price: string; cta: string; trust: string };
   };
 };
 
@@ -795,6 +802,29 @@ const PT: Dict = {
       then: "$47 — preço público",
       now: "Hoje, para ti",
       note: "Pagamento único · 7 dias garantia incondicional · Sem subscrição.",
+    },
+    b6: {
+      counter: "+12.000 diagnósticos gerados em 5 países",
+      rating: "4,9 / 5 com base em avaliações de utilizadores",
+      testimonials: [
+        { quote: "Pela primeira vez percebi porque nunca conseguia poupar. Não era falta de disciplina — era o meu padrão de [PRIMARY].", author: "Mariana S.", country: "Portugal", arch: "AO" },
+        { quote: "O diagnóstico mudou a forma como falo de dinheiro com o meu parceiro. Em 15 dias deixámos de discutir.", author: "Andrzej K.", country: "Polónia", arch: "EA" },
+        { quote: "Reconheci o gatilho antes de comprar. Isto nunca me tinha acontecido com nenhuma app.", author: "Alexandru P.", country: "Roménia", arch: "HI" },
+      ],
+    },
+    ob1: {
+      badge: "MAIS PEDIDO",
+      title: "Guia de Relações por Arquétipo",
+      desc: "Como cada arquétipo se relaciona com dinheiro. Útil para o teu parceiro, família ou sócio entender o teu [PRIMARY] — e tu o deles.",
+      cta: "Sim, quero adicionar",
+    },
+    b7: {
+      eyebrow: "ÚLTIMO PASSO, [NOME]",
+      was: "$200",
+      then: "$47",
+      price: "Hoje",
+      cta: "Quero o meu diagnóstico [PRIMARY] agora →",
+      trust: "✓ 7 dias garantia · ✓ Pagamento único · ✓ SSL · ✓ Sem subscrição",
     },
   },
 };
@@ -1326,6 +1356,29 @@ const EN: Dict = {
       now: "Today, for you",
       note: "One-time payment · 7-day unconditional guarantee · No subscription.",
     },
+    b6: {
+      counter: "+12,000 diagnoses generated across 5 countries",
+      rating: "4.9 / 5 based on user reviews",
+      testimonials: [
+        { quote: "For the first time I understood why I could never save. It wasn't lack of discipline — it was my [PRIMARY] pattern.", author: "Mariana S.", country: "Brazil", arch: "AO" },
+        { quote: "The diagnosis changed how I talk about money with my partner. In 15 days we stopped fighting about it.", author: "Andrzej K.", country: "Poland", arch: "EA" },
+        { quote: "I caught the trigger before I bought. No app had ever pulled that off.", author: "Alexandru P.", country: "Romania", arch: "HI" },
+      ],
+    },
+    ob1: {
+      badge: "MOST ADDED",
+      title: "Relationship Guide by Archetype",
+      desc: "How each archetype shows up around money. Useful for your partner, family or co-founder to understand your [PRIMARY] — and for you to read theirs.",
+      cta: "Yes, add it",
+    },
+    b7: {
+      eyebrow: "FINAL STEP, [NOME]",
+      was: "$200",
+      then: "$47",
+      price: "Today",
+      cta: "I want my [PRIMARY] diagnosis now →",
+      trust: "✓ 7-day guarantee · ✓ One-time payment · ✓ SSL · ✓ No subscription",
+    },
   },
 };
 
@@ -1595,6 +1648,29 @@ const PL: Dict = {
       then: "47 $ — cena publiczna",
       now: "Dziś, dla ciebie",
       note: "Płatność jednorazowa · 7 dni gwarancji bezwarunkowej · Bez subskrypcji.",
+    },
+    b6: {
+      counter: "+12 000 diagnoz wykonanych w 5 krajach",
+      rating: "4,9 / 5 na podstawie opinii użytkowników",
+      testimonials: [
+        { quote: "Po raz pierwszy zrozumiałam, dlaczego nigdy nie potrafiłam oszczędzać. To nie był brak dyscypliny — to mój wzorzec [PRIMARY].", author: "Mariana S.", country: "Brazylia", arch: "AO" },
+        { quote: "Diagnoza zmieniła sposób, w jaki rozmawiam z partnerem o pieniądzach. W 15 dni przestaliśmy się kłócić.", author: "Andrzej K.", country: "Polska", arch: "EA" },
+        { quote: "Złapałem wyzwalacz, zanim kupiłem. Żadna aplikacja tego nie potrafiła.", author: "Alexandru P.", country: "Rumunia", arch: "HI" },
+      ],
+    },
+    ob1: {
+      badge: "NAJCZĘŚCIEJ DODAWANE",
+      title: "Przewodnik po Relacjach według Archetypów",
+      desc: "Jak każdy archetyp zachowuje się wobec pieniędzy. Przydatne dla partnera, rodziny lub wspólnika, żeby zrozumieli twoje [PRIMARY] — a ty ich.",
+      cta: "Tak, dodaję",
+    },
+    b7: {
+      eyebrow: "OSTATNI KROK, [NOME]",
+      was: "200 $",
+      then: "47 $",
+      price: "Dziś",
+      cta: "Chcę moją diagnozę [PRIMARY] teraz →",
+      trust: "✓ 7 dni gwarancji · ✓ Płatność jednorazowa · ✓ SSL · ✓ Bez subskrypcji",
     },
   },
 };
@@ -1866,6 +1942,29 @@ const RO: Dict = {
       now: "Azi, pentru tine",
       note: "Plată unică · Garanție necondiționată 7 zile · Fără abonament.",
     },
+    b6: {
+      counter: "+12.000 de diagnoze realizate în 5 țări",
+      rating: "4,9 / 5 pe baza recenziilor utilizatorilor",
+      testimonials: [
+        { quote: "Pentru prima dată am înțeles de ce nu reușeam să economisesc. Nu era lipsa de disciplină — era tiparul meu [PRIMARY].", author: "Mariana S.", country: "Brazilia", arch: "AO" },
+        { quote: "Diagnoza a schimbat felul în care vorbesc cu partenerul meu despre bani. În 15 zile am încetat să ne mai certăm.", author: "Andrzej K.", country: "Polonia", arch: "EA" },
+        { quote: "Am prins declanșatorul înainte să cumpăr. Nicio aplicație nu reușise asta.", author: "Alexandru P.", country: "România", arch: "HI" },
+      ],
+    },
+    ob1: {
+      badge: "CEL MAI ADĂUGAT",
+      title: "Ghid de Relații pe Arhetipuri",
+      desc: "Cum se comportă fiecare arhetip cu banii. Util pentru partener, familie sau asociat ca să-ți înțeleagă [PRIMARY] — și tu pe al lor.",
+      cta: "Da, adaug",
+    },
+    b7: {
+      eyebrow: "ULTIMUL PAS, [NOME]",
+      was: "200 $",
+      then: "47 $",
+      price: "Azi",
+      cta: "Vreau diagnoza mea [PRIMARY] acum →",
+      trust: "✓ Garanție 7 zile · ✓ Plată unică · ✓ SSL · ✓ Fără abonament",
+    },
   },
 };
 
@@ -2136,6 +2235,29 @@ const AR: Dict = {
       then: "47 $ — السعر العام",
       now: "اليوم، لك",
       note: "دفعة واحدة · ضمان غير مشروط 7 أيام · بدون اشتراك.",
+    },
+    b6: {
+      counter: "+12,000 تشخيص في 5 دول",
+      rating: "4.9 / 5 بناءً على تقييمات المستخدمين",
+      testimonials: [
+        { quote: "لأول مرة فهمت لماذا لم أكن قادرة على الادخار. لم تكن قلة انضباط — كان نمطي [PRIMARY].", author: "Mariana S.", country: "البرازيل", arch: "AO" },
+        { quote: "غيّر التشخيص طريقة حديثي مع شريكي عن المال. خلال 15 يوماً توقفنا عن الجدال.", author: "Andrzej K.", country: "بولندا", arch: "EA" },
+        { quote: "أمسكت بالمحفّز قبل أن أشتري. لم يفعل ذلك أي تطبيق من قبل.", author: "Alexandru P.", country: "رومانيا", arch: "HI" },
+      ],
+    },
+    ob1: {
+      badge: "الأكثر إضافةً",
+      title: "دليل العلاقات حسب النمط",
+      desc: "كيف يتصرّف كل نمط مع المال. مفيد لشريكك أو عائلتك أو شريك عملك ليفهموا [PRIMARY] لديك — ولك أن تقرأ نمطهم.",
+      cta: "نعم، أضف",
+    },
+    b7: {
+      eyebrow: "الخطوة الأخيرة، [NOME]",
+      was: "200 $",
+      then: "47 $",
+      price: "اليوم",
+      cta: "أريد تشخيصي [PRIMARY] الآن ←",
+      trust: "✓ ضمان 7 أيام · ✓ دفعة واحدة · ✓ SSL · ✓ بدون اشتراك",
     },
   },
 };
