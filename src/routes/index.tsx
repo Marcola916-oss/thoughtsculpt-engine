@@ -1120,6 +1120,7 @@ function Reveal({
               archetype={arch as "AO" | "SS" | "EA" | "HI"}
               className="relative z-10"
             />
+            <BrainOrbit />
           </div>
         </div>
 
