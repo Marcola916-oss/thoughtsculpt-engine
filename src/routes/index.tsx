@@ -793,8 +793,7 @@ function Identity(props: {
   return (
     <div className="w-full">
       <h2
-        className="font-display italic uppercase text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-        style={{ fontSize: "26px", lineHeight: "26px", letterSpacing: "-1.35px", fontWeight: 700 }}
+        className="font-display font-extrabold uppercase text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5rem,4vw,2rem)] leading-[1.05] tracking-tight"
       >
         {t.identity.title}
       </h2>
@@ -804,7 +803,7 @@ function Identity(props: {
 
       <div className="mt-10 space-y-8">
         <div>
-          <label className="mb-2 block text-xs font-black uppercase tracking-[0.2em] text-primary">
+          <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-primary">
             {t.common.yourName}
           </label>
           <input
@@ -812,12 +811,12 @@ function Identity(props: {
             value={props.name}
             onChange={(e) => props.setName(e.target.value)}
             placeholder={t.common.yourNamePlaceholder}
-            className="w-full rounded-2xl border border-border bg-card/50 px-5 py-4 text-xl outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-lg font-bold tracking-tight"
+            className="w-full rounded-2xl border border-border bg-card/50 px-5 py-4 text-xl outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-lg"
           />
         </div>
 
         <div>
-          <label className="mb-2 block text-xs font-black uppercase tracking-[0.2em] text-primary">
+          <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-primary">
             {t.common.selectGender}
           </label>
           <div className="grid grid-cols-3 gap-3">
@@ -826,7 +825,7 @@ function Identity(props: {
                 key={g}
                 data-cursor="hover"
                 onClick={() => props.setGender(g)}
-                className={`rounded-2xl border px-2 py-4 text-[13px] sm:text-base font-black uppercase tracking-tight italic transition-all ${
+                className={`rounded-2xl border px-2 py-4 text-[13px] sm:text-base font-semibold uppercase tracking-[0.05em] transition-all ${
                   props.gender === g
                     ? "border-primary bg-primary text-primary-foreground shadow-[0_15px_30px_-10px_var(--accent-glow)] scale-105 z-10"
                     : "border-border bg-card text-muted-foreground hover:border-foreground/30 hover:bg-secondary/40"
@@ -843,7 +842,7 @@ function Identity(props: {
         disabled={!ok}
         data-cursor="hover"
         onClick={props.onContinue}
-        className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-black italic tracking-tighter text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
+        className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-semibold uppercase tracking-[0.18em] text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
       >
         <div className="absolute inset-0 overflow-hidden rounded-2xl bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-primary-foreground">
@@ -872,7 +871,7 @@ function QuestionScreen(props: {
 
   return (
     <div className="w-full">
-      <h2 className="quiz-question-title font-display italic uppercase text-balance mb-4">
+      <h2 className="quiz-question-title font-display text-balance mb-4">
         {q.q.replace("[NOME]", props.name)}
       </h2>
       <p className="mb-8 text-base md:text-lg text-foreground/70 leading-relaxed">
@@ -911,7 +910,7 @@ function EmailCapture(props: {
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_20px_var(--accent-glow)] mx-auto">
         <Lock className="h-7 w-7 text-primary animate-pulse" />
       </div>
-      <h2 className="quiz-question-title font-display italic uppercase text-balance">
+      <h2 className="quiz-question-title font-display text-balance">
         {t.emailCapture.title(props.name)}
       </h2>
       <p className="mt-4 text-base md:text-lg text-foreground/70 leading-relaxed">
@@ -933,7 +932,7 @@ function EmailCapture(props: {
             value={props.email}
             onChange={(e) => props.setEmail(e.target.value)}
             placeholder={t.common.emailPlaceholder}
-            className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-lg outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-md font-medium"
+            className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-lg outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-md"
           />
         </div>
 

@@ -1,128 +1,93 @@
-# Plano — Padronização Tipográfica da Landing Page (v4)
+# Plano — Padronização Tipográfica do Quiz (v4)
 
-## Regra-mãe
-**Syne 800 = só títulos (H1/H2/H3). Subtítulos/punchlines/quotes = Syne 600 ou 700. Body/UI = Inter 400/500/600. Zero `font-black` (900). Zero `italic` fora do Hero H1.**
+## Regra-mãe (mesmo contrato da Landing)
+**Syne 800 = só H1/H2/H3. Punchline = Syne 700. Quote/título-card-apertado = Syne 600. Body/UI = Inter 400/500/600. Zero `font-black` (900). Zero `italic` fora do Hero/FinalCTA H1.**
 
----
-
-## 1. Contrato tipográfico (fonte da verdade)
-
-| Nível | Uso | Fonte | Peso | Classe canônica |
-|---|---|---|---|---|
-| **D1** | Hero H1 / FinalCTA H1 | Syne | **800** | `font-display font-extrabold` (italic opcional só aqui) |
-| **D2** | H2 de bloco | Syne | **800** | `font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)]` |
-| **D3** | H3 de card | Syne | **800** | `font-display font-extrabold` |
-| **D4a** | Punchline / pergunta FAQ / frase-eco (espaço folgado, frase curta) | Syne | **700** | `font-display font-bold` |
-| **D4b** | Quote em card / texto longo em espaço apertado | Syne | **600** | `font-display font-semibold` |
-| **B1** | Body padrão | Inter | **400** | `font-sans` (sem modificador) |
-| **B2** | Lead / parágrafo destacado | Inter | **500** | `font-sans font-medium` |
-| **B3** | UI / botão / badge / label / eyebrow | Inter | **600** | `font-sans font-semibold uppercase tracking-[0.18em]` |
-| **AR** | Árabe (RTL) | Noto Naskh Arabic | 400/700 | herdado |
-
-### Proibições inegociáveis
-1. **Zero `font-black`** (peso 900) em qualquer lugar — Syne só vai até 800 real; 900 é sintético/borrado.
-2. **Zero `italic`** fora do Hero H1 e FinalCTA H1.
-3. **Zero Syne 800 em `<p>`, `<blockquote>`, quote, punchline, pergunta de FAQ** — Syne 800 é exclusivo de H1/H2/H3.
-4. **Zero `style={{ fontFamily }}` inline** e **zero `text-[XXpx]` arbitrário em H2** (usar a `clamp()` única da D2).
-5. **Body padrão é Inter 400** (não 500). 500 = lead (B2). 600 = UI/label (B3). Nunca 700/800 em body.
-
-### Regra de bolso (D4a vs D4b)
-> Frase curta + espaço folgado → **Syne 700**. Texto longo + espaço apertado (cards estreitos) → **Syne 600**.
+| Nível | Uso | Classe canônica |
+|---|---|---|
+| D2 | H2 das telas (Identity/Question/Email) | `font-display font-extrabold uppercase` |
+| D4a | Punchline / pergunta curta | `font-display font-bold` |
+| B1 | Body/intro | `font-sans` (sem peso) |
+| B2 | Subtítulo destacado | `font-sans font-medium` |
+| B3 | Label/eyebrow/botão CTA | `font-sans font-semibold uppercase tracking-[0.2em]` |
 
 ---
 
-## 2. Auditoria — estado atual
+## 1. Auditoria — débitos atuais
 
-### ✅ Componentes já corrigidos (v3 — base ok, ainda assim revisar contra contrato)
-`BeliefBreak.tsx`, `FAQ.tsx`, `ProofBar.tsx`, `Testimonials.tsx`, `ArchetypeShowcase.tsx`, `HowItWorks.tsx`, `FeaturesGrid.tsx`, `FinalCTA.tsx`.
+### `src/routes/index.tsx` — telas Identity (782–859), QuestionScreen (863–895), EmailCapture (899–956)
 
-### 🔴 Pendências críticas
+**Identity (`Identity` fn):**
+- L795–797: H2 com `style={{ fontSize, lineHeight, letterSpacing, fontWeight: 700 }}` inline + `italic` + `font-display`. **Proibido** (inline style, italic fora de Hero).
+- L807, L820: labels `text-xs font-black uppercase tracking-[0.2em]` → `font-semibold` (B3, sem 900).
+- L815: input `font-bold tracking-tight` → remover `font-bold` (input = body, Inter 400/500).
+- L829: gender buttons `text-[13px] sm:text-base font-black uppercase tracking-tight italic` → `font-semibold uppercase` (sem italic, sem 900).
+- L846: CTA "Continuar" `text-xl font-black italic tracking-tighter` → `font-semibold uppercase tracking-[0.18em]` (B3 CTA, sem 900, sem italic).
 
-**`src/routes/__root.tsx`** — Google Fonts:
-- Syne carrega apenas `wght@700;800`. Falta **600** (necessário para D4b).
-- Inter carrega `400;500;600;700;800` — remover **700** e **800** (proibidos em body).
+**QuestionScreen:**
+- L875: H2 `font-display italic uppercase` + classe `.quiz-question-title` (peso 600 via CSS). Remover `italic` e elevar `.quiz-question-title` para `font-weight: 800` (D2) via CSS.
 
-**`src/routes/index.tsx` — bloco `<Sales>` (linhas ~1100–1700) — MAIOR foco da v4:**
-Esse bloco NÃO foi tocado nas v2/v3 e ainda está completamente fora do contrato. Inventário:
-- **~30 ocorrências de `font-black`** (peso 900) em h1/h2/h3/h4/spans/labels — TODAS rebaixar para `font-extrabold` (titles) ou `font-semibold` (labels/UI).
-- **~20 ocorrências de `italic`** fora do Hero — remover de todos exceto o H1 hero da Sales.
-- **~12 ocorrências de `font-medium`** em `<p>` body — remover (default Inter 400).
-- Labels/eyebrows com `text-xs font-bold` ou `font-black uppercase` — padronizar para `font-semibold` (Inter 600).
-- `text-[25px]/[50px]/[26px]` arbitrários em H2/H1 — substituir pela `clamp()` D2/D1.
+**EmailCapture:**
+- L914: H2 idem QuestionScreen — remover `italic`.
+- L936: input `font-medium` → remover (input = Inter 400 default).
+- CTA usa `PrimaryButton` → corrigido no item shared abaixo.
 
-**`src/routes/index.tsx` — bloco Quiz (linhas ~700–960):**
-- `font-black italic` em CTAs e botões → `font-semibold` (Inter 600, sem italic). CTA pode ficar `font-bold` (Inter 700) em botão único se necessário, mas **default = 600**.
-- `font-bold` em labels/badges → `font-semibold`.
-- `font-medium` em body → remover.
+### `src/components/quiz/QuizScreenWrapper.tsx`
+- L47: progressTitle `text-[11px] font-black uppercase tracking-[0.3em]` → `font-semibold` (B3).
+- L51: contador `%` `text-xs font-black` → `font-semibold tabular-nums` (UI).
 
-**`src/components/landing/TopBar.tsx`** — não auditado nas fases anteriores. Revisar.
+### `src/components/quiz/QuizOption.tsx`
+- L45: badge letra `text-xs font-bold` → `font-semibold` (B3 UI, neutro). OK manter `font-bold` se quisermos destaque, mas padrão v4 = 600.
+- L58: texto opção selecionada `font-medium` → manter (B2 = lead/destaque). ✅ ok.
 
-**`src/styles.css`** — atualizar comentário-âncora para `/* === TYPOGRAPHY CONTRACT v4 === */`.
+### `src/components/ui/PrimaryButton.tsx` (compartilhado — afeta EmailCapture e o resto do app)
+- L59: `font-black uppercase tracking-widest` → `font-semibold uppercase tracking-[0.18em]`.
+- L61: `italic` → remover.
+
+### `src/styles.css`
+- L1986–1992 `.quiz-question-title`: `font-weight: 600` → `font-weight: 800`. Mantém `font-size/line-height/letter-spacing` (regra do design existente). Adicionar `text-transform: uppercase` redundante (já vem do Tailwind, mas defensivo). Isto eleva H2 do Quiz ao patamar D2 sem mexer em cada call site.
 
 ---
 
-## 3. Fases de execução (ordem)
+## 2. Fases de execução (ordem)
 
-### F0 — Foundation (sem mexer em componentes)
-1. `src/routes/__root.tsx`: trocar Google Fonts para:
-   - `Syne:wght@600;700;800`
-   - `Inter:wght@400;500;600`
-2. `src/styles.css`: atualizar comentário-âncora v4 com a tabela.
+### F0 — CSS foundation
+Atualizar `.quiz-question-title` em `src/styles.css` (peso 800).
 
-### F1 — `src/routes/index.tsx` bloco `<Sales>` (CRÍTICO — maior débito)
-- Substituir TODOS os `font-black` por `font-extrabold` (em h1/h2/h3/h4) ou `font-semibold` (em labels/spans UI).
-- Remover TODOS os `italic` exceto no H1 hero da Sales (1 ocorrência).
-- Remover `font-medium` de `<p>` body (volta default Inter 400).
-- Substituir tamanhos arbitrários `text-[25px]/[50px]/[26px]` em H2 pela classe canônica D2.
-- Padronizar eyebrows/labels para `text-[11px] font-semibold uppercase tracking-[0.2em]`.
+### F1 — Shared components (impactam várias telas)
+- `PrimaryButton.tsx`: remover `font-black` + `italic`.
+- `QuizScreenWrapper.tsx`: rebaixar 2× `font-black` → `font-semibold`.
+- `QuizOption.tsx`: `font-bold` da letra → `font-semibold` (manter `font-medium` da opção selecionada).
 
-### F2 — `src/routes/index.tsx` bloco Quiz + Hero externo
-- CTAs: `font-black italic` → `font-semibold` (ou `font-bold` se botão primário único).
-- Labels (`font-black uppercase`) → `font-semibold uppercase`.
-- Inputs/options: remover `font-medium`/`font-bold` desnecessários do body.
+### F2 — Tela Identity (`index.tsx` 782–859)
+- H2: remover `style={{}}` inline + `italic`; usar classe canônica D2 (`font-display font-extrabold uppercase text-[clamp(1.5rem,4vw,2rem)] tracking-tight`).
+- 2× labels: `font-black` → `font-semibold`.
+- Input nome: remover `font-bold tracking-tight`.
+- 3× gender buttons: `font-black ... italic` → `font-semibold uppercase` (sem italic).
+- CTA Continuar: `font-black italic tracking-tighter` → `font-semibold uppercase tracking-[0.18em]`.
 
-### F3 — `TopBar.tsx`
-- Auditar e alinhar ao contrato v4.
+### F3 — QuestionScreen + EmailCapture (`index.tsx` 863–956)
+- Ambos H2 (`.quiz-question-title`): remover utility `italic`. Peso vem do CSS atualizado em F0.
+- EmailCapture input email: remover `font-medium`.
 
-### F4 — Re-verificação dos 8 componentes v3
-- `rg "font-(black|extrabold)" src/components/landing/` — confirmar que `font-extrabold` aparece SÓ em H1/H2/H3.
-- `rg "italic" src/components/landing/` — esperado: 0 ocorrências (ou só Hero H1).
-- `rg "font-medium" src/components/landing/` — esperado: só em lead `<p>` explícito (B2).
-
-### F5 — Validação final
+### F4 — Validação
 ```bash
-bun run build                                          # 0 erros
-rg "font-black" src/components/landing/ src/routes/index.tsx    # esperado: 0
-rg "italic" src/routes/index.tsx                                # esperado: ≤1 (Hero H1)
-rg "text-\[\d+px\]" src/components/landing/ src/routes/index.tsx | rg "font-display"  # esperado: 0
+bun run build
+rg "font-black" src/routes/index.tsx src/components/quiz/ src/components/ui/PrimaryButton.tsx   # esperado: 0
+rg "italic" src/routes/index.tsx | rg -v "Hero|Sales|reveal"   # esperado: 0 nas funções Identity/QuestionScreen/EmailCapture
 ```
-- Playwright: screenshot desktop (1440) + mobile (375) da landing inteira. Critério visual:
-  - H1 hero > H2 bloco > H3 card > Punchline > Body — hierarquia clara pelo peso/tamanho.
-  - Nenhum texto borrado (sem 900 sintético).
-  - Nenhum italic fora do Hero.
+- Playwright (opcional): screenshot das 3 telas (Identity → Question → Email) em desktop + mobile para conferir hierarquia.
 
 ---
 
-## 4. Após a Landing — próximas páginas (ordem sugerida)
-1. `/obrigado` (`src/routes/obrigado.tsx`)
-2. `/privacy`, `/terms`
-3. Quiz/Reveal screens (dentro de `src/routes/index.tsx` + `src/components/quiz/`)
-4. Componentes de sales (`src/components/sales/`)
-5. `404` e `errorComponent` em `__root.tsx`
+## 3. Critérios de aceite
+- ✅ Build limpo.
+- ✅ Zero `font-black` e zero `italic` nas funções `Identity`, `QuestionScreen`, `EmailCapture` e em `PrimaryButton`/`QuizScreenWrapper`/`QuizOption`.
+- ✅ H2 do Quiz visivelmente Syne 800 (consistente com landing).
+- ✅ Botões e labels em Inter 600 (não 900 borrado).
+- ✅ Sem `style={{ fontFamily/fontWeight }}` inline.
 
-Cada página segue o mesmo ciclo: F0 (já feito) → auditoria → rebaixar `font-black`/`italic` → validar.
-
----
-
-## 5. Notas técnicas
-- **Não tocar copy** — só classes Tailwind. Texto e i18n permanecem idênticos.
-- **Não mexer em cor, espaçamento, layout, animação** — escopo é APENAS peso/família/italic de fontes.
-- **Sem novos arquivos.** Apenas edits em arquivos existentes.
-- **Reduced motion / RTL** — nenhuma mudança necessária; tipografia não interfere.
-
-## 6. Critérios de aceite
-- ✅ `bun run build` passa.
-- ✅ Zero `font-black` na landing (`index.tsx` + `components/landing/`).
-- ✅ Italic só no Hero H1.
-- ✅ Hierarquia visual H1 > H2 > H3 > D4 > body legível em desktop e mobile.
-- ✅ Syne 600 carregado (Network tab mostra `Syne-SemiBold`).
+## 4. Escopo NÃO incluído (próximas iterações)
+- Loader/Reveal/Sales/Plans (já cobertos no plano da landing v4 ou ainda pendentes).
+- Telas pós-pagamento (`/obrigado`).
+- Componentes do `NeuralLoader` (ainda sem auditoria de tipografia).

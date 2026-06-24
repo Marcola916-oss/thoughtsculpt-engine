@@ -56,9 +56,9 @@ export function PrimaryButton({
       onClick={onClick}
       disabled={isDisabled}
       className={[
-        "relative overflow-hidden rounded-2xl font-black uppercase tracking-widest",
+        "relative overflow-hidden rounded-2xl font-semibold uppercase tracking-[0.18em]",
         "bg-primary text-primary-foreground",
-        "flex items-center justify-center italic",
+        "flex items-center justify-center",
         SIZE_CLASSES[size],
         fullWidth ? "w-full" : "",
         "disabled:opacity-40 disabled:cursor-not-allowed",
