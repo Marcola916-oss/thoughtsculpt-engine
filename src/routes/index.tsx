@@ -26,6 +26,7 @@ import { saveQuizLead } from "../lib/quiz.functions";
 import { startBrainFramesPreload } from "@/lib/brainFramesCache";
 import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-scores";
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
+import { BrainOrbit } from "@/components/reveal/BrainOrbit";
 import { VSL } from "@/components/sales/VSL";
 import { CheckoutStub } from "@/components/funnel/CheckoutStub";
 import { track, EVENTS } from "@/lib/analytics";
