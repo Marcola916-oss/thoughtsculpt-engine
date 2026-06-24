@@ -49,13 +49,13 @@ export function FeaturesGrid() {
               >
                 <Icon className="h-6 w-6" />
               </span>
-              <h3 className="relative z-10 font-display text-[18px] font-bold uppercase tracking-tight leading-[1.25] text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words hyphens-none [overflow-wrap:break-word]">
+              <h3 className="relative z-10 font-display text-[18px] font-extrabold uppercase tracking-tight leading-[1.25] text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words hyphens-none [overflow-wrap:break-word]">
                 {item.title}
               </h3>
-              <p className="relative z-10 text-[15px] leading-relaxed text-white/70 md:text-base drop-shadow-sm">
+              <p className="relative z-10 font-medium text-[15px] leading-relaxed text-white/70 md:text-base drop-shadow-sm">
                 {item.desc}
               </p>
-              <span className="relative z-10 mt-auto pt-4 flex items-center gap-2 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-arch-primary/60 group-hover:text-arch-primary transition-colors">
+              <span className="relative z-10 mt-auto pt-4 flex items-center gap-2 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-arch-primary/60 group-hover:text-arch-primary transition-colors">
                 <span className="h-1 w-1 rounded-full bg-current" />
                 {item.meta}
               </span>

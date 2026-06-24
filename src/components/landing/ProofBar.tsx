@@ -127,7 +127,7 @@ export function ProofBar() {
                 <div className="font-display font-extrabold leading-none text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] text-[clamp(1.375rem,4vw,1.6875rem)]">
                   <AnimatedValue value={item.value} />
                 </div>
-                <div className="mt-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-white/60 group-hover:text-arch-primary transition-colors drop-shadow-sm">
+                <div className="mt-1.5 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 group-hover:text-arch-primary transition-colors drop-shadow-sm">
                   {item.label}
                 </div>
               </div>
