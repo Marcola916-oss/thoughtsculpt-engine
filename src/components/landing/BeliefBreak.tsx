@@ -38,7 +38,7 @@ export function BeliefBreak() {
           </Reveal>
 
           <Reveal variant="fade-up" delay={0.25} className="mt-10 lg:mt-14">
-            <p className="relative border-l-2 border-arch-primary pl-5 font-display text-xl font-extrabold leading-snug text-foreground md:text-2xl">
+            <p className="relative border-l-2 border-arch-primary pl-5 font-display text-xl font-bold leading-snug text-foreground md:text-2xl">
               {bb.punchline}
             </p>
           </Reveal>
@@ -64,7 +64,7 @@ export function BeliefBreak() {
                   Nobel
                 </span>
               </div>
-              <p className="mt-3 font-display text-lg font-extrabold leading-snug text-foreground md:text-xl">
+              <p className="mt-3 font-display text-lg font-bold leading-snug text-foreground md:text-xl">
                 “{c.quote}”
               </p>
               <p className="mt-2.5 text-sm leading-relaxed text-foreground/60">
