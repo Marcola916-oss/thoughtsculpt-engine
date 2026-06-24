@@ -99,16 +99,22 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
         ].map((b, i) => (
           <div
             key={i}
-            className="absolute bottom-0 w-[6px] md:w-[8px] h-full origin-bottom rounded-full blur-[3px]"
+            className="absolute bottom-0 h-full origin-bottom"
             style={{
               left: b.left,
               transform: `translateX(-50%) rotate(${b.rot})`,
-              background:
-                "linear-gradient(to top, var(--arch-primary) 0%, var(--arch-glow) 35%, transparent 100%)",
-              opacity: b.op,
-              animation: `arch-beam-pulse ${b.dur} ease-in-out ${b.delay} infinite`,
             }}
-          />
+          >
+            <div
+              className="w-[6px] md:w-[8px] h-full rounded-full blur-[3px]"
+              style={{
+                background:
+                  "linear-gradient(to top, var(--arch-primary) 0%, var(--arch-glow) 35%, transparent 100%)",
+                opacity: b.op,
+                animation: `arch-beam-pulse ${b.dur} ease-in-out ${b.delay} infinite`,
+              }}
+            />
+          </div>
         ))}
       </div>
 
