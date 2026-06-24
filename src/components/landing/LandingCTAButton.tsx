@@ -36,6 +36,10 @@ export const LandingCTAButton = forwardRef<HTMLButtonElement, LandingCTAButtonPr
           // Superfície
           "bg-white text-black",
           "shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]",
+          // Tipografia aplicada no <button> para vencer estilos user-agent
+          // (sem isto, o peso 800 só "aparecia" no hover por causa de reflow).
+          "font-display font-extrabold uppercase tracking-tight leading-none",
+          "text-[clamp(0.9rem,3.6vw,1.375rem)]",
           // Interação
           "transition-all hover:scale-[1.03] active:scale-95",
           className,
@@ -50,9 +54,8 @@ export const LandingCTAButton = forwardRef<HTMLButtonElement, LandingCTAButtonPr
         <span
           className={cn(
             "relative z-10 flex items-center justify-center gap-2 sm:gap-4 md:gap-6",
-            "font-display font-extrabold uppercase tracking-tight",
-            "text-[clamp(0.9rem,3.6vw,1.375rem)]",
-            "leading-none text-balance break-words",
+            "font-display font-extrabold uppercase tracking-tight leading-none",
+            "text-balance break-words",
             "transition-colors group-hover:text-white",
           )}
         >
