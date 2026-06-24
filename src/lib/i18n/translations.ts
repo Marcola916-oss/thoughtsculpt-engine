@@ -753,6 +753,50 @@ const PT: Dict = {
   onboardingExtra: { saveError: "Houve um erro ao salvar seu progresso. Por favor, tente novamente." },
   settingsExtra: { passwordMinLength: "A senha deve ter pelo menos 8 caracteres.", passwordMismatch: "As senhas não coincidem.", passwordChangeError: "Erro ao alterar senha." },
   commonExtra: { openMenu: "Open menu", protocolVersion: "Protocol v3.0 // 2026" },
+  salesV2: {
+    b1: {
+      eyebrow: "DIAGNÓSTICO REVELADO",
+      h1: "[NOME], foi por isto que nada do que tentaste antes funcionou.",
+      promise: "Tu não és preguiçoso, nem indisciplinado. És [PRIMARY] — e isso explica 95% das tuas decisões financeiras dos últimos 5 anos.",
+      cta: "Quero entender o meu padrão →",
+      timer: "Esta análise expira em alguns minutos.",
+    },
+    b2: {
+      title: "[NOME], já tentaste de tudo, certo?",
+      body: "Folhas de Excel. Apps de orçamento. Promessas de Ano Novo. Mas o padrão volta sempre — nas horas de stress, ansiedade ou euforia. Como [PRIMARY], isto é o que se repete:",
+      bullets: [
+        "O dinheiro desaparece antes do fim do mês e não sabes exactamente para onde foi.",
+        "Tomas decisões financeiras que sabes que estão erradas… e continuas a tomá-las.",
+        "Mesmo quando a situação melhora, a sensação de insegurança não passa.",
+        "Já testaste folhas, apps, métodos — e nenhum durou mais de 30 dias.",
+      ],
+      conclusion: "Isto não é fraqueza. É o teu arquétipo [PRIMARY], com traço de [SECONDARY], a operar em piloto automático.",
+    },
+    b3: {
+      title: "O problema não está no que tu sabes sobre dinheiro.",
+      body: "A neurociência comportamental confirma: 95% das decisões financeiras são tomadas pelo sistema emocional — não pelo racional.",
+      references: "Kahneman (Nobel 2002), Thaler (Nobel 2017) e Ariely passaram décadas a estudar exactamente isto.",
+      pivot: "Folhas de Excel não resolvem um problema que não é de Excel.",
+      solution: "O MindReset foi construído para trabalhar onde o problema realmente existe — na mente de quem é [PRIMARY].",
+    },
+    b4: {
+      title: "O que vais receber, [NOME]",
+      subtitle: "Quatro dimensões mapeadas para o arquétipo [PRIMARY]. Os números abaixo são os teus.",
+      features: [
+        { title: "Dinheiro", description: "Como [PRIMARY] toma decisões financeiras invisíveis todos os dias — e o gatilho exacto a desactivar." },
+        { title: "Carreira", description: "Por que o teu padrão profissional te trava, e o passo seguinte concreto a dar." },
+        { title: "Amor", description: "Como [PRIMARY] aparece nas tuas relações — e o script para conversas difíceis sobre dinheiro." },
+        { title: "Pessoal", description: "O hábito-âncora que, ao mudares, derruba 3 outros padrões automáticos." },
+      ],
+    },
+    b5: {
+      eyebrow: "ANCORAGEM DE VALOR",
+      was: "$200 — um diagnóstico privado equivalente",
+      then: "$47 — preço público",
+      now: "Hoje, para ti",
+      note: "Pagamento único · 7 dias garantia incondicional · Sem subscrição.",
+    },
+  },
 };
 
 // English (master fallback)
