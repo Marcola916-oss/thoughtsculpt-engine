@@ -94,6 +94,7 @@ export const PDF_COPY: Record<Lang, {
   counter: string;
   signoff: string;
   greetingLabel: string;
+  aiDisclaimer: string;
 }> = {
   pt: {
     edition: "EDIÇÃO Nº 0001 · MINDRESET",
@@ -121,6 +122,7 @@ export const PDF_COPY: Record<Lang, {
     counter: "Contramedida",
     signoff: "MindReset — leitura comportamental editorial.",
     greetingLabel: "ABERTURA",
+    aiDisclaimer: "Conteúdo gerado por IA com base nas tuas respostas. Não substitui aconselhamento médico, psicológico ou financeiro profissional.",
   },
   en: {
     edition: "EDITION №0001 · MINDRESET",
@@ -148,6 +150,7 @@ export const PDF_COPY: Record<Lang, {
     counter: "Countermeasure",
     signoff: "MindReset — editorial behavioral reading.",
     greetingLabel: "OPENING",
+    aiDisclaimer: "AI-generated content based on your answers. Not a substitute for professional medical, psychological, or financial advice.",
   },
   pl: {
     edition: "EDYCJA №0001 · MINDRESET",
@@ -175,6 +178,7 @@ export const PDF_COPY: Record<Lang, {
     counter: "Środek zaradczy",
     signoff: "MindReset — redakcyjne czytanie behawioralne.",
     greetingLabel: "OTWARCIE",
+    aiDisclaimer: "Treść wygenerowana przez SI na podstawie twoich odpowiedzi. Nie zastępuje profesjonalnej porady medycznej, psychologicznej ani finansowej.",
   },
   ro: {
     edition: "EDIȚIA №0001 · MINDRESET",
@@ -202,6 +206,7 @@ export const PDF_COPY: Record<Lang, {
     counter: "Contramăsură",
     signoff: "MindReset — lectură comportamentală editorială.",
     greetingLabel: "DESCHIDERE",
+    aiDisclaimer: "Conținut generat de IA pe baza răspunsurilor tale. Nu înlocuiește consultanța medicală, psihologică sau financiară profesională.",
   },
   ar: {
     edition: "الإصدار رقم 0001 · مايند ريسِت",
@@ -229,5 +234,6 @@ export const PDF_COPY: Record<Lang, {
     counter: "المضادّ",
     signoff: "مايند ريسِت — قراءة سلوكيّة تحريريّة.",
     greetingLabel: "افتتاح",
+    aiDisclaimer: "محتوى أنشأه الذكاء الاصطناعي بناءً على إجاباتك. لا يُعدّ بديلًا عن استشارة طبيّة أو نفسيّة أو ماليّة احترافيّة.",
   },
 };

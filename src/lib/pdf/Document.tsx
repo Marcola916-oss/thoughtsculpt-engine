@@ -544,6 +544,7 @@ export function DiagnosisDocument({ name, archetype, lang, areaScores, diagnosis
             <Text style={[s.h2, { color: PDF_COLORS.paper, maxWidth: 380 }]}>{copy.ritualBody}</Text>
             <View style={{ height: 2, width: 60, backgroundColor: PDF_COLORS.brand, marginVertical: 18 }} />
             <Text style={[s.body, { color: PDF_COLORS.mute, fontSize: PDF_TYPE.small }]}>{copy.signoff}</Text>
+            <Text style={[s.body, { color: PDF_COLORS.mute, fontSize: PDF_TYPE.small - 1, opacity: 0.75, marginTop: 6 }]}>{copy.aiDisclaimer}</Text>
           </View>
         </View>
         <Text style={[s.pageNumberDark, { color: PDF_COLORS.paper, opacity: 0.5 }]} render={() => copy.pageOf(14, TOTAL_PAGES)} fixed />
