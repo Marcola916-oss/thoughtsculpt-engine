@@ -85,19 +85,6 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
       {/* Overlay 2D para a parede de vidro do cilindro (Simula a refração frontal) */}
       <div className="absolute bottom-[0%] w-[94%] md:w-[83%] h-[55%] rounded-[50%] border-t-[3px] border-l border-r border-arch-primary/40 bg-gradient-to-b from-arch-primary/20 via-arch-primary/5 to-transparent backdrop-blur-[2px] pointer-events-none shadow-[0_-20px_50px_var(--arch-glow)]" />
 
-      {/* Hastes (Stalks) Mecânicas/Holográficas conectando ao Cérebro */}
-      <div className="absolute bottom-[35%] w-[15%] h-[40%] flex justify-center items-end gap-3 md:gap-5 pointer-events-none z-0">
-        <div className="w-1.5 md:w-2 h-[85%] bg-gradient-to-t from-arch-primary to-transparent shadow-[0_0_15px_var(--arch-glow)] rounded-t-full relative">
-            <div className="absolute top-0 w-3 h-3 -left-[3px] md:-left-[2px] bg-white rounded-full shadow-[0_0_15px_var(--arch-glow)]" />
-        </div>
-        <div className="w-2 md:w-3 h-full bg-gradient-to-t from-arch-primary to-transparent shadow-[0_0_20px_var(--arch-glow)] rounded-t-full relative">
-            <div className="absolute top-0 w-4 h-4 -left-[4px] bg-white rounded-full shadow-[0_0_20px_var(--arch-glow)]" />
-        </div>
-        <div className="w-1.5 md:w-2 h-[90%] bg-gradient-to-t from-arch-primary to-transparent shadow-[0_0_15px_var(--arch-glow)] rounded-t-full relative">
-            <div className="absolute top-0 w-3 h-3 -left-[3px] md:-left-[2px] bg-white rounded-full shadow-[0_0_15px_var(--arch-glow)]" />
-        </div>
-      </div>
-
     </div>
   );
 }
