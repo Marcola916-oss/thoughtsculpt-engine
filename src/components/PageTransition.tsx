@@ -21,9 +21,10 @@ export function PageTransition({ children }: PageTransitionProps) {
   );
 }
 
-export function Magnetic({ children }: { children: ReactNode }) {
+export function Magnetic({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <motion.div
+      className={className}
       whileHover={{ scale: 1.05, y: -5 }}
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
