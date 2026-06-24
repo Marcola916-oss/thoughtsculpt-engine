@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useSearch } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { generateDiagnosisPdf } from "@/lib/pdf/generate.functions";
@@ -9,7 +9,7 @@ import { MarbleBust } from "@/components/identity";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
 import { motion } from "framer-motion";
-import { Check, Mail, FileText, Calendar, BookOpen, MessageCircle } from "lucide-react";
+import { Check, Mail, FileText, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/obrigado")({
   head: () => ({ meta: [{ title: "Obrigado — MindReset" }] }),
@@ -510,7 +510,7 @@ function ReadyView({
   );
 }
 
-function ProductCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
+function ProductCard({ icon, title, desc }: { icon: ReactNode; title: string; desc: string }) {
   return (
     <div className="flex gap-3 rounded-lg border border-[#2A2A2A] bg-[#0D0D0D]/70 p-4 text-left">
       <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-[#CC0000]/15 text-[#CC0000]">
