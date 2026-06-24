@@ -60,7 +60,14 @@ export const generateDiagnosisPdf = createServerFn({ method: "POST" })
       .maybeSingle();
 
     if (hit?.signed_url && hit.expires_at && new Date(hit.expires_at) > new Date()) {
-      return { url: hit.signed_url, fromCache: true as const, model: null as string | null };
+      return {
+        url: hit.signed_url,
+        fromCache: true as const,
+        model: null as string | null,
+        name,
+        email: lead.email ?? null,
+        archetype,
+      };
     }
 
     /* 3) row reservation */
@@ -146,7 +153,14 @@ export const generateDiagnosisPdf = createServerFn({ method: "POST" })
         })
         .eq("id", rowId);
 
-      return { url: signed.signedUrl, fromCache: false as const, model: chain.model };
+      return {
+        url: signed.signedUrl,
+        fromCache: false as const,
+        model: chain.model,
+        name,
+        email: lead.email ?? null,
+        archetype,
+      };
     } catch (e) {
       const msg = (e as Error).message ?? String(e);
       const attempts = (e as Error & { attempts?: unknown }).attempts ?? [];
