@@ -152,6 +152,7 @@ function LandingAndQuiz() {
   const [leadId, setLeadId] = useState<string | null>(null);
   const [shareToken, setShareToken] = useState<string | null>(null);
   const [leadError, setLeadError] = useState<string | null>(null);
+  const [selectedBumps, setSelectedBumps] = useState<("bump1" | "bump2")[]>([]);
   const [timerLeft, setTimerLeft] = useState(900); // 15 minutes shared across Sales + Plans
   // Fase 1 — Recovery banner para usuários que cancelaram no Stripe Checkout.
   // Stripe redireciona para `/?canceled=1&recover=<orderId>` quando o user fecha
