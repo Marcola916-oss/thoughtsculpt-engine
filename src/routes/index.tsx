@@ -619,7 +619,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         delay={0}
         className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
       >
-        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-bold text-arch-primary md:backdrop-blur-md mt-[30px]">
+        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-semibold text-arch-primary md:backdrop-blur-md mt-[30px]">
           <ShieldCheck className="h-3.5 w-3.5" />
           {t.archetypes?.AO?.name || "O Guardador"}
         </span>
@@ -628,21 +628,21 @@ function Hero({ onStart }: { onStart: () => void }) {
       {isLg && (
         <>
           <div
-            className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-bold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
+            className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-semibold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
           >
             <Star className="h-3.5 w-3.5" />
             {t.archetypes?.SS?.name || "O Pav├úo"}
           </div>
 
           <div
-            className="flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-bold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
+            className="flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-semibold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
           >
             <CompassIcon className="h-3.5 w-3.5" />
             {t.archetypes?.EA?.name || "O Fantasma"}
           </div>
 
           <div
-            className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none whitespace-pre-line"
+            className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-semibold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none whitespace-pre-line"
           >
             <LineChart className="h-3.5 w-3.5" />
             {t.archetypes?.HI?.name || "O Foguinho"}
@@ -655,7 +655,7 @@ function Hero({ onStart }: { onStart: () => void }) {
       <MFade
         delay={0}
         y={-20}
-        className="mb-[50px] inline-flex items-center gap-2 rounded-full bg-black/40 px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.4em] text-foreground/90 shadow-2xl md:backdrop-blur-2xl border-white/10 border-2"
+        className="mb-[50px] inline-flex items-center gap-2 rounded-full bg-black/40 px-6 py-2.5 text-[10px] font-semibold uppercase tracking-[0.4em] text-foreground/90 shadow-2xl md:backdrop-blur-2xl border-white/10 border-2"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75"></span>
@@ -727,7 +727,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         className="relative mx-auto mt-16 max-w-2xl px-6"
       >
         <div className="absolute inset-0 bg-black/60 blur-[8px] md:blur-[40px] -z-10 scale-150" />
-        <p className="relative z-10 text-lg text-white/85 md:text-2xl leading-relaxed font-semibold tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
+        <p className="relative z-10 text-lg text-white/85 md:text-2xl leading-relaxed font-medium tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
           {t.hero.sub}
         </p>
       </MFade>
@@ -743,7 +743,7 @@ function Hero({ onStart }: { onStart: () => void }) {
             className="group relative h-20 md:h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
             <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center gap-6 text-[21px] md:text-[21px] font-black italic tracking-tighter group-hover:text-white transition-colors mx-[5px] pr-[5px]">
+            <span className="relative z-10 flex items-center justify-center gap-6 text-[21px] md:text-[21px] font-semibold tracking-tight group-hover:text-white transition-colors mx-[5px] pr-[5px]">
               {t.hero.cta.toUpperCase()}
             </span>
             <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
@@ -752,11 +752,11 @@ function Hero({ onStart }: { onStart: () => void }) {
 
         <div className="flex flex-col items-center gap-4" style={{ lineHeight: "25px" }}>
           {/* Bible V2 microcopy — replaces SSL/Data trust badges above the fold. */}
-          <p className="text-[12px] md:text-sm font-semibold tracking-wide text-foreground/75 whitespace-nowrap">
+          <p className="text-[12px] md:text-sm font-medium tracking-wide text-foreground/75 whitespace-nowrap">
             {t.hero.microcopy}
           </p>
 
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/75">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-white/75">
             <div className="flex text-arch-primary gap-0.5">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Star key={i} className="h-3 w-3 fill-current" />
