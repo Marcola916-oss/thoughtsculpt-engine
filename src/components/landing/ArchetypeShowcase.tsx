@@ -35,7 +35,7 @@ export function ArchetypeShowcase() {
         </span>
         <h2
           id="archetypes-title"
-          className="font-display text-[24px] md:text-[24px] lg:text-[24px] font-black italic uppercase leading-[30px] tracking-[-0.05em] text-balance break-words"
+          className="font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em] text-balance break-words text-white"
         >
           {a.title}
         </h2>
@@ -69,16 +69,16 @@ export function ArchetypeShowcase() {
                 >
                   <Icon className="h-6 w-6" />
                 </span>
-                <span className="font-display text-[11px] font-black uppercase tracking-[0.3em] text-arch-primary/50 group-hover:text-arch-primary transition-colors">
+                <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.3em] text-arch-primary/50 group-hover:text-arch-primary transition-colors">
                   {CODES[key]}
                 </span>
               </div>
 
-              <h3 className="relative z-10 font-display text-[16px] font-black italic uppercase tracking-tight leading-[1.45] pt-1 text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words whitespace-pre-line">
+              <h3 className="relative z-10 font-display text-[18px] font-bold uppercase tracking-tight leading-[1.3] pt-1 text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words whitespace-pre-line">
                 {item.name}
               </h3>
 
-              <p className="relative z-10 text-[11px] font-black uppercase tracking-[0.2em] text-arch-primary/70 group-hover:text-arch-primary transition-colors break-words">
+              <p className="relative z-10 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-arch-primary/70 group-hover:text-arch-primary transition-colors break-words">
                 {item.trigger}
               </p>
 

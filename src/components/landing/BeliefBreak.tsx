@@ -54,7 +54,7 @@ export function BeliefBreak() {
               className="group rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 transition-all duration-500 hover:-translate-y-1 hover:border-arch-primary/40 hover:shadow-[0_0_32px_-12px_var(--arch-glow)] md:p-6"
             >
               <div className="flex items-baseline justify-between gap-3">
-                <span className="font-display text-sm font-bold uppercase tracking-[0.16em] text-arch-primary">
+                <span className="font-sans text-sm font-semibold uppercase tracking-[0.18em] text-arch-primary">
                   {c.author}
                 </span>
                 <span

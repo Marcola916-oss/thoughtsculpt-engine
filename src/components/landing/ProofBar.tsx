@@ -124,10 +124,10 @@ export function ProofBar() {
                 <Icon className="h-4 w-4" />
               </span>
               <div className="min-w-0 transition-transform duration-500 group-hover:translate-x-1">
-                <div className={`font-display italic leading-none text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] ${i === 0 ? "text-[27px] font-bold" : i === 1 ? "text-[22px] font-bold" : i === 2 ? "text-[25px] font-bold" : "text-[22px] font-bold"}`} style={i === 0 ? { marginLeft: "-10px", marginRight: "-10px", fontSize: "27px" } : i === 1 ? { fontSize: "22px" } : i === 2 ? { fontSize: "25px" } : { fontSize: "22px" }}>
+                <div className="font-display font-extrabold leading-none text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] text-[clamp(1.375rem,4vw,1.6875rem)]">
                   <AnimatedValue value={item.value} />
                 </div>
-                <div className="mt-1.5 text-[10px] font-black uppercase tracking-[0.2em] text-white/50 group-hover:text-arch-primary transition-colors drop-shadow-sm">
+                <div className="mt-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-white/60 group-hover:text-arch-primary transition-colors drop-shadow-sm">
                   {item.label}
                 </div>
               </div>
