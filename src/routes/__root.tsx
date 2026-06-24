@@ -20,6 +20,7 @@ import { GlobalAmbient } from "@/components/atmosphere";
 import { MagneticCursor } from "@/components/interaction/MagneticCursor";
 import { RevealProvider } from "@/components/interaction/Reveal";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 
 
 function NotFoundComponent() {
@@ -199,6 +200,7 @@ function RootComponent() {
                 <Outlet />
               </PageTransition>
             </AnimatePresence>
+            <SiteFooter />
           </div>
           <CookieBanner />
         </RevealProvider>
