@@ -28,7 +28,7 @@ export function BeliefBreak() {
             </span>
             <h2
               id="belief-break-title"
-              className="mt-5 font-display text-[clamp(2rem,5vw,3.4rem)] font-extrabold leading-[1.02] text-foreground"
+              className="mt-5 whitespace-pre-line font-display text-[clamp(2rem,5vw,3.4rem)] font-extrabold leading-[1.02] text-foreground"
             >
               {bb.title}
             </h2>
