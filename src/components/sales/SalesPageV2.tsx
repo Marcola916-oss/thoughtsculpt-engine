@@ -146,9 +146,9 @@ export default function SalesPageV2({
   const totalLabel = formatMoneyLike(price.main, totalNumeric);
 
   return (
-    <div ref={rootRef} data-arch={archetype} className="relative bg-black min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
+    <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
       {/* ─── Layout split: copy column + sculpture column ───── */}
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-0 px-5 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12 lg:px-12 py-10">
+      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[1.5fr_1fr] lg:gap-16 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
         <div className="relative z-10">
           {/* B1 — Hero */}

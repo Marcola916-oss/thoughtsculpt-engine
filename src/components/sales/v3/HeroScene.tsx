@@ -24,7 +24,7 @@ export function HeroScene({
   proofs?: Array<{ value: string; label: string }>;
 }) {
   return (
-    <section className="relative pt-20 pb-24 sm:pt-32 sm:pb-32 my-4 rounded-[2rem] bg-black/40 backdrop-blur-xl border border-white/5 shadow-2xl p-6 md:p-12 overflow-hidden transition-all hover:bg-black/50 hover:border-white/10">
+    <section className="relative pt-20 pb-24 sm:pt-32 sm:pb-32 w-full transition-all">
       <Reveal>
         <p
           className="text-[11px] font-semibold uppercase tracking-[0.45em]"
