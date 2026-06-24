@@ -26,7 +26,7 @@ import { SceneFrame } from "./v3/SceneFrame";
 import { PainScar } from "./v3/PainScar";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
 import { OfferMonolith } from "./v3/OfferMonolith";
-import { ScrollSculpture } from "./v3/ScrollSculpture";
+import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { parseMoney, formatMoneyLike } from "@/lib/sales/sigils";
@@ -383,7 +383,7 @@ export default function SalesPageV2({
         {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
         <aside className="pointer-events-none relative hidden lg:block">
           <div className="sticky top-0 h-screen w-full">
-            <ScrollSculpture archetype={archetype} targetRef={rootRef} />
+            <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
           </div>
         </aside>
       </div>
@@ -393,7 +393,7 @@ export default function SalesPageV2({
         className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
         style={{ opacity: 0.32, mixBlendMode: "screen" }}
       >
-        <ScrollSculpture archetype={archetype} targetRef={rootRef} />
+        <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
       </div>
 
       <StickyOfferBar
