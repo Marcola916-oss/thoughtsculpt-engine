@@ -472,6 +472,7 @@ function LandingAndQuiz() {
                 name={name}
                 arch={archCode}
                 answers={answers}
+                timeLeft={timerLeft}
                 onContinue={() => setStage({ kind: "vsl" })}
                 leadError={leadError}
                 onRetry={() => {
