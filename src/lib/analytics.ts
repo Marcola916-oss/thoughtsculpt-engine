@@ -26,6 +26,8 @@ export const EVENTS = {
   REVEAL_CTA_CLICK: "reveal_cta_click",
   VSL_VIEW: "vsl_view",
   VSL_SCROLL_DEPTH: "vsl_scroll_depth",
+  VSL_CTA_CLICK: "vsl_cta_click",
+  VSL_BUMP_TOGGLED: "vsl_bump_toggled",
   CHECKOUT_VIEW: "checkout_view",
   BUMP_TOGGLED: "bump_toggled",
   CHECKOUT_CTA_CLICKED: "checkout_cta_clicked",
@@ -35,6 +37,8 @@ export const EVENTS = {
   UPSELL_ACCEPTED: "upsell_accepted",
   EXIT_INTENT_SHOWN: "exit_intent_shown",
   EXIT_INTENT_RECOVERED: "exit_intent_recovered",
+  EXIT_INTENT_CTA: "exit_intent_cta",
+  EXIT_INTENT_DISMISS: "exit_intent_dismiss",
 } as const;
 
 export type EventName = (typeof EVENTS)[keyof typeof EVENTS] | string;
