@@ -29,7 +29,10 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
           </div>
 
           {/* Símbolos Gregos girando no chão */}
-          <div className="absolute inset-0 flex items-center justify-center translate-y-[22%] md:translate-y-[26%]">
+          <div
+            className="absolute inset-0 flex items-center justify-center"
+            style={{ transform: "translate3d(0, 30%, -34px)" }}
+          >
             <div className="absolute inset-0 flex items-center justify-center animate-[spin_45s_linear_infinite]">
               {['Φ', 'Σ', 'Ψ', 'Ω', 'Δ', 'Λ', 'Π', 'Θ'].map((sym, i) => (
                 <div 
@@ -51,7 +54,10 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
             style={{ transform: "translateZ(100px)" }} 
           >
             {/* Código binário e dados flutuando na parede do vidro */}
-            <div className="absolute inset-0 flex items-center justify-center translate-y-[20%] md:translate-y-[24%]">
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{ transform: "translate3d(0, 28%, -30px)" }}
+            >
               <div className="absolute inset-0 flex items-center justify-center animate-[spin_60s_linear_infinite_reverse]">
                 {['10110', '01001', '11010', '00110', '10101', '01110', '11001', '10011'].map((bin, i) => (
                   <div 
