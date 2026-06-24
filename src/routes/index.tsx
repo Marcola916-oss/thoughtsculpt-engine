@@ -275,8 +275,16 @@ function LandingAndQuiz() {
     next[stage.index] = optionIdx;
     setAnswers(next);
 
+    track(EVENTS.QUIZ_QUESTION_ANSWERED, {
+      step: stage.index + 1,
+      option: optionIdx,
+    });
+
     // Smooth transition with staggered feel
     const isLast = stage.index === 7;
+    if (isLast) {
+      track(EVENTS.QUIZ_COMPLETED, { total_steps: 8 });
+    }
     setTimeout(() => {
       setStage(isLast ? { kind: "email" } : { kind: "q", index: stage.index + 1 });
     }, 250);
@@ -447,7 +455,10 @@ function LandingAndQuiz() {
                   setEmail={setEmail}
                   gdpr={gdpr}
                   setGdpr={setGdpr}
-                  onSubmit={() => setStage({ kind: "loader" })}
+                  onSubmit={() => {
+                    track(EVENTS.EMAIL_SUBMITTED);
+                    setStage({ kind: "loader" });
+                  }}
                 />
               </QuizScreenWrapper>
             </div>
