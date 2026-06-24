@@ -22,13 +22,13 @@ export function BeliefBreak() {
           <Reveal variant="fade-up">
             <span
               aria-hidden
-              className="inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]"
+              className="inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]"
             >
               {bb.tag}
             </span>
             <h2
               id="belief-break-title"
-              className="mt-5 whitespace-pre-line font-display text-[clamp(2rem,5vw,3.4rem)] font-extrabold leading-[1.02] text-foreground"
+              className="mt-5 whitespace-pre-line font-display text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.02] text-foreground"
             >
               {bb.title}
             </h2>
@@ -59,7 +59,7 @@ export function BeliefBreak() {
                 </span>
                 <span
                   aria-hidden
-                  className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40"
+                  className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/40"
                 >
                   Nobel
                 </span>
