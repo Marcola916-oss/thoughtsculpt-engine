@@ -39,7 +39,7 @@ export function ArchetypeShowcase() {
         >
           {a.title}
         </h2>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 md:text-lg drop-shadow-lg">
+        <p className="mx-auto mt-5 max-w-xl font-medium text-base leading-relaxed text-white/70 md:text-lg drop-shadow-lg">
           {a.sub}
         </p>
       </Reveal>
@@ -74,11 +74,11 @@ export function ArchetypeShowcase() {
                 </span>
               </div>
 
-              <h3 className="relative z-10 font-display text-[18px] font-bold uppercase tracking-tight leading-[1.3] pt-1 text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words whitespace-pre-line">
+              <h3 className="relative z-10 font-display text-[18px] font-extrabold uppercase tracking-tight leading-[1.3] pt-1 text-white group-hover:text-arch-primary transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] break-words whitespace-pre-line">
                 {item.name}
               </h3>
 
-              <p className="relative z-10 font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-arch-primary/70 group-hover:text-arch-primary transition-colors break-words">
+              <p className="relative z-10 font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-arch-primary/70 group-hover:text-arch-primary transition-colors break-words">
                 {item.trigger}
               </p>
 

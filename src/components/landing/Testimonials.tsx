@@ -49,7 +49,7 @@ export function Testimonials() {
               ))}
             </div>
 
-            <blockquote className="flex-1 font-sans text-[16px] font-medium leading-[1.7] text-white/80 group-hover:text-white transition-colors drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] break-words hyphens-none [overflow-wrap:break-word]">
+            <blockquote className="flex-1 font-sans text-[16px] font-semibold leading-[1.7] text-white/80 group-hover:text-white transition-colors drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] break-words hyphens-none [overflow-wrap:break-word]">
               &ldquo;{item.quote}&rdquo;
             </blockquote>
 
@@ -61,8 +61,8 @@ export function Testimonials() {
                 className="h-11 w-11 shrink-0 rounded-full object-cover object-center shadow-lg ring-1 ring-white/10 transition-transform duration-500 group-hover:scale-110"
               />
               <div className="min-w-0 flex-1">
-                <p className="font-sans text-sm font-semibold uppercase tracking-[0.12em] text-white break-words">{item.name}</p>
-                <p className="mt-0.5 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-arch-primary break-words whitespace-pre-line">
+                <p className="font-sans text-sm font-bold uppercase tracking-[0.12em] text-white break-words">{item.name}</p>
+                <p className="mt-0.5 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-arch-primary break-words whitespace-pre-line">
                   {item.arch}
                 </p>
               </div>
