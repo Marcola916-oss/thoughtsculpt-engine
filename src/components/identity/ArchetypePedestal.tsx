@@ -85,6 +85,40 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
       {/* Overlay 2D para a parede de vidro do cilindro (Simula a refração frontal) */}
       <div className="absolute bottom-[0%] w-[94%] md:w-[83%] h-[55%] rounded-[50%] border-t-[3px] border-l border-r border-arch-primary/40 bg-gradient-to-b from-arch-primary/20 via-arch-primary/5 to-transparent backdrop-blur-[2px] pointer-events-none shadow-[0_-20px_50px_var(--arch-glow)]" />
 
+      {/* Feixes de luz holográficos projetando o cérebro a partir da base */}
+      <div
+        aria-hidden
+        className="absolute bottom-[20%] left-1/2 -translate-x-1/2 w-[70%] md:w-[60%] h-[85%] pointer-events-none mix-blend-screen"
+      >
+        {[
+          { left: "8%",  rot: "8deg",   delay: "0s",   dur: "3.6s", op: 0.22 },
+          { left: "26%", rot: "3deg",   delay: "0.6s", dur: "4.2s", op: 0.28 },
+          { left: "50%", rot: "0deg",   delay: "0.2s", dur: "3.8s", op: 0.32 },
+          { left: "74%", rot: "-3deg",  delay: "0.9s", dur: "4.4s", op: 0.28 },
+          { left: "92%", rot: "-8deg",  delay: "0.4s", dur: "3.6s", op: 0.22 },
+        ].map((b, i) => (
+          <div
+            key={i}
+            className="absolute bottom-0 w-[6px] md:w-[8px] h-full origin-bottom rounded-full blur-[3px]"
+            style={{
+              left: b.left,
+              transform: `translateX(-50%) rotate(${b.rot})`,
+              background:
+                "linear-gradient(to top, var(--arch-primary) 0%, var(--arch-glow) 35%, transparent 100%)",
+              opacity: b.op,
+              animation: `arch-beam-pulse ${b.dur} ease-in-out ${b.delay} infinite`,
+            }}
+          />
+        ))}
+      </div>
+
+      <style>{`
+        @keyframes arch-beam-pulse {
+          0%, 100% { opacity: var(--beam-min, 0.15); transform: translateX(-50%) scaleY(0.96); }
+          50%      { opacity: 0.45; transform: translateX(-50%) scaleY(1.02); }
+        }
+      `}</style>
+
     </div>
   );
 }
