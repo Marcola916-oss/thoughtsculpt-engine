@@ -791,14 +791,6 @@
   0%, 100% { transform: scale(1);   opacity: 0.75; }
   50%      { transform: scale(1.06); opacity: 1; }
 }
-@keyframes pedestal-beam-pulse {
-  0%, 100% { opacity: 0.55; transform: scaleX(1); }
-  40%      { opacity: 1;    transform: scaleX(1.15); }
-  70%      { opacity: 0.85; transform: scaleX(0.92); }
-}
-@media (prefers-reduced-motion: reduce) {
-  [style*="pedestal-beam-pulse"] { animation: none !important; }
-}
 @keyframes brain-orbit-flow {
   0%   { stroke-dashoffset: 0; opacity: 0.35; }
   50%  { opacity: 0.9; }
