@@ -16,6 +16,7 @@ import {
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/interaction/Reveal";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
+import { track, EVENTS } from "@/lib/analytics";
 
 /**
  * Conversion-tuned pre-checkout page.
@@ -289,8 +290,27 @@ export function CheckoutStub({ email, name, leadId }: Props) {
   const copy = COPY[lang] ?? COPY.en;
 
   const [bump1, setBump1] = useState(false);
-  const [bump2, setBump2] = useState(false);
+  // Bump2 (30-day reset protocol) pre-ticked — Bible V2 default; user can opt-out.
+  const [bump2, setBump2] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    track(EVENTS.CHECKOUT_VIEW, { lang, has_lead: Boolean(leadId) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const toggleBump1 = () => {
+    setBump1((v) => {
+      track(EVENTS.BUMP_TOGGLED, { bump: "bump1", state: !v });
+      return !v;
+    });
+  };
+  const toggleBump2 = () => {
+    setBump2((v) => {
+      track(EVENTS.BUMP_TOGGLED, { bump: "bump2", state: !v });
+      return !v;
+    });
+  };
 
   // Single source of truth: o servidor calcula tudo a partir do lang+bumps.
   // Mesma função usada para criar a Stripe Checkout Session.
@@ -340,10 +360,16 @@ export function CheckoutStub({ email, name, leadId }: Props) {
       return;
     }
     setSubmitting(true);
+    track(EVENTS.CHECKOUT_CTA_CLICKED, {
+      lang,
+      bumps,
+      total_cents: prices?.total.cents ?? null,
+    });
     try {
       const res = await startCheckout({
         data: { leadId, bumps, lang, origin: window.location.origin },
       });
+      track(EVENTS.STRIPE_SESSION_CREATED, { lang });
       window.location.href = res.url;
     } catch (err) {
       console.error("[checkout]", err);
@@ -396,7 +422,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
             {/* Bumps */}
             <BumpRow
               active={bump1}
-              onToggle={() => setBump1((v) => !v)}
+              onToggle={toggleBump1}
               title={copy.bump1Title}
               desc={copy.bump1Desc}
               price={prices?.bump1.formatted ?? "—"}
@@ -405,7 +431,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
             />
             <BumpRow
               active={bump2}
-              onToggle={() => setBump2((v) => !v)}
+              onToggle={toggleBump2}
               title={copy.bump2Title}
               desc={copy.bump2Desc}
               price={prices?.bump2.formatted ?? "—"}
