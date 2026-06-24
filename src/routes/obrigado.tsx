@@ -8,6 +8,8 @@ import { verifyOrderStatus } from "@/lib/payments/verify.functions";
 import { MarbleBust } from "@/components/identity";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
+import { motion } from "framer-motion";
+import { Check, Mail, FileText, Calendar, BookOpen, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/obrigado")({
   head: () => ({ meta: [{ title: "Obrigado — MindReset" }] }),
@@ -39,6 +41,20 @@ const COPY: Record<string, {
   paymentFailed: string;
   paymentPending: string;
   refresh: string;
+  confirmedTitle: (name: string) => string;
+  sentTo: (email: string) => string;
+  whatYouBought: string;
+  itemPdfTitle: string;
+  itemPdfDesc: string;
+  itemEmailTitle: string;
+  itemEmailDesc: string;
+  howToUse: string;
+  step1: string;
+  step2: string;
+  step3: string;
+  step4: string;
+  supportTitle: string;
+  supportEmail: string;
 }> = {
   pt: {
     title: "O teu diagnóstico está pronto",
@@ -56,6 +72,20 @@ const COPY: Record<string, {
     paymentFailed: "O pagamento não foi confirmado.",
     paymentPending: "O teu pagamento ainda está em processamento. Volta dentro de minutos.",
     refresh: "Atualizar",
+    confirmedTitle: (n) => `Diagnóstico confirmado, ${n}!`,
+    sentTo: (e) => `Enviámos uma cópia para ${e}`,
+    whatYouBought: "O que recebeste",
+    itemPdfTitle: "Diagnóstico Comportamental — PDF",
+    itemPdfDesc: "14 páginas. 4 áreas da vida. Personalizado ao teu arquétipo.",
+    itemEmailTitle: "Cópia oficial por email",
+    itemEmailDesc: "Link válido 30 dias. Guarda-o como backup.",
+    howToUse: "Como usar",
+    step1: "Abre o PDF agora. Lê de uma vez (12 min).",
+    step2: "Marca as 3 frases que mais te incomodam.",
+    step3: "Volta ao documento 1 vez por semana, durante 30 dias.",
+    step4: "Aplica 1 micro-acção por semana. Sem pressa.",
+    supportTitle: "Dúvidas?",
+    supportEmail: "suporte@mindreset.app",
   },
   en: {
     title: "Your diagnosis is ready",
@@ -73,6 +103,20 @@ const COPY: Record<string, {
     paymentFailed: "Your payment wasn't confirmed.",
     paymentPending: "Your payment is still processing. Come back in a few minutes.",
     refresh: "Refresh",
+    confirmedTitle: (n) => `Diagnosis confirmed, ${n}!`,
+    sentTo: (e) => `We sent a copy to ${e}`,
+    whatYouBought: "What you got",
+    itemPdfTitle: "Behavioral Diagnosis — PDF",
+    itemPdfDesc: "14 pages. 4 life areas. Personalized to your archetype.",
+    itemEmailTitle: "Official copy by email",
+    itemEmailDesc: "Link valid for 30 days. Keep it as a backup.",
+    howToUse: "How to use it",
+    step1: "Open the PDF now. Read it in one go (12 min).",
+    step2: "Mark the 3 sentences that hit hardest.",
+    step3: "Come back to the document once a week, for 30 days.",
+    step4: "Apply 1 micro-action per week. No rush.",
+    supportTitle: "Questions?",
+    supportEmail: "support@mindreset.app",
   },
   pl: {
     title: "Twoja diagnoza jest gotowa",
@@ -90,6 +134,20 @@ const COPY: Record<string, {
     paymentFailed: "Płatność nie została potwierdzona.",
     paymentPending: "Twoja płatność jest jeszcze przetwarzana. Wróć za kilka minut.",
     refresh: "Odśwież",
+    confirmedTitle: (n) => `Diagnoza potwierdzona, ${n}!`,
+    sentTo: (e) => `Wysłaliśmy kopię na ${e}`,
+    whatYouBought: "Co otrzymałeś",
+    itemPdfTitle: "Diagnoza behawioralna — PDF",
+    itemPdfDesc: "14 stron. 4 obszary życia. Spersonalizowane.",
+    itemEmailTitle: "Oficjalna kopia mailem",
+    itemEmailDesc: "Link ważny 30 dni. Zachowaj jako kopię.",
+    howToUse: "Jak używać",
+    step1: "Otwórz PDF teraz. Przeczytaj od razu (12 min).",
+    step2: "Zaznacz 3 zdania, które uderzają najmocniej.",
+    step3: "Wracaj do dokumentu raz w tygodniu, przez 30 dni.",
+    step4: "Wprowadzaj 1 mikro-działanie tygodniowo. Bez pośpiechu.",
+    supportTitle: "Pytania?",
+    supportEmail: "support@mindreset.app",
   },
   ro: {
     title: "Diagnosticul tău este gata",
@@ -107,6 +165,20 @@ const COPY: Record<string, {
     paymentFailed: "Plata nu a fost confirmată.",
     paymentPending: "Plata ta este încă în procesare. Revino în câteva minute.",
     refresh: "Reîmprospătează",
+    confirmedTitle: (n) => `Diagnostic confirmat, ${n}!`,
+    sentTo: (e) => `Am trimis o copie la ${e}`,
+    whatYouBought: "Ce ai primit",
+    itemPdfTitle: "Diagnostic comportamental — PDF",
+    itemPdfDesc: "14 pagini. 4 arii de viață. Personalizat.",
+    itemEmailTitle: "Copie oficială pe email",
+    itemEmailDesc: "Link valabil 30 de zile. Păstrează-l.",
+    howToUse: "Cum să-l folosești",
+    step1: "Deschide PDF-ul acum. Citește-l dintr-o dată (12 min).",
+    step2: "Marchează 3 fraze care te ating cel mai tare.",
+    step3: "Revino la document o dată pe săptămână, 30 de zile.",
+    step4: "Aplică 1 micro-acțiune pe săptămână. Fără grabă.",
+    supportTitle: "Întrebări?",
+    supportEmail: "support@mindreset.app",
   },
   ar: {
     title: "تشخيصك جاهز",
@@ -124,6 +196,20 @@ const COPY: Record<string, {
     paymentFailed: "لم يتم تأكيد دفعتك.",
     paymentPending: "دفعتك لا تزال قيد المعالجة. عُد بعد بضع دقائق.",
     refresh: "تحديث",
+    confirmedTitle: (n) => `تم تأكيد التشخيص، ${n}!`,
+    sentTo: (e) => `أرسلنا نسخة إلى ${e}`,
+    whatYouBought: "ما حصلت عليه",
+    itemPdfTitle: "التشخيص السلوكي — PDF",
+    itemPdfDesc: "14 صفحة. 4 مجالات حياتية. مخصّص لك.",
+    itemEmailTitle: "نسخة رسمية عبر البريد",
+    itemEmailDesc: "الرابط صالح 30 يومًا. احتفظ به.",
+    howToUse: "كيف تستخدمه",
+    step1: "افتح ملف PDF الآن. اقرأه دفعة واحدة (12 دقيقة).",
+    step2: "حدّد الجمل الثلاث الأكثر تأثيرًا فيك.",
+    step3: "عُد إلى المستند مرّة كل أسبوع، لمدة 30 يومًا.",
+    step4: "طبّق إجراءً صغيرًا واحدًا كل أسبوع. دون استعجال.",
+    supportTitle: "أسئلة؟",
+    supportEmail: "support@mindreset.app",
   },
 };
 
@@ -141,7 +227,7 @@ function ThankYouPage() {
     | { kind: "paymentFailed" }
     | { kind: "paymentPending" }
     | { kind: "generating" }
-    | { kind: "ready"; url: string; fromCache: boolean }
+    | { kind: "ready"; url: string; fromCache: boolean; name: string; email: string | null }
     | { kind: "error"; message: string }
   >({ kind: order ? "verifying" : lead ? "generating" : "idle" });
 
@@ -151,7 +237,26 @@ function ThankYouPage() {
     setState({ kind: "generating" });
     try {
       const res = await generate({ data: { leadId } });
-      setState({ kind: "ready", url: res.url, fromCache: res.fromCache });
+      setState({
+        kind: "ready",
+        url: res.url,
+        fromCache: res.fromCache,
+        name: res.name,
+        email: res.email,
+      });
+      // Confetti vermelho sutil (dynamic import — não SSR-safe)
+      import("canvas-confetti")
+        .then(({ default: confetti }) => {
+          confetti({
+            particleCount: 60,
+            spread: 70,
+            origin: { y: 0.35 },
+            colors: ["#CC0000", "#990000", "#F5F5F7"],
+            ticks: 180,
+            scalar: 0.9,
+          });
+        })
+        .catch(() => {});
       sendEmail({ data: { leadId, url: res.url } }).catch((err) => {
         console.error("[sendDiagnosisEmail]", err);
       });
@@ -206,10 +311,12 @@ function ThankYouPage() {
   return (
     <Atmosphere fog="subtle" symbols="sparse" scan="off">
       <section className="flex min-h-screen items-center justify-center bg-transparent px-4 py-20 text-white">
-        <div className="w-full max-w-xl text-center">
-          <h1 className="font-display text-3xl md:text-5xl font-black italic uppercase tracking-tight leading-tight">
-            {copy.title}
-          </h1>
+        <div className="w-full max-w-2xl text-center">
+          {state.kind !== "ready" && (
+            <h1 className="font-display text-3xl md:text-5xl font-black italic uppercase tracking-tight leading-tight">
+              {copy.title}
+            </h1>
+          )}
 
           {state.kind === "verifying" && (
             <div className="mt-10 flex flex-col items-center gap-6">
@@ -230,27 +337,13 @@ function ThankYouPage() {
           )}
 
           {state.kind === "ready" && (
-            <div className="mt-10 flex flex-col items-center gap-6">
-              <p className="text-base md:text-lg text-foreground/85">{copy.readySub}</p>
-              <ButtonPress>
-                <a
-                  href={state.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full bg-[#CC0000] px-10 py-4 text-base font-black italic uppercase tracking-tight text-white transition hover:scale-[1.03]"
-                >
-                  {copy.download}
-                </a>
-              </ButtonPress>
-              {state.fromCache && (
-                <p className="text-xs uppercase tracking-[0.18em] text-foreground/50">
-                  {copy.fromCache}
-                </p>
-              )}
-              <Link to="/" className="mt-2 text-sm text-foreground/55 hover:text-white transition">
-                {copy.back}
-              </Link>
-            </div>
+            <ReadyView
+              copy={copy}
+              url={state.url}
+              name={state.name}
+              email={state.email}
+              fromCache={state.fromCache}
+            />
           )}
 
           {state.kind === "error" && (
