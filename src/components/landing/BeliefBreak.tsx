@@ -32,13 +32,13 @@ export function BeliefBreak() {
             >
               {bb.title}
             </h2>
-            <p className="mt-5 max-w-xl font-medium text-base leading-relaxed text-foreground/70 md:text-lg">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/70 md:text-lg">
               {bb.intro}
             </p>
           </Reveal>
 
           <Reveal variant="fade-up" delay={0.25} className="mt-10 lg:mt-14">
-            <p className="relative border-l-2 border-arch-primary pl-5 font-display text-xl font-extrabold uppercase leading-snug text-foreground md:text-2xl">
+            <p className="relative border-l-2 border-arch-primary pl-5 font-display text-xl font-bold uppercase leading-snug text-foreground md:text-2xl">
               {bb.punchline}
             </p>
           </Reveal>
@@ -64,10 +64,10 @@ export function BeliefBreak() {
                   Nobel
                 </span>
               </div>
-              <p className="mt-3 font-display text-lg font-extrabold leading-snug text-foreground md:text-xl">
+              <p className="mt-3 font-display text-lg font-semibold leading-snug text-foreground md:text-xl">
                 “{c.quote}”
               </p>
-              <p className="mt-2.5 font-medium text-sm leading-relaxed text-foreground/60">
+              <p className="mt-2.5 text-sm leading-relaxed text-foreground/60">
                 {c.insight}
               </p>
             </Reveal>
