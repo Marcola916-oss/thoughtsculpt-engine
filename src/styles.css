@@ -89,6 +89,17 @@
   --color-arch-accent: var(--arch-accent);
   --color-arch-glow: var(--arch-glow);
 
+  /* === TYPOGRAPHY CONTRACT (Opção A) ===========================
+   * D1  Display / Hero H1  → Syne 800 (italic only Hero + FinalCTA)
+   * D2  Section title H2   → Syne 800, uppercase, no italic
+   * D3  Sub / Card H3      → Syne 700, uppercase, no italic
+   * B1  Body               → Inter 400
+   * B2  Body emphasis      → Inter 500
+   * B3  UI / label / badge → Inter 600 uppercase tracking
+   * AR  RTL                → Noto Naskh Arabic (auto via [dir="rtl"])
+   * Rules: no font-black (900 not loaded), no inline fontFamily,
+   *        italic ONLY on Hero/FinalCTA H1.
+   * ============================================================= */
   --font-display: 'Syne', 'Inter', system-ui, sans-serif;
   --font-sans: 'Inter', system-ui, sans-serif;
 }

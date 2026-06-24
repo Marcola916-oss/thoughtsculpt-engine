@@ -26,7 +26,7 @@ export function Testimonials() {
         </span>
         <h2
           id="testimonials-title"
-          className="font-display text-[24px] md:text-[24px] lg:text-[24px] font-black italic uppercase leading-[30px] tracking-[-0.05em] text-balance break-words mx-[-10px]"
+          className="font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em] text-balance break-words text-white"
         >
           {tt.title}
         </h2>
@@ -49,7 +49,7 @@ export function Testimonials() {
               ))}
             </div>
 
-            <blockquote className="flex-1 text-[16px] italic leading-[1.75] text-white/80 group-hover:text-white transition-colors drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] break-words hyphens-none [overflow-wrap:break-word]">
+            <blockquote className="flex-1 font-sans text-[16px] font-medium leading-[1.7] text-white/80 group-hover:text-white transition-colors drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] break-words hyphens-none [overflow-wrap:break-word]">
               &ldquo;{item.quote}&rdquo;
             </blockquote>
 
@@ -61,8 +61,8 @@ export function Testimonials() {
                 className="h-11 w-11 shrink-0 rounded-full object-cover object-center shadow-lg ring-1 ring-white/10 transition-transform duration-500 group-hover:scale-110"
               />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-black tracking-tight text-white break-words">{item.name}</p>
-                <p className="mt-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-arch-primary break-words whitespace-pre-line">
+                <p className="font-sans text-sm font-semibold uppercase tracking-[0.12em] text-white break-words">{item.name}</p>
+                <p className="mt-0.5 font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-arch-primary break-words whitespace-pre-line">
                   {item.arch}
                 </p>
               </div>

@@ -24,7 +24,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
         </span>
         <h2
           id="faq-title"
-          className="font-display text-[24px] md:text-[24px] lg:text-[24px] font-black italic uppercase leading-[35px] tracking-[-0.05em] text-balance break-words whitespace-pre-line"
+          className="font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em] text-balance break-words whitespace-pre-line text-white"
         >
           {f.title}
         </h2>
@@ -53,7 +53,7 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
                   aria-controls={`faq-panel-${i}`}
                   className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors group"
                 >
-                  <span className={`font-display text-lg font-black uppercase italic tracking-tight transition-colors ${isOpen ? "text-arch-primary" : "text-white"} group-hover:text-arch-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]`}>
+                  <span className={`font-display text-lg font-bold uppercase tracking-tight transition-colors ${isOpen ? "text-arch-primary" : "text-white"} group-hover:text-arch-primary drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]`}>
                     {item.q}
                   </span>
                   <Plus

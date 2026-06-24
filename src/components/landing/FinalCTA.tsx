@@ -25,7 +25,7 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
       >
         <h2
           id="final-cta-title"
-          className="font-display text-[clamp(1.5rem,8vw,5.25rem)] font-black italic uppercase leading-[1.2] tracking-[-0.05em] text-foreground text-balance mx-[-18px]"
+          className="font-display text-[clamp(1.5rem,8vw,5.25rem)] font-extrabold italic uppercase leading-[1.05] tracking-[-0.04em] text-foreground text-balance mx-[-18px]"
         >
           {c.titleBefore}
           <span className="text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)]">{c.titleHighlight}</span>
