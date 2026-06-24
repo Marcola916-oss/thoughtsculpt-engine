@@ -256,6 +256,18 @@ export type Dict = {
   onboardingExtra: { saveError: string };
   settingsExtra: { passwordMinLength: string; passwordMismatch: string; passwordChangeError: string };
   commonExtra: { openMenu: string; protocolVersion: string };
+  /**
+   * Fase 4 — copy V2 da nova SalesPageV2 (blocos B1–B5).
+   * Todas as strings aceitam templates `[NOME]`, `[PRIMARY]`, `[SECONDARY]`
+   * que são interpolados em runtime por `fillTpl`.
+   */
+  salesV2: {
+    b1: { eyebrow: string; h1: string; promise: string; cta: string; timer: string };
+    b2: { title: string; body: string; bullets: string[]; conclusion: string };
+    b3: { title: string; body: string; references: string; pivot: string; solution: string };
+    b4: { title: string; subtitle: string; features: Array<{ title: string; description: string }> };
+    b5: { eyebrow: string; was: string; then: string; now: string; note: string };
+  };
 };
 
 const PT: Dict = {
