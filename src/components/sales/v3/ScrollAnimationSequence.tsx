@@ -29,22 +29,61 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
   useEffect(() => {
     let isCancelled = false;
     const preload = async () => {
-      const imgPromises: Promise<HTMLImageElement>[] = [];
+      const imgPromises: Promise<HTMLCanvasElement>[] = [];
 
       for (let i = 1; i <= 50; i++) {
         // e.g. 1 -> "0001"
         const paddedIndex = i.toString().padStart(4, "0");
         const src = `/anim-webp/ArtePV_${paddedIndex}.webp`;
 
-        const p = new Promise<HTMLImageElement>((resolve, reject) => {
+        const p = new Promise<HTMLCanvasElement>((resolve) => {
           const img = new Image();
           img.src = src;
-          img.onload = () => resolve(img);
+          img.onload = () => {
+            if (img.naturalWidth === 0) {
+              resolve(document.createElement("canvas"));
+              return;
+            }
+            
+            // Draw to offscreen canvas
+            const c = document.createElement("canvas");
+            c.width = img.naturalWidth;
+            c.height = img.naturalHeight;
+            const ctx = c.getContext("2d", { willReadFrequently: true });
+            
+            if (!ctx) {
+              resolve(c);
+              return;
+            }
+            
+            ctx.drawImage(img, 0, 0);
+            
+            // Remove black background (luma keying)
+            const imgData = ctx.getImageData(0, 0, c.width, c.height);
+            const data = imgData.data;
+            
+            for (let j = 0; j < data.length; j += 4) {
+              const r = data[j];
+              const g = data[j + 1];
+              const b = data[j + 2];
+              
+              // Find the brightest channel
+              const maxRGB = Math.max(r, g, b);
+              
+              // If pixel is very dark, make it transparent
+              // Smooth feathering for anti-aliased edges
+              if (maxRGB < 35) {
+                data[j + 3] = (maxRGB / 35) * 255;
+              }
+            }
+            
+            ctx.putImageData(imgData, 0, 0);
+            resolve(c);
+          };
+          
           img.onerror = () => {
             console.warn(`[ScrollAnim] Failed to load frame: ${src}`);
-            // Resolve with the broken image object anyway to not block Promise.all,
-            // or we could reject it. Let's just resolve so we don't break the whole sequence.
-            resolve(img);
+            resolve(document.createElement("canvas"));
           };
         });
 
@@ -53,7 +92,7 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
 
       const results = await Promise.all(imgPromises);
       if (!isCancelled) {
-        setImages(results);
+        setImages(results as any); // Storing Canvas elements instead of Images, they are API-compatible for drawImage
         setLoaded(true);
       }
     };
