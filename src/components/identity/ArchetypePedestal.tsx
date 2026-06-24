@@ -3,7 +3,7 @@ import React from 'react';
 export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }) {
   // O componente usa a cor do arquétipo via variáveis CSS já configuradas (--arch-primary, --arch-glow).
   return (
-    <div className="relative w-full aspect-[2/1] flex items-end justify-center pointer-events-none mb-12 -translate-y-2 md:-translate-y-3 opacity-90 transition-opacity duration-1000">
+    <div className="relative w-full aspect-[2/1] flex items-end justify-center pointer-events-none mb-12 -translate-y-6 md:-translate-y-8 opacity-90 transition-opacity duration-1000">
       
       {/* Base 3D Holográfica (Cilindro e anéis no chão) */}
       <div 
