@@ -1087,6 +1087,128 @@ function Reveal({
             <BrainOrbit />
           </div>
 
+          {/* ── Feixes de luz holográficos ──────────────────────────────────
+              Raios finos que emergem do aro da plataforma e sobem até a base
+              do cérebro, reforçando a ilusão de "cérebro sustentado por energia".
+              Camada z-25: acima do cérebro (z-20), abaixo do vidro frontal (z-30).
+          ─────────────────────────────────────────────────────────────────── */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 z-25 -translate-x-1/2 pointer-events-none"
+            style={{ bottom: "4%", width: "52%", height: "42%" }}
+          >
+            <svg
+              viewBox="0 0 260 180"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-full h-full overflow-visible"
+            >
+              <defs>
+                {/* Gradiente base do feixe: opaco em baixo (plataforma), transparente em cima (cérebro) */}
+                <linearGradient id="beam-grad-0" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stopColor="var(--arch-primary)" stopOpacity="0.9" />
+                  <stop offset="60%" stopColor="var(--arch-primary)" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="var(--arch-primary)" stopOpacity="0" />
+                </linearGradient>
+                <linearGradient id="beam-grad-1" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stopColor="var(--arch-primary)" stopOpacity="1" />
+                  <stop offset="50%" stopColor="var(--arch-primary)" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="var(--arch-primary)" stopOpacity="0" />
+                </linearGradient>
+                <linearGradient id="beam-grad-2" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stopColor="var(--arch-primary)" stopOpacity="0.8" />
+                  <stop offset="55%" stopColor="var(--arch-primary)" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="var(--arch-primary)" stopOpacity="0" />
+                </linearGradient>
+                {/* Glow filter para os feixes */}
+                <filter id="beam-glow" x="-200%" y="-10%" width="500%" height="120%">
+                  <feGaussianBlur stdDeviation="2.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="beam-glow-strong" x="-300%" y="-10%" width="700%" height="120%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* ── Feixe 1 — esquerdo externo (fino, suave) */}
+              <rect
+                x="72" y="30" width="3" height="150"
+                rx="1.5"
+                fill="url(#beam-grad-0)"
+                filter="url(#beam-glow)"
+                style={{ animation: "pedestal-beam-pulse 2.8s ease-in-out infinite" }}
+              />
+              {/* ── Feixe 2 — esquerdo interno (médio, mais brilhante) */}
+              <rect
+                x="100" y="10" width="4.5" height="170"
+                rx="2"
+                fill="url(#beam-grad-1)"
+                filter="url(#beam-glow-strong)"
+                style={{ animation: "pedestal-beam-pulse 2.2s ease-in-out 0.4s infinite" }}
+              />
+              {/* ── Feixe 3 — central (o mais alto e brilhante) */}
+              <rect
+                x="127.75" y="0" width="5" height="180"
+                rx="2.5"
+                fill="url(#beam-grad-1)"
+                filter="url(#beam-glow-strong)"
+                style={{ animation: "pedestal-beam-pulse 1.9s ease-in-out 0.1s infinite" }}
+              />
+              {/* ── Feixe 4 — direito interno (médio) */}
+              <rect
+                x="156" y="10" width="4.5" height="170"
+                rx="2"
+                fill="url(#beam-grad-1)"
+                filter="url(#beam-glow-strong)"
+                style={{ animation: "pedestal-beam-pulse 2.4s ease-in-out 0.7s infinite" }}
+              />
+              {/* ── Feixe 5 — direito externo (fino, suave) */}
+              <rect
+                x="185" y="30" width="3" height="150"
+                rx="1.5"
+                fill="url(#beam-grad-0)"
+                filter="url(#beam-glow)"
+                style={{ animation: "pedestal-beam-pulse 3.1s ease-in-out 0.3s infinite" }}
+              />
+
+              {/* ── Partículas de energia subindo pelos feixes */}
+              {/* Partícula no feixe central */}
+              <circle cx="130" cy="90" r="2.5" fill="white" opacity="0.9" filter="url(#beam-glow-strong)">
+                <animate attributeName="cy" values="180;0" dur="1.4s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;1;0" dur="1.4s" repeatCount="indefinite" />
+              </circle>
+              {/* Partícula no feixe esquerdo interno */}
+              <circle cx="102" cy="120" r="2" fill="white" opacity="0.8" filter="url(#beam-glow)">
+                <animate attributeName="cy" values="180;0" dur="1.8s" begin="0.5s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.9;0" dur="1.8s" begin="0.5s" repeatCount="indefinite" />
+              </circle>
+              {/* Partícula no feixe direito interno */}
+              <circle cx="158" cy="60" r="2" fill="white" opacity="0.8" filter="url(#beam-glow)">
+                <animate attributeName="cy" values="180;0" dur="2s" begin="0.9s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.85;0" dur="2s" begin="0.9s" repeatCount="indefinite" />
+              </circle>
+              {/* Partícula menor nos externos */}
+              <circle cx="73" cy="100" r="1.5" fill="white" opacity="0.6" filter="url(#beam-glow)">
+                <animate attributeName="cy" values="180;30" dur="2.3s" begin="1.2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.7;0" dur="2.3s" begin="1.2s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="186" cy="140" r="1.5" fill="white" opacity="0.6" filter="url(#beam-glow)">
+                <animate attributeName="cy" values="180;30" dur="1.9s" begin="0.2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.6;0" dur="1.9s" begin="0.2s" repeatCount="indefinite" />
+              </circle>
+
+              {/* ── Reflexo horizontal no ponto de origem (base da plataforma) */}
+              <ellipse cx="130" cy="178" rx="70" ry="4" fill="var(--arch-primary)" opacity="0.35" filter="url(#beam-glow)" />
+            </svg>
+          </div>
+
           {/* Aro frontal de vidro — passa NA FRENTE da base do cérebro para
               criar a ilusão de "cérebro dentro do cilindro". Espelha o estilo
               da parede frontal do <ArchetypePedestal/> sem duplicar lógica. */}
