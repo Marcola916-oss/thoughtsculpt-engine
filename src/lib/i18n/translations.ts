@@ -803,6 +803,29 @@ const PT: Dict = {
       now: "Hoje, para ti",
       note: "Pagamento único · 7 dias garantia incondicional · Sem subscrição.",
     },
+    b6: {
+      counter: "+12.000 diagnósticos gerados em 5 países",
+      rating: "4,9 / 5 com base em avaliações de utilizadores",
+      testimonials: [
+        { quote: "Pela primeira vez percebi porque nunca conseguia poupar. Não era falta de disciplina — era o meu padrão de [PRIMARY].", author: "Mariana S.", country: "Portugal", arch: "AO" },
+        { quote: "O diagnóstico mudou a forma como falo de dinheiro com o meu parceiro. Em 15 dias deixámos de discutir.", author: "Andrzej K.", country: "Polónia", arch: "EA" },
+        { quote: "Reconheci o gatilho antes de comprar. Isto nunca me tinha acontecido com nenhuma app.", author: "Alexandru P.", country: "Roménia", arch: "HI" },
+      ],
+    },
+    ob1: {
+      badge: "MAIS PEDIDO",
+      title: "Guia de Relações por Arquétipo",
+      desc: "Como cada arquétipo se relaciona com dinheiro. Útil para o teu parceiro, família ou sócio entender o teu [PRIMARY] — e tu o deles.",
+      cta: "Sim, quero adicionar",
+    },
+    b7: {
+      eyebrow: "ÚLTIMO PASSO, [NOME]",
+      was: "$200",
+      then: "$47",
+      price: "Hoje",
+      cta: "Quero o meu diagnóstico [PRIMARY] agora →",
+      trust: "✓ 7 dias garantia · ✓ Pagamento único · ✓ SSL · ✓ Sem subscrição",
+    },
   },
 };
 
