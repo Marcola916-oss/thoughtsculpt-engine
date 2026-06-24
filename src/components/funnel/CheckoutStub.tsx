@@ -422,7 +422,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
             {/* Bumps */}
             <BumpRow
               active={bump1}
-              onToggle={() => setBump1((v) => !v)}
+              onToggle={toggleBump1}
               title={copy.bump1Title}
               desc={copy.bump1Desc}
               price={prices?.bump1.formatted ?? "—"}
@@ -431,7 +431,7 @@ export function CheckoutStub({ email, name, leadId }: Props) {
             />
             <BumpRow
               active={bump2}
-              onToggle={() => setBump2((v) => !v)}
+              onToggle={toggleBump2}
               title={copy.bump2Title}
               desc={copy.bump2Desc}
               price={prices?.bump2.formatted ?? "—"}
