@@ -270,9 +270,9 @@ export default function SalesPageV2({
         </Section>
 
         {/* ─── B8 FAQ ─────────────────────────────────────────── */}
-        <Section title="FAQ">
+        <Section title={v2.b8.title}>
           <ul className="divide-y divide-border rounded-2xl border border-border bg-card/40">
-            {(dict.faq ?? []).slice(0, 4).map((it, i) => (
+            {v2.b8.items.map((it, i) => (
               <li key={i}>
                 <button
                   type="button"
@@ -287,7 +287,7 @@ export default function SalesPageV2({
                   />
                 </button>
                 {openFaq === i && (
-                  <div className="px-4 pb-4 text-sm text-foreground/75">{it.a}</div>
+                  <div className="px-4 pb-4 text-sm text-foreground/75">{tpl(it.a)}</div>
                 )}
               </li>
             ))}
@@ -298,13 +298,13 @@ export default function SalesPageV2({
         <section ref={finalRef} className="py-12 text-center">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl font-display font-extrabold">
-              {dict.ctaFinal?.title}
+              {tpl(v2.b9.title)}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-foreground/80">
-              {dict.ctaFinal?.subtitle}
+              {tpl(v2.b9.subtitle)}
             </p>
             <p className="mt-3 text-sm text-foreground/70">
-              {fillTpl("[NOME], você é [PRIMARY] com traço de [SECONDARY].", tplVars)}
+              {tpl(v2.b9.tagline)}
             </p>
             <ButtonPress>
               <button
@@ -312,10 +312,10 @@ export default function SalesPageV2({
                 onClick={() => advance("b9")}
                 className="mt-8 inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-10 py-5 text-lg font-semibold text-white"
               >
-                {dict.ctaFinal?.cta ?? dict.cta} <ArrowRight size={20} />
+                {v2.b9.cta} <ArrowRight size={20} />
               </button>
             </ButtonPress>
-            <p className="mt-3 text-xs text-foreground/60">{dict.ctaFinal?.trust}</p>
+            <p className="mt-3 text-xs text-foreground/60">{v2.b9.trust}</p>
           </Reveal>
         </section>
 
@@ -323,11 +323,11 @@ export default function SalesPageV2({
         <Section>
           <div className="rounded-3xl border border-border bg-card/60 p-6">
             <p className="text-xs uppercase tracking-widest text-foreground/60">
-              Antes de avançar…
+              {v2.ob2.eyebrow}
             </p>
-            <h3 className="mt-2 text-xl font-semibold">Protocolo de Reset 30 dias</h3>
+            <h3 className="mt-2 text-xl font-semibold">{v2.ob2.title}</h3>
             <p className="mt-2 text-sm text-foreground/75">
-              Plano diário com 30 micro-ações para sair do padrão do teu arquétipo.
+              {tpl(v2.ob2.desc)}
             </p>
             <label className="mt-4 flex cursor-pointer items-center gap-3">
               <input
@@ -337,7 +337,7 @@ export default function SalesPageV2({
                 className="h-5 w-5 accent-[hsl(var(--accent))]"
               />
               <span className="text-sm">
-                Sim, quero adicionar <strong>{price.bump2}</strong>
+                {v2.ob2.cta} <strong>{price.bump2}</strong>
               </span>
             </label>
             <button
@@ -345,7 +345,7 @@ export default function SalesPageV2({
               onClick={() => { if (bump2) toggleBump("bump2"); }}
               className="mt-3 text-xs text-foreground/50 underline-offset-2 hover:underline"
             >
-              Não, prefiro descobrir sozinho
+              {v2.ob2.decline}
             </button>
           </div>
         </Section>
@@ -401,14 +401,17 @@ export default function SalesPageV2({
           }}
         >
           <div
-            className="w-full max-w-md rounded-3xl border border-border bg-background p-6 text-center"
+            className="w-full max-w-md rounded-3xl border border-[hsl(var(--accent))]/40 bg-background p-6 text-center shadow-2xl shadow-[hsl(var(--accent))]/20"
             onClick={(e) => e.stopPropagation()}
           >
+            <div className="mx-auto mb-3 h-16 w-16 opacity-60">
+              <MarbleBust variant="mini" />
+            </div>
             <h2 className="text-2xl font-display font-extrabold">
-              {fillTpl("[NOME], espera.", tplVars)}
+              {tpl(v2.exit.title)}
             </h2>
             <p className="mt-3 text-sm text-foreground/75">
-              {fillTpl("Tu já és [PRIMARY]. Sair agora apaga o teu diagnóstico.", tplVars)}
+              {tpl(v2.exit.body)}
             </p>
             <div className="mt-6 space-y-3">
               <ButtonPress>
@@ -421,7 +424,7 @@ export default function SalesPageV2({
                   }}
                   className="w-full rounded-full bg-[hsl(var(--accent))] px-6 py-3 text-sm font-semibold text-white"
                 >
-                  Quero entender meu padrão →
+                  {tpl(v2.exit.cta)}
                 </button>
               </ButtonPress>
               <button
@@ -432,7 +435,7 @@ export default function SalesPageV2({
                 }}
                 className="text-xs text-foreground/50 underline-offset-2 hover:underline"
               >
-                Prefiro sair sem descobrir
+                {v2.exit.decline}
               </button>
             </div>
           </div>

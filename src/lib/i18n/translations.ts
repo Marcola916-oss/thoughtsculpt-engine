@@ -274,6 +274,10 @@ export type Dict = {
     };
     ob1: { badge: string; title: string; desc: string; cta: string };
     b7: { eyebrow: string; was: string; then: string; price: string; cta: string; trust: string };
+    b8: { title: string; items: Array<{ q: string; a: string }> };
+    b9: { title: string; subtitle: string; tagline: string; cta: string; trust: string };
+    ob2: { eyebrow: string; title: string; desc: string; cta: string; decline: string };
+    exit: { title: string; body: string; cta: string; decline: string };
   };
 };
 
@@ -825,6 +829,35 @@ const PT: Dict = {
       price: "Hoje",
       cta: "Quero o meu diagnóstico [PRIMARY] agora →",
       trust: "✓ 7 dias garantia · ✓ Pagamento único · ✓ SSL · ✓ Sem subscrição",
+    },
+    b8: {
+      title: "Perguntas frequentes",
+      items: [
+        { q: "Isto é diferente de apps de orçamento como YNAB ou Mint?", a: "Sim. Esses apps ensinam o QUE fazer com dinheiro. O MindReset revela PORQUE como [PRIMARY] não consegues fazer o que já sabes que devias. É a diferença entre mudança sustentável e abandono em 30 dias." },
+        { q: "Preciso de ligar a minha conta bancária?", a: "Não. O MindReset trabalha com comportamento — não com extracto. Nenhum dado bancário é pedido nem armazenado." },
+        { q: "E se eu quiser cancelar ou pedir reembolso?", a: "Tens 7 dias para pedir reembolso integral, sem perguntas. Cancelamento em 2 cliques no portal do cliente." },
+        { q: "A IA substitui um psicólogo?", a: "Não. É uma ferramenta de autoconhecimento comportamental. Útil para identificares padrões — não substitui aconselhamento profissional." },
+      ],
+    },
+    b9: {
+      title: "[NOME], chega de repetir o mesmo padrão.",
+      subtitle: "Ser [PRIMARY] não é o teu destino. É o teu ponto de partida.",
+      tagline: "[NOME], és [PRIMARY] com traço de [SECONDARY].",
+      cta: "Começar o meu MindReset agora →",
+      trust: "🔒 Stripe · 🛡️ SSL · Cancelar quando quiseres",
+    },
+    ob2: {
+      eyebrow: "ANTES DE AVANÇARES…",
+      title: "Protocolo de Reset 30 dias",
+      desc: "Plano diário com 30 micro-acções calibradas para sair do padrão [PRIMARY]. Recebes junto com o diagnóstico.",
+      cta: "Sim, quero adicionar",
+      decline: "Não, prefiro descobrir sozinho",
+    },
+    exit: {
+      title: "[NOME], espera.",
+      body: "Já és [PRIMARY]. Sair agora apaga o teu diagnóstico — e o gatilho que o mantém activo.",
+      cta: "Quero entender o meu padrão →",
+      decline: "Prefiro sair sem descobrir",
     },
   },
 };
@@ -1379,6 +1412,35 @@ const EN: Dict = {
       cta: "I want my [PRIMARY] diagnosis now →",
       trust: "✓ 7-day guarantee · ✓ One-time payment · ✓ SSL · ✓ No subscription",
     },
+    b8: {
+      title: "Frequently asked",
+      items: [
+        { q: "Is this different from budgeting apps like YNAB or Mint?", a: "Yes. Those apps teach you WHAT to do with money. MindReset reveals WHY, as a [PRIMARY], you can't do what you already know you should. That's the difference between sustainable change and quitting in 30 days." },
+        { q: "Do I need to connect my bank account?", a: "No. MindReset works with behavior — not statements. No bank data is requested or stored." },
+        { q: "What if I want to cancel or refund?", a: "You have 7 days for a full refund, no questions. Cancel in 2 clicks in the customer portal." },
+        { q: "Does the AI replace a therapist?", a: "No. It's a behavioral self-awareness tool. Useful for spotting patterns — not a substitute for professional advice." },
+      ],
+    },
+    b9: {
+      title: "[NOME], stop repeating the same pattern.",
+      subtitle: "Being a [PRIMARY] isn't your destiny. It's your starting point.",
+      tagline: "[NOME], you are [PRIMARY] with a [SECONDARY] streak.",
+      cta: "Start my MindReset now →",
+      trust: "🔒 Stripe · 🛡️ SSL · Cancel anytime",
+    },
+    ob2: {
+      eyebrow: "BEFORE YOU CONTINUE…",
+      title: "30-Day Reset Protocol",
+      desc: "Daily plan with 30 micro-actions calibrated to break the [PRIMARY] pattern. Delivered with your diagnosis.",
+      cta: "Yes, add it",
+      decline: "No, I'd rather figure it out alone",
+    },
+    exit: {
+      title: "[NOME], wait.",
+      body: "You are already a [PRIMARY]. Leaving now wipes your diagnosis — and the trigger keeping it active.",
+      cta: "Show me my pattern →",
+      decline: "I'd rather leave without finding out",
+    },
   },
 };
 
@@ -1671,6 +1733,35 @@ const PL: Dict = {
       price: "Dziś",
       cta: "Chcę moją diagnozę [PRIMARY] teraz →",
       trust: "✓ 7 dni gwarancji · ✓ Płatność jednorazowa · ✓ SSL · ✓ Bez subskrypcji",
+    },
+    b8: {
+      title: "Najczęściej zadawane pytania",
+      items: [
+        { q: "Czym to się różni od aplikacji budżetowych jak YNAB czy Mint?", a: "Te aplikacje uczą CO robić z pieniędzmi. MindReset ujawnia DLACZEGO jako [PRIMARY] nie potrafisz robić tego, co już wiesz, że powinieneś. To różnica między trwałą zmianą a porzuceniem po 30 dniach." },
+        { q: "Czy muszę podłączyć konto bankowe?", a: "Nie. MindReset pracuje z zachowaniem — nie z wyciągami. Żadne dane bankowe nie są pobierane ani przechowywane." },
+        { q: "A jeśli będę chciał anulować lub uzyskać zwrot?", a: "Masz 7 dni na pełny zwrot, bez pytań. Anulowanie w 2 kliknięciach w portalu klienta." },
+        { q: "Czy AI zastępuje psychologa?", a: "Nie. To narzędzie samoświadomości behawioralnej. Pomaga dostrzec wzorce — nie zastępuje porady specjalisty." },
+      ],
+    },
+    b9: {
+      title: "[NOME], przestań powtarzać ten sam wzorzec.",
+      subtitle: "Bycie [PRIMARY] to nie twoje przeznaczenie. To punkt startu.",
+      tagline: "[NOME], jesteś [PRIMARY] z domieszką [SECONDARY].",
+      cta: "Zacznij mój MindReset teraz →",
+      trust: "🔒 Stripe · 🛡️ SSL · Anuluj kiedy chcesz",
+    },
+    ob2: {
+      eyebrow: "ZANIM PRZEJDZIESZ DALEJ…",
+      title: "Protokół Reset 30 dni",
+      desc: "Codzienny plan z 30 mikrodziałaniami skalibrowanymi pod wzorzec [PRIMARY]. Otrzymujesz razem z diagnozą.",
+      cta: "Tak, dodaję",
+      decline: "Nie, wolę odkryć sam",
+    },
+    exit: {
+      title: "[NOME], zaczekaj.",
+      body: "Jesteś już [PRIMARY]. Wyjście teraz kasuje twoją diagnozę — i wyzwalacz, który ją podtrzymuje.",
+      cta: "Pokaż mi mój wzorzec →",
+      decline: "Wolę wyjść bez odkrywania",
     },
   },
 };
@@ -1965,6 +2056,35 @@ const RO: Dict = {
       cta: "Vreau diagnoza mea [PRIMARY] acum →",
       trust: "✓ Garanție 7 zile · ✓ Plată unică · ✓ SSL · ✓ Fără abonament",
     },
+    b8: {
+      title: "Întrebări frecvente",
+      items: [
+        { q: "Cu ce diferă de aplicații de buget precum YNAB sau Mint?", a: "Acelea te învață CE să faci cu banii. MindReset îți arată DE CE, ca [PRIMARY], nu reușești să faci ce știi deja că ar trebui. Asta e diferența între schimbare durabilă și abandon în 30 de zile." },
+        { q: "Trebuie să-mi conectez contul bancar?", a: "Nu. MindReset lucrează cu comportamentul — nu cu extrase. Nu cerem și nu stocăm date bancare." },
+        { q: "Ce se întâmplă dacă vreau să anulez sau să cer rambursare?", a: "Ai 7 zile pentru rambursare integrală, fără întrebări. Anulare în 2 clicuri în portalul clientului." },
+        { q: "IA înlocuiește un psiholog?", a: "Nu. E un instrument de auto-cunoaștere comportamentală. Util pentru a vedea tipare — nu înlocuiește sfatul profesional." },
+      ],
+    },
+    b9: {
+      title: "[NOME], oprește repetarea aceluiași tipar.",
+      subtitle: "A fi [PRIMARY] nu e destinul tău. E doar punctul de plecare.",
+      tagline: "[NOME], ești [PRIMARY] cu nuanță de [SECONDARY].",
+      cta: "Începe MindReset-ul meu acum →",
+      trust: "🔒 Stripe · 🛡️ SSL · Anulezi oricând",
+    },
+    ob2: {
+      eyebrow: "ÎNAINTE SĂ MERGI MAI DEPARTE…",
+      title: "Protocol Reset 30 zile",
+      desc: "Plan zilnic cu 30 de micro-acțiuni calibrate pentru tiparul [PRIMARY]. Îl primești odată cu diagnoza.",
+      cta: "Da, adaug",
+      decline: "Nu, prefer să descopăr singur",
+    },
+    exit: {
+      title: "[NOME], stai.",
+      body: "Deja ești [PRIMARY]. Plecând acum ștergi diagnoza — și declanșatorul care o ține activă.",
+      cta: "Arată-mi tiparul meu →",
+      decline: "Prefer să plec fără să aflu",
+    },
   },
 };
 
@@ -2258,6 +2378,35 @@ const AR: Dict = {
       price: "اليوم",
       cta: "أريد تشخيصي [PRIMARY] الآن ←",
       trust: "✓ ضمان 7 أيام · ✓ دفعة واحدة · ✓ SSL · ✓ بدون اشتراك",
+    },
+    b8: {
+      title: "أسئلة شائعة",
+      items: [
+        { q: "كيف يختلف هذا عن تطبيقات الميزانية مثل YNAB أو Mint؟", a: "تلك التطبيقات تعلّمك ماذا تفعل بالمال. MindReset يكشف لماذا، بصفتك [PRIMARY]، لا تستطيع فعل ما تعرف أصلاً أنه ينبغي. هذا الفرق بين تغيير مستدام والتخلّي خلال 30 يوماً." },
+        { q: "هل أحتاج إلى ربط حسابي البنكي؟", a: "لا. يعمل MindReset مع السلوك — لا مع كشوف الحساب. لا نطلب ولا نخزّن أي بيانات بنكية." },
+        { q: "ماذا لو أردت الإلغاء أو الاسترداد؟", a: "لديك 7 أيام لاسترداد كامل، بدون أسئلة. الإلغاء بنقرتين في بوابة العميل." },
+        { q: "هل يحلّ الذكاء الاصطناعي محل المعالج؟", a: "لا. إنه أداة لإدراك السلوك الذاتي. مفيد لرصد الأنماط — لا يحلّ محل الاستشارة المهنية." },
+      ],
+    },
+    b9: {
+      title: "[NOME]، توقّف عن تكرار النمط نفسه.",
+      subtitle: "أن تكون [PRIMARY] ليس مصيرك. إنه نقطة انطلاقك.",
+      tagline: "[NOME]، أنت [PRIMARY] مع لمسة من [SECONDARY].",
+      cta: "ابدأ MindReset الآن ←",
+      trust: "🔒 Stripe · 🛡️ SSL · إلغاء في أي وقت",
+    },
+    ob2: {
+      eyebrow: "قبل أن تتابع…",
+      title: "بروتوكول Reset لـ 30 يوماً",
+      desc: "خطة يومية بـ 30 إجراءً صغيراً مُهيّأة لكسر نمط [PRIMARY]. تصلك مع التشخيص.",
+      cta: "نعم، أضف",
+      decline: "لا، أفضّل أن أكتشف بمفردي",
+    },
+    exit: {
+      title: "[NOME]، انتظر.",
+      body: "أنت بالفعل [PRIMARY]. الخروج الآن يمحو تشخيصك — والمحفّز الذي يبقيه فعّالاً.",
+      cta: "أرني نمطي ←",
+      decline: "أفضّل أن أخرج دون أن أعرف",
     },
   },
 };
