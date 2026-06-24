@@ -35,7 +35,7 @@ export function SceneFrame({
       ([e]) => {
         if (e.isIntersecting && !fired) {
           fired = true;
-          track(EVENTS.VSL_SCENE_VIEW ?? "vsl_scene_view", { scene: sceneId });
+          track(EVENTS.VSL_SCENE_VIEW, { scene: sceneId });
           obs.disconnect();
         }
       },
