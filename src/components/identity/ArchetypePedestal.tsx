@@ -29,18 +29,20 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
           </div>
 
           {/* Símbolos Gregos girando no chão */}
-          <div className="absolute inset-0 flex items-center justify-center animate-[spin_45s_linear_infinite]">
-            {['Φ', 'Σ', 'Ψ', 'Ω', 'Δ', 'Λ', 'Π', 'Θ'].map((sym, i) => (
-              <div 
-                key={i} 
-                className="absolute text-arch-primary/70 font-mono text-xl md:text-3xl font-black drop-shadow-[0_0_15px_var(--arch-glow)]"
-                style={{ 
-                  transform: `rotate(${i * 45}deg) translateY(-150%) rotate(-${i * 45}deg)`,
-                }}
-              >
-                {sym}
-              </div>
-            ))}
+          <div className="absolute inset-0 flex items-center justify-center translate-y-[22%] md:translate-y-[26%]">
+            <div className="absolute inset-0 flex items-center justify-center animate-[spin_45s_linear_infinite]">
+              {['Φ', 'Σ', 'Ψ', 'Ω', 'Δ', 'Λ', 'Π', 'Θ'].map((sym, i) => (
+                <div 
+                  key={i} 
+                  className="absolute text-arch-primary/70 font-mono text-xl md:text-3xl font-black drop-shadow-[0_0_15px_var(--arch-glow)]"
+                  style={{ 
+                    transform: `rotate(${i * 45}deg) translateY(-150%) rotate(-${i * 45}deg)`,
+                  }}
+                >
+                  {sym}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Borda superior do Cilindro de Vidro (Criando a parede) */}
@@ -49,18 +51,20 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
             style={{ transform: "translateZ(100px)" }} 
           >
             {/* Código binário e dados flutuando na parede do vidro */}
-            <div className="absolute inset-0 flex items-center justify-center animate-[spin_60s_linear_infinite_reverse]">
-              {['10110', '01001', '11010', '00110', '10101', '01110', '11001', '10011'].map((bin, i) => (
-                <div 
-                  key={i} 
-                  className="absolute text-cyan-400/60 font-mono text-[10px] md:text-xs font-bold tracking-widest drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"
-                  style={{ 
-                    transform: `rotate(${i * 45}deg) translateY(-175%) rotate(-${i * 45}deg)`,
-                  }}
-                >
-                  {bin}
-                </div>
-              ))}
+            <div className="absolute inset-0 flex items-center justify-center translate-y-[20%] md:translate-y-[24%]">
+              <div className="absolute inset-0 flex items-center justify-center animate-[spin_60s_linear_infinite_reverse]">
+                {['10110', '01001', '11010', '00110', '10101', '01110', '11001', '10011'].map((bin, i) => (
+                  <div 
+                    key={i} 
+                    className="absolute text-cyan-400/60 font-mono text-[10px] md:text-xs font-bold tracking-widest drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"
+                    style={{ 
+                      transform: `rotate(${i * 45}deg) translateY(-175%) rotate(-${i * 45}deg)`,
+                    }}
+                  >
+                    {bin}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           
