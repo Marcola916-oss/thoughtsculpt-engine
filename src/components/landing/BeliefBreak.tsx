@@ -64,7 +64,7 @@ export function BeliefBreak() {
                   Nobel
                 </span>
               </div>
-              <p className="mt-3 font-display text-lg font-bold leading-snug text-foreground md:text-xl">
+              <p className="mt-3 font-display text-lg font-extrabold leading-snug text-foreground md:text-xl">
                 “{c.quote}”
               </p>
               <p className="mt-2.5 text-sm leading-relaxed text-foreground/60">
