@@ -127,36 +127,49 @@ export default function SalesPageV2({
   const tpl = (s: string) => fillTpl(s, tplVars);
 
   return (
-    <Atmosphere fog="dramatic" symbols="sparse" scan="subtle">
-      <div className="relative z-10 mx-auto w-full max-w-3xl px-4 sm:px-6 pb-32 pt-8 text-foreground">
-
-        {/* ─── B1 Emotional Anchor ────────────────────────────── */}
-        <section ref={heroRef} className="relative pt-8 pb-16 text-center">
-          <div className="pointer-events-none absolute inset-x-0 -top-6 mx-auto h-40 w-40 opacity-30">
-            <MarbleBust variant="mini" />
-          </div>
-          <Reveal>
-            <p className="text-xs uppercase tracking-[0.3em] text-foreground/60">{v2.b1.eyebrow}</p>
-            <h1 className="mt-4 text-3xl sm:text-5xl font-display font-extrabold leading-tight">
-              {tpl(v2.b1.h1)}
-            </h1>
-            <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg text-foreground/80">
-              {tpl(v2.b1.promise)}
-            </p>
-            <div className="mt-8">
-              <ButtonPress>
-                <button
-                  type="button"
-                  onClick={() => advance("b1")}
-                  className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[hsl(var(--accent))]/30 transition-transform hover:-translate-y-0.5"
-                >
-                  {v2.b1.cta} <ArrowRight size={18} />
-                </button>
-              </ButtonPress>
-              <p className="mt-3 text-xs text-foreground/60">{v2.b1.timer}</p>
+    <div className="relative">
+      {/* ─── B1 Emotional Anchor (HERO com Atmosphere isolada) ── */}
+      <Atmosphere fog="dramatic" symbols="sparse" scan="subtle">
+        <section
+          ref={heroRef}
+          className="relative z-10 mx-auto w-full max-w-3xl px-4 sm:px-6 pt-16 pb-20 text-center"
+        >
+          <div className="pointer-events-none absolute inset-x-0 -top-2 mx-auto flex justify-center">
+            <div className="h-48 w-48 sm:h-56 sm:w-56 opacity-60 drop-shadow-[0_0_40px_hsl(var(--accent)/0.45)]">
+              <MarbleBust variant="mini" />
             </div>
-          </Reveal>
+          </div>
+          <div className="pt-44 sm:pt-52">
+            <Reveal>
+              <p className="text-[11px] uppercase tracking-[0.4em] text-[hsl(var(--accent))]/90 font-semibold">
+                {v2.b1.eyebrow}
+              </p>
+              <h1 className="mt-5 text-4xl sm:text-6xl font-display font-extrabold leading-[1.05] tracking-tight">
+                {tpl(v2.b1.h1)}
+              </h1>
+              <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg text-foreground/85">
+                {tpl(v2.b1.promise)}
+              </p>
+              <div className="mt-10">
+                <ButtonPress>
+                  <button
+                    type="button"
+                    onClick={() => advance("b1")}
+                    className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-10 py-5 text-base sm:text-lg font-semibold text-white shadow-2xl shadow-[hsl(var(--accent))]/40 transition-transform hover:-translate-y-0.5 hover:shadow-[hsl(var(--accent))]/60"
+                  >
+                    {v2.b1.cta} <ArrowRight size={20} />
+                  </button>
+                </ButtonPress>
+                <p className="mt-4 text-xs text-foreground/60">{v2.b1.timer}</p>
+              </div>
+            </Reveal>
+          </div>
         </section>
+      </Atmosphere>
+
+      {/* ─── Curtain: blocos pós-hero sobre fundo escuro estável ── */}
+      <div className="relative z-10 bg-background/85 backdrop-blur-md">
+        <div className="mx-auto w-full max-w-3xl px-4 sm:px-6 pb-32 pt-4 text-foreground">
 
         {/* ─── B2 Pain Mirror ─────────────────────────────────── */}
         <Section title={tpl(v2.b2.title)}>
@@ -368,6 +381,7 @@ export default function SalesPageV2({
             </button>
           </div>
         )}
+        </div>
       </div>
 
       {/* Sticky CTA bar */}
@@ -451,7 +465,7 @@ export default function SalesPageV2({
           </div>
         </div>
       )}
-    </Atmosphere>
+    </div>
   );
 }
 
