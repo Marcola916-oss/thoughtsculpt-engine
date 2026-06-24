@@ -738,7 +738,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         className="mt-12 md:mt-24 flex flex-col items-center gap-12"
       >
         <div className="w-full max-w-2xl">
-          <Magnetic className="block w-full">
+          <Magnetic>
             <LandingCTAButton onClick={handleStart}>
               {t.hero.cta.toUpperCase()}
             </LandingCTAButton>
