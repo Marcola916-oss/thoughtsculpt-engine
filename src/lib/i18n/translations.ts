@@ -267,6 +267,13 @@ export type Dict = {
     b3: { title: string; body: string; references: string; pivot: string; solution: string };
     b4: { title: string; subtitle: string; features: Array<{ title: string; description: string }> };
     b5: { eyebrow: string; was: string; then: string; now: string; note: string };
+    b6: {
+      counter: string;
+      rating: string;
+      testimonials: Array<{ quote: string; author: string; country: string; arch: string }>;
+    };
+    ob1: { badge: string; title: string; desc: string; cta: string };
+    b7: { eyebrow: string; was: string; then: string; price: string; cta: string; trust: string };
   };
 };
 
