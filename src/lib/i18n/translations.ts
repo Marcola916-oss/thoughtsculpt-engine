@@ -274,6 +274,10 @@ export type Dict = {
     };
     ob1: { badge: string; title: string; desc: string; cta: string };
     b7: { eyebrow: string; was: string; then: string; price: string; cta: string; trust: string };
+    b8: { title: string; items: Array<{ q: string; a: string }> };
+    b9: { title: string; subtitle: string; tagline: string; cta: string; trust: string };
+    ob2: { eyebrow: string; title: string; desc: string; cta: string; decline: string };
+    exit: { title: string; body: string; cta: string; decline: string };
   };
 };
 
