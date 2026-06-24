@@ -34,8 +34,8 @@ export function OfferMonolith({
   cta: string;
   trust: string;
   onCta: () => void;
-  guaranteeLabel: string;
-  speedLabel: string;
+  guaranteeLabel?: string;
+  speedLabel?: string;
 }) {
   // Compute dynamic total in the same currency formatting as `main`.
   const main = parseMoney(price.main);
@@ -131,12 +131,16 @@ export function OfferMonolith({
 
       {/* trust row */}
       <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/55">
-        <span className="inline-flex items-center gap-1.5">
-          <ShieldCheck size={14} /> {guaranteeLabel}
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <Zap size={14} /> {speedLabel}
-        </span>
+        {guaranteeLabel && (
+          <span className="inline-flex items-center gap-1.5">
+            <ShieldCheck size={14} /> {guaranteeLabel}
+          </span>
+        )}
+        {speedLabel && (
+          <span className="inline-flex items-center gap-1.5">
+            <Zap size={14} /> {speedLabel}
+          </span>
+        )}
         <span>{trust}</span>
       </div>
     </div>
