@@ -497,17 +497,25 @@ function LandingAndQuiz() {
 
           {stage.kind === "vsl" && archCode && (
             <div key="vsl">
-              <VSL
-                name={name}
-                arch={archCode}
-                onCheckout={() => setStage({ kind: "checkout" })}
-              />
+              <Suspense fallback={<div className="py-24 text-center text-foreground/60">…</div>}>
+                <SalesPageV2
+                  archetype={archCode}
+                  displayName={name}
+                  areaScores={computeAreaScores(answers).areas}
+                  leadId={leadId}
+                  onContinue={({ bumps }) => {
+                    setSelectedBumps(bumps);
+                    setStage({ kind: "checkout" });
+                  }}
+                  onBack={() => setStage({ kind: "reveal" })}
+                />
+              </Suspense>
             </div>
           )}
 
           {stage.kind === "checkout" && (
             <div key="checkout">
-              <CheckoutStub email={email} name={name} leadId={leadId} />
+              <CheckoutStub email={email} name={name} leadId={leadId} initialBumps={selectedBumps} />
             </div>
           )}
 
