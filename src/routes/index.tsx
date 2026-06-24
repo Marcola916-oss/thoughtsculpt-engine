@@ -455,7 +455,10 @@ function LandingAndQuiz() {
                   setEmail={setEmail}
                   gdpr={gdpr}
                   setGdpr={setGdpr}
-                  onSubmit={() => setStage({ kind: "loader" })}
+                  onSubmit={() => {
+                    track(EVENTS.EMAIL_SUBMITTED);
+                    setStage({ kind: "loader" });
+                  }}
                 />
               </QuizScreenWrapper>
             </div>
