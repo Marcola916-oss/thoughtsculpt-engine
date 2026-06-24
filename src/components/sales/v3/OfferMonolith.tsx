@@ -46,10 +46,8 @@ export function OfferMonolith({
 
   return (
     <div
-      className="relative overflow-hidden rounded-[28px] p-6 sm:p-9"
+      className="relative overflow-hidden rounded-[28px] p-6 sm:p-9 bg-black/50 backdrop-blur-2xl transition-all"
       style={{
-        background:
-          "linear-gradient(180deg, color-mix(in oklab, var(--arch-primary) 10%, rgba(0,0,0,0.85)) 0%, rgba(0,0,0,0.92) 100%)",
         border: "1px solid color-mix(in oklab, var(--arch-primary) 35%, transparent)",
         boxShadow:
           "0 50px 120px -40px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 25%, transparent)",

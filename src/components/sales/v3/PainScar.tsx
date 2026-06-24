@@ -4,7 +4,7 @@
  */
 export function PainScar({ children }: { children: React.ReactNode }) {
   return (
-    <li className="relative ps-5 py-2 text-foreground/85 leading-relaxed">
+    <li className="relative ps-5 py-2 text-white/90 leading-relaxed font-medium">
       <span
         aria-hidden
         className="absolute inset-y-2 start-0 w-[2px] rounded-full"

@@ -24,7 +24,7 @@ export function HeroScene({
   proofs?: Array<{ value: string; label: string }>;
 }) {
   return (
-    <section className="relative pt-20 pb-24 sm:pt-32 sm:pb-32">
+    <section className="relative pt-20 pb-24 sm:pt-32 sm:pb-32 my-4 rounded-[2rem] bg-black/40 backdrop-blur-xl border border-white/5 shadow-2xl p-6 md:p-12 overflow-hidden transition-all hover:bg-black/50 hover:border-white/10">
       <Reveal>
         <p
           className="text-[11px] font-semibold uppercase tracking-[0.45em]"
@@ -33,12 +33,12 @@ export function HeroScene({
           {eyebrow}
         </p>
         <h1
-          className="mt-6 font-display font-extrabold leading-[0.98] tracking-tight"
+          className="mt-6 font-display font-extrabold leading-[0.98] tracking-tight text-white drop-shadow-md"
           style={{ fontSize: "clamp(2.75rem, 7.5vw, 5.5rem)" }}
         >
           {title}
         </h1>
-        <p className="mt-8 max-w-xl text-lg leading-relaxed text-foreground/80 sm:text-xl">
+        <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl font-medium drop-shadow-sm">
           {promise}
         </p>
         <div className="mt-10 flex flex-col items-start gap-3">
@@ -57,22 +57,22 @@ export function HeroScene({
               <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
             </button>
           </ButtonPress>
-          {timer && <p className="text-xs text-foreground/55">{timer}</p>}
+          {timer && <p className="text-xs text-white/70 font-medium tracking-wide">{timer}</p>}
         </div>
         {proofs && proofs.length > 0 && (
           <ul
             className="mt-14 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-5 border-t pt-8 sm:grid-cols-4"
-            style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 18%, transparent)" }}
+            style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 25%, transparent)" }}
           >
             {proofs.map((p, i) => (
               <li key={i}>
                 <p
-                  className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl"
+                  className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl drop-shadow-md"
                   style={{ color: "var(--arch-primary)" }}
                 >
                   {p.value}
                 </p>
-                <p className="mt-1 text-[11px] uppercase tracking-wider text-foreground/55">
+                <p className="mt-1 text-[11px] uppercase tracking-wider text-white/70 font-semibold">
                   {p.label}
                 </p>
               </li>

@@ -146,9 +146,9 @@ export default function SalesPageV2({
   const totalLabel = formatMoneyLike(price.main, totalNumeric);
 
   return (
-    <div ref={rootRef} data-arch={archetype} className="relative bg-background text-foreground">
+    <div ref={rootRef} data-arch={archetype} className="relative bg-black min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
       {/* ─── Layout split: copy column + sculpture column ───── */}
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-0 px-5 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12 lg:px-12">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-0 px-5 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12 lg:px-12 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
         <div className="relative z-10">
           {/* B1 — Hero */}
@@ -176,25 +176,25 @@ export default function SalesPageV2({
             eyebrow={v2.b3.title.split(" ").slice(0, 2).join(" ")}
             title={tpl(v2.b2.title)}
           >
-            <p className="sales-dropcap text-foreground/85">{tpl(v2.b2.body)}</p>
+            <p className="sales-dropcap text-white/90">{tpl(v2.b2.body)}</p>
             <ul className="mt-8 space-y-1">
               {v2.b2.bullets.map((b, i) => (
                 <PainScar key={i}>{tpl(b)}</PainScar>
               ))}
             </ul>
-            <p className="mt-8 text-lg italic text-foreground/70">{tpl(v2.b2.conclusion)}</p>
+            <p className="mt-8 text-lg italic text-white/80">{tpl(v2.b2.conclusion)}</p>
           </SceneFrame>
 
           {/* II — Scientific Breakthrough */}
           <SceneFrame sceneId="science" index={2} title={v2.b3.title}>
-            <p className="text-foreground/85 leading-[1.75] text-[17px]">{v2.b3.body}</p>
+            <p className="text-white/90 leading-[1.75] text-[17px]">{v2.b3.body}</p>
             <blockquote
-              className="mt-8 border-s-2 ps-5 text-sm italic text-foreground/55"
+              className="mt-8 border-s-2 ps-5 text-sm italic text-white/60"
               style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 50%, transparent)" }}
             >
               {v2.b3.references}
             </blockquote>
-            <p className="mt-8 text-[17px] leading-relaxed text-foreground/90">
+            <p className="mt-8 text-[17px] leading-relaxed text-white">
               <strong style={{ color: "var(--arch-primary)" }}>{v2.b3.pivot}</strong>{" "}
               {tpl(v2.b3.solution)}
             </p>
@@ -202,7 +202,7 @@ export default function SalesPageV2({
 
           {/* III — 4D Diagnosis */}
           <SceneFrame sceneId="4d" index={3} title={tpl(v2.b4.title)}>
-            <p className="mb-8 text-foreground/70 text-base">{tpl(v2.b4.subtitle)}</p>
+            <p className="mb-8 text-white/70 text-base font-medium">{tpl(v2.b4.subtitle)}</p>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               {AREA_ORDER.map((area, i) => {
                 const feat = v2.b4.features[i];
@@ -222,21 +222,21 @@ export default function SalesPageV2({
           {/* Value Anchor (B5) */}
           <SceneFrame sceneId="anchor">
             <div className="text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-foreground/55">
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/60">
                 {v2.b5.eyebrow}
               </p>
-              <div className="mt-6 space-y-1 text-sm">
-                <p className="text-foreground/35 line-through">{v2.b5.was}</p>
-                <p className="text-foreground/45 line-through">{v2.b5.then}</p>
-                <p className="mt-3 text-foreground/70">{v2.b5.now}</p>
+              <div className="mt-6 space-y-1 text-sm font-medium">
+                <p className="text-white/40 line-through">{v2.b5.was}</p>
+                <p className="text-white/50 line-through">{v2.b5.then}</p>
+                <p className="mt-3 text-white/80">{v2.b5.now}</p>
                 <p
-                  className="pt-4 font-display font-extrabold tabular-nums"
+                  className="pt-4 font-display font-extrabold tabular-nums drop-shadow-lg"
                   style={{ fontSize: "clamp(3rem, 8vw, 5.5rem)", color: "var(--arch-primary)" }}
                 >
                   {price.main}
                 </p>
               </div>
-              <p className="mt-4 text-xs text-foreground/50">{v2.b5.note}</p>
+              <p className="mt-4 text-xs text-white/55">{v2.b5.note}</p>
             </div>
           </SceneFrame>
 
@@ -251,24 +251,24 @@ export default function SalesPageV2({
               </span>
             }
           >
-            <p className="mb-8 text-sm uppercase tracking-widest text-foreground/55">
+            <p className="mb-8 text-sm uppercase tracking-widest text-white/60 font-medium">
               {v2.b6.rating}
             </p>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
               {v2.b6.testimonials.map((tst, i) => (
                 <figure
                   key={i}
-                  className="rounded-2xl p-5 sales-card-arch transition-transform hover:-translate-y-1"
+                  className="rounded-2xl p-5 sales-card-arch transition-transform hover:-translate-y-1 bg-black/30 border border-white/5"
                 >
                   <div
                     className="mb-3 inline-flex h-1 w-10 rounded-full"
-                    style={{ background: "var(--arch-primary)" }}
+                    style={{ background: "var(--arch-primary)", boxShadow: "0 0 10px var(--arch-primary)" }}
                   />
-                  <blockquote className="text-[15px] leading-relaxed text-foreground/90">
+                  <blockquote className="text-[15px] leading-relaxed text-white/90">
                     &ldquo;{tpl(tst.quote)}&rdquo;
                   </blockquote>
-                  <figcaption className="mt-4 text-xs text-foreground/55">
-                    <span className="font-semibold text-foreground/75">{tst.author}</span>
+                  <figcaption className="mt-4 text-xs text-white/60">
+                    <span className="font-semibold text-white/80">{tst.author}</span>
                     {" · "}
                     {tst.country} · {tst.arch}
                   </figcaption>
@@ -311,7 +311,8 @@ export default function SalesPageV2({
               className="divide-y rounded-2xl border"
               style={{
                 borderColor: "color-mix(in oklab, var(--arch-primary) 22%, transparent)",
-                background: "color-mix(in oklab, var(--arch-primary) 4%, rgba(0,0,0,0.3))",
+                background: "color-mix(in oklab, var(--arch-primary) 10%, rgba(0,0,0,0.5))",
+                backdropFilter: "blur(12px)",
               }}
             >
               {v2.b8.items.map((it, i) => (
@@ -320,9 +321,9 @@ export default function SalesPageV2({
                     type="button"
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                     aria-expanded={openFaq === i}
-                    className="flex w-full items-center justify-between gap-4 p-5 text-start"
+                    className="flex w-full items-center justify-between gap-4 p-5 text-start hover:bg-white/5 transition-colors"
                   >
-                    <span className="font-medium text-foreground">{it.q}</span>
+                    <span className="font-medium text-white">{it.q}</span>
                     <ChevronDown
                       size={18}
                       className={`shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
@@ -330,7 +331,7 @@ export default function SalesPageV2({
                     />
                   </button>
                   {openFaq === i && (
-                    <div className="px-5 pb-5 text-[15px] leading-relaxed text-foreground/75">
+                    <div className="px-5 pb-5 text-[15px] leading-relaxed text-white/80">
                       {tpl(it.a)}
                     </div>
                   )}
@@ -343,27 +344,27 @@ export default function SalesPageV2({
           <section ref={finalRef} className="relative py-24 text-center">
             <Reveal>
               <h2
-                className="font-display font-extrabold leading-[1.02]"
+                className="font-display font-extrabold leading-[1.02] text-white drop-shadow-md"
                 style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)" }}
               >
                 {tpl(v2.b9.title)}
               </h2>
-              <p className="mx-auto mt-5 max-w-xl text-foreground/80 text-lg">
+              <p className="mx-auto mt-5 max-w-xl text-white/90 text-lg font-medium">
                 {tpl(v2.b9.subtitle)}
               </p>
-              <p className="mt-3 text-sm text-foreground/60">{tpl(v2.b9.tagline)}</p>
+              <p className="mt-3 text-sm text-white/70 tracking-wide">{tpl(v2.b9.tagline)}</p>
               <button
                 type="button"
                 onClick={() => advance("b9")}
-                className="mt-10 inline-flex items-center gap-3 rounded-full px-10 py-5 text-lg font-bold uppercase tracking-wide text-white transition-all hover:brightness-110 sales-final-pulse"
+                className="mt-10 inline-flex items-center gap-3 rounded-full px-10 py-5 text-lg font-bold uppercase tracking-wide text-white transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
                 style={{
                   background: "#CC0000",
-                  boxShadow: "0 30px 80px -20px rgba(204,0,0,0.6)",
+                  boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)",
                 }}
               >
                 {v2.b9.cta}
               </button>
-              <p className="mt-4 text-xs text-foreground/55">{v2.b9.trust}</p>
+              <p className="mt-4 text-xs text-white/60 font-semibold">{v2.b9.trust}</p>
             </Reveal>
           </section>
 
@@ -372,7 +373,7 @@ export default function SalesPageV2({
               <button
                 type="button"
                 onClick={onBack}
-                className="text-xs text-foreground/45 underline-offset-4 hover:underline"
+                className="text-xs text-white/50 underline-offset-4 hover:underline hover:text-white"
               >
                 ← {t.common.back}
               </button>

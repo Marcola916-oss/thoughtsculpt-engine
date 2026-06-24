@@ -46,8 +46,8 @@ export function SceneFrame({
   }, [sceneId]);
 
   return (
-    <section ref={ref} className="relative py-20 sm:py-28">
-      {index && <span className="sales-roman" aria-hidden>{ROMAN[index] ?? index}</span>}
+    <section ref={ref} className="relative py-20 sm:py-28 my-4 rounded-[2rem] bg-black/40 backdrop-blur-xl border border-white/5 shadow-2xl p-6 md:p-12 overflow-hidden group transition-all hover:bg-black/50 hover:border-white/10">
+      {index && <span className="sales-roman pointer-events-none opacity-20 group-hover:opacity-30 transition-opacity" aria-hidden>{ROMAN[index] ?? index}</span>}
       <div className="relative z-10">
         <Reveal>
           {eyebrow && (
@@ -57,12 +57,12 @@ export function SceneFrame({
             </p>
           )}
           {title && (
-            <h2 className="mb-8 font-display font-extrabold leading-[1.02] tracking-tight"
+            <h2 className="mb-8 font-display font-extrabold leading-[1.02] tracking-tight text-white drop-shadow-md"
                 style={{ fontSize: "clamp(2rem, 5.5vw, 4rem)" }}>
               {title}
             </h2>
           )}
-          <div className={dropCap ? "sales-dropcap text-foreground/85 text-[17px] leading-[1.7]" : "text-foreground/85"}>
+          <div className={dropCap ? "sales-dropcap text-white/90 text-[17px] leading-[1.7]" : "text-white/90"}>
             {children}
           </div>
         </Reveal>
