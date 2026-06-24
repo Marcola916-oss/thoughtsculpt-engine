@@ -1165,7 +1165,7 @@ function Reveal({
         </p>
 
         <button
-          onClick={onContinue}
+          onClick={() => handleCta("hero")}
           className="group mt-12 inline-flex items-center gap-4 rounded-full px-10 py-5 text-base md:text-lg font-black uppercase tracking-wider text-background transition-all"
           style={{
             backgroundColor: "var(--arch-primary)",
@@ -1257,13 +1257,70 @@ function Reveal({
 
         <div className="mt-12 flex justify-center">
           <button
-            onClick={onContinue}
+            onClick={() => handleCta("areas")}
             className="group inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-8 py-4 text-sm font-black uppercase tracking-widest text-arch-primary transition-all hover:bg-arch-primary hover:text-background hover:-translate-y-0.5"
           >
             {t.reveal.areasCta}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
+      </div>
+
+      {/* Fold 4 — Comparação ancorada (prova social derivada do arquétipo) */}
+      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
+        <div
+          className="relative overflow-hidden rounded-3xl border border-arch-primary/30 bg-arch-primary/[0.06] p-8 md:p-12 backdrop-blur-sm"
+          style={{ boxShadow: "0 30px 80px -40px var(--arch-glow)" }}
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-20 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full"
+            style={{
+              background: "radial-gradient(circle, var(--arch-glow) 0%, transparent 70%)",
+              opacity: 0.4,
+            }}
+          />
+          <div className="relative flex flex-col items-center text-center">
+            <div className="font-display text-6xl md:text-8xl font-black leading-none text-arch-primary tabular-nums">
+              73<span className="text-3xl md:text-5xl align-top">%</span>
+            </div>
+            <p className="mt-6 max-w-xl text-base md:text-lg text-foreground/80 leading-relaxed">
+              {t.reveal.anchor(a.name)}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Fold 5 — CTA final com timer + garantia */}
+      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4 text-center">
+        {timeLeft > 0 && (
+          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-5 py-2 text-xs md:text-sm font-bold uppercase tracking-widest text-arch-primary">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-arch-primary" />
+            </span>
+            {t.reveal.urgency}
+            <span className="font-mono text-base ms-1 tabular-nums">{fmtTimer(timeLeft)}</span>
+          </div>
+        )}
+        <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black uppercase italic leading-[1.05] tracking-tighter text-foreground">
+          {t.reveal.finalTitle(name)}
+        </h2>
+        <p className="mx-auto mt-6 max-w-xl text-base md:text-lg text-foreground/75 leading-relaxed">
+          {t.reveal.finalSub}
+        </p>
+        <button
+          onClick={() => handleCta("final")}
+          className="group mt-10 inline-flex items-center gap-4 rounded-full px-10 py-5 text-base md:text-lg font-black uppercase tracking-wider text-background transition-all hover:-translate-y-0.5"
+          style={{
+            backgroundColor: "var(--arch-primary)",
+            boxShadow: "0 20px 60px -10px var(--arch-glow)",
+          }}
+        >
+          {t.reveal.finalCta}
+          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+        </button>
+        <p className="mt-6 text-xs md:text-sm text-foreground/55">{t.reveal.guarantee}</p>
       </div>
       </ArchetypeRevealStage>
     </section>
