@@ -1038,11 +1038,13 @@ function Reveal({
             }}
           />
 
-          <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[110%] -left-[5%]">
+          {/* Pedestal: descido para que o cérebro pareça pousar sobre o aro,
+              não atravessá-lo. */}
+          <div className="absolute inset-x-0 z-10 mx-auto w-[118%] -left-[9%] -bottom-[14%] md:-bottom-[18%] pointer-events-none">
             <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
           </div>
           <div
-            className="absolute inset-0 z-20 translate-y-1 md:translate-y-2"
+            className="absolute inset-0 z-20 -translate-y-[6%] md:-translate-y-[8%]"
             style={{ isolation: "isolate" }}
           >
             {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
@@ -1083,6 +1085,31 @@ function Reveal({
               className="relative z-10"
             />
             <BrainOrbit />
+          </div>
+
+          {/* Aro frontal de vidro — passa NA FRENTE da base do cérebro para
+              criar a ilusão de "cérebro dentro do cilindro". Espelha o estilo
+              da parede frontal do <ArchetypePedestal/> sem duplicar lógica. */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 z-30 -translate-x-1/2 w-[94%] md:w-[88%] pointer-events-none"
+            style={{ bottom: "-6%" }}
+          >
+            <div
+              className="relative w-full rounded-[50%] border-t-[3px] border-l border-r border-arch-primary/55 bg-gradient-to-b from-arch-primary/25 via-arch-primary/8 to-transparent backdrop-blur-[2px] shadow-[0_-22px_55px_var(--arch-glow),inset_0_18px_40px_color-mix(in_oklab,var(--arch-primary)_28%,transparent)]"
+              style={{ height: "150px" }}
+            >
+              {/* Highlight especular no topo do vidro */}
+              <div
+                className="absolute inset-x-[10%] top-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-white/70 to-transparent"
+                style={{ filter: "blur(0.5px)" }}
+              />
+              {/* Reflexo lateral suave */}
+              <div
+                className="absolute left-[6%] top-[8%] bottom-[20%] w-[8%] rounded-full bg-gradient-to-b from-white/30 to-transparent"
+                style={{ filter: "blur(3px)" }}
+              />
+            </div>
           </div>
         </div>
 
