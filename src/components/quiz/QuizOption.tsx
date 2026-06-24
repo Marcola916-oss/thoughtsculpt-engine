@@ -42,7 +42,7 @@ function QuizOptionImpl({ label, letter, selected = false, onClick }: QuizOption
       <span
         className={cn(
           "flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center",
-          "text-xs font-bold mt-0.5 transition-all duration-200",
+          "text-xs font-semibold mt-0.5 transition-all duration-200",
           selected
             ? "bg-primary text-primary-foreground scale-110"
             : "bg-secondary text-muted-foreground"

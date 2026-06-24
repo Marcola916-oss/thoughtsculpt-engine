@@ -44,11 +44,11 @@ export function QuizScreenWrapper({
             )}
           </div>
           {progressTitle && (
-            <span className="absolute left-1/2 -translate-x-1/2 text-[11px] font-black uppercase tracking-[0.3em] text-primary drop-shadow-[0_0_8px_var(--accent-glow)] whitespace-nowrap pointer-events-none">
+            <span className="absolute left-1/2 -translate-x-1/2 text-[11px] font-semibold uppercase tracking-[0.3em] text-primary drop-shadow-[0_0_8px_var(--accent-glow)] whitespace-nowrap pointer-events-none">
               {progressTitle}
             </span>
           )}
-          <span className="text-xs font-black text-muted-foreground/60 tabular-nums">
+          <span className="text-xs font-semibold text-muted-foreground/60 tabular-nums">
             {Math.round(progress)}%
           </span>
         </div>
