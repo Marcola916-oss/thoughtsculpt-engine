@@ -329,7 +329,7 @@ const PT: Dict = {
     },
     beliefBreak: {
       tag: "A\u00a0 CIÊNCIA\u00a0 POR\u00a0 TRÁS",
-      title: "O\u00a0 PROBLEMA\u00a0 NÃO\u00a0 É\u00a0 O\u00a0 TEU\u00a0 DINHEIRO.\u00a0\nÉ\u00a0 O\u00a0 TEU\u00a0 PADRÃO.",
+      title: "O\u00a0 PROBLEMA\u00a0 NÃO É O TEU\u00a0 DINHEIRO.\u00a0\nÉ O TEU\u00a0 PADRÃO.",
       intro: "Três Prémios Nobel já o disseram. Tu apenas nunca tinhas ouvido assim.",
       cards: [
         { author: "Daniel Kahneman", quote: "Sistema 1 decide. Sistema 2 racionaliza.", insight: "95% das tuas decisões financeiras são automáticas — não pensadas." },
