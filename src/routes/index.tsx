@@ -27,8 +27,9 @@ import { startBrainFramesPreload } from "@/lib/brainFramesCache";
 import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-scores";
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
 import { BrainOrbit } from "@/components/reveal/BrainOrbit";
-import { VSL } from "@/components/sales/VSL";
 import { CheckoutStub } from "@/components/funnel/CheckoutStub";
+import { lazy, Suspense } from "react";
+const SalesPageV2 = lazy(() => import("@/components/sales/SalesPageV2"));
 import { track, EVENTS } from "@/lib/analytics";
 
 // ── Phase A placeholders (will be replaced in Phase B/D when checkout is rebuilt) ──
