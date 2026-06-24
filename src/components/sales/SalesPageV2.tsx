@@ -122,6 +122,8 @@ export default function SalesPageV2({
   // Reuse existing dict where pronto. Os textos longos serão preenchidos
   // nos commits 2-3 via novas chaves t.sales.*.
   const dict = t.sales;
+  const v2 = t.salesV2;
+  const tpl = (s: string) => fillTpl(s, tplVars);
 
   return (
     <Atmosphere fog="dramatic" symbols="sparse" scan="subtle">
@@ -133,12 +135,12 @@ export default function SalesPageV2({
             <MarbleBust variant="mini" />
           </div>
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.3em] text-foreground/60" />
+            <p className="text-xs uppercase tracking-[0.3em] text-foreground/60">{v2.b1.eyebrow}</p>
             <h1 className="mt-4 text-3xl sm:text-5xl font-display font-extrabold leading-tight">
-              {dict.h1(displayName, primaryLabel)}
+              {tpl(v2.b1.h1)}
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg text-foreground/80">
-              {dict.promise}
+              {tpl(v2.b1.promise)}
             </p>
             <div className="mt-8">
               <ButtonPress>
@@ -147,44 +149,43 @@ export default function SalesPageV2({
                   onClick={() => advance("b1")}
                   className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-8 py-4 text-base font-semibold text-white shadow-lg shadow-[hsl(var(--accent))]/30 transition-transform hover:-translate-y-0.5"
                 >
-                  {dict.cta} <ArrowRight size={18} />
+                  {v2.b1.cta} <ArrowRight size={18} />
                 </button>
               </ButtonPress>
-              <p className="mt-3 text-xs text-foreground/60">{dict.timer}</p>
+              <p className="mt-3 text-xs text-foreground/60">{v2.b1.timer}</p>
             </div>
           </Reveal>
         </section>
 
         {/* ─── B2 Pain Mirror ─────────────────────────────────── */}
-        <Section title={dict.painBlock?.title ?? ""}>
-          <p className="mb-6 text-foreground/80">{dict.painBlock?.body}</p>
+        <Section title={tpl(v2.b2.title)}>
+          <p className="mb-6 text-foreground/80">{tpl(v2.b2.body)}</p>
           <ul className="space-y-3">
-            {(dict.painBlock?.bullets ?? []).map((b, i) => (
+            {v2.b2.bullets.map((b, i) => (
               <li key={i} className="flex items-start gap-3">
                 <XIcon size={18} className="mt-1 shrink-0 text-destructive" aria-hidden />
-                <span className="text-foreground/85">{b}</span>
+                <span className="text-foreground/85">{tpl(b)}</span>
               </li>
             ))}
           </ul>
-          {dict.painBlock?.conclusion && (
-            <p className="mt-6 italic text-foreground/70">{dict.painBlock.conclusion}</p>
-          )}
+          <p className="mt-6 italic text-foreground/70">{tpl(v2.b2.conclusion)}</p>
         </Section>
 
         {/* ─── B3 Scientific Breakthrough ─────────────────────── */}
-        <Section title={dict.science?.title ?? ""}>
-          <p className="mb-4 text-foreground/80">{dict.science?.body}</p>
-          <p className="mb-4 text-sm text-foreground/60">{dict.science?.references}</p>
-          {dict.science?.solution && (
-            <p className="text-foreground/85"><strong>{dict.science.pivot}</strong> {dict.science.solution}</p>
-          )}
+        <Section title={v2.b3.title}>
+          <p className="mb-4 text-foreground/80">{v2.b3.body}</p>
+          <p className="mb-4 text-sm text-foreground/60">{v2.b3.references}</p>
+          <p className="text-foreground/85">
+            <strong>{v2.b3.pivot}</strong> {tpl(v2.b3.solution)}
+          </p>
         </Section>
 
         {/* ─── B4 Produto 4D ──────────────────────────────────── */}
-        <Section title={dict.features?.[0] ? "" : ""}>
+        <Section title={tpl(v2.b4.title)}>
+          <p className="mb-5 text-sm text-foreground/70">{tpl(v2.b4.subtitle)}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {(["money", "career", "love", "personal"] as const).map((area, i) => {
-              const feat = dict.features?.[i];
+              const feat = v2.b4.features[i];
               return (
                 <div key={area} className="rounded-2xl border border-border bg-card/60 p-5">
                   <div className="mb-2 flex items-center justify-between">
@@ -193,7 +194,7 @@ export default function SalesPageV2({
                       {areaScores[area]}/100
                     </span>
                   </div>
-                  <p className="text-sm text-foreground/75">{feat?.description}</p>
+                  <p className="text-sm text-foreground/75">{tpl(feat?.description ?? "")}</p>
                 </div>
               );
             })}
@@ -203,14 +204,14 @@ export default function SalesPageV2({
         {/* ─── B5 Value Anchor ────────────────────────────────── */}
         <Section>
           <div className="rounded-3xl border border-border bg-card/60 p-6 text-center">
-            <p className="text-sm uppercase tracking-widest text-foreground/60">{dict.guarantee?.title}</p>
-            <div className="mt-4 flex items-center justify-center gap-3 text-lg">
-              <span className="text-foreground/40 line-through">$200</span>
-              <span aria-hidden>›</span>
-              <span className="text-foreground/40 line-through">$47</span>
-              <span aria-hidden>›</span>
-              <span className="text-3xl font-extrabold text-[hsl(var(--accent))]">{price.main}</span>
+            <p className="text-sm uppercase tracking-widest text-foreground/60">{v2.b5.eyebrow}</p>
+            <div className="mt-4 space-y-1 text-sm">
+              <p className="text-foreground/45 line-through">{v2.b5.was}</p>
+              <p className="text-foreground/55 line-through">{v2.b5.then}</p>
+              <p className="mt-2 text-foreground/70">{v2.b5.now}</p>
+              <p className="pt-2 text-4xl font-extrabold text-[hsl(var(--accent))]">{price.main}</p>
             </div>
+            <p className="mt-4 text-xs text-foreground/55">{v2.b5.note}</p>
           </div>
         </Section>
 

@@ -256,6 +256,18 @@ export type Dict = {
   onboardingExtra: { saveError: string };
   settingsExtra: { passwordMinLength: string; passwordMismatch: string; passwordChangeError: string };
   commonExtra: { openMenu: string; protocolVersion: string };
+  /**
+   * Fase 4 — copy V2 da nova SalesPageV2 (blocos B1–B5).
+   * Todas as strings aceitam templates `[NOME]`, `[PRIMARY]`, `[SECONDARY]`
+   * que são interpolados em runtime por `fillTpl`.
+   */
+  salesV2: {
+    b1: { eyebrow: string; h1: string; promise: string; cta: string; timer: string };
+    b2: { title: string; body: string; bullets: string[]; conclusion: string };
+    b3: { title: string; body: string; references: string; pivot: string; solution: string };
+    b4: { title: string; subtitle: string; features: Array<{ title: string; description: string }> };
+    b5: { eyebrow: string; was: string; then: string; now: string; note: string };
+  };
 };
 
 const PT: Dict = {
@@ -741,6 +753,50 @@ const PT: Dict = {
   onboardingExtra: { saveError: "Houve um erro ao salvar seu progresso. Por favor, tente novamente." },
   settingsExtra: { passwordMinLength: "A senha deve ter pelo menos 8 caracteres.", passwordMismatch: "As senhas não coincidem.", passwordChangeError: "Erro ao alterar senha." },
   commonExtra: { openMenu: "Open menu", protocolVersion: "Protocol v3.0 // 2026" },
+  salesV2: {
+    b1: {
+      eyebrow: "DIAGNÓSTICO REVELADO",
+      h1: "[NOME], foi por isto que nada do que tentaste antes funcionou.",
+      promise: "Tu não és preguiçoso, nem indisciplinado. És [PRIMARY] — e isso explica 95% das tuas decisões financeiras dos últimos 5 anos.",
+      cta: "Quero entender o meu padrão →",
+      timer: "Esta análise expira em alguns minutos.",
+    },
+    b2: {
+      title: "[NOME], já tentaste de tudo, certo?",
+      body: "Folhas de Excel. Apps de orçamento. Promessas de Ano Novo. Mas o padrão volta sempre — nas horas de stress, ansiedade ou euforia. Como [PRIMARY], isto é o que se repete:",
+      bullets: [
+        "O dinheiro desaparece antes do fim do mês e não sabes exactamente para onde foi.",
+        "Tomas decisões financeiras que sabes que estão erradas… e continuas a tomá-las.",
+        "Mesmo quando a situação melhora, a sensação de insegurança não passa.",
+        "Já testaste folhas, apps, métodos — e nenhum durou mais de 30 dias.",
+      ],
+      conclusion: "Isto não é fraqueza. É o teu arquétipo [PRIMARY], com traço de [SECONDARY], a operar em piloto automático.",
+    },
+    b3: {
+      title: "O problema não está no que tu sabes sobre dinheiro.",
+      body: "A neurociência comportamental confirma: 95% das decisões financeiras são tomadas pelo sistema emocional — não pelo racional.",
+      references: "Kahneman (Nobel 2002), Thaler (Nobel 2017) e Ariely passaram décadas a estudar exactamente isto.",
+      pivot: "Folhas de Excel não resolvem um problema que não é de Excel.",
+      solution: "O MindReset foi construído para trabalhar onde o problema realmente existe — na mente de quem é [PRIMARY].",
+    },
+    b4: {
+      title: "O que vais receber, [NOME]",
+      subtitle: "Quatro dimensões mapeadas para o arquétipo [PRIMARY]. Os números abaixo são os teus.",
+      features: [
+        { title: "Dinheiro", description: "Como [PRIMARY] toma decisões financeiras invisíveis todos os dias — e o gatilho exacto a desactivar." },
+        { title: "Carreira", description: "Por que o teu padrão profissional te trava, e o passo seguinte concreto a dar." },
+        { title: "Amor", description: "Como [PRIMARY] aparece nas tuas relações — e o script para conversas difíceis sobre dinheiro." },
+        { title: "Pessoal", description: "O hábito-âncora que, ao mudares, derruba 3 outros padrões automáticos." },
+      ],
+    },
+    b5: {
+      eyebrow: "ANCORAGEM DE VALOR",
+      was: "$200 — um diagnóstico privado equivalente",
+      then: "$47 — preço público",
+      now: "Hoje, para ti",
+      note: "Pagamento único · 7 dias garantia incondicional · Sem subscrição.",
+    },
+  },
 };
 
 // English (master fallback)
@@ -1227,6 +1283,50 @@ const EN: Dict = {
   onboardingExtra: { saveError: "An error occurred while saving your progress. Please try again." },
   settingsExtra: { passwordMinLength: "Password must be at least 8 characters.", passwordMismatch: "Passwords do not match.", passwordChangeError: "Error changing password." },
   commonExtra: { openMenu: "Open menu", protocolVersion: "Protocol v3.0 // 2026" },
+  salesV2: {
+    b1: {
+      eyebrow: "DIAGNOSIS REVEALED",
+      h1: "[NOME], this is why nothing you tried before actually worked.",
+      promise: "You are not lazy or undisciplined. You are a [PRIMARY] — and that one fact explains 95% of every financial decision you've made in the last 5 years.",
+      cta: "Show me my pattern →",
+      timer: "This analysis expires in a few minutes.",
+    },
+    b2: {
+      title: "[NOME], you've tried everything, right?",
+      body: "Spreadsheets. Budgeting apps. New Year resolutions. But the pattern always comes back — under stress, anxiety, or euphoria. As a [PRIMARY], here is what keeps repeating:",
+      bullets: [
+        "Money disappears before the month ends and you don't know exactly where it went.",
+        "You make financial decisions you know are wrong… and you keep making them.",
+        "Even when things improve, the feeling of insecurity does not fade.",
+        "You've tried sheets, apps, methods — and none lasted longer than 30 days.",
+      ],
+      conclusion: "This is not weakness. It is your [PRIMARY] archetype, with a [SECONDARY] streak, running on autopilot.",
+    },
+    b3: {
+      title: "The problem is not what you know about money.",
+      body: "Behavioral neuroscience confirms it: 95% of financial decisions are made by the emotional system — not the rational one.",
+      references: "Kahneman (Nobel 2002), Thaler (Nobel 2017) and Ariely spent decades studying exactly this.",
+      pivot: "Spreadsheets don't solve a problem that isn't a spreadsheet problem.",
+      solution: "MindReset was built to work where the problem actually lives — in the mind of a [PRIMARY].",
+    },
+    b4: {
+      title: "What you'll get, [NOME]",
+      subtitle: "Four dimensions mapped to the [PRIMARY] archetype. The numbers below are yours.",
+      features: [
+        { title: "Money", description: "How a [PRIMARY] makes invisible financial decisions daily — and the exact trigger to disarm." },
+        { title: "Career", description: "Why your professional pattern holds you back, and the next concrete step to take." },
+        { title: "Love", description: "How [PRIMARY] shows up in your relationships — and the script for hard money conversations." },
+        { title: "Personal", description: "The anchor habit that, once you change it, breaks 3 other automatic patterns." },
+      ],
+    },
+    b5: {
+      eyebrow: "VALUE ANCHOR",
+      was: "$200 — equivalent private diagnosis",
+      then: "$47 — public price",
+      now: "Today, for you",
+      note: "One-time payment · 7-day unconditional guarantee · No subscription.",
+    },
+  },
 };
 
 const PL: Dict = {
@@ -1453,6 +1553,50 @@ const PL: Dict = {
   onboardingExtra: { saveError: "Wystąpił błąd podczas zapisywania postępu. Spróbuj ponownie." },
   settingsExtra: { passwordMinLength: "Hasło musi mieć co najmniej 8 znaków.", passwordMismatch: "Hasła nie są zgodne.", passwordChangeError: "Błąd zmiany hasła." },
   commonExtra: { openMenu: "Otwórz menu", protocolVersion: "Protocol v3.0 // 2026" },
+  salesV2: {
+    b1: {
+      eyebrow: "DIAGNOZA UJAWNIONA",
+      h1: "[NOME], właśnie dlatego nic, co próbowałeś wcześniej, nie zadziałało.",
+      promise: "Nie jesteś leniwy ani niezdyscyplinowany. Jesteś [PRIMARY] — i to wyjaśnia 95% twoich decyzji finansowych z ostatnich 5 lat.",
+      cta: "Pokaż mi mój wzorzec →",
+      timer: "Ta analiza wygasa za kilka minut.",
+    },
+    b2: {
+      title: "[NOME], próbowałeś już wszystkiego, prawda?",
+      body: "Arkusze Excela. Aplikacje budżetowe. Postanowienia noworoczne. Ale wzorzec zawsze wraca — pod wpływem stresu, lęku lub euforii. Jako [PRIMARY], oto co się powtarza:",
+      bullets: [
+        "Pieniądze znikają przed końcem miesiąca, a ty nie wiesz dokładnie, gdzie poszły.",
+        "Podejmujesz decyzje finansowe, o których wiesz, że są błędne… i nadal je podejmujesz.",
+        "Nawet gdy sytuacja się poprawia, poczucie niepewności nie znika.",
+        "Próbowałeś arkuszy, aplikacji, metod — żadna nie wytrzymała dłużej niż 30 dni.",
+      ],
+      conclusion: "To nie jest słabość. To twój archetyp [PRIMARY], z domieszką [SECONDARY], działający na autopilocie.",
+    },
+    b3: {
+      title: "Problem nie tkwi w tym, co wiesz o pieniądzach.",
+      body: "Neuronauka behawioralna to potwierdza: 95% decyzji finansowych podejmuje system emocjonalny — nie racjonalny.",
+      references: "Kahneman (Nobel 2002), Thaler (Nobel 2017) i Ariely spędzili dekady badając właśnie to.",
+      pivot: "Arkusze nie rozwiązują problemu, który nie jest problemem arkusza.",
+      solution: "MindReset został zbudowany, by działać tam, gdzie problem naprawdę istnieje — w umyśle osoby typu [PRIMARY].",
+    },
+    b4: {
+      title: "Co otrzymasz, [NOME]",
+      subtitle: "Cztery wymiary zmapowane dla archetypu [PRIMARY]. Liczby poniżej to twoje wyniki.",
+      features: [
+        { title: "Pieniądze", description: "Jak [PRIMARY] podejmuje codziennie niewidoczne decyzje finansowe — i jak rozbroić dokładny wyzwalacz." },
+        { title: "Kariera", description: "Dlaczego twój wzorzec zawodowy cię blokuje, i jaki konkretny krok zrobić teraz." },
+        { title: "Miłość", description: "Jak [PRIMARY] manifestuje się w twoich relacjach — i skrypt do trudnych rozmów o pieniądzach." },
+        { title: "Osobiste", description: "Nawyk-kotwica, który zmieniony obala 3 inne automatyczne wzorce." },
+      ],
+    },
+    b5: {
+      eyebrow: "KOTWICA WARTOŚCI",
+      was: "200 $ — równoważna diagnoza prywatna",
+      then: "47 $ — cena publiczna",
+      now: "Dziś, dla ciebie",
+      note: "Płatność jednorazowa · 7 dni gwarancji bezwarunkowej · Bez subskrypcji.",
+    },
+  },
 };
 
 const RO: Dict = {
@@ -1679,6 +1823,50 @@ const RO: Dict = {
   onboardingExtra: { saveError: "A apărut o eroare la salvarea progresului. Vă rugăm să încercați din nou." },
   settingsExtra: { passwordMinLength: "Parola trebuie să aibă cel puțin 8 caractere.", passwordMismatch: " parolele nu se potrivesc.", passwordChangeError: "Eroare la schimbarea parolei." },
   commonExtra: { openMenu: "Deschide meniul", protocolVersion: "Protocol v3.0 // 2026" },
+  salesV2: {
+    b1: {
+      eyebrow: "DIAGNOZĂ DEZVĂLUITĂ",
+      h1: "[NOME], de aceea nimic din ce ai încercat înainte nu a funcționat.",
+      promise: "Nu ești leneș, nici nedisciplinat. Ești [PRIMARY] — și asta explică 95% din deciziile tale financiare din ultimii 5 ani.",
+      cta: "Arată-mi tiparul meu →",
+      timer: "Această analiză expiră în câteva minute.",
+    },
+    b2: {
+      title: "[NOME], ai încercat de toate, nu?",
+      body: "Tabele Excel. Aplicații de buget. Promisiuni de Anul Nou. Dar tiparul revine mereu — sub stres, anxietate sau euforie. Ca [PRIMARY], iată ce se repetă:",
+      bullets: [
+        "Banii dispar înainte de sfârșitul lunii și nu știi exact unde s-au dus.",
+        "Iei decizii financiare despre care știi că sunt greșite… și continui să le iei.",
+        "Chiar și când situația se îmbunătățește, sentimentul de nesiguranță nu dispare.",
+        "Ai încercat tabele, aplicații, metode — niciuna nu a rezistat mai mult de 30 de zile.",
+      ],
+      conclusion: "Asta nu e slăbiciune. Este arhetipul tău [PRIMARY], cu nuanță de [SECONDARY], funcționând pe pilot automat.",
+    },
+    b3: {
+      title: "Problema nu e ce știi tu despre bani.",
+      body: "Neuroștiința comportamentală o confirmă: 95% din deciziile financiare sunt luate de sistemul emoțional — nu de cel rațional.",
+      references: "Kahneman (Nobel 2002), Thaler (Nobel 2017) și Ariely au studiat decenii exact asta.",
+      pivot: "Tabelele nu rezolvă o problemă care nu e o problemă de tabel.",
+      solution: "MindReset a fost construit ca să lucreze acolo unde problema chiar există — în mintea unui [PRIMARY].",
+    },
+    b4: {
+      title: "Ce vei primi, [NOME]",
+      subtitle: "Patru dimensiuni mapate pentru arhetipul [PRIMARY]. Numerele de mai jos sunt ale tale.",
+      features: [
+        { title: "Bani", description: "Cum un [PRIMARY] ia zilnic decizii financiare invizibile — și declanșatorul exact de dezamorsat." },
+        { title: "Carieră", description: "De ce tiparul tău profesional te ține pe loc, și următorul pas concret de făcut." },
+        { title: "Iubire", description: "Cum apare [PRIMARY] în relațiile tale — și scriptul pentru conversațiile dificile despre bani." },
+        { title: "Personal", description: "Obiceiul-ancoră care, odată schimbat, doboară alte 3 tipare automate." },
+      ],
+    },
+    b5: {
+      eyebrow: "ANCORĂ DE VALOARE",
+      was: "200 $ — diagnoză privată echivalentă",
+      then: "47 $ — preț public",
+      now: "Azi, pentru tine",
+      note: "Plată unică · Garanție necondiționată 7 zile · Fără abonament.",
+    },
+  },
 };
 
 const AR: Dict = {
@@ -1906,6 +2094,50 @@ const AR: Dict = {
   onboardingExtra: { saveError: "حدث خطأ أثناء حفظ تقدمك. يرجى المحاولة مرة أخرى." },
   settingsExtra: { passwordMinLength: "يجب أن تكون كلمة المرور 8 أحرف على الأقل.", passwordMismatch: "كلمتا المرور غير متطابقتين.", passwordChangeError: "خطأ في تغيير كلمة المرور." },
   commonExtra: { openMenu: "فتح القائمة", protocolVersion: "Protocol v3.0 // 2026" },
+  salesV2: {
+    b1: {
+      eyebrow: "تم الكشف عن التشخيص",
+      h1: "[NOME]، لهذا السبب لم ينجح شيء جرّبته من قبل.",
+      promise: "أنت لست كسولاً ولا غير منضبط. أنت [PRIMARY] — وهذا وحده يفسّر 95% من قراراتك المالية في السنوات الخمس الأخيرة.",
+      cta: "أرني نمطي ←",
+      timer: "ينتهي هذا التحليل خلال دقائق.",
+    },
+    b2: {
+      title: "[NOME]، لقد جرّبت كل شيء، أليس كذلك؟",
+      body: "جداول Excel. تطبيقات الميزانية. وعود رأس السنة. لكن النمط يعود دائماً — تحت الضغط أو القلق أو النشوة. بصفتك [PRIMARY]، هذا ما يتكرر:",
+      bullets: [
+        "المال يختفي قبل نهاية الشهر ولا تعرف بالضبط إلى أين ذهب.",
+        "تتخذ قرارات مالية تعلم أنها خاطئة… وتستمر في اتخاذها.",
+        "حتى عندما تتحسّن الأمور، شعور انعدام الأمان لا يزول.",
+        "جرّبت الجداول والتطبيقات والطرق — ولم تدم أيٌّ منها أكثر من 30 يوماً.",
+      ],
+      conclusion: "هذا ليس ضعفاً. إنه نمطك [PRIMARY]، مع لمسة من [SECONDARY]، يعمل على الطيار الآلي.",
+    },
+    b3: {
+      title: "المشكلة ليست في ما تعرفه عن المال.",
+      body: "علم الأعصاب السلوكي يؤكد: 95% من القرارات المالية يتخذها الجهاز العاطفي — لا العقلاني.",
+      references: "كانمان (نوبل 2002)، ثالر (نوبل 2017)، وأرييلي قضوا عقوداً في دراسة هذا بالتحديد.",
+      pivot: "الجداول لا تحلّ مشكلة ليست مشكلة جدول.",
+      solution: "صُمّم MindReset ليعمل حيث توجد المشكلة فعلياً — في عقل [PRIMARY].",
+    },
+    b4: {
+      title: "ما ستحصل عليه، [NOME]",
+      subtitle: "أربعة أبعاد مُهيّأة لنمط [PRIMARY]. الأرقام أدناه هي لك.",
+      features: [
+        { title: "المال", description: "كيف يتخذ [PRIMARY] قرارات مالية غير مرئية يومياً — والمحفّز الدقيق الذي يجب تعطيله." },
+        { title: "المسيرة", description: "لماذا يعرقلك نمطك المهني، وما هي الخطوة الملموسة التالية." },
+        { title: "الحب", description: "كيف يظهر [PRIMARY] في علاقاتك — وسيناريو محادثات المال الصعبة." },
+        { title: "الشخصي", description: "العادة-المرساة التي إن غيّرتها أسقطت 3 أنماط تلقائية أخرى." },
+      ],
+    },
+    b5: {
+      eyebrow: "مرساة القيمة",
+      was: "200 $ — تشخيص خاص مكافئ",
+      then: "47 $ — السعر العام",
+      now: "اليوم، لك",
+      note: "دفعة واحدة · ضمان غير مشروط 7 أيام · بدون اشتراك.",
+    },
+  },
 };
 
 export const translations: Record<Lang, Dict> = { pt: PT, en: EN, pl: PL, ro: RO, ar: AR };
