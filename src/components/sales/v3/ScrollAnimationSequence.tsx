@@ -112,13 +112,13 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
     // frameIndex is 1-indexed
     const img = images[frameIndex - 1];
     
-    // Check if the image loaded successfully (naturalWidth > 0)
-    if (!img || img.naturalWidth === 0) return;
+    // images are now HTMLCanvasElement, so we use .width and .height instead of .naturalWidth
+    if (!img || img.width === 0) return;
 
     // Set canvas dimensions to match image to avoid squishing
-    if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
+    if (canvas.width !== img.width || canvas.height !== img.height) {
+      canvas.width = img.width;
+      canvas.height = img.height;
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
