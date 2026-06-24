@@ -340,7 +340,7 @@ const PT: Dict = {
     },
     archetypes: {
       tag: "Os 4 Arquétipos",
-      title: "QUAL\u00a0 É\u00a0 O TEU\u00a0 PADRÃO INVISÍVEL?",
+      title: "QUAL É O TEU PADRÃO INVISÍVEL?",
       sub: "O mesmo padrão emocional aparece em 4 áreas: dinheiro, carreira, amor e vida pessoal. Descobre o teu em menos de 3 minutos.",
       items: {
         AO: { name: "Acumulador Obsessivo", trigger: "Gatilho: medo de faltar", desc: "Acumula com obsessão e mede tudo pela utilidade — no dinheiro, na carreira segura demais, no amor utilitário, no descanso adiado." },
@@ -371,7 +371,7 @@ const PT: Dict = {
     },
     testimonials: {
       tag: "Depoimentos",
-      title: "QUEM\u00a0 JÁ\u00a0 ENTENDEU\u00a0 O\u00a0 SEU\u00a0 PADRÃO",
+      title: "QUEM JÁ\u00a0 ENTENDEU O\u00a0 SEU PADRÃO",
       starsAlt: (n) => `${n} de ${n} estrelas`,
       items: [
         { stars: 5, quote: "Nunca entendi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: HEDONISTA\nIMPULSIVO" },
