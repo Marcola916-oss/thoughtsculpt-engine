@@ -35,7 +35,7 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
                 key={i} 
                 className="absolute text-arch-primary/70 font-mono text-xl md:text-3xl font-black drop-shadow-[0_0_15px_var(--arch-glow)]"
                 style={{ 
-                  transform: `rotate(${i * 45}deg) translateY(-240%) rotate(-${i * 45}deg)`,
+                  transform: `rotate(${i * 45}deg) translateY(-195%) rotate(-${i * 45}deg)`,
                 }}
               >
                 {sym}
@@ -55,7 +55,7 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
                   key={i} 
                   className="absolute text-cyan-400/60 font-mono text-[10px] md:text-xs font-bold tracking-widest drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"
                   style={{ 
-                    transform: `rotate(${i * 45}deg) translateY(-265%) rotate(-${i * 45}deg)`,
+                    transform: `rotate(${i * 45}deg) translateY(-220%) rotate(-${i * 45}deg)`,
                   }}
                 >
                   {bin}
