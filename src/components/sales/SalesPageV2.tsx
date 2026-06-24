@@ -26,6 +26,7 @@ import { MarbleBust } from "@/components/identity/MarbleBust";
 import { EVENTS, track } from "@/lib/analytics";
 import { useExitIntent } from "@/hooks/use-exit-intent";
 import { fillTpl } from "@/lib/sales/template";
+import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -216,7 +217,13 @@ export default function SalesPageV2({
         </Section>
 
         {/* ─── B6 Social Proof ────────────────────────────────── */}
-        <Section title={v2.b6.counter}>
+        <Section>
+          <h2 className="mb-2 text-2xl sm:text-3xl font-display font-bold">
+            <AnimatedCounter end={12000} prefix="+" className="text-[hsl(var(--accent))]" />{" "}
+            <span className="text-foreground">
+              {v2.b6.counter.replace(/\+\s?12[.,]?000\s?/, "").trim()}
+            </span>
+          </h2>
           <p className="mb-5 text-sm text-foreground/60">{v2.b6.rating}</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {v2.b6.testimonials.map((tst, i) => (
@@ -368,12 +375,15 @@ export default function SalesPageV2({
         <div
           role="region"
           aria-label="Sticky checkout"
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-4 py-3 backdrop-blur-md animate-fade-in"
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-[hsl(var(--accent))]/30 bg-background/95 px-4 py-3 shadow-2xl shadow-[hsl(var(--accent))]/10 backdrop-blur-md animate-fade-in"
         >
           <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
-            <div className="text-sm">
-              <span className="text-foreground/60 line-through me-2">$47</span>
-              <strong className="text-[hsl(var(--accent))]">{price.main}</strong>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="hidden sm:inline text-foreground/55 line-through">{v2.b5.then}</span>
+              <strong className="text-base text-[hsl(var(--accent))]">{price.main}</strong>
+              <span className="hidden sm:inline rounded-full bg-[hsl(var(--accent))]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[hsl(var(--accent))]">
+                -76%
+              </span>
             </div>
             <ButtonPress>
               <button
@@ -381,7 +391,7 @@ export default function SalesPageV2({
                 onClick={() => advance("sticky")}
                 className="inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-5 py-2.5 text-sm font-semibold text-white"
               >
-                {dict.cta} <ArrowRight size={16} />
+                {v2.b1.cta} <ArrowRight size={16} />
               </button>
             </ButtonPress>
           </div>
