@@ -1283,6 +1283,50 @@ const EN: Dict = {
   onboardingExtra: { saveError: "An error occurred while saving your progress. Please try again." },
   settingsExtra: { passwordMinLength: "Password must be at least 8 characters.", passwordMismatch: "Passwords do not match.", passwordChangeError: "Error changing password." },
   commonExtra: { openMenu: "Open menu", protocolVersion: "Protocol v3.0 // 2026" },
+  salesV2: {
+    b1: {
+      eyebrow: "DIAGNOSIS REVEALED",
+      h1: "[NOME], this is why nothing you tried before actually worked.",
+      promise: "You are not lazy or undisciplined. You are a [PRIMARY] — and that one fact explains 95% of every financial decision you've made in the last 5 years.",
+      cta: "Show me my pattern →",
+      timer: "This analysis expires in a few minutes.",
+    },
+    b2: {
+      title: "[NOME], you've tried everything, right?",
+      body: "Spreadsheets. Budgeting apps. New Year resolutions. But the pattern always comes back — under stress, anxiety, or euphoria. As a [PRIMARY], here is what keeps repeating:",
+      bullets: [
+        "Money disappears before the month ends and you don't know exactly where it went.",
+        "You make financial decisions you know are wrong… and you keep making them.",
+        "Even when things improve, the feeling of insecurity does not fade.",
+        "You've tried sheets, apps, methods — and none lasted longer than 30 days.",
+      ],
+      conclusion: "This is not weakness. It is your [PRIMARY] archetype, with a [SECONDARY] streak, running on autopilot.",
+    },
+    b3: {
+      title: "The problem is not what you know about money.",
+      body: "Behavioral neuroscience confirms it: 95% of financial decisions are made by the emotional system — not the rational one.",
+      references: "Kahneman (Nobel 2002), Thaler (Nobel 2017) and Ariely spent decades studying exactly this.",
+      pivot: "Spreadsheets don't solve a problem that isn't a spreadsheet problem.",
+      solution: "MindReset was built to work where the problem actually lives — in the mind of a [PRIMARY].",
+    },
+    b4: {
+      title: "What you'll get, [NOME]",
+      subtitle: "Four dimensions mapped to the [PRIMARY] archetype. The numbers below are yours.",
+      features: [
+        { title: "Money", description: "How a [PRIMARY] makes invisible financial decisions daily — and the exact trigger to disarm." },
+        { title: "Career", description: "Why your professional pattern holds you back, and the next concrete step to take." },
+        { title: "Love", description: "How [PRIMARY] shows up in your relationships — and the script for hard money conversations." },
+        { title: "Personal", description: "The anchor habit that, once you change it, breaks 3 other automatic patterns." },
+      ],
+    },
+    b5: {
+      eyebrow: "VALUE ANCHOR",
+      was: "$200 — equivalent private diagnosis",
+      then: "$47 — public price",
+      now: "Today, for you",
+      note: "One-time payment · 7-day unconditional guarantee · No subscription.",
+    },
+  },
 };
 
 const PL: Dict = {
