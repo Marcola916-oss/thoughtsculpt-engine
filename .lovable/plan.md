@@ -1,214 +1,214 @@
+# Plano — Revisão Tipográfica Completa da Landing Page (v2)
+## Referência oficial: peso de "QUAL É O TEU PADRÃO INVISÍVEL?" / "QUEM JÁ ENTENDEU O SEU PADRÃO"
 
-# Padronização Tipográfica — Opção A
-## Escopo desta fase: **somente Landing Page** (Hero + 9 sections pós-Hero do `stage="hero"`)
-
----
-
-## 1. Diretrizes-mestras (regras inegociáveis)
-
-Toda fonte usada na landing DEVE cair em uma destas 4 categorias. Nada fora disso.
-
-| Categoria | Fonte | Peso | Tamanho típico | Classe Tailwind canônica |
-|---|---|---|---|---|
-| **D1 — Display / Hero H1** | Syne | **800** | clamp(2.5rem, 8vw, 5.25rem) | `font-display font-extrabold` (italic opcional só no Hero/FinalCTA) |
-| **D2 — Section title (H2)** | Syne | **800** | clamp(1.75rem, 4.5vw, 2.75rem) | `font-display font-extrabold` |
-| **D3 — Sub-section / Card H3** | Syne | **700** | 1.125–1.5rem (18–24px) | `font-display font-bold` |
-| **B1 — Body / Parágrafo** | Inter | **400** | 1rem / 1.0625rem (16–17px) | `font-sans font-normal` (default body) |
-| **B2 — Body emphasis / lead** | Inter | **500** | 1.125–1.25rem | `font-sans font-medium` |
-| **B3 — UI / botão / label / badge** | Inter | **600** | 0.75–0.875rem, uppercase tracking | `font-sans font-semibold uppercase tracking-[0.18em]` |
-| **AR (RTL)** | Noto Naskh Arabic | 400/700 | herdado | aplicado via `[dir="rtl"] body` (já existe) |
-
-### Proibições absolutas
-1. **Nada de `italic` fora do Hero H1 e do FinalCTA H1.** Toda H2/H3 de section deixa de ser italic — italic em série mata hierarquia e legibilidade.
-2. **Nada de `font-black` (900).** Syne 900 não está carregado e o browser sintetiza um peso falso. Máximo = 800.
-3. **Nada de `font-mono`** em texto de marketing (manter apenas em contadores/timers numéricos do quiz/sales — fora desta fase).
-4. **Nada de `style={{ fontFamily: ... }}`** inline.
-5. **Nada de `text-[XXpx]` arbitrário em H2 de section.** Usar a escala fluida `clamp()` da tabela.
-6. **Nada de `tracking-[-0.05em]` em H3 pequenos** (<24px) — fecha demais o texto. Reservar tracking negativo para D1/D2.
-
-### Padrão de hierarquia (regra de ouro)
-> Em qualquer section: **um único H2 (D2 Syne 800)** + N H3 (D3 Syne 700) + body (B1/B2 Inter). Tudo o resto é UI (B3).
+Entendi agora — invertido em relação ao que eu tinha assumido. Esses dois títulos (atualmente em Syne **800** / `font-extrabold`) são o **gabarito oficial**. O "O PROBLEMA NÃO É O TEU DINHEIRO" ficou **leve demais** (foi rebaixado pra 700) e precisa **voltar pra 800** pra casar com os outros.
 
 ---
 
-## 2. Estado atual auditado
+## ⚠️ Nota técnica importante sobre "Syne 900"
 
-Já fizemos o levantamento. A base está correta:
-- `--font-display: Syne` e `--font-sans: Inter` em `src/styles.css`
-- Google Fonts já carrega **Inter 400/500/600/700/800** + **Syne 700/800** + **Noto Naskh Arabic 400-700** em `src/routes/__root.tsx`
-- **Nenhum** uso de serif (Instrument/Cormorant/DM Serif) na landing — boa notícia
-- **Nenhum** `style={{ fontFamily }}` inline na landing
+Você escreveu **Syne 900** para Hero/H1. Tecnicamente:
+- **Syne só existe oficialmente até 800 (ExtraBold)** no Google Fonts — não tem peso 900.
+- Se eu colocar `font-weight: 900`, o browser **sintetiza** um falso negrito (fica borrado, anti-aliasing ruim, especialmente em telas Retina). Resultado pior, não melhor.
+- Solução: Hero/H1 fica em **Syne 800** (o peso máximo real), mas **maior em tamanho** (`clamp(3rem,8vw,5.25rem)`) — a hierarquia vem do tamanho, não do peso falso.
 
-### Problemas reais encontrados (o que vai ser corrigido)
+**Confirma que posso usar Syne 800 + escala maior para Hero/H1?** É o caminho honesto. Se insistir em 900, eu aplico mas vai sair com peso sintético (qualidade visual pior).
 
-| # | Arquivo | Problema | Categoria errada → certa |
+---
+
+## 1. Diretriz mestra (v2 — fonte da verdade)
+
+| Nível | Uso | Fonte | Peso real | Tamanho | Classe Tailwind canônica |
+|---|---|---|---|---|---|
+| **D1** | Hero H1 / FinalCTA H1 | Syne | **800** (máx real) | `clamp(3rem,8vw,5.25rem)` | `font-display font-extrabold` (italic opcional só aqui) |
+| **D2** | H2 — TODOS os títulos de bloco | Syne | **800** | `clamp(1.75rem,4.5vw,2.75rem)` | `font-display font-extrabold` |
+| **D3** | H3 — sub-títulos / cards | Syne | **800** | `1.125–1.5rem` (18–24px) | `font-display font-extrabold` |
+| **B1** | Body padrão | Inter | **500** | 1rem / 1.0625rem | `font-sans font-medium` |
+| **B2** | Lead / quote / parágrafo destacado | Inter | **600** | 1.125–1.25rem | `font-sans font-semibold` |
+| **B3** | UI / botão / badge / label | Inter | **700** | 0.75–0.875rem | `font-sans font-bold uppercase tracking-[0.18em]` |
+| **AR** | Árabe (RTL) | Noto Naskh Arabic | 400/700 | herdado | `[dir="rtl"] body` (já existe) |
+
+**Hierarquia D1 vs D2 vs D3:** mesma fonte (Syne 800), diferenciados por **tamanho** — não por peso. É exatamente o que você descreveu: "tamanhos menores de uma para outra".
+
+**Body em Inter 500/600/700 (subiu de 400/500/600):** texto mais firme, mais "presente" no preto. Combina com a densidade dos H2 em 800.
+
+### Proibições inegociáveis
+1. **Zero `font-bold` (700) em H2/H3** — fica leve demais (foi o erro do BeliefBreak).
+2. **Zero `font-black` (900) em Syne** — peso sintético, qualidade ruim.
+3. **Zero `font-normal` (400) em body de marketing** — texto fica "raquítico" no preto. Mínimo é 500.
+4. **Zero `italic` em H2/H3** — só Hero H1 e FinalCTA H1 (assinatura).
+5. **Zero `style={{ fontFamily }}` inline.**
+6. **Zero `text-[XXpx]` arbitrário em H2** — usar `clamp()` único.
+
+### Regra de ouro
+> TODOS os H2 de bloco da landing usam exatamente: `font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em]`. Sem exceção. Diferenciação entre blocos vem da cor/decoração do badge eyebrow, NÃO do peso do título.
+
+---
+
+## 2. Auditoria atual — o que precisa mudar
+
+### H2 de bloco (devem TODOS ficar em Syne 800)
+
+| # | Arquivo | Estado atual | Ação |
 |---|---|---|---|
-| 1 | `ArchetypeShowcase.tsx:38` | H2 com `text-[24px] font-black italic` | D2 errado → **D2: clamp + extrabold + sem italic** |
-| 2 | `HowItWorks.tsx:25` | H2 com `text-[24px] font-black italic` + largura travada `290px` | D2 errado → **D2 + remover width fixo** |
-| 3 | `FeaturesGrid.tsx:26` | H2 igual ao acima | D2 errado → **D2 padrão** |
-| 4 | `Testimonials.tsx:29` | H2 igual + `mx-[-10px]` | D2 errado → **D2 padrão** |
-| 5 | `FAQ.tsx:27` | H2 igual com `leading-[35px]` | D2 errado → **D2 padrão** |
-| 6 | `FinalCTA.tsx:28` | H1 `font-black italic` clamp(1.5,8vw,5.25) — **OK como D1** (é o único H1 da página depois do Hero), só trocar `font-black` → `font-extrabold` |
-| 7 | `ArchetypeShowcase.tsx:77` | H3 dos cards `font-black italic` | D3 errado → **D3: Syne 700, sem italic** |
-| 8 | `HowItWorks.tsx:49` | H3 step `font-black italic` | D3 errado → **D3** |
-| 9 | `FAQ.tsx:56` | Pergunta `font-black italic` | D3 errado → **D3** (não italic, 700) |
-| 10 | `BeliefBreak.tsx:31` | H2 `font-extrabold` (✅ peso correto) só validar escala | D2 — só ajustar escala se necessário |
-| 11 | `BeliefBreak.tsx:41,67` | "Punchline" + quote cards `font-bold` Syne | D3 — **manter** (intencional) |
-| 12 | `ProofBar.tsx:127` | Stats com `font-display italic` mix de pesos via ternário | Caso especial numérico — **manter visual, padronizar para Syne 800 sem italic** |
-| 13 | `ArchetypeShowcase.tsx:72` + `BeliefBreak:57` | Mini-labels `font-display ... font-black tracking` | B3 errado (badge UI) → **trocar para `font-sans font-semibold`** (Inter, não Syne) |
-| 14 | `routes/index.tsx:1183` (Pain Mirror Sales block 2) | `font-display ... font-black uppercase italic` | D2 errado → **D2** (parte da landing porque Sales ainda renderiza dentro de `stage="hero"`)|
-| 15 | Hero `index.tsx:1120` | H1 hero `font-black italic` clamp 5rem→8rem | D1 — **trocar `font-black` → `font-extrabold`**, manter italic (assinatura do hero) |
+| 1 | `ArchetypeShowcase.tsx:38` ("QUAL É O TEU PADRÃO INVISÍVEL?") | ✅ `font-extrabold` (Syne 800) | **Manter — é o gabarito** |
+| 2 | `Testimonials.tsx:29` ("QUEM JÁ ENTENDEU O SEU PADRÃO") | ✅ `font-extrabold` (Syne 800) | **Manter — é o gabarito** |
+| 3 | `BeliefBreak.tsx:31` ("O PROBLEMA NÃO É O TEU DINHEIRO") | ❌ `font-bold` (Syne 700) — leve demais | **→ `font-extrabold` (800)** + ajustar escala para `clamp(1.75rem,4.5vw,2.75rem)` |
+| 4 | `HowItWorks.tsx` H2 | verificar | **→ `font-extrabold` (800) + remover width fixo** |
+| 5 | `FeaturesGrid.tsx` H2 | verificar | **→ `font-extrabold` (800)** |
+| 6 | `FAQ.tsx:27` | ✅ `font-extrabold` (Syne 800) | **Manter** |
+| 7 | `ProofBar.tsx` (se tiver H2) | verificar | **→ `font-extrabold` (800)** |
+| 8 | `routes/index.tsx` Pain Mirror H2 (~1183) | verificar | **→ `font-extrabold` (800)** |
 
-### Decisão de italic
-- **Manter italic apenas em:** Hero H1 (index.tsx:1120), FinalCTA H1 (FinalCTA.tsx:28) — esses dois são a assinatura "MarbleBust × tech-editorial".
-- **Remover italic** de toda H2 de section e toda H3 de card. Italic em série na landing inteira gera ruído e reduz scanabilidade — anti-conversão.
+### H1 — assinatura (Syne 800 + tamanho hero)
+
+| # | Arquivo | Ação |
+|---|---|---|
+| 9 | `routes/index.tsx` Hero H1 (~1120) | Confirmar `font-extrabold`, escala `clamp(3rem,8vw,5.25rem)`, italic OK |
+| 10 | `FinalCTA.tsx` H1 (~28) | Confirmar `font-extrabold`, italic OK |
+
+### H3 cards (devem TODOS ficar em Syne 800)
+
+| # | Arquivo | Estado | Ação |
+|---|---|---|---|
+| 11 | `ArchetypeShowcase.tsx:77` cards | `font-bold` (700) | **→ `font-extrabold` (800)** |
+| 12 | `BeliefBreak.tsx` punchline + quote cards | `font-bold` (700) | **→ `font-extrabold` (800)** |
+| 13 | `HowItWorks.tsx` H3 step | verificar | **→ Syne 800** |
+| 14 | `FeaturesGrid.tsx` H3 cards | verificar | **→ Syne 800** |
+| 15 | `FAQ.tsx:56` pergunta accordion | `font-bold` | **→ `font-extrabold` (800)** |
+
+### Body — Inter 500/600/700
+
+| # | Arquivo | O que mudar |
+|---|---|---|
+| 16 | Todos os `<p>` body padrão da landing | `font-normal`/`text-foreground/70` → `font-medium` (500) |
+| 17 | Quotes/leads (Testimonials, BeliefBreak quote, sub-headlines) | `font-medium` → `font-semibold` (600) |
+| 18 | Badges/labels/CTAs (B3) | confirmar `font-bold` (700) — já está em vários (`font-bold uppercase tracking-[0.18em]`) ✅ |
+
+### Limpeza geral
+- Remover qualquer `font-black` (900) restante
+- Remover `italic` de qualquer H2/H3
+- Remover larguras fixas (`style={{ width: "290px" }}`) e leading arbitrário (`leading-[35px]`)
+- Consolidar escalas H2 numa única `clamp()`
 
 ---
 
-## 3. Plano em fases (ordem de execução)
+## 3. Foundation — fontes carregadas
 
-### **FASE 0 — Foundation (5 min, 1 arquivo)**
-Garantir que a infraestrutura está blindada antes de tocar componentes.
+Verificar `src/routes/__root.tsx` Google Fonts URL:
+- **Inter:** precisa carregar 500, 600, 700 (atualmente 400/500/600/700/800 — OK ✅)
+- **Syne:** precisa carregar 800 (atualmente 700/800 — OK ✅, vamos remover 700 não usado)
+- **Noto Naskh Arabic:** 400/700 — OK ✅
 
-- [ ] **`src/styles.css`** — adicionar comentário-âncora `/* === TYPOGRAPHY CONTRACT (Opção A) === */` acima de `--font-display`, listando as 6 categorias D1–B3 como referência permanente para futuros agentes.
-- [ ] Adicionar utilitários semânticos opcionais (não-quebrantes):
-  ```css
-  @utility text-display-hero { @apply font-display font-extrabold italic uppercase; }
-  @utility text-display-h2   { @apply font-display font-extrabold uppercase; }
-  @utility text-display-h3   { @apply font-display font-bold uppercase; }
-  @utility text-ui-label     { @apply font-sans font-semibold uppercase tracking-[0.18em]; }
+Ação: **remover Syne 700 do `<link>`** depois que tudo migrar pra 800. Economiza ~15kB de fonte.
+
+---
+
+## 4. Plano em fases (ordem de execução top-down)
+
+Cada fase = 1 arquivo (ou seção contígua), build verde entre fases.
+
+### **FASE 0 — Foundation** (5 min)
+- `src/styles.css`: adicionar comentário-âncora `/* === TYPOGRAPHY CONTRACT v2 (Opção A) === */` com a tabela D1/D2/D3/B1/B2/B3 como referência permanente.
+- Opcional: adicionar utilitários `@utility text-h2-block { @apply font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em]; }` para reuso.
+
+### **FASE 1 — Hero + Pain Mirror** (`src/routes/index.tsx`)
+- Hero H1 (~1120): confirmar Syne 800 italic + escala `clamp(3rem,8vw,5.25rem)`
+- Pain Mirror H2 (~1183): aplicar D2 padrão exato
+
+### **FASE 2 — ProofBar** (`ProofBar.tsx`)
+- Stats numéricos: Syne 800 sem italic (consolidar)
+- Labels: Inter 600 uppercase (B2) ou 700 (B3) — definir baseado no tamanho
+- H2 (se houver): D2 padrão
+
+### **FASE 3 — BeliefBreak** (`BeliefBreak.tsx`) — **CRÍTICO**
+- H2 linha 31: `font-bold text-[clamp(2rem,5vw,3.4rem)]` → **`font-extrabold text-[clamp(1.75rem,4.5vw,2.75rem)]`** (alinha com os outros blocos)
+- Punchline (linha ~41): `font-bold` → `font-extrabold`
+- Quote cards (linha ~67): `font-bold` → `font-extrabold`
+- Intro `<p>` (linha ~38): `font-normal` → `font-medium` (B1)
+- Badge tag: confirmar Inter 600/700
+
+### **FASE 4 — ArchetypeShowcase** (`ArchetypeShowcase.tsx`)
+- H2 (linha 38): ✅ manter `font-extrabold` (gabarito)
+- H3 cards (linha 77): `font-bold` → `font-extrabold` (D3)
+- Body cards (linha ~85): `font-normal` → `font-medium` (B1)
+- Eyebrow + code: confirmar Inter 600/700
+
+### **FASE 5 — HowItWorks** (`HowItWorks.tsx`)
+- H2: → `font-extrabold` (D2) + remover width fixo se houver
+- H3 step: → `font-extrabold` (D3) + remover italic
+- Número do step: Syne 800 sem italic
+- Descrição: Inter 500 (B1)
+
+### **FASE 6 — FeaturesGrid** (`FeaturesGrid.tsx`)
+- H2: → `font-extrabold` (D2)
+- H3 cards: → `font-extrabold` (D3)
+- Body: Inter 500 (B1)
+
+### **FASE 7 — Testimonials** (`Testimonials.tsx`)
+- H2 (linha 29): ✅ manter `font-extrabold` (gabarito)
+- Quote (`<blockquote>`): `font-medium` → `font-semibold` (B2 — destaque)
+- Nome autor: Inter 700 uppercase (B3) ✅
+- Arquétipo label: Inter 600/700 (B3) ✅
+
+### **FASE 8 — FAQ** (`FAQ.tsx`)
+- H2 (linha 27): ✅ manter `font-extrabold` (gabarito) — remover `whitespace-pre-line` se causar quebra estranha
+- Sub `<p>` (linha 36): `font-medium` ✅, considerar subir cor para `text-white/70`
+- Pergunta accordion (linha 56): `font-bold` → `font-extrabold` (D3)
+- Resposta accordion: `font-medium` ✅ (B1)
+- CTA button text: Inter 700 (B3)
+
+### **FASE 9 — FinalCTA** (`FinalCTA.tsx`)
+- H1: confirmar `font-extrabold` italic + escala hero
+- Sub-texto: Inter 500/600 (B1/B2)
+- CTA: Inter 700 (B3)
+- Guarantee row: Inter 500 (B1)
+
+### **FASE 10 — Validação global**
+- `bun run build` → zero erros novos
+- `tsgo --noEmit` → zero erros
+- Grep de regressões:
+  ```bash
+  rg "font-black" src/components/landing/ src/routes/index.tsx        # esperado: 0
+  rg "font-bold[^-]" src/components/landing/ src/routes/index.tsx     # esperado: só em CTAs/badges (B3)
+  rg "font-display.*italic" src/components/landing/ src/routes/index.tsx  # esperado: só Hero H1 e FinalCTA H1
+  rg "font-normal" src/components/landing/                            # esperado: 0 (body mínimo é 500)
+  rg "style=\{\{\s*fontFamily" src/components/landing/                # esperado: 0
   ```
-  (Adoção é opcional — componentes podem continuar usando classes Tailwind diretas. Servem como "convenção viva".)
-
-**Verificação:** `tsgo --noEmit` + build OK.
-
----
-
-### **FASE 1 — Hero (10 min, 1 arquivo)**
-A primeira coisa que o visitante vê. Maior peso de conversão.
-
-- [ ] `src/routes/index.tsx:1120` (Hero H1): trocar `font-black` → `font-extrabold`. Manter italic, uppercase, escala atual.
-- [ ] `src/routes/index.tsx:1183` (Pain Mirror H2): aplicar **D2 puro** — `font-display font-extrabold uppercase` + remover italic + escala fluida `text-[clamp(1.75rem,4.5vw,2.75rem)]`.
-
-**Verificação:** screenshot Playwright Hero (mobile 375 + desktop 1440), comparar antes/depois.
+- Remover Syne 700 do Google Fonts `<link>` em `src/routes/__root.tsx` (já não é usado em lugar nenhum)
+- Screenshots Playwright (mobile 375 + desktop 1440) das 9 sections + scroll completo
+- **Critério de aceite visual:** todos os H2 de bloco têm peso visual IDÊNTICO ao de "QUAL É O TEU PADRÃO INVISÍVEL?" e "QUEM JÁ ENTENDEU O SEU PADRÃO". Hero H1 e FinalCTA H1 ficam visivelmente maiores (mesmo peso, mas escala hero + italic).
+- Smoke RTL (AR) + Smoke PL/RO (textos longos) — zero overflow
 
 ---
 
-### **FASE 2 — BeliefBreak (5 min, 1 arquivo)**
-Já está quase correto. Só ajustar mini-labels.
-
-- [ ] `BeliefBreak.tsx:57` (badge "KAHNEMAN", "THALER", "ARIELY"): trocar `font-display ... font-bold` → **B3 (`font-sans font-semibold uppercase tracking-[0.18em]`)**. Badge é UI, não título.
-- [ ] H2 (linha 31) e cards (41, 67) — **manter**, já estão dentro da grade.
-
----
-
-### **FASE 3 — ProofBar (5 min, 1 arquivo)**
-Stats numéricas. Caso especial: números grandes ficam em Syne 800 (D2), label embaixo em Inter B3.
-
-- [ ] `ProofBar.tsx:127`: remover `italic`, consolidar para `font-display font-extrabold` + escala fluida única (`text-[clamp(1.5rem,4vw,1.75rem)]`) em vez de 4 ternários inline com `style`.
-- [ ] Labels abaixo dos stats: garantir `font-sans font-medium text-[11px] uppercase tracking-[0.2em] text-foreground/60` (B3).
-
----
-
-### **FASE 4 — ArchetypeShowcase (10 min, 1 arquivo)**
-4 cards = onde italic+font-black acumula mais ruído visual.
-
-- [ ] Title H2 (linha 38): aplicar **D2 padrão** (sem italic, sem `mx-[-10px]`, escala `clamp(1.75rem,4.5vw,2.75rem)`).
-- [ ] Tag eyebrow (linha 72): trocar para **B3 Inter** (`font-sans font-semibold`).
-- [ ] H3 dos cards (linha 77): trocar `font-black italic` → **D3 (`font-display font-bold uppercase`)** + remover italic, manter tracking-tight (negativo leve aceitável em 16px porque é uppercase curto).
-
----
-
-### **FASE 5 — HowItWorks (10 min, 1 arquivo)**
-3 steps. Repetição visual = maior chance de fadiga visual se italic acumular.
-
-- [ ] H2 (linha 25): **D2 padrão**. **Remover `style={{ width: "290px" }}`** — largura travada quebra responsivo em outros idiomas (PL/RO/AR mais compridos).
-- [ ] Número do step (linha 46): Syne 800 está OK, só trocar `font-black italic` → `font-extrabold` (sem italic — números italic em círculo ficam tortos).
-- [ ] H3 step (linha 49): **D3** sem italic.
-
----
-
-### **FASE 6 — FeaturesGrid (5 min, 1 arquivo)**
-- [ ] H2 (linha 26): **D2 padrão**, remover `mx-[-10px]`.
-- [ ] H3 de cada feature card: aplicar **D3** consistente (mesmo padrão).
-
----
-
-### **FASE 7 — Testimonials (5 min, 1 arquivo)**
-- [ ] H2 (linha 29): **D2 padrão**, remover `mx-[-10px]`.
-- [ ] Nome do autor: **B3 Inter** (`font-sans font-semibold uppercase tracking-[0.16em]`) em vez de Syne — nome de pessoa em Syne 800 italic compete com a quote.
-- [ ] Quote: **B2 Inter** (`font-sans font-medium`) — quote longa em Syne reduz legibilidade.
-
----
-
-### **FASE 8 — FAQ (10 min, 1 arquivo)**
-Accordion. Crítico para conversão (objeções).
-
-- [ ] H2 (linha 27): **D2 padrão**, remover `leading-[35px]` arbitrário.
-- [ ] Pergunta (linha 56): trocar `font-black italic` → **D3 (`font-display font-bold uppercase tracking-tight`)** — sem italic. Texto italic dentro de accordion clicável reduz tap-confidence.
-- [ ] Resposta (corpo do accordion): garantir **B1 Inter `font-normal text-[15px] leading-relaxed`** — é onde o visitante REALMENTE lê.
-
----
-
-### **FASE 9 — FinalCTA (5 min, 1 arquivo)**
-Última conversão. Mantém personalidade do Hero.
-
-- [ ] H1 (linha 28): trocar `font-black` → `font-extrabold`. **Manter italic** (assinatura, par com Hero).
-- [ ] Sub-texto e guarantee row: garantir **B2/B3 Inter**, sem Syne.
-
----
-
-### **FASE 10 — Validação global (15 min)**
-- [ ] **Build:** `bun run build` — zero erros novos.
-- [ ] **Typecheck:** `tsgo --noEmit` — zero erros.
-- [ ] **Grep de regressões:**
-  ```
-  rg "font-black|font-display.*italic|style=\\{\\{\\s*fontFamily" src/components/landing/ src/routes/index.tsx
-  ```
-  Resultado esperado: APENAS Hero H1 (index.tsx:1120) e FinalCTA H1 com italic. Zero `font-black`. Zero `fontFamily` inline.
-- [ ] **Playwright screenshots** (mobile 375 + desktop 1440):
-  - Hero
-  - 3 sections-amostra (ArchetypeShowcase, HowItWorks, FAQ)
-  - FinalCTA
-- [ ] **Smoke RTL:** trocar idioma para AR e screenshot do Hero + FinalCTA — garantir que Noto Naskh continua aplicado e nenhuma classe nova quebra RTL.
-- [ ] **Smoke PL/RO:** os 2 idiomas com texto mais longo — confirmar que remover `width: 290px` e `mx-[-10px]` não causou overflow.
-
----
-
-## 4. Ordem de execução (sequencial — top-down conforme o visitante rola)
+## 5. Ordem de execução
 
 ```
-F0 (Foundation) → F1 (Hero) → F2 (BeliefBreak) → F3 (ProofBar)
-→ F4 (Showcase) → F5 (HowItWorks) → F6 (Features)
-→ F7 (Testimonials) → F8 (FAQ) → F9 (FinalCTA) → F10 (Validation)
+F0 (Foundation) → F1 (Hero+Pain) → F2 (ProofBar) → F3 (BeliefBreak ⚠️) →
+F4 (Showcase) → F5 (HowItWorks) → F6 (Features) → F7 (Testimonials) →
+F8 (FAQ) → F9 (FinalCTA) → F10 (Validação + remoção Syne 700)
 ```
 
-Cada fase é independente (um arquivo por fase, exceto F1 que toca duas seções no mesmo arquivo). Posso parar entre fases para você revisar visualmente antes de continuar.
+Posso parar entre fases para você revisar, ou rodar F0→F10 direto e te entregar screenshots no final.
 
 ---
 
-## 5. Estimativas
+## 6. Estimativas
 
-- **Arquivos tocados:** 9 (1 css + 1 routes/index.tsx + 7 componentes landing)
-- **Tempo total:** ~75 min
-- **Risco:** baixo — só mudanças de classe Tailwind, sem alteração de markup, lógica ou i18n
-- **Bundle:** zero impacto (mesmas fontes já carregadas)
-- **Impacto SEO:** zero — sem mudança de hierarquia semântica (H1/H2/H3)
-- **Impacto conversão esperado:** + (hierarquia mais clara, menos italic = mais autoridade, melhor scan-readability mobile)
-
----
-
-## 6. Fora de escopo desta fase (próximas iterações)
-
-Depois que a Landing estiver 100%, replicar o mesmo contrato tipográfico em:
-1. Quiz (stages identity/q/email/loader) — index.tsx:691–914
-2. Reveal (stages reveal) — index.tsx:1338+ e `src/components/reveal/`
-3. Sales (blocks restantes) — index.tsx:1276–1660
-4. /obrigado
-5. Dashboard (quando existir)
-
-Cada uma vira um plano próprio seguindo o mesmo padrão D1/D2/D3/B1/B2/B3.
+- **Arquivos tocados:** 10 (1 css + 1 routes/index.tsx + 1 __root.tsx + 7 componentes landing)
+- **Tempo total:** ~60 min
+- **Risco:** baixo — só Tailwind classes, zero markup/lógica/i18n alterados
+- **Bundle:** -15kB (remoção Syne 700 não usado)
+- **SEO:** zero impacto (hierarquia semântica inalterada)
+- **Conversão esperada:** + hierarquia visual cristalina, autoridade máxima, peso consistente bloco-a-bloco
 
 ---
 
-**Pronto para começar pela Fase 0?** Posso executar fase-a-fase com você revisando entre cada uma, ou rodar tudo em sequência (F0→F10) e te entregar o screenshot final para validação.
+## 7. Decisões que preciso de você ANTES de "vai"
+
+1. **Syne 900 → confirma usar Syne 800 + escala maior?** (alternativa: 900 sintético, qualidade pior)
+2. **Body Inter 500 mínimo (vs 400 atual) — confirma?** Texto vai ficar visualmente mais "presente" e menos transparente. É mudança perceptível.
+3. **Execução: tudo de uma vez (F0→F10) ou fase-a-fase com sua revisão entre cada?**
+
+Responde essas 3 e eu executo.
