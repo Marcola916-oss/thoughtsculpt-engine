@@ -85,6 +85,12 @@ export type Dict = {
       }
     >;
     areasCta: string;
+    anchor: (arch: string) => string;
+    urgency: string;
+    guarantee: string;
+    finalTitle: (name: string) => string;
+    finalSub: string;
+    finalCta: string;
   };
   sales: {
     h1: (name: string, arch: string) => string;
@@ -480,6 +486,12 @@ const PT: Dict = {
       },
     },
     areasCta: "Quero ver o diagnóstico completo",
+    anchor: (arch) => `73% dos ${arch} relatam o mesmo padrão em pelo menos 3 destas 4 áreas. Tu não estás sozinho — e isso é exatamente o que torna o padrão resolvível.`,
+    urgency: "Esta análise expira em",
+    guarantee: "7 dias de garantia · Pagamento único · Sem assinatura",
+    finalTitle: (name) => `${name}, podes parar de adivinhar.`,
+    finalSub: "O diagnóstico completo mostra-te o gatilho exato, o padrão por trás dele e os 30 dias guiados para o desfazeres.",
+    finalCta: "Quero o meu diagnóstico completo",
   },
   sales: {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
@@ -960,6 +972,12 @@ const EN: Dict = {
       },
     },
     areasCta: "Show me the full diagnosis",
+    anchor: (arch) => `73% of ${arch} report the same pattern in at least 3 of these 4 areas. You're not alone — and that's exactly what makes the pattern solvable.`,
+    urgency: "This analysis expires in",
+    guarantee: "7-day guarantee · One-time payment · No subscription",
+    finalTitle: (name) => `${name}, you can stop guessing.`,
+    finalSub: "The full diagnosis shows you the exact trigger, the pattern behind it, and the 30-day guided plan to undo it.",
+    finalCta: "I want my full diagnosis",
   },
   sales: {
     h1: (name, arch) => `${name}, this is why nothing you tried before worked.`,
@@ -1286,6 +1304,12 @@ const PL: Dict = {
       } },
     },
     areasCta: "Chcę zobaczyć pełną diagnozę",
+    anchor: (arch) => `73% osób typu ${arch} zgłasza ten sam wzorzec w co najmniej 3 z tych 4 obszarów. Nie jesteś sam — i właśnie to sprawia, że ten wzorzec da się rozwiązać.`,
+    urgency: "Ta analiza wygasa za",
+    guarantee: "7 dni gwarancji · Jednorazowa płatność · Bez subskrypcji",
+    finalTitle: (name) => `${name}, możesz przestać zgadywać.`,
+    finalSub: "Pełna diagnoza pokazuje dokładny wyzwalacz, wzorzec stojący za nim i 30-dniowy plan, który go rozbroi.",
+    finalCta: "Chcę moją pełną diagnozę",
   },
   plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan", guarantee: "7 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
@@ -1506,6 +1530,12 @@ const RO: Dict = {
       } },
     },
     areasCta: "Vreau diagnoza completă",
+    anchor: (arch) => `73% dintre ${arch} raportează același tipar în cel puțin 3 din aceste 4 zone. Nu ești singur — și exact asta face tiparul rezolvabil.`,
+    urgency: "Această analiză expiră în",
+    guarantee: "Garanție 7 zile · Plată unică · Fără abonament",
+    finalTitle: (name) => `${name}, poți să nu mai ghicești.`,
+    finalSub: "Diagnoza completă îți arată declanșatorul exact, tiparul din spatele lui și planul ghidat de 30 de zile pentru a-l desface.",
+    finalCta: "Vreau diagnoza mea completă",
   },
   plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan", guarantee: "7 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
@@ -1727,6 +1757,12 @@ const AR: Dict = {
       } },
     },
     areasCta: "أرني التشخيص الكامل",
+    anchor: (arch) => `73٪ من ${arch} يُبلّغون عن نفس النمط في 3 من هذه المجالات الأربعة على الأقل. لست وحدك — وهذا بالضبط ما يجعل النمط قابلًا للحل.`,
+    urgency: "ينتهي هذا التحليل خلال",
+    guarantee: "ضمان 7 أيام · دفعة واحدة · بدون اشتراك",
+    finalTitle: (name) => `${name}، يمكنك التوقف عن التخمين.`,
+    finalSub: "التشخيص الكامل يكشف لك المحفّز الدقيق، النمط الذي وراءه، وخطة الـ30 يومًا الموجَّهة لتفكيكه.",
+    finalCta: "أريد تشخيصي الكامل",
   },
   plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد هذا الخطة", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
