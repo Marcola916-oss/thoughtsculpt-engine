@@ -130,12 +130,10 @@ export default function SalesPageV2({
         {/* ─── B1 Emotional Anchor ────────────────────────────── */}
         <section ref={heroRef} className="relative pt-8 pb-16 text-center">
           <div className="pointer-events-none absolute inset-x-0 -top-6 mx-auto h-40 w-40 opacity-30">
-            <MarbleBust variant="mini" arch={archetype} />
+            <MarbleBust variant="mini" />
           </div>
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.3em] text-foreground/60">
-              {dict.h1 ? "" : ""}
-            </p>
+            <p className="text-xs uppercase tracking-[0.3em] text-foreground/60" />
             <h1 className="mt-4 text-3xl sm:text-5xl font-display font-extrabold leading-tight">
               {dict.h1(displayName, primaryLabel)}
             </h1>
