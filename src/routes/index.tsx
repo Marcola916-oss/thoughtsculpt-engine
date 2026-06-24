@@ -952,6 +952,7 @@ function Reveal({
   name,
   arch,
   answers,
+  timeLeft,
   onContinue,
   leadError,
   onRetry,
@@ -959,6 +960,7 @@ function Reveal({
   name: string;
   arch: Archetype;
   answers: Answers;
+  timeLeft: number;
   onContinue: () => void;
   leadError: string | null;
   onRetry: () => void;
@@ -967,6 +969,21 @@ function Reveal({
   const a = t.archetypes[arch];
   const [text, setText] = useState("");
   const areaScores = useMemo(() => computeAreaScores(answers).areas, [answers]);
+
+  useEffect(() => {
+    track(EVENTS.REVEAL_VIEW, { arch });
+  }, [arch]);
+
+  const handleCta = (source: "hero" | "areas" | "final") => {
+    track(EVENTS.REVEAL_CTA_CLICK, { arch, source });
+    onContinue();
+  };
+
+  const fmtTimer = (s: number) => {
+    const m = Math.max(0, Math.floor(s / 60));
+    const r = Math.max(0, s % 60);
+    return `${String(m).padStart(2, "0")}:${String(r).padStart(2, "0")}`;
+  };
 
   useEffect(() => {
     let i = 0;
