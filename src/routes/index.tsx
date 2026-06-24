@@ -1038,11 +1038,11 @@ function Reveal({
             }}
           />
 
-          <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[110%] -left-[5%]">
-            <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
+          <div className="absolute inset-x-0 bottom-0 z-10 mx-auto w-[110%] -left-[5%] pointer-events-none">
+            <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} part="base" />
           </div>
           <div
-            className="absolute inset-0 z-20 translate-y-1 md:translate-y-2"
+            className="absolute inset-0 z-20 translate-y-1 md:translate-y-2 pointer-events-none"
             style={{ isolation: "isolate" }}
           >
             {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
@@ -1083,6 +1083,9 @@ function Reveal({
               className="relative z-10"
             />
             <BrainOrbit />
+          </div>
+          <div className="absolute inset-x-0 bottom-0 z-30 mx-auto w-[110%] -left-[5%] pointer-events-none">
+            <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} part="front" />
           </div>
         </div>
 
