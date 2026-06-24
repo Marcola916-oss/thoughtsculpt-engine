@@ -28,7 +28,6 @@ import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
 import { BrainOrbit } from "@/components/reveal/BrainOrbit";
 import { CheckoutStub } from "@/components/funnel/CheckoutStub";
-import { lazy, Suspense } from "react";
 const SalesPageV2 = lazy(() => import("@/components/sales/SalesPageV2"));
 import { track, EVENTS } from "@/lib/analytics";
 
