@@ -381,7 +381,7 @@ export default function SalesPageV2({
         </div>
 
         {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
-        <aside className="pointer-events-none relative hidden lg:block">
+        <aside className="pointer-events-none relative hidden lg:block h-full">
           <div className="sticky top-0 h-screen w-full">
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
           </div>

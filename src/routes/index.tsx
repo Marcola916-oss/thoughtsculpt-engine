@@ -312,7 +312,7 @@ function LandingAndQuiz() {
 
   return (
     <div
-      className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-hidden relative flex flex-col"
+      className="min-h-screen w-full bg-transparent text-foreground selection:bg-primary/30 overflow-x-clip relative flex flex-col"
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay pointer-events-none z-0" />
