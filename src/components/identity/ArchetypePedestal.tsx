@@ -85,17 +85,18 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
       {/* Overlay 2D para a parede de vidro do cilindro (Simula a refração frontal) */}
       <div className="absolute bottom-[0%] w-[94%] md:w-[83%] h-[55%] rounded-[50%] border-t-[3px] border-l border-r border-arch-primary/40 bg-gradient-to-b from-arch-primary/20 via-arch-primary/5 to-transparent backdrop-blur-[2px] pointer-events-none shadow-[0_-20px_50px_var(--arch-glow)]" />
 
-      {/* Feixes de luz holográficos projetando o cérebro a partir da base */}
+      {/* Feixes de luz holográficos projetando o cérebro a partir do anel rotatório interno */}
       <div
         aria-hidden
-        className="absolute bottom-[20%] left-1/2 -translate-x-1/2 w-[70%] md:w-[60%] h-[85%] pointer-events-none mix-blend-screen"
+        className="absolute bottom-[22%] left-1/2 -translate-x-1/2 w-[34%] md:w-[28%] h-[78%] pointer-events-none mix-blend-screen"
       >
         {[
-          { left: "8%",  rot: "8deg",   delay: "0s",   dur: "3.6s", op: 0.22 },
-          { left: "26%", rot: "3deg",   delay: "0.6s", dur: "4.2s", op: 0.28 },
-          { left: "50%", rot: "0deg",   delay: "0.2s", dur: "3.8s", op: 0.32 },
-          { left: "74%", rot: "-3deg",  delay: "0.9s", dur: "4.4s", op: 0.28 },
-          { left: "92%", rot: "-8deg",  delay: "0.4s", dur: "3.6s", op: 0.22 },
+          // Beams originam do anel interno e convergem suavemente em direção ao cérebro
+          { left: "8%",  rot: "-10deg", delay: "0s",   dur: "4.2s", op: 0.14 },
+          { left: "30%", rot: "-4deg",  delay: "0.7s", dur: "4.6s", op: 0.18 },
+          { left: "50%", rot: "0deg",   delay: "0.3s", dur: "4.0s", op: 0.20 },
+          { left: "70%", rot: "4deg",   delay: "1.0s", dur: "4.6s", op: 0.18 },
+          { left: "92%", rot: "10deg",  delay: "0.5s", dur: "4.2s", op: 0.14 },
         ].map((b, i) => (
           <div
             key={i}
@@ -106,7 +107,7 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
             }}
           >
             <div
-              className="w-[6px] md:w-[8px] h-full rounded-full blur-[3px]"
+              className="w-[4px] md:w-[5px] h-full rounded-full blur-[4px]"
               style={{
                 background:
                   "linear-gradient(to top, var(--arch-primary) 0%, var(--arch-glow) 35%, transparent 100%)",
@@ -120,8 +121,8 @@ export function ArchetypePedestal({ arch }: { arch?: "AO" | "SS" | "EA" | "HI" }
 
       <style>{`
         @keyframes arch-beam-pulse {
-          0%, 100% { opacity: 0.18; transform: scaleY(0.96); }
-          50%      { opacity: 0.45; transform: scaleY(1.02); }
+          0%, 100% { opacity: 0.10; transform: scaleY(0.96); }
+          50%      { opacity: 0.28; transform: scaleY(1.02); }
         }
       `}</style>
 
