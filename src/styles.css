@@ -2150,47 +2150,23 @@ html body .allow-break-all {
 .badge-pulse::before {
   content: "";
   position: absolute;
-  inset: -18px -30px;
+  inset: -6px -10px;
   border-radius: 9999px;
   border: none;
   background:
-    conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 70%, white 30%) 40deg,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 90%, transparent) 90deg,
-      transparent 160deg,
-      transparent 200deg,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 80%, white 20%) 260deg,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 60%, transparent) 310deg,
-      transparent 360deg
-    );
-  filter: blur(12px);
-  pointer-events: none;
-  z-index: -1;
-  transform-origin: center;
-  animation:
-    badge-pulse-orbit 3.2s linear infinite,
-    badge-pulse-breath 1.6s ease-in-out infinite;
-}
-.badge-pulse::after {
-  content: "";
-  position: absolute;
-  inset: -8px -16px;
-  border-radius: 9999px;
-  background:
     radial-gradient(
       ellipse at center,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 38%, transparent) 0%,
-      transparent 70%
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 40%, transparent) 0%,
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 18%, transparent) 50%,
+      transparent 78%
     );
   filter: blur(8px);
   pointer-events: none;
   z-index: -1;
-  animation: badge-pulse-ring 1.05s ease-out infinite;
+  transform-origin: center;
+  animation: badge-pulse-breath 1.6s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .badge-pulse,
-  .badge-pulse::before,
-  .badge-pulse::after { animation: none !important; }
+  .badge-pulse::before { animation: none !important; }
 }
