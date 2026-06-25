@@ -2075,96 +2075,53 @@ html body .allow-break-all {
 }
 
 /* Badge pulse — animated red eyebrow badges across landing sections */
-@keyframes badge-pulse-heartbeat {
-  0%, 100% { transform: translateZ(0) scale(1); }
-  10% { transform: translateZ(0) scale(1.16) translateY(-1px); }
-  20% { transform: translateZ(0) scale(1.04); }
-  34% { transform: translateZ(0) scale(1.2) translateY(-2px); }
-  52% { transform: translateZ(0) scale(1); }
-}
-@keyframes badge-pulse-ignite {
+/* Crystalline pulse: breathing halo (box-shadow) + shimmer sweep clipped inside */
+@keyframes badge-crystal-breathe {
   0%, 100% {
-    background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 16%, black 84%);
-    border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 70%, transparent);
-    filter: drop-shadow(0 0 10px color-mix(in oklch, var(--arch-primary, var(--accent)) 75%, transparent));
     box-shadow:
-      0 0 0 0 color-mix(in oklch, var(--arch-primary, var(--accent)) 0%, transparent),
-      0 0 22px 3px color-mix(in oklch, var(--arch-primary, var(--accent)) 52%, transparent),
-      inset 0 0 14px color-mix(in oklch, var(--arch-primary, var(--accent)) 20%, transparent);
+      0 0 0 1px color-mix(in oklch, var(--arch-primary, var(--accent)) 35%, transparent),
+      0 0 14px -2px color-mix(in oklch, var(--arch-primary, var(--accent)) 40%, transparent),
+      0 0 28px 2px color-mix(in oklch, var(--arch-primary, var(--accent)) 22%, transparent),
+      inset 0 0 8px color-mix(in oklch, var(--arch-primary, var(--accent)) 18%, transparent);
   }
-  38% {
-    background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 42%, black 58%);
-    border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 100%, transparent);
-    filter: drop-shadow(0 0 22px color-mix(in oklch, var(--arch-primary, var(--accent)) 100%, transparent));
+  50% {
     box-shadow:
-      0 0 0 6px color-mix(in oklch, var(--arch-primary, var(--accent)) 20%, transparent),
-      0 0 46px 12px color-mix(in oklch, var(--arch-primary, var(--accent)) 82%, transparent),
-      0 0 96px 20px color-mix(in oklch, var(--arch-primary, var(--accent)) 38%, transparent),
-      inset 0 0 22px color-mix(in oklch, var(--arch-primary, var(--accent)) 46%, transparent);
+      0 0 0 1px color-mix(in oklch, var(--arch-primary, var(--accent)) 70%, transparent),
+      0 0 22px 0px color-mix(in oklch, var(--arch-primary, var(--accent)) 60%, transparent),
+      0 0 48px 6px color-mix(in oklch, var(--arch-primary, var(--accent)) 38%, transparent),
+      inset 0 0 14px color-mix(in oklch, var(--arch-primary, var(--accent)) 32%, transparent);
   }
 }
-@keyframes badge-pulse-ring {
-  0%, 100% { transform: scale(0.94); opacity: 0.18; }
-  34% { transform: scale(1.32); opacity: 0.82; }
-  70% { transform: scale(1.52); opacity: 0; }
-}
-@keyframes badge-pulse-sweep {
-  0% { background-position: -180% 50%; }
-  42%, 100% { background-position: 220% 50%; }
-}
-@keyframes badge-pulse-orbit {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-@keyframes badge-pulse-breath {
-  0%, 100% { opacity: 0.55; filter: blur(10px); }
-  50% { opacity: 1; filter: blur(14px); }
+@keyframes badge-crystal-sweep {
+  0% { transform: translateX(-160%) skewX(-24deg); }
+  100% { transform: translateX(260%) skewX(-24deg); }
 }
 .badge-pulse {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
-  overflow: visible;
-  isolation: isolate;
-  z-index: 0;
-  transform-origin: center;
-  background-image: linear-gradient(
-    96deg,
-    transparent 0%,
-    transparent 34%,
-    color-mix(in oklch, var(--arch-primary, var(--accent)) 88%, white 12%) 48%,
-    color-mix(in oklch, var(--arch-primary, var(--accent)) 48%, transparent) 56%,
-    transparent 70%,
-    transparent 100%
-  );
-  background-size: 240% 100%;
-  background-repeat: no-repeat;
-  background-position: -180% 50%;
-  animation:
-    badge-pulse-heartbeat 1.05s ease-out infinite,
-    badge-pulse-ignite 1.05s ease-out infinite,
-    badge-pulse-sweep 1.4s linear infinite;
-  will-change: transform, box-shadow, filter, background-color, border-color, background-position;
+  overflow: hidden;
+  background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 14%, black 86%) !important;
+  border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 60%, transparent) !important;
+  animation: badge-crystal-breathe 4s ease-in-out infinite;
+  will-change: box-shadow;
 }
+/* Shimmer sweep across the badge interior — overflow:hidden clips it to the pill */
 .badge-pulse::before {
   content: "";
   position: absolute;
-  inset: -6px -10px;
-  border-radius: 9999px;
-  border: none;
-  background:
-    radial-gradient(
-      ellipse at center,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 40%, transparent) 0%,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 18%, transparent) 50%,
-      transparent 78%
-    );
-  filter: blur(8px);
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklch, var(--arch-primary, var(--accent)) 50%, white 50%) 50%,
+    transparent 100%
+  );
+  opacity: 0.4;
   pointer-events: none;
-  z-index: -1;
-  transform-origin: center;
-  animation: badge-pulse-breath 1.6s ease-in-out infinite;
+  animation: badge-crystal-sweep 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
 }
 @media (prefers-reduced-motion: reduce) {
   .badge-pulse,
