@@ -14,15 +14,6 @@ export function useTypewriter(words: string[], opts: TypewriterOptions = {}) {
 
   useEffect(() => {
     if (!words.length) return;
-    const reduce =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      setText(words[0]);
-      setIndex(0);
-      return;
-    }
-
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout>;
     let i = 0;
