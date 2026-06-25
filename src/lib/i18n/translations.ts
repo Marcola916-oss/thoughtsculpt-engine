@@ -328,7 +328,7 @@ const PT: Dict = {
       languages: { value: "5", label: "Idiomas suportados" },
     },
     beliefBreak: {
-      tag: "A\u00a0 CIÊNCIA\u00a0 POR\u00a0 TRÁS",
+      tag: "A CIÊNCIA POR TRÁS",
       title: "O\u00a0 PROBLEMA\u00a0 NÃO É O TEU\u00a0 DINHEIRO.\u00a0\nÉ O TEU\u00a0 PADRÃO.",
       intro: "Três Prémios Nobel já o disseram. Tu apenas nunca tinhas ouvido assim.",
       cards: [
