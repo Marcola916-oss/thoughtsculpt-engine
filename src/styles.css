@@ -2078,7 +2078,6 @@ html body .allow-break-all {
 @keyframes badge-crystal-live {
   0%, 100% {
     transform: translateZ(0) scale(1);
-    background-position: -170% 50%, 50% 50%, 0 0;
     border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 45%, transparent);
     box-shadow:
       0 0 0 1px color-mix(in oklch, var(--arch-primary, var(--accent)) 30%, transparent),
@@ -2086,8 +2085,7 @@ html body .allow-break-all {
       inset 0 0 10px color-mix(in oklch, var(--arch-primary, var(--accent)) 18%, transparent);
   }
   38% {
-    transform: translateZ(0) scale(1.045);
-    background-position: 18% 50%, 50% 50%, 0 0;
+    transform: translateZ(0) scale(1.035);
     border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 95%, transparent);
     box-shadow:
       0 0 0 1px color-mix(in oklch, var(--arch-primary, var(--accent)) 85%, transparent),
@@ -2097,8 +2095,20 @@ html body .allow-break-all {
   }
   56% {
     transform: translateZ(0) scale(0.995);
-    background-position: 150% 50%, 50% 50%, 0 0;
     border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 62%, transparent);
+  }
+}
+
+@keyframes badge-crystal-ray {
+  0% {
+    transform: translate3d(-260%, 0, 0) skewX(-20deg);
+    opacity: 0;
+  }
+  12% { opacity: 0.92; }
+  48% { opacity: 0.92; }
+  68%, 100% {
+    transform: translate3d(360%, 0, 0) skewX(-20deg);
+    opacity: 0;
   }
 }
 
@@ -2108,32 +2118,53 @@ html body .allow-break-all {
   overflow: hidden;
   background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 18%, black 82%) !important;
   background-image:
-    linear-gradient(
-      112deg,
-      transparent 0%,
-      transparent 36%,
-      rgba(255, 255, 255, 0.14) 43%,
-      rgba(255, 255, 255, 0.95) 50%,
-      rgba(255, 255, 255, 0.18) 57%,
-      transparent 64%,
-      transparent 100%
-    ),
     radial-gradient(circle at 50% 50%, color-mix(in oklch, var(--arch-primary, var(--accent)) 38%, transparent) 0%, transparent 70%),
     linear-gradient(180deg, rgba(255,255,255,0.11), transparent 58%);
-  background-size: 280% 100%, 100% 100%, 100% 100%;
+  background-size: 100% 100%, 100% 100%;
   background-repeat: no-repeat;
-  background-position: -170% 50%, 50% 50%, 0 0;
+  background-position: 50% 50%, 0 0;
   border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 55%, transparent) !important;
   transform-origin: center;
   animation: badge-crystal-live 1.65s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-  will-change: transform, background-position, box-shadow, border-color;
+  will-change: transform, box-shadow, border-color;
 }
 
-.badge-pulse::before,
+.badge-pulse::before {
+  content: "" !important;
+  position: absolute;
+  z-index: 1;
+  top: -45%;
+  bottom: -45%;
+  left: 0;
+  width: 34%;
+  border-radius: inherit;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 22%,
+    rgba(255, 255, 255, 0.95) 48%,
+    rgba(255, 70, 70, 0.38) 58%,
+    transparent 100%
+  );
+  filter: blur(0.2px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: badge-crystal-ray 1.65s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  will-change: transform, opacity;
+}
+
 .badge-pulse::after {
-  content: none !important;
+  content: "" !important;
+  position: absolute;
+  z-index: 0;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .badge-pulse { animation: none !important; }
+  .badge-pulse,
+  .badge-pulse::before { animation-duration: 4s !important; }
 }
