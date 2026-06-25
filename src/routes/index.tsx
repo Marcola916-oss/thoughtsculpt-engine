@@ -619,10 +619,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         delay={0}
         className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
       >
-        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-semibold text-arch-primary md:backdrop-blur-md mt-[30px]">
-          <ShieldCheck className="h-3.5 w-3.5" />
-          {t.archetypes?.AO?.name || "O Guardador"}
-        </span>
+        <TypingArchetypeBadge t={t} />
       </MFade>
 
       {isLg && (
