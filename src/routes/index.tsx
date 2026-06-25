@@ -76,7 +76,13 @@ function TypingArchetypeBadge({ t }: { t: any }) {
       ),
     [t],
   );
-  const { text, index } = useTypewriter(words, { typeMs: 75, deleteMs: 40, holdMs: 1600, gapMs: 280 });
+  const { text, index } = useTypewriter(words, {
+    typeMs: 75,
+    deleteMs: 40,
+    holdMs: 1600,
+    gapMs: 280,
+    respectReducedMotion: false,
+  });
   const color = ARCH_BADGE_COLORS[ARCH_BADGE_ORDER[index]];
   return (
     <span

@@ -5,10 +5,11 @@ export interface TypewriterOptions {
   deleteMs?: number;
   holdMs?: number;
   gapMs?: number;
+  respectReducedMotion?: boolean;
 }
 
 export function useTypewriter(words: string[], opts: TypewriterOptions = {}) {
-  const { typeMs = 70, deleteMs = 40, holdMs = 1600, gapMs = 250 } = opts;
+  const { typeMs = 70, deleteMs = 40, holdMs = 1600, gapMs = 250, respectReducedMotion = true } = opts;
   const [index, setIndex] = useState(0);
   const [text, setText] = useState("");
 
@@ -17,7 +18,7 @@ export function useTypewriter(words: string[], opts: TypewriterOptions = {}) {
     const reduce =
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
+    if (respectReducedMotion && reduce) {
       setText(words[0]);
       setIndex(0);
       return;
@@ -73,7 +74,7 @@ export function useTypewriter(words: string[], opts: TypewriterOptions = {}) {
       clearTimeout(timer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [words.join("|"), typeMs, deleteMs, holdMs, gapMs]);
+  }, [words.join("|"), typeMs, deleteMs, holdMs, gapMs, respectReducedMotion]);
 
   return { text, index };
 }
