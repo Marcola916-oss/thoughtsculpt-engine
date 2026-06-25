@@ -2077,24 +2077,29 @@ html body .allow-break-all {
 /* Badge pulse — animated red eyebrow badges across landing sections */
 @keyframes badge-pulse-glow {
   0%, 100% {
+    transform: scale(1);
     box-shadow:
-      0 0 0 0 color-mix(in oklch, var(--arch-glow, var(--accent-glow)) 55%, transparent),
-      0 0 18px -4px var(--arch-glow, var(--accent-glow));
+      0 0 0 0 color-mix(in oklch, var(--arch-primary, var(--accent)) 70%, transparent),
+      0 0 22px -4px var(--arch-glow, var(--accent-glow));
   }
   50% {
+    transform: scale(1.045);
     box-shadow:
-      0 0 0 6px color-mix(in oklch, var(--arch-glow, var(--accent-glow)) 0%, transparent),
-      0 0 28px -2px var(--arch-glow, var(--accent-glow));
+      0 0 0 10px color-mix(in oklch, var(--arch-primary, var(--accent)) 0%, transparent),
+      0 0 40px 2px var(--arch-glow, var(--accent-glow));
   }
 }
 @keyframes badge-pulse-sheen {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(220%); }
+  0%   { transform: translateX(-120%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateX(220%); opacity: 0; }
 }
 .badge-pulse {
   position: relative;
   overflow: hidden;
-  animation: badge-pulse-glow 2.4s ease-in-out infinite;
+  transform-origin: center;
+  animation: badge-pulse-glow 1.8s ease-in-out infinite;
 }
 .badge-pulse::after {
   content: "";
@@ -2104,11 +2109,11 @@ html body .allow-break-all {
   background: linear-gradient(
     100deg,
     transparent 30%,
-    color-mix(in oklch, var(--arch-primary, var(--accent)) 35%, transparent) 50%,
+    color-mix(in oklch, var(--arch-primary, var(--accent)) 65%, transparent) 50%,
     transparent 70%
   );
   transform: translateX(-120%);
-  animation: badge-pulse-sheen 3.6s ease-in-out infinite;
+  animation: badge-pulse-sheen 2.8s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .badge-pulse,
