@@ -2093,15 +2093,17 @@ html body .allow-break-all {
   }
 }
 @keyframes badge-crystal-sweep {
-  0% { transform: translateX(-160%) skewX(-24deg); }
-  100% { transform: translateX(260%) skewX(-24deg); }
+  0%   { left: -60%; opacity: 0; }
+  20%  { opacity: 0.85; }
+  80%  { opacity: 0.85; }
+  100% { left: 130%; opacity: 0; }
 }
 .badge-pulse {
   position: relative;
   overflow: hidden;
   background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 14%, black 86%) !important;
   border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 60%, transparent) !important;
-  animation: badge-crystal-breathe 4s ease-in-out infinite;
+  animation: badge-crystal-breathe 2.4s ease-in-out infinite;
   will-change: box-shadow;
 }
 /* Shimmer sweep across the badge interior — overflow:hidden clips it to the pill */
@@ -2109,19 +2111,22 @@ html body .allow-break-all {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  width: 50%;
+  left: -60%;
+  width: 55%;
   height: 100%;
   background: linear-gradient(
-    90deg,
+    100deg,
     transparent 0%,
-    color-mix(in oklch, var(--arch-primary, var(--accent)) 50%, white 50%) 50%,
+    rgba(255, 255, 255, 0.0) 20%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.0) 80%,
     transparent 100%
   );
-  opacity: 0.4;
+  transform: skewX(-22deg);
+  mix-blend-mode: screen;
   pointer-events: none;
-  animation: badge-crystal-sweep 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  will-change: transform;
+  animation: badge-crystal-sweep 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: left, opacity;
 }
 @media (prefers-reduced-motion: reduce) {
   .badge-pulse,
