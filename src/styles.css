@@ -2076,79 +2076,82 @@ html body .allow-break-all {
 
 /* Badge pulse — animated red eyebrow badges across landing sections */
 @keyframes badge-pulse-heartbeat {
-  0%   { transform: scale(1); }
-  14%  { transform: scale(1.18); }
-  28%  { transform: scale(1.04); }
-  42%  { transform: scale(1.22); }
-  70%  { transform: scale(1); }
-  100% { transform: translateZ(0) scale(1); }
+  0%, 100% { transform: translateZ(0) scale(1); }
+  12% { transform: translateZ(0) scale(1.12); }
+  24% { transform: translateZ(0) scale(1.03); }
+  38% { transform: translateZ(0) scale(1.16); }
+  58% { transform: translateZ(0) scale(1); }
 }
-@keyframes badge-pulse-color {
+@keyframes badge-pulse-ignite {
   0%, 100% {
-    background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 28%, transparent);
-    border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 80%, transparent);
-    filter: drop-shadow(0 0 12px color-mix(in oklch, var(--arch-primary, var(--accent)) 75%, transparent));
+    background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 16%, black 84%);
+    border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 70%, transparent);
+    filter: drop-shadow(0 0 10px color-mix(in oklch, var(--arch-primary, var(--accent)) 75%, transparent));
     box-shadow:
-      0 0 32px 4px color-mix(in oklch, var(--arch-primary, var(--accent)) 55%, transparent),
-      inset 0 0 18px color-mix(in oklch, var(--arch-primary, var(--accent)) 22%, transparent);
+      0 0 0 0 color-mix(in oklch, var(--arch-primary, var(--accent)) 0%, transparent),
+      0 0 22px 3px color-mix(in oklch, var(--arch-primary, var(--accent)) 52%, transparent),
+      inset 0 0 14px color-mix(in oklch, var(--arch-primary, var(--accent)) 20%, transparent);
   }
-  50% {
-    background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 78%, transparent);
-    border-color: color-mix(in oklch, white 30%, var(--arch-primary, var(--accent))) ;
-    filter: drop-shadow(0 0 28px color-mix(in oklch, var(--arch-primary, var(--accent)) 100%, transparent));
+  38% {
+    background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 42%, black 58%);
+    border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 100%, transparent);
+    filter: drop-shadow(0 0 22px color-mix(in oklch, var(--arch-primary, var(--accent)) 100%, transparent));
     box-shadow:
-      0 0 72px 14px color-mix(in oklch, var(--arch-primary, var(--accent)) 90%, transparent),
-      0 0 130px 28px color-mix(in oklch, var(--arch-primary, var(--accent)) 55%, transparent),
-      inset 0 0 28px color-mix(in oklch, white 40%, var(--arch-primary, var(--accent)));
+      0 0 0 6px color-mix(in oklch, var(--arch-primary, var(--accent)) 20%, transparent),
+      0 0 46px 12px color-mix(in oklch, var(--arch-primary, var(--accent)) 82%, transparent),
+      0 0 96px 20px color-mix(in oklch, var(--arch-primary, var(--accent)) 38%, transparent),
+      inset 0 0 22px color-mix(in oklch, var(--arch-primary, var(--accent)) 46%, transparent);
   }
 }
 @keyframes badge-pulse-ring {
-  0%   { transform: translate(-50%, -50%) scale(0.85); opacity: 0.85; }
-  80%  { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
-  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+  0% { transform: scale(0.92); opacity: 0; }
+  16% { opacity: 0.8; }
+  78%, 100% { transform: scale(1.75); opacity: 0; }
 }
-@keyframes badge-pulse-sheen {
-  0%   { background-position: -150% 0; }
-  100% { background-position: 250% 0; }
+@keyframes badge-pulse-sweep {
+  0% { background-position: -180% 50%; }
+  42%, 100% { background-position: 220% 50%; }
 }
 .badge-pulse {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   isolation: isolate;
+  z-index: 0;
   transform-origin: center;
   background-image: linear-gradient(
-    100deg,
-    transparent 35%,
-    color-mix(in oklch, white 80%, var(--arch-primary, var(--accent)) 20%) 50%,
-    transparent 65%
+    96deg,
+    transparent 0%,
+    transparent 34%,
+    color-mix(in oklch, var(--arch-primary, var(--accent)) 88%, white 12%) 48%,
+    color-mix(in oklch, var(--arch-primary, var(--accent)) 48%, transparent) 56%,
+    transparent 70%,
+    transparent 100%
   );
-  background-size: 220% 100%;
+  background-size: 240% 100%;
   background-repeat: no-repeat;
-  background-position: -150% 0;
+  background-position: -180% 50%;
   animation:
-    badge-pulse-heartbeat 1.4s ease-in-out infinite,
-    badge-pulse-color 1.4s ease-in-out infinite,
-    badge-pulse-sheen 2.2s ease-in-out infinite;
+    badge-pulse-heartbeat 1.25s ease-out infinite,
+    badge-pulse-ignite 1.25s ease-out infinite,
+    badge-pulse-sweep 2.1s ease-out infinite;
   will-change: transform, box-shadow, filter, background-color, border-color, background-position;
 }
-/* Expanding ring (ping) — uses outline so it isn't clipped by overflow */
+/* Expanding red radar ring — no white sheen layer, so nothing can bleed sideways */
 .badge-pulse::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
+  inset: -7px -10px;
   border-radius: 9999px;
-  border: 2px solid color-mix(in oklch, var(--arch-primary, var(--accent)) 95%, transparent);
-  box-shadow: 0 0 24px color-mix(in oklch, var(--arch-primary, var(--accent)) 80%, transparent);
-  transform: translate(-50%, -50%) scale(1);
+  border: 1px solid color-mix(in oklch, var(--arch-primary, var(--accent)) 96%, transparent);
+  box-shadow:
+    0 0 20px color-mix(in oklch, var(--arch-primary, var(--accent)) 88%, transparent),
+    inset 0 0 14px color-mix(in oklch, var(--arch-primary, var(--accent)) 32%, transparent);
   pointer-events: none;
   z-index: -1;
-  animation: badge-pulse-ring 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: badge-pulse-ring 1.25s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .badge-pulse,
