@@ -743,7 +743,7 @@ function Hero({ onStart }: { onStart: () => void }) {
             className="group relative h-16 sm:h-20 md:h-24 w-full max-w-[92vw] sm:max-w-xl md:max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
           >
             <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            <span className="relative z-10 flex items-center justify-center px-4 sm:px-6 text-[clamp(0.78rem,3.6vw,1.3125rem)] font-display font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
+            <span className="relative z-10 flex items-center justify-center px-4 sm:px-6 text-[clamp(0.85rem,3.6vw,1.375rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
               {t.hero.cta.toUpperCase()}
             </span>
             <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
