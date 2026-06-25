@@ -18,11 +18,11 @@ export function BeliefBreak() {
     >
       <div className="mx-auto grid max-w-7xl gap-12 px-4 md:px-8 lg:grid-cols-[3fr_2fr] lg:gap-16">
         {/* Left column — title + intro + punchline */}
-        <div className="flex flex-col justify-between text-center lg:text-left">
+        <div className="flex flex-col justify-between text-center">
           <Reveal variant="fade-up">
             <span
               aria-hidden
-              className="inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] mx-auto lg:mx-0"
+              className="inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] mx-auto"
             >
               {bb.tag}
             </span>
@@ -32,7 +32,7 @@ export function BeliefBreak() {
             >
               {bb.title}
             </h2>
-            <p className="mt-5 max-w-xl mx-auto lg:mx-0 text-base leading-relaxed text-foreground/70 md:text-lg">
+            <p className="mt-5 max-w-xl mx-auto text-base leading-relaxed text-foreground/70 md:text-lg">
               {bb.intro}
             </p>
           </Reveal>
