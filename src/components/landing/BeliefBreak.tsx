@@ -21,7 +21,7 @@ export function BeliefBreak() {
           <div className="mb-10 flex justify-center md:mb-14">
             <span
               aria-hidden
-              className="inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]"
+              className="inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] badge-pulse"
             >
               {bb.tag}
             </span>
