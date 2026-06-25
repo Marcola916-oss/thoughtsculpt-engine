@@ -51,7 +51,7 @@ export function BeliefBreak() {
           </div>
 
           {/* Right column — 3 stacked author cards */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 lg:pt-8">
           {bb.cards.map((c, i) => (
             <Reveal
               key={c.author}
