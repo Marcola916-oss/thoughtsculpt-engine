@@ -308,7 +308,7 @@ const PT: Dict = {
     kicker: "Finanças comportamentais • 8 perguntas • 3 minutos",
     headline: "O TEU CÉREBRO TEM UM PADRÃO\nQUE ESTÁ A SABOTAR\nAS TUAS FINANÇAS.",
     sub: "Não é falta de força de vontade. É um arquétipo comportamental que nunca soubeste que tinhas.",
-    cta: "Quero descobrir o meu arquétipo",
+    cta: "Quero descobrir meu padrão",
     microcopy: "⚡ 3 minutos · 100% grátis · Resultado imediato",
     trust: "+12.000 diagnósticos • Sem cartão para começar",
     trustSsl: "SSL Seguro",
