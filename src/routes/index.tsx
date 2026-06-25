@@ -69,6 +69,7 @@ const ARCH_BADGE_COLORS: Record<(typeof ARCH_BADGE_ORDER)[number], { primary: st
 };
 
 function TypingArchetypeBadge({ t }: { t: any }) {
+  // declared below
   const words = useMemo(
     () =>
       ARCH_BADGE_ORDER.map(
