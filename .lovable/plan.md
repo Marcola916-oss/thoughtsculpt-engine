@@ -1,93 +1,89 @@
-# Plano — Padronização Tipográfica do Quiz (v4)
+# Plano — Badge typewriter cíclico com cor por arquétipo
 
-## Regra-mãe (mesmo contrato da Landing)
-**Syne 800 = só H1/H2/H3. Punchline = Syne 700. Quote/título-card-apertado = Syne 600. Body/UI = Inter 400/500/600. Zero `font-black` (900). Zero `italic` fora do Hero/FinalCTA H1.**
+## 1. O que vou fazer (resumo)
 
-| Nível | Uso | Classe canônica |
+Transformar o badge fixo do topo da landing (atualmente mostra apenas `"O Guardador"`/AO em `src/routes/index.tsx:622-625`) em um **badge animado com typewriter contínuo real**, ciclando entre os 4 arquétipos em loop infinito, com **toda a cor do badge** (texto, borda, fundo, ícone, glow) trocando junto com o arquétipo que está sendo digitado.
+
+## 2. Localização exata
+
+- Arquivo: `src/routes/index.tsx`, linhas 617–626 (bloco `Floating Archetype Badges` → `<MFade>` com `<span>` interno).
+- O badge fica dentro do Hero, visível no topo da landing logo abaixo do `<TopBar>`.
+
+## 3. Comportamento da animação (movimento real)
+
+Ciclo infinito entre os 4 arquétipos (ordem fixa AO → SS → EA → HI → repete):
+
+1. **Digita** o nome letra a letra (~70 ms/char)
+2. **Pausa** ~1.6 s com nome completo visível
+3. **Apaga** letra a letra (~40 ms/char)
+4. **Pausa** ~250 ms vazio
+5. Avança para o próximo arquétipo
+
+Implementação: hook `useTypewriter(words, opts)` em `src/hooks/use-typewriter.ts` com `setTimeout` recursivo + cleanup no `useEffect`. Retorna `{ text, index }`. Movimento real = estado React mudando a cada tick (não CSS background, não keyframes — garantia de que vai mexer de verdade).
+
+Acessibilidade: `aria-live="polite"` + `aria-atomic="true"` no `<span>` que muda; cursor `|` blink via `::after` com `animation: caret-blink 1s steps(2) infinite` (já existe `mr-blink` em `styles.css:368`, reuso).
+
+## 4. Cor sincronizada com o arquétipo (a parte nova)
+
+Cada arquétipo tem paleta própria já definida em `src/styles.css:284-323`:
+
+| Arquétipo | `--arch-primary` | Tema |
 |---|---|---|
-| D2 | H2 das telas (Identity/Question/Email) | `font-display font-extrabold uppercase` |
-| D4a | Punchline / pergunta curta | `font-display font-bold` |
-| B1 | Body/intro | `font-sans` (sem peso) |
-| B2 | Subtítulo destacado | `font-sans font-medium` |
-| B3 | Label/eyebrow/botão CTA | `font-sans font-semibold uppercase tracking-[0.2em]` |
+| AO | `#1E6B82` (azul-teal) | atual fallback vermelho do Hero |
+| SS | `#7C3AED` (violeta) | pavão |
+| EA | `#64748B` (cinza-aço) | fantasma |
+| HI | `#F97316` (laranja) | foguinho |
 
----
+A transição não pode quebrar o resto do Hero (que herda `--arch-primary` vermelho globalmente). Solução: **escopar a troca de cor apenas ao badge** via `style` inline com CSS vars locais, sem tocar no `:root` nem no `<html data-arch>`.
 
-## 1. Auditoria — débitos atuais
-
-### `src/routes/index.tsx` — telas Identity (782–859), QuestionScreen (863–895), EmailCapture (899–956)
-
-**Identity (`Identity` fn):**
-- L795–797: H2 com `style={{ fontSize, lineHeight, letterSpacing, fontWeight: 700 }}` inline + `italic` + `font-display`. **Proibido** (inline style, italic fora de Hero).
-- L807, L820: labels `text-xs font-black uppercase tracking-[0.2em]` → `font-semibold` (B3, sem 900).
-- L815: input `font-bold tracking-tight` → remover `font-bold` (input = body, Inter 400/500).
-- L829: gender buttons `text-[13px] sm:text-base font-black uppercase tracking-tight italic` → `font-semibold uppercase` (sem italic, sem 900).
-- L846: CTA "Continuar" `text-xl font-black italic tracking-tighter` → `font-semibold uppercase tracking-[0.18em]` (B3 CTA, sem 900, sem italic).
-
-**QuestionScreen:**
-- L875: H2 `font-display italic uppercase` + classe `.quiz-question-title` (peso 600 via CSS). Remover `italic` e elevar `.quiz-question-title` para `font-weight: 800` (D2) via CSS.
-
-**EmailCapture:**
-- L914: H2 idem QuestionScreen — remover `italic`.
-- L936: input `font-medium` → remover (input = Inter 400 default).
-- CTA usa `PrimaryButton` → corrigido no item shared abaixo.
-
-### `src/components/quiz/QuizScreenWrapper.tsx`
-- L47: progressTitle `text-[11px] font-black uppercase tracking-[0.3em]` → `font-semibold` (B3).
-- L51: contador `%` `text-xs font-black` → `font-semibold tabular-nums` (UI).
-
-### `src/components/quiz/QuizOption.tsx`
-- L45: badge letra `text-xs font-bold` → `font-semibold` (B3 UI, neutro). OK manter `font-bold` se quisermos destaque, mas padrão v4 = 600.
-- L58: texto opção selecionada `font-medium` → manter (B2 = lead/destaque). ✅ ok.
-
-### `src/components/ui/PrimaryButton.tsx` (compartilhado — afeta EmailCapture e o resto do app)
-- L59: `font-black uppercase tracking-widest` → `font-semibold uppercase tracking-[0.18em]`.
-- L61: `italic` → remover.
-
-### `src/styles.css`
-- L1986–1992 `.quiz-question-title`: `font-weight: 600` → `font-weight: 800`. Mantém `font-size/line-height/letter-spacing` (regra do design existente). Adicionar `text-transform: uppercase` redundante (já vem do Tailwind, mas defensivo). Isto eleva H2 do Quiz ao patamar D2 sem mexer em cada call site.
-
----
-
-## 2. Fases de execução (ordem)
-
-### F0 — CSS foundation
-Atualizar `.quiz-question-title` em `src/styles.css` (peso 800).
-
-### F1 — Shared components (impactam várias telas)
-- `PrimaryButton.tsx`: remover `font-black` + `italic`.
-- `QuizScreenWrapper.tsx`: rebaixar 2× `font-black` → `font-semibold`.
-- `QuizOption.tsx`: `font-bold` da letra → `font-semibold` (manter `font-medium` da opção selecionada).
-
-### F2 — Tela Identity (`index.tsx` 782–859)
-- H2: remover `style={{}}` inline + `italic`; usar classe canônica D2 (`font-display font-extrabold uppercase text-[clamp(1.5rem,4vw,2rem)] tracking-tight`).
-- 2× labels: `font-black` → `font-semibold`.
-- Input nome: remover `font-bold tracking-tight`.
-- 3× gender buttons: `font-black ... italic` → `font-semibold uppercase` (sem italic).
-- CTA Continuar: `font-black italic tracking-tighter` → `font-semibold uppercase tracking-[0.18em]`.
-
-### F3 — QuestionScreen + EmailCapture (`index.tsx` 863–956)
-- Ambos H2 (`.quiz-question-title`): remover utility `italic`. Peso vem do CSS atualizado em F0.
-- EmailCapture input email: remover `font-medium`.
-
-### F4 — Validação
-```bash
-bun run build
-rg "font-black" src/routes/index.tsx src/components/quiz/ src/components/ui/PrimaryButton.tsx   # esperado: 0
-rg "italic" src/routes/index.tsx | rg -v "Hero|Sales|reveal"   # esperado: 0 nas funções Identity/QuestionScreen/EmailCapture
+```tsx
+const ARCH_COLORS = {
+  AO: { primary: "#1E6B82", glow: "rgba(42,139,163,0.65)" },
+  SS: { primary: "#7C3AED", glow: "rgba(167,139,250,0.6)" },
+  EA: { primary: "#64748B", glow: "rgba(148,163,184,0.7)" },
+  HI: { primary: "#F97316", glow: "rgba(249,115,22,0.55)" },
+} as const;
 ```
-- Playwright (opcional): screenshot das 3 telas (Identity → Question → Email) em desktop + mobile para conferir hierarquia.
 
----
+O badge recebe `style={{ "--badge-c": color.primary, "--badge-glow": color.glow }}` e usa essas vars locais em `borderColor`, `backgroundColor` (com opacidade), `color` e `boxShadow`. Transição suave: `transition: color 400ms ease, border-color 400ms ease, background-color 400ms ease, box-shadow 400ms ease`.
 
-## 3. Critérios de aceite
-- ✅ Build limpo.
-- ✅ Zero `font-black` e zero `italic` nas funções `Identity`, `QuestionScreen`, `EmailCapture` e em `PrimaryButton`/`QuizScreenWrapper`/`QuizOption`.
-- ✅ H2 do Quiz visivelmente Syne 800 (consistente com landing).
-- ✅ Botões e labels em Inter 600 (não 900 borrado).
-- ✅ Sem `style={{ fontFamily/fontWeight }}` inline.
+Resultado visual: enquanto o nome do arquétipo é digitado, o badge inteiro morfa para a cor daquele arquétipo. Quando começa a apagar e digitar o próximo, a cor transita suavemente para a próxima paleta.
 
-## 4. Escopo NÃO incluído (próximas iterações)
-- Loader/Reveal/Sales/Plans (já cobertos no plano da landing v4 ou ainda pendentes).
-- Telas pós-pagamento (`/obrigado`).
-- Componentes do `NeuralLoader` (ainda sem auditoria de tipografia).
+## 5. i18n (5 idiomas)
+
+Sem chaves novas — vou reusar `t.archetypes.AO.name`, `t.archetypes.SS.name`, `t.archetypes.EA.name`, `t.archetypes.HI.name` que já existem em `src/lib/i18n/translations.ts` para PT/EN/PL/RO/AR. Quando o usuário troca de idioma, o array `words` recalcula via `useMemo([t.locale])` e o typewriter reinicia do começo do arquétipo atual sem flicker.
+
+RTL (árabe): o `dir="rtl"` já é aplicado globalmente pelo `LanguageProvider`. O cursor `|` fica do lado correto automaticamente porque é `::after` no fluxo do texto. Padding/gap usam unidades lógicas — o `gap-2` do Tailwind já funciona em RTL.
+
+## 6. Arquivos afetados
+
+| Arquivo | Mudança |
+|---|---|
+| `src/hooks/use-typewriter.ts` | **novo** — hook genérico de typewriter cíclico |
+| `src/routes/index.tsx` (617–626) | substitui o `<span>` estático pelo componente `<ArchetypeBadge />` inline ou novo |
+| (opcional) `src/components/landing/ArchetypeBadge.tsx` | **novo** se quiser isolar para legibilidade |
+
+Sem mudanças em CSS global, sem chaves de tradução novas, sem deps novas.
+
+## 7. Acessibilidade e respeito a `prefers-reduced-motion`
+
+Se `matchMedia("(prefers-reduced-motion: reduce)").matches`, o hook desativa o ciclo e mostra apenas o primeiro arquétipo (AO) estático — mesma cor padrão. Já é padrão do projeto (ver `styles.css:597-841`).
+
+## 8. Verificação
+
+- `npm run build` → exit 0
+- Validação visual no preview com Playwright: 3 screenshots em intervalos de 800 ms confirmando que (a) texto muda, (b) cor do badge muda junto, (c) loop volta para AO.
+
+## 9. Ordem de execução
+
+1. Criar `src/hooks/use-typewriter.ts`
+2. Editar `src/routes/index.tsx` linhas 617–626: trocar `<span>` estático por badge dinâmico com `useTypewriter` + `ARCH_COLORS`
+3. Rodar build
+4. Smoke visual via Playwright (3 screenshots espaçados)
+
+## 10. O que NÃO vou fazer
+
+- Não mexo em outros badges da página (Os 4 Arquétipos, Depoimentos, FAQ, A CIÊNCIA POR TRÁS).
+- Não mexo nos badges flutuantes laterais (SS/EA/HI absolutos em `lg`).
+- Não toco em `:root` nem em `--arch-primary` global — a troca de cor é 100% escopada ao badge.
+- Não adiciono dependências.

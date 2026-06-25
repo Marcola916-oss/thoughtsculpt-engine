@@ -58,6 +58,52 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
+import { useTypewriter } from "@/hooks/use-typewriter";
+
+const ARCH_BADGE_ORDER = ["AO", "SS", "EA", "HI"] as const;
+const ARCH_BADGE_COLORS: Record<(typeof ARCH_BADGE_ORDER)[number], { primary: string; glow: string }> = {
+  AO: { primary: "#1E6B82", glow: "rgba(42,139,163,0.55)" },
+  SS: { primary: "#7C3AED", glow: "rgba(167,139,250,0.55)" },
+  EA: { primary: "#64748B", glow: "rgba(148,163,184,0.55)" },
+  HI: { primary: "#F97316", glow: "rgba(249,115,22,0.55)" },
+};
+
+function TypingArchetypeBadge({ t }: { t: any }) {
+  const words = useMemo(
+    () =>
+      ARCH_BADGE_ORDER.map(
+        (k) => (t.archetypes?.[k]?.name as string | undefined) ?? k,
+      ),
+    [t],
+  );
+  const { text, index } = useTypewriter(words, { typeMs: 75, deleteMs: 40, holdMs: 1600, gapMs: 280 });
+  const color = ARCH_BADGE_COLORS[ARCH_BADGE_ORDER[index]];
+  return (
+    <span
+      aria-live="polite"
+      aria-atomic="true"
+      className="flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold md:backdrop-blur-md mt-[30px] min-w-[180px] justify-center"
+      style={{
+        color: color.primary,
+        borderColor: `${color.primary}55`,
+        backgroundColor: `${color.primary}14`,
+        boxShadow: `0 0 22px -6px ${color.glow}`,
+        transition:
+          "color 450ms ease, border-color 450ms ease, background-color 450ms ease, box-shadow 450ms ease",
+      }}
+    >
+      <ShieldCheck className="h-3.5 w-3.5 shrink-0" style={{ transition: "color 450ms ease" }} />
+      <span className="tabular-nums whitespace-nowrap">
+        {text}
+        <span
+          aria-hidden
+          className="ml-0.5 inline-block w-[1px] h-[0.95em] align-[-0.1em]"
+          style={{ backgroundColor: color.primary, animation: "mr-blink 1s steps(2) infinite" }}
+        />
+      </span>
+    </span>
+  );
+}
 import { ArchetypeCanvasBrain } from "@/components/identity/ArchetypeCanvasBrain";
 import { ArchetypePedestal } from "@/components/identity/ArchetypePedestal";
 import { ArchetypeSymbol } from "@/components/identity/symbols";
@@ -619,10 +665,7 @@ function Hero({ onStart }: { onStart: () => void }) {
         delay={0}
         className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
       >
-        <span className="flex items-center gap-2 rounded-full border border-arch-primary/20 bg-arch-primary/5 px-4 py-2 text-xs font-semibold text-arch-primary md:backdrop-blur-md mt-[30px]">
-          <ShieldCheck className="h-3.5 w-3.5" />
-          {t.archetypes?.AO?.name || "O Guardador"}
-        </span>
+        <TypingArchetypeBadge t={t} />
       </MFade>
 
       {isLg && (
