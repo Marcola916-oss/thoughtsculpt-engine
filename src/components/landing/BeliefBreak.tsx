@@ -16,17 +16,23 @@ export function BeliefBreak() {
       aria-labelledby="belief-break-title"
       className="relative w-full border-b border-white/[0.06] bg-black/40 py-20 md:py-28"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 md:px-8 lg:grid-cols-[3fr_2fr] lg:gap-16">
-        {/* Left column — title + intro + punchline */}
-        <div className="flex flex-col justify-between text-center">
-          <Reveal variant="fade-up">
+      <div className="mx-auto max-w-7xl px-4 md:px-8">
+        <Reveal variant="fade-up">
+          <div className="mb-10 flex justify-center md:mb-14">
             <span
               aria-hidden
-              className="inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] mx-auto"
+              className="inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]"
             >
               {bb.tag}
             </span>
-            <h2
+          </div>
+        </Reveal>
+
+        <div className="grid gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
+          {/* Left column — title + intro + punchline */}
+          <div className="flex flex-col justify-between text-center">
+            <Reveal variant="fade-up">
+              <h2
               id="belief-break-title"
               className="mt-5 whitespace-pre-line font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em] text-balance text-foreground"
             >
@@ -42,10 +48,10 @@ export function BeliefBreak() {
               {bb.punchline}
             </p>
           </Reveal>
-        </div>
+          </div>
 
-        {/* Right column — 3 stacked author cards */}
-        <div className="flex flex-col gap-4">
+          {/* Right column — 3 stacked author cards */}
+          <div className="flex flex-col gap-4">
           {bb.cards.map((c, i) => (
             <Reveal
               key={c.author}
@@ -72,6 +78,7 @@ export function BeliefBreak() {
               </p>
             </Reveal>
           ))}
+          </div>
         </div>
       </div>
     </section>
