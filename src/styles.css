@@ -2078,15 +2078,19 @@ html body .allow-break-all {
 @keyframes badge-pulse-glow {
   0%, 100% {
     transform: scale(1);
+    background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 12%, transparent);
+    border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 45%, transparent);
     box-shadow:
       0 0 0 0 color-mix(in oklch, var(--arch-primary, var(--accent)) 70%, transparent),
-      0 0 22px -4px var(--arch-glow, var(--accent-glow));
+      0 0 22px -2px var(--arch-glow, var(--accent-glow));
   }
   50% {
-    transform: scale(1.045);
+    transform: scale(1.08);
+    background-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 28%, transparent);
+    border-color: color-mix(in oklch, var(--arch-primary, var(--accent)) 90%, transparent);
     box-shadow:
-      0 0 0 10px color-mix(in oklch, var(--arch-primary, var(--accent)) 0%, transparent),
-      0 0 40px 2px var(--arch-glow, var(--accent-glow));
+      0 0 0 14px color-mix(in oklch, var(--arch-primary, var(--accent)) 0%, transparent),
+      0 0 60px 6px var(--arch-primary, var(--accent));
   }
 }
 @keyframes badge-pulse-sheen {
@@ -2099,7 +2103,8 @@ html body .allow-break-all {
   position: relative;
   overflow: hidden;
   transform-origin: center;
-  animation: badge-pulse-glow 1.8s ease-in-out infinite;
+  animation: badge-pulse-glow 1.6s ease-in-out infinite;
+  will-change: transform, box-shadow;
 }
 .badge-pulse::after {
   content: "";
