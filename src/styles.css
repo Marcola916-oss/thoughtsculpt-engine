@@ -2112,6 +2112,14 @@ html body .allow-break-all {
   0% { background-position: -180% 50%; }
   42%, 100% { background-position: 220% 50%; }
 }
+@keyframes badge-pulse-orbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes badge-pulse-breath {
+  0%, 100% { opacity: 0.55; filter: blur(10px); }
+  50% { opacity: 1; filter: blur(14px); }
+}
 .badge-pulse {
   display: inline-flex;
   align-items: center;
@@ -2136,7 +2144,7 @@ html body .allow-break-all {
   animation:
     badge-pulse-heartbeat 1.05s ease-out infinite,
     badge-pulse-ignite 1.05s ease-out infinite,
-    badge-pulse-sweep 2.1s ease-out infinite;
+    badge-pulse-sweep 1.4s linear infinite;
   will-change: transform, box-shadow, filter, background-color, border-color, background-position;
 }
 .badge-pulse::before {
@@ -2146,19 +2154,43 @@ html body .allow-break-all {
   border-radius: 9999px;
   border: none;
   background:
-    radial-gradient(
-      ellipse at center,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 46%, transparent) 0%,
-      color-mix(in oklch, var(--arch-primary, var(--accent)) 22%, transparent) 42%,
-      transparent 72%
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 70%, white 30%) 40deg,
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 90%, transparent) 90deg,
+      transparent 160deg,
+      transparent 200deg,
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 80%, white 20%) 260deg,
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 60%, transparent) 310deg,
+      transparent 360deg
     );
-  filter: blur(10px);
+  filter: blur(12px);
   pointer-events: none;
   z-index: -1;
   transform-origin: center;
+  animation:
+    badge-pulse-orbit 3.2s linear infinite,
+    badge-pulse-breath 1.6s ease-in-out infinite;
+}
+.badge-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -8px -16px;
+  border-radius: 9999px;
+  background:
+    radial-gradient(
+      ellipse at center,
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 38%, transparent) 0%,
+      transparent 70%
+    );
+  filter: blur(8px);
+  pointer-events: none;
+  z-index: -1;
   animation: badge-pulse-ring 1.05s ease-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .badge-pulse,
-  .badge-pulse::before { animation: none !important; }
+  .badge-pulse::before,
+  .badge-pulse::after { animation: none !important; }
 }
