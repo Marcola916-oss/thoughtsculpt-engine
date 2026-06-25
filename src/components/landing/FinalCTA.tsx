@@ -1,7 +1,7 @@
 import { ShieldCheck, Lock } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
+import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Reveal } from "@/components/interaction/Reveal";
-import { LandingCTAButton } from "@/components/landing/LandingCTAButton";
 
 export function FinalCTA({ onCta }: { onCta?: () => void }) {
   const { t } = useI18n();
@@ -37,9 +37,16 @@ export function FinalCTA({ onCta }: { onCta?: () => void }) {
         </p>
 
         {onCta && (
-          <div className="mt-12 flex justify-center">
-            <LandingCTAButton onClick={onCta}>{c.cta.toUpperCase()}</LandingCTAButton>
-          </div>
+          <ButtonPress
+            onClick={onCta}
+            className="group relative mt-12 h-20 md:h-28 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
+          >
+            <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+            <span className="relative z-10 flex items-center justify-center gap-6 text-[21px] md:text-[21px] font-bold uppercase tracking-tight group-hover:text-white transition-colors mx-[9px] pr-[9px]">
+              {c.cta.toUpperCase()}
+            </span>
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
+          </ButtonPress>
         )}
 
         <div className="mt-7 flex flex-col items-center justify-center gap-3 text-xs font-semibold text-white/60 md:flex-row md:gap-6 drop-shadow-md">

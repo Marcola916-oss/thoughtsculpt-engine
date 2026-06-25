@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
+import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Reveal } from "@/components/interaction/Reveal";
-import { LandingCTAButton } from "@/components/landing/LandingCTAButton";
 
 export function FAQ({ onCta }: { onCta?: () => void }) {
   const { t } = useI18n();
@@ -30,9 +30,13 @@ export function FAQ({ onCta }: { onCta?: () => void }) {
         </h2>
         <p className="mt-6 mx-auto max-w-md text-base font-medium leading-relaxed text-white/50 drop-shadow-md">{f.sub}</p>
         {onCta && (
-          <div className="mt-8 flex justify-center">
-            <LandingCTAButton onClick={onCta}>{f.cta.toUpperCase()}</LandingCTAButton>
-          </div>
+          <ButtonPress
+            onClick={onCta}
+            className="mt-8 inline-flex items-center gap-2 rounded-xl bg-arch-primary px-6 py-3 text-sm font-extrabold text-primary-foreground shadow-[0_18px_40px_-12px_var(--arch-glow)] transition-transform hover:-translate-y-0.5"
+          >
+            {f.cta}
+            <ArrowRight className="h-4 w-4" />
+          </ButtonPress>
         )}
       </Reveal>
 
