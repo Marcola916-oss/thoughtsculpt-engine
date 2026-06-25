@@ -81,7 +81,6 @@ function TypingArchetypeBadge({ t }: { t: any }) {
     deleteMs: 40,
     holdMs: 1600,
     gapMs: 280,
-    respectReducedMotion: false,
   });
   const color = ARCH_BADGE_COLORS[ARCH_BADGE_ORDER[index]];
   return (
