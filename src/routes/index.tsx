@@ -97,7 +97,7 @@ function TypingArchetypeBadge({ t }: { t: any }) {
           "color 450ms ease, border-color 450ms ease, background-color 450ms ease, box-shadow 450ms ease",
       }}
     >
-      <ShieldCheck className="h-3.5 w-3.5 shrink-0" style={{ transition: "color 450ms ease" }} />
+      <BrainIcon className="h-4 w-4 shrink-0" />
       <span className="tabular-nums whitespace-nowrap">
         {text}
         <span
