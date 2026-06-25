@@ -2145,7 +2145,6 @@ html body .allow-break-all {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  overflow: hidden;
   pointer-events: none;
   background: linear-gradient(
     100deg,
@@ -2156,8 +2155,7 @@ html body .allow-break-all {
   transform: translateX(-140%);
   animation: badge-pulse-sheen 2.2s ease-in-out infinite;
   mix-blend-mode: screen;
-  -webkit-mask: linear-gradient(#000, #000);
-          mask: linear-gradient(#000, #000);
+  clip-path: inset(0 round 9999px);
 }
 @media (prefers-reduced-motion: reduce) {
   .badge-pulse,
