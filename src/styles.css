@@ -2077,10 +2077,10 @@ html body .allow-break-all {
 /* Badge pulse — animated red eyebrow badges across landing sections */
 @keyframes badge-pulse-heartbeat {
   0%, 100% { transform: translateZ(0) scale(1); }
-  12% { transform: translateZ(0) scale(1.12); }
-  24% { transform: translateZ(0) scale(1.03); }
-  38% { transform: translateZ(0) scale(1.16); }
-  58% { transform: translateZ(0) scale(1); }
+  10% { transform: translateZ(0) scale(1.16) translateY(-1px); }
+  20% { transform: translateZ(0) scale(1.04); }
+  34% { transform: translateZ(0) scale(1.2) translateY(-2px); }
+  52% { transform: translateZ(0) scale(1); }
 }
 @keyframes badge-pulse-ignite {
   0%, 100% {
@@ -2104,8 +2104,9 @@ html body .allow-break-all {
   }
 }
 @keyframes badge-pulse-ring {
-  0% { transform: scale(1); opacity: 0.55; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0%, 100% { transform: scale(0.94); opacity: 0.18; }
+  34% { transform: scale(1.32); opacity: 0.82; }
+  70% { transform: scale(1.52); opacity: 0; }
 }
 @keyframes badge-pulse-sweep {
   0% { background-position: -180% 50%; }
@@ -2133,23 +2134,29 @@ html body .allow-break-all {
   background-repeat: no-repeat;
   background-position: -180% 50%;
   animation:
-    badge-pulse-heartbeat 1.25s ease-out infinite,
-    badge-pulse-ignite 1.25s ease-out infinite,
+    badge-pulse-heartbeat 1.05s ease-out infinite,
+    badge-pulse-ignite 1.05s ease-out infinite,
     badge-pulse-sweep 2.1s ease-out infinite;
   will-change: transform, box-shadow, filter, background-color, border-color, background-position;
 }
 .badge-pulse::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -18px -30px;
   border-radius: 9999px;
   border: none;
-  background: transparent;
-  box-shadow: 0 0 0 2px color-mix(in oklch, var(--arch-primary, var(--accent)) 70%, transparent);
+  background:
+    radial-gradient(
+      ellipse at center,
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 46%, transparent) 0%,
+      color-mix(in oklch, var(--arch-primary, var(--accent)) 22%, transparent) 42%,
+      transparent 72%
+    );
+  filter: blur(10px);
   pointer-events: none;
   z-index: -1;
   transform-origin: center;
-  animation: badge-pulse-ring 1.8s ease-out infinite;
+  animation: badge-pulse-ring 1.05s ease-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .badge-pulse,
