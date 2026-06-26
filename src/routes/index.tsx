@@ -863,7 +863,7 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <div className="space-y-3 mb-10 md:mb-0">
+      <div className="space-y-4 mb-12 md:mb-0">
         <h2
           className="font-sans font-extrabold text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5625rem,4vw,2.5rem)] leading-[1.05] tracking-tight"
         >
