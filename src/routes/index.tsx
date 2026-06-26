@@ -863,13 +863,13 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <div className="space-y-4 mb-12 md:mb-0">
+      <div className="space-y-4 mb-12 md:mb-0 text-center md:text-left">
         <h2
-          className="font-sans font-extrabold text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5625rem,4vw,2.5rem)] leading-[1.05] tracking-tight"
+          className="font-sans font-extrabold text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.875rem,5vw,2.5rem)] leading-[1.05] tracking-tight"
         >
           {t.identity.title}
         </h2>
-        <p className="max-w-xl font-sans text-base md:text-lg text-foreground/70 leading-relaxed">
+        <p className="max-w-xl mx-auto md:mx-0 font-sans text-base md:text-lg text-foreground/70 leading-relaxed">
           {t.identity.sub}
         </p>
       </div>
