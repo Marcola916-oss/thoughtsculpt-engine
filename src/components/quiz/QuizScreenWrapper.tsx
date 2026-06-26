@@ -29,7 +29,7 @@ export function QuizScreenWrapper({
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent z-0" />
 
       {/* Fixed top progress bar */}
-      <div className="w-full mb-6 relative z-20">
+      <div className="w-full mb-10 md:mb-12 relative z-20">
         <div className="relative flex justify-between items-center mb-3">
           <div className="flex items-center">
             {onBack && (
