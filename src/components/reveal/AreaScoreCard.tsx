@@ -54,7 +54,7 @@ export function AreaScoreCard({ area, label, description, score, delayMs = 0 }: 
             <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-foreground/55">
               {severityLabel}
             </span>
-            <h3 className="font-display text-lg font-black uppercase italic leading-none tracking-tight text-foreground">
+            <h3 className="font-display text-lg font-extrabold uppercase leading-none tracking-tight text-foreground">
               {label}
             </h3>
           </div>
