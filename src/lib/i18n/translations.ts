@@ -405,7 +405,7 @@ const PT: Dict = {
   },
 
 
-  identity: { title: "ANTES DE COMEÇAR, QUEM ÉS TU?", sub: "Vamos usar o teu nome ao longo do diagnóstico para o tornar pessoal." },
+  identity: { title: "Antes de começar, quem és tu?", sub: "Vamos usar o teu nome ao longo do diagnóstico para o tornar pessoal." },
   questions: {
     title: (n, total) => `Pergunta ${n} de ${total}`,
     intro: (name) => `${name}, escolhe a opção que mais se parece contigo — não há respostas erradas.`,
