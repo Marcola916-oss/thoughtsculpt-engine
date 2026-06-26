@@ -1,44 +1,52 @@
-## Problema (confirmado após releitura do código)
+# Plano — Identificação: distribuição vertical no mobile
 
-No **mobile** das telas **Identificação** e **Q1–Q8**, faltam respiros e hierarquia visual entre os 3 blocos da tela:
+## Objetivo
+Aproveitar toda a altura do viewport no mobile, distribuindo os 4 blocos (título, nome, sexos, botão) com respiro real. Desktop fica intocado.
 
-1. **Barra de progresso** (topo)
-2. **Pergunta + subtítulo** (meio)
-3. **Opções de resposta / inputs** (base)
+## Layout alvo (mobile)
+```
+┌──── viewport ────┐
+│ progress bar     │ ← topo (já existe)
+│                  │
+│  título grande   │ ← ~22% do espaço útil
+│  subtítulo       │
+│                  │
+│  Nome (label+    │ ← meio
+│   input)         │
+│                  │
+│  Sexo (label+    │ ← ~70%
+│   3 botões)      │
+│                  │
+│  [ Continuar ]   │ ← rodapé
+└──────────────────┘
+```
 
-Hoje, em `src/components/quiz/QuizScreenWrapper.tsx`:
-- Espaço entre progresso e conteúdo: `mb-6` (24px) no mobile — apertado.
-- Padding lateral: `px-4` (16px) — encosta nas bordas.
-- Sem centralização vertical no mobile (`md:min-h-[70vh]` só atua ≥768px).
-
-Em `src/routes/index.tsx`:
-- **QuestionScreen** (Q1–Q8): título `mb-4` e subtítulo `mb-8` — o título "cola" no subtítulo e o conjunto fica solto das opções.
-- **Identity**: subtítulo `mt-4`, bloco de campos `mt-10`, botão `mt-12` — funciona no desktop, mas no mobile a hierarquia some porque tudo entra na dobra ao mesmo tempo sem agrupamento claro.
-
-## Plano de implementação
-
-**Escopo:** apenas mobile. Desktop (≥768px) permanece igual. Não mexer em fontes, cores, uppercase, lógica do quiz, traduções ou tela de captura de e-mail.
+## Mudanças
 
 ### 1. `src/components/quiz/QuizScreenWrapper.tsx`
-- Padding lateral: `px-4` → `px-5` (mobile), mantém desktop.
-- Padding vertical: `pt-2 pb-6` → `pt-3 pb-8` no mobile.
-- Espaço progresso → conteúdo: `mb-6 md:mb-12` → `mb-10 md:mb-12` (de 24px para 40px no mobile).
+- No container raiz, garantir altura útil no mobile: trocar `pt-3 pb-8` por `min-h-[calc(100dvh-2rem)] pt-3 pb-6` (desktop mantém `md:min-h-[70vh] md:py-6`).
+- O wrapper interno (linha 64) já é `flex-1 flex flex-col justify-center` — vai centralizar o filho no espaço sobrando. Manter.
 
-### 2. `src/routes/index.tsx` — `QuestionScreen` (Q1–Q8)
-- Wrapper externo do bloco da pergunta: agrupar `<h2>` + `<p>` num `<div className="mb-10 md:mb-8 space-y-3">` para criar um bloco "pergunta" claramente separado do bloco "opções".
-- Remover o `mb-4` do `<h2>` e o `mb-8` do `<p>` (substituídos pelo `space-y-3` do agrupador e pelo `mb-10` externo).
-- Manter `grid gap-3.5` das opções inalterado.
+### 2. `src/routes/index.tsx` — `Identity` (linhas 855-931)
+Reorganizar para que o componente filho aproveite o `flex-1` do wrapper como uma coluna distribuída:
 
-### 3. `src/routes/index.tsx` — `Identity`
-- Agrupar título + subtítulo num bloco com `space-y-3` e separar do bloco de campos com `mb-10 md:mb-0` (no desktop o `mt-10` atual já basta).
-- Aumentar separação botão: `mt-12` → `mt-10 md:mt-12` (botão ganha respiro mas não fica grudado em mobile).
-- Não mexer em estilos do input, labels ou botões.
+- Trocar o root `<div className="w-full">` por `<div className="w-full flex flex-col gap-8 md:block">`.
+  - No mobile: vira flex-col com gaps grandes.
+  - No desktop (`md:block`): volta ao layout atual.
+- **Título em 1 linha sem cortar** (mobile e desktop):
+  - `whitespace-nowrap` em ambos breakpoints (remover o `md:whitespace-normal`).
+  - Ajustar clamp para garantir caber em desktop em 1 linha: `text-[clamp(1.125rem,5.4vw,2.5rem)] md:text-[clamp(1.5rem,3.2vw,2.5rem)]`.
+- **Espaços entre blocos no mobile** já vêm do `flex flex-col gap-8` do root. Remover o `space-y-12 md:space-y-8` do grupo dos campos (vira só `space-y-8` desktop ou herda gap).
+- **Botão "Continuar"** ganha `mt-auto` no mobile para grudar no rodapé: `mt-auto md:mt-12`.
 
-### 4. Verificação
-- `npm run build` deve passar.
-- Visual: confirmar no preview mobile (375px) a separação clara entre os 3 blocos; desktop intocado.
+### 3. Validação visual
+- Playwright em `375x800` → screenshot do estágio identity.
+- Confirmar: título no topo, input ao meio, sexos abaixo, botão no rodapé com respiros reais.
+- Desktop (`1280x1800`) → confirmar layout inalterado.
 
-### Não-objetivos
-- Não alterar fontes, pesos, tamanhos, cores, uppercase.
-- Não tocar em EmailCapture, NeuralLoader, Reveal, traduções.
-- Não introduzir dividers ou ícones novos — só espaço e agrupamento.
+## Arquivos tocados
+- `src/components/quiz/QuizScreenWrapper.tsx` (1 linha)
+- `src/routes/index.tsx` (Identity, ~5 linhas)
+
+## Risco
+Baixo. Nenhuma mudança em Q1–Q8 ou outras telas. Wrapper change usa `min-h-[calc(100dvh-2rem)]` apenas no mobile — não afeta desktop por causa do `md:min-h-[70vh]` posterior.
