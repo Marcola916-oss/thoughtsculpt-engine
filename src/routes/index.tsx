@@ -981,7 +981,7 @@ function EmailCapture(props: {
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_20px_var(--accent-glow)] mx-auto">
         <Lock className="h-7 w-7 text-primary animate-pulse" />
       </div>
-      <h2 className="quiz-question-title font-sans text-balance">
+      <h2 className="quiz-question-title font-sans text-balance uppercase">
         {t.emailCapture.title(props.name)}
       </h2>
       <p className="mt-4 text-base md:text-lg text-foreground/70 leading-relaxed">
