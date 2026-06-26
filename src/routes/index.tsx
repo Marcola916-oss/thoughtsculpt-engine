@@ -1275,9 +1275,11 @@ function Reveal({
       {/* Diagnóstico multi-área — 4 cards (Money / Career / Love / Personal) */}
       <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-5xl px-4">
         <header className="mb-10 text-center">
-          <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.45em] text-arch-primary/80">
+          <span
+            className="mb-3 inline-block whitespace-nowrap rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] badge-pulse"
+          >
             {t.reveal.areasTitle}
-          </div>
+          </span>
           <p className="mx-auto max-w-2xl text-base md:text-lg text-foreground/70 leading-relaxed">
             {t.reveal.areasIntro(name)}
           </p>
