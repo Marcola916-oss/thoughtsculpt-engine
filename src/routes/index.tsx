@@ -864,7 +864,7 @@ function Identity(props: {
   return (
     <div className="w-full">
       <h2
-        className="font-display font-extrabold uppercase text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5rem,4vw,2rem)] leading-[1.05] tracking-tight"
+        className="font-display font-extrabold text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5rem,4vw,2rem)] leading-[1.05] tracking-tight"
       >
         {t.identity.title}
       </h2>
@@ -874,7 +874,7 @@ function Identity(props: {
 
       <div className="mt-10 space-y-8">
         <div>
-          <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+          <label className="mb-2 block text-xs font-semibold tracking-[0.15em] text-primary">
             {t.common.yourName}
           </label>
           <input
@@ -887,7 +887,7 @@ function Identity(props: {
         </div>
 
         <div>
-          <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+          <label className="mb-2 block text-xs font-semibold tracking-[0.15em] text-primary">
             {t.common.selectGender}
           </label>
           <div className="grid grid-cols-3 gap-3">
@@ -896,7 +896,7 @@ function Identity(props: {
                 key={g}
                 data-cursor="hover"
                 onClick={() => props.setGender(g)}
-                className={`rounded-2xl border px-2 py-4 text-[13px] sm:text-base font-semibold uppercase tracking-[0.05em] transition-all ${
+                className={`rounded-2xl border px-2 py-4 text-[13px] sm:text-base font-semibold tracking-[0.02em] transition-all ${
                   props.gender === g
                     ? "border-primary bg-primary text-primary-foreground shadow-[0_15px_30px_-10px_var(--accent-glow)] scale-105 z-10"
                     : "border-border bg-card text-muted-foreground hover:border-foreground/30 hover:bg-secondary/40"
@@ -913,11 +913,11 @@ function Identity(props: {
         disabled={!ok}
         data-cursor="hover"
         onClick={props.onContinue}
-        className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-semibold uppercase tracking-[0.18em] text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
+        className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-semibold tracking-tight text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
       >
         <div className="absolute inset-0 overflow-hidden rounded-2xl bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-primary-foreground">
-          {t.common.continue.toUpperCase()}
+          {t.common.continue}
           <ArrowRight
             size={22}
             className="transition-transform duration-500 group-hover:translate-x-2"
