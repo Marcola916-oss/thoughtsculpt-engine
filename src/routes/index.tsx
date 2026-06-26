@@ -863,16 +863,18 @@ function Identity(props: {
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
     <div className="w-full">
-      <h2
-        className="font-sans font-extrabold text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5625rem,4vw,2.5rem)] leading-[1.05] tracking-tight"
-      >
-        {t.identity.title}
-      </h2>
-      <p className="mt-4 max-w-xl font-sans text-base md:text-lg text-foreground/70 leading-relaxed">
-        {t.identity.sub}
-      </p>
+      <div className="space-y-3 mb-10 md:mb-0">
+        <h2
+          className="font-sans font-extrabold text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5625rem,4vw,2.5rem)] leading-[1.05] tracking-tight"
+        >
+          {t.identity.title}
+        </h2>
+        <p className="max-w-xl font-sans text-base md:text-lg text-foreground/70 leading-relaxed">
+          {t.identity.sub}
+        </p>
+      </div>
 
-      <div className="mt-10 space-y-8">
+      <div className="md:mt-10 space-y-8">
         <div>
           <label className="mb-2 block text-xs font-semibold tracking-[0.15em] text-primary">
             {t.common.yourName}
@@ -913,7 +915,7 @@ function Identity(props: {
         disabled={!ok}
         data-cursor="hover"
         onClick={props.onContinue}
-        className="group relative mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-semibold tracking-tight text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
+        className="group relative mt-10 md:mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-semibold tracking-tight text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
       >
         <div className="absolute inset-0 overflow-hidden rounded-2xl bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-primary-foreground">
