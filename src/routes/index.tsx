@@ -1337,7 +1337,7 @@ function Reveal({
       {/* Fold 5 — CTA final com timer + garantia */}
       <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4 text-center">
         {timeLeft > 0 && (
-          <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-5 py-2 text-xs md:text-sm font-bold uppercase tracking-widest text-arch-primary">
+          <div className="badge-pulse mb-6 inline-flex items-center gap-3 whitespace-nowrap rounded-full border border-arch-primary/40 bg-arch-primary/10 px-5 py-2 text-xs md:text-sm font-bold uppercase tracking-widest text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-arch-primary" />
