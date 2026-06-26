@@ -1210,14 +1210,15 @@ function Reveal({
 
         <button
           onClick={() => handleCta("hero")}
-          className="group mt-12 inline-flex items-center gap-4 rounded-full px-10 py-5 font-inter text-base md:text-lg font-extrabold tracking-wide text-background transition-all"
-          style={{
-            backgroundColor: "var(--arch-primary)",
-            boxShadow: "0 20px 60px -10px var(--arch-glow)",
-          }}
+          data-cursor="hover"
+          className="group relative mt-12 h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
         >
-          {t.reveal.cta}
-          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+          <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+          <span className="relative z-10 flex items-center justify-center gap-3 px-5 sm:px-8 text-[clamp(1rem,4.2vw,1.75rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
+            {t.reveal.cta.toUpperCase()}
+            <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1" />
+          </span>
+          <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
         </button>
       </div>
 
