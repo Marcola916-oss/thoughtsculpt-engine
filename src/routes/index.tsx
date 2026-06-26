@@ -942,12 +942,14 @@ function QuestionScreen(props: {
 
   return (
     <div className="w-full">
-      <h2 className="quiz-question-title font-sans mb-4">
-        {q.q.replace("[NOME]", props.name)}
-      </h2>
-      <p className="mb-8 text-base md:text-lg text-foreground/70 leading-relaxed">
-        {t.questions.intro(props.name)}
-      </p>
+      <div className="mb-10 md:mb-8 space-y-3">
+        <h2 className="quiz-question-title font-sans">
+          {q.q.replace("[NOME]", props.name)}
+        </h2>
+        <p className="text-base md:text-lg text-foreground/70 leading-relaxed">
+          {t.questions.intro(props.name)}
+        </p>
+      </div>
 
       <div className="grid gap-3.5">
         {q.options.map((opt, i) => (
