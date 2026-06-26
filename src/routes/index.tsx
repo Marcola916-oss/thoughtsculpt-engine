@@ -1210,7 +1210,7 @@ function Reveal({
 
         <button
           onClick={() => handleCta("hero")}
-          className="group mt-12 inline-flex items-center gap-4 rounded-full px-10 py-5 text-base md:text-lg font-black uppercase tracking-wider text-background transition-all"
+          className="group mt-12 inline-flex items-center gap-4 rounded-full px-10 py-5 font-inter text-base md:text-lg font-extrabold tracking-wide text-background transition-all"
           style={{
             backgroundColor: "var(--arch-primary)",
             boxShadow: "0 20px 60px -10px var(--arch-glow)",
@@ -1254,7 +1254,7 @@ function Reveal({
             arch={arch as "AO" | "SS" | "EA" | "HI"}
             className="h-8 w-8 text-arch-primary"
           />
-          <p className="font-display text-2xl md:text-3xl font-black tracking-tight uppercase italic">
+          <p className="font-display text-2xl md:text-3xl font-extrabold tracking-tight">
             {t.reveal.sub}
           </p>
         </div>
@@ -1302,7 +1302,7 @@ function Reveal({
         <div className="mt-12 flex justify-center">
           <button
             onClick={() => handleCta("areas")}
-            className="group inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-8 py-4 text-sm font-black uppercase tracking-widest text-arch-primary transition-all hover:bg-arch-primary hover:text-background hover:-translate-y-0.5"
+            className="group inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-8 py-4 font-inter text-sm font-extrabold tracking-wide text-arch-primary transition-all hover:bg-arch-primary hover:text-background hover:-translate-y-0.5"
           >
             {t.reveal.areasCta}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -1347,7 +1347,7 @@ function Reveal({
             <span className="font-mono text-base ms-1 tabular-nums">{fmtTimer(timeLeft)}</span>
           </div>
         )}
-        <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black uppercase italic leading-[1.05] tracking-tighter text-foreground">
+        <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground">
           {t.reveal.finalTitle(name)}
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-base md:text-lg text-foreground/75 leading-relaxed">
@@ -1355,7 +1355,7 @@ function Reveal({
         </p>
         <button
           onClick={() => handleCta("final")}
-          className="group mt-10 inline-flex items-center gap-4 rounded-full px-10 py-5 text-base md:text-lg font-black uppercase tracking-wider text-background transition-all hover:-translate-y-0.5"
+          className="group mt-10 inline-flex items-center gap-4 rounded-full px-10 py-5 font-inter text-base md:text-lg font-extrabold tracking-wide text-background transition-all hover:-translate-y-0.5"
           style={{
             backgroundColor: "var(--arch-primary)",
             boxShadow: "0 20px 60px -10px var(--arch-glow)",
