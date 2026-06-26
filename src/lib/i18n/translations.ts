@@ -429,7 +429,7 @@ const PT: Dict = {
       options: ["Parar de viver em modo escassez","Comprar por mim e não pelos outros","Olhar para as minhas contas sem fugir","Conseguir adiar uma compra por 24h"] },
   ],
   emailCapture: {
-    title: (name) => `${name.toUpperCase()},\u00a0 O\u00a0 TEU\u00a0 DIAGNÓSTICO\u00a0 ESTÁ\u00a0 PRONTO.`,
+    title: (name) => `${name.toUpperCase()}, O TEU DIAGNÓSTICO\u00a0 ESTÁ PRONTO.`,
     sub: "Introduz o teu e-mail para receberes o relatório completo e desbloqueares a página do arquétipo.",
     cta: "Ver o meu arquétipo agora",
   },
