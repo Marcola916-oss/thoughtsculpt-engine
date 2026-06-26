@@ -461,7 +461,7 @@ const PT: Dict = {
   },
   reveal: {
     kicker: (name) => `${name}, o teu arquétipo é:`,
-    sub: "Isto não é sorte. É um padrão — e padrões mudam-se.",
+    sub: "Isto não é sorte.\nÉ um padrão — e padrões mudam-se",
     cta: "Quero meu protocolo agora",
     share: "Partilhar o meu arquétipo",
     errorTitle: "Não conseguimos salvar o teu diagnóstico.",
@@ -1043,7 +1043,7 @@ const EN: Dict = {
   },
   reveal: {
     kicker: (name) => `${name}, your archetype is:`,
-    sub: "This isn't luck. It's a pattern — and patterns can change.",
+    sub: "This isn't luck.\nIt's a pattern — and patterns can change",
     cta: "I want my protocol now",
     share: "Share my archetype",
     errorTitle: "We couldn't save your diagnosis.",
@@ -1484,7 +1484,7 @@ const PL: Dict = {
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}, Twój archetyp to:`,
-    sub: "To nie przypadek. To wzorzec — a wzorce można zmieniać.",
+    sub: "To nie przypadek.\nTo wzorzec — a wzorce można zmieniać",
     cta: "Chcę swój protokół teraz",
     share: "Udostępnij mój archetyp",
     errorTitle: "Nie udało się zapisać diagnozy.",
@@ -1806,7 +1806,7 @@ const RO: Dict = {
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}, arhetipul tău este:`,
-    sub: "Nu e noroc. E un tipar — iar tiparele se schimbă.",
+    sub: "Nu e noroc.\nE un tipar — iar tiparele se schimbă",
     cta: "Vreau protocolul meu acum",
     share: "Distribuie arhetipul meu",
     errorTitle: "Nu am putut salva diagnoza.",
@@ -2129,7 +2129,7 @@ const AR: Dict = {
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}، نمطك هو:`,
-    sub: "ليس صدفة. إنه نمط — والأنماط تتغيّر.",
+    sub: "ليس صدفة.\nإنه نمط — والأنماط تتغيّر",
     cta: "أريد بروتوكولي الآن",
     share: "شارك نمطي",
     errorTitle: "لم نتمكن من حفظ تشخيصك.",
