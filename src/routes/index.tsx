@@ -942,7 +942,7 @@ function QuestionScreen(props: {
 
   return (
     <div className="w-full">
-      <h2 className="quiz-question-title font-sans text-balance mb-4">
+      <h2 className="quiz-question-title font-sans mb-4">
         {q.q.replace("[NOME]", props.name)}
       </h2>
       <p className="mb-8 text-base md:text-lg text-foreground/70 leading-relaxed">

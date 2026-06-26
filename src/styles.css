@@ -1989,6 +1989,13 @@ html body .allow-break-all {
   letter-spacing: -1.2px;
   font-weight: 700;
   white-space: pre-line;
+  width: 100%;
+  max-width: 100%;
+  text-wrap: pretty;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+  -webkit-hyphens: none;
 }
 
 @media (min-width: 768px) {
