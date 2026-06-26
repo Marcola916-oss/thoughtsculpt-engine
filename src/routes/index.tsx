@@ -862,10 +862,10 @@ function Identity(props: {
   const { t } = useI18n();
   const ok = props.name.trim().length >= 2 && props.gender !== "";
   return (
-    <div className="w-full flex flex-col gap-8 md:block md:gap-0 flex-1">
-      <div className="space-y-4 md:mb-0 text-center md:text-left">
+    <div className="w-full">
+      <div className="space-y-4 mb-10 md:mb-0 text-center md:text-left">
         <h2
-          className="font-sans font-extrabold text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.25)] text-[clamp(1.125rem,5.4vw,2.5rem)] md:text-[clamp(1.5rem,3.2vw,2.5rem)] leading-[1.1] tracking-tight whitespace-nowrap"
+          className="font-sans font-extrabold text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.25)] text-[clamp(1.125rem,5.4vw,2.5rem)] md:text-[clamp(2rem,4vw,2.75rem)] leading-[1.1] tracking-tight whitespace-nowrap md:whitespace-normal md:text-balance"
         >
           {t.identity.title}
         </h2>
@@ -874,7 +874,7 @@ function Identity(props: {
         </p>
       </div>
 
-      <div className="flex flex-col gap-8 md:block md:mt-10 md:space-y-8">
+      <div className="md:mt-10 space-y-12 md:space-y-8">
         <div>
           <label className="mb-2 block text-xs font-semibold tracking-[0.15em] text-primary">
             {t.common.yourName}
@@ -915,7 +915,7 @@ function Identity(props: {
         disabled={!ok}
         data-cursor="hover"
         onClick={props.onContinue}
-        className="group relative mt-auto md:mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-semibold tracking-tight text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
+        className="group relative mt-10 md:mt-12 w-full overflow-hidden rounded-2xl bg-foreground py-5 text-xl font-semibold tracking-tight text-background transition-all disabled:opacity-20 disabled:scale-100 disabled:shadow-none shadow-[0_20px_60px_-10px_rgba(255,255,255,0.1)]"
       >
         <div className="absolute inset-0 overflow-hidden rounded-2xl bg-primary opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
         <span className="relative z-10 flex items-center justify-center gap-2 group-hover:text-primary-foreground">
