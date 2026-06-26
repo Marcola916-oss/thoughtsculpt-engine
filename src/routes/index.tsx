@@ -864,11 +864,11 @@ function Identity(props: {
   return (
     <div className="w-full">
       <h2
-        className="font-display font-extrabold text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5rem,4vw,2rem)] leading-[1.05] tracking-tight"
+        className="font-sans font-extrabold text-balance text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.2)] text-[clamp(1.5rem,4vw,2rem)] leading-[1.05] tracking-tight"
       >
         {t.identity.title}
       </h2>
-      <p className="mt-4 max-w-xl text-base md:text-lg text-foreground/70 leading-relaxed">
+      <p className="mt-4 max-w-xl font-sans text-base md:text-lg text-foreground/70 leading-relaxed">
         {t.identity.sub}
       </p>
 
