@@ -61,8 +61,8 @@ export function QuizScreenWrapper({
       </div>
 
       {/* Content transition container */}
-      <div className="w-full flex-1 flex flex-col justify-center relative z-10">
-        <div key={stepKey} className="quiz-stage-enter w-full flex flex-col justify-center">
+      <div className="w-full flex-1 flex flex-col justify-start md:justify-center relative z-10">
+        <div key={stepKey} className="quiz-stage-enter w-full flex flex-col justify-start md:justify-center">
           {children}
         </div>
       </div>
