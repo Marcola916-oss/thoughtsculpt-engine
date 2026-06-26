@@ -1249,15 +1249,12 @@ function Reveal({
 
       {/* Detalhes (hooks) abaixo do hero — separados, sem competir com a revelação */}
       <div className="relative z-10 mx-auto mt-28 md:mt-40 max-w-3xl px-4">
-        <div className="mb-10 flex items-center gap-4">
-          <ArchetypeSymbol
-            arch={arch as "AO" | "SS" | "EA" | "HI"}
-            className="h-8 w-8 text-arch-primary"
-          />
-          <p className="font-display text-2xl md:text-3xl font-extrabold tracking-tight">
-            {t.reveal.sub}
-          </p>
-        </div>
+        <p
+          className="mb-10 text-center font-display font-extrabold uppercase not-italic tracking-tight whitespace-pre-line"
+          style={{ fontSize: "30.75px", lineHeight: 1.15 }}
+        >
+          {t.reveal.sub}
+        </p>
         <div className="grid gap-4 reveal-group">
           {a.hooks.map((h, i) => (
             <div
@@ -1347,7 +1344,10 @@ function Reveal({
             <span className="font-mono text-base ms-1 tabular-nums">{fmtTimer(timeLeft)}</span>
           </div>
         )}
-        <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground">
+        <h2
+          className="font-display font-extrabold uppercase not-italic tracking-tight text-foreground text-center"
+          style={{ fontSize: "30.75px", lineHeight: 1.15, wordBreak: "keep-all", hyphens: "none" }}
+        >
           {t.reveal.finalTitle(name)}
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-base md:text-lg text-foreground/75 leading-relaxed">
