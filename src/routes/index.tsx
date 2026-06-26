@@ -865,7 +865,7 @@ function Identity(props: {
     <div className="w-full">
       <div className="space-y-4 mb-10 md:mb-0 text-center md:text-left">
         <h2
-          className="font-sans font-extrabold text-balance text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.25)] text-[clamp(2rem,6vw,2.5rem)] leading-[1.05] tracking-tight"
+          className="font-sans font-extrabold text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.25)] text-[clamp(1.125rem,5.4vw,2.5rem)] md:text-[clamp(2rem,4vw,2.75rem)] leading-[1.1] tracking-tight whitespace-nowrap md:whitespace-normal md:text-balance"
         >
           {t.identity.title}
         </h2>
@@ -874,7 +874,7 @@ function Identity(props: {
         </p>
       </div>
 
-      <div className="md:mt-10 space-y-8">
+      <div className="md:mt-10 space-y-12 md:space-y-8">
         <div>
           <label className="mb-2 block text-xs font-semibold tracking-[0.15em] text-primary">
             {t.common.yourName}
