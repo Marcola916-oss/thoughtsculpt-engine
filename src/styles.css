@@ -1984,11 +1984,18 @@ html body .allow-break-all {
 
 /* Quiz question / email capture titles — typography spec from reference */
 .quiz-question-title {
-  font-size: 20px;
-  line-height: 25px;
+  font-size: 25px;
+  line-height: 1.25;
   letter-spacing: -1.2px;
   font-weight: 700;
   white-space: pre-line;
+}
+
+@media (min-width: 768px) {
+  .quiz-question-title {
+    font-size: 30px;
+    line-height: 1.2;
+  }
 }
 
 /* ─── Sales v3 — "The Awakening" tokens & animations ────── */
