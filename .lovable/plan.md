@@ -1,89 +1,44 @@
-# Plano — Trocar ícone do badge typewriter por cérebro
+## Problema (confirmado após releitura do código)
 
-## 1. Objetivo
+No **mobile** das telas **Identificação** e **Q1–Q8**, faltam respiros e hierarquia visual entre os 3 blocos da tela:
 
-Substituir o ícone fixo `<ShieldCheck>` (Lucide) que aparece à esquerda do texto animado no badge do topo da landing por um **cérebro SVG inline**, mantendo tudo o resto (texto typewriter, ciclo de cores, transições, i18n, acessibilidade) **exatamente igual**.
+1. **Barra de progresso** (topo)
+2. **Pergunta + subtítulo** (meio)
+3. **Opções de resposta / inputs** (base)
 
-## 2. Análise das referências
+Hoje, em `src/components/quiz/QuizScreenWrapper.tsx`:
+- Espaço entre progresso e conteúdo: `mb-6` (24px) no mobile — apertado.
+- Padding lateral: `px-4` (16px) — encosta nas bordas.
+- Sem centralização vertical no mobile (`md:min-h-[70vh]` só atua ≥768px).
 
-As 4 imagens enviadas mostram variações de cérebros estilizados:
-- **Imagem 1 e 3:** vista superior — dois hemisférios simétricos com sulcos (giros cerebrais) bem marcados
-- **Imagem 2 e 4:** detalhe/silhueta lateral com sulcos hollow (vazados)
+Em `src/routes/index.tsx`:
+- **QuestionScreen** (Q1–Q8): título `mb-4` e subtítulo `mb-8` — o título "cola" no subtítulo e o conjunto fica solto das opções.
+- **Identity**: subtítulo `mt-4`, bloco de campos `mt-10`, botão `mt-12` — funciona no desktop, mas no mobile a hierarquia some porque tudo entra na dobra ao mesmo tempo sem agrupamento claro.
 
-Linguagem visual comum: **traços orgânicos curvos, sulcos vazados, simetria, alto contraste**. Combina perfeitamente com a tipografia Syne + paleta dos arquétipos.
+## Plano de implementação
 
-**Escolha:** silhueta **lateral simplificada** (estilo imagem 4), porque:
-- Funciona melhor em tamanho pequeno (badge ~18px)
-- Mantém legibilidade do contorno mesmo monocromático
-- Combina com o conceito "MindReset" (psicologia/cérebro)
-- O sulco central diagonal dá identidade reconhecível sem ruído visual
+**Escopo:** apenas mobile. Desktop (≥768px) permanece igual. Não mexer em fontes, cores, uppercase, lógica do quiz, traduções ou tela de captura de e-mail.
 
-## 3. Onde mexer
+### 1. `src/components/quiz/QuizScreenWrapper.tsx`
+- Padding lateral: `px-4` → `px-5` (mobile), mantém desktop.
+- Padding vertical: `pt-2 pb-6` → `pt-3 pb-8` no mobile.
+- Espaço progresso → conteúdo: `mb-6 md:mb-12` → `mb-10 md:mb-12` (de 24px para 40px no mobile).
 
-**Apenas 1 arquivo:** `src/routes/index.tsx`
+### 2. `src/routes/index.tsx` — `QuestionScreen` (Q1–Q8)
+- Wrapper externo do bloco da pergunta: agrupar `<h2>` + `<p>` num `<div className="mb-10 md:mb-8 space-y-3">` para criar um bloco "pergunta" claramente separado do bloco "opções".
+- Remover o `mb-4` do `<h2>` e o `mb-8` do `<p>` (substituídos pelo `space-y-3` do agrupador e pelo `mb-10` externo).
+- Manter `grid gap-3.5` das opções inalterado.
 
-Dentro do componente `TypingArchetypeBadge`:
-- Remover o `import { ShieldCheck } from "lucide-react"` (se for usado só ali — verifico antes; se for usado em outro lugar, só removo o JSX do badge)
-- Criar componente local `BrainIcon` (SVG inline puro, ~20 linhas)
-- Substituir `<ShieldCheck className="..." />` por `<BrainIcon className="..." />`
+### 3. `src/routes/index.tsx` — `Identity`
+- Agrupar título + subtítulo num bloco com `space-y-3` e separar do bloco de campos com `mb-10 md:mb-0` (no desktop o `mt-10` atual já basta).
+- Aumentar separação botão: `mt-12` → `mt-10 md:mt-12` (botão ganha respiro mas não fica grudado em mobile).
+- Não mexer em estilos do input, labels ou botões.
 
-**Zero mudanças em:**
-- `src/hooks/use-typewriter.ts`
-- Cores, glow, borda, transições do badge
-- i18n / translations
-- Acessibilidade (`aria-live`, `aria-label`)
-- Qualquer outro arquivo do projeto
+### 4. Verificação
+- `npm run build` deve passar.
+- Visual: confirmar no preview mobile (375px) a separação clara entre os 3 blocos; desktop intocado.
 
-## 4. Especificação do `BrainIcon`
-
-```tsx
-function BrainIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      {/* Silhueta exterior do cérebro (lateral) */}
-      <path d="M9 4.5c-2 0-3.5 1.3-3.7 3-1.4.4-2.3 1.6-2.3 3 0 .9.4 1.7 1 2.2-.6.5-1 1.3-1 2.2 0 1.4.9 2.6 2.3 3 .2 1.7 1.7 3 3.7 3 .8 0 1.6-.3 2.2-.8.6.5 1.4.8 2.2.8 2 0 3.5-1.3 3.7-3 1.4-.4 2.3-1.6 2.3-3 0-.9-.4-1.7-1-2.2.6-.5 1-1.3 1-2.2 0-1.4-.9-2.6-2.3-3-.2-1.7-1.7-3-3.7-3-.8 0-1.6.3-2.2.8C10.6 4.8 9.8 4.5 9 4.5Z" />
-      {/* Sulco central (divisor dos hemisférios) */}
-      <path d="M11.2 5v14" opacity="0.85" />
-      {/* Sulcos internos — lado esquerdo */}
-      <path d="M7 9c1 .3 1.8 1 2 2" opacity="0.75" />
-      <path d="M6.5 14c1.2-.2 2.2-.9 2.5-2" opacity="0.75" />
-      {/* Sulcos internos — lado direito */}
-      <path d="M15 8c-.8.5-1.3 1.3-1.3 2.3" opacity="0.75" />
-      <path d="M16 15c-1-.3-1.8-1.2-2-2.3" opacity="0.75" />
-    </svg>
-  );
-}
-```
-
-**Por que esse desenho funciona:**
-- `stroke="currentColor"` → herda a cor do badge automaticamente, então **muda junto com o ciclo de arquétipo** (azul → roxo → cinza → laranja) sem código extra
-- Mesma classe que o ícone atual (`w-4 h-4` ou `size-4`) → encaixe perfeito, sem reflow de layout
-- `aria-hidden="true"` → leitor de tela ignora (o texto cumpre o papel semântico)
-- Opacidades graduais nos sulcos internos → profundidade visual sem poluir em tamanho pequeno
-
-## 5. Verificação
-
-1. Build: `npm run build` deve passar (exit 0)
-2. Smoke visual com Playwright: 1 screenshot do badge confirmando:
-   - ícone de cérebro aparece no lugar do escudo
-   - cor do cérebro acompanha cor do texto (verifico nos 4 arquétipos via screenshots em intervalos)
-   - layout intacto (mesma largura/altura do badge)
-
-## 6. O que NÃO vou fazer
-
-- Não toco no hook `useTypewriter`
-- Não mexo nas cores `ARCH_BADGE_COLORS`
-- Não altero a animação de digitação
-- Não mexo em traduções
-- Não removo `lucide-react` do `package.json` (outras partes do projeto usam)
-- Não adiciono dependências novas
-- Não mexo em outro badge da página
+### Não-objetivos
+- Não alterar fontes, pesos, tamanhos, cores, uppercase.
+- Não tocar em EmailCapture, NeuralLoader, Reveal, traduções.
+- Não introduzir dividers ou ícones novos — só espaço e agrupamento.
