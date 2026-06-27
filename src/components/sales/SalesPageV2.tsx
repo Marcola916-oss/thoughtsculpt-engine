@@ -1,21 +1,35 @@
+/**
+ * SalesPageV2 v3 — "The Awakening"
+ *
+ * Editorial premium sales page: archetype palette continuity from Reveal,
+ * scroll-driven MarbleBust sculpture, inline checkout monolith, brand-red
+ * CTA reserved for the single purchase moment.
+ *
+ * Same export + props as previous version. Inline OB1/OB2 inside the
+ * OfferMonolith; `onContinue({ bumps })` still gateway to hosted Stripe.
+ */
+
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown, ShieldCheck, ArrowRight, Lock } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import type { Archetype } from "@/lib/quiz/scoring";
 import type { AreaScores } from "@/lib/funnel/area-scores";
+import { getPricing } from "@/lib/funnel/pricing-stub";
+import { Reveal } from "@/components/interaction";
 import { EVENTS, track } from "@/lib/analytics";
 import { useExitIntent } from "@/hooks/use-exit-intent";
 import { fillTpl } from "@/lib/sales/template";
 import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
-import { ButtonPress } from "@/components/interaction/ButtonPress";
 
 import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainScar } from "./v3/PainScar";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
+import { OfferMonolith } from "./v3/OfferMonolith";
 import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
+import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
-import { Testimonials } from "@/components/landing/Testimonials";
+import { parseMoney, formatMoneyLike } from "@/lib/sales/sigils";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -35,6 +49,7 @@ const ARCH_PRIMARY: Record<Archetype, { pt: string; en: string; pl: string; ro: 
   HI: { pt: "Hedonista Impulsivo",  en: "Impulsive Hedonist", pl: "Impulsywny Hedonista", ro: "Hedonist Impulsiv", ar: "الهيدوني الاندفاعي" },
 };
 
+// Arquétipo secundário aproximado (oposto/complementar) — usado em copy "X com traço de Y".
 const ARCH_SECONDARY: Record<Archetype, Archetype> = {
   AO: "EA",
   SS: "HI",
@@ -53,47 +68,87 @@ export default function SalesPageV2({
   onBack,
 }: SalesPageV2Props) {
   const { lang, t } = useI18n();
+  const price = getPricing(lang);
 
   const primaryLabel = ARCH_PRIMARY[archetype][lang as "pt" | "en" | "pl" | "ro" | "ar"] ?? ARCH_PRIMARY[archetype].en;
   const secondaryLabel = ARCH_PRIMARY[ARCH_SECONDARY[archetype]][lang as "pt" | "en" | "pl" | "ro" | "ar"] ?? ARCH_PRIMARY[ARCH_SECONDARY[archetype]].en;
   const tplVars = { name: displayName || "—", primary: primaryLabel, secondary: secondaryLabel };
 
+  const [bump1, setBump1] = useState(false);
+  const [bump2, setBump2] = useState(false);
+  const [showSticky, setShowSticky] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
+  const finalRef = useRef<HTMLDivElement | null>(null);
 
+  // VSL_VIEW on mount
   useEffect(() => {
     track(EVENTS.VSL_VIEW, { arch: archetype, has_lead: Boolean(leadId), source: "reveal" });
   }, [archetype, leadId]);
 
+  // Sticky CTA: aparece quando hero sai de viewport e some quando final entra.
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const obsHero = new IntersectionObserver(
+      ([e]) => setShowSticky(!e.isIntersecting),
+      { threshold: 0.1 },
+    );
+    const obsFinal = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setShowSticky(false); },
+      { threshold: 0.1 },
+    );
+    if (heroRef.current) obsHero.observe(heroRef.current);
+    if (finalRef.current) obsFinal.observe(finalRef.current);
+    return () => { obsHero.disconnect(); obsFinal.disconnect(); };
+  }, []);
+
+  // Exit intent
   const exit = useExitIntent({
     enabled: true,
     onTrigger: () => track(EVENTS.EXIT_INTENT_SHOWN, { stage: "vsl", arch: archetype }),
   });
 
+  const toggleBump = (which: "bump1" | "bump2") => {
+    if (which === "bump1") {
+      setBump1((v) => { track(EVENTS.VSL_BUMP_TOGGLED, { bump: "bump1", state: !v }); return !v; });
+    } else {
+      setBump2((v) => { track(EVENTS.VSL_BUMP_TOGGLED, { bump: "bump2", state: !v }); return !v; });
+    }
+  };
+
   const advance = (source: string) => {
-    track(EVENTS.VSL_CTA_CLICK, { arch: archetype, bumps: [], source });
-    onContinue({ bumps: [] }); // Os bumps agora vivem e são geridos totalmente no Checkout!
+    const bumps: Bumps = [];
+    if (bump1) bumps.push("bump1");
+    if (bump2) bumps.push("bump2");
+    track(EVENTS.VSL_CTA_CLICK, { arch: archetype, bumps, source });
+    onContinue({ bumps });
   };
 
   const v2 = t.salesV2;
   const tpl = (s: string) => fillTpl(s, tplVars);
 
-  const unifiedTestimonials = [
-    ...(v2.b6.testimonials || []).map((tst: any) => ({
-      stars: 5,
-      quote: tst.quote,
-      name: tst.author,
-      arch: tst.arch
-    })),
-    ...(t.landing.testimonials.items || [])
-  ];
+  // Sticky logic + dynamic total (used by sticky bar)
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const obsHero = new IntersectionObserver(([e]) => setShowSticky(!e.isIntersecting), { threshold: 0.1 });
+    const obsFinal = new IntersectionObserver(([e]) => { if (e.isIntersecting) setShowSticky(false); }, { threshold: 0.1 });
+    if (heroRef.current) obsHero.observe(heroRef.current);
+    if (finalRef.current) obsFinal.observe(finalRef.current);
+    return () => { obsHero.disconnect(); obsFinal.disconnect(); };
+  }, []);
+
+  const totalNumeric =
+    parseMoney(price.main) +
+    (bump1 ? parseMoney(price.bump1) : 0) +
+    (bump2 ? parseMoney(price.bump2) : 0);
+  const totalLabel = formatMoneyLike(price.main, totalNumeric);
 
   return (
-    <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white bg-black">
+    <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[1.5fr_1fr] lg:gap-16 lg:px-16 py-10">
-        
         {/* COPY COLUMN ─────────────────────────────────────── */}
         <div className="relative z-10">
           {/* B1 — Hero */}
@@ -106,163 +161,177 @@ export default function SalesPageV2({
               timer={v2.b1.timer}
               onCta={() => advance("b1")}
               proofs={[
-                { value: "+12.000", label: v2.b6.counter.replace(/[+\\d.,\\s]+/g, " ").trim() || "Diagnoses" },
-                { value: "4.9★", label: v2.b6.rating.replace(/[★⭐\\d.,/\\s]+/g, " ").trim() || "Rating" },
+                { value: "+12.000", label: v2.b6.counter.replace(/[+\d.,\s]+/g, " ").trim() || "Diagnoses" },
+                { value: "4.9★", label: v2.b6.rating.replace(/[★⭐\d.,/\s]+/g, " ").trim() || "Rating" },
                 { value: "60s", label: "PDF" },
                 { value: "5", label: "Languages" },
               ]}
             />
           </div>
 
-          {/* I — Pain Mirror (Glassmorphism Panel) */}
+          {/* I — Pain Mirror */}
           <SceneFrame
             sceneId="pain"
             index={1}
             eyebrow={v2.b3.title.split(" ").slice(0, 2).join(" ")}
             title={tpl(v2.b2.title)}
           >
-            <div className="rounded-3xl border border-white/10 bg-black/40 p-8 md:p-10 backdrop-blur-2xl shadow-xl">
-              <p className="sales-dropcap text-white/90">{tpl(v2.b2.body)}</p>
-              <ul className="mt-8 space-y-2">
-                {v2.b2.bullets.map((b: string, i: number) => (
-                  <PainScar key={i}>{tpl(b)}</PainScar>
-                ))}
-              </ul>
-              <p className="mt-8 text-lg font-medium italic text-arch-primary">{tpl(v2.b2.conclusion)}</p>
-            </div>
+            <p className="sales-dropcap text-white/90">{tpl(v2.b2.body)}</p>
+            <ul className="mt-8 space-y-1">
+              {v2.b2.bullets.map((b, i) => (
+                <PainScar key={i}>{tpl(b)}</PainScar>
+              ))}
+            </ul>
+            <p className="mt-8 text-lg italic text-white/80">{tpl(v2.b2.conclusion)}</p>
           </SceneFrame>
 
           {/* II — Scientific Breakthrough */}
           <SceneFrame sceneId="science" index={2} title={v2.b3.title}>
-            <div className="rounded-3xl border border-white/10 bg-black/40 p-8 md:p-10 backdrop-blur-2xl shadow-xl">
-              <p className="text-white/90 leading-[1.8] text-base md:text-lg">{v2.b3.body}</p>
-              <blockquote
-                className="mt-8 border-s-2 ps-6 py-2 text-sm italic text-white/60 bg-gradient-to-r from-arch-primary/10 to-transparent"
-                style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 80%, transparent)" }}
-              >
-                {v2.b3.references}
-              </blockquote>
-              <p className="mt-8 text-lg font-bold leading-relaxed text-white">
-                <strong style={{ color: "var(--arch-primary)" }}>{v2.b3.pivot}</strong>{" "}
-                {tpl(v2.b3.solution)}
-              </p>
-            </div>
+            <p className="text-white/90 leading-[1.75] text-[17px]">{v2.b3.body}</p>
+            <blockquote
+              className="mt-8 border-s-2 ps-5 text-sm italic text-white/60"
+              style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 50%, transparent)" }}
+            >
+              {v2.b3.references}
+            </blockquote>
+            <p className="mt-8 text-[17px] leading-relaxed text-white">
+              <strong style={{ color: "var(--arch-primary)" }}>{v2.b3.pivot}</strong>{" "}
+              {tpl(v2.b3.solution)}
+            </p>
           </SceneFrame>
 
           {/* III — 4D Diagnosis */}
           <SceneFrame sceneId="4d" index={3} title={tpl(v2.b4.title)}>
-            <p className="mb-8 text-white/70 text-base md:text-lg font-medium text-center">{tpl(v2.b4.subtitle)}</p>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <p className="mb-8 text-white/70 text-base font-medium">{tpl(v2.b4.subtitle)}</p>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               {AREA_ORDER.map((area, i) => {
                 const feat = v2.b4.features[i];
                 return (
-                  <div key={area} className="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-lg hover:border-arch-primary/40 transition-colors">
-                    <AreaPoster
-                      area={area}
-                      title={feat?.title ?? area}
-                      description={tpl(feat?.description ?? "")}
-                      score={areaScores[area]}
-                    />
-                  </div>
+                  <AreaPoster
+                    key={area}
+                    area={area}
+                    title={feat?.title ?? area}
+                    description={tpl(feat?.description ?? "")}
+                    score={areaScores[area]}
+                  />
                 );
               })}
             </div>
           </SceneFrame>
 
-          {/* IV — Avalanche Social (Unificada) */}
+          {/* Value Anchor (B5) */}
+          <SceneFrame sceneId="anchor">
+            <div className="text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/60">
+                {v2.b5.eyebrow}
+              </p>
+              <div className="mt-6 space-y-1 text-sm font-medium">
+                <p className="text-white/40 line-through">{v2.b5.was}</p>
+                <p className="text-white/50 line-through">{v2.b5.then}</p>
+                <p className="mt-3 text-white/80">{v2.b5.now}</p>
+                <p
+                  className="pt-4 font-display font-extrabold tabular-nums drop-shadow-lg"
+                  style={{ fontSize: "clamp(3rem, 8vw, 5.5rem)", color: "var(--arch-primary)" }}
+                >
+                  {price.main}
+                </p>
+              </div>
+              <p className="mt-4 text-xs text-white/55">{v2.b5.note}</p>
+            </div>
+          </SceneFrame>
+
+          {/* IV — Social Proof */}
           <SceneFrame
             sceneId="proof"
             index={4}
             title={
               <span>
                 <AnimatedCounter end={12000} prefix="+" />{" "}
-                {v2.b6.counter.replace(/\\+\\s?12[.,]?000\\s?/, "").trim()}
+                {v2.b6.counter.replace(/\+\s?12[.,]?000\s?/, "").trim()}
               </span>
             }
           >
-            <p className="mb-10 text-center text-sm uppercase tracking-widest text-white/60 font-bold">
+            <p className="mb-8 text-sm uppercase tracking-widest text-white/60 font-medium">
               {v2.b6.rating}
             </p>
-            {/* Oculta os estilos do Testimonials.tsx (padding excessivo) e aplica apenas o grid */}
-            <div className="-mx-5 sm:mx-0">
-               <Testimonials customItems={unifiedTestimonials} />
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+              {v2.b6.testimonials.map((tst, i) => (
+                <figure
+                  key={i}
+                  className="rounded-2xl p-5 sales-card-arch transition-transform hover:-translate-y-1 bg-black/30 border border-white/5"
+                >
+                  <div
+                    className="mb-3 inline-flex h-1 w-10 rounded-full"
+                    style={{ background: "var(--arch-primary)", boxShadow: "0 0 10px var(--arch-primary)" }}
+                  />
+                  <blockquote className="text-[15px] leading-relaxed text-white/90">
+                    &ldquo;{tpl(tst.quote)}&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-4 text-xs text-white/60">
+                    <span className="font-semibold text-white/80">{tst.author}</span>
+                    {" · "}
+                    {tst.country} · {tst.arch}
+                  </figcaption>
+                </figure>
+              ))}
             </div>
           </SceneFrame>
 
-          {/* ★ VALUE STACK (Sem Preços - A Ponte de Ouro) */}
+          {/* ★ OFFER MONOLITH (B7 + OB1 + OB2 embedded) */}
           <SceneFrame sceneId="offer">
-            <div className="rounded-[32px] p-8 sm:p-12 bg-black/60 backdrop-blur-3xl border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden">
-               {/* Fundo glow */}
-               <div className="absolute inset-0 bg-arch-primary/5 blur-[100px] pointer-events-none" />
-               
-               <p className="text-[11px] font-bold uppercase tracking-[0.4em] text-arch-primary text-center mb-10 relative z-10">O Seu Diagnóstico Está Pronto</p>
-               
-               <div className="grid grid-cols-1 gap-10 relative z-10">
-                 <div className="flex flex-col items-center justify-center text-center">
-                    <h3 className="font-display text-2xl md:text-4xl font-black italic uppercase text-white mb-4 leading-tight">O Que Você Vai <br/>Receber Hoje:</h3>
-                    
-                    <ul className="mt-6 space-y-5 text-start w-full max-w-sm">
-                      <li className="flex items-start gap-4">
-                        <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-arch-primary text-white"><Check className="h-4 w-4"/></div>
-                        <span className="text-white font-medium text-lg">Dossiê Completo (+30 págs)</span>
-                      </li>
-                      <li className="flex items-start gap-4">
-                        <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-arch-primary text-white"><Check className="h-4 w-4"/></div>
-                        <span className="text-white font-medium text-lg">Mapeamento Financeiro</span>
-                      </li>
-                      <li className="flex items-start gap-4">
-                        <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-arch-primary text-white"><Check className="h-4 w-4"/></div>
-                        <span className="text-white font-medium text-lg">Análise Amorosa e Profissional</span>
-                      </li>
-                      <li className="flex items-start gap-4">
-                        <div className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-arch-primary text-white"><Check className="h-4 w-4"/></div>
-                        <span className="text-white font-medium text-lg">Acesso Imediato no E-mail</span>
-                      </li>
-                    </ul>
-                 </div>
-                 
-                 <div className="flex flex-col items-center justify-center mt-4">
-                   <ButtonPress className="w-full sm:w-auto">
-                     <button
-                       onClick={() => advance("b7")}
-                       className="group relative flex w-full sm:w-auto min-w-[280px] items-center justify-center gap-3 rounded-2xl bg-arch-primary px-8 py-6 text-lg font-black uppercase tracking-wide text-primary-foreground shadow-[0_20px_50px_-10px_var(--arch-glow)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_-5px_var(--arch-glow)] active:scale-[0.98]"
-                     >
-                       <Lock className="h-5 w-5" />
-                       Revelar Meu Plano de Ação
-                       <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                     </button>
-                   </ButtonPress>
-                   <p className="mt-5 text-xs text-white/50 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-arch-primary" /> Garantia Incondicional de 7 Dias</p>
-                 </div>
-               </div>
-            </div>
+            <OfferMonolith
+              eyebrow={tpl(v2.b7.eyebrow)}
+              productTitle={tpl(v2.b4.title)}
+              productSubtitle={tpl(v2.b4.subtitle)}
+              price={price}
+              bumps={{
+                bump1: {
+                  active: bump1,
+                  title: v2.ob1.title,
+                  description: tpl(v2.ob1.desc),
+                  badge: v2.ob1.badge,
+                },
+                bump2: {
+                  active: bump2,
+                  title: v2.ob2.title,
+                  description: tpl(v2.ob2.desc),
+                  badge: v2.ob2.eyebrow,
+                },
+              }}
+              onToggle={toggleBump}
+              cta={tpl(v2.b7.cta)}
+              trust={v2.b7.trust}
+              onCta={() => advance("b7")}
+            />
           </SceneFrame>
 
           {/* V — FAQ */}
           <SceneFrame sceneId="faq" index={5} title={v2.b8.title}>
             <ul
-              className="divide-y rounded-3xl border border-white/10 bg-black/40 backdrop-blur-2xl overflow-hidden"
+              className="divide-y rounded-2xl border"
               style={{
                 borderColor: "color-mix(in oklab, var(--arch-primary) 22%, transparent)",
+                background: "color-mix(in oklab, var(--arch-primary) 10%, rgba(0,0,0,0.5))",
+                backdropFilter: "blur(12px)",
               }}
             >
-              {v2.b8.items.map((it: any, i: number) => (
+              {v2.b8.items.map((it, i) => (
                 <li key={i} style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 18%, transparent)" }}>
                   <button
                     type="button"
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                     aria-expanded={openFaq === i}
-                    className="flex w-full items-center justify-between gap-4 p-6 text-start hover:bg-white/5 transition-colors"
+                    className="flex w-full items-center justify-between gap-4 p-5 text-start hover:bg-white/5 transition-colors"
                   >
-                    <span className="font-bold text-white text-[15px]">{it.q}</span>
+                    <span className="font-medium text-white">{it.q}</span>
                     <ChevronDown
                       size={18}
-                      className={`shrink-0 transition-transform duration-300 ${openFaq === i ? "rotate-180" : ""}`}
+                      className={`shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
                       style={{ color: "var(--arch-primary)" }}
                     />
                   </button>
                   {openFaq === i && (
-                    <div className="px-6 pb-6 text-[15px] leading-relaxed text-white/70">
+                    <div className="px-5 pb-5 text-[15px] leading-relaxed text-white/80">
                       {tpl(it.a)}
                     </div>
                   )}
@@ -271,12 +340,40 @@ export default function SalesPageV2({
             </ul>
           </SceneFrame>
 
+          {/* B9 — Final */}
+          <section ref={finalRef} className="relative py-24 text-center">
+            <Reveal>
+              <h2
+                className="font-display font-extrabold leading-[1.02] text-white drop-shadow-md"
+                style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)" }}
+              >
+                {tpl(v2.b9.title)}
+              </h2>
+              <p className="mx-auto mt-5 max-w-xl text-white/90 text-lg font-medium">
+                {tpl(v2.b9.subtitle)}
+              </p>
+              <p className="mt-3 text-sm text-white/70 tracking-wide">{tpl(v2.b9.tagline)}</p>
+              <button
+                type="button"
+                onClick={() => advance("b9")}
+                className="mt-10 inline-flex items-center gap-3 rounded-full px-10 py-5 text-lg font-bold uppercase tracking-wide text-white transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
+                style={{
+                  background: "#CC0000",
+                  boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)",
+                }}
+              >
+                {v2.b9.cta}
+              </button>
+              <p className="mt-4 text-xs text-white/60 font-semibold">{v2.b9.trust}</p>
+            </Reveal>
+          </section>
+
           {onBack && (
-            <div className="pb-16 pt-10 text-center">
+            <div className="pb-16 text-center">
               <button
                 type="button"
                 onClick={onBack}
-                className="text-xs text-white/40 uppercase tracking-widest font-bold underline-offset-4 hover:underline hover:text-white transition-colors"
+                className="text-xs text-white/50 underline-offset-4 hover:underline hover:text-white"
               >
                 ← {t.common.back}
               </button>
@@ -295,10 +392,17 @@ export default function SalesPageV2({
       {/* Mobile/tablet sculpture — fixed ambient behind copy */}
       <div
         className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
-        style={{ opacity: 0.25, mixBlendMode: "screen" }}
+        style={{ opacity: 0.32, mixBlendMode: "screen" }}
       >
         <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
       </div>
+
+      <StickyOfferBar
+        show={showSticky}
+        price={totalLabel}
+        cta={v2.b1.cta}
+        onCta={() => advance("sticky")}
+      />
 
       <ExitIntentModal
         open={exit.triggered}

@@ -24,20 +24,21 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 
 
 function NotFoundComponent() {
+  const { t } = useI18n();
   return (
     <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
       <div className="max-w-md text-center">
         <h1 className="font-display text-[clamp(4rem,15vw,7rem)] font-black italic uppercase leading-[0.9] tracking-[-0.05em] text-foreground">404</h1>
-        <h2 className="mt-4 font-display text-lg md:text-xl font-black italic uppercase tracking-tight text-foreground">Page Not Found</h2>
+        <h2 className="mt-4 font-display text-lg md:text-xl font-black italic uppercase tracking-tight text-foreground">{t.notFound.title}</h2>
         <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
-          The page you are looking for does not exist.
+          {t.notFound.desc}
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go Home
+            {t.notFound.goHome}
           </Link>
         </div>
       </div>
@@ -48,6 +49,7 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+  const { t } = useI18n();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
@@ -56,10 +58,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-transparent px-4">
       <div className="max-w-md text-center">
         <h1 className="font-display text-lg md:text-xl font-black italic uppercase tracking-tight text-foreground">
-          Something went wrong!
+          {t.errorPage.title}
         </h1>
         <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
-          {error.message || "An unexpected error occurred."}
+          {t.errorPage.desc}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -69,13 +71,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try Again
+            {t.errorPage.tryAgain}
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go Home
+            {t.errorPage.goHome}
           </a>
         </div>
       </div>
