@@ -392,23 +392,21 @@ export default function SalesPageV2({
                 {tpl(v2.b9.subtitle)}
               </p>
               <p className="mt-3 text-sm text-white/70 tracking-wide">{tpl(v2.b9.tagline)}</p>
-              <ButtonPress>
-                <button
-                  type="button"
-                  onClick={() => advance("b9")}
-                  className="group relative mt-10 inline-flex min-h-20 sm:min-h-28 max-w-[min(92vw,34rem)] items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-6 py-4 sm:px-12 sm:py-5 font-sans text-sm sm:text-lg font-extrabold uppercase tracking-wide text-black text-center leading-tight transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
-                  style={{ boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)" }}
-                >
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: "var(--arch-primary)" }}
-                  />
-                  <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-                    {v2.b9.cta}
-                  </span>
-                  <ArrowRight size={20} strokeWidth={2.5} className="relative z-10 transition-colors duration-300 group-hover:text-white" />
-                </button>
+              <ButtonPress
+                type="button"
+                onClick={() => advance("b9")}
+                className="group mt-10 inline-flex min-h-20 sm:min-h-28 max-w-[min(92vw,34rem)] items-center justify-center gap-3 rounded-full bg-white px-6 py-4 sm:px-12 sm:py-5 font-sans text-sm sm:text-lg font-extrabold uppercase tracking-wide text-black text-center leading-tight transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
+                style={{ boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)" }}
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{ background: "var(--arch-primary)", borderRadius: "inherit" }}
+                />
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                  {v2.b9.cta}
+                </span>
+                <ArrowRight size={20} strokeWidth={2.5} className="relative z-10 transition-colors duration-300 group-hover:text-white" />
               </ButtonPress>
               <p className="mt-4 text-xs text-white/60 font-semibold">{v2.b9.trust}</p>
             </Reveal>
