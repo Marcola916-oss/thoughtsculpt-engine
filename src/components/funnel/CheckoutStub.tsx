@@ -415,7 +415,7 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
   const deliverables = (t.salesV2?.b5?.deliverables ?? []).slice(0, 6);
 
   // Mini-testemunhos (rolling) — usa landing testimonials (3 itens)
-  const miniTestimonials = (t.landing?.testimonials ?? []).slice(0, 3);
+  const miniTestimonials = (t.landing?.testimonials?.items ?? []).slice(0, 3);
 
   const ctaCopy = bumps.length === 0 ? copy.payCta(totalFormatted) : copy.payCtaWithBumps(totalFormatted);
 
@@ -791,7 +791,7 @@ function RollingTestimonials({
   items,
   archByline,
 }: {
-  items: Array<{ quote: string; author: string; country: string; arch?: string }>;
+  items: Array<{ stars: number; quote: string; name: string; arch: string }>;
   archByline: (arch: string) => string;
 }) {
   const [idx, setIdx] = useState(0);
@@ -810,7 +810,7 @@ function RollingTestimonials({
   return (
     <div className="mx-auto max-w-2xl rounded-2xl border border-arch-primary/20 bg-black/40 p-5 backdrop-blur-xl">
       <div className="mb-2 flex gap-0.5 text-arch-primary" aria-label="5 stars">
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: cur.stars || 5 }).map((_, i) => (
           <Star key={i} className="h-3.5 w-3.5 fill-current" />
         ))}
       </div>
@@ -818,8 +818,7 @@ function RollingTestimonials({
         "{cur.quote}"
       </p>
       <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-foreground/55">
-        {cur.author} · {cur.country}
-        {cur.arch ? ` · ${archByline(cur.arch)}` : ""}
+        {cur.name} · {archByline(cur.arch)}
       </p>
       {/* dots */}
       <div className="mt-3 flex justify-center gap-1.5" aria-hidden>
