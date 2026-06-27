@@ -161,9 +161,11 @@ export default function SalesPageV2({
   return (
     <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
       {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
-      <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
-        <span aria-hidden />
-      </Atmosphere>
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
+        <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
+          <span />
+        </Atmosphere>
+      </div>
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
