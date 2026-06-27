@@ -37,7 +37,7 @@ export function HeroScene({
           {eyebrow}
         </span>
         <h1
-          className="mt-6 font-display font-extrabold leading-[0.98] tracking-tight text-white drop-shadow-md"
+          className="mt-6 font-sans font-extrabold leading-[0.98] tracking-tight text-white drop-shadow-md"
           style={{ fontSize: "clamp(2.75rem, 7.5vw, 5.5rem)" }}
         >
           {title}
