@@ -184,6 +184,7 @@ export default function SalesPageV2({
             index={1}
             badge={badges.pain}
             title={tpl(v2.b2.title)}
+            titleFont="sans"
           >
             <p className="sales-dropcap text-white/90">{tpl(v2.b2.body)}</p>
             <ul className="mt-8 space-y-1">
