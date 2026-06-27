@@ -396,7 +396,7 @@ export default function SalesPageV2({
                 <button
                   type="button"
                   onClick={() => advance("b9")}
-                  className="group relative mt-10 inline-flex h-20 sm:h-28 items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-10 sm:px-14 font-sans text-base sm:text-lg font-extrabold uppercase tracking-wide text-black transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
+                  className="group relative mt-10 inline-flex min-h-20 sm:min-h-28 max-w-[min(92vw,34rem)] items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-6 py-4 sm:px-12 sm:py-5 font-sans text-sm sm:text-lg font-extrabold uppercase tracking-wide text-black text-center leading-tight transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
                   style={{ boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)" }}
                 >
                   <span

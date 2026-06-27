@@ -869,7 +869,7 @@ const PT: Dict = {
       title: "[NOME], o próximo ecrã mostra o que recebes e quanto custa.",
       subtitle: "Decides tu. Sem pressão, sem letras pequenas, sem cobranças escondidas.",
       tagline: "És [PRIMARY] com traço de [SECONDARY]. A próxima página continua a leitura do teu padrão — agora com o protocolo completo na mesa.",
-      cta: "Ver o meu protocolo agora →",
+      cta: "Ver o meu protocolo agora",
       trust: "🔒 Stripe · 🛡️ SSL · 30 dias de garantia incondicional",
     },
     ob2: {
@@ -1471,7 +1471,7 @@ const EN: Dict = {
       title: "[NOME], the next screen shows what you get and what it costs.",
       subtitle: "You decide. No pressure, no fine print, no hidden charges.",
       tagline: "You are [PRIMARY] with a [SECONDARY] streak. The next page continues the reading of your pattern — now with the full protocol on the table.",
-      cta: "Show me my protocol now →",
+      cta: "Show me my protocol now",
       trust: "🔒 Stripe · 🛡️ SSL · 30-day unconditional guarantee",
     },
     ob2: {
@@ -1813,7 +1813,7 @@ const PL: Dict = {
       title: "[NOME], następny ekran pokazuje, co dostajesz i ile to kosztuje.",
       subtitle: "Decydujesz ty. Bez presji, bez drobnego druku, bez ukrytych opłat.",
       tagline: "Jesteś [PRIMARY] z domieszką [SECONDARY]. Kolejna strona kontynuuje czytanie twojego wzorca — teraz z pełnym protokołem na stole.",
-      cta: "Pokaż mi mój protokół teraz →",
+      cta: "Pokaż mi mój protokół teraz",
       trust: "🔒 Stripe · 🛡️ SSL · 30-dniowa bezwarunkowa gwarancja",
     },
     ob2: {
@@ -2155,7 +2155,7 @@ const RO: Dict = {
       title: "[NOME], ecranul următor îți arată ce primești și cât costă.",
       subtitle: "Decizi tu. Fără presiune, fără litere mici, fără taxe ascunse.",
       tagline: "Ești [PRIMARY] cu nuanță de [SECONDARY]. Pagina următoare continuă citirea tiparului tău — acum cu protocolul complet pe masă.",
-      cta: "Vezi-mi protocolul acum →",
+      cta: "Vezi-mi protocolul acum",
       trust: "🔒 Stripe · 🛡️ SSL · Garanție necondiționată 30 de zile",
     },
     ob2: {
@@ -2498,7 +2498,7 @@ const AR: Dict = {
       title: "[NOME]، الشاشة التالية تُظهر لك ما ستحصل عليه وكم يكلّف.",
       subtitle: "أنت تقرر. بلا ضغط، بلا أحرف صغيرة، بلا رسوم خفية.",
       tagline: "أنت [PRIMARY] مع لمسة من [SECONDARY]. الصفحة التالية تواصل قراءة نمطك — الآن مع البروتوكول الكامل على الطاولة.",
-      cta: "أرني بروتوكولي الآن ←",
+      cta: "أرني بروتوكولي الآن",
       trust: "🔒 Stripe · 🛡️ SSL · ضمان غير مشروط 30 يوماً",
     },
     ob2: {
