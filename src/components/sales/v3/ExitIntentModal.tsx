@@ -1,6 +1,15 @@
-import { ArrowRight, X } from "lucide-react";
-import { ButtonPress } from "@/components/interaction/ButtonPress";
-import { MarbleBust } from "@/components/identity/MarbleBust";
+import { X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+
+interface ExitIntentModalProps {
+  open: boolean;
+  title: string;
+  body: string;
+  cta: string;
+  decline: string;
+  onAccept: () => void;
+  onDismiss: () => void;
+}
 
 export function ExitIntentModal({
   open,
@@ -10,69 +19,49 @@ export function ExitIntentModal({
   decline,
   onAccept,
   onDismiss,
-}: {
-  open: boolean;
-  title: string;
-  body: string;
-  cta: string;
-  decline: string;
-  onAccept: () => void;
-  onDismiss: () => void;
-}) {
+}: ExitIntentModalProps) {
   if (!open) return null;
+
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 px-4 animate-fade-in"
-      onClick={onDismiss}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-md overflow-hidden rounded-3xl border bg-black p-7 text-center"
-        style={{
-          borderColor: "color-mix(in oklab, var(--arch-primary) 45%, transparent)",
-          boxShadow:
-            "0 40px 100px -20px color-mix(in oklab, var(--arch-primary) 55%, transparent)",
-        }}
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-6 backdrop-blur-md"
       >
-        <button
-          type="button"
-          onClick={onDismiss}
-          aria-label="Close"
-          className="absolute end-3 top-3 rounded-full p-1.5 text-white/55 hover:text-white"
+        <motion.div
+          initial={{ scale: 0.9, y: 20 }}
+          animate={{ scale: 1, y: 0 }}
+          exit={{ scale: 0.9, y: 20 }}
+          className="relative max-w-lg overflow-hidden rounded-[2.5rem] bg-card p-10 text-center shadow-2xl border border-white/10"
         >
-          <X size={18} />
-        </button>
-        <div className="mx-auto mb-4 h-20 w-20 opacity-80">
-          <MarbleBust variant="mini" />
-        </div>
-        <h2 className="font-display text-2xl font-extrabold leading-tight text-white sm:text-3xl">
-          {title}
-        </h2>
-        <p className="mt-3 text-sm leading-relaxed text-white/75">{body}</p>
-        <div className="mt-6 space-y-3">
-          <ButtonPress>
-            <button
-              type="button"
-              onClick={onAccept}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-white"
-              style={{ background: "#CC0000", boxShadow: "0 20px 50px -12px rgba(204,0,0,0.6)" }}
-            >
-              {cta} <ArrowRight size={16} />
-            </button>
-          </ButtonPress>
           <button
-            type="button"
             onClick={onDismiss}
-            className="text-xs text-white/45 underline-offset-4 hover:underline"
+            className="absolute right-6 top-6 text-foreground/40 hover:text-foreground"
           >
-            {decline}
+            <X size={24} />
           </button>
-        </div>
-      </div>
-    </div>
+          <h2 className="mb-4 font-display text-3xl font-black uppercase italic leading-tight">
+            {title}
+          </h2>
+          <p className="mb-8 text-foreground/70 leading-relaxed">{body}</p>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={onAccept}
+              className="w-full rounded-full bg-arch-primary py-5 font-sans font-extrabold uppercase text-white shadow-xl transition hover:scale-[1.02] active:scale-95"
+            >
+              {cta}
+            </button>
+            <button
+              onClick={onDismiss}
+              className="w-full py-2 text-xs font-bold uppercase tracking-widest text-foreground/30 transition hover:text-foreground/50"
+            >
+              {decline}
+            </button>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 }
-
-export default ExitIntentModal;

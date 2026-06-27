@@ -775,7 +775,7 @@ const PT: Dict = {
       eyebrow: "DIAGNÓSTICO REVELADO",
       h1: "[NOME], foi por isto que nada do que tentaste antes funcionou.",
       promise: "O padrão [PRIMARY] não te custa só dinheiro. Custa-te decisões na carreira, paz nas relações e horas de sono. Por isso a força de vontade falhou — estavas a lutar contra o mecanismo errado.",
-      cta: "Ver o meu protocolo agora →",
+      cta: "Ver o meu protocolo agora",
       timer: "Esta análise expira em alguns minutos.",
     },
     b2: {
@@ -851,7 +851,7 @@ const PT: Dict = {
       was: "$200",
       then: "$47",
       price: "Hoje",
-      cta: "Quero o meu diagnóstico [PRIMARY] agora →",
+      cta: "Quero o meu diagnóstico [PRIMARY] agora",
       trust: "✓ 7 dias garantia · ✓ Pagamento único · ✓ SSL · ✓ Sem subscrição",
     },
     b8: {
@@ -869,7 +869,7 @@ const PT: Dict = {
       title: "[NOME], o próximo ecrã mostra o que recebes e quanto custa.",
       subtitle: "Decides tu. Sem pressão, sem letras pequenas, sem cobranças escondidas.",
       tagline: "És [PRIMARY] com traço de [SECONDARY]. A próxima página continua a leitura do teu padrão — agora com o protocolo completo na mesa.",
-      cta: "Ver o meu protocolo agora →",
+      cta: "Ver o meu protocolo agora",
       trust: "🔒 Stripe · 🛡️ SSL · 30 dias de garantia incondicional",
     },
     ob2: {
@@ -1377,7 +1377,7 @@ const EN: Dict = {
       eyebrow: "DIAGNOSIS REVEALED",
       h1: "[NOME], this is why nothing you tried before actually worked.",
       promise: "The [PRIMARY] pattern doesn't only cost you money. It costs you career moves, peace in your relationships and hours of sleep. That's why willpower failed — you were fighting the wrong mechanism.",
-      cta: "Show me my protocol now →",
+      cta: "Show me my protocol now",
       timer: "This analysis expires in a few minutes.",
     },
     b2: {
@@ -1453,7 +1453,7 @@ const EN: Dict = {
       was: "$200",
       then: "$47",
       price: "Today",
-      cta: "I want my [PRIMARY] diagnosis now →",
+      cta: "I want my [PRIMARY] diagnosis now",
       trust: "✓ 7-day guarantee · ✓ One-time payment · ✓ SSL · ✓ No subscription",
     },
     b8: {
@@ -1471,7 +1471,7 @@ const EN: Dict = {
       title: "[NOME], the next screen shows what you get and what it costs.",
       subtitle: "You decide. No pressure, no fine print, no hidden charges.",
       tagline: "You are [PRIMARY] with a [SECONDARY] streak. The next page continues the reading of your pattern — now with the full protocol on the table.",
-      cta: "Show me my protocol now →",
+      cta: "Show me my protocol now",
       trust: "🔒 Stripe · 🛡️ SSL · 30-day unconditional guarantee",
     },
     ob2: {
@@ -1719,7 +1719,7 @@ const PL: Dict = {
       eyebrow: "DIAGNOZA UJAWNIONA",
       h1: "[NOME], właśnie dlatego nic, co próbowałeś wcześniej, nie zadziałało.",
       promise: "Wzorzec [PRIMARY] nie kosztuje cię tylko pieniędzy. Kosztuje cię decyzji w karierze, spokoju w związkach i godzin snu. Dlatego siła woli zawiodła — walczyłeś z niewłaściwym mechanizmem.",
-      cta: "Pokaż mi mój protokół teraz →",
+      cta: "Pokaż mi mój protokół teraz",
       timer: "Ta analiza wygasa za kilka minut.",
     },
     b2: {
@@ -1795,7 +1795,7 @@ const PL: Dict = {
       was: "200 $",
       then: "47 $",
       price: "Dziś",
-      cta: "Chcę moją diagnozę [PRIMARY] teraz →",
+      cta: "Chcę moją diagnozę [PRIMARY] teraz",
       trust: "✓ 7 dni gwarancji · ✓ Płatność jednorazowa · ✓ SSL · ✓ Bez subskrypcji",
     },
     b8: {
@@ -1813,7 +1813,7 @@ const PL: Dict = {
       title: "[NOME], następny ekran pokazuje, co dostajesz i ile to kosztuje.",
       subtitle: "Decydujesz ty. Bez presji, bez drobnego druku, bez ukrytych opłat.",
       tagline: "Jesteś [PRIMARY] z domieszką [SECONDARY]. Kolejna strona kontynuuje czytanie twojego wzorca — teraz z pełnym protokołem na stole.",
-      cta: "Pokaż mi mój protokół teraz →",
+      cta: "Pokaż mi mój protokół teraz",
       trust: "🔒 Stripe · 🛡️ SSL · 30-dniowa bezwarunkowa gwarancja",
     },
     ob2: {
@@ -2061,7 +2061,7 @@ const RO: Dict = {
       eyebrow: "DIAGNOZĂ DEZVĂLUITĂ",
       h1: "[NOME], de aceea nimic din ce ai încercat înainte nu a funcționat.",
       promise: "Tiparul [PRIMARY] nu te costă doar bani. Te costă decizii în carieră, liniște în relații și ore de somn. De aceea voința a eșuat — luptai cu mecanismul greșit.",
-      cta: "Vezi-mi protocolul acum →",
+      cta: "Vezi-mi protocolul acum",
       timer: "Această analiză expiră în câteva minute.",
     },
     b2: {
@@ -2137,7 +2137,7 @@ const RO: Dict = {
       was: "200 $",
       then: "47 $",
       price: "Azi",
-      cta: "Vreau diagnoza mea [PRIMARY] acum →",
+      cta: "Vreau diagnoza mea [PRIMARY] acum",
       trust: "✓ Garanție 7 zile · ✓ Plată unică · ✓ SSL · ✓ Fără abonament",
     },
     b8: {
@@ -2155,7 +2155,7 @@ const RO: Dict = {
       title: "[NOME], ecranul următor îți arată ce primești și cât costă.",
       subtitle: "Decizi tu. Fără presiune, fără litere mici, fără taxe ascunse.",
       tagline: "Ești [PRIMARY] cu nuanță de [SECONDARY]. Pagina următoare continuă citirea tiparului tău — acum cu protocolul complet pe masă.",
-      cta: "Vezi-mi protocolul acum →",
+      cta: "Vezi-mi protocolul acum",
       trust: "🔒 Stripe · 🛡️ SSL · Garanție necondiționată 30 de zile",
     },
     ob2: {
@@ -2404,7 +2404,7 @@ const AR: Dict = {
       eyebrow: "تم الكشف عن التشخيص",
       h1: "[NOME]، لهذا السبب لم ينجح شيء جرّبته من قبل.",
       promise: "نمط [PRIMARY] لا يكلّفك المال فقط. يكلّفك قرارات في المسيرة، سلاماً في علاقاتك، وساعات من النوم. لذلك فشلت قوة الإرادة — كنت تحارب الآلية الخاطئة.",
-      cta: "أرني بروتوكولي الآن ←",
+      cta: "أرني بروتوكولي الآن",
       timer: "ينتهي هذا التحليل خلال دقائق.",
     },
     b2: {
@@ -2480,7 +2480,7 @@ const AR: Dict = {
       was: "200 $",
       then: "47 $",
       price: "اليوم",
-      cta: "أريد تشخيصي [PRIMARY] الآن ←",
+      cta: "أريد تشخيصي [PRIMARY] الآن",
       trust: "✓ ضمان 7 أيام · ✓ دفعة واحدة · ✓ SSL · ✓ بدون اشتراك",
     },
     b8: {
@@ -2498,7 +2498,7 @@ const AR: Dict = {
       title: "[NOME]، الشاشة التالية تُظهر لك ما ستحصل عليه وكم يكلّف.",
       subtitle: "أنت تقرر. بلا ضغط، بلا أحرف صغيرة، بلا رسوم خفية.",
       tagline: "أنت [PRIMARY] مع لمسة من [SECONDARY]. الصفحة التالية تواصل قراءة نمطك — الآن مع البروتوكول الكامل على الطاولة.",
-      cta: "أرني بروتوكولي الآن ←",
+      cta: "أرني بروتوكولي الآن",
       trust: "🔒 Stripe · 🛡️ SSL · ضمان غير مشروط 30 يوماً",
     },
     ob2: {
