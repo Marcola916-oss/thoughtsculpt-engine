@@ -144,16 +144,6 @@ export default function SalesPageV2({
   const tpl = (s: string) => fillTpl(s, tplVars);
   const badges = SECTION_BADGES[(lang as BadgeLang)] ?? SECTION_BADGES.en;
 
-  // Sticky logic + dynamic total (used by sticky bar)
-  useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
-    const obsHero = new IntersectionObserver(([e]) => setShowSticky(!e.isIntersecting), { threshold: 0.1 });
-    const obsFinal = new IntersectionObserver(([e]) => { if (e.isIntersecting) setShowSticky(false); }, { threshold: 0.1 });
-    if (heroRef.current) obsHero.observe(heroRef.current);
-    if (finalRef.current) obsFinal.observe(finalRef.current);
-    return () => { obsHero.disconnect(); obsFinal.disconnect(); };
-  }, []);
-
   // Tela 12 não exibe preço — toda a persuasão monetária migra para a Tela 13.
   void price;
   void bump1; void bump2;
@@ -402,17 +392,24 @@ export default function SalesPageV2({
                 {tpl(v2.b9.subtitle)}
               </p>
               <p className="mt-3 text-sm text-white/70 tracking-wide">{tpl(v2.b9.tagline)}</p>
-              <button
-                type="button"
-                onClick={() => advance("b9")}
-                className="mt-10 inline-flex items-center gap-3 rounded-full px-10 py-5 text-lg font-bold uppercase tracking-wide text-white transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
-                style={{
-                  background: "#CC0000",
-                  boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)",
-                }}
-              >
-                {v2.b9.cta}
-              </button>
+              <ButtonPress>
+                <button
+                  type="button"
+                  onClick={() => advance("b9")}
+                  className="group relative mt-10 inline-flex h-20 sm:h-28 items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-10 sm:px-14 font-sans text-base sm:text-lg font-extrabold uppercase tracking-wide text-black transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
+                  style={{ boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)" }}
+                >
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{ background: "var(--arch-primary)" }}
+                  />
+                  <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                    {v2.b9.cta}
+                  </span>
+                  <ArrowRight size={20} strokeWidth={2.5} className="relative z-10 transition-colors duration-300 group-hover:text-white" />
+                </button>
+              </ButtonPress>
               <p className="mt-4 text-xs text-white/60 font-semibold">{v2.b9.trust}</p>
             </Reveal>
           </section>
