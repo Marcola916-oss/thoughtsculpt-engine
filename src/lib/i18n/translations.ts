@@ -869,7 +869,7 @@ const PT: Dict = {
       title: "[NOME], o próximo ecrã mostra o que recebes e quanto custa.",
       subtitle: "Decides tu. Sem pressão, sem letras pequenas, sem cobranças escondidas.",
       tagline: "És [PRIMARY] com traço de [SECONDARY]. A próxima página continua a leitura do teu padrão — agora com o protocolo completo na mesa.",
-      cta: "Ver o meu protocolo agora →",
+      cta: "Ver o meu protocolo agora",
       trust: "🔒 Stripe · 🛡️ SSL · 30 dias de garantia incondicional",
     },
     ob2: {
