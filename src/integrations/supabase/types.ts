@@ -537,6 +537,7 @@ export type Database = {
           ip_hash: string | null
           lang: string
           scores: Json
+          secondary_archetype: Database["public"]["Enums"]["archetype"] | null
           share_token: string
           updated_at: string
           user_agent: string | null
@@ -555,6 +556,7 @@ export type Database = {
           ip_hash?: string | null
           lang?: string
           scores?: Json
+          secondary_archetype?: Database["public"]["Enums"]["archetype"] | null
           share_token?: string
           updated_at?: string
           user_agent?: string | null
@@ -573,6 +575,7 @@ export type Database = {
           ip_hash?: string | null
           lang?: string
           scores?: Json
+          secondary_archetype?: Database["public"]["Enums"]["archetype"] | null
           share_token?: string
           updated_at?: string
           user_agent?: string | null

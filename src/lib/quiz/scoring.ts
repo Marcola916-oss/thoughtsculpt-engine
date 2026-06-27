@@ -20,6 +20,7 @@ export type Answers = Array<number | null>; // length 8, option index 0..3
 export function scoreAnswers(answers: Answers): {
   scores: Record<Archetype, number>;
   winner: Archetype;
+  secondary: Archetype | null;
 } {
   const scores: Record<Archetype, number> = { AO: 0, SS: 0, EA: 0, HI: 0 };
   answers.forEach((opt, i) => {
@@ -46,5 +47,9 @@ export function scoreAnswers(answers: Answers): {
       if (q5 && scores[q5] === scores[winner]) winner = q5;
     }
   }
-  return { scores, winner };
+  // Secondary = highest scoring archetype that is not the winner AND scored > 0.
+  // Only expose it when there's meaningful signal (gap < winner and score >= 2).
+  const secondary =
+    ranked.find((a) => a !== winner && scores[a] >= 2) ?? null;
+  return { scores, winner, secondary };
 }
