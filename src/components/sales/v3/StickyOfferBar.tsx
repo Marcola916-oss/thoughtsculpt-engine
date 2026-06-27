@@ -40,7 +40,7 @@ export function StickyOfferBar({
             className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wide text-white"
             style={{ background: "#CC0000", boxShadow: "0 12px 30px -8px rgba(204,0,0,0.55)" }}
           >
-            {cta} <ArrowRight size={16} />
+            {cta}
           </button>
         </ButtonPress>
       </div>

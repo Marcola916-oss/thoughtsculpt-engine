@@ -58,7 +58,6 @@ export function HeroScene({
               }}
             >
               {cta}
-              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
             </button>
           </ButtonPress>
           {timer && <p className="text-xs text-white/70 font-medium tracking-wide">{timer}</p>}

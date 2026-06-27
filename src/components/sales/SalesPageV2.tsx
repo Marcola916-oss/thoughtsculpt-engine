@@ -337,7 +337,6 @@ export default function SalesPageV2({
                   style={{ background: "#CC0000", boxShadow: "0 30px 80px -20px rgba(204,0,0,0.65)" }}
                 >
                   {tpl(v2.b7.cta)}
-                  <ArrowRight size={20} strokeWidth={2.5} />
                 </button>
               </ButtonPress>
               <p className="mt-4 text-xs text-white/55">{v2.b7.trust}</p>
@@ -407,7 +406,7 @@ export default function SalesPageV2({
                   <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                     {v2.b9.cta}
                   </span>
-                  <ArrowRight size={20} strokeWidth={2.5} className="relative z-10 transition-colors duration-300 group-hover:text-white" />
+                  
                 </button>
               </ButtonPress>
               <p className="mt-4 text-xs text-white/60 font-semibold">{v2.b9.trust}</p>
