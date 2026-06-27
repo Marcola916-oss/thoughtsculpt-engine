@@ -69,8 +69,8 @@ const COPY: Record<string, Copy> = {
     title: "A 1 clique do teu diagnóstico",
     sub: "Pagamento único. Sem assinatura. PDF entregue em minutos.",
     summary: "Resumo do pedido",
-    mainItem: "Dossiê: O Seu Perfil Psicológico — Arquétipo Identificado",
-    mainDesc: "30+ pág. · Análise Financeira, Profissional, Amorosa e Pessoal",
+    mainItem: "Diagnóstico Comportamental — PDF",
+    mainDesc: "30+ páginas · 4 áreas · personalizado",
     bump1Title: "Guia de Relações por Arquétipo",
     bump1Desc: "Como cada arquétipo se relaciona — útil para parceiros, família, sócios.",
     bump2Title: "Protocolo de Reset 30 dias",
@@ -111,8 +111,8 @@ const COPY: Record<string, Copy> = {
     title: "One click from your diagnosis",
     sub: "One-time payment. No subscription. PDF delivered in minutes.",
     summary: "Order summary",
-    mainItem: "Dossier: Your Psychological Profile — Archetype Identified",
-    mainDesc: "30+ pages · Financial, Professional, Romantic & Personal Analysis",
+    mainItem: "Behavioral Diagnosis — PDF",
+    mainDesc: "30+ pages · 4 areas · personalized",
     bump1Title: "Relationship Guide by Archetype",
     bump1Desc: "How each archetype relates — useful for partners, family, co-founders.",
     bump2Title: "30-Day Reset Protocol",
@@ -294,7 +294,8 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
   const [bump1, setBump1] = useState(
     initialBumps ? initialBumps.includes("bump1") : false,
   );
-  // Bump2 (30-day reset protocol) pre-ticked por default!
+  // Bump2 (30-day reset protocol) pre-ticked por Bible V2 quando o utilizador
+  // não vem da VSL; quando vem, respeita a escolha feita lá.
   const [bump2, setBump2] = useState(
     initialBumps ? initialBumps.includes("bump2") : true,
   );
@@ -318,6 +319,8 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
     });
   };
 
+  // Single source of truth: o servidor calcula tudo a partir do lang+bumps.
+  // Mesma função usada para criar a Stripe Checkout Session.
   const bumps: ("bump1" | "bump2")[] = [];
   if (bump1) bumps.push("bump1");
   if (bump2) bumps.push("bump2");
@@ -333,7 +336,21 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
 
   const handlePay = async (e: React.FormEvent) => {
     e.preventDefault();
-    handleClick();
+    if (submitting) return;
+    if (!leadId) {
+      console.error("[checkout] missing leadId");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await startCheckout({
+        data: { leadId, bumps, lang, origin: window.location.origin },
+      });
+      window.location.href = res.url;
+    } catch (err) {
+      console.error("[checkout]", err);
+      setSubmitting(false);
+    }
   };
 
   // Anchor price = ~3x the main price (shown struck-through to anchor value).
@@ -371,7 +388,7 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
 
   return (
     <section className="relative mx-auto w-full max-w-6xl px-4 py-12 md:px-8 md:py-20 pb-32 md:pb-20">
-      <Reveal variant="fade-up" className="mx-auto mb-10 max-w-2xl text-center">
+      <Reveal variant="fade-up" className="mx-auto mb-8 max-w-2xl text-center">
         <span aria-hidden className="mb-4 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-arch-primary">
           <Lock className="h-3 w-3" />
           {copy.secureBy}
@@ -382,26 +399,15 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
         <p className="mt-4 text-base text-white/70 md:text-lg">{copy.sub}</p>
       </Reveal>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.3fr_1fr] lg:gap-10">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.25fr_1fr] lg:gap-8">
         {/* ──────── Order + CTA ──────── */}
         <Reveal variant="fade-up">
-          <div className="rounded-3xl border border-white/10 bg-black/60 p-6 md:p-8 backdrop-blur-2xl shadow-[0_30px_100px_-20px_rgba(0,0,0,0.8)]">
-            <div className="mb-6 flex items-center justify-between gap-3 border-b border-white/10 pb-5">
-              <h2 className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/50">
+          <div className="rounded-3xl border border-white/10 bg-black/50 p-6 md:p-8 backdrop-blur-xl">
+            <div className="mb-5 flex items-center justify-between gap-3">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-white/60">
                 {copy.summary}
               </h2>
-              <CountdownPill minutes={15} label={copy.countdownLabel} />
-            </div>
-
-            {/* Impacto 4D - Mini Dashboard */}
-            <div className="mb-6 rounded-2xl bg-arch-primary/[0.03] border border-arch-primary/10 p-5">
-               <p className="text-xs uppercase tracking-widest text-arch-primary font-bold mb-3">O Que Você Vai Receber Hoje:</p>
-               <ul className="space-y-2 text-sm text-white/80">
-                 <li className="flex gap-2"><Check className="w-4 h-4 text-arch-primary shrink-0"/> Dossiê Completo do seu Arquétipo (+30 Páginas)</li>
-                 <li className="flex gap-2"><Check className="w-4 h-4 text-arch-primary shrink-0"/> Análise de Padrões Financeiros Ocultos</li>
-                 <li className="flex gap-2"><Check className="w-4 h-4 text-arch-primary shrink-0"/> Desbloqueio de Crenças Profissionais</li>
-                 <li className="flex gap-2"><Check className="w-4 h-4 text-arch-primary shrink-0"/> Mapeamento de Atritos Amorosos e Pessoais</li>
-               </ul>
+              <CountdownPill minutes={10} label={copy.countdownLabel} />
             </div>
 
             {/* Main item */}
@@ -416,7 +422,7 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
                     {copy.anchorLabel} {anchorFormatted}
                   </p>
                 )}
-                <p className="font-mono text-xl font-bold text-arch-primary">{prices?.main.formatted ?? "—"}</p>
+                <p className="font-mono text-base font-bold text-arch-primary">{prices?.main.formatted ?? "—"}</p>
               </div>
             </div>
 
@@ -430,22 +436,15 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
               addLabel={copy.addLabel}
               addedLabel={copy.addedLabel}
             />
-            
-            <div className="relative mt-4">
-              <div className="absolute -top-3 left-6 z-10 rounded-full bg-arch-primary px-3 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white shadow-lg">
-                Escolha da Maioria
-              </div>
-              <BumpRow
-                active={bump2}
-                onToggle={toggleBump2}
-                title={copy.bump2Title}
-                desc={copy.bump2Desc}
-                price={prices?.bump2.formatted ?? "—"}
-                addLabel={copy.addLabel}
-                addedLabel={copy.addedLabel}
-                isHighlighted
-              />
-            </div>
+            <BumpRow
+              active={bump2}
+              onToggle={toggleBump2}
+              title={copy.bump2Title}
+              desc={copy.bump2Desc}
+              price={prices?.bump2.formatted ?? "—"}
+              addLabel={copy.addLabel}
+              addedLabel={copy.addedLabel}
+            />
 
             {/* Total */}
             <div className="mt-6 flex items-end justify-between border-t border-white/15 pt-5">
@@ -453,7 +452,7 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
                 <span className="block text-sm font-bold uppercase tracking-[0.15em] text-white/80">{copy.total}</span>
                 <span className="mt-1 block text-[11px] uppercase tracking-[0.12em] text-white/45">{copy.oneTimeNote}</span>
               </div>
-              <span className="font-display text-4xl font-black italic text-arch-primary md:text-5xl">
+              <span className="font-display text-3xl font-black italic text-arch-primary md:text-4xl">
                 {totalFormatted}
               </span>
             </div>
@@ -461,30 +460,27 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
             {/* Offer badge */}
             <div
               aria-hidden
-              className="mt-5 inline-flex items-center gap-1.5 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-arch-primary"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-arch-primary"
             >
               <Zap className="h-3 w-3" />
               {copy.offerBadge}
             </div>
 
-            {/* CTA — Kinetic Sweep */}
+            {/* CTA — direct redirect to Stripe Checkout */}
             <ButtonPress>
               <button
                 type="button"
                 onClick={handleClick}
                 disabled={submitting || !leadId}
-                className="group relative mt-8 flex w-full overflow-hidden items-center justify-center gap-3 rounded-2xl bg-arch-primary px-6 py-5 text-base md:text-lg font-black uppercase tracking-wide text-primary-foreground shadow-[0_20px_50px_-10px_var(--arch-glow)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_-5px_var(--arch-glow)] active:scale-[0.98] disabled:opacity-60"
+                className="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-arch-primary px-6 py-5 text-base md:text-lg font-black uppercase tracking-wide text-primary-foreground shadow-[0_0_40px_-6px_var(--arch-glow)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-arch-primary/90 disabled:opacity-60"
               >
-                {/* Kinetic sweep effect */}
-                <div className="absolute inset-0 -translate-x-full animate-[shimmer_3s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                
-                <Lock className="h-5 w-5 relative z-10" />
-                <span className="relative z-10">{submitting ? copy.processing : copy.payButton(totalFormatted)}</span>
-                {!submitting && <ArrowRight className="h-5 w-5 relative z-10 transition-transform group-hover:translate-x-1" />}
+                <Lock className="h-5 w-5" />
+                {submitting ? copy.processing : copy.payButton(totalFormatted)}
+                {!submitting && <ArrowRight className="h-5 w-5" />}
               </button>
             </ButtonPress>
 
-            <p className="mt-5 text-center text-xs text-white/55">
+            <p className="mt-4 text-center text-xs text-white/55">
               {copy.ctaSubcopy(copy.paymentMethods)}
             </p>
             <p className="mt-3 text-center text-[10px] uppercase tracking-[0.18em] text-white/35">
@@ -494,23 +490,14 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
         </Reveal>
 
         {/* ──────── Trust stack ──────── */}
-        <Reveal variant="fade-up" delay={0.2}>
-          <div className="lg:sticky lg:top-24 space-y-5">
-            {/* Garantia Hero */}
-            <div className="rounded-3xl border-2 border-arch-primary/30 bg-black/40 p-6 backdrop-blur-xl relative overflow-hidden">
-               <div className="absolute -right-6 -top-6 text-arch-primary/10">
-                 <ShieldCheck className="w-32 h-32" />
-               </div>
-               <ShieldCheck className="w-8 h-8 text-arch-primary mb-4" />
-               <h3 className="text-lg font-black uppercase italic text-white mb-2">{copy.trustGuarantee}</h3>
-               <p className="text-sm text-white/70 leading-relaxed relative z-10">{copy.trustGuaranteeDesc}</p>
-            </div>
-
+        <Reveal variant="fade-up">
+          <div className="lg:sticky lg:top-24 space-y-4">
             <div className="rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-xl">
-              <h3 className="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-white/60">
+              <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-white/60">
                 {copy.trustTitle}
               </h3>
-              <ul className="space-y-5">
+              <ul className="space-y-4">
+                <TrustItem icon={ShieldCheck} title={copy.trustGuarantee} desc={copy.trustGuaranteeDesc} />
                 <TrustItem icon={Lock} title={copy.trustStripe} desc={copy.trustStripeDesc} />
                 <TrustItem icon={Check} title={copy.trustSecure} desc={copy.trustSecureDesc} />
                 <TrustItem icon={Mail} title={copy.trustDelivery} desc={copy.trustDeliveryDesc} />
@@ -518,8 +505,8 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
             </div>
 
             {/* Mini-testimonial */}
-            <div className="rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-xl">
-              <div className="mb-3 flex gap-1 text-arch-primary" aria-label="5 stars">
+            <div className="rounded-3xl border border-arch-primary/20 bg-arch-primary/[0.04] p-6 backdrop-blur-xl">
+              <div className="mb-2 flex gap-0.5 text-arch-primary" aria-label="5 stars">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <svg key={i} aria-hidden viewBox="0 0 20 20" className="h-4 w-4 fill-current">
                     <path d="M10 1.5l2.6 5.4 6 .9-4.3 4.2 1 6L10 15.3l-5.3 2.7 1-6L1.4 7.8l6-.9z" />
@@ -527,14 +514,14 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
                 ))}
               </div>
               <p className="text-sm leading-relaxed text-white/85 italic">"{copy.testimonialQuote}"</p>
-              <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.12em] text-white/55">
+              <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-white/55">
                 {copy.testimonialAuthor}
               </p>
             </div>
 
             {/* FAQ */}
             <div className="rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-xl">
-              <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-white/60">
+              <h3 className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-white/60">
                 {copy.faqTitle}
               </h3>
               <div className="divide-y divide-white/10">
@@ -569,7 +556,13 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
   );
 }
 
+/**
+ * Format cents using same currency formatting as the server quote.
+ * Quick heuristic: replace the digits in the formatted main price with
+ * the anchor amount, preserving prefix/suffix (R$, €, $, zł, etc).
+ */
 function formatCentsLike(targetCents: number, mainFormatted: string, mainCents: number): string {
+  // Replace the numeric portion of mainFormatted with the scaled amount.
   const ratio = targetCents / mainCents;
   return mainFormatted.replace(/[\d.,]+/, (num) => {
     const sep = num.includes(",") && !num.includes(".") ? "," : ".";
@@ -580,6 +573,7 @@ function formatCentsLike(targetCents: number, mainFormatted: string, mainCents: 
   });
 }
 
+/** Countdown pill — UI-only urgency cue. Uses sessionStorage so it doesn't reset on rerender. */
 function CountdownPill({ minutes, label }: { minutes: number; label: string }) {
   const [remaining, setRemaining] = useState<number>(minutes * 60);
 
@@ -625,8 +619,8 @@ function TrustItem({
   desc: string;
 }) {
   return (
-    <li className="flex items-start gap-4">
-      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary shadow-[0_0_15px_-3px_var(--arch-glow)]">
+    <li className="flex items-start gap-3">
+      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary">
         <Icon className="h-4 w-4" />
       </span>
       <div className="min-w-0">
@@ -663,26 +657,23 @@ function BumpRow(props: {
   price: string;
   addLabel: string;
   addedLabel: string;
-  isHighlighted?: boolean;
 }) {
-  const { active, onToggle, title, desc, price, addLabel, addedLabel, isHighlighted } = props;
+  const { active, onToggle, title, desc, price, addLabel, addedLabel } = props;
   return (
     <button
       type="button"
       onClick={onToggle}
       aria-pressed={active}
-      className={`mt-4 flex w-full items-start gap-4 rounded-2xl border p-4 md:p-5 text-start transition-all ${
+      className={`mt-4 flex w-full items-start gap-3 rounded-2xl border p-4 text-start transition-all ${
         active
           ? "border-arch-primary/60 bg-arch-primary/[0.08]"
-          : isHighlighted
-            ? "border-arch-primary/30 bg-black/40 hover:border-arch-primary/50"
-            : "border-white/10 bg-black/30 hover:border-white/25"
+          : "border-white/10 bg-black/30 hover:border-white/25"
       }`}
     >
       <span
         aria-hidden
-        className={`mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 transition-all ${
-          active ? "border-arch-primary bg-arch-primary text-primary-foreground shadow-[0_0_10px_-2px_var(--arch-glow)]" : "border-white/30 bg-transparent"
+        className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-2 transition-all ${
+          active ? "border-arch-primary bg-arch-primary text-primary-foreground" : "border-white/30 bg-transparent"
         }`}
       >
         {active && <Check className="h-3 w-3" strokeWidth={3} />}
