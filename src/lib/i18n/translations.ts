@@ -67,7 +67,7 @@ export type Dict = {
   identity: { title: string; sub: string };
   questions: { title: (n: number, total: number) => string; intro: (name: string) => string };
   q: Array<{ q: string; options: string[] }>;
-  emailCapture: { title: (name: string) => string; sub: string; cta: string };
+  emailCapture: { title: (name: string) => string; sub: string; cta: string; blurHint: string };
   quizProgress: { identity: string; email: string };
   loader: { title: string; steps: string[]; analysis: string[] };
   archetypes: Record<"AO" | "SS" | "EA" | "HI", { name: string; tagline: string; hooks: string[] }>;
@@ -91,6 +91,12 @@ export type Dict = {
     finalTitle: (name: string) => string;
     finalSub: string;
     finalCta: string;
+    cascade: Record<"AO" | "SS" | "EA" | "HI", {
+      crescimento: string;
+      custo_oculto: string;
+      expansao: string;
+    }>;
+    archCta: Record<"AO" | "SS" | "EA" | "HI", string>;
   };
   sales: {
     h1: (name: string, arch: string) => string;
@@ -438,6 +444,7 @@ const PT: Dict = {
     title: (name) => `${name.toUpperCase()}, O TEU DIAGNÓSTICO\u00a0 ESTÁ PRONTO.`,
     sub: "Introduz o teu e-mail para receberes o relatório completo e desbloqueares a página do arquétipo.",
     cta: "Ver o meu arquétipo agora",
+    blurHint: "Insere o teu email para desbloquear",
   },
   quizProgress: { identity: "Identificação", email: "Finalização" },
   loader: {
@@ -446,6 +453,7 @@ const PT: Dict = {
       "A cruzar 8 respostas com 4 arquétipos…",
       "A identificar o teu padrão dominante…",
       "A preparar a tua revelação…",
+      "Quase pronto, [NOME]… o teu resultado está pronto!",
     ],
     analysis: [
       "Analizando fluxos de impulsividade...",
@@ -521,6 +529,34 @@ const PT: Dict = {
     finalTitle: (name) => `${name}, podes parar de adivinhar.`,
     finalSub: "O diagnóstico completo mostra-te o gatilho exato, o padrão por trás dele e os 30 dias guiados para o desfazeres.",
     finalCta: "Quero o meu diagnóstico completo",
+    cascade: {
+      AO: {
+        crescimento: "O teu cérebro foi programado para proteger o que tens com eficiência extraordinária.",
+        custo_oculto: "Mas esse mesmo padrão está a impedir-te de crescer — estás a trocar segurança por liberdade.",
+        expansao: "Quando dominas isso, podes construir riqueza sem medo, sem culpa, sem limite.",
+      },
+      SS: {
+        crescimento: "O teu cérebro foi programado para te tornar visível, magnetizar atenção e criar impacto.",
+        custo_oculto: "Mas esse mesmo padrão está a drenar o teu bolso — estás a comprar aprovação que já tens dentro.",
+        expansao: "Quando dominas isso, podes ser admirado pelo que és, não pelo que compras.",
+      },
+      EA: {
+        crescimento: "O teu cérebro foi programado para te proteger da ansiedade evitando o desconforto.",
+        custo_oculto: "Mas esse mesmo padrão está a criar uma bomba-relógio — o dinheiro que não vês não desaparece, acumula-se.",
+        expansao: "Quando dominas isso, podes confrontar qualquer tema financeiro com calma e clareza.",
+      },
+      HI: {
+        crescimento: "O teu cérebro foi programado para viver intensamente, aproveitar oportunidades e sentir tudo.",
+        custo_oculto: "Mas esse mesmo padrão está a sabotar o teu futuro — o prazer de hoje é a dor de amanhã.",
+        expansao: "Quando dominas isso, podes viver a vida sem destruir o teu futuro financeiro.",
+      },
+    },
+    archCta: {
+      AO: "Quero Proteger o Meu Futuro",
+      SS: "Quero Dominar o Meu Estilo",
+      EA: "Quero Enfrentar Sem Medo",
+      HI: "Quero Viver sem Culpa",
+    },
   },
   sales: {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
@@ -1040,6 +1076,7 @@ const EN: Dict = {
     title: (name) => `${name}, your diagnosis is ready.`,
     sub: "Drop your email to receive the full report and unlock your archetype page.",
     cta: "Reveal my archetype now",
+    blurHint: "Enter your email to unlock",
   },
   quizProgress: { identity: "Identification", email: "Finalization" },
   loader: {
@@ -1048,6 +1085,7 @@ const EN: Dict = {
       "Cross-checking 8 answers across 4 archetypes…",
       "Identifying your dominant pattern…",
       "Preparing your reveal…",
+      "Almost ready, [NOME]… your result is here!",
     ],
     analysis: [
       "Analyzing impulsivity flows...",
@@ -1123,6 +1161,34 @@ const EN: Dict = {
     finalTitle: (name) => `${name}, you can stop guessing.`,
     finalSub: "The full diagnosis shows you the exact trigger, the pattern behind it, and the 30-day guided plan to undo it.",
     finalCta: "I want my full diagnosis",
+    cascade: {
+      AO: {
+        crescimento: "Your brain was wired to protect what you have with extraordinary efficiency.",
+        custo_oculto: "But that same pattern is holding you back — you're trading safety for freedom.",
+        expansao: "When you master this, you can build wealth without fear, without guilt, without limits.",
+      },
+      SS: {
+        crescimento: "Your brain was wired to make you visible, magnetize attention and create impact.",
+        custo_oculto: "But that same pattern is draining your wallet — you're buying approval you already have inside.",
+        expansao: "When you master this, you can be admired for who you are, not what you buy.",
+      },
+      EA: {
+        crescimento: "Your brain was wired to protect you from anxiety by avoiding discomfort.",
+        custo_oculto: "But that same pattern is creating a time bomb — money you don't see doesn't disappear, it accumulates.",
+        expansao: "When you master this, you can face any financial topic with calm and clarity.",
+      },
+      HI: {
+        crescimento: "Your brain was wired to live intensely, seize opportunities and feel everything.",
+        custo_oculto: "But that same pattern is sabotaging your future — today's pleasure is tomorrow's pain.",
+        expansao: "When you master this, you can enjoy life without destroying your financial future.",
+      },
+    },
+    archCta: {
+      AO: "I Want to Protect My Future",
+      SS: "I Want to Master My Style",
+      EA: "I Want to Face It Without Fear",
+      HI: "I Want to Live Without Guilt",
+    },
   },
   sales: {
     h1: (name, arch) => `${name}, this is why nothing you tried before worked.`,
@@ -1512,7 +1578,7 @@ const PL: Dict = {
   notFound: { title: "Nie znaleziono strony", desc: "Strona, której szukasz, nie została znaleziona lub została przeniesiona.", goHome: "Strona główna" },
   errorPage: { title: "Ta strona nie załadowała się", desc: "Coś poszło nie tak po naszej stronie. Możesz spróbować odświeżyć lub wrócić do strony głównej.", tryAgain: "Spróbuj ponownie", goHome: "Strona główna" },
   hero: {
-    kicker: "Finanse behawioralne • 14 pytań • 3 minuty",
+    kicker: "Finanse behawioralne • 8 pytań • 3 minuty",
     headline: "TWÓJ MÓZG MA WZORZEC,\nKTÓRY SABOTUJE\nTWOJE FINANSE.",
     sub: "To nie brak silnej woli. To archetyp behawioralny, o którym nigdy nie wiedziałeś.",
     cta: "Chcę poznać swój archetyp",
@@ -1524,9 +1590,9 @@ const PL: Dict = {
   },
   identity: { title: "Zanim zaczniemy — kim jesteś?", sub: "Użyjemy Twojego imienia w całej diagnozie, żeby była osobista." },
   questions: { title: (n, total) => `Pytanie ${n} z ${total}`, intro: (name) => `${name}, wybierz odpowiedź najbliższą Tobie — nie ma złych.` },
-  emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp teraz" },
+  emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp teraz", blurHint: "Wpisz e-mail, aby odblokować" },
   quizProgress: { identity: "Identyfikacja", email: "Finalizacja" },
-  loader: { ...EN.loader, title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…"] },
+  loader: { ...EN.loader, title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…","Prawie gotowe, [NOME]… Twój wynik jest gotowy!"] },
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}, Twój archetyp to:`,
@@ -1571,6 +1637,34 @@ const PL: Dict = {
     finalTitle: (name) => `${name}, możesz przestać zgadywać.`,
     finalSub: "Pełna diagnoza pokazuje dokładny wyzwalacz, wzorzec stojący za nim i 30-dniowy plan, który go rozbroi.",
     finalCta: "Chcę moją pełną diagnozę",
+    cascade: {
+      AO: {
+        crescimento: "Twój mózg został zaprogramowany, aby chronić to, co masz, z niezwykłą wydajnością.",
+        custo_oculto: "Ale ten sam wzorzec Cię powstrzymuje — zamieniasz bezpieczeństwo na wolność.",
+        expansao: "Kiedy opanujesz to, możesz budować bogactwo bez strachu, bez winy, bez limitów.",
+      },
+      SS: {
+        crescimento: "Twój mózg został zaprogramowany, abyś był widoczny, przyciągał uwagę i tworzył wpływ.",
+        custo_oculto: "Ale ten sam wzorzec wysysa Twój portfel — kupujesz akceptację, którą już masz w środku.",
+        expansao: "Kiedy opanujesz to, możesz być podziwiany za to, kim jesteś, nie za to, co kupujesz.",
+      },
+      EA: {
+        crescimento: "Twój mózg został zaprogramowany, aby chronić Cię przed lękiem, unikając dyskomfortu.",
+        custo_oculto: "Ale ten sam wzorzec tworzy bombę zegarową — pieniądze, których nie widzisz, nie znikają, gromadzą się.",
+        expansao: "Kiedy opanujesz to, możesz zmierzyć się z każdym tematem finansowym ze spokojem i jasnością.",
+      },
+      HI: {
+        crescimento: "Twój mózg został zaprogramowany, aby żyć intensywnie, wykorzystywać okazje i czuć wszystko.",
+        custo_oculto: "Ale ten sam wzorzec sabotuje Twoją przyszłość — dzisiejsza przyjemność to jutrzejszy ból.",
+        expansao: "Kiedy opanujesz to, możesz cieszyć się życiem bez niszczenia swojej finansowej przyszłości.",
+      },
+    },
+    archCta: {
+      AO: "Chcę Chronić Swoją Przyszłość",
+      SS: "Chcę Opanować Swój Styl",
+      EA: "Chcę Stawić Czoła Bez Strachu",
+      HI: "Chcę Żyć Bez Winy",
+    },
   },
   plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan", guarantee: "7 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
@@ -1854,7 +1948,7 @@ const RO: Dict = {
   notFound: { title: "Pagina nu a fost găsită", desc: "Pagina pe care o cauți nu există sau a fost mutată.", goHome: "Acasă" },
   errorPage: { title: "Această pagină nu s-a încărcat", desc: "Ceva a mers greșit la noi. Poți încerca să reîncarci sau să te întorci acasă.", tryAgain: "Încearcă din nou", goHome: "Acasă" },
   hero: {
-    kicker: "Finanțe comportamentale • 14 întrebări • 3 minute",
+    kicker: "Finanțe comportamentale • 8 întrebări • 3 minute",
     headline: "CREIERUL TĂU ARE UN TIPAR\nCARE ÎȚI SABOTEAZĂ\nFINANȚELE.",
     sub: "Nu e lipsă de voință. E un arhetip comportamental despre care n-ai știut niciodată.",
     cta: "Vreau să-mi descopăr arhetipul",
@@ -1866,9 +1960,9 @@ const RO: Dict = {
   },
   identity: { title: "Înainte să începem — cine ești?", sub: "Vom folosi prenumele tău în toată diagnoza ca să fie personală." },
   questions: { title: (n, total) => `Întrebarea ${n} din ${total}`, intro: (name) => `${name}, alege opțiunea care îți seamănă cel mai mult — nu există răspunsuri greșite.` },
-  emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul acum" },
+  emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul acum", blurHint: "Introdu e-mailul pentru a debloca" },
   quizProgress: { identity: "Identificare", email: "Finalizare" },
-  loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…"] },
+  loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…","Gata, [NOME]… rezultatul tău este gata!"] },
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}, arhetipul tău este:`,
@@ -1913,6 +2007,34 @@ const RO: Dict = {
     finalTitle: (name) => `${name}, poți să nu mai ghicești.`,
     finalSub: "Diagnoza completă îți arată declanșatorul exact, tiparul din spatele lui și planul ghidat de 30 de zile pentru a-l desface.",
     finalCta: "Vreau diagnoza mea completă",
+    cascade: {
+      AO: {
+        crescimento: "Creierul tău a fost programat să protejeze ce ai cu o eficiență extraordinară.",
+        custo_oculto: "Dar același tipar te ține pe loc — schimbi siguranța pe libertate.",
+        expansao: "Când stăpânești asta, poți construi avere fără teamă, fără vină, fără limită.",
+      },
+      SS: {
+        crescimento: "Creierul tău a fost programat să te facă vizibil, să atragă atenția și să creeze impact.",
+        custo_oculto: "Dar același tipar îți golește portofelul — cumperi aprobarea pe care o ai deja în tine.",
+        expansao: "Când stăpânești asta, poți fi admirat pentru cine ești, nu pentru ce cumperi.",
+      },
+      EA: {
+        crescimento: "Creierul tău a fost programat să te protejeze de anxietate evitând disconfortul.",
+        custo_oculto: "Dar același tipar creează o bombă cu ceas — banii pe care nu îi vezi nu dispar, se acumulează.",
+        expansao: "Când stăpânești asta, poți înfrunta orice subiect financiar cu calm și claritate.",
+      },
+      HI: {
+        crescimento: "Creierul tău a fost programat să trăiască intens, să fructifice oportunități și să simtă totul.",
+        custo_oculto: "Dar același tipar îți sabotează viitorul — plăcerea de azi e durerea de mâine.",
+        expansao: "Când stăpânești asta, poți trăi viața fără să-ți distrugi viitorul financiar.",
+      },
+    },
+    archCta: {
+      AO: "Vreau să-mi Protejez Viitorul",
+      SS: "Vreau să-mi Stăpânesc Stilul",
+      EA: "Vreau să Înfrunt Fără Teamă",
+      HI: "Vreau să Trăiesc Fără Vină",
+    },
   },
   plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan", guarantee: "7 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
@@ -2209,9 +2331,9 @@ const AR: Dict = {
   },
   identity: { title: "قبل أن نبدأ — من أنت؟", sub: "سنستخدم اسمك خلال التشخيص ليكون شخصياً." },
   questions: { title: (n, total) => `السؤال ${n} من ${total}`, intro: (name) => `${name}، اختر الإجابة الأقرب لك — لا توجد إجابة خاطئة.` },
-  emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي الآن" },
+  emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي الآن", blurHint: "أدخل بريدك الإلكتروني للفتح" },
   quizProgress: { identity: "التعرف", email: "الإنجاز" },
-  loader: { ...EN.loader, title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…"] },
+  loader: { ...EN.loader, title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…","almost ready, [NOME]… نتيجتك جاهزة!"] },
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}، نمطك هو:`,
@@ -2256,6 +2378,34 @@ const AR: Dict = {
     finalTitle: (name) => `${name}، يمكنك التوقف عن التخمين.`,
     finalSub: "التشخيص الكامل يكشف لك المحفّز الدقيق، النمط الذي وراءه، وخطة الـ30 يومًا الموجَّهة لتفكيكه.",
     finalCta: "أريد تشخيصي الكامل",
+    cascade: {
+      AO: {
+        crescimento: "تم برمجة دماغك لحماية ما تملك بكفاءة استثنائية.",
+        custo_oculto: "لكن النمط نفسه يمنعك من النمو — أنت تبدل الأمن بالحرية.",
+        expansao: "عندما تتقن هذا، يمكنك بناء ثروة بلا خوف، بلا ذنب، بلا حدود.",
+      },
+      SS: {
+        crescimento: "تم برمجة دماغك ليجعلك مرئياً، يجذب الانتباه وينشئ تأثيراً.",
+        custo_oculto: "لكن النمط نفسه يُفرغ محفظتك — أنت تشتري قبولاً لديك بالفعل من الداخل.",
+        expansao: "عندما تتقن هذا، يمكنك أن تُعجب بما أنت عليه، لا بما تشتريه.",
+      },
+      EA: {
+        crescimento: "تم برمجة دماغك لحمايتك من القلق بتجنب الانزعاج.",
+        custo_oculto: "لكن النمط نفسه يصنع قنبلة موقوتة — المال الذي لا تراه لا يختفي، يتراكم.",
+        expansao: "عندما تتقن هذا، يمكنك مواجهة أي موضوع مالي بهدوء ووضوح.",
+      },
+      HI: {
+        crescimento: "تم برمجة دماغك للعيش بحماس، اغتنام الفرص والشعور بكل شيء.",
+        custo_oculto: "لكن النمط نفسه يخرب مستقبلك — متعة اليوم هي غد.",
+        expansao: "عندما تتقن هذا، يمكنك الاستمتاع بالحياة دون تدمير مستقبلك المالي.",
+      },
+    },
+    archCta: {
+      AO: "أريد حماية مستقبلي",
+      SS: "أريد إتقان أسلوبي",
+      EA: "أريد مواجهة بلا خوف",
+      HI: "أريد العيش بلا ذنب",
+    },
   },
   plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد هذا الخطة", guarantee: "استرداد كامل خلال ٧ أيام — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },

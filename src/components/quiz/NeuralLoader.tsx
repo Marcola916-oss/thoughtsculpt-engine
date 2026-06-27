@@ -21,9 +21,10 @@ interface NeuralLoaderProps {
   durationMs?: number;
   messages?: string[];
   analysisLogs?: string[];
+  userName?: string;
 }
 
-export function NeuralLoader({ onComplete, durationMs = 6000, messages, analysisLogs }: NeuralLoaderProps) {
+export function NeuralLoader({ onComplete, durationMs = 6000, messages, analysisLogs, userName }: NeuralLoaderProps) {
   const { t } = useI18n();
   const [progress, setProgress] = useState(0);
   const [msgIndex, setMsgIndex] = useState(0);
@@ -32,7 +33,9 @@ export function NeuralLoader({ onComplete, durationMs = 6000, messages, analysis
   const raf = useRef<number | null>(null);
   const lastUpdate = useRef(0);
 
-  const msgs = messages ?? t.loader.steps;
+  const msgs = (messages ?? t.loader.steps).map((step, i, arr) =>
+    i === arr.length - 1 && userName ? step.replace("[NOME]", userName) : step
+  );
   const logs = analysisLogs ?? t.loader.analysis;
 
   // Fase 3 — fire LOADER_VIEW once when the loader mounts.

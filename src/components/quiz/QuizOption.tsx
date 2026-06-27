@@ -23,11 +23,11 @@ function QuizOptionImpl({ label, letter, selected = false, onClick }: QuizOption
         "w-full text-left rounded-2xl border p-5 flex items-start gap-4",
         "relative overflow-hidden cursor-pointer outline-none",
         "transition-all duration-300 ease-out",
-        "active:scale-[0.98] will-change-transform",
+        "active:scale-[0.98] active:bg-[#CC0000]/15 will-change-transform",
         "before:absolute before:top-0 before:left-0 before:w-full before:h-[2px] before:bg-primary/20 before:opacity-0 hover:before:opacity-100 transition-opacity",
         selected
           ? "border-primary bg-primary/5 shadow-[0_0_25px_var(--accent-glow)] scale-[1.01] z-10"
-          : "border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/10 hover:translate-x-1"
+          : "border-white/10 bg-white/[0.02] hover:bg-[#CC0000]/10 hover:border-[#CC0000]/60 hover:translate-x-1"
       )}
     >
       {/* Background glow overlay */}

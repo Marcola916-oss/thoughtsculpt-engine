@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { generateDiagnosisPdf } from "@/lib/pdf/generate.functions";
+import { track, EVENTS } from "@/lib/analytics";
 import { sendDiagnosisEmail } from "@/lib/email/send-diagnosis.functions";
 import { verifyOrderStatus } from "@/lib/payments/verify.functions";
 import { MarbleBust } from "@/components/identity";
@@ -55,6 +56,10 @@ const COPY: Record<string, {
   step4: string;
   supportTitle: string;
   supportEmail: string;
+  upsellTitle: string;
+  upsellDesc: string;
+  upsellCta: string;
+  upsellDecline: string;
 }> = {
   pt: {
     title: "O teu diagnóstico está pronto",
@@ -86,6 +91,10 @@ const COPY: Record<string, {
     step4: "Aplica 1 micro-acção por semana. Sem pressa.",
     supportTitle: "Dúvidas?",
     supportEmail: "suporte@mindreset.app",
+    upsellTitle: "Protocolo de 30 Dias — Apenas +$14",
+    upsellDesc: "Recebe um plano diário personalizado com tarefas reflexivas e de ação para os próximos 30 dias.",
+    upsellCta: "Adicionar Protocolo +$14",
+    upsellDecline: "Agora não, obrigado",
   },
   en: {
     title: "Your diagnosis is ready",
@@ -117,6 +126,10 @@ const COPY: Record<string, {
     step4: "Apply 1 micro-action per week. No rush.",
     supportTitle: "Questions?",
     supportEmail: "support@mindreset.app",
+    upsellTitle: "30-Day Protocol — Just +$14",
+    upsellDesc: "Get a personalized daily plan with reflective and action tasks for the next 30 days.",
+    upsellCta: "Add Protocol +$14",
+    upsellDecline: "Not now, thanks",
   },
   pl: {
     title: "Twoja diagnoza jest gotowa",
@@ -148,6 +161,10 @@ const COPY: Record<string, {
     step4: "Wprowadzaj 1 mikro-działanie tygodniowo. Bez pośpiechu.",
     supportTitle: "Pytania?",
     supportEmail: "support@mindreset.app",
+    upsellTitle: "Protokół 30-dniowy — Tylko +$14",
+    upsellDesc: "Otrzymaj spersonalizowany dzienny plan z zadaniami refleksyjnymi i akcji na kolejne 30 dni.",
+    upsellCta: "Dodaj protokół +$14",
+    upsellDecline: "Nie teraz, dziękuję",
   },
   ro: {
     title: "Diagnosticul tău este gata",
@@ -179,6 +196,10 @@ const COPY: Record<string, {
     step4: "Aplică 1 micro-acțiune pe săptămână. Fără grabă.",
     supportTitle: "Întrebări?",
     supportEmail: "support@mindreset.app",
+    upsellTitle: "Protocol de 30 de zile — Doar +$14",
+    upsellDesc: "Primește un plan zilnic personalizat cu sarcini reflective și de acțiune pentru următoarele 30 de zile.",
+    upsellCta: "Adaugă Protocol +$14",
+    upsellDecline: "Nu acum, mulțumesc",
   },
   ar: {
     title: "تشخيصك جاهز",
@@ -210,6 +231,10 @@ const COPY: Record<string, {
     step4: "طبّق إجراءً صغيرًا واحدًا كل أسبوع. دون استعجال.",
     supportTitle: "أسئلة؟",
     supportEmail: "support@mindreset.app",
+    upsellTitle: "بروتوكول 30 يومًا — فقط +$14",
+    upsellDesc: "احصل على خطة يومية مخصصة مع مهام تأملية وإجرائية للأيام الثلاثين المقبلة.",
+    upsellCta: "أضف البروتوكول +$14",
+    upsellDecline: "ليس الآن، شكراً",
   },
 };
 
@@ -243,6 +268,10 @@ function ThankYouPage() {
         fromCache: res.fromCache,
         name: res.name,
         email: res.email,
+      });
+      track(EVENTS.PURCHASE_COMPLETED, {
+        archetype: res.archetype,
+        from_cache: res.fromCache,
       });
       // Confetti vermelho sutil (dynamic import — não SSR-safe)
       import("canvas-confetti")
@@ -407,6 +436,17 @@ function ReadyView({
   email: string | null;
   fromCache: boolean;
 }) {
+  const [showUpsell, setShowUpsell] = useState(false);
+  const [upsellDismissed, setUpsellDismissed] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowUpsell(true);
+      track(EVENTS.UPSELL_VIEW);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   const displayName = (name || "").trim() || "—";
   return (
     <div className="mt-2 flex flex-col items-center gap-10 text-left">
@@ -468,6 +508,36 @@ function ReadyView({
           <ProductCard icon={<Mail className="h-5 w-5" />} title={copy.itemEmailTitle} desc={copy.itemEmailDesc} />
         </div>
       </div>
+
+      {/* Upsell — appears 2s after purchase confirmation */}
+      {showUpsell && !upsellDismissed && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/5 p-6"
+        >
+          <h3 className="font-display text-lg font-bold text-white">{copy.upsellTitle}</h3>
+          <p className="mt-2 text-sm text-foreground/70 leading-relaxed">{copy.upsellDesc}</p>
+          <div className="mt-4 flex flex-col sm:flex-row gap-3">
+            <ButtonPress>
+              <a
+                href="#"
+                onClick={() => track(EVENTS.UPSELL_ACCEPTED)}
+                className="inline-flex items-center justify-center rounded-full bg-[#CC0000] px-6 py-3 text-sm font-bold text-white transition hover:scale-[1.03]"
+              >
+                {copy.upsellCta}
+              </a>
+            </ButtonPress>
+            <button
+              onClick={() => setUpsellDismissed(true)}
+              className="text-sm text-foreground/50 hover:text-foreground/70 transition"
+            >
+              {copy.upsellDecline}
+            </button>
+          </div>
+        </motion.div>
+      )}
 
       {/* How to use */}
       <div className="w-full">

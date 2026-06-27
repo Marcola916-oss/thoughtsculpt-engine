@@ -96,6 +96,22 @@ export default function SalesPageV2({
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
   const finalRef = useRef<HTMLDivElement | null>(null);
+  const maxScrollRef = useRef(0);
+
+  // VSL_SCROLL_DEPTH: track max scroll % and fire on unmount
+  useEffect(() => {
+    const handleScroll = () => {
+      const depth = Math.round((window.scrollY / document.body.scrollHeight) * 100);
+      if (depth > maxScrollRef.current) maxScrollRef.current = depth;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (maxScrollRef.current > 0) {
+        track(EVENTS.VSL_SCROLL_DEPTH, { max_depth: maxScrollRef.current });
+      }
+    };
+  }, []);
 
   // VSL_VIEW on mount
   useEffect(() => {
@@ -456,6 +472,7 @@ export default function SalesPageV2({
         decline={v2.exit.decline}
         onAccept={() => {
           track(EVENTS.EXIT_INTENT_CTA, { stage: "vsl" });
+          track(EVENTS.EXIT_INTENT_RECOVERED, { stage: "vsl" });
           exit.markDismissed();
           advance("exit_intent");
         }}

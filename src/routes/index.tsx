@@ -17,6 +17,7 @@ import {
   Crown,
   EyeOff,
   Flame,
+  Share2,
 } from "lucide-react";
 import { useI18n } from "../lib/i18n/LanguageProvider";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
@@ -58,6 +59,8 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
+import { useCascade, useArchCTA } from "@/hooks/use-archetype-cascade";
+import { trackShare } from "@/lib/quiz.functions";
 import { useTypewriter } from "@/hooks/use-typewriter";
 
 const ARCH_BADGE_ORDER = ["AO", "SS", "EA", "HI"] as const;
@@ -526,6 +529,7 @@ function LandingAndQuiz() {
               >
                 <EmailCapture
                   name={name}
+                  archetype={archCode}
                   email={email}
                   setEmail={setEmail}
                   gdpr={gdpr}
@@ -548,6 +552,7 @@ function LandingAndQuiz() {
                  * to avoid racing past the frame-readiness gate. */
                 onComplete={() => {}}
                 durationMs={3000}
+                userName={name}
               />
             </div>
           )}
@@ -565,6 +570,7 @@ function LandingAndQuiz() {
                   setLeadError(null);
                   setStage({ kind: "loader" });
                 }}
+                shareToken={shareToken}
               />
             </div>
           )}
@@ -972,6 +978,7 @@ function QuestionScreen(props: {
 
 function EmailCapture(props: {
   name: string;
+  archetype: Archetype | null;
   email: string;
   setEmail: (v: string) => void;
   gdpr: boolean;
@@ -982,6 +989,27 @@ function EmailCapture(props: {
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(props.email) && props.gdpr;
   return (
     <div className="w-full text-center">
+      {/* Blurred archetype preview — Zeigarnik effect */}
+      {props.archetype && (
+        <div className="relative mb-8 mx-auto max-w-sm">
+          <div className="blur-sm opacity-60 pointer-events-none select-none">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-foreground/50 mb-2">
+              {props.name}, o teu arquétipo é:
+            </p>
+            <div className="h-12 rounded-xl bg-arch-primary/20 border border-arch-primary/30 flex items-center justify-center">
+              <span className="font-display text-2xl font-black uppercase italic text-arch-primary">
+                {t.archetypes[props.archetype].name.split("\n")[0]}
+              </span>
+            </div>
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <p className="text-xs text-foreground/40 bg-background/80 px-3 py-1.5 rounded-full backdrop-blur-sm">
+              {t.emailCapture.blurHint || "Insere o teu email para desbloquear"}
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 shadow-[0_0_20px_var(--accent-glow)] mx-auto">
         <Lock className="h-7 w-7 text-primary animate-pulse" />
       </div>
@@ -1050,6 +1078,7 @@ function Reveal({
   onContinue,
   leadError,
   onRetry,
+  shareToken,
 }: {
   name: string;
   arch: Archetype;
@@ -1058,9 +1087,12 @@ function Reveal({
   onContinue: () => void;
   leadError: string | null;
   onRetry: () => void;
+  shareToken: string | null;
 }) {
   const { t } = useI18n();
   const a = t.archetypes[arch];
+  const cascade = useCascade(arch as Archetype);
+  const archCta = useArchCTA(arch as Archetype);
   const [text, setText] = useState("");
   const areaScores = useMemo(() => computeAreaScores(answers).areas, [answers]);
 
@@ -1208,17 +1240,48 @@ function Reveal({
           {a.tagline}
         </p>
 
+        {/* Cascata emocional — 3 linhas por arquétipo */}
+        <div className="mt-8 max-w-2xl space-y-4">
+          <div className="flex items-start gap-3 text-left">
+            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-foreground/40" />
+            <p className="text-base md:text-lg text-foreground/70 leading-relaxed">{cascade.crescimento}</p>
+          </div>
+          <div className="flex items-start gap-3 text-left">
+            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-destructive" />
+            <p className="text-base md:text-lg text-destructive font-medium leading-relaxed">{cascade.custo_oculto}</p>
+          </div>
+          <div className="flex items-start gap-3 text-left">
+            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-arch-primary" />
+            <p className="text-base md:text-lg text-foreground font-semibold leading-relaxed">{cascade.expansao}</p>
+          </div>
+        </div>
+
         <button
           onClick={() => handleCta("hero")}
           data-cursor="hover"
-          className="group relative mt-12 h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
+          className="group relative mt-12 h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full text-white transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
+          style={{ backgroundColor: archCta.color }}
         >
-          <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+          <div className="absolute inset-0 overflow-hidden rounded-full bg-white opacity-0 transition-opacity duration-700 group-hover:opacity-10" />
           <span className="relative z-10 flex items-center justify-center gap-3 px-5 sm:px-8 text-[clamp(1rem,4.2vw,1.75rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
-            {t.reveal.cta.toUpperCase()}
+            {archCta.label.toUpperCase()}
             <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1" />
           </span>
           <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
+        </button>
+
+        {/* Share button */}
+        <button
+          onClick={() => {
+            if (shareToken) {
+              trackShare({ data: { share_token: shareToken, channel: "copy" } });
+              navigator.clipboard.writeText(`${window.location.origin}/share/${shareToken}`);
+            }
+          }}
+          className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground/60 transition-all hover:border-foreground/30 hover:text-foreground/80"
+        >
+          <Share2 className="h-4 w-4" />
+          {t.reveal.share}
         </button>
       </div>
 
@@ -1358,13 +1421,13 @@ function Reveal({
         </p>
         <button
           onClick={() => handleCta("final")}
-          className="group mt-10 inline-flex items-center gap-4 rounded-full px-10 py-5 font-inter text-base md:text-lg font-extrabold tracking-wide text-background transition-all hover:-translate-y-0.5"
+          className="group mt-10 inline-flex items-center gap-4 rounded-full px-10 py-5 font-inter text-base md:text-lg font-extrabold tracking-wide text-white transition-all hover:-translate-y-0.5"
           style={{
-            backgroundColor: "var(--arch-primary)",
+            backgroundColor: archCta.color,
             boxShadow: "0 20px 60px -10px var(--arch-glow)",
           }}
         >
-          {t.reveal.finalCta}
+          {archCta.label}
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
         </button>
         <p className="mt-6 text-xs md:text-sm text-foreground/55">{t.reveal.guarantee}</p>
