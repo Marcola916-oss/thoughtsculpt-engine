@@ -30,6 +30,7 @@ import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
+import { Atmosphere } from "@/components/atmosphere";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -143,24 +144,20 @@ export default function SalesPageV2({
   const tpl = (s: string) => fillTpl(s, tplVars);
   const badges = SECTION_BADGES[(lang as BadgeLang)] ?? SECTION_BADGES.en;
 
-  // Sticky logic + dynamic total (used by sticky bar)
-  useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
-    const obsHero = new IntersectionObserver(([e]) => setShowSticky(!e.isIntersecting), { threshold: 0.1 });
-    const obsFinal = new IntersectionObserver(([e]) => { if (e.isIntersecting) setShowSticky(false); }, { threshold: 0.1 });
-    if (heroRef.current) obsHero.observe(heroRef.current);
-    if (finalRef.current) obsFinal.observe(finalRef.current);
-    return () => { obsHero.disconnect(); obsFinal.disconnect(); };
-  }, []);
-
   // Tela 12 não exibe preço — toda a persuasão monetária migra para a Tela 13.
   void price;
   void bump1; void bump2;
 
   return (
     <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
+      {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
+        <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
+          <span />
+        </Atmosphere>
+      </div>
       {/* ─── Layout split: copy column + sculpture column ───── */}
-      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[1.5fr_1fr] lg:gap-16 lg:px-16 py-10">
+      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
         <div className="relative z-10">
           {/* B1 — Hero */}
@@ -296,7 +293,7 @@ export default function SalesPageV2({
               {v2.b6.testimonials.map((tst, i) => (
                 <figure
                   key={i}
-                  className="rounded-2xl p-5 sales-card-arch transition-transform hover:-translate-y-1 bg-black/30 border border-white/5"
+                  className="sales-card-arch p-5"
                 >
                   <div
                     className="mb-3 inline-flex h-1 w-10 rounded-full"
@@ -395,17 +392,24 @@ export default function SalesPageV2({
                 {tpl(v2.b9.subtitle)}
               </p>
               <p className="mt-3 text-sm text-white/70 tracking-wide">{tpl(v2.b9.tagline)}</p>
-              <button
-                type="button"
-                onClick={() => advance("b9")}
-                className="mt-10 inline-flex items-center gap-3 rounded-full px-10 py-5 text-lg font-bold uppercase tracking-wide text-white transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
-                style={{
-                  background: "#CC0000",
-                  boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)",
-                }}
-              >
-                {v2.b9.cta}
-              </button>
+              <ButtonPress>
+                <button
+                  type="button"
+                  onClick={() => advance("b9")}
+                  className="group relative mt-10 inline-flex h-20 sm:h-28 items-center justify-center gap-3 overflow-hidden rounded-full bg-white px-10 sm:px-14 font-sans text-base sm:text-lg font-extrabold uppercase tracking-wide text-black transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
+                  style={{ boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)" }}
+                >
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{ background: "var(--arch-primary)" }}
+                  />
+                  <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                    {v2.b9.cta}
+                  </span>
+                  <ArrowRight size={20} strokeWidth={2.5} className="relative z-10 transition-colors duration-300 group-hover:text-white" />
+                </button>
+              </ButtonPress>
               <p className="mt-4 text-xs text-white/60 font-semibold">{v2.b9.trust}</p>
             </Reveal>
           </section>
@@ -425,7 +429,8 @@ export default function SalesPageV2({
 
         {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
         <aside className="pointer-events-none relative hidden lg:block h-full">
-          <div className="sticky top-0 h-screen w-full">
+          <div className="sticky top-16 h-[calc(100vh-4rem)] w-full sales-sculpture-mask">
+            <div className="sales-sculpture-halo" aria-hidden />
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
           </div>
         </aside>
