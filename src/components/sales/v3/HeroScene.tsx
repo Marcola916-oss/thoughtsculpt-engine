@@ -50,15 +50,22 @@ export function HeroScene({
             <button
               type="button"
               onClick={onCta}
-              className="group inline-flex items-center gap-3 rounded-full px-9 py-5 text-base font-semibold text-white transition-all sm:text-lg"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full px-9 py-5 text-base font-semibold text-white transition-all duration-300 ease-out hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.97] sm:text-lg"
               style={{
                 background: "var(--arch-primary)",
                 boxShadow:
                   "0 24px 60px -20px color-mix(in oklab, var(--arch-primary) 65%, transparent)",
               }}
             >
-              {cta}
-              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+              />
+              <span className="relative z-10">{cta}</span>
+              <ArrowRight
+                size={20}
+                className="relative z-10 transition-transform duration-300 group-hover:translate-x-1"
+              />
             </button>
           </ButtonPress>
           {timer && <p className="text-xs text-white/70 font-medium tracking-wide">{timer}</p>}
