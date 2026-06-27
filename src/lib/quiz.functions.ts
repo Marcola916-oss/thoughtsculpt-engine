@@ -88,12 +88,19 @@ export const saveQuizLead = createServerFn({ method: "POST" })
         answers: data.answers,
         scores: result.scores,
         winner: result.winner,
+        secondary_archetype: result.secondary,
         user_agent: data.user_agent ?? null,
         insight_preview: insightPreview,
       });
 
     if (error) throw new Error(error.message);
-    return { id, share_token, winner: result.winner, insight_preview: insightPreview };
+    return {
+      id,
+      share_token,
+      winner: result.winner,
+      secondary: result.secondary,
+      insight_preview: insightPreview,
+    };
   });
 
 export const getSharedQuiz = createServerFn({ method: "GET" })
