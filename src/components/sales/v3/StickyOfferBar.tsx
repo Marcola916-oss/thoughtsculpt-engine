@@ -8,7 +8,7 @@ export function StickyOfferBar({
   onCta,
 }: {
   show: boolean;
-  price: string;
+  price?: string;
   cta: string;
   onCta: () => void;
 }) {
@@ -21,12 +21,18 @@ export function StickyOfferBar({
       style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)" }}
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
-        <div className="flex items-baseline gap-2">
-          <span className="text-xs uppercase tracking-widest text-white/55">Total</span>
-          <strong className="font-display text-xl font-extrabold tabular-nums text-white">
-            {price}
-          </strong>
-        </div>
+        {price ? (
+          <div className="flex items-baseline gap-2">
+            <span className="text-xs uppercase tracking-widest text-white/55">Total</span>
+            <strong className="font-display text-xl font-extrabold tabular-nums text-white">
+              {price}
+            </strong>
+          </div>
+        ) : (
+          <span className="text-xs font-bold uppercase tracking-[0.3em] text-white/70">
+            MindReset · Protocolo
+          </span>
+        )}
         <ButtonPress>
           <button
             type="button"

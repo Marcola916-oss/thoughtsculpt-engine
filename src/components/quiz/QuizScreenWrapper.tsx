@@ -19,8 +19,11 @@ export function QuizScreenWrapper({
 }: QuizScreenWrapperProps) {
   const { t } = useI18n();
 
-  // Accelerate progress visual after 80% to create urgency (Zeigarnik effect / goal gradient)
-  const visualProgress = progress >= 80 ? 95 : progress;
+  // Conversion guide: progress bar never starts at 0 — it begins at 12% to give
+  // the user the feeling they're already moving (goal-gradient effect). After 80%
+  // we accelerate to 95% to create urgency (Zeigarnik).
+  const visualProgress =
+    progress <= 0 ? 0 : progress >= 80 ? 95 : Math.max(12, progress);
 
   return (
     <div className="relative flex flex-col items-center pt-3 pb-8 md:min-h-[70vh] md:justify-center md:py-6 w-full max-w-2xl mx-auto px-5 md:px-4 perspective-[1000px]">

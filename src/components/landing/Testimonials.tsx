@@ -7,10 +7,9 @@ import ramiPhoto from "@/assets/testimonials/rami.jpg";
 
 const AVATAR_PHOTOS = [adamPhoto, mariaPhoto, ramiPhoto] as const;
 
-export function Testimonials({ customItems }: { customItems?: any[] } = {}) {
+export function Testimonials() {
   const { t } = useI18n();
   const tt = t.landing.testimonials;
-  const itemsToRender = customItems || tt.items;
 
   return (
     <section
@@ -33,7 +32,7 @@ export function Testimonials({ customItems }: { customItems?: any[] } = {}) {
       </Reveal>
 
       <Reveal.Group className="grid grid-cols-1 gap-4 md:grid-cols-3" stagger="fast" amount={0.2}>
-        {itemsToRender.map((item, i) => (
+        {tt.items.map((item, i) => (
           <Reveal
             key={i}
             variant="fade-up"
