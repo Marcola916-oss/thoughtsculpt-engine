@@ -775,7 +775,7 @@ const PT: Dict = {
       eyebrow: "DIAGNÓSTICO REVELADO",
       h1: "[NOME], foi por isto que nada do que tentaste antes funcionou.",
       promise: "O padrão [PRIMARY] não te custa só dinheiro. Custa-te decisões na carreira, paz nas relações e horas de sono. Por isso a força de vontade falhou — estavas a lutar contra o mecanismo errado.",
-      cta: "Ver o meu protocolo agora →",
+      cta: "Ver o meu protocolo agora",
       timer: "Esta análise expira em alguns minutos.",
     },
     b2: {
@@ -1377,7 +1377,7 @@ const EN: Dict = {
       eyebrow: "DIAGNOSIS REVEALED",
       h1: "[NOME], this is why nothing you tried before actually worked.",
       promise: "The [PRIMARY] pattern doesn't only cost you money. It costs you career moves, peace in your relationships and hours of sleep. That's why willpower failed — you were fighting the wrong mechanism.",
-      cta: "Show me my protocol now →",
+      cta: "Show me my protocol now",
       timer: "This analysis expires in a few minutes.",
     },
     b2: {
@@ -1719,7 +1719,7 @@ const PL: Dict = {
       eyebrow: "DIAGNOZA UJAWNIONA",
       h1: "[NOME], właśnie dlatego nic, co próbowałeś wcześniej, nie zadziałało.",
       promise: "Wzorzec [PRIMARY] nie kosztuje cię tylko pieniędzy. Kosztuje cię decyzji w karierze, spokoju w związkach i godzin snu. Dlatego siła woli zawiodła — walczyłeś z niewłaściwym mechanizmem.",
-      cta: "Pokaż mi mój protokół teraz →",
+      cta: "Pokaż mi mój protokół teraz",
       timer: "Ta analiza wygasa za kilka minut.",
     },
     b2: {
@@ -2061,7 +2061,7 @@ const RO: Dict = {
       eyebrow: "DIAGNOZĂ DEZVĂLUITĂ",
       h1: "[NOME], de aceea nimic din ce ai încercat înainte nu a funcționat.",
       promise: "Tiparul [PRIMARY] nu te costă doar bani. Te costă decizii în carieră, liniște în relații și ore de somn. De aceea voința a eșuat — luptai cu mecanismul greșit.",
-      cta: "Vezi-mi protocolul acum →",
+      cta: "Vezi-mi protocolul acum",
       timer: "Această analiză expiră în câteva minute.",
     },
     b2: {
@@ -2404,7 +2404,7 @@ const AR: Dict = {
       eyebrow: "تم الكشف عن التشخيص",
       h1: "[NOME]، لهذا السبب لم ينجح شيء جرّبته من قبل.",
       promise: "نمط [PRIMARY] لا يكلّفك المال فقط. يكلّفك قرارات في المسيرة، سلاماً في علاقاتك، وساعات من النوم. لذلك فشلت قوة الإرادة — كنت تحارب الآلية الخاطئة.",
-      cta: "أرني بروتوكولي الآن ←",
+      cta: "أرني بروتوكولي الآن",
       timer: "ينتهي هذا التحليل خلال دقائق.",
     },
     b2: {
