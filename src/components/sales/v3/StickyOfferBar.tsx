@@ -8,8 +8,6 @@ interface StickyOfferBarProps {
 }
 
 export function StickyOfferBar({ show, cta, onCta, price }: StickyOfferBarProps) {
-  const { t } = useI18n();
-
   return (
     <div
       className={`fixed bottom-0 left-0 z-50 w-full border-t border-white/10 bg-black/80 p-4 transition-transform duration-500 backdrop-blur-md ${
@@ -20,7 +18,7 @@ export function StickyOfferBar({ show, cta, onCta, price }: StickyOfferBarProps)
         <div className="hidden items-center gap-3 sm:flex">
           <div className="h-2 w-2 animate-pulse rounded-full bg-arch-primary" />
           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
-            {price ? t.salesV2.b3.label : "OFERTA EXCLUSIVA"}
+            OFERTA EXCLUSIVA
           </span>
         </div>
 

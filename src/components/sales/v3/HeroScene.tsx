@@ -1,42 +1,33 @@
-import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { SceneFrame } from "./SceneFrame";
-import { BrainIcon } from "@/components/icons/BrainIcon";
+import { Brain } from "lucide-react";
 
 interface HeroSceneProps {
-  name: string;
-  archetype: string;
+  eyebrow: string;
   title: string;
   promise: string;
   cta: string;
-  timerLabel: string;
-  timeLeft: number;
+  timer: string;
   onCta: () => void;
+  proofs: { value: string; label: string }[];
 }
 
 export function HeroScene({
-  name,
-  archetype,
+  eyebrow,
   title,
   promise,
   cta,
-  timerLabel,
-  timeLeft,
+  timer,
   onCta,
+  proofs,
 }: HeroSceneProps) {
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
-
   return (
-    <SceneFrame archetype={archetype} className="pt-12 md:pt-20">
+    <SceneFrame sceneId="hero" className="pt-12 md:pt-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
         {/* Pulsing Badge Eyebrow */}
         <div className="mb-8 flex justify-center">
           <span className="badge-pulse inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-arch-primary shadow-[0_0_20px_-5px_var(--arch-glow)]">
-            <BrainIcon className="h-3 w-3 animate-pulse" />
-            DIAGNÓSTICO REVELADO
+            <Brain className="h-3 w-3 animate-pulse" />
+            {eyebrow || "DIAGNÓSTICO REVELADO"}
           </span>
         </div>
 
@@ -66,10 +57,20 @@ export function HeroScene({
             <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
           </button>
 
-          {timeLeft > 0 && (
+          {/* Proofs Row */}
+          <div className="mt-4 flex flex-wrap justify-center gap-x-8 gap-y-4">
+            {proofs.map((p, i) => (
+              <div key={i} className="text-center">
+                <div className="text-xl font-black text-white">{p.value}</div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">{p.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {timer && (
             <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/40">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-arch-primary" />
-              {timerLabel}: <span className="font-mono text-arch-primary">{formatTime(timeLeft)}</span>
+              {timer}
             </div>
           )}
         </div>
