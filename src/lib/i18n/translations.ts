@@ -775,7 +775,7 @@ const PT: Dict = {
       eyebrow: "DIAGNÓSTICO REVELADO",
       h1: "[NOME], foi por isto que nada do que tentaste antes funcionou.",
       promise: "O padrão [PRIMARY] não te custa só dinheiro. Custa-te decisões na carreira, paz nas relações e horas de sono. Por isso a força de vontade falhou — estavas a lutar contra o mecanismo errado.",
-      cta: "Ver o meu protocolo agora →",
+      cta: "Ver o meu protocolo agora",
       timer: "Esta análise expira em alguns minutos.",
     },
     b2: {
