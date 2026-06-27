@@ -72,18 +72,18 @@ export function HeroScene({
         </div>
         {proofs && proofs.length > 0 && (
           <ul
-            className="mt-14 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-5 border-t pt-8 sm:grid-cols-4"
+            className="mt-14 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-6 border-t pt-8 sm:grid-cols-4"
             style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 25%, transparent)" }}
           >
             {proofs.map((p, i) => (
-              <li key={i}>
+              <li key={i} className="min-w-0">
                 <p
-                  className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl drop-shadow-md"
+                  className="font-display text-xl font-extrabold tabular-nums sm:text-2xl leading-none whitespace-nowrap drop-shadow-md"
                   style={{ color: "var(--arch-primary)" }}
                 >
                   {p.value}
                 </p>
-                <p className="mt-1 text-[11px] uppercase tracking-wider text-white/70 font-semibold">
+                <p className="mt-2 text-[11px] uppercase tracking-wider text-white/70 font-semibold leading-snug">
                   {p.label}
                 </p>
               </li>
