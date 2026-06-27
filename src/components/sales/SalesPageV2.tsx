@@ -30,6 +30,7 @@ import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
+import { Atmosphere } from "@/components/atmosphere";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -159,8 +160,12 @@ export default function SalesPageV2({
 
   return (
     <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
+      {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
+      <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
+        <span aria-hidden />
+      </Atmosphere>
       {/* ─── Layout split: copy column + sculpture column ───── */}
-      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[1.5fr_1fr] lg:gap-16 lg:px-16 py-10">
+      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
         <div className="relative z-10">
           {/* B1 — Hero */}
@@ -296,7 +301,7 @@ export default function SalesPageV2({
               {v2.b6.testimonials.map((tst, i) => (
                 <figure
                   key={i}
-                  className="rounded-2xl p-5 sales-card-arch transition-transform hover:-translate-y-1 bg-black/30 border border-white/5"
+                  className="sales-card-arch p-5"
                 >
                   <div
                     className="mb-3 inline-flex h-1 w-10 rounded-full"
@@ -425,7 +430,8 @@ export default function SalesPageV2({
 
         {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
         <aside className="pointer-events-none relative hidden lg:block h-full">
-          <div className="sticky top-0 h-screen w-full">
+          <div className="sticky top-16 h-[calc(100vh-4rem)] w-full sales-sculpture-mask">
+            <div className="sales-sculpture-halo" aria-hidden />
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
           </div>
         </aside>
