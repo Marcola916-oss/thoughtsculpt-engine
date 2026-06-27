@@ -19,7 +19,6 @@ import {
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/interaction/Reveal";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
-import { Atmosphere } from "@/components/atmosphere/Atmosphere";
 import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 import { track, EVENTS } from "@/lib/analytics";
 
@@ -420,8 +419,7 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
   const ctaCopy = bumps.length === 0 ? copy.payCta(totalFormatted) : copy.payCtaWithBumps(totalFormatted);
 
   return (
-    <Atmosphere fog="subtle" symbols="off" scan="off" pinned className="min-h-screen">
-      <section className="relative mx-auto w-full max-w-5xl px-4 py-10 md:px-8 md:py-16 pb-32 md:pb-20">
+      <section className="relative mx-auto w-full max-w-5xl min-h-screen px-4 py-10 md:px-8 md:py-16 pb-32 md:pb-20">
         {/* ─────────── Header ─────────── */}
         <Reveal variant="fade-up" className="mx-auto mb-10 max-w-3xl text-center">
           <span
@@ -649,7 +647,6 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
           }
         `}</style>
       </section>
-    </Atmosphere>
   );
 }
 
