@@ -31,6 +31,8 @@ export const EVENTS = {
   VSL_SCENE_VIEW: "vsl_scene_view",
   CHECKOUT_VIEW: "checkout_view",
   BUMP_TOGGLED: "bump_toggled",
+  CHECKOUT_BUMP_TOGGLED: "checkout_bump_toggled",
+  CHECKOUT_TIMER_END: "checkout_timer_end",
   CHECKOUT_CTA_CLICKED: "checkout_cta_clicked",
   STRIPE_SESSION_CREATED: "stripe_session_created",
   PURCHASE_COMPLETED: "purchase_completed",
