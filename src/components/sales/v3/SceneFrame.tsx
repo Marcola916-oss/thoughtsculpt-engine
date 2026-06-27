@@ -48,7 +48,7 @@ export function SceneFrame({
   }, [sceneId]);
 
   return (
-    <section ref={ref} className="relative py-20 sm:py-28 w-full transition-all group">
+    <section ref={ref} data-scene={sceneId} aria-labelledby={`scene-heading-${sceneId}`} className="relative py-20 sm:py-28 w-full transition-all group">
       {index && <span className="sales-roman pointer-events-none opacity-20 group-hover:opacity-30 transition-opacity" aria-hidden>{ROMAN[index] ?? index}</span>}
       <div className="relative z-10">
         <Reveal>
@@ -71,7 +71,7 @@ export function SceneFrame({
             </p>
           )}
           {title && (
-            <h2 className="mb-8 font-display font-extrabold uppercase leading-[1.02] tracking-tight text-white drop-shadow-md"
+            <h2 id={`scene-heading-${sceneId}`} className="mb-8 font-display font-extrabold uppercase leading-[1.02] tracking-tight text-white drop-shadow-md"
                 style={{ fontSize: "clamp(2rem, 5.5vw, 4rem)" }}>
               {title}
             </h2>

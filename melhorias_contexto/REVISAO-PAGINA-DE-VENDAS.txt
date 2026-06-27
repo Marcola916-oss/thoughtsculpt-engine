@@ -1,0 +1,46 @@
+Vamos mexer na página de vendas e na "telinha" antes de redirecionar para o Stripe! Abaixo está o fluxo atual, para você entender: 
+...
+        ↓
+[TELA 12 — PÁGINA DE VENDAS LONGA — "VSL"]
+        ↓
+[TELA 13 — CHECKOUT](Redireciona para o Stripe)
+        ↓
+... 
+
+O meu principal objetivo com a página de vendas e tela de checkout(onde a pessoa escolhe os produtos para comprar e redireciona para o Stripe), é ter uma conversão de 30% ou mais. Toda pessoa que passar/"cair" na página de vendas, tem que ser convertida como cliente/lucro. 
+
+Sinceramente, não sei se o conteúdo atual da página de vendas e tela de checkout(onde a pessoa escolhe os produtos para comprar e redireciona para o Stripe) tem esse potencial de converter <30%. 
+
+Além disso, o que está mais me chateando na página de vendas, é o layout/visual. O layout/visual não está no padrão do produto, tem palavras e artes flutuando, tem blocos e layout mal organizado/desenhado, não está o ideal e está destoando do restante do produto. Se você navegar e analisar todo o produto, você vai ver que o produto tem padronização, tem uma organização visual clara e premium, tem animações, tem artes bem estruturas/pensadas.
+
+
+Vamos mexer em duas coisas nessas 2 páginas(página de vendas + "telinha" antes de redirecionar para o Stripe), vamos mexer no visual geral(animação, artes, layouts, organização visual, tudo relacionado ao visual da página) e nos conteúdos(textos, frases, persuasão, conversão, explicação, tudo para aumentar a conversão). 
+
+Observação IMPORTANTE: Eu quero algo(estrutura, produto, página) validado, algo que eu sei que vai vender, algo que sabemos que vai vender, algo que funciona. Por isso estou aqui. Eu não quero fazer testes, não quero testar, não quero TER que validar. Quero colocar no ar e vender MUITO(pois já sabemos que funciona), porque eu quero algo(estrutura, produto, página) já validado, algo que funciona, algo que vende em todos os países que vou trabalhar(Romênia, Polônia e Arábia Saudita), algo que vende para todos os públicos, algo(estrutura, produto, página) que converte. Vamos trabalhar com emoções, vamos trabalhar com, com persuasão, com conversão, com palavras persuasivas, tudo o que for possível para atingirmos trinta por cento de conversão ou mais. Coisas validadas.
+
+
+Coisas para NÃO remover/quebrar: 
+• Não remover e NÃO "quebrar" a minha arte com scroll na página de vendas.
+• No geral NÃO vamos "remover nada", apenas melhorar, modificar(ou adicionar) o que já tem pronto.
+
+
+O que mexer no visual(você vai pensar muito mais além, para melhorar ainda mais e deixar MUITO mais premium):
+• Quero "ganhar" a pessoa(cliente) já no visual, entende? 
+• Copie o mesmo layout e depoimentos da landing page para a página de vendas. Apenas adicione os depoimentos da landing page na página de vendas, somando 6 cards(com mesmo estilo da landing page) com nomes, países e fotos diferentes(vou colocar as outras 3 fotos depois, só deixe um espaço reservado), 3 cards já tem fotos... trazendo o layout, estilo e organização premium da landing page para a página de vendas, MELHORANDO o que já tem! 
+• Tem muitos textos e palavras flutuando, sem uma estrutura e uma organização visual premium. 
+• TODOS os blocos que agrupam as informações, estão feios e destoam MUITO do produto. Além que trazer para o padrão premium do produto, quero que você vá além e deixe ULTRA LINDA/BONITA(vamos fazer essa ser a MELHOR página do produto). 
+• A minha arte com scroll do lado direito está "flutuando" na página, quero que você veja e entenda a arte e pense(seja criativo) uma melhor forma de "encaixar" ela(arte com scroll) na página. Sem quebrar a arte. Ideias: coloque uma atmosfera, ou uma "luz/iluminação", uma animação envolvendo o conteúdo da página + a arte, sei lá, são só ideias, você vai pensar em algo! 
+
+
+O que mexer no conteúdo(você vai pensar muito mais além, para MELHORAR ainda mais para alcançarmos <30% de conversão):
+• Quero atingir <30% de conversão. 
+• Não vamos "tirar/remover" NADA, vamos apenas adiconar ou melhorar/modificar o que já existe.
+• Eu não quero falar sobre nenhum tipo de preço na página de vendas, não quero mostrar nada sobre preço(vou explicar o "porque" no próximo tópico). Na página de vendas(além de tudo que já tem), temos que reforçar mais e presentar nosso produto como solução para o problema da pessoa, vamos mostrar para ela(pessoa/cliente) que o arquétipo está atrapalhando todos os âmbitos(financeiro, profissional, relacionamento amoroso e pessoais...) da vida dela, desde de a página reveal(onde revela o arquétipo e mostra para a pessoa que existe um "problema") até a página de vendas. Mostrando com dados e informações, de forma persuasiva e pensando em conversão, que existe um problema e que ele está atrapalhando/atrasando a vida da pessoa e o nosso produto é a solução para isso! Me fala se você consegue compreender isso e se podemos atingir os 30% de conversão? Quero que você use todos os recursos possíveis para atingirmos 30% de conversão.
+• Eu não vou falar sobre preço na página de vendas, porque a pessoa ainda vai passar por uma "telinha" onde ela vai escolher quais produtos ela vai comprar, quais são os produtos. E ali ela vai ser de de redirecionada para página da Stripe. Então, na página de vendas, a gente vai mostrar tudo o que a pessoa vai receber, vai explicar tudo, vai mostrar como tudo funciona, vai mostrar os benefícios do produto, vai mostrar o porquê que o produto é a solução pro problema dela, que o problema dela existe(e que comprovadamente está atrapalhando a vida dela) e que tem solução e que o nosso produto é a solução, é a melhor solução ou a única que existe. Entende? E naquela telinha que eu tinha falado anteriormente(onde ela vai escolher quais produtos ela vai comprar, antes de ir para página da Stripe), onde a pessoa vai escolher os produtos que ela vai comprar, é nessa "tela" que temos que fazer a pessoa(cliente) tomar a decisão de compra, porque é ali que ela vai clicar em pagar, e que ela vai direto pro checkout da Stripe onde ela vai escolher o método de pagamento. Então nessa tela(onde ela vai escolher quais produtos ela vai comprar, antes de ir para página da Stripe), a gente precisa fazer a pessoa tomar a decisão de compra. É ali(tela antes de ir para Stripe) que gente a tem que vender pra pessoa, que a pessoa vai escolher o que ela vai comprar. Então, essa tela precisa também ficar ultra persuasiva. 
+• Você precisa pensar em algo inteligente pra isso(validado). 
+
+
+
+Você vai ter que entender sobre tudo sobre o produto, LER TODOS OS ARQUIVOS, CADA LINHA DE CÓDIGO... TUDO, para você entender o que eu estou falando e para pensar em algo que de fato MELHORE o visual geral e conversão das páginas(página de vendas + "telinha" antes de redirecionar para o Stripe).
+
+NÃO PRODUZA E NÃO ALTERE NADA AINDA, APENAS ENTENDA TUDO E FAÇA UMA PLANO DE IMPLEMENTAÇÃO COMPLETO E DETALHADO COM DIRETRIZES, FASES, ORDEM DE EXECUÇÃO PARA UMA REVISÃO FINAL NAS PÁGINAS(página de vendas + página antes de redirecionar para o Stripe)!

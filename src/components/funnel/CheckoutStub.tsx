@@ -7,7 +7,6 @@ import {
   Lock,
   ShieldCheck,
   Check,
-  ChevronDown,
   Clock,
   ArrowRight,
   Sparkles,
@@ -47,6 +46,7 @@ type Copy = {
   statRating: string;
   statDelivery: string;
   statGuarantee: string;
+  starAriaLabel: string;
   mainTitle: string;
   mainDesc: string;
   includedTitle: string;
@@ -86,6 +86,7 @@ const COPY: Record<string, Copy> = {
     statRating: "4,9★ média",
     statDelivery: "PDF em 60s",
     statGuarantee: "30 dias garantia",
+    starAriaLabel: "5 estrelas",
     mainTitle: "Protocolo MindReset",
     mainDesc: "Tudo o que precisas para sair do padrão — sem assinatura, sem letra pequena.",
     includedTitle: "O que está incluído",
@@ -127,6 +128,7 @@ const COPY: Record<string, Copy> = {
     statRating: "4.9★ avg",
     statDelivery: "PDF in 60s",
     statGuarantee: "30-day guarantee",
+    starAriaLabel: "5 stars",
     mainTitle: "MindReset Protocol",
     mainDesc: "Everything you need to break the pattern — no subscription, no fine print.",
     includedTitle: "What's included",
@@ -168,6 +170,7 @@ const COPY: Record<string, Copy> = {
     statRating: "4,9★ średnio",
     statDelivery: "PDF w 60s",
     statGuarantee: "30 dni gwarancji",
+    starAriaLabel: "5 gwiazdek",
     mainTitle: "Protokół MindReset",
     mainDesc: "Wszystko, czego potrzebujesz, by przerwać wzorzec — bez subskrypcji, bez drobnego druku.",
     includedTitle: "Co jest w środku",
@@ -209,6 +212,7 @@ const COPY: Record<string, Copy> = {
     statRating: "4,9★ medie",
     statDelivery: "PDF în 60s",
     statGuarantee: "30 zile garanție",
+    starAriaLabel: "5 stele",
     mainTitle: "Protocolul MindReset",
     mainDesc: "Tot ce ai nevoie ca să ieși din tipar — fără abonament, fără text mărunt.",
     includedTitle: "Ce este inclus",
@@ -250,6 +254,7 @@ const COPY: Record<string, Copy> = {
     statRating: "4.9★ متوسط",
     statDelivery: "PDF خلال 60 ثانية",
     statGuarantee: "ضمان 30 يوماً",
+    starAriaLabel: "5 نجوم",
     mainTitle: "بروتوكول MindReset",
     mainDesc: "كل ما تحتاج لكسر النمط — بدون اشتراك، بدون حروف صغيرة.",
     includedTitle: "ما المتضمَّن",
@@ -434,13 +439,19 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
           <p className="mt-4 text-base text-foreground/70 md:text-lg">{copy.sub}</p>
 
           {/* Stat chips */}
-          <ul className="mt-6 flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/75">
-            {[copy.statDiagnoses, copy.statRating, copy.statDelivery, copy.statGuarantee].map((s) => (
+          <ul className="mt-6 flex flex-wrap items-center justify-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/75">
+            {[
+              { icon: <Sparkles className="h-3 w-3" aria-hidden />, text: copy.statDiagnoses },
+              { icon: <Star className="h-3 w-3" aria-hidden />, text: copy.statRating },
+              { icon: <Clock className="h-3 w-3" aria-hidden />, text: copy.statDelivery },
+              { icon: <ShieldCheck className="h-3 w-3" aria-hidden />, text: copy.statGuarantee },
+            ].map((s) => (
               <li
-                key={s}
-                className="rounded-full border border-foreground/15 bg-black/40 px-3 py-1 backdrop-blur-md"
+                key={s.text}
+                className="inline-flex items-center gap-1.5 rounded-full border border-foreground/15 bg-black/40 px-3 py-1 backdrop-blur-md"
               >
-                {s}
+                <span className="text-arch-primary">{s.icon}</span>
+                {s.text}
               </li>
             ))}
           </ul>
@@ -448,7 +459,7 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
 
         {/* ─────────── Main card ─────────── */}
         <Reveal variant="fade-up">
-          <article className="relative overflow-hidden rounded-3xl border border-arch-primary/25 bg-black/55 p-6 backdrop-blur-xl shadow-[0_30px_80px_-30px_var(--arch-glow)] md:p-9">
+          <article className="relative overflow-hidden rounded-[2.5rem] border border-arch-primary/30 bg-black/55 p-6 backdrop-blur-xl shadow-[0_50px_120px_-40px_var(--arch-glow)] md:p-9">
             {/* Top: title + countdown */}
             <header className="flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-0">
@@ -469,7 +480,7 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
                 {deliverables.map((d, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-3 rounded-2xl border border-foreground/10 bg-black/30 p-3"
+                    className="group flex items-start gap-3 rounded-[1.5rem] border border-foreground/10 bg-black/30 p-3 transition-all duration-300 hover:border-arch-primary/20 hover:bg-black/40"
                   >
                     <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-arch-primary/15 text-arch-primary">
                       <Check className="h-4 w-4" strokeWidth={3} />
@@ -545,12 +556,16 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
                 style={{
                   animation: shake ? "checkout-cta-shake 0.7s ease-in-out" : undefined,
                 }}
-                className="group relative mt-7 flex h-20 w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-arch-primary px-6 font-sans text-base font-extrabold uppercase tracking-wide text-primary-foreground shadow-[0_0_45px_-6px_var(--arch-glow)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-arch-primary/95 disabled:opacity-60 md:h-28 md:text-lg"
+                className="group relative mt-7 flex h-20 w-full items-center justify-center gap-3 overflow-hidden rounded-[1.5rem] bg-arch-primary px-6 font-sans text-base font-extrabold uppercase tracking-wide text-primary-foreground shadow-[0_0_60px_-6px_var(--arch-glow)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-arch-primary/95 disabled:opacity-60 md:h-28 md:text-lg"
               >
-                <Lock className="h-5 w-5" aria-hidden />
-                <span>{submitting ? copy.processing : ctaCopy}</span>
+                <span
+                  aria-hidden
+                  className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_2s_infinite] pointer-events-none"
+                />
+                <Lock className="relative z-10 h-5 w-5" aria-hidden />
+                <span className="relative z-10">{submitting ? copy.processing : ctaCopy}</span>
                 {!submitting && (
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden />
+                  <ArrowRight className="relative z-10 h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden />
                 )}
               </button>
             </ButtonPress>
@@ -561,10 +576,10 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
 
             {/* Trust strip */}
             <ul className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground/55">
-              <li className="inline-flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" />{copy.trustStripe}</li>
-              <li className="inline-flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" />{copy.trustSsl}</li>
-              <li className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5" />{copy.trustGuarantee}</li>
-              <li className="inline-flex items-center gap-1.5"><Globe2 className="h-3.5 w-3.5" />{copy.trustLangs}</li>
+              <li className="inline-flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" aria-hidden />{copy.trustStripe}</li>
+              <li className="inline-flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" aria-hidden />{copy.trustSsl}</li>
+              <li className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5" aria-hidden />{copy.trustGuarantee}</li>
+              <li className="inline-flex items-center gap-1.5"><Globe2 className="h-3.5 w-3.5" aria-hidden />{copy.trustLangs}</li>
             </ul>
           </article>
         </Reveal>
@@ -575,22 +590,22 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
             <h3 className="mb-4 text-center text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/55">
               {copy.socialTitle}
             </h3>
-            <RollingTestimonials items={miniTestimonials} archByline={copy.archByline} />
+            <RollingTestimonials items={miniTestimonials} archByline={copy.archByline} starAriaLabel={copy.starAriaLabel} />
           </Reveal>
         )}
 
         {/* ─────────── Guarantee + FAQ ─────────── */}
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_1fr]">
           <Reveal variant="fade-up">
-            <article className="relative h-full overflow-hidden rounded-3xl border border-arch-primary/25 bg-black/40 p-6 backdrop-blur-xl shadow-[0_30px_80px_-30px_var(--arch-glow)]">
+            <article className="relative h-full overflow-hidden rounded-[2.5rem] border border-arch-primary/25 bg-black/40 p-6 backdrop-blur-3xl shadow-[0_30px_80px_-30px_var(--arch-glow)]">
               <div className="flex items-start gap-4">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-arch-primary/15 text-arch-primary">
                   <ShieldCheck className="h-6 w-6" />
                 </span>
                 <div className="min-w-0">
-                  <h4 className="font-display text-lg font-extrabold uppercase tracking-tight md:text-xl">
+                  <h3 className="font-display text-lg font-extrabold uppercase tracking-tight md:text-xl">
                     {copy.guaranteeTitle}
-                  </h4>
+                  </h3>
                   <p className="mt-2 text-sm leading-relaxed text-foreground/70">
                     {copy.guaranteeBody}
                   </p>
@@ -600,13 +615,13 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
           </Reveal>
 
           <Reveal variant="fade-up">
-            <article className="h-full rounded-3xl border border-foreground/10 bg-black/40 p-6 backdrop-blur-xl">
-              <h4 className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/55">
+            <article className="h-full rounded-[2.5rem] border border-foreground/10 bg-black/40 p-6 backdrop-blur-3xl">
+              <h3 className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/55">
                 {copy.faqTitle}
-              </h4>
+              </h3>
               <div className="divide-y divide-foreground/10">
                 {copy.faq.map((f, i) => (
-                  <FAQItem key={i} q={f.q} a={f.a} />
+                  <FAQItem key={i} q={f.q} a={f.a} index={i} />
                 ))}
               </div>
             </article>
@@ -624,10 +639,15 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
               type="button"
               onClick={handleClick}
               disabled={submitting || !leadId}
-              className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-arch-primary px-4 py-3 font-sans text-sm font-extrabold uppercase tracking-wide text-primary-foreground shadow-[0_0_24px_-6px_var(--arch-glow)] transition-all active:scale-[0.98] disabled:opacity-60"
+              aria-label={submitting ? copy.processing : ctaCopy}
+              className="group relative flex flex-1 items-center justify-center gap-2 overflow-hidden rounded-2xl bg-arch-primary px-5 py-3.5 font-sans text-sm font-extrabold uppercase tracking-wide text-primary-foreground shadow-[0_0_30px_-4px_var(--arch-glow)] transition-all active:scale-[0.98] disabled:opacity-60"
             >
-              <Lock className="h-4 w-4" />
-              {submitting ? "…" : ctaCopy}
+              <span
+                aria-hidden
+                className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_2s_infinite] pointer-events-none"
+              />
+              <Lock className="relative z-10 h-4 w-4" aria-hidden />
+              <span className="relative z-10">{submitting ? "…" : ctaCopy}</span>
             </button>
           </div>
         </div>
@@ -641,9 +661,6 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
             45% { transform: translateX(-2px); }
             60% { transform: translateX(2px); }
             75% { transform: translateX(-1px); }
-          }
-          @media (prefers-reduced-motion: reduce) {
-            [data-checkout-cta] { animation: none !important; }
           }
         `}</style>
       </section>
@@ -674,22 +691,22 @@ function BumpCard({
       type="button"
       onClick={onToggle}
       aria-pressed={active}
-      className="group relative flex h-full w-full flex-col items-start gap-3 rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-0.5"
+      className={`group relative flex h-full w-full flex-col items-start gap-3 rounded-[2rem] border p-5 sm:p-6 text-start backdrop-blur-3xl shadow-2xl transition-all duration-500 hover:-translate-y-1 ${
+        active
+          ? "border-arch-primary shadow-[0_20px_60px_-16px_var(--arch-glow)]"
+          : "border-arch-primary/22 hover:border-arch-primary/50"
+      }`}
       style={{
-        borderColor: active
-          ? "var(--arch-primary)"
-          : "color-mix(in oklab, var(--arch-primary) 22%, transparent)",
         background: active
           ? "color-mix(in oklab, var(--arch-primary) 14%, rgba(0,0,0,0.45))"
           : "color-mix(in oklab, var(--arch-primary) 4%, rgba(0,0,0,0.35))",
-        boxShadow: active ? "0 18px 60px -20px var(--arch-glow)" : undefined,
       }}
     >
       <div className="flex w-full items-start justify-between gap-3">
         <div className="flex items-center gap-2.5 min-w-0">
           <span
             aria-hidden
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-colors"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300"
             style={{
               borderColor: active
                 ? "transparent"
@@ -698,7 +715,7 @@ function BumpCard({
               color: active ? "white" : "var(--arch-primary)",
             }}
           >
-            {active ? <Check size={14} strokeWidth={3} /> : <Plus size={14} strokeWidth={2.5} />}
+            {active ? <Check size={15} strokeWidth={3} /> : <Plus size={15} strokeWidth={2.5} />}
           </span>
           <span className="font-display text-base font-extrabold uppercase tracking-tight">
             {title}
@@ -755,7 +772,7 @@ function CountdownPill({ minutes, label }: { minutes: number; label: string }) {
   return (
     <div
       aria-hidden
-      className="inline-flex items-center gap-1.5 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-arch-primary"
+      className="inline-flex items-center gap-1.5 rounded-full border border-arch-primary/50 bg-arch-primary/15 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-arch-primary shadow-[0_0_12px_-2px_var(--arch-glow)] badge-pulse"
     >
       <Clock className="h-3 w-3" />
       <span className="hidden sm:inline">{label}</span>
@@ -764,22 +781,34 @@ function CountdownPill({ minutes, label }: { minutes: number; label: string }) {
   );
 }
 
-function FAQItem({ q, a }: { q: string; a: string }) {
+function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
   const [open, setOpen] = useState(false);
+  const faqId = `checkout-faq-${index}`;
   return (
     <div className="py-3">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
+        aria-controls={faqId}
         className="flex w-full items-center justify-between gap-3 text-start text-sm font-bold text-foreground/90 transition-colors hover:text-foreground"
       >
         <span>{q}</span>
-        <ChevronDown
-          className={`h-4 w-4 shrink-0 text-foreground/50 transition-transform ${open ? "rotate-180" : ""}`}
+        <Plus
+          className={`h-4 w-4 shrink-0 text-arch-primary transition-transform duration-300 ${open ? "rotate-45" : ""}`}
+          aria-hidden
         />
       </button>
-      {open && <p className="mt-2 text-xs leading-relaxed text-foreground/65">{a}</p>}
+      <div
+        id={faqId}
+        role="region"
+        aria-hidden={!open}
+        className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-out ${
+          open ? "grid-rows-[1fr] opacity-100 pb-2" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <p className="min-h-0 text-xs leading-relaxed text-foreground/65">{a}</p>
+      </div>
     </div>
   );
 }
@@ -787,9 +816,11 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 function RollingTestimonials({
   items,
   archByline,
+  starAriaLabel,
 }: {
   items: Array<{ stars: number; quote: string; name: string; arch: string }>;
   archByline: (arch: string) => string;
+  starAriaLabel: string;
 }) {
   const [idx, setIdx] = useState(0);
   useEffect(() => {
@@ -805,14 +836,14 @@ function RollingTestimonials({
   if (!cur) return null;
 
   return (
-    <div className="mx-auto max-w-2xl rounded-2xl border border-arch-primary/20 bg-black/40 p-5 backdrop-blur-xl">
-      <div className="mb-2 flex gap-0.5 text-arch-primary" aria-label="5 stars">
+    <div className="mx-auto max-w-2xl rounded-[2rem] border border-arch-primary/25 bg-black/50 p-6 sm:p-8 backdrop-blur-3xl shadow-2xl">
+      <div className="mb-2 flex gap-0.5 text-arch-primary" role="img" aria-label={starAriaLabel}>
         {Array.from({ length: cur.stars || 5 }).map((_, i) => (
-          <Star key={i} className="h-3.5 w-3.5 fill-current" />
+          <Star key={i} className="h-4 w-4 fill-current" />
         ))}
       </div>
-      <p className="text-sm italic leading-relaxed text-foreground/85 md:text-base">
-        "{cur.quote}"
+      <p className="text-[15px] font-semibold italic leading-relaxed text-foreground/85 md:text-base">
+        &ldquo;{cur.quote}&rdquo;
       </p>
       <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-foreground/55">
         {cur.name} · {archByline(cur.arch)}
@@ -822,7 +853,7 @@ function RollingTestimonials({
         {items.map((_, i) => (
           <span
             key={i}
-            className={`h-1.5 rounded-full transition-all ${
+            className={`h-1.5 rounded-full transition-all duration-500 ${
               i === idx ? "w-5 bg-arch-primary" : "w-1.5 bg-foreground/25"
             }`}
           />

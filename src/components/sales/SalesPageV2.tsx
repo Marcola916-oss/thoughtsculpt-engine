@@ -10,7 +10,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import type { Archetype } from "@/lib/quiz/scoring";
 import type { AreaScores } from "@/lib/funnel/area-scores";
@@ -28,6 +28,8 @@ import { AreaPoster, type Area } from "./v3/AreaPoster";
 import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
+import { SalesTestimonials } from "./v3/SalesTestimonials";
+import { SculptureParticles } from "./v3/SculptureParticles";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
@@ -92,6 +94,7 @@ export default function SalesPageV2({
   const [bump2, setBump2] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [haloIntensity, setHaloIntensity] = useState(0.85);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
@@ -111,6 +114,41 @@ export default function SalesPageV2({
         track(EVENTS.VSL_SCROLL_DEPTH, { max_depth: maxScrollRef.current });
       }
     };
+  }, []);
+
+  // Halo reactivity: intensify glow based on which content section is in view
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+    const container = rootRef.current;
+    if (!container) return;
+    const scenes = container.querySelectorAll<HTMLElement>("[data-scene]");
+    if (scenes.length === 0) return;
+
+    const intensityMap: Record<string, number> = {
+      pain: 1,        // Dor → glow máximo
+      science: 0.6,   // Ciência → glow suave
+      "4d": 0.8,      // Diagnóstico → glow moderado
+      deliver: 0.75,  // Entregáveis → glow moderado
+      proof: 0.9,     // Prova social → glow alto
+      bridge: 1,      // Decisão → glow máximo
+      faq: 0.7,       // FAQ → glow moderado
+    };
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            const scene = e.target.getAttribute("data-scene");
+            if (scene && scene in intensityMap) {
+              setHaloIntensity(intensityMap[scene]);
+            }
+          }
+        }
+      },
+      { threshold: 0.35 },
+    );
+    scenes.forEach((s) => obs.observe(s));
+    return () => obs.disconnect();
   }, []);
 
   // VSL_VIEW on mount
@@ -261,24 +299,17 @@ export default function SalesPageV2({
               {v2.b5.deliverables.map((feat, i) => (
                 <li
                   key={i}
-                  className="flex items-start gap-3 rounded-2xl border p-4 transition-all hover:-translate-y-0.5"
-                  style={{
-                    borderColor: "color-mix(in oklab, var(--arch-primary) 25%, transparent)",
-                    background: "color-mix(in oklab, var(--arch-primary) 6%, rgba(0,0,0,0.45))",
-                    backdropFilter: "blur(10px)",
-                    boxShadow: "0 18px 50px -28px var(--arch-glow)",
-                  }}
+                  className="group flex items-start gap-3 rounded-[2.5rem] border border-white/10 bg-black/40 p-5 sm:p-6 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:hover:-translate-y-2 shadow-2xl md:backdrop-blur-3xl overflow-hidden"
                 >
                   <CheckCircle2
                     size={20}
-                    className="mt-0.5 shrink-0"
-                    style={{ color: "var(--arch-primary)" }}
+                    className="mt-0.5 shrink-0 text-arch-primary group-hover:scale-110 transition-transform duration-300"
                   />
                   <div>
                     <p className="font-display font-extrabold uppercase tracking-tight text-white">
                       {feat.title}
                     </p>
-                    <p className="mt-1 text-sm leading-relaxed text-white/75">
+                    <p className="mt-1 text-sm leading-relaxed text-white/70 group-hover:text-white/85 transition-colors">
                       {tpl(feat.description)}
                     </p>
                   </div>
@@ -291,47 +322,17 @@ export default function SalesPageV2({
           </SceneFrame>
 
           {/* IV — Social Proof */}
-          <SceneFrame
-            sceneId="proof"
-            index={4}
-            badge={badges.proof}
-            title={
-              <span>
-                <AnimatedCounter end={12000} prefix="+" />{" "}
-                {v2.b6.counter.replace(/\+\s?12[.,]?000\s?/, "").trim()}
-              </span>
-            }
-          >
-            <p className="mb-8 text-sm uppercase tracking-widest text-white/60 font-medium">
-              {v2.b6.rating}
-            </p>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-              {v2.b6.testimonials.map((tst, i) => (
-                <figure
-                  key={i}
-                  className="sales-card-arch p-5"
-                >
-                  <div
-                    className="mb-3 inline-flex h-1 w-10 rounded-full"
-                    style={{ background: "var(--arch-primary)", boxShadow: "0 0 10px var(--arch-primary)" }}
-                  />
-                  <blockquote className="text-[15px] leading-relaxed text-white/90">
-                    &ldquo;{tpl(tst.quote)}&rdquo;
-                  </blockquote>
-                  <figcaption className="mt-4 text-xs text-white/60">
-                    <span className="font-semibold text-white/80">{tst.author}</span>
-                    {" · "}
-                    {tst.country} · {tst.arch}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </SceneFrame>
+          <SalesTestimonials
+            counter={v2.b6.counter}
+            rating={v2.b6.rating}
+            testimonials={v2.b6.testimonials.slice(0, 6)}
+            lang={lang}
+          />
 
           {/* B7 — Bridge card (sem preço; envia para Tela 13 de decisão) */}
           <SceneFrame sceneId="bridge" badge={badges.decision} title={tpl(v2.b7.eyebrow)}>
             <div
-              className="relative overflow-hidden rounded-[28px] p-6 sm:p-9 text-center bg-black/55 backdrop-blur-2xl"
+              className="relative overflow-hidden rounded-[2.5rem] p-6 sm:p-9 text-center bg-black/55 backdrop-blur-2xl"
               style={{
                 border: "1px solid color-mix(in oklab, var(--arch-primary) 38%, transparent)",
                 boxShadow:
@@ -362,37 +363,52 @@ export default function SalesPageV2({
 
           {/* V — FAQ */}
           <SceneFrame sceneId="faq" index={5} badge={badges.faq} title={v2.b8.title}>
-            <ul
-              className="divide-y rounded-2xl border"
-              style={{
-                borderColor: "color-mix(in oklab, var(--arch-primary) 22%, transparent)",
-                background: "color-mix(in oklab, var(--arch-primary) 10%, rgba(0,0,0,0.5))",
-                backdropFilter: "blur(12px)",
-              }}
-            >
-              {v2.b8.items.map((it, i) => (
-                <li key={i} style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 18%, transparent)" }}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    aria-expanded={openFaq === i}
-                    className="flex w-full items-center justify-between gap-4 p-5 text-start hover:bg-white/5 transition-colors"
+            <div className="mx-auto max-w-3xl">
+              {v2.b8.items.map((it, i) => {
+                const isOpen = openFaq === i;
+                return (
+                  <div
+                    key={i}
+                    className={`border-b border-white/[0.07] ${i === 0 ? "border-t" : ""} transition-colors hover:bg-white/[0.01]`}
                   >
-                    <span className="font-medium text-white">{it.q}</span>
-                    <ChevronDown
-                      size={18}
-                      className={`shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`}
-                      style={{ color: "var(--arch-primary)" }}
-                    />
-                  </button>
-                  {openFaq === i && (
-                    <div className="px-5 pb-5 text-[15px] leading-relaxed text-white/80">
-                      {tpl(it.a)}
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-panel-${i}`}
+                      className="flex w-full items-center justify-between gap-4 py-6 text-left transition-colors group"
+                    >
+                      <span
+                        className={`font-display text-lg font-extrabold uppercase tracking-tight transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] ${
+                          isOpen ? "text-arch-primary" : "text-white"
+                        } group-hover:text-arch-primary`}
+                      >
+                        {it.q}
+                      </span>
+                      <Plus
+                        aria-hidden
+                        className={`h-5 w-5 shrink-0 text-arch-primary transition-transform duration-300 ${
+                          isOpen ? "rotate-45" : "rotate-0"
+                        }`}
+                        strokeWidth={1.8}
+                      />
+                    </button>
+                    <div
+                      id={`faq-panel-${i}`}
+                      role="region"
+                      aria-hidden={!isOpen}
+                      className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-400 ease-out ${
+                        isOpen ? "grid-rows-[1fr] opacity-100 pb-5" : "grid-rows-[0fr] opacity-0"
+                      }`}
+                    >
+                      <p className="min-h-0 text-[15px] font-medium leading-relaxed text-white/70 md:text-base drop-shadow-sm">
+                        {tpl(it.a)}
+                      </p>
                     </div>
-                  )}
-                </li>
-              ))}
-            </ul>
+                  </div>
+                );
+              })}
+            </div>
           </SceneFrame>
 
           {/* B9 — Final */}
@@ -411,13 +427,17 @@ export default function SalesPageV2({
               <ButtonPress
                 type="button"
                 onClick={() => advance("b9")}
-                className="group mt-10 inline-flex min-h-20 sm:min-h-28 max-w-[min(92vw,34rem)] items-center justify-center gap-3 rounded-full bg-white px-6 py-4 sm:px-12 sm:py-5 font-sans text-sm sm:text-lg font-extrabold uppercase tracking-wide text-black text-center leading-tight transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse"
+                className="group mt-10 inline-flex min-h-20 sm:min-h-28 max-w-[min(92vw,34rem)] items-center justify-center gap-3 rounded-full bg-white px-6 py-4 sm:px-12 sm:py-5 font-sans text-sm sm:text-lg font-extrabold uppercase tracking-wide text-black text-center leading-tight transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse overflow-hidden relative"
                 style={{ boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)" }}
               >
                 <span
                   aria-hidden
                   className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                   style={{ background: "var(--arch-primary)", borderRadius: "inherit" }}
+                />
+                <span
+                  aria-hidden
+                  className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite] pointer-events-none"
                 />
                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
                   {v2.b9.cta}
@@ -442,10 +462,25 @@ export default function SalesPageV2({
         </div>
 
         {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
-        <aside className="pointer-events-none relative hidden lg:block h-full">
-          <div className="sticky top-16 h-[calc(100vh-4rem)] w-full sales-sculpture-mask">
-            <div className="sales-sculpture-halo" aria-hidden />
-            <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
+        <aside className="pointer-events-none relative hidden lg:block h-full sales-sculpture-col">
+          <div
+            className="sticky top-16 h-[calc(100vh-4rem)] w-full sales-sculpture-mask"
+            style={{ perspective: "1000px" }}
+          >
+            <div
+              className="w-full h-full transition-transform duration-800 ease-out"
+              style={{ transform: "rotateY(-2deg)", transformOrigin: "center center" }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = "rotateY(0deg) scale(1.02)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = "rotateY(-2deg)"; }}
+            >
+              <div
+                className="sales-sculpture-halo"
+                aria-hidden
+                style={{ opacity: haloIntensity, transition: "opacity 600ms ease" }}
+              />
+              <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
+              <SculptureParticles count={18} />
+            </div>
           </div>
         </aside>
       </div>
@@ -453,7 +488,12 @@ export default function SalesPageV2({
       {/* Mobile/tablet sculpture — fixed ambient behind copy */}
       <div
         className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
-        style={{ opacity: 0.32, mixBlendMode: "screen" }}
+        style={{
+          opacity: 0.45,
+          mixBlendMode: "screen",
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+        }}
       >
         <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
       </div>

@@ -28,7 +28,7 @@ import { startBrainFramesPreload } from "@/lib/brainFramesCache";
 import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-scores";
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
 import { BrainOrbit } from "@/components/reveal/BrainOrbit";
-import { CheckoutStub } from "@/components/funnel/CheckoutStub";
+const CheckoutStub = lazy(() => import("@/components/funnel/CheckoutStub").then(m => ({ default: m.CheckoutStub })));
 const SalesPageV2 = lazy(() => import("@/components/sales/SalesPageV2"));
 import { track, EVENTS } from "@/lib/analytics";
 
@@ -595,7 +595,9 @@ function LandingAndQuiz() {
 
           {stage.kind === "checkout" && (
             <div key="checkout">
-              <CheckoutStub email={email} name={name} leadId={leadId} initialBumps={selectedBumps} />
+              <Suspense fallback={<div className="py-24 text-center text-foreground/60">…</div>}>
+                <CheckoutStub email={email} name={name} leadId={leadId} initialBumps={selectedBumps} />
+              </Suspense>
             </div>
           )}
 
