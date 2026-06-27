@@ -206,6 +206,16 @@ export default function SalesPageV2({
             >
               {v2.b3.references}
             </blockquote>
+            <p
+              className="mt-6 inline-flex items-center rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.25em]"
+              style={{
+                borderColor: "color-mix(in oklab, var(--arch-primary) 40%, transparent)",
+                color: "var(--arch-primary)",
+                background: "color-mix(in oklab, var(--arch-primary) 10%, transparent)",
+              }}
+            >
+              {v2.b3.proofSeal}
+            </p>
             <p className="mt-8 text-[17px] leading-relaxed text-white">
               <strong style={{ color: "var(--arch-primary)" }}>{v2.b3.pivot}</strong>{" "}
               {tpl(v2.b3.solution)}
@@ -232,9 +242,10 @@ export default function SalesPageV2({
           </SceneFrame>
 
           {/* B5 — "O que vais receber" (sem preço — preço fica para Tela 13) */}
-          <SceneFrame sceneId="deliver" badge={badges.deliver} title={v2.b5.eyebrow}>
+          <SceneFrame sceneId="deliver" badge={badges.deliver} title={tpl(v2.b5.title)}>
+            <p className="mb-8 text-white/75 text-base font-medium">{tpl(v2.b5.subtitle)}</p>
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {v2.b4.features.map((feat, i) => (
+              {v2.b5.deliverables.map((feat, i) => (
                 <li
                   key={i}
                   className="flex items-start gap-3 rounded-2xl border p-4 transition-all hover:-translate-y-0.5"
@@ -261,6 +272,9 @@ export default function SalesPageV2({
                 </li>
               ))}
             </ul>
+            <p className="mt-6 text-center text-xs text-white/60 font-semibold">
+              {v2.b5.note}
+            </p>
           </SceneFrame>
 
           {/* IV — Social Proof */}
