@@ -71,7 +71,7 @@ export function SceneFrame({
             </p>
           )}
           {title && (
-            <h2 className="mb-8 font-display font-extrabold leading-[1.02] tracking-tight text-white drop-shadow-md"
+            <h2 className="mb-8 font-display font-extrabold uppercase leading-[1.02] tracking-tight text-white drop-shadow-md"
                 style={{ fontSize: "clamp(2rem, 5.5vw, 4rem)" }}>
               {title}
             </h2>
