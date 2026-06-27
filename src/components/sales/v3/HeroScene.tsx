@@ -1,16 +1,11 @@
-import { SceneFrame } from "./SceneFrame";
-import { Brain } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { ButtonPress } from "@/components/interaction/ButtonPress";
+import { Reveal } from "@/components/interaction";
 
-interface HeroSceneProps {
-  eyebrow: string;
-  title: string;
-  promise: string;
-  cta: string;
-  timer: string;
-  onCta: () => void;
-  proofs: { value: string; label: string }[];
-}
-
+/**
+ * Sales v3 Hero — editorial split. Copy is the dominant body; the sticky
+ * ScrollSculpture lives in the right column at the page level.
+ */
 export function HeroScene({
   eyebrow,
   title,
@@ -19,62 +14,78 @@ export function HeroScene({
   timer,
   onCta,
   proofs,
-}: HeroSceneProps) {
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  promise: string;
+  cta: string;
+  timer?: string;
+  onCta: () => void;
+  proofs?: Array<{ value: string; label: string }>;
+}) {
   return (
-    <SceneFrame sceneId="hero" className="pt-12 md:pt-20">
-      <div className="mx-auto max-w-4xl px-6 text-center">
-        {/* Pulsing Badge Eyebrow */}
-        <div className="mb-8 flex justify-center">
-          <span className="badge-pulse inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-arch-primary shadow-[0_0_20px_-5px_var(--arch-glow)]">
-            <Brain className="h-3 w-3 animate-pulse" />
-            {eyebrow || "DIAGNÓSTICO REVELADO"}
-          </span>
-        </div>
-
-        <h1 
-          className="font-sans text-[clamp(2rem,7vw,4.5rem)] font-extrabold leading-[1.05] tracking-[-0.04em] text-foreground [&::first-letter]:uppercase"
+    <section className="relative pt-20 pb-24 sm:pt-32 sm:pb-32 w-full transition-all">
+      <Reveal>
+        <span
+          className="badge-pulse inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-arch-primary/40 bg-arch-primary/10 px-4 py-1.5 font-sans text-[11px] font-bold uppercase tracking-[0.3em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]"
+          style={{ color: "var(--arch-primary)" }}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0" aria-hidden="true">
+            <path d="M9 4.5c-2 0-3.5 1.3-3.7 3-1.4.4-2.3 1.6-2.3 3 0 .9.4 1.7 1 2.2-.6.5-1 1.3-1 2.2 0 1.4.9 2.6 2.3 3 .2 1.7 1.7 3 3.7 3 .8 0 1.6-.3 2.2-.8.6.5 1.4.8 2.2.8 2 0 3.5-1.3 3.7-3 1.4-.4 2.3-1.6 2.3-3 0-.9-.4-1.7-1-2.2.6-.5 1-1.3 1-2.2 0-1.4-.9-2.6-2.3-3-.2-1.7-1.7-3-3.7-3-.8 0-1.6.3-2.2.8C10.6 4.8 9.8 4.5 9 4.5Z" />
+            <path d="M11.2 5v14" opacity="0.85" />
+          </svg>
+          {eyebrow}
+        </span>
+        <h1
+          className="mt-6 font-sans font-extrabold leading-[0.98] tracking-tight text-white drop-shadow-md [&::first-letter]:uppercase"
+          style={{ fontSize: "clamp(2.75rem, 7.5vw, 5.5rem)" }}
         >
           {title}
         </h1>
-
-        <p className="mx-auto mt-8 max-w-2xl text-lg font-medium leading-relaxed text-white/60 md:text-2xl">
+        <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl font-medium drop-shadow-sm">
           {promise}
         </p>
-
-        <div className="mt-12 flex flex-col items-center gap-6">
-          <button
-            onClick={onCta}
-            className="group relative h-20 w-full max-w-2xl overflow-hidden rounded-full bg-white text-black transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
-          >
-            {/* Archetype color overlay on hover */}
-            <div className="absolute inset-0 overflow-hidden rounded-full bg-arch-primary opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
-            
-            <span className="relative z-10 flex items-center justify-center px-8 text-xl font-extrabold uppercase tracking-tight group-hover:text-white transition-colors">
+        <div className="mt-10 flex flex-col items-start gap-3">
+          <ButtonPress>
+            <button
+              type="button"
+              onClick={onCta}
+              className="group inline-flex items-center gap-3 rounded-full px-9 py-5 text-base font-semibold text-white transition-all sm:text-lg"
+              style={{
+                background: "var(--arch-primary)",
+                boxShadow:
+                  "0 24px 60px -20px color-mix(in oklab, var(--arch-primary) 65%, transparent)",
+              }}
+            >
               {cta}
-            </span>
-
-            {/* Shimmer effect */}
-            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
-          </button>
-
-          {/* Proofs Row */}
-          <div className="mt-4 flex flex-wrap justify-center gap-x-8 gap-y-4">
-            {proofs.map((p, i) => (
-              <div key={i} className="text-center">
-                <div className="text-xl font-black text-white">{p.value}</div>
-                <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">{p.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {timer && (
-            <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white/40">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-arch-primary" />
-              {timer}
-            </div>
-          )}
+              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+            </button>
+          </ButtonPress>
+          {timer && <p className="text-xs text-white/70 font-medium tracking-wide">{timer}</p>}
         </div>
-      </div>
-    </SceneFrame>
+        {proofs && proofs.length > 0 && (
+          <ul
+            className="mt-14 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-5 border-t pt-8 sm:grid-cols-4"
+            style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 25%, transparent)" }}
+          >
+            {proofs.map((p, i) => (
+              <li key={i}>
+                <p
+                  className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl drop-shadow-md"
+                  style={{ color: "var(--arch-primary)" }}
+                >
+                  {p.value}
+                </p>
+                <p className="mt-1 text-[11px] uppercase tracking-wider text-white/70 font-semibold">
+                  {p.label}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </Reveal>
+    </section>
   );
 }
+
+export default HeroScene;

@@ -1,36 +1,51 @@
-import { useI18n } from "@/lib/i18n/LanguageProvider";
+import { ArrowRight } from "lucide-react";
+import { ButtonPress } from "@/components/interaction/ButtonPress";
 
-interface StickyOfferBarProps {
+export function StickyOfferBar({
+  show,
+  price,
+  cta,
+  onCta,
+}: {
   show: boolean;
+  price?: string;
   cta: string;
   onCta: () => void;
-  price?: string; // Optional: can show price anchoring here too
-}
-
-export function StickyOfferBar({ show, cta, onCta, price }: StickyOfferBarProps) {
+}) {
+  if (!show) return null;
   return (
     <div
-      className={`fixed bottom-0 left-0 z-50 w-full border-t border-white/10 bg-black/80 p-4 transition-transform duration-500 backdrop-blur-md ${
-        show ? "translate-y-0" : "translate-y-full"
-      }`}
+      role="region"
+      aria-label="Sticky checkout"
+      className="fixed inset-x-0 bottom-0 z-40 border-t bg-black/92 px-4 py-3 backdrop-blur-md animate-fade-in"
+      style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)" }}
     >
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
-        <div className="hidden items-center gap-3 sm:flex">
-          <div className="h-2 w-2 animate-pulse rounded-full bg-arch-primary" />
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
-            OFERTA EXCLUSIVA
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
+        {price ? (
+          <div className="flex items-baseline gap-2">
+            <span className="text-xs uppercase tracking-widest text-white/55">Total</span>
+            <strong className="font-display text-xl font-extrabold tabular-nums text-white">
+              {price}
+            </strong>
+          </div>
+        ) : (
+          <span className="text-xs font-bold uppercase tracking-[0.3em] text-white/70">
+            MindReset · Protocolo
           </span>
-        </div>
-
-        <button
-          onClick={onCta}
-          className="flex flex-1 items-center justify-center gap-3 rounded-full bg-arch-primary py-3 text-sm font-extrabold uppercase tracking-widest text-white transition-transform hover:scale-[1.02] active:scale-95 sm:flex-none sm:px-10"
-        >
-          <span className="flex items-center gap-2">
-            {cta}
-          </span>
-        </button>
+        )}
+        <ButtonPress>
+          <button
+            type="button"
+            onClick={onCta}
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wide text-white"
+            style={{ background: "#CC0000", boxShadow: "0 12px 30px -8px rgba(204,0,0,0.55)" }}
+          >
+            {cta} <ArrowRight size={16} />
+          </button>
+        </ButtonPress>
       </div>
     </div>
   );
 }
+
+export default StickyOfferBar;

@@ -18,7 +18,6 @@ export function SceneFrame({
   sceneId,
   dropCap = false,
   badge,
-  className = "",
 }: {
   index?: number;
   eyebrow?: string;
@@ -27,7 +26,6 @@ export function SceneFrame({
   sceneId: string;
   dropCap?: boolean;
   badge?: string;
-  className?: string;
 }) {
   const ref = useRef<HTMLElement | null>(null);
   useEffect(() => {
@@ -50,7 +48,7 @@ export function SceneFrame({
   }, [sceneId]);
 
   return (
-    <section ref={ref} className={`relative py-20 sm:py-28 w-full transition-all group ${className}`}>
+    <section ref={ref} className="relative py-20 sm:py-28 w-full transition-all group">
       {index && <span className="sales-roman pointer-events-none opacity-20 group-hover:opacity-30 transition-opacity" aria-hidden>{ROMAN[index] ?? index}</span>}
       <div className="relative z-10">
         <Reveal>

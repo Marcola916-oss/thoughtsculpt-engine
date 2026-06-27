@@ -1,4 +1,4 @@
-import { ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, ShieldCheck, Zap } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { BumpRow } from "./BumpRow";
 import { parseMoney, formatMoneyLike } from "@/lib/sales/sigils";
@@ -123,6 +123,7 @@ export function OfferMonolith({
           }}
         >
           {cta}
+          <ArrowRight size={22} strokeWidth={2.5} />
         </button>
       </ButtonPress>
 
