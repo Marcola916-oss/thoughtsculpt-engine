@@ -25,11 +25,11 @@ import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainScar } from "./v3/PainScar";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
-import { OfferMonolith } from "./v3/OfferMonolith";
 import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
-import { parseMoney, formatMoneyLike } from "@/lib/sales/sigils";
+import { CheckCircle2, ArrowRight } from "lucide-react";
+import { ButtonPress } from "@/components/interaction/ButtonPress";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -58,6 +58,19 @@ const ARCH_SECONDARY: Record<Archetype, Archetype> = {
 };
 
 const AREA_ORDER: Area[] = ["money", "career", "love", "personal"];
+
+// Section badges per language — landing-style pulsing red pills.
+// Kept inline (not in translations.ts) to ship visual PR1 without i18n surgery.
+type BadgeLang = "pt" | "en" | "pl" | "ro" | "ar";
+const SECTION_BADGES: Record<BadgeLang, {
+  pain: string; science: string; fourD: string; deliver: string; proof: string; faq: string; decision: string;
+}> = {
+  pt: { pain: "O PROBLEMA", science: "A CIÊNCIA", fourD: "DIAGNÓSTICO REVELADO", deliver: "O QUE VAIS RECEBER", proof: "DEPOIMENTOS REAIS", faq: "DÚVIDAS FREQUENTES", decision: "A TUA DECISÃO" },
+  en: { pain: "THE PROBLEM", science: "THE SCIENCE", fourD: "DIAGNOSIS REVEALED", deliver: "WHAT YOU GET", proof: "REAL TESTIMONIALS", faq: "FREQUENT QUESTIONS", decision: "YOUR DECISION" },
+  pl: { pain: "PROBLEM", science: "NAUKA", fourD: "UJAWNIONA DIAGNOZA", deliver: "CO OTRZYMASZ", proof: "PRAWDZIWE OPINIE", faq: "CZĘSTE PYTANIA", decision: "TWOJA DECYZJA" },
+  ro: { pain: "PROBLEMA", science: "ȘTIINȚA", fourD: "DIAGNOSTIC DEZVĂLUIT", deliver: "CE PRIMEȘTI", proof: "MĂRTURII REALE", faq: "ÎNTREBĂRI FRECVENTE", decision: "DECIZIA TA" },
+  ar: { pain: "المشكلة", science: "العلم", fourD: "التشخيص الكامل", deliver: "ما ستحصل عليه", proof: "شهادات حقيقية", faq: "أسئلة شائعة", decision: "قرارك" },
+};
 
 export default function SalesPageV2({
   archetype,
@@ -128,6 +141,7 @@ export default function SalesPageV2({
 
   const v2 = t.salesV2;
   const tpl = (s: string) => fillTpl(s, tplVars);
+  const badges = SECTION_BADGES[(lang as BadgeLang)] ?? SECTION_BADGES.en;
 
   // Sticky logic + dynamic total (used by sticky bar)
   useEffect(() => {
@@ -139,11 +153,9 @@ export default function SalesPageV2({
     return () => { obsHero.disconnect(); obsFinal.disconnect(); };
   }, []);
 
-  const totalNumeric =
-    parseMoney(price.main) +
-    (bump1 ? parseMoney(price.bump1) : 0) +
-    (bump2 ? parseMoney(price.bump2) : 0);
-  const totalLabel = formatMoneyLike(price.main, totalNumeric);
+  // Tela 12 não exibe preço — toda a persuasão monetária migra para a Tela 13.
+  void price;
+  void bump1; void bump2;
 
   return (
     <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
@@ -173,7 +185,7 @@ export default function SalesPageV2({
           <SceneFrame
             sceneId="pain"
             index={1}
-            eyebrow={v2.b3.title.split(" ").slice(0, 2).join(" ")}
+            badge={badges.pain}
             title={tpl(v2.b2.title)}
           >
             <p className="sales-dropcap text-white/90">{tpl(v2.b2.body)}</p>
@@ -182,14 +194,14 @@ export default function SalesPageV2({
                 <PainScar key={i}>{tpl(b)}</PainScar>
               ))}
             </ul>
-            <p className="mt-8 text-lg italic text-white/80">{tpl(v2.b2.conclusion)}</p>
+            <p className="mt-8 text-lg font-medium text-white/85">{tpl(v2.b2.conclusion)}</p>
           </SceneFrame>
 
           {/* II — Scientific Breakthrough */}
-          <SceneFrame sceneId="science" index={2} title={v2.b3.title}>
+          <SceneFrame sceneId="science" index={2} badge={badges.science} title={v2.b3.title}>
             <p className="text-white/90 leading-[1.75] text-[17px]">{v2.b3.body}</p>
             <blockquote
-              className="mt-8 border-s-2 ps-5 text-sm italic text-white/60"
+              className="mt-8 border-s-2 ps-5 text-sm text-white/70"
               style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 50%, transparent)" }}
             >
               {v2.b3.references}
@@ -201,7 +213,7 @@ export default function SalesPageV2({
           </SceneFrame>
 
           {/* III — 4D Diagnosis */}
-          <SceneFrame sceneId="4d" index={3} title={tpl(v2.b4.title)}>
+          <SceneFrame sceneId="4d" index={3} badge={badges.fourD} title={tpl(v2.b4.title)}>
             <p className="mb-8 text-white/70 text-base font-medium">{tpl(v2.b4.subtitle)}</p>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               {AREA_ORDER.map((area, i) => {
@@ -219,31 +231,43 @@ export default function SalesPageV2({
             </div>
           </SceneFrame>
 
-          {/* Value Anchor (B5) */}
-          <SceneFrame sceneId="anchor">
-            <div className="text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-white/60">
-                {v2.b5.eyebrow}
-              </p>
-              <div className="mt-6 space-y-1 text-sm font-medium">
-                <p className="text-white/40 line-through">{v2.b5.was}</p>
-                <p className="text-white/50 line-through">{v2.b5.then}</p>
-                <p className="mt-3 text-white/80">{v2.b5.now}</p>
-                <p
-                  className="pt-4 font-display font-extrabold tabular-nums drop-shadow-lg"
-                  style={{ fontSize: "clamp(3rem, 8vw, 5.5rem)", color: "var(--arch-primary)" }}
+          {/* B5 — "O que vais receber" (sem preço — preço fica para Tela 13) */}
+          <SceneFrame sceneId="deliver" badge={badges.deliver} title={v2.b5.eyebrow}>
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {v2.b4.features.map((feat, i) => (
+                <li
+                  key={i}
+                  className="flex items-start gap-3 rounded-2xl border p-4 transition-all hover:-translate-y-0.5"
+                  style={{
+                    borderColor: "color-mix(in oklab, var(--arch-primary) 25%, transparent)",
+                    background: "color-mix(in oklab, var(--arch-primary) 6%, rgba(0,0,0,0.45))",
+                    backdropFilter: "blur(10px)",
+                    boxShadow: "0 18px 50px -28px var(--arch-glow)",
+                  }}
                 >
-                  {price.main}
-                </p>
-              </div>
-              <p className="mt-4 text-xs text-white/55">{v2.b5.note}</p>
-            </div>
+                  <CheckCircle2
+                    size={20}
+                    className="mt-0.5 shrink-0"
+                    style={{ color: "var(--arch-primary)" }}
+                  />
+                  <div>
+                    <p className="font-display font-extrabold uppercase tracking-tight text-white">
+                      {feat.title}
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-white/75">
+                      {tpl(feat.description)}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </SceneFrame>
 
           {/* IV — Social Proof */}
           <SceneFrame
             sceneId="proof"
             index={4}
+            badge={badges.proof}
             title={
               <span>
                 <AnimatedCounter end={12000} prefix="+" />{" "}
@@ -277,36 +301,40 @@ export default function SalesPageV2({
             </div>
           </SceneFrame>
 
-          {/* ★ OFFER MONOLITH (B7 + OB1 + OB2 embedded) */}
-          <SceneFrame sceneId="offer">
-            <OfferMonolith
-              eyebrow={tpl(v2.b7.eyebrow)}
-              productTitle={tpl(v2.b4.title)}
-              productSubtitle={tpl(v2.b4.subtitle)}
-              price={price}
-              bumps={{
-                bump1: {
-                  active: bump1,
-                  title: v2.ob1.title,
-                  description: tpl(v2.ob1.desc),
-                  badge: v2.ob1.badge,
-                },
-                bump2: {
-                  active: bump2,
-                  title: v2.ob2.title,
-                  description: tpl(v2.ob2.desc),
-                  badge: v2.ob2.eyebrow,
-                },
+          {/* B7 — Bridge card (sem preço; envia para Tela 13 de decisão) */}
+          <SceneFrame sceneId="bridge" badge={badges.decision} title={tpl(v2.b7.eyebrow)}>
+            <div
+              className="relative overflow-hidden rounded-[28px] p-6 sm:p-9 text-center bg-black/55 backdrop-blur-2xl"
+              style={{
+                border: "1px solid color-mix(in oklab, var(--arch-primary) 38%, transparent)",
+                boxShadow:
+                  "0 50px 120px -40px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 25%, transparent)",
               }}
-              onToggle={toggleBump}
-              cta={tpl(v2.b7.cta)}
-              trust={v2.b7.trust}
-              onCta={() => advance("b7")}
-            />
+            >
+              <p className="text-[11px] font-bold uppercase tracking-[0.4em]" style={{ color: "var(--arch-primary)" }}>
+                {tpl(v2.b7.eyebrow)}
+              </p>
+              <h3 className="mt-3 font-display text-2xl font-extrabold uppercase leading-tight text-white sm:text-3xl">
+                {tpl(v2.b4.title)}
+              </h3>
+              <p className="mx-auto mt-3 max-w-xl text-sm text-white/70">{tpl(v2.b4.subtitle)}</p>
+              <ButtonPress>
+                <button
+                  type="button"
+                  onClick={() => advance("b7")}
+                  className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-full px-8 py-5 text-base sm:text-lg font-extrabold uppercase tracking-wide text-white transition-all hover:brightness-110"
+                  style={{ background: "#CC0000", boxShadow: "0 30px 80px -20px rgba(204,0,0,0.65)" }}
+                >
+                  {tpl(v2.b7.cta)}
+                  <ArrowRight size={20} strokeWidth={2.5} />
+                </button>
+              </ButtonPress>
+              <p className="mt-4 text-xs text-white/55">{v2.b7.trust}</p>
+            </div>
           </SceneFrame>
 
           {/* V — FAQ */}
-          <SceneFrame sceneId="faq" index={5} title={v2.b8.title}>
+          <SceneFrame sceneId="faq" index={5} badge={badges.faq} title={v2.b8.title}>
             <ul
               className="divide-y rounded-2xl border"
               style={{
@@ -399,7 +427,6 @@ export default function SalesPageV2({
 
       <StickyOfferBar
         show={showSticky}
-        price={totalLabel}
         cta={v2.b1.cta}
         onCta={() => advance("sticky")}
       />
