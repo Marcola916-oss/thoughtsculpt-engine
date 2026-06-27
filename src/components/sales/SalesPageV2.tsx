@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ShieldCheck, Zap, ArrowRight, Lock } from "lucide-react";
+import { Check, ChevronDown, ShieldCheck, ArrowRight, Lock } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import type { Archetype } from "@/lib/quiz/scoring";
 import type { AreaScores } from "@/lib/funnel/area-scores";
-import { Reveal } from "@/components/interaction";
 import { EVENTS, track } from "@/lib/analytics";
 import { useExitIntent } from "@/hooks/use-exit-intent";
 import { fillTpl } from "@/lib/sales/template";
