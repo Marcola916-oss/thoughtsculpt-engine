@@ -1468,31 +1468,13 @@ function Reveal({
         </div>
         <div className="mt-12 flex flex-col items-center">
           <button
-            onClick={() => handleCta("hero")}
-            data-cursor="hover"
-            className="group relative h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full text-white transition-all hover:scale-[1.03] active:scale-95"
-            style={{
-              backgroundColor: "var(--arch-primary)",
-              boxShadow:
-                "0 30px 80px -20px color-mix(in oklab, var(--arch-primary) 70%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)",
-            }}
-          >
-            <div className="absolute inset-0 overflow-hidden rounded-full bg-white opacity-0 transition-opacity duration-700 group-hover:opacity-10" />
-            <span className="relative z-10 flex items-center justify-center gap-3 px-5 sm:px-8 text-[clamp(1rem,4.2vw,1.75rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
-              {t.reveal.cta.toUpperCase()}
-              <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1" />
-            </span>
-            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
-          </button>
-
-          <button
             onClick={() => {
               if (shareToken) {
                 trackShare({ data: { share_token: shareToken, channel: "copy" } });
                 navigator.clipboard.writeText(`${window.location.origin}/share/${shareToken}`);
               }
             }}
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground/60 transition-all hover:border-foreground/30 hover:text-foreground/80"
+            className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground/60 transition-all hover:border-foreground/30 hover:text-foreground/80"
           >
             <Share2 className="h-4 w-4" />
             {t.reveal.share}
