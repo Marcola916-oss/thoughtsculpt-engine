@@ -25,7 +25,6 @@ import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainScar } from "./v3/PainScar";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
-import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
