@@ -325,7 +325,7 @@ const PT: Dict = {
     trust: "+12.000 diagnósticos • Sem cartão para começar",
     trustSsl: "SSL Seguro",
     trustData: "Dados Protegidos",
-    trustGuarantee: "30 dias garantia",
+    trustGuarantee: "30 dias de garantia",
   },
   features: {
     title: "Engenharia para transformação profunda",
@@ -366,9 +366,9 @@ const PT: Dict = {
       title: "Simples. Profundo. Eficaz.",
       sub: "Sem planilhas. Sem dados bancários. Apenas perguntas sobre como te comportas.",
       steps: [
-        { title: "RESPONDE \n8  PERGUNTAS", desc: "Sobre comportamento real, não teoria financeira. Sem julgamento." },
+        { title: "Responde a 8 perguntas", desc: "Sobre comportamento real, não teoria financeira. Sem julgamento." },
         { title: "RECEBE  O  TEU\u00a0\nDIAGNÓSTICO", desc: "A IA mapeia o teu arquétipo em 4 dimensões: financeiro, profissional, amoroso e pessoal." },
-        { title: "RECEBE  O \nPDF", desc: "Um PDF de 30+ páginas no teu email com o diagnóstico completo nas 4 áreas. Para leres quando quiseres." },
+        { title: "Recebe o PDF", desc: "Um PDF completo no teu email com o diagnóstico nas 4 áreas. Para leres quando quiseres." },
       ],
     },
     features: {
@@ -400,7 +400,7 @@ const PT: Dict = {
         { q: "O MindReset tem acesso aos meus dados bancários?", a: "Não. O MindReset não acede a contas, extratos nem informações bancárias. O diagnóstico é baseado exclusivamente nas tuas respostas comportamentais ao quiz — sem integração bancária de qualquer tipo." },
         { q: "O diagnóstico é mesmo personalizado?", a: "Sim. A IA (GPT-4o) gera um relatório único baseado no teu arquétipo, nome, género e respostas individuais. Não é um texto genérico — é escrito especificamente para ti e guardado de forma permanente." },
         { q: "Isto é só sobre dinheiro?", a: "Não. O diagnóstico cobre 4 áreas: dinheiro, carreira, amor e vida pessoal. O mesmo padrão emocional aparece em todas — só muda a forma como te custa." },
-        { q: "O que recebo exatamente?", a: "Um PDF de 30+ páginas no teu email, em minutos. Diagnóstico do teu arquétipo nas 4 áreas, 20 ações específicas (5 por área) e mapa das tuas relações por arquétipo." },
+        { q: "O que recebo exactamente?", a: "Um PDF completo no teu email, em minutos. Diagnóstico do teu arquétipo nas 4 áreas, 20 acções específicas (5 por área) e mapa das tuas relações por arquétipo." },
         { q: "É assinatura ou pagamento único?", a: "Pagamento único. Sem app, sem mensalidade, sem lock-in. Compras uma vez, recebes o PDF, é teu para sempre." },
         { q: "E se eu não gostar?", a: "Garantia de 30 dias sem perguntas. Se o produto não entregar o que promete, reembolsamos 100% do valor pago." },
       ],
@@ -408,7 +408,7 @@ const PT: Dict = {
     finalCta: {
       titleBefore: "O PADRÃO QUE\u00a0 SABOTA AS\u00a0 TUAS 4\u00a0 ÁREAS TEM NOME. ESTÁ\u00a0 NA HORA DE ",
       titleHighlight: "DESCOBRIR",
-      titleAfter: " QUAL É.",
+      titleAfter: "QUAL É.",
       sub: "8 perguntas. 3 minutos. Uma clareza que nenhuma planilha dá.",
       cta: "Iniciar o meu diagnóstico gratuito",
       guarantee: "30 dias de garantia",
@@ -441,7 +441,7 @@ const PT: Dict = {
       options: ["Parar de viver em modo escassez","Comprar por mim e não pelos outros","Olhar para as minhas contas sem fugir","Conseguir adiar uma compra por 24h"] },
   ],
   emailCapture: {
-    title: (name) => `${name.toUpperCase()}, O TEU DIAGNÓSTICO\u00a0 ESTÁ PRONTO.`,
+    title: (name) => `${name}, o teu diagnóstico está pronto.`,
     sub: "Introduz o teu e-mail para receberes o relatório completo e desbloqueares a página do arquétipo.",
     cta: "Ver o meu arquétipo agora",
     blurHint: "Insere o teu email para desbloquear",
@@ -997,7 +997,7 @@ const EN: Dict = {
       steps: [
         { title: "Answer 8 questions", desc: "About real behavior — not financial theory. No judgment." },
         { title: "Get your diagnosis", desc: "AI maps your archetype across 4 dimensions: financial, professional, romantic, personal." },
-        { title: "Get the PDF", desc: "A 30+ page PDF in your inbox with the full diagnosis across all 4 areas. Yours to read whenever." },
+        { title: "Get the PDF", desc: "A complete PDF in your inbox with the full diagnosis across all 4 areas. Yours to read whenever." },
       ],
     },
     features: {
@@ -1029,7 +1029,7 @@ const EN: Dict = {
         { q: "Does MindReset access my bank data?", a: "No. MindReset never accesses accounts, statements, or any banking information. The diagnosis is based exclusively on your behavioral answers to the quiz — no bank integration of any kind." },
         { q: "Is the diagnosis really personalized?", a: "Yes. The AI (GPT-4o) generates a unique report based on your archetype, name, gender, and individual answers. Not a generic text — written specifically for you and saved permanently." },
         { q: "Is this only about money?", a: "No. The diagnosis covers 4 areas: money, career, love, and personal life. The same emotional pattern shows up in all of them — only the cost changes." },
-        { q: "What exactly do I get?", a: "A 30+ page PDF in your inbox within minutes. Diagnosis of your archetype across all 4 areas, 20 specific actions (5 per area), and a map of your relationships by archetype." },
+        { q: "What exactly do I get?", a: "A complete PDF in your inbox within minutes. Diagnosis of your archetype across all 4 areas, 20 specific actions (5 per area), and a map of your relationships by archetype." },
         { q: "Is it a subscription or one-time?", a: "One-time payment. No app, no monthly fee, no lock-in. Buy once, get the PDF, it's yours forever." },
         { q: "What if I don't like it?", a: "30-day no-questions-asked guarantee. If the product doesn't deliver what it promises, we refund 100% of what you paid." },
       ],
@@ -1705,7 +1705,7 @@ const PL: Dict = {
       steps: [
         { title: "Odpowiedz na 8 pytań", desc: "O realnym zachowaniu, nie teorii finansowej. Bez oceniania." },
         { title: "Otrzymaj swoją diagnozę", desc: "AI mapuje Twój archetyp w 4 wymiarach: finansowym, zawodowym, miłosnym i osobistym." },
-        { title: "Odbierz PDF", desc: "PDF 30+ stron w skrzynce z pełną diagnozą we wszystkich 4 obszarach. Czytasz, kiedy chcesz." },
+        { title: "Odbierz PDF", desc: "Pełny PDF w skrzynce z diagnozą we wszystkich 4 obszarach. Czytasz, kiedy chcesz." },
       ],
     },
     features: {
@@ -1737,7 +1737,7 @@ const PL: Dict = {
         { q: "Czy MindReset ma dostęp do moich danych bankowych?", a: "Nie. MindReset nigdy nie uzyskuje dostępu do kont, wyciągów ani żadnych informacji bankowych. Diagnoza opiera się wyłącznie na Twoich behawioralnych odpowiedziach w quizie — bez żadnej integracji bankowej." },
         { q: "Czy diagnoza jest naprawdę spersonalizowana?", a: "Tak. AI (GPT-4o) generuje unikalny raport na podstawie Twojego archetypu, imienia, płci i indywidualnych odpowiedzi. To nie jest generyczny tekst — jest napisany specjalnie dla Ciebie i trwale zapisany." },
         { q: "Czy to dotyczy tylko pieniędzy?", a: "Nie. Diagnoza obejmuje 4 obszary: pieniądze, karierę, miłość i życie osobiste. Ten sam emocjonalny wzorzec pojawia się we wszystkich — zmienia się tylko koszt." },
-        { q: "Co dokładnie otrzymam?", a: "PDF 30+ stron na e-mail w ciągu kilku minut. Diagnozę archetypu we wszystkich 4 obszarach, 20 konkretnych działań (5 na obszar) i mapę Twoich relacji według archetypów." },
+        { q: "Co dokładnie otrzymam?", a: "Pełny PDF na e-mail w ciągu kilku minut. Diagnozę archetypu we wszystkich 4 obszarach, 20 konkretnych działań (5 na obszar) i mapę Twoich relacji według archetypów." },
         { q: "Czy to subskrypcja czy płatność jednorazowa?", a: "Płatność jednorazowa. Bez aplikacji, bez miesięcznej opłaty, bez lock-inu. Kupujesz raz, dostajesz PDF, jest Twój na zawsze." },
         { q: "A jeśli mi się nie spodoba?", a: "30-dniowa gwarancja bez pytań. Jeśli produkt nie dostarczy tego, co obiecuje, zwracamy 100% zapłaconej kwoty." },
       ],
@@ -2072,7 +2072,7 @@ const RO: Dict = {
       steps: [
         { title: "Răspunde la 8 întrebări", desc: "Despre comportamentul real, nu teoria financiară. Fără judecată." },
         { title: "Primește diagnosticul", desc: "AI-ul îți mapează arhetipul în 4 dimensiuni: financiar, profesional, amoros și personal." },
-        { title: "Primește PDF-ul", desc: "Un PDF de 30+ pagini în inbox cu diagnoza completă în toate cele 4 zone. Îl citești când vrei." },
+        { title: "Primește PDF-ul", desc: "Un PDF complet în inbox cu diagnoza în toate cele 4 zone. Îl citești când vrei." },
       ],
     },
     features: {
@@ -2104,7 +2104,7 @@ const RO: Dict = {
         { q: "MindReset are acces la datele mele bancare?", a: "Nu. MindReset nu accesează conturi, extrase sau orice informații bancare. Diagnosticul se bazează exclusiv pe răspunsurile tale comportamentale la quiz — fără nicio integrare bancară." },
         { q: "Diagnosticul este într-adevăr personalizat?", a: "Da. AI-ul (GPT-4o) generează un raport unic pe baza arhetipului, numelui, genului și răspunsurilor tale individuale. Nu este un text generic — este scris special pentru tine și salvat permanent." },
         { q: "Este doar despre bani?", a: "Nu. Diagnoza acoperă 4 zone: bani, carieră, dragoste și viață personală. Același tipar emoțional apare în toate — se schimbă doar costul." },
-        { q: "Ce primesc exact?", a: "Un PDF de 30+ pagini pe e-mail în câteva minute. Diagnoză a arhetipului în toate cele 4 zone, 20 acțiuni specifice (5 pe zonă) și o hartă a relațiilor tale pe arhetipuri." },
+        { q: "Ce primesc exact?", a: "Un PDF complet pe e-mail în câteva minute. Diagnoză a arhetipului în toate cele 4 zone, 20 acțiuni specifice (5 pe zonă) și o hartă a relațiilor tale pe arhetipuri." },
         { q: "Este abonament sau plată unică?", a: "Plată unică. Fără aplicație, fără taxă lunară, fără lock-in. Cumperi o dată, primești PDF-ul, este al tău pentru totdeauna." },
         { q: "Și dacă nu îmi place?", a: "Garanție de 30 zile fără întrebări. Dacă produsul nu livrează ce promite, returnăm 100% din suma plătită." },
       ],
