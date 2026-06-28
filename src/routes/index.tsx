@@ -1431,16 +1431,6 @@ function Reveal({
             </div>
           ))}
         </div>
-
-        <div className="mt-12 flex justify-center">
-          <button
-            onClick={() => handleCta("areas")}
-            className="group inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-8 py-4 font-inter text-sm font-extrabold tracking-wide text-arch-primary transition-all hover:bg-arch-primary hover:text-background hover:-translate-y-0.5"
-          >
-            {t.reveal.areasCta}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
-        </div>
       </div>
 
       {/* Detalhes (hooks) abaixo do hero — "Isto não é sorte..." + cascata */}
