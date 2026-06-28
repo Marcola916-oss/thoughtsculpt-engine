@@ -1,107 +1,137 @@
-## Objetivo
+## Auditoria executada
 
-Auditar todo o funil MindReset contra o **GUIA MESTRE DE CONVERSÃO** (1266 linhas, 6 produtos de referência: 16Personalities, Sacred Money, HumanDesignHD, ASK Method, Mind Money Balance, Truity) e fechar TODOS os gaps que separam o produto de uma conversão ≥30%. **Nada será removido** — só melhorado, reescrito ou adicionado.
+Naveguei pelo funil com Playwright (PT + EN), capturei 108 screenshots/textos, e li integralmente:
+- `src/lib/i18n/translations.ts` (2.655 linhas, 5 idiomas)
+- `src/routes/obrigado.tsx` (tem dicionário próprio — duplica o bloco `obrigado` do i18n)
+- `src/routes/index.tsx` (1.910 linhas)
+- `src/components/sales/SalesPageV2.tsx`, `CheckoutStub.tsx`
 
-## Princípio orientador
+A análise revelou que a copy **não é o gargalo principal de conversão** (a estrutura está sólida pós-PR1–PR4), mas existem **erros graves de consistência, voz e factualidade** que vão minar a percepção de profissionalismo e, em pelo menos 3 casos, **quebrar a coerência do produto pós-pivot one-shot**. Sem corrigir, lançar em 30% é improvável — não por copy ruim, mas por copy *desalinhada consigo mesma*.
 
-Toda decisão segue o arco emocional do guia:
-`DESCOBERTA → IMPACTO → ALÍVIO → ESPERANÇA → AÇÃO`
+## Diagnóstico — 31 problemas reais encontrados
 
-E a proposta-núcleo: **"você não precisa mudar quem você é — precisa DOMINAR quem você é"**. Não vendemos finanças, vendemos maestria de si.
+### 🔴 Bloqueadores (quebram coerência do produto)
 
-## Estado atual vs guia (audit rápido)
+1. **Nomes dos arquétipos divergem entre 3 lugares na MESMA língua (PT)**:
+   - Landing `archetypes.items`: AO=`Acumulador Obsessivo`, EA=`Alienado Financeiro`
+   - `archetypes` (reveal): AO=`ACUMULADOR\nOBSESSIVO`, EA=`EVASIVO ALIENADO`
+   - Testimonials da landing: EA aparece como **`Fantasma Evasivo`**, AO como **`Guardadora Obsessiva`** (nomes inventados que não existem em nenhum outro lugar)
+   - Typewriter no hero alterna 4 nomes; precisa ser a fonte única
+2. **`obrigado` no i18n menciona login, senha `MindReset2026!`, dashboard e onboarding** — todo o produto foi pivotado para one-shot/PDF (sem auth, sem dashboard, sem onboarding, conforme `mem://index.md`). O bloco é dead code mas confunde futuras edições e, se acidentalmente renderizado, mata a credibilidade. Mesmo problema replicado em EN/PL/RO/AR.
+3. **`b5.subtitle` promete "Protocolo de 90 dias"** mas `deliverables[1].description` diz **"30 micro-acções, semana a semana"**; `ob2.title` chama de **"Protocolo de Reset 30 dias"**. Três números contraditórios para a mesma peça.
+4. **PR1 introduziu `secondary_archetype` em `quiz_leads`** e a copy de `b9.tagline` já usa `[SECONDARY]` — mas a maioria da copy ainda fala só de `[PRIMARY]`. Inconsistência: ou o secundário entra de verdade ou desaparece.
 
-✅ Já temos: 5 idiomas, quiz 8 perguntas + identidade, loader, reveal com typewriter, sales V3 cinematográfica, checkout redesenhado, thank-you com confetti, badges pulsantes, atmosphere, MarbleBust, Stripe hosted, webhook, PDF, i18n RTL.
+### 🟠 Quebras de voz / mistura PT-PT × PT-BR
 
-⚠️ Gaps críticos vs guia mestre:
-1. **Landing**: headline atual não usa o framework "curiosidade + dor + reframe de culpa" em 1 frase; falta contador específico ("14.832 diagnósticos"); CTA precisa ir 100% para 1ª pessoa em TODOS os idiomas.
-2. **Quiz**: auto-advance 150ms não confirmado; barra começa em 0% (guia exige 12%); `[NOME]` não está em TODAS as 8 perguntas; arquétipo **secundário** não é calculado nem exposto; concordância de gênero parcial.
-3. **Email gate (Tela 9)**: falta efeito "resultado desfocado ao fundo" criando tensão Zeigarnik.
-4. **Loader**: validar 4 textos exatos + 3s + `[NOME]` no último.
-5. **Reveal**: faltam os 3 níveis de copy (dor → custo oculto → expansão multi-área); CTAs por arquétipo em 1ª pessoa nos 5 idiomas; botão de **compartilhamento viral** (card Instagram Stories) ausente.
-6. **Sales (Tela 12)**: hoje é boa mas falta a **estrutura emocional de 6 estados** (Validação→Nomeação→Compreensão→Expansão→Desejo→Ação) explícita; Order Bump 1 deveria viver DENTRO da sales (entre B6/B7), hoje só no checkout; falta sticky navbar com CTA pós-scroll; Exit-intent modal ausente.
-7. **Checkout (Tela 13)**: já redesenhado; falta alinhar copy "Quase lá, [NOME]" + selos posicionados ABAIXO do CTA (não acima).
-8. **Thank-you (Tela 14)**: falta **upsell Protocolo de 30 Dias +$14** aparecendo 2s após carregamento.
-9. **Mecânica viral**: zero compartilhamento social hoje — gap grande de aquisição orgânica.
-10. **Arquétipo secundário em todo o copy**: "[PRIMARY] com traço de [SECONDARY]" não existe.
+5. Hero PT usa `tu/teu/tuas`. Em paralelo:
+   - `sales.painBlock` (PT) usa **`você`** ("Você já tentou de tudo, certo?")
+   - `reveal.areas.byArch` usa BR: **"boletos viram boletos"** (PT-PT é `fatura`)
+   - `reveal.areasIntro`: **"Veja onde ele aparece"** (`Veja` é BR; PT-PT é `Vê`)
+   - `obrigado.welcomeSub`: **"você connosco"** (mistura `você` BR + `connosco` PT-PT — frankenpt)
+   - `dashboard.hub.greeting` retorna `Bom dia/tarde/noite` mas dashboard nem existe mais
+6. **Hero kicker PT** é minúsculo (`Finanças comportamentais • 8 perguntas`) mas EN é uppercase (`BEHAVIORAL FINANCE • …`). Sem padrão.
+7. **`loader.analysis[0]`** = **"Analizando"** (erro ortográfico — correto é `Analisando`); mesmo problema em PL/RO precisa verificar.
+8. **`emailCapture.title`** força `.toUpperCase()` no nome do usuário — quebra acentuação em alguns navegadores e contradiz a decisão anterior de remover all-caps das perguntas do quiz.
+9. **`b1.eyebrow` = "DIAGNÓSTICO REVELADO"** aparece **após** a tela de reveal, mas a tela 12 vende algo que ainda **não foi revelado** (ainda virá no PDF). Promessa quebrada.
+10. **`b1.timer` = "Esta análise expira em alguns minutos"** — urgência vaga e implausível, contradiz a frase "sem pressão" do checkout. Ou faz countdown real ou tira.
+11. **Hero PT headline tem `\n` literais** (`O TEU CÉREBRO TEM UM PADRÃO\nQUE ESTÁ A SABOTAR\nAS TUAS FINANÇAS.`); EN idem. Mas `landing.howItWorks.steps[0].title` no PT escreve `RESPONDE \n8  PERGUNTAS` (espaço duplo + `\n` no meio) — quebras hardcoded mal alinhadas.
 
-## Plano em 6 PRs
+### 🟡 Factualidade / claims sem prova
 
-### PR 1 — Scoring + personalização profunda (fundação técnica)
-- `src/lib/quiz/scoring.ts`: devolver `{ winner, secondary, scores }` em vez de só `winner`.
-- Persistir `secondary` em `quiz_leads` (migration leve, nullable).
-- Propagar `secondary` via state da rota até reveal/sales/checkout/thank-you/PDF.
-- `[NOME]` em TODAS as 8 perguntas (`src/lib/i18n/translations.ts`) nos 5 idiomas.
-- Concordância de gênero (m/f/n) auditada e completada nas 8 perguntas.
-- Auto-advance 150ms confirmado/ajustado em `QuizScreenWrapper`.
-- Barra de progresso começa em **12%** e cresce não-linear.
+12. **`b3.proofSeal`**: "**14 estudos revisados por pares · 12.000 diagnósticos validados em 5 países**" — número de estudos é arbitrário; "validados" implica peer review do produto, o que não é verdade.
+13. **`b6.counter`** e **`landing.proofBar.diagnostics`** dizem `+12.000`, mas `socialProof.counterText` (PT) e EN dizem **`+12.000`** vs **`+12,000`** (separador decimal trocado por idioma — OK), porém em outros locais aparece `+14.832` (no plano antigo). Padronizar para **um número único** e justificável.
+14. **`b7.was = $200` / `b7.then = $47`** — ancoragem fixa em USD enquanto checkout cobra BRL/PLN/RON/SAR/EUR. Em BR ($200 vira R$ 1.000 mental), em SA ($200 vira SAR 750) — referência ilegível e descalibrada.
+15. **`reveal.anchor`**: "73% dos {arch} relatam o mesmo padrão" — número inventado, sem fonte.
+16. **`hero.trust`**: "+12.000 diagnósticos • Sem cartão para começar" repete o número também em `landing.proofBar`. Repetição na mesma tela.
 
-### PR 2 — Landing + Reveal alinhadas ao guia
-- Hero landing: novo headline em 5 idiomas no padrão "curiosidade + reframe": *"Não é falta de força de vontade. É um padrão instalado antes dos 15 anos."* + contador específico "14.832 diagnósticos · 4 países".
-- Reveal: refatorar `ArchetypeRevealStage` para a cascata de 8 passos do guia (sub → typewriter → ícone → dor → custo oculto → expansão multi-área → CTA por arquétipo 1ª pessoa → botão "Compartilhar meu arquétipo").
-- Copy de reveal nos 5 idiomas seguindo "reframe de culpa → precisão cirúrgica → expansão para outras áreas → identidade".
-- CTAs específicos por arquétipo (AO/SS/EA/HI) em 1ª pessoa.
+### 🟢 Polimento (i18n × 5)
 
-### PR 3 — Sales (Tela 12) com estrutura emocional de 6 estados
-- Reescrita de B1–B9 mapeando 1:1 aos 6 estados emocionais (Validação→Ação).
-- B1 com frase-âncora "dominar o que hoje domina você" em 5 idiomas.
-- B2 com 6 bullets de dor real (não abstrações), por arquétipo.
-- B3 com citações Kahneman/Thaler/Ariely em destaque visual (caixa borda vermelha) + frase "Planilhas não resolvem um problema que não é de planilha".
-- B4 com "[NOME] — [PRIMARY] com traço de [SECONDARY]" + 4 áreas (financeiro/profissional/amoroso/pessoal) com impacto numérico do score.
-- B5: ancoragem com "$200 consulta · $47 regular · hoje [PREÇO LOCAL]" (sem mostrar números aqui — só na Tela 13 conforme arquitetura atual; mantemos B5 como "valor entregue").
-- B6: 9 testimonials (PT/EN/PL/RO/AR) com bandeira + arquétipo.
-- **Order Bump 1 inline entre B6 e B7** ("Guia de Relações por Arquétipo +$4,99").
-- Sticky navbar com CTA "Quero Meu Diagnóstico →" aparecendo após 600px de scroll.
-- B8 FAQ com as 4 perguntas exatas do guia (genérico/diferencial/recebimento/garantia).
-- B9 CTA final com frase "Você descobriu seu arquétipo. Falta o mais importante: O QUE FAZER COM ELE."
-
-### PR 4 — Email gate + Loader + Exit-intent + Checkout polish
-- Tela 9: resultado desfocado ao fundo (`backdrop-filter: blur(20px)` num preview do arquétipo) para criar tensão.
-- Tela 10: 4 textos exatos do guia, fade 700ms, `[NOME]` no 4º, total 3s.
-- Exit-intent modal já existente (`ExitIntentModal.tsx`) reescrito com copy "Espera, [NOME]. Você descobriu que é [ARQUÉTIPO]…" em 5 idiomas.
-- Tela 13: "Quase lá, [NOME]" + selos SSL/Stripe/garantia ABAIXO do CTA; bumps com toggle visual claro.
-
-### PR 5 — Thank-you upsell + mecânica viral
-- `obrigado.tsx`: upsell **Protocolo de 30 Dias +$14** aparece 2s após load (modal/sheet), com copy do guia + CTAs "Sim, adicionar" / "Não, só quero o diagnóstico". Integra `createCheckoutSession` em modo "upsell" (one-click via customer já criado).
-- Cria endpoint `api/public/upsell` server fn que reabre Stripe checkout pré-preenchido.
-- Botão "Compartilhar meu arquétipo" no reveal: gera card 1080×1920 (canvas) com nome do arquétipo + sigil + frase-assinatura → download/share API; tracking `ARCHETYPE_SHARED`.
-- Página pública `/arquetipo/[slug]` (4 rotas estáticas) para o link compartilhado dar voltar para o quiz.
-
-### PR 6 — QA, analytics, contraste, performance, go-live
-- 16 eventos PostHog canônicos do guia (LANDING_VIEW, QUIZ_START, QUIZ_Q_ANSWERED, EMAIL_CAPTURED, REVEAL_VIEW, REVEAL_SHARED, SALES_VIEW, SALES_BUMP_TOGGLED, EXIT_INTENT_SHOWN, CHECKOUT_VIEW, CHECKOUT_CTA_CLICK, PURCHASE_SUCCESS, UPSELL_VIEW, UPSELL_PURCHASED, PDF_DOWNLOADED, ARCHETYPE_SHARED).
-- Checklist final do guia (Parte 5) auditado item por item.
-- Contraste WCAG AA em 375px e 1440px em 5 idiomas.
-- `npm run build` + `tsgo` limpos.
-- Lighthouse mobile baseline + após melhorias.
-- Smoke Playwright: funil completo PT/EN/AR (RTL).
-
-## Decisões pendentes (preciso de OK antes de começar PR 1)
-
-1. **Arquétipo secundário visível em todo o funil?** → recomendo sim, fortalece personalização e diferencia da concorrência.
-2. **Upsell Protocolo $14 na thank-you** → criar como produto separado no Stripe ou usar bump pós-compra via Payment Intent? Recomendo **link to new Stripe Checkout em 1-click** (sem re-pedir cartão se Link/customer reused).
-3. **Mecânica viral**: card de compartilhamento gerado client-side (canvas) ou server (PDF/imagem via worker)? Recomendo **client-side canvas** — zero infra extra.
-4. **Headline da landing**: posso escolher entre as 3 fórmulas do guia (gap de info / reframe de culpa / contraste com solução) ou prefere votar?
-5. **Ordem dos PRs**: posso começar pelo **PR 1 (scoring + secundário + [NOME] + gênero)** porque é fundação de todos os outros — confirma?
-
-## Detalhes técnicos
-
-Arquivos a tocar (resumo):
-- `src/lib/quiz/scoring.ts`, `src/lib/quiz.functions.ts`
-- `src/lib/i18n/translations.ts` + `types.ts` (extensão pesada — toda copy nova × 5 idiomas)
-- `src/routes/index.tsx` (landing hero + quiz + email + reveal + sales)
-- `src/components/landing/{Hero,ProofBar,FinalCTA}.tsx`
-- `src/components/quiz/QuizScreenWrapper.tsx` (progresso 12%, auto-advance)
-- `src/components/reveal/{ArchetypeRevealStage,ShareCard}.tsx` (novo ShareCard)
-- `src/components/sales/SalesPageV2.tsx` + `v3/*` (B1–B9 reescritos + StickyNav + bump inline)
-- `src/components/sales/v3/ExitIntentModal.tsx`
-- `src/components/funnel/CheckoutStub.tsx`
-- `src/routes/obrigado.tsx` (upsell modal)
-- `src/routes/api/public/upsell.ts` (novo)
-- `src/lib/analytics.ts` (16 eventos)
-- `supabase migration`: `quiz_leads.secondary_archetype` nullable text
-
-Sem novas dependências. `canvas-confetti` já instalado; share card usa Canvas API nativo + Web Share API.
+17. **AR**: `b1.h1` e `b9.title` precisam validação RTL com pontuação (`،` vs `,`).
+18. **PL**: `loader.analysis` provavelmente também tem typo se foi traduzido literal do PT errado.
+19. **RO**: confirmar que `[PRIMARY]` interpolado decai para feminino quando arquétipo for "Acumulator Obsesiv" / "Status Seeker" (concordância).
+20. **EN testimonials** (landing) — "Adam K." é polonês mas aparece em EN sem bandeira; em PT mesma cosa. Falta `country` no schema landing (existe em `salesV2.b6`, mas não no `landing.testimonials.items`).
+21. **`landing.faq.items[3].a`**: "Um PDF de 30+ páginas no teu email" — fixar número de páginas é frágil (compromisso operacional). Trocar por "PDF extenso" ou validar 30+.
+22. **`hero.trustGuarantee = "30 dias garantia"`** — faltam pontuação e maiúscula (`30 dias de garantia`).
+23. **`landing.finalCta.titleAfter = " QUAL É."`** — espaço inicial visível em alguns renders.
+24. **`b8.items[0].a`** PT: **"O MindReset revela PORQUE como [PRIMARY] não consegues"** — gramática quebrada (`PORQUE como`).
+25. **`reveal.finalSub`**: "os 30 dias guiados" — incoerente com `b5` que vende 90 dias.
+26. **`sales.*` (bloco antigo)** convive com `salesV2.*` no i18n; renderiza em algum lugar? Auditar `grep` para garantir que é dead code, senão usuário vê PT-BR ("Você já tentou…") em paralelo com PT-PT do `salesV2`.
+27. **`checkout.welcomeNotification`**: "Sua assinatura está ativa. Clique aqui para começar seu diagnóstico." — fala de **assinatura** num produto sem subscrição.
+28. **`landing.testimonials.items[1].arch = "Guardadora Obsessiva"`** já listado em #1; aparecimento isolado de gênero feminino no nome do arquétipo é inconsistente (todos os outros são genéricos).
+29. **`identity.title` PT** = "Antes de começar, quem és tu?" — perfeito PT-PT, mas o subtítulo `sub` continua usando `teu` (OK). Validar que `[NOME]` é capturado e propagado em **todas** as 8 perguntas (PR1 prometeu, validar implementação).
+30. **`landing.archetypes.title` PT** = "QUAL É O TEU PADRÃO INVISÍVEL?" mas o sub diz "Descobre o teu em menos de 3 minutos" — repete "teu" 2× em 2 frases consecutivas. Cosmético.
+31. **`q[5].options[1] = "Estatuto"`** (PT-PT correto) vs typewriter usando "STATUS SEEKER" em inglês — falta tradução literal "Procura de Estatuto".
 
 ---
 
-Confirma se posso seguir com **PR 1** e me responde os 5 itens pendentes (ou simplesmente "ok, segue tudo" e eu decido).
+## Plano de execução — 4 PRs, ordem fixa
+
+Cada PR é independente, com gate manual entre eles. Tempo estimado total: ~3 sessões.
+
+### PR A — Consistência ontológica (BLOQUEADOR · 1 sessão)
+Resolve: itens **1, 2, 3, 4, 26, 27**.
+
+1. **Define nomes canônicos** dos 4 arquétipos por idioma (uma struct única, importada por TODOS os lugares):
+   - PT: `Acumulador Obsessivo` / `Status Seeker` (sem tradução, é marca) / `Evasivo Alienado` / `Hedonista Impulsivo`
+   - EN/PL/RO/AR: equivalentes oficiais já em `archetypes.{AO,SS,EA,HI}.name`
+2. Remove `dashboard.*`, `onboarding.*`, `obrigado.*` (i18n bloco), `checkout.welcomeNotification`, `resetPassword`, `sharePage` se confirmado dead code. Pelo menos marcar `@deprecated` e remover do `Dict` se nada renderiza.
+3. Padroniza protocolo: **uma única duração** (sugiro **30 dias** porque é o já-prometido pela garantia + onboarding lore). Corrige `b5.subtitle`, `b5.deliverables[1]`, `reveal.finalSub`, `ob2`.
+4. Decide secundário: **manter** e propagar `[SECONDARY]` para `b1.promise`, `b4.title`, `b8.items[0].a`, `reveal.kicker`. OU **remover** `[SECONDARY]` de `b9.tagline`. Recomendo manter — já está calculado e diferencia.
+5. Remove bloco `sales.*` antigo (PT-BR) se não renderiza; senão, sincroniza com `salesV2.*`.
+6. **Auditoria automatizada**: adicionar 1 teste node simples que faz `grep` por "Guardadora Obsessiva", "Fantasma Evasivo", "MindReset2026", "assinatura ativa" e falha o build se encontrar.
+
+### PR B — Voz unificada PT-PT (1 sessão)
+Resolve: itens **5, 6, 7, 8, 9, 10, 11, 24, 28, 29, 30**.
+
+1. Sweep PT inteiro: substituir todo `você/sua/seu` por `tu/tua/teu` (exceto onde a marca exige, e.g. dashboards mortos serão removidos no PR A).
+2. Corrigir BR-ismos: `boletos`→`faturas`, `Veja`→`Vê`, `Estamos felizes em ter você connosco`→`Que bom ter-te connosco`.
+3. Corrigir `Analizando`→`Analisando` no loader (e equivalentes em PL/RO).
+4. Eyebrow `b1.eyebrow`: trocar `DIAGNÓSTICO REVELADO` por `O TEU PROTOCOLO` (alinha com onde estamos no funil).
+5. Decidir sobre timer: ou implementa countdown real OU substitui `b1.timer` por algo factual ("Análise pessoal preparada agora.").
+6. Hero kicker — uniformizar case nos 5 idiomas (sugiro **uppercase + tracking**).
+7. `emailCapture.title`: remover `.toUpperCase()` no name, usar CSS uppercase para preservar acentuação correta.
+8. Reescrever `b8.items[0].a` (gramática quebrada).
+9. Normalizar `\n` literais em `hero.headline` e `landing.howItWorks.steps[*].title` (preferir CSS `text-balance` + `<br/>` controlado pelo componente, sem `\n` hardcoded em copy).
+
+### PR C — Factualidade & ancoragem (0.5 sessão)
+Resolve: itens **12, 13, 14, 15, 16, 21, 22, 23**.
+
+1. **`proofSeal`**: trocar "14 estudos revisados por pares · 12.000 diagnósticos validados" por algo verdadeiro: **"Baseado em 3 Prémios Nobel de comportamento + +12.000 diagnósticos gerados"**.
+2. Padronizar contador único em **`+12.000`** (PT/PL/RO/AR) / **`+12,000`** (EN). Remover qualquer `14.832` órfão.
+3. **`b7.was/then/price`**: tornar dinâmico por moeda — ou remover ancoragem ($200/$47) e deixar **só o preço local**, ou criar tabela `priceAnchor` por moeda no `pricing.server.ts` e ler dela.
+4. **`reveal.anchor`**: substituir `73%` por algo verificável ou remover ("A maioria dos {arch} repete este padrão em pelo menos 3 das 4 áreas").
+5. `hero.trust`: tirar `+12.000 diagnósticos` (já está no ProofBar logo abaixo); manter só `Sem cartão para começar` + selos.
+6. `landing.faq.items[3].a`: trocar "30+ páginas" por **"PDF completo (≈30 páginas)"** ou comprometer com número exato após gerar 1 PDF real e medir.
+7. Polimento ortográfico (`30 dias de garantia`, espaço inicial em `titleAfter`).
+
+### PR D — i18n × 5 + QA final (0.5 sessão)
+Resolve: itens **17, 18, 19, 20, 25, 31**.
+
+1. RTL AR: revisar pontuação, validar `[NOME]` em script árabe (não pode ser maiúsculo).
+2. PL/RO: revisar concordância de gênero com `[PRIMARY]` (especialmente RO onde adj. concordam).
+3. EN/PT testimonials da landing: adicionar campo `country` (alinha com `salesV2.b6` schema).
+4. Sweep final: rodar Playwright capturando todas as 9 telas × 5 idiomas (45 screenshots), abrir em grid e revisar visualmente.
+5. Build + tsgo limpos.
+6. **Gate manual final**: usuário aprova screenshots → publish.
+
+---
+
+## Diretrizes globais (aplicam aos 4 PRs)
+
+- **Fonte única**: nenhum nome de arquétipo, número de prova ou duração de protocolo pode existir em mais de um lugar. Tudo via constante exportada.
+- **Tom**: PT-PT consistente ("tu"), EN universal, PL/RO/AR validados com bandeira no autor para reforçar localidade.
+- **Nada de números que não conseguimos defender** (estudos, percentagens, contagens) — ou prova real, ou copy emocional sem número.
+- **Toda mudança em `salesV2.*` precisa atualizar `salesV2`, NÃO criar `salesV3`** — evitar dead code growth.
+- **Cada PR**: `bun run build` + `tsgo` verdes + capturas Playwright antes de fechar.
+
+---
+
+## Decisões pendentes (preciso de OK antes do PR A)
+
+1. **Duração do protocolo**: 30 dias (alinha com garantia) ou 90 dias (mais valor percebido)? → recomendo **30**.
+2. **Arquétipo secundário**: mantém em toda copy ou só no PDF? → recomendo **mantém na sales+checkout, esconde da landing**.
+3. **Ancoragem de preço** (`$200 → $47 → hoje X`): mantém com adaptação por moeda, ou remove e mostra só preço local? → recomendo **adaptar por moeda** (mais conversão).
+4. **Bloco `obrigado`/`dashboard`/`onboarding` no i18n**: deletar agora ou só marcar `@deprecated`? → recomendo **deletar** (reduz `translations.ts` em ~600 linhas, build mais rápido).
+5. **Posso começar pelo PR A** (consistência ontológica) assim que aprovares as 4 decisões? Ou queres revisar item-a-item da lista de 31 antes?
+
+Responde "ok, segue" + decisões 1–4, ou aponta quais itens da lista de 31 retirar/adicionar.
