@@ -1037,7 +1037,7 @@ const EN: Dict = {
     finalCta: {
       titleBefore: "The pattern sabotaging your 4 life areas has a name.\nIt's time to ",
       titleHighlight: "discover",
-      titleAfter: " what it is.",
+      titleAfter: "what it is.",
       sub: "8 questions. 3 minutes. A clarity no spreadsheet can give you.",
       cta: "Start my free diagnosis",
       guarantee: "30-day guarantee",
@@ -2112,7 +2112,7 @@ const RO: Dict = {
     finalCta: {
       titleBefore: "Tiparul care îți sabotează 4 zone din viață are un nume.\nE timpul să ",
       titleHighlight: "afli",
-      titleAfter: " care e.",
+      titleAfter: "care e.",
       sub: "8 întrebări. 3 minute. O claritate pe care nicio foaie de calcul nu ți-o dă.",
       cta: "Începe diagnosticul meu gratuit",
       guarantee: "Garanție 30 zile",
@@ -2480,7 +2480,7 @@ const AR: Dict = {
     finalCta: {
       titleBefore: "النمط الذي يسبق 4 مجالات في حياتك له اسم.\nحان وقت ",
       titleHighlight: "اكتشاف",
-      titleAfter: " ما هو.",
+      titleAfter: "ما هو.",
       sub: "8 أسئلة. 3 دقائق. وضوح لا يمنحك إياه أي جدول بيانات.",
       cta: "ابدأ تشخيصي المجاني",
       guarantee: "ضمان 30 يوم",
