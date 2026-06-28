@@ -97,6 +97,7 @@ export type Dict = {
       expansao: string;
     }>;
     archCta: Record<"AO" | "SS" | "EA" | "HI", string>;
+    anatomy: { eyebrow: string; programming: string; hiddenCost: string; mastery: string };
   };
   sales: {
     h1: (name: string, arch: string) => string;
