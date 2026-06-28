@@ -468,27 +468,7 @@ export default function SalesPageV2({
         </div>
 
         {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
-        <aside className="pointer-events-none relative hidden lg:block h-full sales-sculpture-col">
-          <div
-            className="sticky top-16 h-[calc(100vh-4rem)] w-full sales-sculpture-mask"
-            style={{ perspective: "1000px" }}
-          >
-            <div
-              className="w-full h-full transition-transform duration-800 ease-out"
-              style={{ transform: "rotateY(-2deg)", transformOrigin: "center center" }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = "rotateY(0deg) scale(1.02)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = "rotateY(-2deg)"; }}
-            >
-              <div
-                className="sales-sculpture-halo"
-                aria-hidden
-                style={{ opacity: haloIntensity, transition: "opacity 600ms ease" }}
-              />
-              <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
-              <SculptureParticles count={18} />
-            </div>
-          </div>
-        </aside>
+        <SculptureStage archetype={archetype} targetRef={rootRef} />
       </div>
 
       {/* Mobile/tablet sculpture — fixed ambient behind copy */}
