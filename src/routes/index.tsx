@@ -1432,31 +1432,6 @@ function Reveal({
         </div>
       </div>
 
-      {/* Detalhes (hooks) abaixo do hero — "Isto não é sorte..." + cascata */}
-      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
-        <p
-          className="mb-10 text-center font-display font-extrabold uppercase not-italic tracking-tight whitespace-pre-line"
-          style={{ fontSize: "30.75px", lineHeight: 1.15 }}
-        >
-          {t.reveal.sub}
-        </p>
-        <div className="grid gap-4 reveal-group">
-          {a.hooks.map((h, i) => (
-            <div
-              key={i}
-              className="reveal flex gap-5 rounded-2xl border border-white/5 bg-card/40 p-6 transition-all hover:border-arch-primary/40"
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary font-black border border-arch-primary/30">
-                {i + 1}
-              </div>
-              <p className="text-base md:text-lg text-foreground/85 leading-relaxed self-center">
-                {h}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Fold 4 — Comparação ancorada (prova social derivada do arquétipo) */}
       <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
         <div
@@ -1479,6 +1454,31 @@ function Reveal({
               {t.reveal.anchor(a.name)}
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Detalhes (hooks) abaixo do hero — "Isto não é sorte..." + cascata */}
+      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
+        <p
+          className="mb-10 text-center font-display font-extrabold uppercase not-italic tracking-tight whitespace-pre-line"
+          style={{ fontSize: "30.75px", lineHeight: 1.15 }}
+        >
+          {t.reveal.sub}
+        </p>
+        <div className="grid gap-4 reveal-group">
+          {a.hooks.map((h, i) => (
+            <div
+              key={i}
+              className="reveal flex gap-5 rounded-2xl border border-white/5 bg-card/40 p-6 transition-all hover:border-arch-primary/40"
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary font-black border border-arch-primary/30">
+                {i + 1}
+              </div>
+              <p className="text-base md:text-lg text-foreground/85 leading-relaxed self-center">
+                {h}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 
