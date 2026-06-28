@@ -25,11 +25,11 @@ import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainScar } from "./v3/PainScar";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
-import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
 import { SculptureStage } from "./v3/SculptureStage";
+import { MobileSculptureStation } from "./v3/MobileSculptureStation";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
@@ -254,6 +254,15 @@ export default function SalesPageV2({
             <p className="mt-8 text-lg font-medium text-white/85">{tpl(v2.b2.conclusion)}</p>
           </SceneFrame>
 
+          {/* Mobile station — opening (after pain) */}
+          <MobileSculptureStation
+            archetype={archetype}
+            frame={10}
+            variant="opening"
+            eyebrow={badges.science}
+            caption={v2.b3.proofSeal}
+          />
+
           {/* II — Scientific Breakthrough */}
           <SceneFrame sceneId="science" index={2} badge={badges.science} title={v2.b3.title}>
             <p className="text-white/90 leading-[1.75] text-[17px]">{v2.b3.body}</p>
@@ -298,6 +307,15 @@ export default function SalesPageV2({
             </div>
           </SceneFrame>
 
+          {/* Mobile station — midpoint (after diagnosis) */}
+          <MobileSculptureStation
+            archetype={archetype}
+            frame={28}
+            variant="midpoint"
+            eyebrow={badges.deliver}
+            caption={tpl(v2.b5.subtitle)}
+          />
+
           {/* B5 — "O que vais receber" (sem preço — preço fica para Tela 13) */}
           <SceneFrame sceneId="deliver" badge={badges.deliver} title={tpl(v2.b5.title)}>
             <p className="mb-8 text-white/75 text-base font-medium">{tpl(v2.b5.subtitle)}</p>
@@ -333,6 +351,15 @@ export default function SalesPageV2({
             rating={v2.b6.rating}
             testimonials={v2.b6.testimonials.slice(0, 6)}
             lang={lang}
+          />
+
+          {/* Mobile station — closing (before decision bridge) */}
+          <MobileSculptureStation
+            archetype={archetype}
+            frame={46}
+            variant="closing"
+            eyebrow={badges.decision}
+            caption={tpl(v2.b7.eyebrow)}
           />
 
           {/* B7 — Bridge card (sem preço; envia para Tela 13 de decisão) */}
@@ -469,19 +496,6 @@ export default function SalesPageV2({
 
         {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
         <SculptureStage archetype={archetype} targetRef={rootRef} />
-      </div>
-
-      {/* Mobile/tablet sculpture — fixed ambient behind copy */}
-      <div
-        className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
-        style={{
-          opacity: 0.45,
-          mixBlendMode: "screen",
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-        }}
-      >
-        <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
       </div>
 
       <StickyOfferBar
