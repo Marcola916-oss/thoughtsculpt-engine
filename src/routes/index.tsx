@@ -1094,7 +1094,7 @@ function Reveal({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const cascade = useCascade(arch as Archetype);
-  const archCta = useArchCTA(arch as Archetype);
+  void useArchCTA;
   const [text, setText] = useState("");
   const areaScores = useMemo(() => computeAreaScores(answers).areas, [answers]);
 
