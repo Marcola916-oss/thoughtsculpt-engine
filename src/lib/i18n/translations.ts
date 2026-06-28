@@ -408,7 +408,7 @@ const PT: Dict = {
     finalCta: {
       titleBefore: "O PADRÃO QUE\u00a0 SABOTA AS\u00a0 TUAS 4\u00a0 ÁREAS TEM NOME. ESTÁ\u00a0 NA HORA DE ",
       titleHighlight: "DESCOBRIR",
-      titleAfter: "QUAL É.",
+      titleAfter: "\nQUAL É.",
       sub: "8 perguntas. 3 minutos. Uma clareza que nenhuma planilha dá.",
       cta: "Iniciar o meu diagnóstico gratuito",
       guarantee: "30 dias de garantia",
