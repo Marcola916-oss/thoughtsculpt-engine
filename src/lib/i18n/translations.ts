@@ -1193,6 +1193,12 @@ const EN: Dict = {
       EA: "I Want to Face It Without Fear",
       HI: "I Want to Live Without Guilt",
     },
+    anatomy: {
+      eyebrow: "Anatomy of the pattern",
+      programming: "Programming",
+      hiddenCost: "Hidden cost",
+      mastery: "Mastery",
+    },
   },
   sales: {
     h1: (name, arch) => `${name}, this is why nothing you tried before worked.`,
