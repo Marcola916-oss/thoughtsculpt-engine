@@ -2140,6 +2140,40 @@ html body .allow-break-all {
 @media (prefers-reduced-motion: reduce) {
   .sales-frame-ring { animation: none; }
 }
+
+/* Mobile sculpture stations — inline cinematic windows replacing the
+   heavy fixed wallpaper. Each station has its own halo + ring + bust. */
+.sales-mobile-station__halo {
+  position: absolute;
+  inset: -8% -10%;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side at 50% 50%,
+    color-mix(in oklab, var(--arch-primary) 38%, transparent) 0%,
+    color-mix(in oklab, var(--arch-primary) 14%, transparent) 38%,
+    transparent 72%
+  );
+  filter: blur(34px);
+  z-index: 0;
+}
+.sales-mobile-station__ring {
+  position: absolute;
+  inset: 4%;
+  width: 92%;
+  height: 92%;
+  pointer-events: none;
+  color: color-mix(in oklab, var(--arch-primary) 70%, transparent);
+  opacity: 0.85;
+  animation: sales-ring-rotate 90s linear infinite;
+  transform-origin: center;
+  z-index: 1;
+}
+.sales-mobile-station[data-variant="opening"] .sales-mobile-station__ring { animation-duration: 70s; }
+.sales-mobile-station[data-variant="closing"] .sales-mobile-station__ring { animation-direction: reverse; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sales-mobile-station__ring { animation: none; }
+}
 .sales-bump-active {
   animation: sales-bump-glow 2.4s ease-in-out infinite;
   border-color: var(--arch-primary) !important;
