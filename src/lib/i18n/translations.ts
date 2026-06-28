@@ -456,11 +456,11 @@ const PT: Dict = {
       "Quase pronto, [NOME]… o teu resultado está pronto!",
     ],
     analysis: [
-      "Analizando fluxos de impulsividade...",
-      "Mapeando gatilhos de segurança...",
-      "Cruzando dados com 12.000 diagnósticos...",
-      "Calculando probabilidade de recidiva...",
-      "Construindo protocolo de 30 dias..."
+      "A analisar fluxos de impulsividade...",
+      "A mapear gatilhos de segurança...",
+      "A cruzar dados com 12.000 diagnósticos...",
+      "A calcular probabilidade de recidiva...",
+      "A construir protocolo de 30 dias..."
     ]
   },
   archetypes: {
