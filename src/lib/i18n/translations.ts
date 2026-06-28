@@ -558,6 +558,12 @@ const PT: Dict = {
       EA: "Quero Enfrentar Sem Medo",
       HI: "Quero Viver sem Culpa",
     },
+    anatomy: {
+      eyebrow: "Anatomia do padrão",
+      programming: "Programação",
+      hiddenCost: "Custo oculto",
+      mastery: "Domínio",
+    },
   },
   sales: {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
