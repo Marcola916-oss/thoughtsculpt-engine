@@ -1752,7 +1752,7 @@ const PL: Dict = {
       trustLine: "🔒 Stripe • 🛡️ SSL • Anuluj w każdej chwili",
     },
   },
-  checkout: { welcomeNotification: { title: "🎉 Witamy w MindReset!", body: "Twoja subskrypcja jest aktywna. Kliknij tutaj, aby rozpocząć diagnozę." } },
+  checkout: { welcomeNotification: { title: "🎉 Witamy w MindReset!", body: "Twój zakup został potwierdzony. Sprawdź skrzynkę — PDF z diagnozą jest w drodze." } },
   resetPassword: { title: "Ustaw nowe hasło", placeholder: "Nowe hasło", updating: "Aktualizowanie…", updateButton: "Aktualizuj hasło", success: "Hasło zaktualizowane. Możesz się teraz zalogować." },
   sharePage: { metaTitle: "Udostępnij Archetyp", metaDescription: "Zobacz wynik diagnozy behawioralnej." },
   obrigado: {
