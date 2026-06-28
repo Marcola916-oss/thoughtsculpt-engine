@@ -1240,17 +1240,22 @@ function Reveal({
           {t.reveal.kicker(name)}
         </div>
 
-        <h1 className="relative z-30 mt-6 font-display text-5xl sm:text-7xl md:text-[8rem] font-black leading-[1.05] md:leading-[1.02] pt-2 pb-1 tracking-tighter uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch">
+        <h1
+          className="relative z-30 mt-6 font-display font-black leading-[1.05] md:leading-[1.02] pt-2 pb-1 tracking-tight uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch justify-center px-4 md:px-8 w-full"
+          style={{ fontSize: "clamp(2rem, 7vw, 6.5rem)" }}
+        >
           <span
             className="bg-clip-text text-transparent whitespace-pre-line"
             style={{
               backgroundImage:
                 "linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 70%)",
+              paddingInline: "0.18em",
+              WebkitBoxDecorationBreak: "clone",
+              boxDecorationBreak: "clone",
             }}
           >
             {text}
           </span>
-          <span className="text-arch-primary"></span>
         </h1>
 
         {/* Bloco "Anatomia do Padrão" — agrupa tagline + cascata emocional */}
