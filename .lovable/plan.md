@@ -1,137 +1,150 @@
-## Auditoria executada
+# Moldura Imersiva da Página de Vendas — Plano de Execução
 
-Naveguei pelo funil com Playwright (PT + EN), capturei 108 screenshots/textos, e li integralmente:
-- `src/lib/i18n/translations.ts` (2.655 linhas, 5 idiomas)
-- `src/routes/obrigado.tsx` (tem dicionário próprio — duplica o bloco `obrigado` do i18n)
-- `src/routes/index.tsx` (1.910 linhas)
-- `src/components/sales/SalesPageV2.tsx`, `CheckoutStub.tsx`
+## Diagnóstico (o que está acontecendo hoje)
 
-A análise revelou que a copy **não é o gargalo principal de conversão** (a estrutura está sólida pós-PR1–PR4), mas existem **erros graves de consistência, voz e factualidade** que vão minar a percepção de profissionalismo e, em pelo menos 3 casos, **quebrar a coerência do produto pós-pivot one-shot**. Sem corrigir, lançar em 30% é improvável — não por copy ruim, mas por copy *desalinhada consigo mesma*.
+**Desktop (≥1024px)** — `SalesPageV2.tsx:465-485`
+- A arte vive numa `<aside>` sticky de 420px no grid `[1fr_420px]`.
+- Tem `sales-sculpture-halo` (radial blur), `sales-sculpture-mask` (fade vertical), `sculpture-col::before` (linha vertical archetype) e `SculptureParticles`.
+- Sintoma: a arte fica visualmente "presa" numa coluna lateral isolada, sem dialogar com a copy do lado esquerdo. Vira "ilustração ao lado", não moldura.
 
-## Diagnóstico — 31 problemas reais encontrados
+**Tablet/Mobile (<1024px)** — `SalesPageV2.tsx:489-499`
+- A arte é renderizada de novo em `fixed inset-0 -z-0` com `opacity:0.45` + `mix-blend-screen` + máscara vertical.
+- Sintoma: vira um wallpaper desbotado atrás do texto. Não conta história. Não há sensação de "câmera imersiva" que o produto promete.
 
-### 🔴 Bloqueadores (quebram coerência do produto)
+**Atmosfera competindo** — `SalesPageV2.tsx:208-212`
+- Um `<Atmosphere>` global já pinta névoa archetype sobre tudo, o que dilui o protagonismo da arte.
 
-1. **Nomes dos arquétipos divergem entre 3 lugares na MESMA língua (PT)**:
-   - Landing `archetypes.items`: AO=`Acumulador Obsessivo`, EA=`Alienado Financeiro`
-   - `archetypes` (reveal): AO=`ACUMULADOR\nOBSESSIVO`, EA=`EVASIVO ALIENADO`
-   - Testimonials da landing: EA aparece como **`Fantasma Evasivo`**, AO como **`Guardadora Obsessiva`** (nomes inventados que não existem em nenhum outro lugar)
-   - Typewriter no hero alterna 4 nomes; precisa ser a fonte única
-2. **`obrigado` no i18n menciona login, senha `MindReset2026!`, dashboard e onboarding** — todo o produto foi pivotado para one-shot/PDF (sem auth, sem dashboard, sem onboarding, conforme `mem://index.md`). O bloco é dead code mas confunde futuras edições e, se acidentalmente renderizado, mata a credibilidade. Mesmo problema replicado em EN/PL/RO/AR.
-3. **`b5.subtitle` promete "Protocolo de 90 dias"** mas `deliverables[1].description` diz **"30 micro-acções, semana a semana"**; `ob2.title` chama de **"Protocolo de Reset 30 dias"**. Três números contraditórios para a mesma peça.
-4. **PR1 introduziu `secondary_archetype` em `quiz_leads`** e a copy de `b9.tagline` já usa `[SECONDARY]` — mas a maioria da copy ainda fala só de `[PRIMARY]`. Inconsistência: ou o secundário entra de verdade ou desaparece.
-
-### 🟠 Quebras de voz / mistura PT-PT × PT-BR
-
-5. Hero PT usa `tu/teu/tuas`. Em paralelo:
-   - `sales.painBlock` (PT) usa **`você`** ("Você já tentou de tudo, certo?")
-   - `reveal.areas.byArch` usa BR: **"boletos viram boletos"** (PT-PT é `fatura`)
-   - `reveal.areasIntro`: **"Veja onde ele aparece"** (`Veja` é BR; PT-PT é `Vê`)
-   - `obrigado.welcomeSub`: **"você connosco"** (mistura `você` BR + `connosco` PT-PT — frankenpt)
-   - `dashboard.hub.greeting` retorna `Bom dia/tarde/noite` mas dashboard nem existe mais
-6. **Hero kicker PT** é minúsculo (`Finanças comportamentais • 8 perguntas`) mas EN é uppercase (`BEHAVIORAL FINANCE • …`). Sem padrão.
-7. **`loader.analysis[0]`** = **"Analizando"** (erro ortográfico — correto é `Analisando`); mesmo problema em PL/RO precisa verificar.
-8. **`emailCapture.title`** força `.toUpperCase()` no nome do usuário — quebra acentuação em alguns navegadores e contradiz a decisão anterior de remover all-caps das perguntas do quiz.
-9. **`b1.eyebrow` = "DIAGNÓSTICO REVELADO"** aparece **após** a tela de reveal, mas a tela 12 vende algo que ainda **não foi revelado** (ainda virá no PDF). Promessa quebrada.
-10. **`b1.timer` = "Esta análise expira em alguns minutos"** — urgência vaga e implausível, contradiz a frase "sem pressão" do checkout. Ou faz countdown real ou tira.
-11. **Hero PT headline tem `\n` literais** (`O TEU CÉREBRO TEM UM PADRÃO\nQUE ESTÁ A SABOTAR\nAS TUAS FINANÇAS.`); EN idem. Mas `landing.howItWorks.steps[0].title` no PT escreve `RESPONDE \n8  PERGUNTAS` (espaço duplo + `\n` no meio) — quebras hardcoded mal alinhadas.
-
-### 🟡 Factualidade / claims sem prova
-
-12. **`b3.proofSeal`**: "**14 estudos revisados por pares · 12.000 diagnósticos validados em 5 países**" — número de estudos é arbitrário; "validados" implica peer review do produto, o que não é verdade.
-13. **`b6.counter`** e **`landing.proofBar.diagnostics`** dizem `+12.000`, mas `socialProof.counterText` (PT) e EN dizem **`+12.000`** vs **`+12,000`** (separador decimal trocado por idioma — OK), porém em outros locais aparece `+14.832` (no plano antigo). Padronizar para **um número único** e justificável.
-14. **`b7.was = $200` / `b7.then = $47`** — ancoragem fixa em USD enquanto checkout cobra BRL/PLN/RON/SAR/EUR. Em BR ($200 vira R$ 1.000 mental), em SA ($200 vira SAR 750) — referência ilegível e descalibrada.
-15. **`reveal.anchor`**: "73% dos {arch} relatam o mesmo padrão" — número inventado, sem fonte.
-16. **`hero.trust`**: "+12.000 diagnósticos • Sem cartão para começar" repete o número também em `landing.proofBar`. Repetição na mesma tela.
-
-### 🟢 Polimento (i18n × 5)
-
-17. **AR**: `b1.h1` e `b9.title` precisam validação RTL com pontuação (`،` vs `,`).
-18. **PL**: `loader.analysis` provavelmente também tem typo se foi traduzido literal do PT errado.
-19. **RO**: confirmar que `[PRIMARY]` interpolado decai para feminino quando arquétipo for "Acumulator Obsesiv" / "Status Seeker" (concordância).
-20. **EN testimonials** (landing) — "Adam K." é polonês mas aparece em EN sem bandeira; em PT mesma cosa. Falta `country` no schema landing (existe em `salesV2.b6`, mas não no `landing.testimonials.items`).
-21. **`landing.faq.items[3].a`**: "Um PDF de 30+ páginas no teu email" — fixar número de páginas é frágil (compromisso operacional). Trocar por "PDF extenso" ou validar 30+.
-22. **`hero.trustGuarantee = "30 dias garantia"`** — faltam pontuação e maiúscula (`30 dias de garantia`).
-23. **`landing.finalCta.titleAfter = " QUAL É."`** — espaço inicial visível em alguns renders.
-24. **`b8.items[0].a`** PT: **"O MindReset revela PORQUE como [PRIMARY] não consegues"** — gramática quebrada (`PORQUE como`).
-25. **`reveal.finalSub`**: "os 30 dias guiados" — incoerente com `b5` que vende 90 dias.
-26. **`sales.*` (bloco antigo)** convive com `salesV2.*` no i18n; renderiza em algum lugar? Auditar `grep` para garantir que é dead code, senão usuário vê PT-BR ("Você já tentou…") em paralelo com PT-PT do `salesV2`.
-27. **`checkout.welcomeNotification`**: "Sua assinatura está ativa. Clique aqui para começar seu diagnóstico." — fala de **assinatura** num produto sem subscrição.
-28. **`landing.testimonials.items[1].arch = "Guardadora Obsessiva"`** já listado em #1; aparecimento isolado de gênero feminino no nome do arquétipo é inconsistente (todos os outros são genéricos).
-29. **`identity.title` PT** = "Antes de começar, quem és tu?" — perfeito PT-PT, mas o subtítulo `sub` continua usando `teu` (OK). Validar que `[NOME]` é capturado e propagado em **todas** as 8 perguntas (PR1 prometeu, validar implementação).
-30. **`landing.archetypes.title` PT** = "QUAL É O TEU PADRÃO INVISÍVEL?" mas o sub diz "Descobre o teu em menos de 3 minutos" — repete "teu" 2× em 2 frases consecutivas. Cosmético.
-31. **`q[5].options[1] = "Estatuto"`** (PT-PT correto) vs typewriter usando "STATUS SEEKER" em inglês — falta tradução literal "Procura de Estatuto".
+**Tentativas anteriores ainda no código** (a "lápide" que o usuário mencionou)
+- `sales-sculpture-halo`, `sculpture-col::before`, `haloIntensity` reativo no scroll, `SceneBackground sales-vignette`, máscara dupla — tudo "isolado", nunca formou moldura coerente.
 
 ---
 
-## Plano de execução — 4 PRs, ordem fixa
+## Conceito da solução — "Câmera Imersiva"
 
-Cada PR é independente, com gate manual entre eles. Tempo estimado total: ~3 sessões.
+A arte deixa de ser ilustração lateral e passa a ser **a sala onde a copy acontece**. Três camadas sincronizadas:
 
-### PR A — Consistência ontológica (BLOQUEADOR · 1 sessão)
-Resolve: itens **1, 2, 3, 4, 26, 27**.
+```text
+┌───────────────────────────────────────────────────────────┐
+│  CAMADA 1 — STAGE GLOW (fixed, atrás de tudo)            │
+│    radial + conic gradient archetype, respira no scroll   │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │ CAMADA 2 — ARTE (a peça)                            │ │
+│  │   desktop: sticky centralizada, integrada via       │ │
+│  │   "spotlight" que vaza para a copy                  │ │
+│  │   mobile:  parallax sutil + recortes "janela"       │ │
+│  │ ┌─────────────────────────────────────────────────┐ │ │
+│  │ │ CAMADA 3 — COPY                                 │ │ │
+│  │ │   cards com glass-frame que "reagem" à arte:    │ │ │
+│  │ │   borda interna iluminada pelo halo da arte     │ │ │
+│  │ └─────────────────────────────────────────────────┘ │ │
+│  └─────────────────────────────────────────────────────┘ │
+└───────────────────────────────────────────────────────────┘
+```
 
-1. **Define nomes canônicos** dos 4 arquétipos por idioma (uma struct única, importada por TODOS os lugares):
-   - PT: `Acumulador Obsessivo` / `Status Seeker` (sem tradução, é marca) / `Evasivo Alienado` / `Hedonista Impulsivo`
-   - EN/PL/RO/AR: equivalentes oficiais já em `archetypes.{AO,SS,EA,HI}.name`
-2. Remove `dashboard.*`, `onboarding.*`, `obrigado.*` (i18n bloco), `checkout.welcomeNotification`, `resetPassword`, `sharePage` se confirmado dead code. Pelo menos marcar `@deprecated` e remover do `Dict` se nada renderiza.
-3. Padroniza protocolo: **uma única duração** (sugiro **30 dias** porque é o já-prometido pela garantia + onboarding lore). Corrige `b5.subtitle`, `b5.deliverables[1]`, `reveal.finalSub`, `ob2`.
-4. Decide secundário: **manter** e propagar `[SECONDARY]` para `b1.promise`, `b4.title`, `b8.items[0].a`, `reveal.kicker`. OU **remover** `[SECONDARY]` de `b9.tagline`. Recomendo manter — já está calculado e diferencia.
-5. Remove bloco `sales.*` antigo (PT-BR) se não renderiza; senão, sincroniza com `salesV2.*`.
-6. **Auditoria automatizada**: adicionar 1 teste node simples que faz `grep` por "Guardadora Obsessiva", "Fantasma Evasivo", "MindReset2026", "assinatura ativa" e falha o build se encontrar.
-
-### PR B — Voz unificada PT-PT (1 sessão)
-Resolve: itens **5, 6, 7, 8, 9, 10, 11, 24, 28, 29, 30**.
-
-1. Sweep PT inteiro: substituir todo `você/sua/seu` por `tu/tua/teu` (exceto onde a marca exige, e.g. dashboards mortos serão removidos no PR A).
-2. Corrigir BR-ismos: `boletos`→`faturas`, `Veja`→`Vê`, `Estamos felizes em ter você connosco`→`Que bom ter-te connosco`.
-3. Corrigir `Analizando`→`Analisando` no loader (e equivalentes em PL/RO).
-4. Eyebrow `b1.eyebrow`: trocar `DIAGNÓSTICO REVELADO` por `O TEU PROTOCOLO` (alinha com onde estamos no funil).
-5. Decidir sobre timer: ou implementa countdown real OU substitui `b1.timer` por algo factual ("Análise pessoal preparada agora.").
-6. Hero kicker — uniformizar case nos 5 idiomas (sugiro **uppercase + tracking**).
-7. `emailCapture.title`: remover `.toUpperCase()` no name, usar CSS uppercase para preservar acentuação correta.
-8. Reescrever `b8.items[0].a` (gramática quebrada).
-9. Normalizar `\n` literais em `hero.headline` e `landing.howItWorks.steps[*].title` (preferir CSS `text-balance` + `<br/>` controlado pelo componente, sem `\n` hardcoded em copy).
-
-### PR C — Factualidade & ancoragem (0.5 sessão)
-Resolve: itens **12, 13, 14, 15, 16, 21, 22, 23**.
-
-1. **`proofSeal`**: trocar "14 estudos revisados por pares · 12.000 diagnósticos validados" por algo verdadeiro: **"Baseado em 3 Prémios Nobel de comportamento + +12.000 diagnósticos gerados"**.
-2. Padronizar contador único em **`+12.000`** (PT/PL/RO/AR) / **`+12,000`** (EN). Remover qualquer `14.832` órfão.
-3. **`b7.was/then/price`**: tornar dinâmico por moeda — ou remover ancoragem ($200/$47) e deixar **só o preço local**, ou criar tabela `priceAnchor` por moeda no `pricing.server.ts` e ler dela.
-4. **`reveal.anchor`**: substituir `73%` por algo verificável ou remover ("A maioria dos {arch} repete este padrão em pelo menos 3 das 4 áreas").
-5. `hero.trust`: tirar `+12.000 diagnósticos` (já está no ProofBar logo abaixo); manter só `Sem cartão para começar` + selos.
-6. `landing.faq.items[3].a`: trocar "30+ páginas" por **"PDF completo (≈30 páginas)"** ou comprometer com número exato após gerar 1 PDF real e medir.
-7. Polimento ortográfico (`30 dias de garantia`, espaço inicial em `titleAfter`).
-
-### PR D — i18n × 5 + QA final (0.5 sessão)
-Resolve: itens **17, 18, 19, 20, 25, 31**.
-
-1. RTL AR: revisar pontuação, validar `[NOME]` em script árabe (não pode ser maiúsculo).
-2. PL/RO: revisar concordância de gênero com `[PRIMARY]` (especialmente RO onde adj. concordam).
-3. EN/PT testimonials da landing: adicionar campo `country` (alinha com `salesV2.b6` schema).
-4. Sweep final: rodar Playwright capturando todas as 9 telas × 5 idiomas (45 screenshots), abrir em grid e revisar visualmente.
-5. Build + tsgo limpos.
-6. **Gate manual final**: usuário aprova screenshots → publish.
+Resultado-alvo: usuário sente que a copy está **dentro** da arte, não ao lado dela.
 
 ---
 
-## Diretrizes globais (aplicam aos 4 PRs)
+## Diretrizes inegociáveis
 
-- **Fonte única**: nenhum nome de arquétipo, número de prova ou duração de protocolo pode existir em mais de um lugar. Tudo via constante exportada.
-- **Tom**: PT-PT consistente ("tu"), EN universal, PL/RO/AR validados com bandeira no autor para reforçar localidade.
-- **Nada de números que não conseguimos defender** (estudos, percentagens, contagens) — ou prova real, ou copy emocional sem número.
-- **Toda mudança em `salesV2.*` precisa atualizar `salesV2`, NÃO criar `salesV3`** — evitar dead code growth.
-- **Cada PR**: `bun run build` + `tsgo` verdes + capturas Playwright antes de fechar.
+1. **Não tocar em `ScrollAnimationSequence.tsx`** — o canvas com 50 frames keyed continua exatamente como está.
+2. **Manter o fluxo de scroll-progress** que dirige os frames; tudo novo apenas envelopa.
+3. **Performance**: nada de novo em `position: fixed` com `backdrop-filter` em mobile low-end. Tier-aware via `useDeviceTier` (já existe).
+4. **Acessibilidade**: respeitar `prefers-reduced-motion` (desliga parallax, mantém arte estática).
+5. **RTL**: usar `inset-inline-*`, gradientes simétricos.
+6. **Build limpo** ao final de cada fase (`npm run build` + `tsgo`).
 
 ---
 
-## Decisões pendentes (preciso de OK antes do PR A)
+## Fase 1 — Desktop: "Spotlight Bridge"
 
-1. **Duração do protocolo**: 30 dias (alinha com garantia) ou 90 dias (mais valor percebido)? → recomendo **30**.
-2. **Arquétipo secundário**: mantém em toda copy ou só no PDF? → recomendo **mantém na sales+checkout, esconde da landing**.
-3. **Ancoragem de preço** (`$200 → $47 → hoje X`): mantém com adaptação por moeda, ou remove e mostra só preço local? → recomendo **adaptar por moeda** (mais conversão).
-4. **Bloco `obrigado`/`dashboard`/`onboarding` no i18n**: deletar agora ou só marcar `@deprecated`? → recomendo **deletar** (reduz `translations.ts` em ~600 linhas, build mais rápido).
-5. **Posso começar pelo PR A** (consistência ontológica) assim que aprovares as 4 decisões? Ou queres revisar item-a-item da lista de 31 antes?
+Objetivo: a arte deixa de viver numa coluna isolada e ganha uma ponte luminosa que conecta com a copy.
 
-Responde "ok, segue" + decisões 1–4, ou aponta quais itens da lista de 31 retirar/adicionar.
+- **Substituir** `sculpture-col::before` (linha vertical fria) por um **gradiente cônico archetype** que emana da arte e cobre 30% da largura da coluna de copy. Cria sensação de "luz do palco caindo no leitor".
+- **Adicionar um "frame ring"** SVG ao redor da arte: anel fino archetype com gaps + 4 marcadores de canto estilo visor cinematográfico (não-decorativo: reforça narrativa "diagnóstico/scanner").
+- **Halo reativo ao scroll** já existe (`haloIntensity`); estender para também escalar a intensidade do spotlight bridge — assim a arte respira junto com o leitor.
+- **Cards de copy adjacentes** (`SceneFrame`) ganham uma classe `sales-frame-react` que aceita a luz do halo via `box-shadow: inset … color-mix(in oklab, var(--arch-primary) X%, transparent)` calculado por CSS var herdada do root `--arch-halo`.
+
+Arquivos:
+- `src/components/sales/SalesPageV2.tsx` — substituir `<aside>` por novo `SculptureStage`, adicionar var CSS `--arch-halo` no `rootRef` ligada a `haloIntensity`.
+- `src/components/sales/v3/SculptureStage.tsx` (novo) — encapsula frame ring + halo + spotlight bridge + ScrollAnimationSequence + particles.
+- `src/styles.css` — atualizar `.sales-sculpture-col`, adicionar `.sales-spotlight-bridge`, `.sales-frame-ring`, `.sales-frame-react`.
+
+---
+
+## Fase 2 — Mobile/Tablet: "Window Imersiva"
+
+Objetivo: a arte deixa de ser wallpaper desbotado e vira **janelas controladas** entre seções da copy.
+
+Em vez de UM fixed background a 45% opacity por toda a página, fazer **3 "estações imersivas"** ancoradas em scroll milestones:
+
+1. **Estação Pain (após B2)** — arte aparece em full-bleed dentro de um card 16:9 com mask radial e legenda micro "scanner: padrão detectado".
+2. **Estação 4D (após B4)** — arte com overlay de 4 quadrantes (money/career/love/personal) pulsando.
+3. **Estação Bridge (antes da Tela 13)** — arte "saindo" do frame com glow máximo, ponte visual para o CTA.
+
+Entre as estações, fundo limpo (sem o wallpaper). Isso **aumenta o contraste** da arte e **mantém legibilidade** da copy, sem perder presença.
+
+- Remover o bloco `fixed inset-0 -z-0 lg:hidden`.
+- Adicionar `<MobileSculptureStation variant="pain|fourD|bridge">` entre as `SceneFrame` correspondentes.
+- Cada estação usa `ScrollAnimationSequence` com `targetRef` próprio (a própria estação) — permite que o canvas renderize só quando visível (`IntersectionObserver`).
+
+Arquivos:
+- `src/components/sales/v3/MobileSculptureStation.tsx` (novo)
+- `src/components/sales/SalesPageV2.tsx` — remover wallpaper, intercalar 3 estações.
+
+---
+
+## Fase 3 — Atmosfera coerente (global)
+
+- O `<Atmosphere fog="subtle">` global concorre com a arte. **Reduzir para `fog="off"`** e mover a névoa para dentro do `SculptureStage` (desktop) e `MobileSculptureStation` (mobile) — assim a névoa só existe onde a arte pulsa.
+- Aplicar `--arch-halo` no `<html data-arch>` em vez de só no rootRef, para componentes globais (StickyOfferBar, ExitIntent) também respirarem.
+
+Arquivo: `src/components/sales/SalesPageV2.tsx`, `src/styles.css`.
+
+---
+
+## Fase 4 — Limpeza das tentativas antigas
+
+Remover tudo que ficou como "tentativa flutuante" e que será substituído pela nova moldura:
+- `sales-sculpture-col::before` (linha vertical) → substituído pelo spotlight bridge.
+- Bloco mobile `fixed inset-0 -z-0` → substituído por estações.
+- `sales-vignette` em `SceneBackground` — manter (ainda usado em outras cenas) mas confirmar que não duplica com novo halo.
+
+Arquivo: `src/styles.css` (deletar regras obsoletas), `src/components/sales/v3/SceneBackground.tsx` (auditar uso).
+
+---
+
+## Fase 5 — QA visual + performance
+
+| Viewport | Verificar |
+|---|---|
+| 1440px desktop | Spotlight bridge alinha com cards; halo respira no scroll; frame ring visível mas discreto |
+| 1024px tablet  | Estações renderizam; entre elas o fundo fica limpo |
+| 768px iPad     | Estações ocupam ~70vh, copy continua legível |
+| 414px mobile   | Canvas das estações não trava scroll; mask circular nítido |
+| 375px iPhone   | Mesma checagem; tier=low desliga parallax |
+| RTL (AR)       | Spotlight bridge e frame ring espelham corretamente |
+
+Comandos: `npm run build`, `tsgo`, Playwright screenshots nos 5 viewports (`/vsl` via seed do quiz).
+
+---
+
+## Ordem de execução (em PRs sequenciais — pequenos e reversíveis)
+
+1. **PR Imersão-1 (Desktop Spotlight)** — Fase 1. Risco baixo, ganho visual imediato.
+2. **PR Imersão-2 (Mobile Estações)** — Fase 2. Risco médio (remover wallpaper); A/B mental: estação > wallpaper.
+3. **PR Imersão-3 (Atmosfera coerente)** — Fase 3.
+4. **PR Imersão-4 (Cleanup + QA)** — Fases 4+5.
+
+Cada PR termina com build verde, screenshots dos 6 viewports anexados e check manual de RTL.
+
+---
+
+## Notas técnicas
+
+- `useScroll` do `ScrollAnimationSequence` continua intacto; o novo `SculptureStage` apenas envelopa o canvas — `targetRef` desktop continua sendo `rootRef`, mobile passa a ser o próprio nó da estação.
+- `--arch-halo` é setada via `useEffect` no `SalesPageV2` lendo `haloIntensity` (já existe). CSS consome com `color-mix(in oklab, var(--arch-primary) calc(var(--arch-halo) * 40%), transparent)`.
+- Para evitar repaint pesado: o spotlight bridge usa `transform: translateZ(0)` + `will-change: opacity`, não `filter: blur` por viewport inteiro.
+- Estações mobile fazem `IntersectionObserver` para pausar o canvas quando fora da tela — economiza CPU em scroll longo.
+
+Pronto para começar pelo **PR Imersão-1 (Desktop Spotlight)** assim que aprovares.
