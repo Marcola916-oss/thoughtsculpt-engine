@@ -1420,11 +1420,7 @@ function Reveal({
 
         <div className="grid gap-4 md:grid-cols-2">
           {AREA_ORDER.map((area: LifeArea, i) => (
-            <div
-              key={area}
-              ref={i === 2 ? stickyTriggerRef : undefined}
-              className="contents"
-            >
+            <div key={area} ref={i === 2 ? stickyTriggerRef : undefined}>
               <AreaScoreCard
                 area={area}
                 label={t.reveal.areas[area].label}
