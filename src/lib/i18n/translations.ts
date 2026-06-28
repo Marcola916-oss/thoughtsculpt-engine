@@ -562,7 +562,7 @@ const PT: Dict = {
     h1: (name, arch) => `${name}, foi por isto que nada do que tentaste antes funcionou.`,
     promise: "Em 30 dias, vais reconhecer o gatilho antes de ele acontecer.",
     videoPlaceholder: "Assista a esta breve explicação do seu arquétipo",
-    timer: "Oferta termina em:",
+    timer: "A tua oferta personalizada termina em:",
     painBlock: {
       title: "Você já tentou de tudo, certo?",
       body: "Planilhas do Excel. Aplicativos de orçamento. Promessas de ano novo. Mas o padrão sempre volta a assumir o controle nas horas de estresse, ansiedade ou euforia. Isso acontece porque o problema não é matemático — é comportamental.",
@@ -622,10 +622,10 @@ const PT: Dict = {
       cta: "Começar Meu MindReset Agora →",
       trust: "🔒 Stripe • 🛡️ SSL • Cancelar a qualquer momento",
     },
-    cta: "Ver meus planos",
+    cta: "Ver os meus planos",
   },
   plans: {
-    title: "Escolhe a duração do teu Reset", sub: "Subscrição recorrente. Cancelas quando quiseres.",
+    title: "Confirma o teu acesso", sub: "Pagamento único · Acesso vitalício · Sem subscrição.",
     mostPopular: "MAIS POPULAR", perDay: (v) => `${v} / dia`,
     p30: "30 dias", p6m: "6 meses", p1y: "1 ano",
     chooseCta: "Quero esse plano agora",
@@ -1191,7 +1191,7 @@ const EN: Dict = {
     h1: (name, arch) => `${name}, this is why nothing you tried before worked.`,
     promise: "In 30 days you'll recognize the trigger before it happens.",
     videoPlaceholder: "Watch this brief explanation of your archetype",
-    timer: "Offer ends in:",
+    timer: "Your personal offer ends in:",
     painBlock: {
       title: "You've tried everything, haven't you?",
       body: "Excel spreadsheets. Budgeting apps. New Year's resolutions. But the pattern always takes over during stress, anxiety, or excitement. That's because the problem isn't mathematical — it's behavioral.",
@@ -1251,10 +1251,10 @@ const EN: Dict = {
       cta: "Start My MindReset Now →",
       trust: "🔒 Stripe • 🛡️ SSL • Cancel anytime",
     },
-    cta: "See my plans",
+    cta: "See my offer",
   },
   plans: {
-    title: "Choose your Reset length", sub: "Recurring subscription. Cancel anytime.",
+    title: "Confirm your access", sub: "One-time payment · Lifetime access · No subscription.",
     mostPopular: "MOST POPULAR", perDay: (v) => `${v} / day`,
     p30: "30 days", p6m: "6 months", p1y: "1 year",
     chooseCta: "I want this plan",
@@ -1660,7 +1660,7 @@ const PL: Dict = {
       HI: "Chcę Żyć Bez Winy",
     },
   },
-  plans: { ...EN.plans, title: "Wybierz długość swojego Resetu", sub: "Subskrypcja odnawialna. Anulujesz kiedy chcesz.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan",     guarantee: "30 dni pełnego zwrotu — bez pytań." },
+  plans: { ...EN.plans, title: "Potwierdź swój dostęp", sub: "Płatność jednorazowa · Dostęp dożywotni · Bez subskrypcji.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan",     guarantee: "30 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
   archetypes: {
     AO: { ...EN.archetypes.AO, name: "KOMPULSYWNY\nCIUŁACZ" },
@@ -2027,7 +2027,7 @@ const RO: Dict = {
       HI: "Vreau să Trăiesc Fără Vină",
     },
   },
-  plans: { ...EN.plans, title: "Alege durata Resetului", sub: "Abonament recurent. Anulezi oricând.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan",     guarantee: "30 zile rambursare integrală — fără întrebări." },
+  plans: { ...EN.plans, title: "Confirmă-ți accesul", sub: "Plată unică · Acces pe viață · Fără abonament.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan",     guarantee: "30 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
   archetypes: {
     AO: { ...EN.archetypes.AO, name: "ACUMULATOR\nOBSESIV" },
@@ -2395,7 +2395,7 @@ const AR: Dict = {
       HI: "أريد العيش بلا ذنب",
     },
   },
-  plans: { ...EN.plans, title: "اختر مدة الـ Reset", sub: "اشتراك متجدّد. يمكنك الإلغاء في أي وقت.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد هذا الخطة",     guarantee: "استرداد كامل خلال ٣٠ يوماً — بدون أسئلة." },
+  plans: { ...EN.plans, title: "أكّد وصولك", sub: "دفعة واحدة · وصول مدى الحياة · بدون اشتراك.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد الوصول",     guarantee: "استرداد كامل خلال ٣٠ يوماً — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
   archetypes: {
     AO: { ...EN.archetypes.AO, name: "المُكدِّس\nالقهري" },
