@@ -1672,6 +1672,12 @@ const PL: Dict = {
       EA: "Chcę Stawić Czoła Bez Strachu",
       HI: "Chcę Żyć Bez Winy",
     },
+    anatomy: {
+      eyebrow: "Anatomia wzorca",
+      programming: "Programowanie",
+      hiddenCost: "Ukryty koszt",
+      mastery: "Opanowanie",
+    },
   },
   plans: { ...EN.plans, title: "Potwierdź swój dostęp", sub: "Płatność jednorazowa · Dostęp dożywotni · Bez subskrypcji.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan",     guarantee: "30 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
