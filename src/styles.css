@@ -2093,6 +2093,23 @@ html body .allow-break-all {
   position: relative;
 }
 
+/* Page-level archetype vignette — replaces the full-viewport Atmosphere
+   overlay that was duplicating the sculpture spotlight. */
+.sales-page-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%,
+      color-mix(in oklab, var(--arch-primary) 10%, transparent) 0%,
+      transparent 55%),
+    radial-gradient(ellipse 110% 80% at 50% 100%,
+      color-mix(in oklab, var(--arch-primary) 8%, transparent) 0%,
+      transparent 60%),
+    #000;
+}
+
 /* Spotlight bridge — leaks archetype light back into the copy column.
    Sticky to the viewport so it follows the bust as the user scrolls. */
 .sales-spotlight-bridge {
