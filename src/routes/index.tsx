@@ -1238,35 +1238,142 @@ function Reveal({
           <span className="text-arch-primary"></span>
         </h1>
 
-        <p className="mt-8 max-w-2xl text-xl md:text-2xl text-foreground/80 font-medium leading-relaxed">
-          {a.tagline}
-        </p>
+        {/* Bloco "Anatomia do Padrão" — agrupa tagline + cascata emocional */}
+        <div
+          className="relative mt-10 w-full max-w-2xl overflow-hidden rounded-[2rem] border bg-black/55 p-7 md:p-9 text-left backdrop-blur-2xl"
+          style={{
+            borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
+            boxShadow:
+              "0 40px 100px -40px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 22%, transparent)",
+          }}
+        >
+          {/* Glow ambiente do arquétipo */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-60"
+            style={{
+              background:
+                "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 0%, transparent 55%)",
+            }}
+          />
 
-        {/* Cascata emocional — 3 linhas por arquétipo */}
-        <div className="mt-8 max-w-2xl space-y-4">
-          <div className="flex items-start gap-3 text-left">
-            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-foreground/40" />
-            <p className="text-base md:text-lg text-foreground/70 leading-relaxed">{cascade.crescimento}</p>
+          {/* Eyebrow */}
+          <div className="relative flex items-center gap-3">
+            <span
+              className="h-px flex-1"
+              style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
+            />
+            <span
+              className="text-[10px] font-extrabold uppercase tracking-[0.35em]"
+              style={{ color: "var(--arch-primary)" }}
+            >
+              Anatomia do padrão
+            </span>
+            <span
+              className="h-px flex-1"
+              style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
+            />
           </div>
-          <div className="flex items-start gap-3 text-left">
-            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-destructive" />
-            <p className="text-base md:text-lg text-destructive font-medium leading-relaxed">{cascade.custo_oculto}</p>
-          </div>
-          <div className="flex items-start gap-3 text-left">
-            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-arch-primary" />
-            <p className="text-base md:text-lg text-foreground font-semibold leading-relaxed">{cascade.expansao}</p>
-          </div>
+
+          {/* Tagline como citação central */}
+          <p
+            className="relative mt-6 font-display text-xl md:text-2xl font-extrabold leading-snug text-white"
+          >
+            <span
+              aria-hidden
+              className="me-2 align-top text-3xl md:text-4xl leading-none"
+              style={{ color: "var(--arch-primary)" }}
+            >
+              “
+            </span>
+            {a.tagline}
+          </p>
+
+          {/* Timeline 3 passos — Programação → Custo Oculto → Domínio */}
+          <ol className="relative mt-8 space-y-5">
+            {/* linha vertical conectora */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute left-[19px] top-2 bottom-2 w-px"
+              style={{
+                background:
+                  "linear-gradient(to bottom, color-mix(in oklab, var(--arch-primary) 60%, transparent), color-mix(in oklab, var(--arch-primary) 10%, transparent))",
+              }}
+            />
+            {[
+              { icon: Brain,  label: "Programação", text: cascade.crescimento,  tone: "neutral" as const },
+              { icon: Flame,  label: "Custo oculto", text: cascade.custo_oculto, tone: "warn" as const },
+              { icon: Crown,  label: "Domínio",      text: cascade.expansao,     tone: "arch" as const },
+            ].map(({ icon: Icon, label, text, tone }, i) => (
+              <li key={i} className="relative flex items-start gap-4">
+                <div
+                  className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border"
+                  style={{
+                    background:
+                      tone === "warn"
+                        ? "color-mix(in oklab, #FF3B3B 18%, black)"
+                        : "color-mix(in oklab, var(--arch-primary) 18%, black)",
+                    borderColor:
+                      tone === "warn"
+                        ? "color-mix(in oklab, #FF3B3B 55%, transparent)"
+                        : "color-mix(in oklab, var(--arch-primary) 55%, transparent)",
+                    boxShadow:
+                      tone === "arch"
+                        ? "0 0 24px color-mix(in oklab, var(--arch-primary) 55%, transparent)"
+                        : "none",
+                  }}
+                >
+                  <Icon
+                    className="h-5 w-5"
+                    style={{
+                      color: tone === "warn" ? "#FF6B6B" : "var(--arch-primary)",
+                    }}
+                  />
+                </div>
+                <div className="flex-1 pt-1">
+                  <p
+                    className="text-[10px] font-extrabold uppercase tracking-[0.3em]"
+                    style={{
+                      color:
+                        tone === "warn"
+                          ? "#FF6B6B"
+                          : tone === "arch"
+                          ? "var(--arch-primary)"
+                          : "rgba(255,255,255,0.55)",
+                    }}
+                  >
+                    {label}
+                  </p>
+                  <p
+                    className={`mt-1.5 text-[15px] md:text-base leading-relaxed ${
+                      tone === "warn"
+                        ? "text-white/95 font-medium"
+                        : tone === "arch"
+                        ? "text-white font-semibold"
+                        : "text-white/75"
+                    }`}
+                  >
+                    {text}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
 
         <button
           onClick={() => handleCta("hero")}
           data-cursor="hover"
-          className="group relative mt-12 h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full text-white transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
-          style={{ backgroundColor: archCta.color }}
+          className="group relative mt-12 h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full text-white transition-all hover:scale-[1.03] active:scale-95"
+          style={{
+            backgroundColor: "var(--arch-primary)",
+            boxShadow:
+              "0 30px 80px -20px color-mix(in oklab, var(--arch-primary) 70%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)",
+          }}
         >
           <div className="absolute inset-0 overflow-hidden rounded-full bg-white opacity-0 transition-opacity duration-700 group-hover:opacity-10" />
           <span className="relative z-10 flex items-center justify-center gap-3 px-5 sm:px-8 text-[clamp(1rem,4.2vw,1.75rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
-            {archCta.label.toUpperCase()}
+            {t.reveal.cta.toUpperCase()}
             <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1" />
           </span>
           <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
