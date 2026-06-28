@@ -2119,7 +2119,7 @@ const RO: Dict = {
       trustLine: "🔒 Stripe • 🛡️ SSL • Anulezi oricând",
     },
   },
-  checkout: { welcomeNotification: { title: "🎉 Bine ați venit la MindReset!", body: "Abonamentul dvs. este activ. Click aici pentru a începe diagnosticul." } },
+  checkout: { welcomeNotification: { title: "🎉 Bine ai venit la MindReset!", body: "Achiziția ta a fost confirmată. Verifică emailul — PDF-ul cu diagnoza este pe drum." } },
   resetPassword: { title: "Setează o parolă nouă", placeholder: "Parolă nouă", updating: "Se actualizează…", updateButton: "Actualizează parola", success: "Parola a fost actualizată. Vă puteți autentifica acum." },
   sharePage: { metaTitle: "Partajează Arhetipul", metaDescription: "Vezi rezultatul diagnozei comportamentale." },
   obrigado: {
@@ -2487,7 +2487,7 @@ const AR: Dict = {
       trustLine: "🔒 Stripe • 🛡️ SSL • إلغاء في أي وقت",
     },
   },
-  checkout: { welcomeNotification: { title: "🎉 مرحباً بك في MindReset!", body: "اشتراكك نشط. انقر هنا لبدء تشخيصك." } },
+  checkout: { welcomeNotification: { title: "🎉 مرحباً بك في MindReset!", body: "تم تأكيد عملية الشراء. تحقق من بريدك — ملف PDF للتشخيص في الطريق." } },
   resetPassword: { title: "تعيين كلمة مرور جديدة", placeholder: "كلمة مرور جديدة", updating: "جارٍ التحديث…", updateButton: "تحديث كلمة المرور", success: "تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن." },
   sharePage: { metaTitle: "مشاركة النمط", metaDescription: "عرض نتيجة التشخيص السلوكي." },
   obrigado: {
