@@ -1240,7 +1240,7 @@ function Reveal({
 
         {/* Bloco "Anatomia do Padrão" — agrupa tagline + cascata emocional */}
         <div
-          className="relative mt-10 w-full max-w-2xl overflow-hidden rounded-[2rem] border bg-black/55 p-7 md:p-9 text-left backdrop-blur-2xl"
+          className="relative mt-8 sm:mt-10 w-full max-w-2xl overflow-hidden rounded-3xl sm:rounded-[2rem] border bg-black/55 p-5 sm:p-7 md:p-9 text-start backdrop-blur-2xl"
           style={{
             borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
             boxShadow:
@@ -1250,7 +1250,7 @@ function Reveal({
           {/* Glow ambiente do arquétipo */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-60"
+            className="pointer-events-none absolute -inset-px rounded-3xl sm:rounded-[2rem] opacity-60"
             style={{
               background:
                 "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 0%, transparent 55%)",
@@ -1258,16 +1258,16 @@ function Reveal({
           />
 
           {/* Eyebrow */}
-          <div className="relative flex items-center gap-3">
+          <div className="relative flex items-center gap-2 sm:gap-3">
             <span
               className="h-px flex-1"
               style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
             />
             <span
-              className="text-[10px] font-extrabold uppercase tracking-[0.35em]"
+              className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.3em] sm:tracking-[0.35em] whitespace-nowrap"
               style={{ color: "var(--arch-primary)" }}
             >
-              Anatomia do padrão
+              {t.reveal.anatomy.eyebrow}
             </span>
             <span
               className="h-px flex-1"
@@ -1277,11 +1277,11 @@ function Reveal({
 
           {/* Tagline como citação central */}
           <p
-            className="relative mt-6 font-display text-xl md:text-2xl font-extrabold leading-snug text-white"
+            className="relative mt-5 sm:mt-6 font-display text-lg sm:text-xl md:text-2xl font-extrabold leading-snug text-white"
           >
             <span
               aria-hidden
-              className="me-2 align-top text-3xl md:text-4xl leading-none"
+              className="me-2 align-top text-2xl sm:text-3xl md:text-4xl leading-none"
               style={{ color: "var(--arch-primary)" }}
             >
               “
@@ -1290,22 +1290,22 @@ function Reveal({
           </p>
 
           {/* Timeline 3 passos — Programação → Custo Oculto → Domínio */}
-          <ol className="relative mt-8 space-y-5">
+          <ol className="relative mt-7 sm:mt-8 space-y-4 sm:space-y-5">
             {/* linha vertical conectora */}
             <span
               aria-hidden
-              className="pointer-events-none absolute left-[19px] top-2 bottom-2 w-px"
+              className="pointer-events-none absolute start-[19px] top-2 bottom-2 w-px"
               style={{
                 background:
                   "linear-gradient(to bottom, color-mix(in oklab, var(--arch-primary) 60%, transparent), color-mix(in oklab, var(--arch-primary) 10%, transparent))",
               }}
             />
             {[
-              { icon: Brain,  label: "Programação", text: cascade.crescimento,  tone: "neutral" as const },
-              { icon: Flame,  label: "Custo oculto", text: cascade.custo_oculto, tone: "warn" as const },
-              { icon: Crown,  label: "Domínio",      text: cascade.expansao,     tone: "arch" as const },
+              { icon: Brain,  label: t.reveal.anatomy.programming, text: cascade.crescimento,  tone: "neutral" as const },
+              { icon: Flame,  label: t.reveal.anatomy.hiddenCost,  text: cascade.custo_oculto, tone: "warn" as const },
+              { icon: Crown,  label: t.reveal.anatomy.mastery,     text: cascade.expansao,     tone: "arch" as const },
             ].map(({ icon: Icon, label, text, tone }, i) => (
-              <li key={i} className="relative flex items-start gap-4">
+              <li key={i} className="relative flex items-start gap-3 sm:gap-4">
                 <div
                   className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border"
                   style={{
