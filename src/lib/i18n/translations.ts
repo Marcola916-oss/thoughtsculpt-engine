@@ -482,16 +482,16 @@ const PT: Dict = {
     errorBody: "A tua revelação ainda aparece abaixo, mas o link de partilha não está disponível.",
     errorRetry: "Tentar novamente",
     comparison: (name, arch) => `Comparação: ${name} vs. Média do ${arch}`,
-    areasTitle: "O mesmo padrão. 4 áreas da sua vida.",
-    areasIntro: (name) => `${name}, o teu arquétipo não vive só no extrato. Veja onde ele aparece — e o quanto está custando.`,
+    areasTitle: "O mesmo padrão. 4 áreas da tua vida.",
+    areasIntro: (name) => `${name}, o teu arquétipo não vive só no extracto. Vê onde aparece — e quanto te está a custar.`,
     areas: {
       money: {
         label: "Dinheiro",
         byArch: {
           AO: "Acumula sem nunca sentir suficiente — escassez interna mesmo com saldo positivo.",
-          SS: "Gasta para sinalizar pertencimento. O dinheiro vira vitrine, não liberdade.",
-          EA: "Evita olhar para o dinheiro — boletos viram boletos e dívidas crescem em silêncio.",
-          HI: "Tudo entra, tudo sai. O agora pesa mais que qualquer planilha.",
+          SS: "Gasta para sinalizar pertença. O dinheiro vira montra, não liberdade.",
+          EA: "Evita olhar para o dinheiro — faturas acumulam-se e dívidas crescem em silêncio.",
+          HI: "Tudo entra, tudo sai. O agora pesa mais do que qualquer folha de Excel.",
         },
       },
       career: {
@@ -499,17 +499,17 @@ const PT: Dict = {
         byArch: {
           AO: "Aceita menos do que vale para garantir estabilidade. Perde décadas em zonas seguras.",
           SS: "Escolhe trabalhos pelo prestígio do cargo, não pela vida que ele constrói.",
-          EA: "Adia decisões importantes — promoções, mudanças, conversas duras — até virarem urgência.",
-          HI: "Pula de projeto em projeto buscando o próximo pico. Raramente colhe o que plantou.",
+          EA: "Adia decisões importantes — promoções, mudanças, conversas duras — até se tornarem urgência.",
+          HI: "Salta de projecto em projecto à procura do próximo pico. Raramente colhe o que semeou.",
         },
       },
       love: {
         label: "Amor",
         byArch: {
-          AO: "Mede afeto em utilidade. Dificuldade de receber sem sentir que está devendo.",
-          SS: "Escolhe parceiros que validam sua imagem. Conexão real fica em segundo plano.",
+          AO: "Mede afecto em utilidade. Custa-lhe receber sem sentir que fica a dever.",
+          SS: "Escolhe parceiros que validam a sua imagem. A conexão real fica em segundo plano.",
           EA: "Foge das conversas que importam. O conflito vira distância — silenciosa, longa.",
-          HI: "Vive paixões intensas e curtas. Comprometimento parece prisão até virar arrependimento.",
+          HI: "Vive paixões intensas e curtas. Compromisso parece prisão até se tornar arrependimento.",
         },
       },
       personal: {
@@ -517,17 +517,17 @@ const PT: Dict = {
         byArch: {
           AO: "Adia descanso, prazer e cuidado em nome de uma segurança que nunca chega.",
           SS: "Constrói uma identidade externa impecável — e por dentro sente que ninguém te conhece.",
-          EA: "Anestesia tédio, ansiedade e tristeza com distrações. A vida acontece em modo neblina.",
+          EA: "Anestesia tédio, ansiedade e tristeza com distracções. A vida acontece em modo nevoeiro.",
           HI: "Energia em picos e quedas. Hábitos saudáveis duram dias, não meses.",
         },
       },
     },
     areasCta: "Quero ver o diagnóstico completo",
-    anchor: (arch) => `73% dos ${arch} relatam o mesmo padrão em pelo menos 3 destas 4 áreas. Tu não estás sozinho — e isso é exatamente o que torna o padrão resolvível.`,
+    anchor: (arch) => `A maioria dos ${arch} repete este padrão em pelo menos 3 das 4 áreas. Tu não estás sozinho — e isso é exactamente o que torna o padrão resolúvel.`,
     urgency: "Esta análise expira em",
     guarantee: "30 dias de garantia · Pagamento único · Sem assinatura",
     finalTitle: (name) => `${name}, podes parar de adivinhar.`,
-    finalSub: "O diagnóstico completo mostra-te o gatilho exato, o padrão por trás dele e os 30 dias guiados para o desfazeres.",
+    finalSub: "O diagnóstico completo mostra-te o gatilho exacto, o padrão por trás dele e os 30 dias guiados para o desfazeres.",
     finalCta: "Quero o meu diagnóstico completo",
     cascade: {
       AO: {
