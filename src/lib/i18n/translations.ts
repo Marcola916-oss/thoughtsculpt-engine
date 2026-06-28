@@ -476,7 +476,7 @@ const PT: Dict = {
   reveal: {
     kicker: (name) => `${name}, o teu arquétipo é:`,
     sub: "Isto não é sorte.\nÉ um padrão — e padrões mudam-se",
-    cta: "Acessar meu protocolo agora",
+    cta: "Quero acessar meu protocolo",
     share: "Partilhar o meu arquétipo",
     errorTitle: "Não conseguimos salvar o teu diagnóstico.",
     errorBody: "A tua revelação ainda aparece abaixo, mas o link de partilha não está disponível.",
