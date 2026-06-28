@@ -1420,14 +1420,19 @@ function Reveal({
 
         <div className="grid gap-4 md:grid-cols-2">
           {AREA_ORDER.map((area: LifeArea, i) => (
-            <AreaScoreCard
+            <div
               key={area}
-              area={area}
-              label={t.reveal.areas[area].label}
-              description={t.reveal.areas[area].byArch[arch as "AO" | "SS" | "EA" | "HI"]}
-              score={areaScores[area]}
-              delayMs={i * 120}
-            />
+              ref={i === 2 ? stickyTriggerRef : undefined}
+              className="contents"
+            >
+              <AreaScoreCard
+                area={area}
+                label={t.reveal.areas[area].label}
+                description={t.reveal.areas[area].byArch[arch as "AO" | "SS" | "EA" | "HI"]}
+                score={areaScores[area]}
+                delayMs={i * 120}
+              />
+            </div>
           ))}
         </div>
 
