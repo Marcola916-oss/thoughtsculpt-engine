@@ -1431,16 +1431,6 @@ function Reveal({
             </div>
           ))}
         </div>
-
-        <div className="mt-12 flex justify-center">
-          <button
-            onClick={() => handleCta("areas")}
-            className="group inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-8 py-4 font-inter text-sm font-extrabold tracking-wide text-arch-primary transition-all hover:bg-arch-primary hover:text-background hover:-translate-y-0.5"
-          >
-            {t.reveal.areasCta}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
-        </div>
       </div>
 
       {/* Detalhes (hooks) abaixo do hero — "Isto não é sorte..." + cascata */}
@@ -1467,6 +1457,23 @@ function Reveal({
           ))}
         </div>
         <div className="mt-12 flex flex-col items-center">
+          <button
+            onClick={() => handleCta("hero")}
+            data-cursor="hover"
+            className="group relative mb-6 flex h-16 sm:h-20 w-full max-w-xl items-center justify-center gap-3 overflow-hidden rounded-full px-6 sm:px-10 text-white transition-all hover:scale-[1.01] active:scale-[0.98]"
+            style={{
+              backgroundColor: "var(--arch-primary)",
+              boxShadow:
+                "0 22px 60px -16px color-mix(in oklab, var(--arch-primary) 75%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)",
+            }}
+          >
+            <div className="absolute inset-0 rounded-full bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
+            <span className="relative z-10 flex items-center gap-3 font-sans text-[clamp(0.95rem,3.2vw,1.15rem)] font-extrabold tracking-tight whitespace-nowrap">
+              {t.reveal.cta.toUpperCase()}
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </span>
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/35 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
+          </button>
           <button
             onClick={() => {
               if (shareToken) {
