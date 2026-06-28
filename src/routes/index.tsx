@@ -59,7 +59,7 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
-import { useCascade, useArchCTA } from "@/hooks/use-archetype-cascade";
+import { useCascade } from "@/hooks/use-archetype-cascade";
 import { trackShare } from "@/lib/quiz.functions";
 import { useTypewriter } from "@/hooks/use-typewriter";
 
@@ -1094,7 +1094,6 @@ function Reveal({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const cascade = useCascade(arch as Archetype);
-  void useArchCTA;
   const [text, setText] = useState("");
   const areaScores = useMemo(() => computeAreaScores(answers).areas, [answers]);
 
