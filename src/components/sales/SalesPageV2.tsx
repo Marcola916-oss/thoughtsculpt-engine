@@ -25,13 +25,14 @@ import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainScar } from "./v3/PainScar";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
+import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
-import { SculptureStage } from "./v3/SculptureStage";
-import { MobileSculptureStation } from "./v3/MobileSculptureStation";
+import { SculptureParticles } from "./v3/SculptureParticles";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
+import { Atmosphere } from "@/components/atmosphere";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -150,12 +151,6 @@ export default function SalesPageV2({
     return () => obs.disconnect();
   }, []);
 
-  // Project halo intensity to CSS var so frame ring + spotlight bridge breathe
-  useEffect(() => {
-    if (!rootRef.current) return;
-    rootRef.current.style.setProperty("--arch-halo", String(haloIntensity));
-  }, [haloIntensity]);
-
   // VSL_VIEW on mount
   useEffect(() => {
     track(EVENTS.VSL_VIEW, { arch: archetype, has_lead: Boolean(leadId), source: "reveal" });
@@ -209,9 +204,12 @@ export default function SalesPageV2({
 
   return (
     <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
-      {/* Subtle archetype vignette pinned behind everything — no symbols/fog
-          conflicting with the SculptureStage spotlight. */}
-      <div aria-hidden className="sales-page-vignette" />
+      {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
+        <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
+          <span />
+        </Atmosphere>
+      </div>
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
@@ -249,15 +247,6 @@ export default function SalesPageV2({
             </ul>
             <p className="mt-8 text-lg font-medium text-white/85">{tpl(v2.b2.conclusion)}</p>
           </SceneFrame>
-
-          {/* Mobile station — opening (after pain) */}
-          <MobileSculptureStation
-            archetype={archetype}
-            frame={10}
-            variant="opening"
-            eyebrow={badges.science}
-            caption={v2.b3.proofSeal}
-          />
 
           {/* II — Scientific Breakthrough */}
           <SceneFrame sceneId="science" index={2} badge={badges.science} title={v2.b3.title}>
@@ -303,15 +292,6 @@ export default function SalesPageV2({
             </div>
           </SceneFrame>
 
-          {/* Mobile station — midpoint (after diagnosis) */}
-          <MobileSculptureStation
-            archetype={archetype}
-            frame={28}
-            variant="midpoint"
-            eyebrow={badges.deliver}
-            caption={tpl(v2.b5.subtitle)}
-          />
-
           {/* B5 — "O que vais receber" (sem preço — preço fica para Tela 13) */}
           <SceneFrame sceneId="deliver" badge={badges.deliver} title={tpl(v2.b5.title)}>
             <p className="mb-8 text-white/75 text-base font-medium">{tpl(v2.b5.subtitle)}</p>
@@ -347,15 +327,6 @@ export default function SalesPageV2({
             rating={v2.b6.rating}
             testimonials={v2.b6.testimonials.slice(0, 6)}
             lang={lang}
-          />
-
-          {/* Mobile station — closing (before decision bridge) */}
-          <MobileSculptureStation
-            archetype={archetype}
-            frame={46}
-            variant="closing"
-            eyebrow={badges.decision}
-            caption={tpl(v2.b7.eyebrow)}
           />
 
           {/* B7 — Bridge card (sem preço; envia para Tela 13 de decisão) */}
@@ -491,7 +462,40 @@ export default function SalesPageV2({
         </div>
 
         {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
-        <SculptureStage archetype={archetype} targetRef={rootRef} />
+        <aside className="pointer-events-none relative hidden lg:block h-full sales-sculpture-col">
+          <div
+            className="sticky top-16 h-[calc(100vh-4rem)] w-full sales-sculpture-mask"
+            style={{ perspective: "1000px" }}
+          >
+            <div
+              className="w-full h-full transition-transform duration-800 ease-out"
+              style={{ transform: "rotateY(-2deg)", transformOrigin: "center center" }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = "rotateY(0deg) scale(1.02)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = "rotateY(-2deg)"; }}
+            >
+              <div
+                className="sales-sculpture-halo"
+                aria-hidden
+                style={{ opacity: haloIntensity, transition: "opacity 600ms ease" }}
+              />
+              <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
+              <SculptureParticles count={18} />
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      {/* Mobile/tablet sculpture — fixed ambient behind copy */}
+      <div
+        className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
+        style={{
+          opacity: 0.45,
+          mixBlendMode: "screen",
+          maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+        }}
+      >
+        <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
       </div>
 
       <StickyOfferBar
