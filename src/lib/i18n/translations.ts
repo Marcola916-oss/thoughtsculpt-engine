@@ -386,9 +386,9 @@ const PT: Dict = {
       title: "QUEM JÁ\u00a0 ENTENDEU O\u00a0 SEU PADRÃO",
       starsAlt: (n) => `${n} de ${n} estrelas`,
       items: [
-        { stars: 5, quote: "Nunca entendi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: HEDONISTA\nIMPULSIVO" },
-        { stars: 5, quote: "Eu achava que era disciplinada com dinheiro. O MindReset mostrou que eu tinha medo de gastar — e que isso também é um problema. Foi revelador.", name: "Maria C.", arch: "Arquétipo: Guardadora Obsessiva" },
-        { stars: 5, quote: "A parte sobre carreira e relacionamentos doeu — e foi exatamente onde eu precisava ver. Não é só um relatório financeiro, é um espelho.", name: "Rami S.", arch: "Arquétipo: Fantasma Evasivo" },
+        { stars: 5, quote: "Nunca percebi por que gastava tudo antes do dia 15. O diagnóstico nomeou exatamente o que eu sentia. Parece que finalmente alguém me explicou a mim próprio.", name: "Adam K.", arch: "Arquétipo: Hedonista Impulsivo" },
+        { stars: 5, quote: "Achava que era disciplinada com dinheiro. O MindReset mostrou que eu tinha medo de gastar — e que isso também é um problema. Foi revelador.", name: "Maria C.", arch: "Arquétipo: Acumulador Obsessivo" },
+        { stars: 5, quote: "A parte sobre carreira e relações doeu — e foi exactamente onde eu precisava ver. Não é só um relatório financeiro, é um espelho.", name: "Rami S.", arch: "Arquétipo: Evasivo Alienado" },
       ],
     },
     faq: {
