@@ -97,6 +97,7 @@ export type Dict = {
       expansao: string;
     }>;
     archCta: Record<"AO" | "SS" | "EA" | "HI", string>;
+    anatomy: { eyebrow: string; programming: string; hiddenCost: string; mastery: string };
   };
   sales: {
     h1: (name: string, arch: string) => string;
@@ -556,6 +557,12 @@ const PT: Dict = {
       SS: "Quero Dominar o Meu Estilo",
       EA: "Quero Enfrentar Sem Medo",
       HI: "Quero Viver sem Culpa",
+    },
+    anatomy: {
+      eyebrow: "Anatomia do padrão",
+      programming: "Programação",
+      hiddenCost: "Custo oculto",
+      mastery: "Domínio",
     },
   },
   sales: {
@@ -1105,7 +1112,7 @@ const EN: Dict = {
   reveal: {
     kicker: (name) => `${name}, your archetype is:`,
     sub: "This isn't luck.\nIt's a pattern — and patterns can change",
-    cta: "Access my protocol now",
+    cta: "I want to access my protocol",
     share: "Share my archetype",
     errorTitle: "We couldn't save your diagnosis.",
     errorBody: "Your reveal still appears below, but the share link isn't available.",
@@ -1185,6 +1192,12 @@ const EN: Dict = {
       SS: "I Want to Master My Style",
       EA: "I Want to Face It Without Fear",
       HI: "I Want to Live Without Guilt",
+    },
+    anatomy: {
+      eyebrow: "Anatomy of the pattern",
+      programming: "Programming",
+      hiddenCost: "Hidden cost",
+      mastery: "Mastery",
     },
   },
   sales: {
@@ -1591,7 +1604,7 @@ const PL: Dict = {
     ...EN.reveal,
     kicker: (name) => `${name}, Twój archetyp to:`,
     sub: "To nie przypadek.\nTo wzorzec — a wzorce można zmieniać",
-    cta: "Uzyskaj dostęp do protokołu teraz",
+    cta: "Chcę uzyskać dostęp do protokołu",
     share: "Udostępnij mój archetyp",
     errorTitle: "Nie udało się zapisać diagnozy.",
     errorBody: "Twój wynik nadal się wyświetla, ale link do udostępniania nie jest dostępny.",
@@ -1658,6 +1671,12 @@ const PL: Dict = {
       SS: "Chcę Opanować Swój Styl",
       EA: "Chcę Stawić Czoła Bez Strachu",
       HI: "Chcę Żyć Bez Winy",
+    },
+    anatomy: {
+      eyebrow: "Anatomia wzorca",
+      programming: "Programowanie",
+      hiddenCost: "Ukryty koszt",
+      mastery: "Opanowanie",
     },
   },
   plans: { ...EN.plans, title: "Potwierdź swój dostęp", sub: "Płatność jednorazowa · Dostęp dożywotni · Bez subskrypcji.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan",     guarantee: "30 dni pełnego zwrotu — bez pytań." },
@@ -1958,7 +1977,7 @@ const RO: Dict = {
     ...EN.reveal,
     kicker: (name) => `${name}, arhetipul tău este:`,
     sub: "Nu e noroc.\nE un tipar — iar tiparele se schimbă",
-    cta: "Accesează protocolul meu acum",
+    cta: "Vreau să-mi accesez protocolul",
     share: "Distribuie arhetipul meu",
     errorTitle: "Nu am putut salva diagnoza.",
     errorBody: "Rezultatul tău apare mai jos, dar linkul de distribuire nu este disponibil.",
@@ -2025,6 +2044,12 @@ const RO: Dict = {
       SS: "Vreau să-mi Stăpânesc Stilul",
       EA: "Vreau să Înfrunt Fără Teamă",
       HI: "Vreau să Trăiesc Fără Vină",
+    },
+    anatomy: {
+      eyebrow: "Anatomia tiparului",
+      programming: "Programare",
+      hiddenCost: "Cost ascuns",
+      mastery: "Stăpânire",
     },
   },
   plans: { ...EN.plans, title: "Confirmă-ți accesul", sub: "Plată unică · Acces pe viață · Fără abonament.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan",     guarantee: "30 zile rambursare integrală — fără întrebări." },
@@ -2326,7 +2351,7 @@ const AR: Dict = {
     ...EN.reveal,
     kicker: (name) => `${name}، نمطك هو:`,
     sub: "ليس صدفة.\nإنه نمط — والأنماط تتغيّر",
-    cta: "ادخل إلى بروتوكولي الآن",
+    cta: "أريد الوصول إلى بروتوكولي",
     share: "شارك نمطي",
     errorTitle: "لم نتمكن من حفظ تشخيصك.",
     errorBody: "نتيجتك تظهر أدناه، لكن رابط المشاركة غير متاح.",
@@ -2393,6 +2418,12 @@ const AR: Dict = {
       SS: "أريد إتقان أسلوبي",
       EA: "أريد مواجهة بلا خوف",
       HI: "أريد العيش بلا ذنب",
+    },
+    anatomy: {
+      eyebrow: "تشريح النمط",
+      programming: "البرمجة",
+      hiddenCost: "التكلفة الخفية",
+      mastery: "الإتقان",
     },
   },
   plans: { ...EN.plans, title: "أكّد وصولك", sub: "دفعة واحدة · وصول مدى الحياة · بدون اشتراك.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد الوصول",     guarantee: "استرداد كامل خلال ٣٠ يوماً — بدون أسئلة." },
