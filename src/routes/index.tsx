@@ -1560,6 +1560,44 @@ function Reveal({
         <p className="mt-6 text-xs md:text-sm text-foreground/55">{t.reveal.guarantee}</p>
       </div>
       </ArchetypeRevealStage>
+      {/* Sticky bottom CTA — reveals on scroll once the second row of area cards appears */}
+      <div
+        aria-hidden={!showStickyCta}
+        className={`pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-3 sm:pb-4 transition-all duration-500 ease-out ${
+          showStickyCta
+            ? "translate-y-0 opacity-100"
+            : "translate-y-full opacity-0"
+        }`}
+      >
+        <div
+          className="pointer-events-auto mx-auto w-full max-w-3xl rounded-full border backdrop-blur-xl"
+          style={{
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--background) 70%, transparent) 0%, color-mix(in oklab, var(--background) 88%, transparent) 100%)",
+            borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
+            boxShadow:
+              "0 -18px 60px -20px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 rgba(255,255,255,0.06)",
+          }}
+        >
+          <button
+            onClick={() => handleCta("areas")}
+            data-cursor="hover"
+            className="group relative flex h-14 sm:h-16 w-full items-center justify-center gap-3 overflow-hidden rounded-full px-5 sm:px-8 text-white transition-all hover:scale-[1.01] active:scale-[0.98]"
+            style={{
+              backgroundColor: "var(--arch-primary)",
+              boxShadow:
+                "0 18px 48px -14px color-mix(in oklab, var(--arch-primary) 75%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)",
+            }}
+          >
+            <div className="absolute inset-0 rounded-full bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
+            <span className="relative z-10 flex items-center gap-3 font-sans text-[clamp(0.85rem,3.2vw,1.05rem)] font-extrabold tracking-tight whitespace-nowrap">
+              {t.reveal.cta.toUpperCase()}
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+            </span>
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/35 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
