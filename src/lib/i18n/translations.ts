@@ -808,11 +808,11 @@ const PT: Dict = {
   commonExtra: { openMenu: "Open menu", protocolVersion: "Protocol v3.0 // 2026" },
   salesV2: {
     b1: {
-      eyebrow: "DIAGNÓSTICO REVELADO",
+      eyebrow: "O TEU PROTOCOLO",
       h1: "[NOME], foi por isto que nada do que tentaste antes funcionou.",
       promise: "O padrão [PRIMARY] não te custa só dinheiro. Custa-te decisões na carreira, paz nas relações e horas de sono. Por isso a força de vontade falhou — estavas a lutar contra o mecanismo errado.",
       cta: "Ver o meu protocolo agora",
-      timer: "Esta análise expira em alguns minutos.",
+      timer: "Análise pessoal preparada agora para ti.",
     },
     b2: {
       title: "[NOME], já tentaste de tudo, certo?",
@@ -833,7 +833,7 @@ const PT: Dict = {
       title: "O problema não está no que tu sabes sobre dinheiro.",
       body: "A neurociência comportamental confirma: 95% das decisões financeiras são tomadas pelo sistema emocional — não pelo racional.",
       references: "Kahneman (Nobel 2002), Thaler (Nobel 2017) e Ariely passaram décadas a estudar exactamente isto.",
-      proofSeal: "Baseado em 14 estudos revisados por pares · 12.000 diagnósticos validados em 5 países",
+      proofSeal: "Baseado em 3 Prémios Nobel de comportamento · +12.000 diagnósticos gerados em 5 países",
       pivot: "Folhas de Excel não resolvem um problema que não é de Excel.",
       solution: "O MindReset foi construído para trabalhar onde o problema realmente existe — na mente de quem é [PRIMARY].",
     },
@@ -850,13 +850,13 @@ const PT: Dict = {
     b5: {
       eyebrow: "O QUE VAIS RECEBER",
       title: "Tudo o que precisas para sair do padrão [PRIMARY].",
-      subtitle: "Seis peças que trabalham em conjunto — construídas especificamente para o teu arquétipo.",
+      subtitle: "Seis peças que trabalham em conjunto — construídas especificamente para o teu arquétipo, com protocolo de 30 dias guiados.",
       deliverables: [
         { title: "Diagnóstico 4D personalizado", description: "Mapa do teu arquétipo nas 4 áreas críticas — dinheiro, carreira, amor, pessoal — com scores reais." },
-        { title: "Protocolo de 90 dias", description: "30 micro-acções calibradas para desactivar o gatilho [PRIMARY] em cada área, semana a semana." },
+        { title: "Protocolo de 30 dias", description: "30 micro-acções diárias calibradas para desactivar o gatilho [PRIMARY] em cada área, dia após dia." },
         { title: "Matriz de Decisão", description: "Filtro de 60 segundos para escolheres antes do impulso decidir por ti — funciona em qualquer compra." },
         { title: "Compass diário", description: "Check-in de 1 minuto que detecta o padrão a regressar — e mostra-te o desvio antes que custe." },
-        { title: "Relatórios mensais", description: "Vês a curva real do teu comportamento, mês a mês, sem auto-engano nem narrativas convenientes." },
+        { title: "Relatório final ao dia 30", description: "Vês a curva real do teu comportamento ao fim de 30 dias, sem auto-engano nem narrativas convenientes." },
         { title: "Acesso nos 5 idiomas", description: "PT, EN, PL, RO, AR. Para ti hoje, para a tua família e parceiros amanhã." },
       ],
       note: "Acesso vitalício · Sem subscrição · Garantia incondicional de 30 dias.",
@@ -881,16 +881,16 @@ const PT: Dict = {
     },
     b7: {
       eyebrow: "ÚLTIMO PASSO, [NOME]",
-      was: "$200",
-      then: "$47",
-      price: "Hoje",
+      was: "",
+      then: "",
+      price: "Preço final no próximo ecrã",
       cta: "Quero o meu diagnóstico [PRIMARY] agora →",
       trust: "✓ 30 dias garantia · ✓ Pagamento único · ✓ SSL · ✓ Sem subscrição",
     },
     b8: {
       title: "Perguntas frequentes",
       items: [
-        { q: "Isto é diferente de apps de orçamento como YNAB ou Mint?", a: "Sim. Esses apps ensinam o QUE fazer com dinheiro. O MindReset revela PORQUE como [PRIMARY] não consegues fazer o que já sabes que devias. É a diferença entre mudança sustentável e abandono em 30 dias." },
+        { q: "Isto é diferente de apps de orçamento como YNAB ou Mint?", a: "Sim. Esses apps ensinam O QUE fazer com dinheiro. O MindReset revela PORQUE, sendo [PRIMARY], não consegues fazer o que já sabes que devias. É a diferença entre mudança sustentável e abandono em 30 dias." },
         { q: "Preciso de ligar a minha conta bancária?", a: "Não. O MindReset trabalha com comportamento — não com extracto. Nenhum dado bancário é pedido nem armazenado." },
         { q: "Funciona se eu já tentei terapia ou coaching financeiro?", a: "Sim — e funciona ainda melhor. A terapia trabalha a emoção; o coaching trabalha o plano. O MindReset trabalha o padrão automático que sabota ambos. Não competem, complementam-se." },
         { q: "Serve para a Arábia Saudita, Polónia ou Roménia?", a: "Sim. Já validado nos 5 idiomas com mais de 12.000 diagnósticos. A psicologia comportamental é universal — só muda a forma como cada cultura a vive. Adaptamos linguagem, exemplos e referências." },
