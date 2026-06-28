@@ -1102,6 +1102,22 @@ function Reveal({
     track(EVENTS.REVEAL_VIEW, { arch });
   }, [arch]);
 
+  // Sticky bottom CTA — appears when the user reaches the second row of the 4-area grid.
+  const stickyTriggerRef = useRef<HTMLDivElement | null>(null);
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  useEffect(() => {
+    const node = stickyTriggerRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setShowStickyCta(true);
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.15 },
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
+
   const handleCta = (source: "hero" | "areas" | "final") => {
     track(EVENTS.REVEAL_CTA_CLICK, { arch, source });
     onContinue();
