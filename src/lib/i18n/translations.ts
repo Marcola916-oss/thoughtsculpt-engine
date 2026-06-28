@@ -2045,6 +2045,12 @@ const RO: Dict = {
       EA: "Vreau să Înfrunt Fără Teamă",
       HI: "Vreau să Trăiesc Fără Vină",
     },
+    anatomy: {
+      eyebrow: "Anatomia tiparului",
+      programming: "Programare",
+      hiddenCost: "Cost ascuns",
+      mastery: "Stăpânire",
+    },
   },
   plans: { ...EN.plans, title: "Confirmă-ți accesul", sub: "Plată unică · Acces pe viață · Fără abonament.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan",     guarantee: "30 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
