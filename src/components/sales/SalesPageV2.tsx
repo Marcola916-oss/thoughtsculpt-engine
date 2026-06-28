@@ -151,6 +151,12 @@ export default function SalesPageV2({
     return () => obs.disconnect();
   }, []);
 
+  // Project halo intensity to CSS var so frame ring + spotlight bridge breathe
+  useEffect(() => {
+    if (!rootRef.current) return;
+    rootRef.current.style.setProperty("--arch-halo", String(haloIntensity));
+  }, [haloIntensity]);
+
   // VSL_VIEW on mount
   useEffect(() => {
     track(EVENTS.VSL_VIEW, { arch: archetype, has_lead: Boolean(leadId), source: "reveal" });
