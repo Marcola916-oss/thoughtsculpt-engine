@@ -33,6 +33,7 @@ import { SculptureParticles } from "./v3/SculptureParticles";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
+import { SculptureSmoke } from "./v3/SculptureSmoke";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -430,6 +431,7 @@ export default function SalesPageV2({
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full">
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
             <SculptureParticles count={18} />
+            <SculptureSmoke />
           </div>
         </aside>
       </div>
@@ -445,6 +447,18 @@ export default function SalesPageV2({
         }}
       >
         <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
+        <SculptureSmoke />
+      </div>
+
+      {/* GLOBAL BOTTOM SCROLL SMOKE (Cortina de fumaça global) */}
+      <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 h-56 z-[40] overflow-hidden">
+        {/* Subtle smoke texture across the bottom */}
+        <div className="absolute inset-0 z-10 mix-blend-screen opacity-20">
+          <div className="absolute bottom-[-20%] left-[-10%] w-[120%] h-[120%] bg-white/10 blur-[60px] rounded-[100%]" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[120%] h-[120%] bg-white/10 blur-[80px] rounded-[100%]" />
+        </div>
+        {/* Deep black fade to completely hide elements before they enter */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-20" />
       </div>
 
       <StickyOfferBar
