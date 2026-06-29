@@ -95,6 +95,7 @@ export default function SalesPageV2({
   const [showSticky, setShowSticky] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [haloIntensity, setHaloIntensity] = useState(0.85);
+  const [sculptY, setSculptY] = useState(0);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
@@ -106,6 +107,14 @@ export default function SalesPageV2({
     const handleScroll = () => {
       const depth = Math.round((window.scrollY / document.body.scrollHeight) * 100);
       if (depth > maxScrollRef.current) maxScrollRef.current = depth;
+      // Parallax: -20px → +20px across page progress
+      const el = rootRef.current;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const total = Math.max(1, rect.height - window.innerHeight);
+        const p = Math.min(1, Math.max(0, -rect.top / total));
+        setSculptY(-20 + p * 40);
+      }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
@@ -203,13 +212,23 @@ export default function SalesPageV2({
   void bump1; void bump2;
 
   return (
-    <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
+    <div
+      ref={rootRef}
+      data-arch={archetype}
+      className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white"
+      style={{
+        ["--sculpt-glow" as never]: haloIntensity,
+        ["--sculpt-bleed" as never]: 0.5 + haloIntensity * 0.5,
+      }}
+    >
       {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
         <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
           <span />
         </Atmosphere>
       </div>
+      {/* Cross-column light bleed — eliminates the "isolated corridor" */}
+      <div aria-hidden className="sales-stage-bleed hidden lg:block" />
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
@@ -467,11 +486,14 @@ export default function SalesPageV2({
             className="sticky top-16 h-[calc(100vh-4rem)] w-full sales-sculpture-mask"
             style={{ perspective: "1000px" }}
           >
+            {/* Pedestal: gives the sculpture a "place to live" */}
+            <div className="sales-sculpture-pedestal" aria-hidden />
             <div
-              className="w-full h-full transition-transform duration-800 ease-out"
-              style={{ transform: "rotateY(-2deg)", transformOrigin: "center center" }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = "rotateY(0deg) scale(1.02)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = "rotateY(-2deg)"; }}
+              className="relative w-full h-full transition-transform duration-700 ease-out will-change-transform"
+              style={{
+                transform: `rotateY(-2deg) translateY(${sculptY}px)`,
+                transformOrigin: "center center",
+              }}
             >
               <div
                 className="sales-sculpture-halo"
