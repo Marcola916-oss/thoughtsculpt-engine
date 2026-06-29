@@ -174,7 +174,7 @@ export default function SalesPageV2({
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
-        <div className="relative" style={{ zIndex: 7 }}>
+        <div className="relative" style={{ zIndex: 8 }}>
           {/* B1 — Hero */}
           <div ref={heroRef}>
             <HeroScene
