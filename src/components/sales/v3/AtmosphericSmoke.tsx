@@ -4,7 +4,7 @@
  * Goal: make the sales page look like it is emerging from smoke, with the
  * densest cloud hugging the animated sculpture just below the neck/shoulders.
  */
-import { useEffect, useMemo, useRef, type RefObject } from "react";
+import { useEffect, useMemo, useRef, type CSSProperties, type RefObject } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { Archetype } from "@/lib/quiz/scoring";
@@ -137,7 +137,7 @@ export default function AtmosphericSmoke({
       ref={root}
       aria-hidden
       className="sales-atmospheric-smoke pointer-events-none fixed inset-0"
-      style={{ zIndex: 0 }}
+      style={{ zIndex: 3 }}
       data-reduced-motion={reduced ? "true" : "false"}
     >
       <div className="sales-smoke-page-tint" />
@@ -160,7 +160,7 @@ export default function AtmosphericSmoke({
                 "--p-delay": `${puff.delay}s`,
                 "--p-duration": `${puff.duration}s`,
                 "--p-drift": `${puff.drift}px`,
-              } as React.CSSProperties
+              } as CSSProperties
             }
           />
         ))}
@@ -176,7 +176,7 @@ export default function AtmosphericSmoke({
                   "--w-delay": `${line.delay}s`,
                   "--w-duration": `${line.duration}s`,
                   "--w-opacity": line.opacity,
-                } as React.CSSProperties
+                } as CSSProperties
               }
             />
           ))}
@@ -201,7 +201,7 @@ export default function AtmosphericSmoke({
                 "--p-delay": `${puff.delay}s`,
                 "--p-duration": `${puff.duration}s`,
                 "--p-drift": `${puff.drift}px`,
-              } as React.CSSProperties
+              } as CSSProperties
             }
           />
         ))}
