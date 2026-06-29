@@ -174,7 +174,7 @@ export default function SalesPageV2({
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
-        <div className="relative z-10">
+        <div className="relative" style={{ zIndex: 5 }}>
           {/* B1 — Hero */}
           <div ref={heroRef}>
             <HeroScene
@@ -423,7 +423,7 @@ export default function SalesPageV2({
         </div>
 
         {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
-        <aside ref={sculptureRef} className="pointer-events-none relative hidden lg:block h-full" style={{ zIndex: 2 }}>
+        <aside ref={sculptureRef} className="pointer-events-none relative hidden lg:block h-full" style={{ zIndex: 4 }}>
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full">
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
             <SculptureParticles count={18} />
