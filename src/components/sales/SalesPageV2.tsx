@@ -30,6 +30,7 @@ import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
 import { SculptureParticles } from "./v3/SculptureParticles";
+import { SculptureSmoke, AmbientSmokeFloor } from "./v3/SmokeAtmosphere";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
