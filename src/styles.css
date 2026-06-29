@@ -2118,6 +2118,50 @@ html body .allow-break-all {
 .sales-breathe   { animation: sales-breathe 6s ease-in-out infinite; }
 .sales-final-pulse { animation: sales-final-pulse 1.6s ease-in-out infinite; }
 
+/* ============================================================
+   AtmosphericSmoke — keyframes + ground-fog estática
+   ============================================================ */
+@keyframes atmsmoke-floor-sway {
+  0%   { opacity: 0; transform: scale(.88) translateX(0) translateY(14px); }
+  14%  { opacity: var(--fp); }
+  40%  { transform: scale(1.05) translateX(var(--sw)) translateY(-6px); }
+  68%  { transform: scale(.96) translateX(calc(var(--sw) * -.55)) translateY(5px); }
+  85%  { opacity: var(--fp); }
+  100% { opacity: 0; transform: scale(.88) translateX(0) translateY(14px); }
+}
+@keyframes atmsmoke-rise {
+  0%   { opacity: 0; transform: translateY(0) translateX(0) scale(.80) rotate(var(--rs)); }
+  10%  { opacity: var(--pk); }
+  28%  { transform: translateY(calc(var(--ri) * .22)) translateX(calc(var(--dr) * .25)) scale(.95) rotate(calc(var(--rs) * .42)); }
+  55%  { transform: translateY(calc(var(--ri) * .55)) translateX(calc(var(--dr) * .60)) scale(1.14) rotate(0deg); }
+  82%  { opacity: var(--pk); transform: translateY(calc(var(--ri) * .86)) translateX(calc(var(--dr) * .90)) scale(var(--es)) rotate(calc(var(--re) * .5)); }
+  100% { opacity: 0; transform: translateY(var(--ri)) translateX(var(--dr)) scale(var(--es)) rotate(var(--re)); }
+}
+.atmsmoke-ground-fog::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(198, 205, 230, 0.32) 0%,
+    rgba(198, 205, 230, 0.13) 28%,
+    rgba(198, 205, 230, 0.03) 62%,
+    transparent 100%
+  );
+}
+.atmsmoke-ground-fog::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -18%;
+  width: 136%;
+  height: 68%;
+  background:
+    radial-gradient(ellipse 52% 100% at 22% 100%, rgba(192, 200, 232, 0.26) 0%, transparent 68%),
+    radial-gradient(ellipse 52% 100% at 78% 100%, rgba(192, 200, 232, 0.22) 0%, transparent 68%),
+    radial-gradient(ellipse 38% 100% at 50% 100%, rgba(192, 200, 232, 0.18) 0%, transparent 60%);
+  filter: blur(24px);
+}
 /* Vignette + grain for SceneBackground */
 .sales-vignette::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
