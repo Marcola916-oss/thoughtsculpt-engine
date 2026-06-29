@@ -182,7 +182,7 @@ export default function AtmosphericSmoke({
       </div>
 
       {/* Sculpture cradle: dense, high, and centered on the bust neck/shoulders. */}
-      <div className="sales-smoke-cradle" style={{ zIndex: 4 }}>
+      <div className="sales-smoke-cradle" style={{ zIndex: 5 }}>
         <div className="sales-smoke-cradle-back" />
         <div className="sales-smoke-neck-ring" />
         {visibleCradlePuffs.map((puff, i) => (
