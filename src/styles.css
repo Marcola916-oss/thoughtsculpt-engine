@@ -2219,44 +2219,45 @@ html body .allow-break-all {
 }
 
 /* ─────────────────────────────────────────────────────────────
- * Sales — Smoke Atmosphere
- * Volumetric drift for the sculpture plume and ambient floor fog.
- * Pure transform/opacity → GPU-friendly. Reduced motion slows it down.
+ * Sales — Cinematic Smoke
+ * Volumetric layered smoke driven by SVG turbulence. Three prime-numbered
+ * durations (23/31/47s) never re-sync → organic, never loopy. GPU-only.
  * ───────────────────────────────────────────────────────────── */
 
-@keyframes salesSmokePlumeBack {
-  0%   { transform: translate3d(-3%, 2%, 0) scale(1.05) rotate(-0.6deg); opacity: 0.50; }
-  50%  { transform: translate3d(2%, -1%, 0) scale(1.10) rotate(0.4deg);  opacity: 0.62; }
-  100% { transform: translate3d(-3%, 2%, 0) scale(1.05) rotate(-0.6deg); opacity: 0.50; }
+@keyframes cinemaSmokeRiseSlow {
+  0%   { transform: translate3d(-2%, 3%, 0) scale(1.06) rotate(-0.4deg); opacity: 0.45; }
+  50%  { transform: translate3d(2%, -2%, 0) scale(1.12) rotate(0.5deg);  opacity: 0.62; }
+  100% { transform: translate3d(-2%, 3%, 0) scale(1.06) rotate(-0.4deg); opacity: 0.45; }
 }
-@keyframes salesSmokePlumeFront {
-  0%   { transform: scaleX(-1) translate3d(2%, 1%, 0) scale(1.00); opacity: 0.72; }
-  50%  { transform: scaleX(-1) translate3d(-2%, -1.5%, 0) scale(1.06); opacity: 0.86; }
-  100% { transform: scaleX(-1) translate3d(2%, 1%, 0) scale(1.00); opacity: 0.72; }
+@keyframes cinemaSmokeRiseMid {
+  0%   { transform: translate3d(3%, 2%, 0) scale(1.02) rotate(0.3deg);   opacity: 0.62; }
+  50%  { transform: translate3d(-3%, -3%, 0) scale(1.08) rotate(-0.5deg); opacity: 0.82; }
+  100% { transform: translate3d(3%, 2%, 0) scale(1.02) rotate(0.3deg);   opacity: 0.62; }
 }
-@keyframes salesSmokeTintBreath {
-  0%, 100% { opacity: 0.45; transform: scale(1); }
-  50%      { opacity: 0.70; transform: scale(1.04); }
+@keyframes cinemaSmokeDrift {
+  0%   { transform: translate3d(-1%, 1%, 0) scale(0.98); opacity: 0.70; }
+  50%  { transform: translate3d(2%, -2%, 0) scale(1.04); opacity: 0.92; }
+  100% { transform: translate3d(-1%, 1%, 0) scale(0.98); opacity: 0.70; }
 }
-@keyframes salesSmokeFloorFar {
-  0%   { transform: translate3d(-6%, 0, 0); }
-  100% { transform: translate3d(6%, 0, 0); }
+@keyframes cinemaSideMistFlow {
+  0%, 100% { opacity: 0.78; transform: translate3d(0, 0, 0) scale(1); }
+  50%      { opacity: 0.95; transform: translate3d(1.5%, -1%, 0) scale(1.04); }
 }
-@keyframes salesSmokeFloorNear {
-  0%   { transform: translate3d(5%, 0.5%, 0); }
-  100% { transform: translate3d(-5%, -0.5%, 0); }
+@keyframes cinemaHazeBreathe {
+  0%, 100% { opacity: 0.55; transform: translate3d(0, 0, 0) scale(1); }
+  50%      { opacity: 0.78; transform: translate3d(-1%, -1%, 0) scale(1.03); }
 }
 
-.sales-smoke-plume--back  { animation: salesSmokePlumeBack 22s ease-in-out infinite; will-change: transform, opacity; }
-.sales-smoke-plume--front { animation: salesSmokePlumeFront 14s ease-in-out infinite; will-change: transform, opacity; }
-.sales-smoke-tint         { animation: salesSmokeTintBreath 9s ease-in-out infinite; will-change: transform, opacity; }
-.sales-smoke-floor--far   { animation: salesSmokeFloorFar 60s ease-in-out infinite alternate; will-change: transform; }
-.sales-smoke-floor--near  { animation: salesSmokeFloorNear 38s ease-in-out infinite alternate; will-change: transform; }
+.cinema-smoke--back  { animation: cinemaSmokeRiseSlow 47s ease-in-out infinite; will-change: transform, opacity; }
+.cinema-smoke--mid   { animation: cinemaSmokeRiseMid  31s ease-in-out infinite; will-change: transform, opacity; }
+.cinema-smoke--front { animation: cinemaSmokeDrift    23s ease-in-out infinite; will-change: transform, opacity; }
+.cinema-side-mist    { animation: cinemaSideMistFlow  29s ease-in-out infinite; }
+.cinema-ground-haze  { animation: cinemaHazeBreathe   17s ease-in-out infinite; will-change: transform, opacity; }
 
 @media (prefers-reduced-motion: reduce) {
-  .sales-smoke-plume--back,
-  .sales-smoke-plume--front,
-  .sales-smoke-tint,
-  .sales-smoke-floor--far,
-  .sales-smoke-floor--near { animation-duration: 90s !important; }
+  .cinema-smoke--back,
+  .cinema-smoke--mid,
+  .cinema-smoke--front,
+  .cinema-side-mist,
+  .cinema-ground-haze { animation: none !important; }
 }
