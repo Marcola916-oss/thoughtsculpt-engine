@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import {
   CheckCircle2,
@@ -59,7 +59,7 @@ import { NeuralLoader } from "../components/quiz/NeuralLoader";
 import { PrimaryButton } from "@/components/ui/PrimaryButton";
 import { CircuitBrain } from "@/components/identity/CircuitBrain";
 import { ArchetypeRevealStage } from "@/components/identity/ArchetypeRevealStage";
-import { useCascade, useArchCTA } from "@/hooks/use-archetype-cascade";
+import { useCascade } from "@/hooks/use-archetype-cascade";
 import { trackShare } from "@/lib/quiz.functions";
 import { useTypewriter } from "@/hooks/use-typewriter";
 
@@ -1094,13 +1094,28 @@ function Reveal({
   const { t } = useI18n();
   const a = t.archetypes[arch];
   const cascade = useCascade(arch as Archetype);
-  const archCta = useArchCTA(arch as Archetype);
   const [text, setText] = useState("");
   const areaScores = useMemo(() => computeAreaScores(answers).areas, [answers]);
 
   useEffect(() => {
     track(EVENTS.REVEAL_VIEW, { arch });
   }, [arch]);
+
+  // Sticky bottom CTA — appears when the user reaches the second row of the 4-area grid.
+  const stickyTriggerRef = useRef<HTMLDivElement | null>(null);
+  const [showStickyCta, setShowStickyCta] = useState(false);
+  useEffect(() => {
+    const node = stickyTriggerRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setShowStickyCta(true);
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.15 },
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
 
   const handleCta = (source: "hero" | "areas" | "final") => {
     track(EVENTS.REVEAL_CTA_CLICK, { arch, source });
@@ -1225,66 +1240,147 @@ function Reveal({
           {t.reveal.kicker(name)}
         </div>
 
-        <h1 className="relative z-30 mt-6 font-display text-5xl sm:text-7xl md:text-[8rem] font-black leading-[1.05] md:leading-[1.02] pt-2 pb-1 tracking-tighter uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch">
+        <h1
+          className="relative z-30 mt-6 font-display font-black leading-[1.05] md:leading-[1.02] pt-2 pb-1 tracking-tight uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch justify-center px-4 md:px-8 w-full"
+          style={{ fontSize: "clamp(2rem, 7vw, 6.5rem)" }}
+        >
           <span
             className="bg-clip-text text-transparent whitespace-pre-line"
             style={{
               backgroundImage:
                 "linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 70%)",
+              paddingInline: "0.18em",
+              WebkitBoxDecorationBreak: "clone",
+              boxDecorationBreak: "clone",
             }}
           >
             {text}
           </span>
-          <span className="text-arch-primary"></span>
         </h1>
 
-        <p className="mt-8 max-w-2xl text-xl md:text-2xl text-foreground/80 font-medium leading-relaxed">
-          {a.tagline}
-        </p>
+        {/* Bloco "Anatomia do Padrão" — agrupa tagline + cascata emocional */}
+        <div
+          className="relative mt-8 sm:mt-10 w-full max-w-2xl overflow-hidden rounded-3xl sm:rounded-[2rem] border bg-black/55 p-5 sm:p-7 md:p-9 text-start backdrop-blur-2xl"
+          style={{
+            borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
+            boxShadow:
+              "0 40px 100px -40px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 22%, transparent)",
+          }}
+        >
+          {/* Glow ambiente do arquétipo */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-px rounded-3xl sm:rounded-[2rem] opacity-60"
+            style={{
+              background:
+                "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 0%, transparent 55%)",
+            }}
+          />
 
-        {/* Cascata emocional — 3 linhas por arquétipo */}
-        <div className="mt-8 max-w-2xl space-y-4">
-          <div className="flex items-start gap-3 text-left">
-            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-foreground/40" />
-            <p className="text-base md:text-lg text-foreground/70 leading-relaxed">{cascade.crescimento}</p>
+          {/* Eyebrow */}
+          <div className="relative flex items-center gap-2 sm:gap-3">
+            <span
+              className="h-px flex-1"
+              style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
+            />
+            <span
+              className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.3em] sm:tracking-[0.35em] whitespace-nowrap"
+              style={{ color: "var(--arch-primary)" }}
+            >
+              {t.reveal.anatomy.eyebrow}
+            </span>
+            <span
+              className="h-px flex-1"
+              style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
+            />
           </div>
-          <div className="flex items-start gap-3 text-left">
-            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-destructive" />
-            <p className="text-base md:text-lg text-destructive font-medium leading-relaxed">{cascade.custo_oculto}</p>
-          </div>
-          <div className="flex items-start gap-3 text-left">
-            <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-arch-primary" />
-            <p className="text-base md:text-lg text-foreground font-semibold leading-relaxed">{cascade.expansao}</p>
-          </div>
+
+          {/* Tagline como citação central */}
+          <p
+            className="relative mt-5 sm:mt-6 font-display text-lg sm:text-xl md:text-2xl font-extrabold leading-snug text-white"
+          >
+            <span
+              aria-hidden
+              className="me-2 align-top text-2xl sm:text-3xl md:text-4xl leading-none"
+              style={{ color: "var(--arch-primary)" }}
+            >
+              “
+            </span>
+            {a.tagline}
+          </p>
+
+          {/* Timeline 3 passos — Programação → Custo Oculto → Domínio */}
+          <ol className="relative mt-7 sm:mt-8 space-y-4 sm:space-y-5">
+            {/* linha vertical conectora */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute start-[19px] top-2 bottom-2 w-px"
+              style={{
+                background:
+                  "linear-gradient(to bottom, color-mix(in oklab, var(--arch-primary) 60%, transparent), color-mix(in oklab, var(--arch-primary) 10%, transparent))",
+              }}
+            />
+            {[
+              { icon: Brain,  label: t.reveal.anatomy.programming, text: cascade.crescimento,  tone: "neutral" as const },
+              { icon: Flame,  label: t.reveal.anatomy.hiddenCost,  text: cascade.custo_oculto, tone: "warn" as const },
+              { icon: Crown,  label: t.reveal.anatomy.mastery,     text: cascade.expansao,     tone: "arch" as const },
+            ].map(({ icon: Icon, label, text, tone }, i) => (
+              <li key={i} className="relative flex items-start gap-3 sm:gap-4">
+                <div
+                  className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border"
+                  style={{
+                    background:
+                      tone === "warn"
+                        ? "color-mix(in oklab, #FF3B3B 18%, black)"
+                        : "color-mix(in oklab, var(--arch-primary) 18%, black)",
+                    borderColor:
+                      tone === "warn"
+                        ? "color-mix(in oklab, #FF3B3B 55%, transparent)"
+                        : "color-mix(in oklab, var(--arch-primary) 55%, transparent)",
+                    boxShadow:
+                      tone === "arch"
+                        ? "0 0 24px color-mix(in oklab, var(--arch-primary) 55%, transparent)"
+                        : "none",
+                  }}
+                >
+                  <Icon
+                    className="h-5 w-5"
+                    style={{
+                      color: tone === "warn" ? "#FF6B6B" : "var(--arch-primary)",
+                    }}
+                  />
+                </div>
+                <div className="flex-1 pt-1">
+                  <p
+                    className="text-[10px] font-extrabold uppercase tracking-[0.3em]"
+                    style={{
+                      color:
+                        tone === "warn"
+                          ? "#FF6B6B"
+                          : tone === "arch"
+                          ? "var(--arch-primary)"
+                          : "rgba(255,255,255,0.55)",
+                    }}
+                  >
+                    {label}
+                  </p>
+                  <p
+                    className={`mt-1.5 text-[15px] md:text-base leading-relaxed ${
+                      tone === "warn"
+                        ? "text-white/95 font-medium"
+                        : tone === "arch"
+                        ? "text-white font-semibold"
+                        : "text-white/75"
+                    }`}
+                  >
+                    {text}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
 
-        <button
-          onClick={() => handleCta("hero")}
-          data-cursor="hover"
-          className="group relative mt-12 h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full text-white transition-all hover:scale-[1.03] active:scale-95 shadow-[0_30px_60px_-15px_rgba(255,255,255,0.2)]"
-          style={{ backgroundColor: archCta.color }}
-        >
-          <div className="absolute inset-0 overflow-hidden rounded-full bg-white opacity-0 transition-opacity duration-700 group-hover:opacity-10" />
-          <span className="relative z-10 flex items-center justify-center gap-3 px-5 sm:px-8 text-[clamp(1rem,4.2vw,1.75rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
-            {archCta.label.toUpperCase()}
-            <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1" />
-          </span>
-          <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
-        </button>
-
-        {/* Share button */}
-        <button
-          onClick={() => {
-            if (shareToken) {
-              trackShare({ data: { share_token: shareToken, channel: "copy" } });
-              navigator.clipboard.writeText(`${window.location.origin}/share/${shareToken}`);
-            }
-          }}
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground/60 transition-all hover:border-foreground/30 hover:text-foreground/80"
-        >
-          <Share2 className="h-4 w-4" />
-          {t.reveal.share}
-        </button>
       </div>
 
       {leadError && (
@@ -1313,33 +1409,8 @@ function Reveal({
         </div>
       )}
 
-      {/* Detalhes (hooks) abaixo do hero — separados, sem competir com a revelação */}
-      <div className="relative z-10 mx-auto mt-28 md:mt-40 max-w-3xl px-4">
-        <p
-          className="mb-10 text-center font-display font-extrabold uppercase not-italic tracking-tight whitespace-pre-line"
-          style={{ fontSize: "30.75px", lineHeight: 1.15 }}
-        >
-          {t.reveal.sub}
-        </p>
-        <div className="grid gap-4 reveal-group">
-          {a.hooks.map((h, i) => (
-            <div
-              key={i}
-              className="reveal flex gap-5 rounded-2xl border border-white/5 bg-card/40 p-6 transition-all hover:border-arch-primary/40"
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary font-black border border-arch-primary/30">
-                {i + 1}
-              </div>
-              <p className="text-base md:text-lg text-foreground/85 leading-relaxed self-center">
-                {h}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Diagnóstico multi-área — 4 cards (Money / Career / Love / Personal) */}
-      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-5xl px-4">
+      <div className="relative z-10 mx-auto mt-28 md:mt-40 max-w-5xl px-4">
         <header className="mb-10 text-center">
           <span
             className="mb-3 inline-block whitespace-nowrap rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] badge-pulse"
@@ -1353,25 +1424,16 @@ function Reveal({
 
         <div className="grid gap-4 md:grid-cols-2">
           {AREA_ORDER.map((area: LifeArea, i) => (
-            <AreaScoreCard
-              key={area}
-              area={area}
-              label={t.reveal.areas[area].label}
-              description={t.reveal.areas[area].byArch[arch as "AO" | "SS" | "EA" | "HI"]}
-              score={areaScores[area]}
-              delayMs={i * 120}
-            />
+            <div key={area} ref={i === 2 ? stickyTriggerRef : undefined}>
+              <AreaScoreCard
+                area={area}
+                label={t.reveal.areas[area].label}
+                description={t.reveal.areas[area].byArch[arch as "AO" | "SS" | "EA" | "HI"]}
+                score={areaScores[area]}
+                delayMs={i * 120}
+              />
+            </div>
           ))}
-        </div>
-
-        <div className="mt-12 flex justify-center">
-          <button
-            onClick={() => handleCta("areas")}
-            className="group inline-flex items-center gap-3 rounded-full border border-arch-primary/40 bg-arch-primary/10 px-8 py-4 font-inter text-sm font-extrabold tracking-wide text-arch-primary transition-all hover:bg-arch-primary hover:text-background hover:-translate-y-0.5"
-          >
-            {t.reveal.areasCta}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
         </div>
       </div>
 
@@ -1400,6 +1462,31 @@ function Reveal({
         </div>
       </div>
 
+      {/* Detalhes (hooks) abaixo do hero — "Isto não é sorte..." + cascata */}
+      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
+        <p
+          className="mb-10 text-center font-display font-extrabold uppercase not-italic tracking-tight whitespace-pre-line"
+          style={{ fontSize: "30.75px", lineHeight: 1.15 }}
+        >
+          {t.reveal.sub}
+        </p>
+        <div className="grid gap-4 reveal-group">
+          {a.hooks.map((h, i) => (
+            <div
+              key={i}
+              className="reveal flex gap-5 rounded-2xl border border-white/5 bg-card/40 p-6 transition-all hover:border-arch-primary/40"
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary font-black border border-arch-primary/30">
+                {i + 1}
+              </div>
+              <p className="text-base md:text-lg text-foreground/85 leading-relaxed self-center">
+                {h}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Fold 5 — CTA final com timer + garantia */}
       <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4 text-center">
         {timeLeft > 0 && (
@@ -1421,20 +1508,79 @@ function Reveal({
         <p className="mx-auto mt-6 max-w-xl text-base md:text-lg text-foreground/75 leading-relaxed">
           {t.reveal.finalSub}
         </p>
-        <button
-          onClick={() => handleCta("final")}
-          className="group mt-10 inline-flex items-center gap-4 rounded-full px-10 py-5 font-inter text-base md:text-lg font-extrabold tracking-wide text-white transition-all hover:-translate-y-0.5"
-          style={{
-            backgroundColor: archCta.color,
-            boxShadow: "0 20px 60px -10px var(--arch-glow)",
-          }}
-        >
-          {archCta.label}
-          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-        </button>
+        <div className="mt-10 flex flex-col items-center">
+          <button
+            onClick={() => handleCta("final")}
+            data-cursor="hover"
+            className="group relative h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full text-white transition-all hover:scale-[1.03] active:scale-95"
+            style={{
+              backgroundColor: "var(--arch-primary)",
+              boxShadow:
+                "0 30px 80px -20px color-mix(in oklab, var(--arch-primary) 70%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)",
+            }}
+          >
+            <div className="absolute inset-0 overflow-hidden rounded-full bg-white opacity-0 transition-opacity duration-700 group-hover:opacity-10" />
+            <span className="relative z-10 flex items-center justify-center gap-3 px-5 sm:px-8 text-[clamp(1rem,4.2vw,1.75rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
+              {t.reveal.cta.toUpperCase()}
+              <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1" />
+            </span>
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
+          </button>
+
+          <button
+            onClick={() => {
+              if (shareToken) {
+                trackShare({ data: { share_token: shareToken, channel: "copy" } });
+                navigator.clipboard.writeText(`${window.location.origin}/share/${shareToken}`);
+              }
+            }}
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground/60 transition-all hover:border-foreground/30 hover:text-foreground/80"
+          >
+            <Share2 className="h-4 w-4" />
+            {t.reveal.share}
+          </button>
+        </div>
         <p className="mt-6 text-xs md:text-sm text-foreground/55">{t.reveal.guarantee}</p>
       </div>
       </ArchetypeRevealStage>
+      {/* Sticky bottom CTA — reveals on scroll once the second row of area cards appears */}
+      <div
+        aria-hidden={!showStickyCta}
+        className={`pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-3 sm:pb-4 transition-all duration-500 ease-out ${
+          showStickyCta
+            ? "translate-y-0 opacity-100"
+            : "translate-y-full opacity-0"
+        }`}
+      >
+        <div
+          className="pointer-events-auto mx-auto w-full max-w-3xl rounded-full border backdrop-blur-xl"
+          style={{
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--background) 70%, transparent) 0%, color-mix(in oklab, var(--background) 88%, transparent) 100%)",
+            borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
+            boxShadow:
+              "0 -18px 60px -20px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 rgba(255,255,255,0.06)",
+          }}
+        >
+          <button
+            onClick={() => handleCta("areas")}
+            data-cursor="hover"
+            className="group relative flex h-14 sm:h-16 w-full items-center justify-center gap-3 overflow-hidden rounded-full px-5 sm:px-8 text-white transition-all hover:scale-[1.01] active:scale-[0.98]"
+            style={{
+              backgroundColor: "var(--arch-primary)",
+              boxShadow:
+                "0 18px 48px -14px color-mix(in oklab, var(--arch-primary) 75%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)",
+            }}
+          >
+            <div className="absolute inset-0 rounded-full bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
+            <span className="relative z-10 flex items-center gap-3 font-sans text-[clamp(0.85rem,3.2vw,1.05rem)] font-extrabold tracking-tight whitespace-nowrap">
+              {t.reveal.cta.toUpperCase()}
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+            </span>
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/35 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
+          </button>
+        </div>
+      </div>
     </section>
   );
 }

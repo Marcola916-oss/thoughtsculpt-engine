@@ -94,7 +94,6 @@ export default function SalesPageV2({
   const [bump2, setBump2] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [haloIntensity, setHaloIntensity] = useState(0.85);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
@@ -114,41 +113,6 @@ export default function SalesPageV2({
         track(EVENTS.VSL_SCROLL_DEPTH, { max_depth: maxScrollRef.current });
       }
     };
-  }, []);
-
-  // Halo reactivity: intensify glow based on which content section is in view
-  useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return;
-    const container = rootRef.current;
-    if (!container) return;
-    const scenes = container.querySelectorAll<HTMLElement>("[data-scene]");
-    if (scenes.length === 0) return;
-
-    const intensityMap: Record<string, number> = {
-      pain: 1,        // Dor → glow máximo
-      science: 0.6,   // Ciência → glow suave
-      "4d": 0.8,      // Diagnóstico → glow moderado
-      deliver: 0.75,  // Entregáveis → glow moderado
-      proof: 0.9,     // Prova social → glow alto
-      bridge: 1,      // Decisão → glow máximo
-      faq: 0.7,       // FAQ → glow moderado
-    };
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            const scene = e.target.getAttribute("data-scene");
-            if (scene && scene in intensityMap) {
-              setHaloIntensity(intensityMap[scene]);
-            }
-          }
-        }
-      },
-      { threshold: 0.35 },
-    );
-    scenes.forEach((s) => obs.observe(s));
-    return () => obs.disconnect();
   }, []);
 
   // VSL_VIEW on mount
@@ -461,26 +425,11 @@ export default function SalesPageV2({
           )}
         </div>
 
-        {/* SCULPTURE COLUMN — desktop sticky / mobile fixed ambient */}
-        <aside className="pointer-events-none relative hidden lg:block h-full sales-sculpture-col">
-          <div
-            className="sticky top-16 h-[calc(100vh-4rem)] w-full sales-sculpture-mask"
-            style={{ perspective: "1000px" }}
-          >
-            <div
-              className="w-full h-full transition-transform duration-800 ease-out"
-              style={{ transform: "rotateY(-2deg)", transformOrigin: "center center" }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = "rotateY(0deg) scale(1.02)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = "rotateY(-2deg)"; }}
-            >
-              <div
-                className="sales-sculpture-halo"
-                aria-hidden
-                style={{ opacity: haloIntensity, transition: "opacity 600ms ease" }}
-              />
-              <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
-              <SculptureParticles count={18} />
-            </div>
+        {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
+        <aside className="pointer-events-none relative hidden lg:block h-full">
+          <div className="sticky top-16 h-[calc(100vh-4rem)] w-full">
+            <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
+            <SculptureParticles count={18} />
           </div>
         </aside>
       </div>
