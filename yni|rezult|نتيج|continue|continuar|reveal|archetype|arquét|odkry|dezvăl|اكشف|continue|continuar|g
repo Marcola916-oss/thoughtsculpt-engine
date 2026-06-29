@@ -1,1 +1,0 @@
-            await page.get_by_role("button", name=re.compile(r"reveal|reveal|view|ver|wyni|rezult|نتيج|continue|continuar")).first.click()
