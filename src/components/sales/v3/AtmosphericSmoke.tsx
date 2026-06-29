@@ -136,8 +136,7 @@ export default function AtmosphericSmoke({
     <div
       ref={root}
       aria-hidden
-      className="sales-atmospheric-smoke pointer-events-none fixed inset-0"
-      style={{ zIndex: 3 }}
+      className="sales-atmospheric-smoke pointer-events-none contents"
       data-reduced-motion={reduced ? "true" : "false"}
     >
       <div className="sales-smoke-page-tint" />
