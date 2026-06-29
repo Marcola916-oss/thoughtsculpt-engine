@@ -33,7 +33,6 @@ import { SculptureParticles } from "./v3/SculptureParticles";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
-import { SculptureSmoke } from "./v3/SculptureSmoke";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -431,7 +430,6 @@ export default function SalesPageV2({
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full">
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
             <SculptureParticles count={18} />
-            <SculptureSmoke />
           </div>
         </aside>
       </div>
@@ -447,10 +445,7 @@ export default function SalesPageV2({
         }}
       >
         <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
-        <SculptureSmoke />
       </div>
-
-
 
       <StickyOfferBar
         show={showSticky}
