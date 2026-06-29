@@ -142,7 +142,7 @@ export default function AtmosphericSmoke({
       <div className="sales-smoke-page-tint" />
 
       {/* Full-width bottom shelf: the page/text visually rises out of it. */}
-      <div className="sales-smoke-floor">
+      <div className="sales-smoke-floor" style={{ zIndex: 3 }}>
         <div className="sales-smoke-floor-bed" />
         {visibleFloorPuffs.map((puff, i) => (
           <span
@@ -182,7 +182,7 @@ export default function AtmosphericSmoke({
       </div>
 
       {/* Sculpture cradle: dense, high, and centered on the bust neck/shoulders. */}
-      <div className="sales-smoke-cradle">
+      <div className="sales-smoke-cradle" style={{ zIndex: 4 }}>
         <div className="sales-smoke-cradle-back" />
         <div className="sales-smoke-neck-ring" />
         {visibleCradlePuffs.map((puff, i) => (
@@ -207,7 +207,7 @@ export default function AtmosphericSmoke({
         <div className="sales-smoke-cradle-front" />
       </div>
 
-      <div className="sales-smoke-bottom-vignette" />
+      <div className="sales-smoke-bottom-vignette" style={{ zIndex: 6 }} />
     </div>
   );
 }
