@@ -4,22 +4,31 @@ export const SculptureSmoke = memo(function SculptureSmoke() {
   return (
     <div 
       aria-hidden
-      className="absolute -inset-x-20 bottom-0 h-[400px] pointer-events-none z-10 overflow-hidden"
+      className="absolute -inset-x-24 bottom-0 h-[450px] pointer-events-none z-[5]"
     >
-      {/* Smoke puffs (white/gray with heavy blur and screen blend mode) */}
-      {/* We use mix-blend-screen and opacities to simulate thick overlapping clouds */}
-      <div className="absolute inset-0 z-10 mix-blend-screen opacity-60">
-         <div className="absolute bottom-[-10%] left-[-10%] w-[70%] h-[70%] bg-white/20 blur-[60px] rounded-full" />
-         <div className="absolute bottom-[-5%] right-[-10%] w-[80%] h-[80%] bg-white/15 blur-[80px] rounded-full" />
-         <div className="absolute bottom-[10%] left-[15%] w-[60%] h-[60%] bg-white/25 blur-[70px] rounded-full" />
-         <div className="absolute bottom-[5%] right-[20%] w-[60%] h-[60%] bg-white/10 blur-[50px] rounded-full" />
-         
-         {/* Subtle red/accent tint in the smoke center to match brand */}
-         <div className="absolute bottom-0 left-[30%] w-[40%] h-[40%] bg-arch-primary/10 blur-[80px] rounded-full" />
-      </div>
+      {/* Black fade to completely hide the sharp bottom edge of the sculpture */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/95 to-transparent z-10" />
 
-      {/* Black fade to hide the hard edge of the sculpture and anchor it to the page */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-20" />
+      {/* Cloud/Smoke volumetric puffs using fast radial gradients (no filter: blur) */}
+      <div className="absolute inset-0 z-20 mix-blend-screen opacity-75">
+        <div 
+          className="absolute bottom-[-10%] left-[-15%] w-[80%] h-[70%]"
+          style={{ background: "radial-gradient(ellipse at center, rgba(180,180,200,0.4) 0%, transparent 70%)" }}
+        />
+        <div 
+          className="absolute bottom-[-5%] right-[-15%] w-[90%] h-[80%]"
+          style={{ background: "radial-gradient(ellipse at center, rgba(200,200,220,0.5) 0%, transparent 65%)" }}
+        />
+        <div 
+          className="absolute bottom-[10%] left-[20%] w-[60%] h-[50%]"
+          style={{ background: "radial-gradient(ellipse at center, rgba(160,160,180,0.3) 0%, transparent 70%)" }}
+        />
+        {/* Subtle accent glow embedded in the smoke */}
+        <div 
+          className="absolute bottom-0 left-[30%] w-[50%] h-[50%]"
+          style={{ background: "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 30%, transparent) 0%, transparent 70%)" }}
+        />
+      </div>
     </div>
   );
 });

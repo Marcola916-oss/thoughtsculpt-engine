@@ -450,16 +450,7 @@ export default function SalesPageV2({
         <SculptureSmoke />
       </div>
 
-      {/* GLOBAL BOTTOM SCROLL SMOKE (Cortina de fumaça global) */}
-      <div aria-hidden className="pointer-events-none fixed inset-x-0 bottom-0 h-56 z-[40] overflow-hidden">
-        {/* Subtle smoke texture across the bottom */}
-        <div className="absolute inset-0 z-10 mix-blend-screen opacity-20">
-          <div className="absolute bottom-[-20%] left-[-10%] w-[120%] h-[120%] bg-white/10 blur-[60px] rounded-[100%]" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[120%] h-[120%] bg-white/10 blur-[80px] rounded-[100%]" />
-        </div>
-        {/* Deep black fade to completely hide elements before they enter */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-20" />
-      </div>
+
 
       <StickyOfferBar
         show={showSticky}
