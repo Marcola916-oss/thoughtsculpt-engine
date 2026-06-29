@@ -30,12 +30,6 @@ import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
 import { SculptureParticles } from "./v3/SculptureParticles";
-import {
-  SmokeTurbulence,
-  NeckPlume,
-  SideMist,
-  GroundHaze,
-} from "./v3/CinematicSmoke";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
@@ -174,11 +168,6 @@ export default function SalesPageV2({
 
   return (
     <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
-      {/* SVG turbulence filter used by smoke layers */}
-      <SmokeTurbulence />
-      {/* Cinematic atmosphere — behind all content */}
-      <SideMist />
-      <GroundHaze />
       {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
         <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
@@ -441,7 +430,6 @@ export default function SalesPageV2({
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full">
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
             <SculptureParticles count={18} />
-            <NeckPlume />
           </div>
         </aside>
       </div>
