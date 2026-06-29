@@ -2125,11 +2125,14 @@ html body .allow-break-all {
   --smoke-x: 68vw;
   --smoke-y: 64vh;
   --smoke-scale: 1;
-  isolation: isolate;
 }
 .sales-smoke-page-tint {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
   position: absolute;
-  inset: auto 0 0;
   height: 62vh;
   opacity: 0.72;
   background:
@@ -2137,9 +2140,10 @@ html body .allow-break-all {
     linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, transparent 72%);
 }
 .sales-smoke-floor {
-  position: absolute;
+  position: fixed;
   inset-inline: 0;
   bottom: 0;
+  pointer-events: none;
   height: min(48vh, 520px);
   overflow: hidden;
   opacity: 0.98;
@@ -2157,9 +2161,10 @@ html body .allow-break-all {
   filter: blur(22px) saturate(1.08);
 }
 .sales-smoke-cradle {
-  position: absolute;
+  position: fixed;
   left: var(--smoke-x);
   top: var(--smoke-y);
+  pointer-events: none;
   width: calc(620px * var(--smoke-scale));
   height: calc(420px * var(--smoke-scale));
   transform: translate(-50%, -50%);
@@ -2240,9 +2245,10 @@ html body .allow-break-all {
   animation: sales-smoke-wisp var(--w-duration) ease-in-out infinite var(--w-delay);
 }
 .sales-smoke-bottom-vignette {
-  position: absolute;
+  position: fixed;
   inset-inline: 0;
   bottom: 0;
+  pointer-events: none;
   height: 120px;
   background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.72) 36%, transparent 100%);
 }
