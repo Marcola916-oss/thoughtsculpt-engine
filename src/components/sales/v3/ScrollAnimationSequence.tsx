@@ -25,13 +25,13 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
     offset: ["start start", "end end"],
   });
 
-  // Preload frames 0001 to 0050
+  // Preload frames 0001 to 0035
   useEffect(() => {
     let isCancelled = false;
     const preload = async () => {
       const imgPromises: Promise<HTMLCanvasElement>[] = [];
 
-      for (let i = 1; i <= 50; i++) {
+      for (let i = 1; i <= 35; i++) {
         // e.g. 1 -> "0001"
         const paddedIndex = i.toString().padStart(4, "0");
         const src = `/anim-webp/ArtePV_${paddedIndex}.webp`;
@@ -127,9 +127,9 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (!loaded) return;
-    // Map 0 -> 1 progress to 1 -> 50 frame
-    let frame = Math.floor(latest * 50) + 1;
-    if (frame > 50) frame = 50;
+    // Map 0 -> 1 progress to 1 -> 35 frame
+    let frame = Math.floor(latest * 35) + 1;
+    if (frame > 35) frame = 35;
     if (frame < 1) frame = 1;
     
     if (frame !== currentFrameRef.current) {
