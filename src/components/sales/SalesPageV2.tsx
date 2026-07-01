@@ -32,7 +32,6 @@ import { SalesTestimonials } from "./v3/SalesTestimonials";
 import { SculptureParticles } from "./v3/SculptureParticles";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
-import AtmosphericSmoke from "./v3/AtmosphericSmoke";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -169,8 +168,6 @@ export default function SalesPageV2({
 
   return (
     <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
-      {/* Premium volumetric smoke — page emerges from a sea of fog */}
-      <AtmosphericSmoke archetype={archetype} targetRef={sculptureRef} rootRef={rootRef} />
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
