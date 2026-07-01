@@ -36,6 +36,7 @@ import { Reveal } from "@/components/interaction";
 import { Atmosphere } from "@/components/atmosphere";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { MarbleBust } from "@/components/identity/MarbleBust";
+import { VSLScrollAnim } from "./VSLScrollAnim";
 
 type Lang = "pt" | "en" | "pl" | "ro" | "ar";
 type B = Record<Lang, string>;
@@ -357,7 +358,7 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
             </Reveal>
             <Reveal delay={0.15}>
               <div className="hidden md:block">
-                <MarbleBust size={260} />
+                <VSLScrollAnim size={360} />
               </div>
             </Reveal>
           </div>
