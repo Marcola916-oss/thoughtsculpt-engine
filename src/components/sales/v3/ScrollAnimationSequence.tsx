@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 
 type Props = {
   /** Element whose scroll progress drives the animation. */
   targetRef: RefObject<HTMLElement | null>;
   className?: string;
+  canvasClassName?: string;
+  canvasStyle?: CSSProperties;
   archetype?: any; // kept for compatibility if needed, though unused
 };
 
@@ -14,7 +16,7 @@ type Props = {
  * Preloads 50 frames of animation and renders them directly to a Canvas
  * based on the user's scroll progress in the targetRef.
  */
-export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
+export function ScrollAnimationSequence({ targetRef, className = "", canvasClassName = "", canvasStyle }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -62,10 +64,14 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
             const imgData = ctx.getImageData(0, 0, c.width, c.height);
             const data = imgData.data;
             
+            const lowerFadeStart = Math.floor(c.height * 0.56);
+            const lowerFadeEnd = Math.floor(c.height * 0.82);
+
             for (let j = 0; j < data.length; j += 4) {
               const r = data[j];
               const g = data[j + 1];
               const b = data[j + 2];
+              const y = Math.floor(j / 4 / c.width);
               
               // Find the brightest channel
               const maxRGB = Math.max(r, g, b);
@@ -74,6 +80,16 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
               // Smooth feathering for anti-aliased edges
               if (maxRGB < 35) {
                 data[j + 3] = (maxRGB / 35) * 255;
+              }
+
+              // Dissolve only the lower base of the sculpture so the source
+              // frame's hard bottom edge disappears into the black canvas.
+              // The jaw/chin area remains untouched because the fade starts
+              // near the lower shoulders/base of the original frame.
+              if (y >= lowerFadeStart) {
+                const rawProgress = Math.min(1, (y - lowerFadeStart) / (lowerFadeEnd - lowerFadeStart));
+                const easedProgress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+                data[j + 3] *= 1 - easedProgress;
               }
             }
             
@@ -153,8 +169,8 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
     >
       <canvas
         ref={canvasRef}
-        className="w-full h-full object-contain object-center lg:translate-x-16 transition-opacity duration-300 mix-blend-screen"
-        style={{ maxWidth: "600px", maxHeight: "600px", opacity: loaded ? 1 : 0 }}
+        className={`w-full h-full object-contain object-center lg:translate-x-16 transition-opacity duration-300 mix-blend-screen ${canvasClassName}`}
+        style={{ maxWidth: "600px", maxHeight: "600px", opacity: loaded ? 1 : 0, ...canvasStyle }}
       />
     </div>
   );
