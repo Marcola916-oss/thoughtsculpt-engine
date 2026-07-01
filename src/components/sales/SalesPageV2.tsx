@@ -32,8 +32,7 @@ import { SalesTestimonials } from "./v3/SalesTestimonials";
 import { SculptureParticles } from "./v3/SculptureParticles";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
-import { Atmosphere } from "@/components/atmosphere";
-import { SculptureSmoke } from "./v3/SculptureSmoke";
+import AtmosphericSmoke from "./v3/AtmosphericSmoke";
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -99,6 +98,7 @@ export default function SalesPageV2({
   const rootRef = useRef<HTMLDivElement | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
   const finalRef = useRef<HTMLDivElement | null>(null);
+  const sculptureRef = useRef<HTMLElement | null>(null);
   const maxScrollRef = useRef(0);
 
   // VSL_SCROLL_DEPTH: track max scroll % and fire on unmount
@@ -169,16 +169,12 @@ export default function SalesPageV2({
 
   return (
     <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
-      {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
-        <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
-          <span />
-        </Atmosphere>
-      </div>
+      {/* Premium volumetric smoke — page emerges from a sea of fog */}
+      <AtmosphericSmoke archetype={archetype} targetRef={sculptureRef} rootRef={rootRef} />
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
-        <div className="relative z-10">
+        <div className="relative" style={{ zIndex: 8 }}>
           {/* B1 — Hero */}
           <div ref={heroRef}>
             <HeroScene
@@ -427,30 +423,13 @@ export default function SalesPageV2({
         </div>
 
         {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
-        <aside className="pointer-events-none relative hidden lg:block h-full">
+        <aside ref={sculptureRef} className="pointer-events-none relative hidden lg:block h-full" style={{ zIndex: 4 }}>
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full">
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
             <SculptureParticles count={18} />
-            <SculptureSmoke />
           </div>
         </aside>
       </div>
-
-      {/* Mobile/tablet sculpture — fixed ambient behind copy */}
-      <div
-        className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
-        style={{
-          opacity: 0.45,
-          mixBlendMode: "screen",
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-        }}
-      >
-        <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
-        <SculptureSmoke />
-      </div>
-
-
 
       <StickyOfferBar
         show={showSticky}
