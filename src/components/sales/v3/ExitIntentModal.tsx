@@ -32,7 +32,8 @@ export function ExitIntentModal({
         className="relative w-full max-w-md overflow-hidden rounded-3xl border bg-black p-7 text-center"
         style={{
           borderColor: "color-mix(in oklab, var(--arch-primary) 45%, transparent)",
-          boxShadow: "0 40px 100px -20px color-mix(in oklab, var(--arch-primary) 55%, transparent)",
+          boxShadow:
+            "0 40px 100px -20px color-mix(in oklab, var(--arch-primary) 55%, transparent)",
         }}
       >
         <button

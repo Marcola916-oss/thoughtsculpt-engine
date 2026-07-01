@@ -40,9 +40,7 @@ export function BumpRow({
         aria-hidden
         className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-colors"
         style={{
-          borderColor: active
-            ? "transparent"
-            : "color-mix(in oklab, var(--arch-primary) 50%, transparent)",
+          borderColor: active ? "transparent" : "color-mix(in oklab, var(--arch-primary) 50%, transparent)",
           background: active ? "var(--arch-primary)" : "transparent",
           color: active ? "white" : "var(--arch-primary)",
         }}
@@ -52,7 +50,10 @@ export function BumpRow({
       <span className="flex-1">
         <span className="flex items-baseline justify-between gap-3">
           <span className="font-semibold text-foreground">{title}</span>
-          <span className="font-bold tabular-nums" style={{ color: "var(--arch-primary)" }}>
+          <span
+            className="font-bold tabular-nums"
+            style={{ color: "var(--arch-primary)" }}
+          >
             +{price}
           </span>
         </span>
