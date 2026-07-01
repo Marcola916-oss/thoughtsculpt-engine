@@ -64,8 +64,8 @@ export function ScrollAnimationSequence({ targetRef, className = "", canvasClass
             const imgData = ctx.getImageData(0, 0, c.width, c.height);
             const data = imgData.data;
             
-            const lowerFadeStart = Math.floor(c.height * 0.56);
-            const lowerFadeEnd = Math.floor(c.height * 0.82);
+            const lowerFadeStart = Math.floor(c.height * 0.64);
+            const lowerFadeEnd = Math.floor(c.height * 0.88);
 
             for (let j = 0; j < data.length; j += 4) {
               const r = data[j];
