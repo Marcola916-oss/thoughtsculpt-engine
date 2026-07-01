@@ -25,11 +25,10 @@ import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainScar } from "./v3/PainScar";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
-import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
-import { SculptureParticles } from "./v3/SculptureParticles";
+import { LivingDiagnosis } from "./v3/LivingDiagnosis";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 
@@ -422,10 +421,18 @@ export default function SalesPageV2({
         {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
         <aside ref={sculptureRef} className="pointer-events-none relative hidden lg:block h-full" style={{ zIndex: 4 }}>
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full">
-            <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
-            <SculptureParticles count={18} />
+            <LivingDiagnosis scrollTargetRef={rootRef} intensity={1} />
           </div>
         </aside>
+      </div>
+
+      {/* MOBILE / TABLET — living mesh as ambient background (very subtle) */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
+        style={{ opacity: 0.35 }}
+      >
+        <LivingDiagnosis scrollTargetRef={rootRef} intensity={0.7} />
       </div>
 
       <StickyOfferBar
