@@ -427,7 +427,13 @@ export default function SalesPageV2({
 
         {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
         <aside className="pointer-events-none relative hidden lg:block h-full">
-          <div className="sticky top-16 h-[calc(100vh-4rem)] w-full">
+          <div
+            className="sticky top-16 h-[calc(100vh-4rem)] w-full"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,0.6) 75%, transparent 96%)",
+            }}
+          >
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
             <SculptureParticles count={18} />
           </div>
