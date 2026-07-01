@@ -64,10 +64,14 @@ export function ScrollAnimationSequence({ targetRef, className = "", canvasClass
             const imgData = ctx.getImageData(0, 0, c.width, c.height);
             const data = imgData.data;
             
+            const lowerFadeStart = Math.floor(c.height * 0.78);
+            const lowerFadeEnd = Math.floor(c.height * 0.94);
+
             for (let j = 0; j < data.length; j += 4) {
               const r = data[j];
               const g = data[j + 1];
               const b = data[j + 2];
+              const y = Math.floor(j / 4 / c.width);
               
               // Find the brightest channel
               const maxRGB = Math.max(r, g, b);
@@ -76,6 +80,16 @@ export function ScrollAnimationSequence({ targetRef, className = "", canvasClass
               // Smooth feathering for anti-aliased edges
               if (maxRGB < 35) {
                 data[j + 3] = (maxRGB / 35) * 255;
+              }
+
+              // Dissolve only the lower base of the sculpture so the source
+              // frame's hard bottom edge disappears into the black canvas.
+              // The jaw/chin area remains untouched because the fade starts
+              // near the lower shoulders/base of the original frame.
+              if (y >= lowerFadeStart) {
+                const rawProgress = Math.min(1, (y - lowerFadeStart) / (lowerFadeEnd - lowerFadeStart));
+                const easedProgress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+                data[j + 3] *= 1 - easedProgress;
               }
             }
             
