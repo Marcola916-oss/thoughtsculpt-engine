@@ -428,10 +428,12 @@ export default function SalesPageV2({
         {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
         <aside className="pointer-events-none relative hidden lg:block h-full">
           <div
-            className="sticky top-16 h-[calc(100vh-4rem)] w-full"
+            className="sticky top-16 h-[calc(100vh-4rem)] w-full overflow-hidden"
             style={{
               maskImage:
-                "linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,0.6) 75%, transparent 96%)",
+                "linear-gradient(to bottom, black 0%, black 42%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0.18) 78%, transparent 92%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 0%, black 42%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0.18) 78%, transparent 92%)",
             }}
           >
             <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
