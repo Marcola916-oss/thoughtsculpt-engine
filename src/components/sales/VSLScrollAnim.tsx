@@ -62,15 +62,9 @@ export function VSLScrollAnim({ size = 340, className = "" }: VSLScrollAnimProps
       const windowH = window.innerHeight;
 
       // progress: 0 quando a seção entra na tela, 1 quando sai
-      const progress = Math.max(
-        0,
-        Math.min(1, (windowH - rect.top) / (windowH + rect.height))
-      );
+      const progress = Math.max(0, Math.min(1, (windowH - rect.top) / (windowH + rect.height)));
 
-      const idx = Math.min(
-        TOTAL_FRAMES - 1,
-        Math.round(progress * (TOTAL_FRAMES - 1))
-      );
+      const idx = Math.min(TOTAL_FRAMES - 1, Math.round(progress * (TOTAL_FRAMES - 1)));
       setFrameIndex(idx);
     });
   }, []);

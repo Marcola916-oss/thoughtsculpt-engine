@@ -32,8 +32,7 @@ export function AreaPoster({
       className="group relative overflow-hidden rounded-2xl border bg-black transition-all duration-500 hover:-translate-y-1"
       style={{
         borderColor: "color-mix(in oklab, var(--arch-primary) 25%, transparent)",
-        boxShadow:
-          "0 20px 60px -30px color-mix(in oklab, var(--arch-primary) 50%, transparent)",
+        boxShadow: "0 20px 60px -30px color-mix(in oklab, var(--arch-primary) 50%, transparent)",
       }}
     >
       <div className="relative aspect-[4/5] overflow-hidden">
@@ -73,9 +72,7 @@ export function AreaPoster({
         </span>
       </div>
       <div className="relative -mt-16 p-5 pt-0">
-        <h3 className="font-display text-2xl font-extrabold leading-tight text-white">
-          {title}
-        </h3>
+        <h3 className="font-display text-2xl font-extrabold leading-tight text-white">{title}</h3>
         <p className="mt-2 text-sm leading-relaxed text-white/75">{description}</p>
       </div>
     </article>

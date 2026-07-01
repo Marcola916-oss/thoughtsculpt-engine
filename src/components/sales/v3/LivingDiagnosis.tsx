@@ -18,7 +18,7 @@
 import { useEffect, useRef } from "react";
 import { useDeviceTier, type DeviceTier } from "@/hooks/use-device-tier";
 
-type Formation = "brain" | "spiral" | "grid" | "cascade" | "portal";
+type Formation = "brain" | "shatter" | "spiral" | "symbols" | "grid" | "cascade" | "portal";
 
 interface Node {
   x: number;
@@ -40,10 +40,13 @@ interface Props {
   className?: string;
 }
 
-const TIER_CFG: Record<DeviceTier, { nodes: number; radius: number; glow: number; alphaNode: number; alphaLink: number }> = {
-  low:    { nodes: 90,  radius: 45, glow: 0,  alphaNode: 0.55, alphaLink: 0.10 },
-  medium: { nodes: 220, radius: 70, glow: 8,  alphaNode: 0.70, alphaLink: 0.14 },
-  high:   { nodes: 460, radius: 95, glow: 14, alphaNode: 0.85, alphaLink: 0.18 },
+const TIER_CFG: Record<
+  DeviceTier,
+  { nodes: number; radius: number; glow: number; alphaNode: number; alphaLink: number }
+> = {
+  low: { nodes: 90, radius: 45, glow: 0, alphaNode: 0.55, alphaLink: 0.1 },
+  medium: { nodes: 220, radius: 70, glow: 8, alphaNode: 0.7, alphaLink: 0.14 },
+  high: { nodes: 460, radius: 95, glow: 14, alphaNode: 0.85, alphaLink: 0.18 },
 };
 
 // Deterministic pseudo-noise (cheap, no lib).
@@ -96,11 +99,32 @@ function seedTargets(nodes: Node[], formation: Formation, w: number, h: number) 
         node.ty = cy + Math.sin(a) * r * 0.55 - R * 0.05 * Math.sin(t * Math.PI * 2);
         break;
       }
+      case "shatter": {
+        // Nodes explode outward from center into 4 quadrant clusters.
+        const quadrant = i % 4;
+        const angle = (quadrant * Math.PI) / 2 + Math.PI / 4; // 45, 135, 225, 315 degrees
+        const dist = R * (0.5 + 0.5 * Math.sqrt(t));
+        const spread = R * 0.18;
+        node.tx = cx + Math.cos(angle) * dist + (node.seed - 0.5) * spread;
+        node.ty = cy + Math.sin(angle) * dist + (node.seed - 0.5) * spread;
+        break;
+      }
       case "spiral": {
         const a = t * Math.PI * 10;
         const r = R * Math.sqrt(t);
         node.tx = cx + Math.cos(a) * r;
         node.ty = cy + Math.sin(a) * r;
+        break;
+      }
+      case "symbols": {
+        // 4 compact groups positioned at archetype symbol locations.
+        const quadrant = i % 4;
+        const groupCx = cx + (quadrant % 2 === 0 ? -1 : 1) * R * 0.45;
+        const groupCy = cy + (quadrant < 2 ? -1 : 1) * R * 0.45;
+        const localAngle = ((i - quadrant) / (n / 4)) * Math.PI * 2;
+        const localR = R * 0.12 * Math.sqrt(t);
+        node.tx = groupCx + Math.cos(localAngle) * localR;
+        node.ty = groupCy + Math.sin(localAngle) * localR;
         break;
       }
       case "grid": {
@@ -180,7 +204,15 @@ export function LivingDiagnosis({ scrollTargetRef, intensity = 1, className }: P
     resize();
 
     // Scroll → formation morph.
-    const FORMATIONS: Formation[] = ["brain", "spiral", "grid", "cascade", "portal"];
+    const FORMATIONS: Formation[] = [
+      "brain",
+      "shatter",
+      "spiral",
+      "symbols",
+      "grid",
+      "cascade",
+      "portal",
+    ];
     const onScroll = () => {
       const target = scrollTargetRef?.current;
       const rect = target ? target.getBoundingClientRect() : { top: 0, height: window.innerHeight };
@@ -205,17 +237,27 @@ export function LivingDiagnosis({ scrollTargetRef, intensity = 1, className }: P
       pointer.active = pointer.x >= 0 && pointer.x <= w && pointer.y >= 0 && pointer.y <= h;
     };
     const onMouse = (e: MouseEvent) => onMove(e.clientX, e.clientY);
-    const onTouch = (e: TouchEvent) => { if (e.touches[0]) onMove(e.touches[0].clientX, e.touches[0].clientY); };
-    const onLeave = () => { pointer.active = false; pointer.x = -9999; pointer.y = -9999; };
+    const onTouch = (e: TouchEvent) => {
+      if (e.touches[0]) onMove(e.touches[0].clientX, e.touches[0].clientY);
+    };
+    const onLeave = () => {
+      pointer.active = false;
+      pointer.x = -9999;
+      pointer.y = -9999;
+    };
     window.addEventListener("mousemove", onMouse, { passive: true });
     window.addEventListener("touchmove", onTouch, { passive: true });
     window.addEventListener("mouseleave", onLeave);
 
     // Refresh archetype color on class/attribute mutation (arch switch).
-    const mo = new MutationObserver(() => { arch = readArchRGB(); });
+    const mo = new MutationObserver(() => {
+      arch = readArchRGB();
+    });
     mo.observe(document.documentElement, { attributes: true });
     // And once on mount after paint.
-    setTimeout(() => { arch = readArchRGB(); }, 0);
+    setTimeout(() => {
+      arch = readArchRGB();
+    }, 0);
 
     const radiusSq = cfg.radius * cfg.radius;
 
@@ -223,14 +265,18 @@ export function LivingDiagnosis({ scrollTargetRef, intensity = 1, className }: P
       ctx.clearRect(0, 0, w, h);
       const [r, g, b] = arch;
       // Snap to targets.
-      for (const n of nodesRef.current) { n.x = n.tx; n.y = n.ty; }
+      for (const n of nodesRef.current) {
+        n.x = n.tx;
+        n.y = n.ty;
+      }
       // Links
       ctx.lineWidth = 0.6;
       for (let i = 0; i < nodesRef.current.length; i++) {
         const a = nodesRef.current[i];
         for (let j = i + 1; j < nodesRef.current.length; j++) {
           const b2 = nodesRef.current[j];
-          const dx = a.x - b2.x, dy = a.y - b2.y;
+          const dx = a.x - b2.x,
+            dy = a.y - b2.y;
           const d2 = dx * dx + dy * dy;
           if (d2 < radiusSq) {
             const alpha = (1 - d2 / radiusSq) * cfg.alphaLink * intensity;
@@ -253,9 +299,19 @@ export function LivingDiagnosis({ scrollTargetRef, intensity = 1, className }: P
 
     if (reduced) {
       drawStatic();
-      const ro = new ResizeObserver(() => { resize(); drawStatic(); });
+      const ro = new ResizeObserver(() => {
+        resize();
+        drawStatic();
+      });
       ro.observe(canvas);
-      return () => { ro.disconnect(); window.removeEventListener("scroll", onScroll); window.removeEventListener("mousemove", onMouse); window.removeEventListener("touchmove", onTouch); window.removeEventListener("mouseleave", onLeave); mo.disconnect(); };
+      return () => {
+        ro.disconnect();
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("mousemove", onMouse);
+        window.removeEventListener("touchmove", onTouch);
+        window.removeEventListener("mouseleave", onLeave);
+        mo.disconnect();
+      };
     }
 
     let last = performance.now();

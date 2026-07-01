@@ -13,7 +13,7 @@ export function SceneBackground({
   variant?: "default" | "deep" | "soft";
   className?: string;
 }) {
-  const intensity = variant === "deep" ? 0.18 : variant === "soft" ? 0.06 : 0.10;
+  const intensity = variant === "deep" ? 0.18 : variant === "soft" ? 0.06 : 0.1;
   return (
     <div
       className={`relative sales-vignette ${className}`}

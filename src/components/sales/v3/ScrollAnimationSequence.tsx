@@ -44,43 +44,43 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
               resolve(document.createElement("canvas"));
               return;
             }
-            
+
             // Draw to offscreen canvas
             const c = document.createElement("canvas");
             c.width = img.naturalWidth;
             c.height = img.naturalHeight;
             const ctx = c.getContext("2d", { willReadFrequently: true });
-            
+
             if (!ctx) {
               resolve(c);
               return;
             }
-            
+
             ctx.drawImage(img, 0, 0);
-            
+
             // Remove black background (luma keying)
             const imgData = ctx.getImageData(0, 0, c.width, c.height);
             const data = imgData.data;
-            
+
             for (let j = 0; j < data.length; j += 4) {
               const r = data[j];
               const g = data[j + 1];
               const b = data[j + 2];
-              
+
               // Find the brightest channel
               const maxRGB = Math.max(r, g, b);
-              
+
               // If pixel is very dark, make it transparent
               // Smooth feathering for anti-aliased edges
               if (maxRGB < 35) {
                 data[j + 3] = (maxRGB / 35) * 255;
               }
             }
-            
+
             ctx.putImageData(imgData, 0, 0);
             resolve(c);
           };
-          
+
           img.onerror = () => {
             console.warn(`[ScrollAnim] Failed to load frame: ${src}`);
             resolve(document.createElement("canvas"));
@@ -111,7 +111,7 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
 
     // frameIndex is 1-indexed
     const img = images[frameIndex - 1];
-    
+
     // images are now HTMLCanvasElement, so we use .width and .height instead of .naturalWidth
     if (!img || img.width === 0) return;
 
@@ -131,7 +131,7 @@ export function ScrollAnimationSequence({ targetRef, className = "" }: Props) {
     let frame = Math.floor(latest * 35) + 1;
     if (frame > 35) frame = 35;
     if (frame < 1) frame = 1;
-    
+
     if (frame !== currentFrameRef.current) {
       currentFrameRef.current = frame;
       drawFrame(frame);

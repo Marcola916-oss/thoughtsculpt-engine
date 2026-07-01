@@ -60,7 +60,9 @@ export function SculptureParticles({ count = 18, className }: SculptureParticles
 
     // Get arch-primary color from CSS variable
     const getCGColor = () => {
-      const raw = getComputedStyle(document.documentElement).getPropertyValue("--arch-primary").trim();
+      const raw = getComputedStyle(document.documentElement)
+        .getPropertyValue("--arch-primary")
+        .trim();
       return raw || "oklch(0.52 0.24 27)";
     };
 

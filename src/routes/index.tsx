@@ -28,7 +28,9 @@ import { startBrainFramesPreload } from "@/lib/brainFramesCache";
 import { computeAreaScores, AREA_ORDER, type LifeArea } from "@/lib/funnel/area-scores";
 import { AreaScoreCard } from "@/components/reveal/AreaScoreCard";
 import { BrainOrbit } from "@/components/reveal/BrainOrbit";
-const CheckoutStub = lazy(() => import("@/components/funnel/CheckoutStub").then(m => ({ default: m.CheckoutStub })));
+const CheckoutStub = lazy(() =>
+  import("@/components/funnel/CheckoutStub").then((m) => ({ default: m.CheckoutStub })),
+);
 const SalesPageV2 = lazy(() => import("@/components/sales/SalesPageV2"));
 import { track, EVENTS } from "@/lib/analytics";
 
@@ -64,7 +66,10 @@ import { trackShare } from "@/lib/quiz.functions";
 import { useTypewriter } from "@/hooks/use-typewriter";
 
 const ARCH_BADGE_ORDER = ["AO", "SS", "EA", "HI"] as const;
-const ARCH_BADGE_COLORS: Record<(typeof ARCH_BADGE_ORDER)[number], { primary: string; glow: string }> = {
+const ARCH_BADGE_COLORS: Record<
+  (typeof ARCH_BADGE_ORDER)[number],
+  { primary: string; glow: string }
+> = {
   AO: { primary: "#1E6B82", glow: "rgba(42,139,163,0.55)" },
   SS: { primary: "#7C3AED", glow: "rgba(167,139,250,0.55)" },
   EA: { primary: "#64748B", glow: "rgba(148,163,184,0.55)" },
@@ -96,10 +101,7 @@ function BrainIcon({ className }: { className?: string }) {
 
 function TypingArchetypeBadge({ t }: { t: any }) {
   const words = useMemo(
-    () =>
-      ARCH_BADGE_ORDER.map(
-        (k) => (t.archetypes?.[k]?.name as string | undefined) ?? k,
-      ),
+    () => ARCH_BADGE_ORDER.map((k) => (t.archetypes?.[k]?.name as string | undefined) ?? k),
     [t],
   );
   const { text, index } = useTypewriter(words, {
@@ -165,13 +167,21 @@ const MFade = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { delay?: number; y?: number }) => {
   const delayClass =
-    delay <= 0 ? "" :
-    delay <= 0.2 ? "hero-fade-delay-1" :
-    delay <= 0.4 ? "hero-fade-delay-2" :
-    delay <= 0.6 ? "hero-fade-delay-3" :
-    delay <= 1 ? "hero-fade-delay-4" :
-    delay <= 1.5 ? "hero-fade-delay-5" :
-    delay <= 2 ? "hero-fade-delay-6" : "hero-fade-delay-7";
+    delay <= 0
+      ? ""
+      : delay <= 0.2
+        ? "hero-fade-delay-1"
+        : delay <= 0.4
+          ? "hero-fade-delay-2"
+          : delay <= 0.6
+            ? "hero-fade-delay-3"
+            : delay <= 1
+              ? "hero-fade-delay-4"
+              : delay <= 1.5
+                ? "hero-fade-delay-5"
+                : delay <= 2
+                  ? "hero-fade-delay-6"
+                  : "hero-fade-delay-7";
   return (
     <div className={`hero-fade ${delayClass} ${className || ""}`} {...props}>
       {children}
@@ -214,7 +224,8 @@ type Stage =
 function LandingAndQuiz() {
   const { t, lang, currency, country } = useI18n();
   const [stage, setStage] = useState<Stage>({ kind: "hero" });
-  const isQuizCaptureStage = stage.kind === "identity" || stage.kind === "q" || stage.kind === "email";
+  const isQuizCaptureStage =
+    stage.kind === "identity" || stage.kind === "q" || stage.kind === "email";
 
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -393,9 +404,9 @@ function LandingAndQuiz() {
       data-arch={archCode || undefined}
     >
       <div className="noise-overlay pointer-events-none z-0" />
-      
+
       {/* Persistent atmosphere is mounted globally in __root so it stays visible across the whole product. */}
-      
+
       {stage.kind === "hero" && <TopBar />}
       {stage.kind === "hero" && recoverOrderId && (
         <div className="relative z-20 mx-auto mt-2 max-w-3xl px-4">
@@ -409,23 +420,23 @@ function LandingAndQuiz() {
                 {lang === "pt"
                   ? "Tu paraste mesmo antes do final."
                   : lang === "pl"
-                  ? "Zatrzymałeś się tuż przed końcem."
-                  : lang === "ro"
-                  ? "Te-ai oprit chiar înainte de final."
-                  : lang === "ar"
-                  ? "توقفت قبل النهاية مباشرة."
-                  : "You stopped right before the finish."}
+                    ? "Zatrzymałeś się tuż przed końcem."
+                    : lang === "ro"
+                      ? "Te-ai oprit chiar înainte de final."
+                      : lang === "ar"
+                        ? "توقفت قبل النهاية مباشرة."
+                        : "You stopped right before the finish."}
               </p>
               <p className="text-foreground/70">
                 {lang === "pt"
                   ? "O teu diagnóstico ainda está reservado por 30 min. Retoma agora — sem perder progresso."
                   : lang === "pl"
-                  ? "Twoja diagnoza jest zarezerwowana jeszcze przez 30 min. Dokończ teraz — bez utraty postępu."
-                  : lang === "ro"
-                  ? "Diagnoza ta este rezervată încă 30 min. Reia acum — fără să pierzi progresul."
-                  : lang === "ar"
-                  ? "تشخيصك محجوز لمدة 30 دقيقة. أكمل الآن — دون فقدان تقدمك."
-                  : "Your diagnosis is still reserved for 30 min. Resume now — no progress lost."}
+                    ? "Twoja diagnoza jest zarezerwowana jeszcze przez 30 min. Dokończ teraz — bez utraty postępu."
+                    : lang === "ro"
+                      ? "Diagnoza ta este rezervată încă 30 min. Reia acum — fără să pierzi progresul."
+                      : lang === "ar"
+                        ? "تشخيصك محجوز لمدة 30 دقيقة. أكمل الآن — دون فقدان تقدمك."
+                        : "Your diagnosis is still reserved for 30 min. Resume now — no progress lost."}
               </p>
             </div>
             <button
@@ -443,185 +454,180 @@ function LandingAndQuiz() {
       <main
         className={`w-full px-0 sm:px-4 pb-24 ${isQuizCaptureStage ? "pt-5 md:pt-12" : "pt-16 md:pt-12"} relative z-10 flex-1`}
       >
-        
-          {stage.kind === "hero" && (
-            <div
-              key="hero"
-            >
-              <div className="relative z-10 min-h-screen">
-                <Hero onStart={() => setStage({ kind: "identity" })} />
-              </div>
-              <div className="relative z-10 bg-transparent shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
-                <ProofBar />
-                <BeliefBreak />
-                <ArchetypeShowcase />
-                <Testimonials />
-                <FAQ
-                  onCta={() => {
-                    track(EVENTS.QUIZ_START, { source: "faq" });
-                    setStage({ kind: "identity" });
-                  }}
-                />
-                <FinalCTA
-                  onCta={() => {
-                    track(EVENTS.QUIZ_START, { source: "final_cta" });
-                    setStage({ kind: "identity" });
-                  }}
-                />
-              </div>
+        {stage.kind === "hero" && (
+          <div key="hero">
+            <div className="relative z-10 min-h-screen">
+              <Hero onStart={() => setStage({ kind: "identity" })} />
             </div>
-          )}
-
-          {stage.kind === "identity" && (
-            <div className="relative z-10">
-              <QuizScreenWrapper
-                stepKey="identity"
-                progress={0}
-                onBack={undefined}
-                progressTitle={t.quizProgress.identity}
-              >
-                <Identity
-                  name={name}
-                  setName={setName}
-                  gender={gender}
-                  setGender={setGender}
-                  onContinue={() => setStage({ kind: "q", index: 0 })}
-                />
-              </QuizScreenWrapper>
-            </div>
-          )}
-
-          {stage.kind === "q" && (
-            <div className="relative z-10">
-              <QuizScreenWrapper
-                stepKey={`q-${stage.index}`}
-                progress={((stage.index + 1) / 8) * 85}
-                onBack={() =>
-                  {
-                    track(EVENTS.QUIZ_BACK, { from_step: stage.index + 1 });
-                    if (stage.index === 0) setStage({ kind: "identity" });
-                    else setStage({ kind: "q", index: stage.index - 1 });
-                  }
-                }
-                progressTitle={t.questions.title(stage.index + 1, 8)}
-              >
-                <QuestionScreen
-                  index={stage.index}
-                  total={8}
-                  name={name}
-                  selected={answers[stage.index]}
-                  onSelect={answerQuestion}
-                />
-              </QuizScreenWrapper>
-            </div>
-          )}
-
-          {stage.kind === "email" && (
-            <div className="relative z-10">
-              <QuizScreenWrapper
-                stepKey="email"
-                progress={90}
-                onBack={() => {
-                  track(EVENTS.QUIZ_BACK, { from_step: "email" });
-                  setStage({ kind: "q", index: 7 });
+            <div className="relative z-10 bg-transparent shadow-[0_-50px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+              <ProofBar />
+              <BeliefBreak />
+              <ArchetypeShowcase />
+              <Testimonials />
+              <FAQ
+                onCta={() => {
+                  track(EVENTS.QUIZ_START, { source: "faq" });
+                  setStage({ kind: "identity" });
                 }}
-                progressTitle={t.quizProgress.email}
-              >
-                <EmailCapture
-                  name={name}
-                  archetype={archCode}
-                  email={email}
-                  setEmail={setEmail}
-                  gdpr={gdpr}
-                  setGdpr={setGdpr}
-                  onSubmit={() => {
-                    track(EVENTS.EMAIL_SUBMITTED);
-                    setStage({ kind: "loader" });
-                  }}
-                />
-              </QuizScreenWrapper>
-            </div>
-          )}
-
-          {stage.kind === "loader" && (
-            <div className="relative z-10">
-              <NeuralLoader
-                key="loader"
-                /* Advance is gated by the useEffect above (persistLead +
-                 * minDelay + brain frames preload). onComplete is a no-op
-                 * to avoid racing past the frame-readiness gate. */
-                onComplete={() => {}}
-                durationMs={3000}
-                userName={name}
+              />
+              <FinalCTA
+                onCta={() => {
+                  track(EVENTS.QUIZ_START, { source: "final_cta" });
+                  setStage({ kind: "identity" });
+                }}
               />
             </div>
-          )}
+          </div>
+        )}
 
-          {stage.kind === "reveal" && archCode && (
-            <div className="relative z-10">
-              <Reveal
+        {stage.kind === "identity" && (
+          <div className="relative z-10">
+            <QuizScreenWrapper
+              stepKey="identity"
+              progress={0}
+              onBack={undefined}
+              progressTitle={t.quizProgress.identity}
+            >
+              <Identity
                 name={name}
-                arch={archCode}
-                answers={answers}
-                timeLeft={timerLeft}
-                onContinue={() => setStage({ kind: "vsl" })}
-                leadError={leadError}
-                onRetry={() => {
-                  setLeadError(null);
+                setName={setName}
+                gender={gender}
+                setGender={setGender}
+                onContinue={() => setStage({ kind: "q", index: 0 })}
+              />
+            </QuizScreenWrapper>
+          </div>
+        )}
+
+        {stage.kind === "q" && (
+          <div className="relative z-10">
+            <QuizScreenWrapper
+              stepKey={`q-${stage.index}`}
+              progress={((stage.index + 1) / 8) * 85}
+              onBack={() => {
+                track(EVENTS.QUIZ_BACK, { from_step: stage.index + 1 });
+                if (stage.index === 0) setStage({ kind: "identity" });
+                else setStage({ kind: "q", index: stage.index - 1 });
+              }}
+              progressTitle={t.questions.title(stage.index + 1, 8)}
+            >
+              <QuestionScreen
+                index={stage.index}
+                total={8}
+                name={name}
+                selected={answers[stage.index]}
+                onSelect={answerQuestion}
+              />
+            </QuizScreenWrapper>
+          </div>
+        )}
+
+        {stage.kind === "email" && (
+          <div className="relative z-10">
+            <QuizScreenWrapper
+              stepKey="email"
+              progress={90}
+              onBack={() => {
+                track(EVENTS.QUIZ_BACK, { from_step: "email" });
+                setStage({ kind: "q", index: 7 });
+              }}
+              progressTitle={t.quizProgress.email}
+            >
+              <EmailCapture
+                name={name}
+                archetype={archCode}
+                email={email}
+                setEmail={setEmail}
+                gdpr={gdpr}
+                setGdpr={setGdpr}
+                onSubmit={() => {
+                  track(EVENTS.EMAIL_SUBMITTED);
                   setStage({ kind: "loader" });
                 }}
-                shareToken={shareToken}
               />
-            </div>
-          )}
+            </QuizScreenWrapper>
+          </div>
+        )}
 
-          {stage.kind === "vsl" && archCode && (
-            <div key="vsl">
-              <Suspense fallback={<div className="py-24 text-center text-foreground/60">…</div>}>
-                <SalesPageV2
-                  archetype={archCode}
-                  displayName={name}
-                  areaScores={computeAreaScores(answers).areas}
-                  leadId={leadId}
-                  onContinue={({ bumps }) => {
-                    setSelectedBumps(bumps);
-                    setStage({ kind: "checkout" });
-                  }}
-                  onBack={() => setStage({ kind: "reveal" })}
-                />
-              </Suspense>
-            </div>
-          )}
+        {stage.kind === "loader" && (
+          <div className="relative z-10">
+            <NeuralLoader
+              key="loader"
+              /* Advance is gated by the useEffect above (persistLead +
+               * minDelay + brain frames preload). onComplete is a no-op
+               * to avoid racing past the frame-readiness gate. */
+              onComplete={() => {}}
+              durationMs={3000}
+              userName={name}
+            />
+          </div>
+        )}
 
-          {stage.kind === "checkout" && (
-            <div key="checkout">
-              <Suspense fallback={<div className="py-24 text-center text-foreground/60">…</div>}>
-                <CheckoutStub email={email} name={name} leadId={leadId} initialBumps={selectedBumps} />
-              </Suspense>
-            </div>
-          )}
+        {stage.kind === "reveal" && archCode && (
+          <div className="relative z-10">
+            <Reveal
+              name={name}
+              arch={archCode}
+              answers={answers}
+              timeLeft={timerLeft}
+              onContinue={() => setStage({ kind: "vsl" })}
+              leadError={leadError}
+              onRetry={() => {
+                setLeadError(null);
+                setStage({ kind: "loader" });
+              }}
+              shareToken={shareToken}
+            />
+          </div>
+        )}
 
-          {stage.kind === "sales" && archCode && (
-            <div
-              key="sales"
-            >
-              <Sales
+        {stage.kind === "vsl" && archCode && (
+          <div key="vsl">
+            <Suspense fallback={<div className="py-24 text-center text-foreground/60">…</div>}>
+              <SalesPageV2
+                archetype={archCode}
+                displayName={name}
+                areaScores={computeAreaScores(answers).areas}
+                leadId={leadId}
+                onContinue={({ bumps }) => {
+                  setSelectedBumps(bumps);
+                  setStage({ kind: "checkout" });
+                }}
+                onBack={() => setStage({ kind: "reveal" })}
+              />
+            </Suspense>
+          </div>
+        )}
+
+        {stage.kind === "checkout" && (
+          <div key="checkout">
+            <Suspense fallback={<div className="py-24 text-center text-foreground/60">…</div>}>
+              <CheckoutStub
+                email={email}
                 name={name}
-                arch={archCode}
-                timeLeft={timerLeft}
-                onContinue={() => setStage({ kind: "plans" })}
+                leadId={leadId}
+                initialBumps={selectedBumps}
               />
-            </div>
-          )}
+            </Suspense>
+          </div>
+        )}
 
-          {stage.kind === "plans" && (
-            <div
-              key="plans"
-            >
-              <Plans email={email} displayName={name} leadId={leadId} timeLeft={timerLeft} />
-            </div>
-          )}
-        
+        {stage.kind === "sales" && archCode && (
+          <div key="sales">
+            <Sales
+              name={name}
+              arch={archCode}
+              timeLeft={timerLeft}
+              onContinue={() => setStage({ kind: "plans" })}
+            />
+          </div>
+        )}
+
+        {stage.kind === "plans" && (
+          <div key="plans">
+            <Plans email={email} displayName={name} leadId={leadId} timeLeft={timerLeft} />
+          </div>
+        )}
       </main>
 
       {stage.kind === "sales" && <StickyCTA onClick={() => setStage({ kind: "plans" })} />}
@@ -647,9 +653,7 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
   return (
     <>
       {visible && (
-        <div
-          className="anim-slide-up fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black p-4 pb-8 md:pb-4 md:backdrop-blur-xl"
-        >
+        <div className="anim-slide-up fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-black p-4 pb-8 md:pb-4 md:backdrop-blur-xl">
           <button
             onClick={onClick}
             className="w-full rounded-2xl bg-primary py-4 text-base md:text-lg font-black uppercase italic tracking-widest text-primary-foreground shadow-[0_10px_30px_rgba(204,0,0,0.4)] active:scale-[0.98] transition-transform"
@@ -661,7 +665,6 @@ function StickyCTA({ onClick }: { onClick: () => void }) {
     </>
   );
 }
-
 
 /* --- Hero ------------------------------------------------------------------------------------------- */
 
@@ -688,7 +691,15 @@ function Hero({ onStart }: { onStart: () => void }) {
     return () => mq.removeEventListener("change", handler);
   }, []);
   return (
-    <section className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center items-center text-center overflow-x-hidden px-4 md:px-6" style={{ marginLeft: "-12px", marginRight: "-12px", marginTop: "-50px", marginBottom: "-50px" }}>
+    <section
+      className="relative pt-20 pb-16 md:pt-[15vh] md:pb-[10vh] min-h-[90vh] flex flex-col justify-center items-center text-center overflow-x-hidden px-4 md:px-6"
+      style={{
+        marginLeft: "-12px",
+        marginRight: "-12px",
+        marginTop: "-50px",
+        marginBottom: "-50px",
+      }}
+    >
       {/* Dynamic Aura Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_50%_0%,_var(--arch-glow),transparent_60%)] opacity-30 blur-[8px] lg:blur-[120px]" />
@@ -697,39 +708,28 @@ function Hero({ onStart }: { onStart: () => void }) {
       </div>
 
       {/* Floating Archetype Badges */}
-      <MFade
-        delay={0}
-        className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4"
-      >
+      <MFade delay={0} className="mb-8 md:mb-12 flex flex-wrap justify-center gap-3 md:gap-4 px-4">
         <TypingArchetypeBadge t={t} />
       </MFade>
 
       {isLg && (
         <>
-          <div
-            className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-semibold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none"
-          >
+          <div className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-950/20 px-4 py-2 text-xs font-semibold text-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] backdrop-blur-md absolute right-[8%] top-[30%] pointer-events-none select-none">
             <Star className="h-3.5 w-3.5" />
             {t.archetypes?.SS?.name || "O Pav├úo"}
           </div>
 
-          <div
-            className="flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-semibold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none"
-          >
+          <div className="flex items-center gap-2 rounded-full border border-slate-500/20 bg-slate-950/20 px-4 py-2 text-xs font-semibold text-slate-400 shadow-[0_0_15px_rgba(148,163,184,0.15)] backdrop-blur-md absolute left-[12%] bottom-[20%] pointer-events-none select-none">
             <CompassIcon className="h-3.5 w-3.5" />
             {t.archetypes?.EA?.name || "O Fantasma"}
           </div>
 
-          <div
-            className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-semibold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none whitespace-pre-line"
-          >
+          <div className="flex items-center gap-2 rounded-full border border-red-500/20 bg-red-950/20 px-4 py-2 text-xs font-semibold text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.15)] backdrop-blur-md absolute right-[10%] bottom-[18%] pointer-events-none select-none whitespace-pre-line">
             <LineChart className="h-3.5 w-3.5" />
             {t.archetypes?.HI?.name || "O Foguinho"}
           </div>
         </>
       )}
-
-
 
       <MFade
         delay={0}
@@ -748,12 +748,21 @@ function Hero({ onStart }: { onStart: () => void }) {
         // Bible V2 highlight tokens — the "sabotar" verb in each language.
         // Old tokens kept as fallback for backward compat if copy diverges mid-deploy.
         const keywords = [
-          "SABOTAR", "SABOTANDO", "SABOTAGING", "SABOTUJE", "SABOTEAZĂ", "يُخرّب",
-          "CONHECER", "know", "poznać", "cunoști", "تعرف",
+          "SABOTAR",
+          "SABOTANDO",
+          "SABOTAGING",
+          "SABOTUJE",
+          "SABOTEAZĂ",
+          "يُخرّب",
+          "CONHECER",
+          "know",
+          "poznać",
+          "cunoști",
+          "تعرف",
         ];
         let keyword = "";
         let idx = -1;
-        
+
         for (const kw of keywords) {
           const foundIdx = headline.indexOf(kw);
           if (foundIdx !== -1) {
@@ -767,12 +776,15 @@ function Hero({ onStart }: { onStart: () => void }) {
         const before = hasKeyword ? headline.slice(0, idx) : headline;
         const after = hasKeyword ? headline.slice(idx + keyword.length) : "";
 
-        const headlineClass = "relative mx-auto w-full max-w-5xl font-display md:!text-[45px] font-extrabold leading-[1.15] tracking-[0em] uppercase italic px-4 md:px-8 text-center text-balance break-words";
+        const headlineClass =
+          "relative mx-auto w-full max-w-5xl font-display md:!text-[45px] font-extrabold leading-[1.15] tracking-[0em] uppercase italic px-4 md:px-8 text-center text-balance break-words";
         const headlineStyle = { fontSize: "clamp(1.75rem, 6.5vw, 2.75rem)" };
 
         const highlightSpan = hasKeyword ? (
           <span className="relative inline-block mx-1 md:mx-4 z-10">
-            <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">{keyword}</span>
+            <span className="relative z-10 text-arch-primary drop-shadow-[0_0_20px_var(--arch-glow)] md:drop-shadow-[0_0_35px_var(--arch-glow)]">
+              {keyword}
+            </span>
             <span className="anim-underline absolute bottom-[10%] left-0 h-[12%] w-full bg-arch-primary/40 -z-10 origin-left blur-[3px]" />
           </span>
         ) : null;
@@ -792,29 +804,20 @@ function Hero({ onStart }: { onStart: () => void }) {
         );
 
         return (
-          <h1
-            className={`anim-fade-in-up delay-300 ${headlineClass}`}
-            style={headlineStyle}
-          >
+          <h1 className={`anim-fade-in-up delay-300 ${headlineClass}`} style={headlineStyle}>
             {content}
           </h1>
         );
       })()}
 
-      <MFade
-        delay={0.4}
-        className="relative mx-auto mt-16 max-w-2xl px-6"
-      >
+      <MFade delay={0.4} className="relative mx-auto mt-16 max-w-2xl px-6">
         <div className="absolute inset-0 bg-black/60 blur-[8px] md:blur-[40px] -z-10 scale-150" />
         <p className="relative z-10 text-lg text-white/85 md:text-2xl leading-relaxed font-medium tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,1)]">
           {t.hero.sub}
         </p>
       </MFade>
 
-      <MFade
-        delay={0.6}
-        className="mt-12 md:mt-24 flex flex-col items-center gap-12"
-      >
+      <MFade delay={0.6} className="mt-12 md:mt-24 flex flex-col items-center gap-12">
         <Magnetic>
           <button
             onClick={handleStart}
@@ -848,10 +851,7 @@ function Hero({ onStart }: { onStart: () => void }) {
 
       {/* Removed: duplicate archetype grid (now lives only in ArchetypeShowcase below). */}
 
-      <MFade
-        delay={2}
-        className="mt-32 opacity-20"
-      >
+      <MFade delay={2} className="mt-32 opacity-20">
         <ChevronDown className="mx-auto h-6 w-6 animate-bounce text-arch-primary" />
       </MFade>
     </section>
@@ -872,9 +872,7 @@ function Identity(props: {
   return (
     <div className="w-full">
       <div className="space-y-4 mt-[25px] mb-[20px] md:mt-0 md:mb-0 text-center md:text-left">
-        <h2
-          className="font-sans font-extrabold text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.25)] text-[25px] md:text-[35px] leading-[1.1] tracking-tight whitespace-nowrap"
-        >
+        <h2 className="font-sans font-extrabold text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.25)] text-[25px] md:text-[35px] leading-[1.1] tracking-tight whitespace-nowrap">
           {t.identity.title}
         </h2>
         <p className="max-w-xl mx-auto md:mx-0 font-sans text-base md:text-lg text-foreground/70 leading-relaxed">
@@ -953,9 +951,7 @@ function QuestionScreen(props: {
   return (
     <div className="w-full">
       <div className="mb-12 md:mb-10 space-y-4">
-        <h2 className="quiz-question-title font-sans">
-          {q.q.replace("[NOME]", props.name)}
-        </h2>
+        <h2 className="quiz-question-title font-sans">{q.q.replace("[NOME]", props.name)}</h2>
         <p className="text-base md:text-lg text-foreground/70 leading-relaxed">
           {t.questions.intro(props.name)}
         </p>
@@ -1142,414 +1138,424 @@ function Reveal({
   return (
     <section className="pt-0 pb-16 md:pb-32 overflow-hidden relative bg-transparent -mt-20 md:-mt-24">
       <ArchetypeRevealStage arch={arch as "AO" | "SS" | "EA" | "HI"}>
-      {/* HERO limpo: cérebro animado + título + tagline + CTA. Sem sobreposições. */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4">
-        {/* Cérebro pousado sobre o pedestal holográfico */}
-        <div className="relative w-[300px] h-[300px] md:w-[520px] md:h-[520px]">
-          {/* Aura radiante atrás do cérebro — cor do arquétipo (intensificada) */}
-          <div
-            aria-hidden
-            className="absolute left-1/2 top-[46%] w-[148%] h-[148%] rounded-full pointer-events-none"
-            style={{
-              background:
-                  "radial-gradient(circle at center, color-mix(in oklab, var(--arch-primary) 24%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 18%, transparent) 36%, color-mix(in oklab, var(--arch-primary) 10%, transparent) 56%, transparent 74%)",
-              filter: "blur(28px)",
-              mixBlendMode: "screen",
-              animation: "arch-aura-pulse 5s ease-in-out infinite",
-              opacity: 0.72,
-              zIndex: 0,
-            }}
-          />
-
-          {/* Pedestal: descido para que o cérebro pareça pousar sobre o aro,
-              não atravessá-lo. */}
-          <div className="absolute inset-x-0 z-10 mx-auto w-[118%] -left-[9%] -bottom-[14%] md:-bottom-[18%] pointer-events-none">
-            <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
-          </div>
-          <div
-            className="absolute inset-0 z-20 -translate-y-[6%] md:-translate-y-[8%]"
-            style={{ isolation: "isolate" }}
-          >
-            {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
+        {/* HERO limpo: cérebro animado + título + tagline + CTA. Sem sobreposições. */}
+        <div className="relative z-10 flex flex-col items-center text-center px-4">
+          {/* Cérebro pousado sobre o pedestal holográfico */}
+          <div className="relative w-[300px] h-[300px] md:w-[520px] md:h-[520px]">
+            {/* Aura radiante atrás do cérebro — cor do arquétipo (intensificada) */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 z-0 h-[58%] w-[92%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            >
-              <div
-                className="h-full w-full rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 34%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 42%, color-mix(in oklab, var(--arch-primary) 10%, transparent) 62%, transparent 82%)",
-                  filter: "blur(22px)",
-                  mixBlendMode: "screen",
-                  animation: "arch-breathe 5s ease-in-out infinite",
-                  opacity: 0.9,
-                }}
-              />
-            </div>
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 z-0 h-[76%] w-[118%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            >
-              <div
-                className="h-full w-full rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 20%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 12%, transparent) 48%, transparent 76%)",
-                  filter: "blur(46px)",
-                  mixBlendMode: "screen",
-                  animation: "arch-breathe 6.5s ease-in-out infinite",
-                  opacity: 0.8,
-                }}
-              />
-            </div>
-            <ArchetypeCanvasBrain
-              archetype={arch as "AO" | "SS" | "EA" | "HI"}
-              className="relative z-10"
-            />
-            <BrainOrbit />
-          </div>
-
-          {/* Aro frontal de vidro — passa NA FRENTE da base do cérebro para
-              criar a ilusão de "cérebro dentro do cilindro". Espelha o estilo
-              da parede frontal do <ArchetypePedestal/> sem duplicar lógica. */}
-          <div
-            aria-hidden
-            className="absolute left-1/2 z-30 -translate-x-1/2 w-[94%] md:w-[88%] pointer-events-none"
-            style={{ bottom: "-6%" }}
-          >
-            <div
-              className="relative w-full rounded-[50%] border-t-[3px] border-l border-r border-arch-primary/55 bg-gradient-to-b from-arch-primary/25 via-arch-primary/8 to-transparent backdrop-blur-[2px] shadow-[0_-22px_55px_var(--arch-glow),inset_0_18px_40px_color-mix(in_oklab,var(--arch-primary)_28%,transparent)]"
-              style={{ height: "150px" }}
-            >
-              {/* Highlight especular no topo do vidro */}
-              <div
-                className="absolute inset-x-[10%] top-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-white/70 to-transparent"
-                style={{ filter: "blur(0.5px)" }}
-              />
-              {/* Reflexo lateral suave */}
-              <div
-                className="absolute left-[6%] top-[8%] bottom-[20%] w-[8%] rounded-full bg-gradient-to-b from-white/30 to-transparent"
-                style={{ filter: "blur(3px)" }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="relative z-30 -mt-10 md:-mt-16 text-[10px] md:text-xs font-bold uppercase tracking-[0.45em] text-foreground/60">
-          {t.reveal.kicker(name)}
-        </div>
-
-        <h1
-          className="relative z-30 mt-6 font-display font-black leading-[1.05] md:leading-[1.02] pt-2 pb-1 tracking-tight uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch justify-center px-4 md:px-8 w-full"
-          style={{ fontSize: "clamp(2rem, 7vw, 6.5rem)" }}
-        >
-          <span
-            className="bg-clip-text text-transparent whitespace-pre-line"
-            style={{
-              backgroundImage:
-                "linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 70%)",
-              paddingInline: "0.18em",
-              WebkitBoxDecorationBreak: "clone",
-              boxDecorationBreak: "clone",
-            }}
-          >
-            {text}
-          </span>
-        </h1>
-
-        {/* Bloco "Anatomia do Padrão" — agrupa tagline + cascata emocional */}
-        <div
-          className="relative mt-8 sm:mt-10 w-full max-w-2xl overflow-hidden rounded-3xl sm:rounded-[2rem] border bg-black/55 p-5 sm:p-7 md:p-9 text-start backdrop-blur-2xl"
-          style={{
-            borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
-            boxShadow:
-              "0 40px 100px -40px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 22%, transparent)",
-          }}
-        >
-          {/* Glow ambiente do arquétipo */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -inset-px rounded-3xl sm:rounded-[2rem] opacity-60"
-            style={{
-              background:
-                "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 0%, transparent 55%)",
-            }}
-          />
-
-          {/* Eyebrow */}
-          <div className="relative flex items-center gap-2 sm:gap-3">
-            <span
-              className="h-px flex-1"
-              style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
-            />
-            <span
-              className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.3em] sm:tracking-[0.35em] whitespace-nowrap"
-              style={{ color: "var(--arch-primary)" }}
-            >
-              {t.reveal.anatomy.eyebrow}
-            </span>
-            <span
-              className="h-px flex-1"
-              style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
-            />
-          </div>
-
-          {/* Tagline como citação central */}
-          <p
-            className="relative mt-5 sm:mt-6 font-display text-lg sm:text-xl md:text-2xl font-extrabold leading-snug text-white"
-          >
-            <span
-              aria-hidden
-              className="me-2 align-top text-2xl sm:text-3xl md:text-4xl leading-none"
-              style={{ color: "var(--arch-primary)" }}
-            >
-              “
-            </span>
-            {a.tagline}
-          </p>
-
-          {/* Timeline 3 passos — Programação → Custo Oculto → Domínio */}
-          <ol className="relative mt-7 sm:mt-8 space-y-4 sm:space-y-5">
-            {/* linha vertical conectora */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute start-[19px] top-2 bottom-2 w-px"
+              className="absolute left-1/2 top-[46%] w-[148%] h-[148%] rounded-full pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to bottom, color-mix(in oklab, var(--arch-primary) 60%, transparent), color-mix(in oklab, var(--arch-primary) 10%, transparent))",
+                  "radial-gradient(circle at center, color-mix(in oklab, var(--arch-primary) 24%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 18%, transparent) 36%, color-mix(in oklab, var(--arch-primary) 10%, transparent) 56%, transparent 74%)",
+                filter: "blur(28px)",
+                mixBlendMode: "screen",
+                animation: "arch-aura-pulse 5s ease-in-out infinite",
+                opacity: 0.72,
+                zIndex: 0,
               }}
             />
-            {[
-              { icon: Brain,  label: t.reveal.anatomy.programming, text: cascade.crescimento,  tone: "neutral" as const },
-              { icon: Flame,  label: t.reveal.anatomy.hiddenCost,  text: cascade.custo_oculto, tone: "warn" as const },
-              { icon: Crown,  label: t.reveal.anatomy.mastery,     text: cascade.expansao,     tone: "arch" as const },
-            ].map(({ icon: Icon, label, text, tone }, i) => (
-              <li key={i} className="relative flex items-start gap-3 sm:gap-4">
+
+            {/* Pedestal: descido para que o cérebro pareça pousar sobre o aro,
+              não atravessá-lo. */}
+            <div className="absolute inset-x-0 z-10 mx-auto w-[118%] -left-[9%] -bottom-[14%] md:-bottom-[18%] pointer-events-none">
+              <ArchetypePedestal arch={arch as "AO" | "SS" | "EA" | "HI"} />
+            </div>
+            <div
+              className="absolute inset-0 z-20 -translate-y-[6%] md:-translate-y-[8%]"
+              style={{ isolation: "isolate" }}
+            >
+              {/* Aura presa à camada do cérebro: atrás do canvas, à frente da base/holograma. */}
+              <div
+                aria-hidden
+                className="absolute left-1/2 top-1/2 z-0 h-[58%] w-[92%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+              >
                 <div
-                  className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border"
+                  className="h-full w-full rounded-full"
                   style={{
                     background:
-                      tone === "warn"
-                        ? "color-mix(in oklab, #FF3B3B 18%, black)"
-                        : "color-mix(in oklab, var(--arch-primary) 18%, black)",
-                    borderColor:
-                      tone === "warn"
-                        ? "color-mix(in oklab, #FF3B3B 55%, transparent)"
-                        : "color-mix(in oklab, var(--arch-primary) 55%, transparent)",
-                    boxShadow:
-                      tone === "arch"
-                        ? "0 0 24px color-mix(in oklab, var(--arch-primary) 55%, transparent)"
-                        : "none",
+                      "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 34%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 24%, transparent) 42%, color-mix(in oklab, var(--arch-primary) 10%, transparent) 62%, transparent 82%)",
+                    filter: "blur(22px)",
+                    mixBlendMode: "screen",
+                    animation: "arch-breathe 5s ease-in-out infinite",
+                    opacity: 0.9,
                   }}
-                >
-                  <Icon
-                    className="h-5 w-5"
-                    style={{
-                      color: tone === "warn" ? "#FF6B6B" : "var(--arch-primary)",
-                    }}
-                  />
-                </div>
-                <div className="flex-1 pt-1">
-                  <p
-                    className="text-[10px] font-extrabold uppercase tracking-[0.3em]"
-                    style={{
-                      color:
-                        tone === "warn"
-                          ? "#FF6B6B"
-                          : tone === "arch"
-                          ? "var(--arch-primary)"
-                          : "rgba(255,255,255,0.55)",
-                    }}
-                  >
-                    {label}
-                  </p>
-                  <p
-                    className={`mt-1.5 text-[15px] md:text-base leading-relaxed ${
-                      tone === "warn"
-                        ? "text-white/95 font-medium"
-                        : tone === "arch"
-                        ? "text-white font-semibold"
-                        : "text-white/75"
-                    }`}
-                  >
-                    {text}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-
-      </div>
-
-      {leadError && (
-        <div
-          className="relative z-10 mx-auto mt-12 max-w-2xl rounded-2xl border border-primary/40 bg-primary/5 p-6 md:backdrop-blur-md"
-        >
-          <div className="flex gap-4">
-            <div className="h-10 w-10 shrink-0 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-              !
-            </div>
-            <div>
-              <p className="font-black uppercase tracking-wider text-primary">
-                {t.reveal.errorTitle}
-              </p>
-              <p className="mt-1 text-muted-foreground leading-relaxed">
-                {leadError}. {t.reveal.errorBody}
-              </p>
-              <button
-                onClick={onRetry}
-                className="mt-4 flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-xs font-bold text-primary transition hover:bg-primary/20"
+                />
+              </div>
+              <div
+                aria-hidden
+                className="absolute left-1/2 top-1/2 z-0 h-[76%] w-[118%] -translate-x-1/2 -translate-y-1/2 pointer-events-none"
               >
-                <ArrowRight className="h-4 w-4 rotate-180" /> {t.reveal.errorRetry}
-              </button>
+                <div
+                  className="h-full w-full rounded-full"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at center, color-mix(in oklab, var(--arch-primary) 20%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 12%, transparent) 48%, transparent 76%)",
+                    filter: "blur(46px)",
+                    mixBlendMode: "screen",
+                    animation: "arch-breathe 6.5s ease-in-out infinite",
+                    opacity: 0.8,
+                  }}
+                />
+              </div>
+              <ArchetypeCanvasBrain
+                archetype={arch as "AO" | "SS" | "EA" | "HI"}
+                className="relative z-10"
+              />
+              <BrainOrbit />
+            </div>
+
+            {/* Aro frontal de vidro — passa NA FRENTE da base do cérebro para
+              criar a ilusão de "cérebro dentro do cilindro". Espelha o estilo
+              da parede frontal do <ArchetypePedestal/> sem duplicar lógica. */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 z-30 -translate-x-1/2 w-[94%] md:w-[88%] pointer-events-none"
+              style={{ bottom: "-6%" }}
+            >
+              <div
+                className="relative w-full rounded-[50%] border-t-[3px] border-l border-r border-arch-primary/55 bg-gradient-to-b from-arch-primary/25 via-arch-primary/8 to-transparent backdrop-blur-[2px] shadow-[0_-22px_55px_var(--arch-glow),inset_0_18px_40px_color-mix(in_oklab,var(--arch-primary)_28%,transparent)]"
+                style={{ height: "150px" }}
+              >
+                {/* Highlight especular no topo do vidro */}
+                <div
+                  className="absolute inset-x-[10%] top-0 h-[2px] rounded-full bg-gradient-to-r from-transparent via-white/70 to-transparent"
+                  style={{ filter: "blur(0.5px)" }}
+                />
+                {/* Reflexo lateral suave */}
+                <div
+                  className="absolute left-[6%] top-[8%] bottom-[20%] w-[8%] rounded-full bg-gradient-to-b from-white/30 to-transparent"
+                  style={{ filter: "blur(3px)" }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      )}
 
-      {/* Diagnóstico multi-área — 4 cards (Money / Career / Love / Personal) */}
-      <div className="relative z-10 mx-auto mt-28 md:mt-40 max-w-5xl px-4">
-        <header className="mb-10 text-center">
-          <span
-            className="mb-3 inline-block whitespace-nowrap rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] badge-pulse"
+          <div className="relative z-30 -mt-10 md:-mt-16 text-[10px] md:text-xs font-bold uppercase tracking-[0.45em] text-foreground/60">
+            {t.reveal.kicker(name)}
+          </div>
+
+          <h1
+            className="relative z-30 mt-6 font-display font-black leading-[1.05] md:leading-[1.02] pt-2 pb-1 tracking-tight uppercase italic text-balance drop-shadow-[0_8px_30px_rgba(0,0,0,0.65)] flex items-stretch justify-center px-4 md:px-8 w-full"
+            style={{ fontSize: "clamp(2rem, 7vw, 6.5rem)" }}
           >
-            {t.reveal.areasTitle}
-          </span>
-          <p className="mx-auto max-w-2xl text-base md:text-lg text-foreground/70 leading-relaxed">
-            {t.reveal.areasIntro(name)}
-          </p>
-        </header>
+            <span
+              className="bg-clip-text text-transparent whitespace-pre-line"
+              style={{
+                backgroundImage: "linear-gradient(135deg, var(--arch-primary) 0%, #FFFFFF 70%)",
+                paddingInline: "0.18em",
+                WebkitBoxDecorationBreak: "clone",
+                boxDecorationBreak: "clone",
+              }}
+            >
+              {text}
+            </span>
+          </h1>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          {AREA_ORDER.map((area: LifeArea, i) => (
-            <div key={area} ref={i === 2 ? stickyTriggerRef : undefined}>
-              <AreaScoreCard
-                area={area}
-                label={t.reveal.areas[area].label}
-                description={t.reveal.areas[area].byArch[arch as "AO" | "SS" | "EA" | "HI"]}
-                score={areaScores[area]}
-                delayMs={i * 120}
+          {/* Bloco "Anatomia do Padrão" — agrupa tagline + cascata emocional */}
+          <div
+            className="relative mt-8 sm:mt-10 w-full max-w-2xl overflow-hidden rounded-3xl sm:rounded-[2rem] border bg-black/55 p-5 sm:p-7 md:p-9 text-start backdrop-blur-2xl"
+            style={{
+              borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
+              boxShadow:
+                "0 40px 100px -40px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 22%, transparent)",
+            }}
+          >
+            {/* Glow ambiente do arquétipo */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -inset-px rounded-3xl sm:rounded-[2rem] opacity-60"
+              style={{
+                background:
+                  "radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 0%, transparent 55%)",
+              }}
+            />
+
+            {/* Eyebrow */}
+            <div className="relative flex items-center gap-2 sm:gap-3">
+              <span
+                className="h-px flex-1"
+                style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
+              />
+              <span
+                className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.3em] sm:tracking-[0.35em] whitespace-nowrap"
+                style={{ color: "var(--arch-primary)" }}
+              >
+                {t.reveal.anatomy.eyebrow}
+              </span>
+              <span
+                className="h-px flex-1"
+                style={{ background: "color-mix(in oklab, var(--arch-primary) 40%, transparent)" }}
               />
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Fold 4 — Comparação ancorada (prova social derivada do arquétipo) */}
-      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
-        <div
-          className="relative overflow-hidden rounded-3xl border border-arch-primary/30 bg-arch-primary/[0.06] p-8 md:p-12 backdrop-blur-sm"
-          style={{ boxShadow: "0 30px 80px -40px var(--arch-glow)" }}
-        >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-20 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full"
-            style={{
-              background: "radial-gradient(circle, var(--arch-glow) 0%, transparent 70%)",
-              opacity: 0.4,
-            }}
-          />
-          <div className="relative flex flex-col items-center text-center">
-            <div className="font-display text-6xl md:text-8xl font-black leading-none text-arch-primary tabular-nums">
-              73<span className="text-3xl md:text-5xl align-top">%</span>
-            </div>
-            <p className="mt-6 max-w-xl text-base md:text-lg text-foreground/80 leading-relaxed">
-              {t.reveal.anchor(a.name)}
+            {/* Tagline como citação central */}
+            <p className="relative mt-5 sm:mt-6 font-display text-lg sm:text-xl md:text-2xl font-extrabold leading-snug text-white">
+              <span
+                aria-hidden
+                className="me-2 align-top text-2xl sm:text-3xl md:text-4xl leading-none"
+                style={{ color: "var(--arch-primary)" }}
+              >
+                “
+              </span>
+              {a.tagline}
             </p>
+
+            {/* Timeline 3 passos — Programação → Custo Oculto → Domínio */}
+            <ol className="relative mt-7 sm:mt-8 space-y-4 sm:space-y-5">
+              {/* linha vertical conectora */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute start-[19px] top-2 bottom-2 w-px"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, color-mix(in oklab, var(--arch-primary) 60%, transparent), color-mix(in oklab, var(--arch-primary) 10%, transparent))",
+                }}
+              />
+              {[
+                {
+                  icon: Brain,
+                  label: t.reveal.anatomy.programming,
+                  text: cascade.crescimento,
+                  tone: "neutral" as const,
+                },
+                {
+                  icon: Flame,
+                  label: t.reveal.anatomy.hiddenCost,
+                  text: cascade.custo_oculto,
+                  tone: "warn" as const,
+                },
+                {
+                  icon: Crown,
+                  label: t.reveal.anatomy.mastery,
+                  text: cascade.expansao,
+                  tone: "arch" as const,
+                },
+              ].map(({ icon: Icon, label, text, tone }, i) => (
+                <li key={i} className="relative flex items-start gap-3 sm:gap-4">
+                  <div
+                    className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border"
+                    style={{
+                      background:
+                        tone === "warn"
+                          ? "color-mix(in oklab, #FF3B3B 18%, black)"
+                          : "color-mix(in oklab, var(--arch-primary) 18%, black)",
+                      borderColor:
+                        tone === "warn"
+                          ? "color-mix(in oklab, #FF3B3B 55%, transparent)"
+                          : "color-mix(in oklab, var(--arch-primary) 55%, transparent)",
+                      boxShadow:
+                        tone === "arch"
+                          ? "0 0 24px color-mix(in oklab, var(--arch-primary) 55%, transparent)"
+                          : "none",
+                    }}
+                  >
+                    <Icon
+                      className="h-5 w-5"
+                      style={{
+                        color: tone === "warn" ? "#FF6B6B" : "var(--arch-primary)",
+                      }}
+                    />
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <p
+                      className="text-[10px] font-extrabold uppercase tracking-[0.3em]"
+                      style={{
+                        color:
+                          tone === "warn"
+                            ? "#FF6B6B"
+                            : tone === "arch"
+                              ? "var(--arch-primary)"
+                              : "rgba(255,255,255,0.55)",
+                      }}
+                    >
+                      {label}
+                    </p>
+                    <p
+                      className={`mt-1.5 text-[15px] md:text-base leading-relaxed ${
+                        tone === "warn"
+                          ? "text-white/95 font-medium"
+                          : tone === "arch"
+                            ? "text-white font-semibold"
+                            : "text-white/75"
+                      }`}
+                    >
+                      {text}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
-      </div>
 
-      {/* Detalhes (hooks) abaixo do hero — "Isto não é sorte..." + cascata */}
-      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
-        <p
-          className="mb-10 text-center font-display font-extrabold uppercase not-italic tracking-tight whitespace-pre-line"
-          style={{ fontSize: "30.75px", lineHeight: 1.15 }}
-        >
-          {t.reveal.sub}
-        </p>
-        <div className="grid gap-4 reveal-group">
-          {a.hooks.map((h, i) => (
-            <div
-              key={i}
-              className="reveal flex gap-5 rounded-2xl border border-white/5 bg-card/40 p-6 transition-all hover:border-arch-primary/40"
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary font-black border border-arch-primary/30">
-                {i + 1}
+        {leadError && (
+          <div className="relative z-10 mx-auto mt-12 max-w-2xl rounded-2xl border border-primary/40 bg-primary/5 p-6 md:backdrop-blur-md">
+            <div className="flex gap-4">
+              <div className="h-10 w-10 shrink-0 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+                !
               </div>
-              <p className="text-base md:text-lg text-foreground/85 leading-relaxed self-center">
-                {h}
-              </p>
+              <div>
+                <p className="font-black uppercase tracking-wider text-primary">
+                  {t.reveal.errorTitle}
+                </p>
+                <p className="mt-1 text-muted-foreground leading-relaxed">
+                  {leadError}. {t.reveal.errorBody}
+                </p>
+                <button
+                  onClick={onRetry}
+                  className="mt-4 flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-xs font-bold text-primary transition hover:bg-primary/20"
+                >
+                  <ArrowRight className="h-4 w-4 rotate-180" /> {t.reveal.errorRetry}
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Fold 5 — CTA final com timer + garantia */}
-      <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4 text-center">
-        {timeLeft > 0 && (
-          <div className="badge-pulse mb-6 inline-flex items-center gap-3 whitespace-nowrap rounded-full border border-arch-primary/40 bg-arch-primary/10 px-5 py-2 text-xs md:text-sm font-bold uppercase tracking-widest text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-arch-primary" />
-            </span>
-            {t.reveal.urgency}
-            <span className="font-mono text-base ms-1 tabular-nums">{fmtTimer(timeLeft)}</span>
           </div>
         )}
-        <h2
-          className="font-display font-extrabold uppercase not-italic tracking-tight text-foreground text-center"
-          style={{ fontSize: "30.75px", lineHeight: 1.15, wordBreak: "keep-all", hyphens: "none" }}
-        >
-          {t.reveal.finalTitle(name)}
-        </h2>
-        <p className="mx-auto mt-6 max-w-xl text-base md:text-lg text-foreground/75 leading-relaxed">
-          {t.reveal.finalSub}
-        </p>
-        <div className="mt-10 flex flex-col items-center">
-          <button
-            onClick={() => handleCta("final")}
-            data-cursor="hover"
-            className="group relative h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full text-white transition-all hover:scale-[1.03] active:scale-95"
-            style={{
-              backgroundColor: "var(--arch-primary)",
-              boxShadow:
-                "0 30px 80px -20px color-mix(in oklab, var(--arch-primary) 70%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)",
-            }}
-          >
-            <div className="absolute inset-0 overflow-hidden rounded-full bg-white opacity-0 transition-opacity duration-700 group-hover:opacity-10" />
-            <span className="relative z-10 flex items-center justify-center gap-3 px-5 sm:px-8 text-[clamp(1rem,4.2vw,1.75rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
-              {t.reveal.cta.toUpperCase()}
-              <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1" />
-            </span>
-            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
-          </button>
 
-          <button
-            onClick={() => {
-              if (shareToken) {
-                trackShare({ data: { share_token: shareToken, channel: "copy" } });
-                navigator.clipboard.writeText(`${window.location.origin}/share/${shareToken}`);
-              }
-            }}
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground/60 transition-all hover:border-foreground/30 hover:text-foreground/80"
-          >
-            <Share2 className="h-4 w-4" />
-            {t.reveal.share}
-          </button>
+        {/* Diagnóstico multi-área — 4 cards (Money / Career / Love / Personal) */}
+        <div className="relative z-10 mx-auto mt-28 md:mt-40 max-w-5xl px-4">
+          <header className="mb-10 text-center">
+            <span className="mb-3 inline-block whitespace-nowrap rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] badge-pulse">
+              {t.reveal.areasTitle}
+            </span>
+            <p className="mx-auto max-w-2xl text-base md:text-lg text-foreground/70 leading-relaxed">
+              {t.reveal.areasIntro(name)}
+            </p>
+          </header>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            {AREA_ORDER.map((area: LifeArea, i) => (
+              <div key={area} ref={i === 2 ? stickyTriggerRef : undefined}>
+                <AreaScoreCard
+                  area={area}
+                  label={t.reveal.areas[area].label}
+                  description={t.reveal.areas[area].byArch[arch as "AO" | "SS" | "EA" | "HI"]}
+                  score={areaScores[area]}
+                  delayMs={i * 120}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <p className="mt-6 text-xs md:text-sm text-foreground/55">{t.reveal.guarantee}</p>
-      </div>
+
+        {/* Fold 4 — Comparação ancorada (prova social derivada do arquétipo) */}
+        <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
+          <div
+            className="relative overflow-hidden rounded-3xl border border-arch-primary/30 bg-arch-primary/[0.06] p-8 md:p-12 backdrop-blur-sm"
+            style={{ boxShadow: "0 30px 80px -40px var(--arch-glow)" }}
+          >
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-20 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full"
+              style={{
+                background: "radial-gradient(circle, var(--arch-glow) 0%, transparent 70%)",
+                opacity: 0.4,
+              }}
+            />
+            <div className="relative flex flex-col items-center text-center">
+              <div className="font-display text-6xl md:text-8xl font-black leading-none text-arch-primary tabular-nums">
+                73<span className="text-3xl md:text-5xl align-top">%</span>
+              </div>
+              <p className="mt-6 max-w-xl text-base md:text-lg text-foreground/80 leading-relaxed">
+                {t.reveal.anchor(a.name)}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Detalhes (hooks) abaixo do hero — "Isto não é sorte..." + cascata */}
+        <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4">
+          <p
+            className="mb-10 text-center font-display font-extrabold uppercase not-italic tracking-tight whitespace-pre-line"
+            style={{ fontSize: "30.75px", lineHeight: 1.15 }}
+          >
+            {t.reveal.sub}
+          </p>
+          <div className="grid gap-4 reveal-group">
+            {a.hooks.map((h, i) => (
+              <div
+                key={i}
+                className="reveal flex gap-5 rounded-2xl border border-white/5 bg-card/40 p-6 transition-all hover:border-arch-primary/40"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-arch-primary/10 text-arch-primary font-black border border-arch-primary/30">
+                  {i + 1}
+                </div>
+                <p className="text-base md:text-lg text-foreground/85 leading-relaxed self-center">
+                  {h}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Fold 5 — CTA final com timer + garantia */}
+        <div className="relative z-10 mx-auto mt-24 md:mt-32 max-w-3xl px-4 text-center">
+          {timeLeft > 0 && (
+            <div className="badge-pulse mb-6 inline-flex items-center gap-3 whitespace-nowrap rounded-full border border-arch-primary/40 bg-arch-primary/10 px-5 py-2 text-xs md:text-sm font-bold uppercase tracking-widest text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-arch-primary opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-arch-primary" />
+              </span>
+              {t.reveal.urgency}
+              <span className="font-mono text-base ms-1 tabular-nums">{fmtTimer(timeLeft)}</span>
+            </div>
+          )}
+          <h2
+            className="font-display font-extrabold uppercase not-italic tracking-tight text-foreground text-center"
+            style={{
+              fontSize: "30.75px",
+              lineHeight: 1.15,
+              wordBreak: "keep-all",
+              hyphens: "none",
+            }}
+          >
+            {t.reveal.finalTitle(name)}
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-base md:text-lg text-foreground/75 leading-relaxed">
+            {t.reveal.finalSub}
+          </p>
+          <div className="mt-10 flex flex-col items-center">
+            <button
+              onClick={() => handleCta("final")}
+              data-cursor="hover"
+              className="group relative h-20 sm:h-24 md:h-32 w-full max-w-[94vw] sm:max-w-2xl md:max-w-3xl overflow-hidden rounded-full text-white transition-all hover:scale-[1.03] active:scale-95"
+              style={{
+                backgroundColor: "var(--arch-primary)",
+                boxShadow:
+                  "0 30px 80px -20px color-mix(in oklab, var(--arch-primary) 70%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)",
+              }}
+            >
+              <div className="absolute inset-0 overflow-hidden rounded-full bg-white opacity-0 transition-opacity duration-700 group-hover:opacity-10" />
+              <span className="relative z-10 flex items-center justify-center gap-3 px-5 sm:px-8 text-[clamp(1rem,4.2vw,1.75rem)] font-sans font-extrabold tracking-tight whitespace-nowrap group-hover:text-white transition-colors">
+                {t.reveal.cta.toUpperCase()}
+                <ArrowRight className="h-5 w-5 md:h-6 md:w-6 transition-transform group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite]" />
+            </button>
+
+            <button
+              onClick={() => {
+                if (shareToken) {
+                  trackShare({ data: { share_token: shareToken, channel: "copy" } });
+                  navigator.clipboard.writeText(`${window.location.origin}/share/${shareToken}`);
+                }
+              }}
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground/60 transition-all hover:border-foreground/30 hover:text-foreground/80"
+            >
+              <Share2 className="h-4 w-4" />
+              {t.reveal.share}
+            </button>
+          </div>
+          <p className="mt-6 text-xs md:text-sm text-foreground/55">{t.reveal.guarantee}</p>
+        </div>
       </ArchetypeRevealStage>
       {/* Sticky bottom CTA — reveals on scroll once the second row of area cards appears */}
       <div
         aria-hidden={!showStickyCta}
         className={`pointer-events-none fixed inset-x-0 bottom-0 z-40 px-3 pb-3 sm:pb-4 transition-all duration-500 ease-out ${
-          showStickyCta
-            ? "translate-y-0 opacity-100"
-            : "translate-y-full opacity-0"
+          showStickyCta ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
         }`}
       >
         <div
@@ -1619,9 +1625,7 @@ function Sales({
       <div className="space-y-40">
         {/* --- Block 1: H1 + Promise + Video Placeholder ---------------------- */}
         <div className="text-center max-w-5xl mx-auto px-4">
-          <MSection
-            className="mb-8 inline-flex items-center gap-3 rounded-xl bg-arch-primary/10 px-4 py-2 border border-arch-primary/20"
-          >
+          <MSection className="mb-8 inline-flex items-center gap-3 rounded-xl bg-arch-primary/10 px-4 py-2 border border-arch-primary/20">
             <span className="text-sm font-black uppercase tracking-widest text-arch-primary">
               {s.timer} <span className="font-mono text-xl ml-2">{formatTime(timeLeft)}</span>
             </span>
@@ -1643,9 +1647,7 @@ function Sales({
           </p>
 
           {/* Video Placeholder Section */}
-          <MSection
-            className="mt-20 relative aspect-video w-full rounded-[2.5rem] bg-card border border-border shadow-2xl overflow-hidden group cursor-pointer"
-          >
+          <MSection className="mt-20 relative aspect-video w-full rounded-[2.5rem] bg-card border border-border shadow-2xl overflow-hidden group cursor-pointer">
             <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/10 to-transparent" />
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
               <div className="h-24 w-24 rounded-full bg-arch-primary flex items-center justify-center shadow-[0_0_50px_var(--arch-glow)] transition-transform group-hover:scale-110">
@@ -1669,9 +1671,7 @@ function Sales({
         </div>
 
         {/* --- Block 2: Pain Mirror ------------------------------------------- */}
-        <MSection
-          className="rounded-[4rem] border border-white/5 bg-white/[0.02] md:backdrop-blur-2xl p-8 md:p-24 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden max-w-6xl mx-auto"
-        >
+        <MSection className="rounded-[4rem] border border-white/5 bg-white/[0.02] md:backdrop-blur-2xl p-8 md:p-24 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)] relative overflow-hidden max-w-6xl mx-auto">
           <div className="absolute top-0 right-0 p-12 opacity-[0.05] -rotate-12 translate-x-24 -translate-y-24">
             <Brain size={600} className="text-white" />
           </div>
@@ -1732,9 +1732,7 @@ function Sales({
                 {s.science.pivot}
               </p>
               <div className="relative inline-block">
-                <p
-                  className="text-arch-primary font-black text-5xl md:text-9xl tracking-[-0.05em] uppercase italic"
-                >
+                <p className="text-arch-primary font-black text-5xl md:text-9xl tracking-[-0.05em] uppercase italic">
                   {s.science.solution}
                 </p>
                 <div className="absolute -inset-4 bg-arch-primary/10 blur-3xl -z-10" />
@@ -1772,23 +1770,21 @@ function Sales({
         {/* ── Block 8: Final CTA + Guarantee ───────────────────────── */}
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Guarantee Section */}
-          <MSection
-            className="flex flex-col md:flex-row items-center gap-10 p-10 md:p-16 rounded-[3rem] border border-border bg-background shadow-xl"
-          >
+          <MSection className="flex flex-col md:flex-row items-center gap-10 p-10 md:p-16 rounded-[3rem] border border-border bg-background shadow-xl">
             <div className="h-32 w-32 shrink-0 bg-arch-primary/10 rounded-full flex items-center justify-center">
               <ShieldCheck size={64} className="text-arch-primary" />
             </div>
             <div className="text-center md:text-left">
-              <h4 className="font-display text-2xl md:text-3xl font-black italic uppercase mb-4 tracking-tight">{s.guarantee.title}</h4>
+              <h4 className="font-display text-2xl md:text-3xl font-black italic uppercase mb-4 tracking-tight">
+                {s.guarantee.title}
+              </h4>
               <p className="text-base md:text-lg text-foreground/70 leading-relaxed font-medium">
                 {s.guarantee.body}
               </p>
             </div>
           </MSection>
 
-          <MSection
-            className="text-center rounded-[5rem] border border-white/10 bg-white/5 p-12 md:p-32 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl group"
-          >
+          <MSection className="text-center rounded-[5rem] border border-white/10 bg-white/5 p-12 md:p-32 shadow-[0_60px_120px_-20px_rgba(0,0,0,0.6)] relative overflow-hidden md:backdrop-blur-3xl group">
             {/* Animated Background Aura */}
             <div className="absolute inset-0 bg-gradient-to-tr from-arch-primary/20 via-transparent to-arch-primary/5 opacity-30 group-hover:opacity-50 transition-opacity duration-1000" />
             <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-arch-primary/10 blur-[10px] lg:blur-[100px] animate-pulse" />
@@ -1803,12 +1799,12 @@ function Sales({
               </p>
 
               <PrimaryButton
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 size="xl"
                 className="italic h-28 md:h-32 px-12 md:px-20 text-3xl md:text-4xl"
                 icon={<ArrowRight size={40} className="text-arch-primary ml-4" />}
               >
-                 {t.salesCta.discoverArchetype}
+                {t.salesCta.discoverArchetype}
               </PrimaryButton>
 
               <div className="mt-16 flex items-center justify-center gap-8">
@@ -1880,9 +1876,7 @@ function Plans({
     <section className="py-12 md:py-32 max-w-7xl mx-auto px-4">
       <div className="text-center mb-20">
         {timeLeft > 0 && (
-          <div
-            className="mb-8 inline-flex items-center gap-3 rounded-xl bg-arch-primary/10 px-5 py-2.5 border border-arch-primary/20"
-          >
+          <div className="mb-8 inline-flex items-center gap-3 rounded-xl bg-arch-primary/10 px-5 py-2.5 border border-arch-primary/20">
             <span className="text-sm font-black uppercase tracking-widest text-arch-primary">
               {t.sales.timer} <span className="font-mono text-xl ml-2">{formatTime(timeLeft)}</span>
             </span>
@@ -1897,9 +1891,7 @@ function Plans({
       </div>
 
       {err && (
-        <div
-          className="mb-10 p-6 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-center font-bold"
-        >
+        <div className="mb-10 p-6 rounded-2xl bg-destructive/10 border border-destructive/20 text-destructive text-center font-bold">
           {err}
         </div>
       )}
@@ -2001,9 +1993,7 @@ function Plans({
 
       <div className="mt-24 text-center">
         {/* Guarantee Card */}
-        <MSection
-          className="mb-10 inline-flex flex-col items-center gap-4 rounded-3xl border border-arch-primary/20 bg-arch-primary/5 px-10 py-8"
-        >
+        <MSection className="mb-10 inline-flex flex-col items-center gap-4 rounded-3xl border border-arch-primary/20 bg-arch-primary/5 px-10 py-8">
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-arch-primary/10">
             <ShieldCheck className="h-8 w-8 text-arch-primary" />
           </div>

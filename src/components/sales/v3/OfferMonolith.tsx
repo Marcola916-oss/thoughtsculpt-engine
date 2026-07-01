@@ -76,7 +76,10 @@ export function OfferMonolith({
         </div>
       </div>
 
-      <div className="my-6 h-px" style={{ background: "color-mix(in oklab, var(--arch-primary) 20%, transparent)" }} />
+      <div
+        className="my-6 h-px"
+        style={{ background: "color-mix(in oklab, var(--arch-primary) 20%, transparent)" }}
+      />
 
       {/* bumps */}
       <div className="space-y-3">
@@ -103,9 +106,7 @@ export function OfferMonolith({
         className="mt-7 flex items-baseline justify-between rounded-2xl px-5 py-4"
         style={{ background: "rgba(255,255,255,0.04)" }}
       >
-        <span className="text-xs font-semibold uppercase tracking-widest text-white/55">
-          Total
-        </span>
+        <span className="text-xs font-semibold uppercase tracking-widest text-white/55">Total</span>
         <span className="font-display text-3xl font-extrabold tabular-nums text-white sm:text-4xl">
           {total}
         </span>

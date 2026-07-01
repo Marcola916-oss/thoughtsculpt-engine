@@ -25,10 +25,34 @@ interface SalesTestimonialsProps {
 
 function getArchLabel(arch: string, lang: string): string {
   const labels: Record<string, Record<string, string>> = {
-    AO: { pt: "Guardião Obsessivo", en: "Obsessive Saver", pl: "Obsesyjna Oszczędna", ro: "Econom Obsesiv", ar: "المدخر القهري" },
-    SS: { pt: "Caçador de Status", en: "Status Seeker", pl: "Poszukiwacz Statusu", ro: "Căutător de Statut", ar: "باحث عن المكانة" },
-    EA: { pt: "Fantasma Evasivo", en: "Avoidant Ghost", pl: "Unikający Duch", ro: "Fantasmă Evazionistă", ar: "الشبح المتجنب" },
-    HI: { pt: "Hedonista Impulsivo", en: "Impulsive Hedonist", pl: "Impulsywny Hedonista", ro: "Hedonist Impulsiv", ar: "الملذّ المندفع" },
+    AO: {
+      pt: "Guardião Obsessivo",
+      en: "Obsessive Saver",
+      pl: "Obsesyjna Oszczędna",
+      ro: "Econom Obsesiv",
+      ar: "المدخر القهري",
+    },
+    SS: {
+      pt: "Caçador de Status",
+      en: "Status Seeker",
+      pl: "Poszukiwacz Statusu",
+      ro: "Căutător de Statut",
+      ar: "باحث عن المكانة",
+    },
+    EA: {
+      pt: "Fantasma Evasivo",
+      en: "Avoidant Ghost",
+      pl: "Unikający Duch",
+      ro: "Fantasmă Evazionistă",
+      ar: "الشبح المتجنب",
+    },
+    HI: {
+      pt: "Hedonista Impulsivo",
+      en: "Impulsive Hedonist",
+      pl: "Impulsywny Hedonista",
+      ro: "Hedonist Impulsiv",
+      ar: "الملذّ المندفع",
+    },
   };
   return labels[arch]?.[lang] ?? arch;
 }
@@ -50,24 +74,28 @@ function AvatarPlaceholder({ author, arch }: { author: string; arch: string }) {
 
 export function SalesTestimonials({ counter, rating, testimonials, lang }: SalesTestimonialsProps) {
   return (
-    <section aria-labelledby="testimonials-heading" className="relative mx-auto w-full max-w-7xl px-4 py-24 md:px-8 md:py-32">
+    <section
+      aria-labelledby="testimonials-heading"
+      className="relative mx-auto w-full max-w-7xl px-4 py-24 md:px-8 md:py-32"
+    >
       <Reveal variant="fade-up" className="mx-auto mb-14 max-w-2xl text-center md:mb-20">
-        <span
-          className="mb-5 inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] badge-pulse"
-        >
+        <span className="mb-5 inline-block rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.22em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] badge-pulse">
           {rating}
         </span>
-        <h2 id="testimonials-heading" className="font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em] text-balance break-words text-white">
-          <AnimatedCounter
-            end={12000}
-            prefix="+"
-            className="inline"
-          />{" "}
+        <h2
+          id="testimonials-heading"
+          className="font-display font-extrabold uppercase text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] tracking-[-0.02em] text-balance break-words text-white"
+        >
+          <AnimatedCounter end={12000} prefix="+" className="inline" />{" "}
           {counter.replace(/\+\s?12[.,]?000\s?/i, "").trim()}
         </h2>
       </Reveal>
 
-      <Reveal.Group className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3" stagger="fast" amount={0.2}>
+      <Reveal.Group
+        className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"
+        stagger="fast"
+        amount={0.2}
+      >
         {testimonials.map((item, i) => (
           <Reveal
             key={i}
@@ -100,7 +128,9 @@ export function SalesTestimonials({ counter, rating, testimonials, lang }: Sales
                 <AvatarPlaceholder author={item.author} arch={item.arch} />
               )}
               <div className="min-w-0 flex-1">
-                <p className="font-sans text-sm font-bold uppercase tracking-[0.12em] text-white break-words">{item.author}</p>
+                <p className="font-sans text-sm font-bold uppercase tracking-[0.12em] text-white break-words">
+                  {item.author}
+                </p>
                 <p className="mt-0.5 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-arch-primary break-words whitespace-pre-line">
                   {item.country} · {getArchLabel(item.arch, lang)}
                 </p>

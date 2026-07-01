@@ -61,9 +61,17 @@ export function AnimatedCounter({
   return (
     <span ref={ref} className={className}>
       {started ? (
-        <CountUp end={end} duration={duration} separator={separator} prefix={prefix} suffix={suffix} />
+        <CountUp
+          end={end}
+          duration={duration}
+          separator={separator}
+          prefix={prefix}
+          suffix={suffix}
+        />
       ) : (
-        <>{prefix}0{suffix}</>
+        <>
+          {prefix}0{suffix}
+        </>
       )}
     </span>
   );

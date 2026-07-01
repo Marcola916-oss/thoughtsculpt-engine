@@ -43,13 +43,25 @@ type B = Record<Lang, string>;
 
 const ARCH_LABEL: Record<Archetype, B> = {
   AO: { pt: "O Avesso", en: "The Avoidant", pl: "Unikajacy", ro: "Evitantul", ar: "المتجنب" },
-  SS: { pt: "O Estatua", en: "The Status-Seeker", pl: "Pawi", ro: "Statutarul", ar: "الباحث عن المكانة" },
+  SS: {
+    pt: "O Estatua",
+    en: "The Status-Seeker",
+    pl: "Pawi",
+    ro: "Statutarul",
+    ar: "الباحث عن المكانة",
+  },
   EA: { pt: "O Evitante", en: "The Anxious", pl: "Lekowy", ro: "Anxiosul", ar: "القلق" },
   HI: { pt: "O Cacador", en: "The Hunter", pl: "Lowca", ro: "Vanatorul", ar: "الصياد" },
 };
 
 const COPY = {
-  anchorEyebrow: { pt: "Diagnostico revelado", en: "Diagnosis revealed", pl: "Diagnoza ujawniona", ro: "Diagnostic dezvaluit", ar: "تم الكشف عن التشخيص" } as B,
+  anchorEyebrow: {
+    pt: "Diagnostico revelado",
+    en: "Diagnosis revealed",
+    pl: "Diagnoza ujawniona",
+    ro: "Diagnostic dezvaluit",
+    ar: "تم الكشف عن التشخيص",
+  } as B,
   anchorH1: {
     pt: (n: string, a: string) => `${n}, voce e ${a}. E isso explica tudo.`,
     en: (n: string, a: string) => `${n}, you are ${a}. And this explains everything.`,
@@ -64,40 +76,148 @@ const COPY = {
     ro: "Acelasi tipar tacut care iti saboteaza finantele iti saboteaza cariera, relatiile si pacea interioara. Nu esti stricat. Te repeti.",
     ar: "نفس النمط الصامت الذي يخرب أموالك يخرب مسيرتك المهنية وعلاقاتك وسلامك الداخلي. أنت لست محطما. أنت تكرر.",
   } as B,
-  painTitle: { pt: "Veja como ele te controla agora.", en: "See how it controls you right now.", pl: "Zobacz, jak kontroluje Cie teraz.", ro: "Vezi cum te controleaza acum.", ar: "انظر كيف يتحكم بك الآن." } as B,
+  painTitle: {
+    pt: "Veja como ele te controla agora.",
+    en: "See how it controls you right now.",
+    pl: "Zobacz, jak kontroluje Cie teraz.",
+    ro: "Vezi cum te controleaza acum.",
+    ar: "انظر كيف يتحكم بك الآن.",
+  } as B,
   painAreaTitles: {
-    money:    { pt: "Dinheiro",  en: "Money",     pl: "Pieniadze",  ro: "Bani",      ar: "المال" } as B,
-    career:   { pt: "Carreira",  en: "Career",    pl: "Kariera",    ro: "Cariera",   ar: "المسيرة" } as B,
-    love:     { pt: "Amor",      en: "Love",      pl: "Milosc",     ro: "Iubire",    ar: "الحب" } as B,
-    personal: { pt: "Pessoal",   en: "Personal",  pl: "Osobiste",   ro: "Personal",  ar: "الذات" } as B,
+    money: { pt: "Dinheiro", en: "Money", pl: "Pieniadze", ro: "Bani", ar: "المال" } as B,
+    career: { pt: "Carreira", en: "Career", pl: "Kariera", ro: "Cariera", ar: "المسيرة" } as B,
+    love: { pt: "Amor", en: "Love", pl: "Milosc", ro: "Iubire", ar: "الحب" } as B,
+    personal: { pt: "Pessoal", en: "Personal", pl: "Osobiste", ro: "Personal", ar: "الذات" } as B,
   },
   pain: {
     AO: {
-      money:    { pt: "Voce evita olhar o saldo. Adia decisoes. Vive em modo depois eu vejo.", en: "You avoid checking the balance. You delay decisions. You live in I will deal with it later mode.", pl: "Unikasz sprawdzania salda. Odkladasz decyzje. Zyjesz w trybie zajme sie tym pozniej.", ro: "Eviti sa te uiti la sold. Amani deciziile. Traiesti in modul ma ocup mai tarziu.", ar: "تتجنب رؤية الرصيد. تؤجل القرارات." } as B,
-      career:   { pt: "Recusa promocoes porque parece responsabilidade demais. Trava antes de pedir mais.", en: "You decline promotions because they feel like too much. You freeze before asking for more.", pl: "Odrzucasz awanse, bo wydaja sie zbyt duza odpowiedzialnoscia.", ro: "Refuzi promovari fiindca par prea multa responsabilitate.", ar: "ترفض الترقيات لأنها تبدو مسؤولية كبيرة." } as B,
-      love:     { pt: "Some quando alguem te quer perto demais. Foge antes de ser visto.", en: "You vanish when someone wants you too close. You flee before being seen.", pl: "Znikasz, gdy ktos chce byc zbyt blisko. Uciekasz, zanim zostaniesz zobaczony.", ro: "Dispari cand cineva te vrea prea aproape. Fugi inainte sa fii vazut.", ar: "تختفي حين يريدك أحد قريبا. تهرب قبل أن ترى." } as B,
-      personal: { pt: "Sente um ruido de fundo: um dia eu resolvo. Esse dia nunca chega.", en: "You feel a background noise: one day I will fix it. That day never comes.", pl: "Czujesz szum w tle: kiedys to naprawie. Ten dzien nie nadchodzi.", ro: "Simti un zgomot de fundal: intr-o zi rezolv. Ziua aceea nu vine.", ar: "تشعر بضجيج خفي: يوما ما سأحلها. ذلك اليوم لا يأتي." } as B,
+      money: {
+        pt: "Voce evita olhar o saldo. Adia decisoes. Vive em modo depois eu vejo.",
+        en: "You avoid checking the balance. You delay decisions. You live in I will deal with it later mode.",
+        pl: "Unikasz sprawdzania salda. Odkladasz decyzje. Zyjesz w trybie zajme sie tym pozniej.",
+        ro: "Eviti sa te uiti la sold. Amani deciziile. Traiesti in modul ma ocup mai tarziu.",
+        ar: "تتجنب رؤية الرصيد. تؤجل القرارات.",
+      } as B,
+      career: {
+        pt: "Recusa promocoes porque parece responsabilidade demais. Trava antes de pedir mais.",
+        en: "You decline promotions because they feel like too much. You freeze before asking for more.",
+        pl: "Odrzucasz awanse, bo wydaja sie zbyt duza odpowiedzialnoscia.",
+        ro: "Refuzi promovari fiindca par prea multa responsabilitate.",
+        ar: "ترفض الترقيات لأنها تبدو مسؤولية كبيرة.",
+      } as B,
+      love: {
+        pt: "Some quando alguem te quer perto demais. Foge antes de ser visto.",
+        en: "You vanish when someone wants you too close. You flee before being seen.",
+        pl: "Znikasz, gdy ktos chce byc zbyt blisko. Uciekasz, zanim zostaniesz zobaczony.",
+        ro: "Dispari cand cineva te vrea prea aproape. Fugi inainte sa fii vazut.",
+        ar: "تختفي حين يريدك أحد قريبا. تهرب قبل أن ترى.",
+      } as B,
+      personal: {
+        pt: "Sente um ruido de fundo: um dia eu resolvo. Esse dia nunca chega.",
+        en: "You feel a background noise: one day I will fix it. That day never comes.",
+        pl: "Czujesz szum w tle: kiedys to naprawie. Ten dzien nie nadchodzi.",
+        ro: "Simti un zgomot de fundal: intr-o zi rezolv. Ziua aceea nu vine.",
+        ar: "تشعر بضجيج خفي: يوما ما سأحلها. ذلك اليوم لا يأتي.",
+      } as B,
     },
     SS: {
-      money:    { pt: "Compra para sinalizar status. O cartao fica vermelho. A imagem fica intacta.", en: "You buy to signal status. The card goes red. The image stays intact.", pl: "Kupujesz, by sygnalizowac status. Karta na minusie. Wizerunek bez szwanku.", ro: "Cumperi ca sa semnalezi statut. Cardul intra in rosu.", ar: "تشتري لإظهار المكانة. الحساب يصبح في الأحمر." } as B,
-      career:   { pt: "Aceita cargos pelo titulo, nao pelo trabalho. E depois detesta cada segundo.", en: "You accept jobs for the title, not the work. Then you hate every second.", pl: "Przyjmujesz stanowiska dla tytulu. Potem nienawidzisz kazdej sekundy.", ro: "Accepti posturi pentru titlu, nu pentru munca.", ar: "تقبل الوظائف لأجل المسمى، لا لأجل العمل." } as B,
-      love:     { pt: "Escolhe parceiros que parecem bem na foto. Depois se sente sozinho na cama.", en: "You pick partners who look good in the photo. Then you feel alone in bed.", pl: "Wybierasz partnerow, ktorzy dobrze wygladaja na zdjeciu.", ro: "Alegi parteneri care arata bine in poza.", ar: "تختار شركاء يبدون جيدين في الصورة." } as B,
-      personal: { pt: "A aprovacao dos outros pesa mais que a sua paz. E vai pesando.", en: "Other people approval weighs more than your peace.", pl: "Aprobata innych wazy wiecej niz Twoj spokoj.", ro: "Aprobarea altora cantareste mai mult decat pacea ta.", ar: "موافقة الآخرين أثقل من سلامك." } as B,
+      money: {
+        pt: "Compra para sinalizar status. O cartao fica vermelho. A imagem fica intacta.",
+        en: "You buy to signal status. The card goes red. The image stays intact.",
+        pl: "Kupujesz, by sygnalizowac status. Karta na minusie. Wizerunek bez szwanku.",
+        ro: "Cumperi ca sa semnalezi statut. Cardul intra in rosu.",
+        ar: "تشتري لإظهار المكانة. الحساب يصبح في الأحمر.",
+      } as B,
+      career: {
+        pt: "Aceita cargos pelo titulo, nao pelo trabalho. E depois detesta cada segundo.",
+        en: "You accept jobs for the title, not the work. Then you hate every second.",
+        pl: "Przyjmujesz stanowiska dla tytulu. Potem nienawidzisz kazdej sekundy.",
+        ro: "Accepti posturi pentru titlu, nu pentru munca.",
+        ar: "تقبل الوظائف لأجل المسمى، لا لأجل العمل.",
+      } as B,
+      love: {
+        pt: "Escolhe parceiros que parecem bem na foto. Depois se sente sozinho na cama.",
+        en: "You pick partners who look good in the photo. Then you feel alone in bed.",
+        pl: "Wybierasz partnerow, ktorzy dobrze wygladaja na zdjeciu.",
+        ro: "Alegi parteneri care arata bine in poza.",
+        ar: "تختار شركاء يبدون جيدين في الصورة.",
+      } as B,
+      personal: {
+        pt: "A aprovacao dos outros pesa mais que a sua paz. E vai pesando.",
+        en: "Other people approval weighs more than your peace.",
+        pl: "Aprobata innych wazy wiecej niz Twoj spokoj.",
+        ro: "Aprobarea altora cantareste mai mult decat pacea ta.",
+        ar: "موافقة الآخرين أثقل من سلامك.",
+      } as B,
     },
     EA: {
-      money:    { pt: "Confere o saldo 10 vezes por dia e ainda dorme mal. Dinheiro virou ansiedade.", en: "You check the balance 10 times a day and still sleep badly. Money became anxiety.", pl: "Sprawdzasz saldo 10 razy dziennie i wciaz zle spisz.", ro: "Verifici soldul de 10 ori pe zi si tot dormi prost.", ar: "تتفقد الرصيد 10 مرات يوميا ومع ذلك تنام بسوء." } as B,
-      career:   { pt: "Aceita tudo por medo de perder. Trabalha demais. Cobra de menos.", en: "You accept everything for fear of losing. You overwork. You undercharge.", pl: "Przyjmujesz wszystko ze strachu przed strata.", ro: "Accepti totul de teama sa nu pierzi.", ar: "تقبل كل شيء خوفا من الخسارة." } as B,
-      love:     { pt: "Le a mensagem tres vezes. Reage rapido demais. Pede confirmacao que ninguem pode dar.", en: "You read the message three times. You react too fast. You ask for reassurance no one can give.", pl: "Czytasz wiadomosc trzy razy. Reagujesz za szybko.", ro: "Citesti mesajul de trei ori. Reactionezi prea repede.", ar: "تقرأ الرسالة ثلاث مرات. ترد بسرعة زائدة." } as B,
-      personal: { pt: "Sua cabeca nunca para. Plano A, B, C — e ainda o medo no pano de fundo.", en: "Your head never stops. Plan A, B, C — and still fear in the background.", pl: "Twoja glowa nigdy nie odpoczywa.", ro: "Mintea ta nu se opreste.", ar: "عقلك لا يتوقف. خطة أ، ب، ج." } as B,
+      money: {
+        pt: "Confere o saldo 10 vezes por dia e ainda dorme mal. Dinheiro virou ansiedade.",
+        en: "You check the balance 10 times a day and still sleep badly. Money became anxiety.",
+        pl: "Sprawdzasz saldo 10 razy dziennie i wciaz zle spisz.",
+        ro: "Verifici soldul de 10 ori pe zi si tot dormi prost.",
+        ar: "تتفقد الرصيد 10 مرات يوميا ومع ذلك تنام بسوء.",
+      } as B,
+      career: {
+        pt: "Aceita tudo por medo de perder. Trabalha demais. Cobra de menos.",
+        en: "You accept everything for fear of losing. You overwork. You undercharge.",
+        pl: "Przyjmujesz wszystko ze strachu przed strata.",
+        ro: "Accepti totul de teama sa nu pierzi.",
+        ar: "تقبل كل شيء خوفا من الخسارة.",
+      } as B,
+      love: {
+        pt: "Le a mensagem tres vezes. Reage rapido demais. Pede confirmacao que ninguem pode dar.",
+        en: "You read the message three times. You react too fast. You ask for reassurance no one can give.",
+        pl: "Czytasz wiadomosc trzy razy. Reagujesz za szybko.",
+        ro: "Citesti mesajul de trei ori. Reactionezi prea repede.",
+        ar: "تقرأ الرسالة ثلاث مرات. ترد بسرعة زائدة.",
+      } as B,
+      personal: {
+        pt: "Sua cabeca nunca para. Plano A, B, C — e ainda o medo no pano de fundo.",
+        en: "Your head never stops. Plan A, B, C — and still fear in the background.",
+        pl: "Twoja glowa nigdy nie odpoczywa.",
+        ro: "Mintea ta nu se opreste.",
+        ar: "عقلك لا يتوقف. خطة أ، ب، ج.",
+      } as B,
     },
     HI: {
-      money:    { pt: "Caca oportunidades. Entra rapido, sai tarde. Ganha — e depois perde tudo.", en: "You hunt opportunities. You enter fast, exit late. You win — then lose it all.", pl: "Polujesz na okazje. Wchodzisz szybko, wychodzisz pozno.", ro: "Vanezi oportunitati. Intri rapid, iesi tarziu.", ar: "تطارد الفرص. تدخل بسرعة وتخرج متأخرا." } as B,
-      career:   { pt: "Pula de projeto em projeto. Comeca 5, termina 1.", en: "You jump from project to project. Start 5, finish 1.", pl: "Skaczesz od projektu do projektu. Zaczynasz 5, konczysz 1.", ro: "Sari de la un proiect la altul. Incepi 5, termini 1.", ar: "تقفز من مشروع لآخر. تبدأ 5، تنهي 1." } as B,
-      love:     { pt: "Intensidade no inicio. Tedio depois. Repete o ciclo com pessoas diferentes.", en: "Intensity at the start. Boredom after. You repeat the cycle with different people.", pl: "Intensywnosc na poczatku. Potem nuda.", ro: "Intensitate la inceput. Plictiseala dupa.", ar: "حدة في البداية. ملل بعدها." } as B,
-      personal: { pt: "Adrenalina e a sua moeda. Sem ela, vazio. Voce precisa de mais — sempre.", en: "Adrenaline is your currency. Without it, emptiness. You need more — always.", pl: "Adrenalina to Twoja waluta. Bez niej pustka.", ro: "Adrenalina e moneda ta. Fara ea gol.", ar: "الأدرينالين عملتك. بدونه فراغ." } as B,
+      money: {
+        pt: "Caca oportunidades. Entra rapido, sai tarde. Ganha — e depois perde tudo.",
+        en: "You hunt opportunities. You enter fast, exit late. You win — then lose it all.",
+        pl: "Polujesz na okazje. Wchodzisz szybko, wychodzisz pozno.",
+        ro: "Vanezi oportunitati. Intri rapid, iesi tarziu.",
+        ar: "تطارد الفرص. تدخل بسرعة وتخرج متأخرا.",
+      } as B,
+      career: {
+        pt: "Pula de projeto em projeto. Comeca 5, termina 1.",
+        en: "You jump from project to project. Start 5, finish 1.",
+        pl: "Skaczesz od projektu do projektu. Zaczynasz 5, konczysz 1.",
+        ro: "Sari de la un proiect la altul. Incepi 5, termini 1.",
+        ar: "تقفز من مشروع لآخر. تبدأ 5، تنهي 1.",
+      } as B,
+      love: {
+        pt: "Intensidade no inicio. Tedio depois. Repete o ciclo com pessoas diferentes.",
+        en: "Intensity at the start. Boredom after. You repeat the cycle with different people.",
+        pl: "Intensywnosc na poczatku. Potem nuda.",
+        ro: "Intensitate la inceput. Plictiseala dupa.",
+        ar: "حدة في البداية. ملل بعدها.",
+      } as B,
+      personal: {
+        pt: "Adrenalina e a sua moeda. Sem ela, vazio. Voce precisa de mais — sempre.",
+        en: "Adrenaline is your currency. Without it, emptiness. You need more — always.",
+        pl: "Adrenalina to Twoja waluta. Bez niej pustka.",
+        ro: "Adrenalina e moneda ta. Fara ea gol.",
+        ar: "الأدرينالين عملتك. بدونه فراغ.",
+      } as B,
     },
   },
-  scienceEyebrow: { pt: "O metodo", en: "The method", pl: "Metoda", ro: "Metoda", ar: "المنهج" } as B,
+  scienceEyebrow: {
+    pt: "O metodo",
+    en: "The method",
+    pl: "Metoda",
+    ro: "Metoda",
+    ar: "المنهج",
+  } as B,
   scienceH2: {
     pt: "8 anos de pesquisa. 4 arquetipos. 1 padrao que governa sua vida.",
     en: "8 years of research. 4 archetypes. 1 pattern that governs your life.",
@@ -119,7 +239,13 @@ const COPY = {
     ro: ["Neurostiinta comportamentala", "Psihologie financiara", "12.000 profiluri"],
     ar: ["علم الأعصاب السلوكي", "علم النفس المالي", "12,000 ملف محلل"],
   } as Record<Lang, string[]>,
-  productEyebrow: { pt: "O que voce recebe", en: "What you get", pl: "Co otrzymujesz", ro: "Ce primesti", ar: "ما الذي ستحصل عليه" } as B,
+  productEyebrow: {
+    pt: "O que voce recebe",
+    en: "What you get",
+    pl: "Co otrzymujesz",
+    ro: "Ce primesti",
+    ar: "ما الذي ستحصل عليه",
+  } as B,
   productH2: {
     pt: "Seu diagnostico completo em PDF — entregue agora.",
     en: "Your complete diagnosis in PDF — delivered now.",
@@ -159,9 +285,27 @@ const COPY = {
       "خريطة العلاقات: كيف ترتبط بكل نمط آخر",
     ],
   } as Record<Lang, string[]>,
-  pdfPages: { pt: "32 paginas", en: "32 pages", pl: "32 strony", ro: "32 pagini", ar: "32 صفحة" } as B,
-  pdfLanguage: { pt: "Em Portugues", en: "In English", pl: "Po polsku", ro: "In romana", ar: "بالعربية" } as B,
-  socialEyebrow: { pt: "Quem ja viu", en: "Who already saw it", pl: "Kto juz zobaczyl", ro: "Cine a vazut deja", ar: "من رأى بالفعل" } as B,
+  pdfPages: {
+    pt: "32 paginas",
+    en: "32 pages",
+    pl: "32 strony",
+    ro: "32 pagini",
+    ar: "32 صفحة",
+  } as B,
+  pdfLanguage: {
+    pt: "Em Portugues",
+    en: "In English",
+    pl: "Po polsku",
+    ro: "In romana",
+    ar: "بالعربية",
+  } as B,
+  socialEyebrow: {
+    pt: "Quem ja viu",
+    en: "Who already saw it",
+    pl: "Kto juz zobaczyl",
+    ro: "Cine a vazut deja",
+    ar: "من رأى بالفعل",
+  } as B,
   socialH2: {
     pt: "12.000 pessoas. O mesmo choque.",
     en: "12,000 people. The same shock.",
@@ -169,7 +313,13 @@ const COPY = {
     ro: "12.000 de oameni. Acelasi soc.",
     ar: "12,000 شخص. الصدمة نفسها.",
   } as B,
-  pricingEyebrow: { pt: "Oferta unica", en: "One-time offer", pl: "Oferta jednorazowa", ro: "Oferta unica", ar: "عرض لمرة واحدة" } as B,
+  pricingEyebrow: {
+    pt: "Oferta unica",
+    en: "One-time offer",
+    pl: "Oferta jednorazowa",
+    ro: "Oferta unica",
+    ar: "عرض لمرة واحدة",
+  } as B,
   pricingH2: {
     pt: "Acesso imediato. Pagamento unico.",
     en: "Instant access. One-time payment.",
@@ -177,45 +327,141 @@ const COPY = {
     ro: "Acces imediat. Plata unica.",
     ar: "وصول فوري. دفع لمرة واحدة.",
   } as B,
-  pricingMainLabel: { pt: "Diagnostico completo (PDF)", en: "Complete diagnosis (PDF)", pl: "Pelna diagnoza (PDF)", ro: "Diagnostic complet (PDF)", ar: "التشخيص الكامل (PDF)" } as B,
-  bump1Title: { pt: "Guia de Relacoes por Arquetipo", en: "Archetype Relationship Guide", pl: "Przewodnik po relacjach archetypow", ro: "Ghid de relatii pe arhetipuri", ar: "دليل العلاقات حسب النمط" } as B,
-  bump1Desc: { pt: "Como conviver, namorar e trabalhar com cada um dos outros 3 arquetipos.", en: "How to live, date and work with each of the other 3 archetypes.", pl: "Jak zyc, randkowac i pracowac z kazdym z pozostalych 3 archetypow.", ro: "Cum sa traiesti si sa lucrezi cu fiecare din celelalte 3 arhetipuri.", ar: "كيف تعايش وتواعد وتعمل مع كل من الأنماط الثلاثة الأخرى." } as B,
-  bump2Title: { pt: "Protocolo de Reset 30 dias", en: "30-day Reset Protocol", pl: "Protokol Resetu 30 dni", ro: "Protocol Reset 30 de zile", ar: "بروتوكول إعادة الضبط 30 يوما" } as B,
-  bump2Desc: { pt: "Plano diario guiado para reprogramar o padrao em 30 dias.", en: "Daily guided plan to reprogram the pattern in 30 days.", pl: "Codzienny plan, aby przeprogramowac wzorzec w 30 dni.", ro: "Plan zilnic ghidat pentru a reprograma tiparul in 30 de zile.", ar: "خطة يومية موجهة لإعادة برمجة النمط خلال 30 يوما." } as B,
+  pricingMainLabel: {
+    pt: "Diagnostico completo (PDF)",
+    en: "Complete diagnosis (PDF)",
+    pl: "Pelna diagnoza (PDF)",
+    ro: "Diagnostic complet (PDF)",
+    ar: "التشخيص الكامل (PDF)",
+  } as B,
+  bump1Title: {
+    pt: "Guia de Relacoes por Arquetipo",
+    en: "Archetype Relationship Guide",
+    pl: "Przewodnik po relacjach archetypow",
+    ro: "Ghid de relatii pe arhetipuri",
+    ar: "دليل العلاقات حسب النمط",
+  } as B,
+  bump1Desc: {
+    pt: "Como conviver, namorar e trabalhar com cada um dos outros 3 arquetipos.",
+    en: "How to live, date and work with each of the other 3 archetypes.",
+    pl: "Jak zyc, randkowac i pracowac z kazdym z pozostalych 3 archetypow.",
+    ro: "Cum sa traiesti si sa lucrezi cu fiecare din celelalte 3 arhetipuri.",
+    ar: "كيف تعايش وتواعد وتعمل مع كل من الأنماط الثلاثة الأخرى.",
+  } as B,
+  bump2Title: {
+    pt: "Protocolo de Reset 30 dias",
+    en: "30-day Reset Protocol",
+    pl: "Protokol Resetu 30 dni",
+    ro: "Protocol Reset 30 de zile",
+    ar: "بروتوكول إعادة الضبط 30 يوما",
+  } as B,
+  bump2Desc: {
+    pt: "Plano diario guiado para reprogramar o padrao em 30 dias.",
+    en: "Daily guided plan to reprogram the pattern in 30 days.",
+    pl: "Codzienny plan, aby przeprogramowac wzorzec w 30 dni.",
+    ro: "Plan zilnic ghidat pentru a reprograma tiparul in 30 de zile.",
+    ar: "خطة يومية موجهة لإعادة برمجة النمط خلال 30 يوما.",
+  } as B,
   totalLabel: { pt: "Total", en: "Total", pl: "Razem", ro: "Total", ar: "الإجمالي" } as B,
-  pricingCta: { pt: "Quero meu diagnostico agora", en: "I want my diagnosis now", pl: "Chce swoja diagnoze teraz", ro: "Vreau diagnosticul acum", ar: "أريد تشخيصي الآن" } as B,
-  pricingSecure: { pt: "Pagamento seguro via Stripe • SSL 256-bit", en: "Secure payment via Stripe • SSL 256-bit", pl: "Bezpieczna platnosc przez Stripe • SSL 256-bit", ro: "Plata securizata prin Stripe • SSL 256-bit", ar: "دفع آمن عبر Stripe • SSL 256-bit" } as B,
-  guarantee: { pt: "7 dias de garantia. Nao gostou? Devolvemos.", en: "7-day guarantee. Don't like it? We refund.", pl: "7-dniowa gwarancja. Nie podoba sie? Zwracamy.", ro: "Garantie 7 zile. Nu iti place? Returnam.", ar: "ضمان 7 أيام. لم يعجبك؟ نعيد المال." } as B,
-  faqEyebrow: { pt: "Perguntas frequentes", en: "Frequently asked", pl: "Najczestsze pytania", ro: "Intrebari frecvente", ar: "أسئلة شائعة" } as B,
+  pricingCta: {
+    pt: "Quero meu diagnostico agora",
+    en: "I want my diagnosis now",
+    pl: "Chce swoja diagnoze teraz",
+    ro: "Vreau diagnosticul acum",
+    ar: "أريد تشخيصي الآن",
+  } as B,
+  pricingSecure: {
+    pt: "Pagamento seguro via Stripe • SSL 256-bit",
+    en: "Secure payment via Stripe • SSL 256-bit",
+    pl: "Bezpieczna platnosc przez Stripe • SSL 256-bit",
+    ro: "Plata securizata prin Stripe • SSL 256-bit",
+    ar: "دفع آمن عبر Stripe • SSL 256-bit",
+  } as B,
+  guarantee: {
+    pt: "7 dias de garantia. Nao gostou? Devolvemos.",
+    en: "7-day guarantee. Don't like it? We refund.",
+    pl: "7-dniowa gwarancja. Nie podoba sie? Zwracamy.",
+    ro: "Garantie 7 zile. Nu iti place? Returnam.",
+    ar: "ضمان 7 أيام. لم يعجبك؟ نعيد المال.",
+  } as B,
+  faqEyebrow: {
+    pt: "Perguntas frequentes",
+    en: "Frequently asked",
+    pl: "Najczestsze pytania",
+    ro: "Intrebari frecvente",
+    ar: "أسئلة شائعة",
+  } as B,
   faq: {
     pt: [
-      { q: "Quando recebo o PDF?", a: "Imediatamente apos o pagamento. Cai no e-mail e fica disponivel na tela de obrigado." },
-      { q: "E so sobre dinheiro?", a: "Nao. Cobre as 4 areas: dinheiro, carreira, amor e vida pessoal." },
-      { q: "Funciona para mim?", a: "Se voce fez o quiz, sim. O diagnostico e gerado a partir das suas respostas." },
-      { q: "Como e o pagamento?", a: "Stripe processa. Aceitamos cartao, Apple Pay e Google Pay. Sem assinatura." },
+      {
+        q: "Quando recebo o PDF?",
+        a: "Imediatamente apos o pagamento. Cai no e-mail e fica disponivel na tela de obrigado.",
+      },
+      {
+        q: "E so sobre dinheiro?",
+        a: "Nao. Cobre as 4 areas: dinheiro, carreira, amor e vida pessoal.",
+      },
+      {
+        q: "Funciona para mim?",
+        a: "Se voce fez o quiz, sim. O diagnostico e gerado a partir das suas respostas.",
+      },
+      {
+        q: "Como e o pagamento?",
+        a: "Stripe processa. Aceitamos cartao, Apple Pay e Google Pay. Sem assinatura.",
+      },
       { q: "E se eu nao gostar?", a: "Pedimos reembolso em ate 7 dias. Sem perguntas." },
       { q: "Em que idioma vem?", a: "No mesmo idioma desta pagina. PT, EN, PL, RO ou AR." },
     ],
     en: [
-      { q: "When do I receive the PDF?", a: "Immediately after payment. It arrives in your email and shows up on the thank-you screen." },
-      { q: "Is it only about money?", a: "No. It covers 4 areas: money, career, love and personal life." },
-      { q: "Will it work for me?", a: "If you took the quiz, yes. The diagnosis is generated from your answers — not generic." },
-      { q: "How does payment work?", a: "Stripe processes the payment. We accept card, Apple Pay and Google Pay. No subscription." },
+      {
+        q: "When do I receive the PDF?",
+        a: "Immediately after payment. It arrives in your email and shows up on the thank-you screen.",
+      },
+      {
+        q: "Is it only about money?",
+        a: "No. It covers 4 areas: money, career, love and personal life.",
+      },
+      {
+        q: "Will it work for me?",
+        a: "If you took the quiz, yes. The diagnosis is generated from your answers — not generic.",
+      },
+      {
+        q: "How does payment work?",
+        a: "Stripe processes the payment. We accept card, Apple Pay and Google Pay. No subscription.",
+      },
       { q: "What if I don't like it?", a: "Ask for a refund within 7 days. No questions asked." },
       { q: "Which language?", a: "The same language as this page. PT, EN, PL, RO or AR." },
     ],
     pl: [
-      { q: "Kiedy otrzymam PDF?", a: "Natychmiast po platnosci. Przychodzi mailem i pojawia sie na ekranie podziekowania." },
-      { q: "Czy to tylko o pieniadzach?", a: "Nie. Obejmuje 4 obszary: pieniadze, kariere, milosc i zycie osobiste." },
-      { q: "Czy zadziala u mnie?", a: "Tak, jesli zrobiles quiz. Diagnoza powstaje z Twoich odpowiedzi — nie jest ogolna." },
+      {
+        q: "Kiedy otrzymam PDF?",
+        a: "Natychmiast po platnosci. Przychodzi mailem i pojawia sie na ekranie podziekowania.",
+      },
+      {
+        q: "Czy to tylko o pieniadzach?",
+        a: "Nie. Obejmuje 4 obszary: pieniadze, kariere, milosc i zycie osobiste.",
+      },
+      {
+        q: "Czy zadziala u mnie?",
+        a: "Tak, jesli zrobiles quiz. Diagnoza powstaje z Twoich odpowiedzi — nie jest ogolna.",
+      },
       { q: "Jak dziala platnosc?", a: "Stripe. Karta, Apple Pay, Google Pay. Bez subskrypcji." },
       { q: "A jesli mi sie nie spodoba?", a: "Zwrot w ciagu 7 dni. Bez pytan." },
       { q: "W jakim jezyku?", a: "W jezyku tej strony. PT, EN, PL, RO lub AR." },
     ],
     ro: [
-      { q: "Cand primesc PDF-ul?", a: "Imediat dupa plata. Ajunge pe e-mail si apare pe ecranul de multumire." },
-      { q: "E doar despre bani?", a: "Nu. Acopera 4 zone: bani, cariera, iubire si viata personala." },
-      { q: "Va functiona pentru mine?", a: "Da, daca ai facut quiz-ul. Diagnosticul este generat din raspunsurile tale." },
+      {
+        q: "Cand primesc PDF-ul?",
+        a: "Imediat dupa plata. Ajunge pe e-mail si apare pe ecranul de multumire.",
+      },
+      {
+        q: "E doar despre bani?",
+        a: "Nu. Acopera 4 zone: bani, cariera, iubire si viata personala.",
+      },
+      {
+        q: "Va functiona pentru mine?",
+        a: "Da, daca ai facut quiz-ul. Diagnosticul este generat din raspunsurile tale.",
+      },
       { q: "Cum se face plata?", a: "Stripe. Card, Apple Pay, Google Pay. Fara abonament." },
       { q: "Si daca nu imi place?", a: "Cerere de retur in 7 zile. Fara intrebari." },
       { q: "In ce limba?", a: "In limba acestei pagini. PT, EN, PL, RO sau AR." },
@@ -229,7 +475,13 @@ const COPY = {
       { q: "بأي لغة؟", a: "بنفس لغة هذه الصفحة. PT أو EN أو PL أو RO أو AR." },
     ],
   } as Record<Lang, { q: string; a: string }[]>,
-  finalEyebrow: { pt: "Seu diagnostico esta pronto", en: "Your diagnosis is ready", pl: "Twoja diagnoza jest gotowa", ro: "Diagnosticul tau e gata", ar: "تشخيصك جاهز" } as B,
+  finalEyebrow: {
+    pt: "Seu diagnostico esta pronto",
+    en: "Your diagnosis is ready",
+    pl: "Twoja diagnoza jest gotowa",
+    ro: "Diagnosticul tau e gata",
+    ar: "تشخيصك جاهز",
+  } as B,
   finalH2: {
     pt: "Voce ja viu o padrao. Agora veja o caminho.",
     en: "You've seen the pattern. Now see the way out.",
@@ -237,40 +489,112 @@ const COPY = {
     ro: "Ai vazut tiparul. Acum vezi iesirea.",
     ar: "رأيت النمط. الآن انظر إلى المخرج.",
   } as B,
-  finalCta: { pt: "Desbloquear meu diagnostico", en: "Unlock my diagnosis", pl: "Odblokuj diagnoze", ro: "Deblocheaza diagnosticul", ar: "افتح تشخيصي" } as B,
+  finalCta: {
+    pt: "Desbloquear meu diagnostico",
+    en: "Unlock my diagnosis",
+    pl: "Odblokuj diagnoze",
+    ro: "Deblocheaza diagnosticul",
+    ar: "افتح تشخيصي",
+  } as B,
 } as const;
 
 const TESTIMONIALS: Record<Lang, { name: string; arch: string; quote: string }[]> = {
   pt: [
-    { name: "Mariana, 34", arch: "Anxious",  quote: "Em 20 minutos entendi por que sempre acabo no mesmo lugar — dinheiro, trabalho, relacoes." },
-    { name: "Pedro, 41",   arch: "Hunter",   quote: "Achei que era so sobre financas. Era sobre mim. Mudou como eu olho cada decisao." },
-    { name: "Sara, 29",    arch: "Avoidant", quote: "Eu adiava tudo. Vi o circuito no PDF e finalmente parei de fugir." },
+    {
+      name: "Mariana, 34",
+      arch: "Anxious",
+      quote:
+        "Em 20 minutos entendi por que sempre acabo no mesmo lugar — dinheiro, trabalho, relacoes.",
+    },
+    {
+      name: "Pedro, 41",
+      arch: "Hunter",
+      quote: "Achei que era so sobre financas. Era sobre mim. Mudou como eu olho cada decisao.",
+    },
+    {
+      name: "Sara, 29",
+      arch: "Avoidant",
+      quote: "Eu adiava tudo. Vi o circuito no PDF e finalmente parei de fugir.",
+    },
   ],
   en: [
-    { name: "Marian, 34", arch: "Anxious",  quote: "In 20 minutes I understood why I always end up in the same place — money, work, relationships." },
-    { name: "Peter, 41",  arch: "Hunter",   quote: "I thought it was just about finance. It was about me." },
-    { name: "Sara, 29",   arch: "Avoidant", quote: "I postponed everything. I saw the circuit in the PDF and finally stopped running." },
+    {
+      name: "Marian, 34",
+      arch: "Anxious",
+      quote:
+        "In 20 minutes I understood why I always end up in the same place — money, work, relationships.",
+    },
+    {
+      name: "Peter, 41",
+      arch: "Hunter",
+      quote: "I thought it was just about finance. It was about me.",
+    },
+    {
+      name: "Sara, 29",
+      arch: "Avoidant",
+      quote: "I postponed everything. I saw the circuit in the PDF and finally stopped running.",
+    },
   ],
   pl: [
-    { name: "Maria, 34", arch: "Lekowy",    quote: "W 20 minut zrozumialam, dlaczego zawsze laduje w tym samym miejscu." },
-    { name: "Piotr, 41", arch: "Lowca",     quote: "Myslalem, ze to tylko o finansach. To bylo o mnie." },
-    { name: "Sara, 29",  arch: "Unikajacy", quote: "Wszystko odkladalam. Zobaczylam obwod w PDF i wreszcie przestalam uciekac." },
+    {
+      name: "Maria, 34",
+      arch: "Lekowy",
+      quote: "W 20 minut zrozumialam, dlaczego zawsze laduje w tym samym miejscu.",
+    },
+    {
+      name: "Piotr, 41",
+      arch: "Lowca",
+      quote: "Myslalem, ze to tylko o finansach. To bylo o mnie.",
+    },
+    {
+      name: "Sara, 29",
+      arch: "Unikajacy",
+      quote: "Wszystko odkladalam. Zobaczylam obwod w PDF i wreszcie przestalam uciekac.",
+    },
   ],
   ro: [
-    { name: "Maria, 34", arch: "Anxioasa", quote: "In 20 de minute am inteles de ce ajung mereu in acelasi loc." },
-    { name: "Petru, 41", arch: "Vanator",  quote: "Credeam ca e doar despre finante. Era despre mine." },
-    { name: "Sara, 29",  arch: "Evitanta", quote: "Amanam totul. Am vazut circuitul in PDF si am incetat sa mai fug." },
+    {
+      name: "Maria, 34",
+      arch: "Anxioasa",
+      quote: "In 20 de minute am inteles de ce ajung mereu in acelasi loc.",
+    },
+    {
+      name: "Petru, 41",
+      arch: "Vanator",
+      quote: "Credeam ca e doar despre finante. Era despre mine.",
+    },
+    {
+      name: "Sara, 29",
+      arch: "Evitanta",
+      quote: "Amanam totul. Am vazut circuitul in PDF si am incetat sa mai fug.",
+    },
   ],
   ar: [
-    { name: "مريم، 34", arch: "القلقة",   quote: "في 20 دقيقة فهمت لماذا أنتهي دائما في نفس المكان." },
-    { name: "بطرس، 41", arch: "الصياد",    quote: "ظننتها عن المال فقط. كانت عني." },
-    { name: "سارة، 29", arch: "المتجنبة", quote: "كنت أؤجل كل شيء. رأيت الدائرة في الـ PDF وتوقفت عن الهروب." },
+    {
+      name: "مريم، 34",
+      arch: "القلقة",
+      quote: "في 20 دقيقة فهمت لماذا أنتهي دائما في نفس المكان.",
+    },
+    { name: "بطرس، 41", arch: "الصياد", quote: "ظننتها عن المال فقط. كانت عني." },
+    {
+      name: "سارة، 29",
+      arch: "المتجنبة",
+      quote: "كنت أؤجل كل شيء. رأيت الدائرة في الـ PDF وتوقفت عن الهروب.",
+    },
   ],
 };
 
 const AREA_ICONS = { money: Coins, career: Briefcase, love: Heart, personal: Sparkles } as const;
 
-function PainCard({ icon: Icon, title, body }: { icon: typeof Coins; title: string; body: string }) {
+function PainCard({
+  icon: Icon,
+  title,
+  body,
+}: {
+  icon: typeof Coins;
+  title: string;
+  body: string;
+}) {
   return (
     <div className="group rounded-2xl border border-white/8 bg-[#0D0D0D] p-6 transition hover:border-[var(--accent)]/60 hover:-translate-y-1">
       <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--accent)]/12 text-[var(--accent)]">
@@ -282,7 +606,15 @@ function PainCard({ icon: Icon, title, body }: { icon: typeof Coins; title: stri
   );
 }
 
-function PdfMockup({ archLabel, pages, langLabel }: { archLabel: string; pages: string; langLabel: string }) {
+function PdfMockup({
+  archLabel,
+  pages,
+  langLabel,
+}: {
+  archLabel: string;
+  pages: string;
+  langLabel: string;
+}) {
   return (
     <div className="relative mx-auto w-full max-w-[340px]">
       <div className="absolute -inset-6 rounded-3xl bg-[var(--accent)]/15 blur-3xl" aria-hidden />
@@ -291,12 +623,17 @@ function PdfMockup({ archLabel, pages, langLabel }: { archLabel: string; pages: 
           <span>MindReset</span>
           <span>{pages}</span>
         </div>
-        <div className="mb-3 text-[11px] uppercase tracking-[0.18em] text-[var(--accent)]">Diagnostico</div>
+        <div className="mb-3 text-[11px] uppercase tracking-[0.18em] text-[var(--accent)]">
+          Diagnostico
+        </div>
         <h4 className="font-display text-3xl leading-[1.1] text-foreground">{archLabel}</h4>
         <div className="mt-6 space-y-2">
           {[78, 64, 88, 52].map((w, i) => (
             <div key={i} className="h-1.5 rounded-full bg-white/8">
-              <div className="h-full rounded-full bg-[var(--accent)]/60" style={{ width: `${w}%` }} />
+              <div
+                className="h-full rounded-full bg-[var(--accent)]/60"
+                style={{ width: `${w}%` }}
+              />
             </div>
           ))}
         </div>
@@ -319,7 +656,9 @@ function FaqItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultO
         aria-expanded={open}
       >
         <span className="text-base font-medium text-foreground">{q}</span>
-        <ChevronDown className={`h-4 w-4 shrink-0 text-foreground/60 transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-foreground/60 transition-transform ${open ? "rotate-180" : ""}`}
+        />
       </button>
       {open && <p className="pb-5 text-sm leading-relaxed text-foreground/70">{a}</p>}
     </div>
@@ -423,7 +762,11 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
       <section className="border-b border-white/5 py-28">
         <div className="container mx-auto grid items-center gap-14 px-6 lg:grid-cols-[1fr_1fr]">
           <Reveal>
-            <PdfMockup archLabel={archLabel} pages={COPY.pdfPages[L]} langLabel={COPY.pdfLanguage[L]} />
+            <PdfMockup
+              archLabel={archLabel}
+              pages={COPY.pdfPages[L]}
+              langLabel={COPY.pdfLanguage[L]}
+            />
           </Reveal>
           <Reveal delay={0.12}>
             <div className="mb-3 text-[11px] uppercase tracking-[0.2em] text-[var(--accent)]">
@@ -457,7 +800,10 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
           </Reveal>
           <Reveal.Group className="grid gap-5 md:grid-cols-3">
             {TESTIMONIALS[L].map((t) => (
-              <div key={t.name} className="rounded-2xl border border-white/8 bg-[#0D0D0D] p-6 transition hover:border-white/20">
+              <div
+                key={t.name}
+                className="rounded-2xl border border-white/8 bg-[#0D0D0D] p-6 transition hover:border-white/20"
+              >
                 <div className="mb-3 flex gap-0.5 text-[var(--accent)]">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-current" />
@@ -465,7 +811,10 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
                 </div>
                 <p className="mb-5 text-sm leading-relaxed text-foreground/85">"{t.quote}"</p>
                 <div className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-full bg-gradient-to-br from-[var(--accent)] to-[#7a0000]" aria-hidden />
+                  <div
+                    className="h-9 w-9 rounded-full bg-gradient-to-br from-[var(--accent)] to-[#7a0000]"
+                    aria-hidden
+                  />
                   <div>
                     <div className="text-sm font-medium text-foreground">{t.name}</div>
                     <div className="text-xs text-foreground/55">{t.arch}</div>
@@ -513,7 +862,9 @@ export function VSL({ name, arch, onCheckout }: VSLProps) {
             <div className="mb-3 text-[11px] uppercase tracking-[0.2em] text-[var(--accent)]">
               {COPY.faqEyebrow[L]}
             </div>
-            <h2 className="mb-10 font-display text-3xl leading-tight text-foreground md:text-4xl">FAQ</h2>
+            <h2 className="mb-10 font-display text-3xl leading-tight text-foreground md:text-4xl">
+              FAQ
+            </h2>
           </Reveal>
           <Reveal delay={0.08}>
             <div>
@@ -574,7 +925,9 @@ function PricingBlock(props: PricingBlockProps) {
   const total = (() => {
     if (bump1 && bump2) return props.pricing.totalWithBumps;
     if (!bump1 && !bump2) return props.pricing.main;
-    return bump1 ? `${props.pricing.main} + ${props.pricing.bump1}` : `${props.pricing.main} + ${props.pricing.bump2}`;
+    return bump1
+      ? `${props.pricing.main} + ${props.pricing.bump1}`
+      : `${props.pricing.main} + ${props.pricing.bump2}`;
   })();
 
   return (
@@ -584,11 +937,25 @@ function PricingBlock(props: PricingBlockProps) {
         <div className="font-display text-3xl text-foreground">{props.pricing.main}</div>
       </div>
       <div className="space-y-3">
-        <BumpRow checked={bump1} onChange={setBump1} title={props.bump1Title} desc={props.bump1Desc} price={props.pricing.bump1} />
-        <BumpRow checked={bump2} onChange={setBump2} title={props.bump2Title} desc={props.bump2Desc} price={props.pricing.bump2} />
+        <BumpRow
+          checked={bump1}
+          onChange={setBump1}
+          title={props.bump1Title}
+          desc={props.bump1Desc}
+          price={props.pricing.bump1}
+        />
+        <BumpRow
+          checked={bump2}
+          onChange={setBump2}
+          title={props.bump2Title}
+          desc={props.bump2Desc}
+          price={props.pricing.bump2}
+        />
       </div>
       <div className="mt-6 flex items-center justify-between border-t border-white/8 pt-6">
-        <span className="text-sm uppercase tracking-[0.15em] text-foreground/60">{props.totalLabel}</span>
+        <span className="text-sm uppercase tracking-[0.15em] text-foreground/60">
+          {props.totalLabel}
+        </span>
         <span className="font-display text-3xl text-[var(--accent)]">{total}</span>
       </div>
       <ButtonPress
