@@ -433,9 +433,9 @@ export default function SalesPageV2({
               targetRef={rootRef}
               canvasStyle={{
                 maskImage:
-                  "linear-gradient(to bottom, black 0%, black 82%, rgba(0,0,0,0.88) 88%, rgba(0,0,0,0.46) 95%, transparent 100%)",
+                  "linear-gradient(to bottom, black 0%, black 76%, rgba(0,0,0,0.86) 84%, rgba(0,0,0,0.38) 94%, transparent 100%)",
                 WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, black 82%, rgba(0,0,0,0.88) 88%, rgba(0,0,0,0.46) 95%, transparent 100%)",
+                  "linear-gradient(to bottom, black 0%, black 76%, rgba(0,0,0,0.86) 84%, rgba(0,0,0,0.38) 94%, transparent 100%)",
               }}
             />
             <SculptureParticles count={18} />
