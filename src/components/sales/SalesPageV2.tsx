@@ -23,7 +23,7 @@ import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 
 import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
-import { PainScar } from "./v3/PainScar";
+import { PainDossier } from "./v3/PainDossier";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
@@ -197,12 +197,10 @@ export default function SalesPageV2({
             title={tpl(v2.b2.title)}
           >
             <p className="sales-dropcap text-white/90">{tpl(v2.b2.body)}</p>
-            <ul className="mt-8 space-y-1">
-              {v2.b2.bullets.map((b, i) => (
-                <PainScar key={i}>{tpl(b)}</PainScar>
-              ))}
-            </ul>
-            <p className="mt-8 text-lg font-medium text-white/85">{tpl(v2.b2.conclusion)}</p>
+            <PainDossier
+              bullets={v2.b2.bullets.map((b) => tpl(b))}
+              conclusion={tpl(v2.b2.conclusion)}
+            />
           </SceneFrame>
 
           {/* II — Scientific Breakthrough */}
