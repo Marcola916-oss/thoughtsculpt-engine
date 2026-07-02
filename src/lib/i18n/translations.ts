@@ -288,7 +288,30 @@ export type Dict = {
       timeline?: Array<{ year: string; event: string }>;
       verdictLabel?: string;
     };
-    b4: { title: string; subtitle: string; features: Array<{ title: string; description: string }> };
+    b4: {
+      title: string;
+      subtitle: string;
+      features: Array<{ title: string; description: string }>;
+      dossier?: {
+        caseLabel: string;
+        subjectLabel: string;
+        confidential: string;
+        indexLabel: string;
+        indexCaption: string;
+        fileLabel: string;
+        scoreLabel: string;
+        severityLabel: string;
+        severity: { low: string; moderate: string; critical: string };
+        triggerLabel: string;
+        frequencyLabel: string;
+        impactLabel: string;
+        frequency: { daily: string; weekly: string; sporadic: string };
+        impact: { high: string; medium: string; low: string };
+        triggers: { AO: string; SS: string; EA: string; HI: string };
+        verdictLabel: string;
+        verdictPivot: string;
+      };
+    };
     b5: {
       eyebrow: string;
       title: string;
