@@ -681,7 +681,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sales-bg-motion { animation: none !important; }
+  .sales-bg-motion { animation: sales-bg-drift 18s ease-in-out infinite alternate !important; }
+  .sales-page-live-bg .symbol-drift {
+    animation: symbol-drift 10s ease-in-out infinite alternate !important;
+  }
+  .sales-page-live-bg .fog-breathe-1,
+  .sales-page-live-bg .fog-breathe-2,
+  .sales-page-live-bg .fog-breathe-3 {
+    animation-duration: 12s !important;
+    animation-iteration-count: infinite !important;
+  }
 }
 
 @keyframes mindreset-mesh-drift {
