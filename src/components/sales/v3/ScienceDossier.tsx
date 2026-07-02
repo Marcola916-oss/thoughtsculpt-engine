@@ -306,24 +306,56 @@ export function ScienceDossier({
 
       {/* VERDICT card */}
       <div
-        className="relative mt-6 overflow-hidden rounded-2xl border p-6 sm:p-8"
+        className="verdict-glow relative mt-6 overflow-hidden rounded-2xl border p-6 sm:p-8"
         style={{
           borderColor: border,
           background:
             "linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))",
+          boxShadow:
+            "0 0 0 1px color-mix(in oklab, var(--arch-primary) 35%, transparent), 0 20px 60px -20px color-mix(in oklab, var(--arch-primary) 55%, transparent), 0 0 90px -10px color-mix(in oklab, var(--arch-primary) 30%, transparent)",
         }}
       >
+        {/* top sheen */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-[2px]"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, var(--arch-primary), transparent)",
+            boxShadow: "0 0 24px color-mix(in oklab, var(--arch-primary) 70%, transparent)",
+          }}
+        />
+        {/* radial glow */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 -left-16 h-64 w-64 rounded-full opacity-70 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-24 -right-16 h-72 w-72 rounded-full opacity-50 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in oklab, var(--arch-primary) 45%, transparent) 0%, transparent 70%)",
+          }}
+        />
         <div
           className="pointer-events-none absolute inset-y-0 left-0 w-[3px]"
-          style={{ background: "var(--arch-primary)" }}
+          style={{
+            background: "var(--arch-primary)",
+            boxShadow: "0 0 20px color-mix(in oklab, var(--arch-primary) 80%, transparent)",
+          }}
         />
         <p
-          className="mb-2 font-mono text-[10px] uppercase tracking-[0.28em]"
+          className="relative mb-2 font-mono text-[10px] uppercase tracking-[0.28em]"
           style={{ color: "var(--arch-primary)" }}
         >
           {verdictLabel}
         </p>
-        <p className="text-[18px] leading-relaxed text-white sm:text-[20px]">
+        <p className="relative text-[18px] leading-relaxed text-white sm:text-[20px]">
           <strong style={{ color: "var(--arch-primary)" }}>{pivot}</strong>{" "}
           <span className="text-white/90">{solution}</span>
         </p>
