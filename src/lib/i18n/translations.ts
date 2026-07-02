@@ -288,7 +288,30 @@ export type Dict = {
       timeline?: Array<{ year: string; event: string }>;
       verdictLabel?: string;
     };
-    b4: { title: string; subtitle: string; features: Array<{ title: string; description: string }> };
+    b4: {
+      title: string;
+      subtitle: string;
+      features: Array<{ title: string; description: string }>;
+      dossier?: {
+        caseLabel: string;
+        subjectLabel: string;
+        confidential: string;
+        indexLabel: string;
+        indexCaption: string;
+        fileLabel: string;
+        scoreLabel: string;
+        severityLabel: string;
+        severity: { low: string; moderate: string; critical: string };
+        triggerLabel: string;
+        frequencyLabel: string;
+        impactLabel: string;
+        frequency: { daily: string; weekly: string; sporadic: string };
+        impact: { high: string; medium: string; low: string };
+        triggers: { AO: string; SS: string; EA: string; HI: string };
+        verdictLabel: string;
+        verdictPivot: string;
+      };
+    };
     b5: {
       eyebrow: string;
       title: string;
@@ -887,6 +910,25 @@ const PT: Dict = {
         { title: "Amor", description: "Como [PRIMARY] aparece nas tuas relações — e o script literal para a próxima conversa difícil sobre dinheiro." },
         { title: "Pessoal", description: "O hábito-âncora que, ao mudares, derruba outros 3 padrões automáticos em 90 dias." },
       ],
+      dossier: {
+        caseLabel: "ARQUIVO PESSOAL",
+        subjectLabel: "SUJEITO",
+        confidential: "CONFIDENCIAL",
+        indexLabel: "ÍNDICE COMPOSTO",
+        indexCaption: "Padrão [PRIMARY] activo em 4/4 áreas críticas",
+        fileLabel: "FICHA",
+        scoreLabel: "SCORE",
+        severityLabel: "SEVERIDADE",
+        severity: { low: "Baixa", moderate: "Moderada", critical: "Crítica" },
+        triggerLabel: "Gatilho",
+        frequencyLabel: "Frequência",
+        impactLabel: "Impacto",
+        frequency: { daily: "diária", weekly: "semanal", sporadic: "esporádica" },
+        impact: { high: "alto", medium: "médio", low: "baixo" },
+        triggers: { AO: "medo de faltar", SS: "aprovação social", EA: "evitamento", HI: "prazer imediato" },
+        verdictLabel: "VEREDICTO",
+        verdictPivot: "O mesmo padrão. 4 áreas da tua vida. Uma decisão.",
+      },
     },
     b5: {
       eyebrow: "O QUE VAIS RECEBER",
@@ -1540,6 +1582,25 @@ const EN: Dict = {
         { title: "Love", description: "How [PRIMARY] shows up in your relationships — and the literal script for the next hard money conversation." },
         { title: "Personal", description: "The anchor habit that, once you change it, breaks 3 other automatic patterns in 30 days." },
       ],
+      dossier: {
+        caseLabel: "PERSONAL FILE",
+        subjectLabel: "SUBJECT",
+        confidential: "CONFIDENTIAL",
+        indexLabel: "COMPOSITE INDEX",
+        indexCaption: "[PRIMARY] pattern active across 4/4 critical areas",
+        fileLabel: "FILE",
+        scoreLabel: "SCORE",
+        severityLabel: "SEVERITY",
+        severity: { low: "Low", moderate: "Moderate", critical: "Critical" },
+        triggerLabel: "Trigger",
+        frequencyLabel: "Frequency",
+        impactLabel: "Impact",
+        frequency: { daily: "daily", weekly: "weekly", sporadic: "sporadic" },
+        impact: { high: "high", medium: "medium", low: "low" },
+        triggers: { AO: "fear of scarcity", SS: "social approval", EA: "avoidance", HI: "immediate pleasure" },
+        verdictLabel: "VERDICT",
+        verdictPivot: "Same pattern. 4 areas of your life. One decision.",
+      },
     },
     b5: {
       eyebrow: "WHAT YOU'LL GET",
@@ -1931,6 +1992,25 @@ const PL: Dict = {
         { title: "Miłość", description: "Jak [PRIMARY] manifestuje się w twoich relacjach — i dosłowny skrypt do najbliższej trudnej rozmowy o pieniądzach." },
         { title: "Osobisty", description: "Nawyk-kotwica, który zmieniony obala 3 inne automatyczne wzorce w 30 dni." },
       ],
+      dossier: {
+        caseLabel: "AKTA OSOBOWE",
+        subjectLabel: "PODMIOT",
+        confidential: "POUFNE",
+        indexLabel: "INDEKS ZŁOŻONY",
+        indexCaption: "Wzorzec [PRIMARY] aktywny w 4/4 kluczowych obszarach",
+        fileLabel: "AKTA",
+        scoreLabel: "WYNIK",
+        severityLabel: "NASILENIE",
+        severity: { low: "Niskie", moderate: "Umiarkowane", critical: "Krytyczne" },
+        triggerLabel: "Wyzwalacz",
+        frequencyLabel: "Częstotliwość",
+        impactLabel: "Wpływ",
+        frequency: { daily: "codziennie", weekly: "co tydzień", sporadic: "sporadycznie" },
+        impact: { high: "wysoki", medium: "średni", low: "niski" },
+        triggers: { AO: "strach przed brakiem", SS: "aprobata społeczna", EA: "unikanie", HI: "natychmiastowa przyjemność" },
+        verdictLabel: "WYROK",
+        verdictPivot: "Ten sam wzorzec. 4 obszary życia. Jedna decyzja.",
+      },
     },
     b5: {
       eyebrow: "CO OTRZYMASZ",
@@ -2322,6 +2402,25 @@ const RO: Dict = {
         { title: "Iubire", description: "Cum apare [PRIMARY] în relațiile tale — și scriptul literal pentru următoarea conversație dificilă despre bani." },
         { title: "Personal", description: "Obiceiul-ancoră care, odată schimbat, doboară alte 3 tipare automate în 30 de zile." },
       ],
+      dossier: {
+        caseLabel: "DOSAR PERSONAL",
+        subjectLabel: "SUBIECT",
+        confidential: "CONFIDENȚIAL",
+        indexLabel: "INDICE COMPUS",
+        indexCaption: "Tipar [PRIMARY] activ în 4/4 zone critice",
+        fileLabel: "FIȘA",
+        scoreLabel: "SCOR",
+        severityLabel: "SEVERITATE",
+        severity: { low: "Scăzută", moderate: "Moderată", critical: "Critică" },
+        triggerLabel: "Declanșator",
+        frequencyLabel: "Frecvență",
+        impactLabel: "Impact",
+        frequency: { daily: "zilnică", weekly: "săptămânală", sporadic: "sporadică" },
+        impact: { high: "ridicat", medium: "mediu", low: "scăzut" },
+        triggers: { AO: "teama de lipsă", SS: "aprobare socială", EA: "evitare", HI: "plăcere imediată" },
+        verdictLabel: "VERDICT",
+        verdictPivot: "Același tipar. 4 zone ale vieții. O decizie.",
+      },
     },
     b5: {
       eyebrow: "CE PRIMEȘTI",
@@ -2714,6 +2813,25 @@ const AR: Dict = {
         { title: "الحب", description: "كيف يظهر [PRIMARY] في علاقاتك — والسيناريو الحرفي لمحادثة المال الصعبة القادمة." },
         { title: "الشخصي", description: "العادة-المرساة التي إن غيّرتها أسقطت 3 أنماط تلقائية أخرى خلال 30 يوماً." },
       ],
+      dossier: {
+        caseLabel: "ملف شخصي",
+        subjectLabel: "الموضوع",
+        confidential: "سري",
+        indexLabel: "المؤشر المركّب",
+        indexCaption: "نمط [PRIMARY] نشط في 4/4 مجالات حرجة",
+        fileLabel: "ملف",
+        scoreLabel: "النتيجة",
+        severityLabel: "الحدّة",
+        severity: { low: "منخفضة", moderate: "متوسطة", critical: "حرجة" },
+        triggerLabel: "المحفّز",
+        frequencyLabel: "التكرار",
+        impactLabel: "الأثر",
+        frequency: { daily: "يومي", weekly: "أسبوعي", sporadic: "متقطّع" },
+        impact: { high: "مرتفع", medium: "متوسط", low: "منخفض" },
+        triggers: { AO: "الخوف من النقص", SS: "القبول الاجتماعي", EA: "التجنّب", HI: "المتعة الفورية" },
+        verdictLabel: "الحكم",
+        verdictPivot: "نفس النمط. 4 مجالات في حياتك. قرار واحد.",
+      },
     },
     b5: {
       eyebrow: "ما ستحصل عليه",

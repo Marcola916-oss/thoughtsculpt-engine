@@ -26,6 +26,7 @@ import { SceneFrame } from "./v3/SceneFrame";
 import { PainDossier } from "./v3/PainDossier";
 import { ScienceDossier } from "./v3/ScienceDossier";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
+import { DiagnosisDossier } from "./v3/DiagnosisDossier";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
@@ -226,20 +227,34 @@ export default function SalesPageV2({
           {/* III — 4D Diagnosis */}
           <SceneFrame sceneId="4d" index={3} badge={badges.fourD} title={tpl(v2.b4.title)}>
             <p className="mb-8 text-white/70 text-base font-medium">{tpl(v2.b4.subtitle)}</p>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {AREA_ORDER.map((area, i) => {
-                const feat = v2.b4.features[i];
-                return (
-                  <AreaPoster
-                    key={area}
-                    area={area}
-                    title={feat?.title ?? area}
-                    description={tpl(feat?.description ?? "")}
-                    score={areaScores[area]}
-                  />
-                );
-              })}
-            </div>
+            {v2.b4.dossier ? (
+              <DiagnosisDossier
+                archetype={archetype}
+                displayName={displayName}
+                areaScores={areaScores}
+                features={v2.b4.features.map((f) => ({
+                  title: f.title,
+                  description: tpl(f.description),
+                }))}
+                copy={v2.b4.dossier}
+                areaOrder={AREA_ORDER}
+              />
+            ) : (
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {AREA_ORDER.map((area, i) => {
+                  const feat = v2.b4.features[i];
+                  return (
+                    <AreaPoster
+                      key={area}
+                      area={area}
+                      title={feat?.title ?? area}
+                      description={tpl(feat?.description ?? "")}
+                      score={areaScores[area]}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </SceneFrame>
 
           {/* B5 — "O que vais receber" (sem preço — preço fica para Tela 13) */}
