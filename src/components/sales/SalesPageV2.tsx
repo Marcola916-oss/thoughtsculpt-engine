@@ -428,9 +428,24 @@ export default function SalesPageV2({
         {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
         <aside className="pointer-events-none relative hidden lg:block h-full">
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full overflow-hidden">
+            {/* Spline interactive portal — behind the bust, bottom-anchored */}
+            <iframe
+              src="https://my.spline.design/interactiveportal-SzlGFWdGkdLOCI9MBnxfeASH/"
+              title="Interactive portal"
+              loading="lazy"
+              className="pointer-events-auto absolute inset-x-0 bottom-0 z-0 h-[55%] w-full border-0"
+              style={{
+                background: "transparent",
+                maskImage:
+                  "linear-gradient(to top, black 60%, rgba(0,0,0,0.6) 85%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to top, black 60%, rgba(0,0,0,0.6) 85%, transparent 100%)",
+              }}
+            />
             <ScrollAnimationSequence
               archetype={archetype}
               targetRef={rootRef}
+              canvasClassName="relative z-10"
               canvasStyle={{
                 maskImage:
                   "linear-gradient(to bottom, black 0%, black 84%, rgba(0,0,0,0.86) 90%, rgba(0,0,0,0.38) 96%, transparent 100%)",
