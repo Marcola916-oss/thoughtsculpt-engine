@@ -869,7 +869,7 @@ const PT: Dict = {
       note: "Acesso vitalício · Sem subscrição · Garantia incondicional de 30 dias.",
     },
     b6: {
-      counter: "+12.000 diagnósticos gerados em 5 países",
+      counter: "PESSOAS QUE UTILIZARAM O MINDRESET",
       rating: "UTILIZADORES SATISFEITOS",
       testimonials: [
         { stars: 5, quote: "Pela primeira vez percebi porque nunca conseguia poupar. Não era falta de disciplina — era o meu padrão de [PRIMARY].", author: "Adam K.", country: "Polónia", arch: "AO", hasPhoto: true },
@@ -1504,7 +1504,7 @@ const EN: Dict = {
       note: "Lifetime access · No subscription · 30-day unconditional guarantee.",
     },
     b6: {
-      counter: "+12,000 diagnoses generated across 5 countries",
+      counter: "PEOPLE WHO USED MINDRESET",
       rating: "4.9 / 5 based on user reviews",
       testimonials: [
         { stars: 5, quote: "For the first time I understood why I could never save. It wasn't lack of discipline — it was my [PRIMARY] pattern.", author: "Adam K.", country: "Poland", arch: "AO", hasPhoto: true },
@@ -1877,7 +1877,7 @@ const PL: Dict = {
       note: "Dostęp dożywotni · Bez subskrypcji · Bezwarunkowa gwarancja 30 dni.",
     },
     b6: {
-      counter: "+12 000 diagnoz wykonanych w 5 krajach",
+      counter: "OSOBY, KTÓRE SKORZYSTAŁY Z MINDRESET",
       rating: "ZADOWOLENI UŻYTKOWNICY",
       testimonials: [
         { stars: 5, quote: "Po raz pierwszy zrozumiałam, dlaczego nigdy nie potrafiłam oszczędzać. To nie był brak dyscypliny — to mój wzorzec [PRIMARY].", author: "Adam K.", country: "Polska", arch: "AO", hasPhoto: true },
@@ -2250,7 +2250,7 @@ const RO: Dict = {
       note: "Acces pe viață · Fără abonament · Garanție necondiționată 30 de zile.",
     },
     b6: {
-      counter: "+12.000 de diagnoze realizate în 5 țări",
+      counter: "PERSOANE CARE AU UTILIZAT MINDRESET",
       rating: "UTILIZATORI SATISFĂCUȚI",
       testimonials: [
         { stars: 5, quote: "Pentru prima dată am înțeles de ce nu reușeam să economisesc. Nu era lipsa de disciplină — era tiparul meu [PRIMARY].", author: "Adam K.", country: "Polonia", arch: "AO", hasPhoto: true },
@@ -2624,7 +2624,7 @@ const AR: Dict = {
       note: "وصول مدى الحياة · بدون اشتراك · ضمان غير مشروط 30 يوماً.",
     },
     b6: {
-      counter: "+12,000 تشخيص في 5 دول",
+      counter: "أشخاص استخدموا MINDRESET",
       rating: "مستخدمون راضون",
       testimonials: [
         { stars: 5, quote: "لأول مرة فهمت لماذا لم أكن قادراً على الادخار. لم تكن قلة انضباط — كان نمطي [PRIMARY].", author: "Adam K.", country: "بولندا", arch: "AO", hasPhoto: true },
