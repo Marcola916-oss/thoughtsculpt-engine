@@ -173,7 +173,7 @@ export default function SalesPageV2({
         </Atmosphere>
       </div>
       {/* ─── Layout split: copy column + sculpture column ───── */}
-      <div className="mx-auto w-full max-w-4xl px-5 sm:px-8 lg:px-12 py-10">
+      <div className="mx-auto w-full max-w-4xl px-5 sm:px-8 lg:px-12 py-10 text-center">
         {/* COPY COLUMN ─────────────────────────────────────── */}
         <div className="relative z-10">
           {/* B1 — Hero */}
