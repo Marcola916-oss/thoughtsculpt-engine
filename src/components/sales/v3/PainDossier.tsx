@@ -76,19 +76,11 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
             {/* Subtle corner brackets — thematic, no grain */}
             <CornerBrackets />
 
-            {/* Case number — floating chip, top-right */}
-            <span
-              aria-hidden
-              className="absolute end-4 top-4 font-mono text-[10px] tracking-[0.25em] text-white/45"
-            >
-              <span className="text-white/75">{String(c.index).padStart(2, "0")}</span>
-              <span className="text-white/25"> / {total}</span>
-            </span>
-
-            {/* Header: icon + label (single line, clean hierarchy) */}
-            <header className="relative mb-5 flex items-center gap-3.5 pe-14">
+            {/* Header: icon + label + case chip. Grid so title gets the
+                remaining track and wraps cleanly instead of truncating. */}
+            <header className="relative mb-5 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
               <span
-                className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border transition-all duration-500 group-hover/dossier:scale-110"
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition-all duration-500 group-hover/dossier:scale-110 sm:h-12 sm:w-12"
                 style={{
                   borderColor: "color-mix(in oklab, var(--arch-primary) 45%, transparent)",
                   background:
@@ -97,15 +89,22 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
                 }}
               >
                 <c.Icon
-                  className="h-[22px] w-[22px]"
+                  className="h-5 w-5 sm:h-[22px] sm:w-[22px]"
                   strokeWidth={2.25}
                   style={{ color: "var(--arch-primary)" }}
                   aria-hidden
                 />
               </span>
-              <h3 className="min-w-0 truncate font-display text-xl font-extrabold uppercase leading-none tracking-[0.06em] text-white sm:text-[22px]">
+              <h3 className="min-w-0 font-display text-[19px] font-extrabold uppercase leading-[1.05] tracking-[0.04em] text-white break-words hyphens-none sm:text-[22px] sm:tracking-[0.06em]">
                 {c.label}
               </h3>
+              <span
+                aria-hidden
+                className="shrink-0 self-start font-mono text-[10px] leading-none tracking-[0.2em] text-white/45"
+              >
+                <span className="text-white/75">{String(c.index).padStart(2, "0")}</span>
+                <span className="text-white/25"> / {total}</span>
+              </span>
             </header>
 
             {/* Divider */}
