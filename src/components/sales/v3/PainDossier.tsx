@@ -64,7 +64,7 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
         {cards.map((c) => (
           <article
             key={c.index}
-            className="group/dossier relative overflow-hidden rounded-2xl border p-6 pb-7 sm:p-7 sm:pb-8 text-start transition-all duration-500 hover:-translate-y-1"
+            className="group/dossier relative overflow-hidden rounded-2xl border p-6 pt-8 pb-7 sm:p-7 sm:pt-10 sm:pb-8 text-start transition-all duration-500 hover:-translate-y-1"
             style={{
               borderColor: "color-mix(in oklab, var(--arch-primary) 20%, rgba(255,255,255,0.08))",
               background:
@@ -76,9 +76,17 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
             {/* Subtle corner brackets — thematic, no grain */}
             <CornerBrackets />
 
-            {/* Header: icon + label + case chip. Grid so title gets the
-                remaining track and wraps cleanly instead of truncating. */}
-            <header className="relative mb-5 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+            {/* Case chip — floated top-right so it never crowds the title */}
+            <span
+              aria-hidden
+              className="absolute right-5 top-4 font-mono text-[10px] leading-none tracking-[0.2em] text-white/45 sm:right-6 sm:top-5"
+            >
+              <span className="text-white/75">{String(c.index).padStart(2, "0")}</span>
+              <span className="text-white/25"> / {total}</span>
+            </span>
+
+            {/* Header: icon + label. Extra top spacing keeps clear of chip. */}
+            <header className="relative mb-5 mt-2 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3 sm:mt-3">
               <span
                 className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition-all duration-500 group-hover/dossier:scale-110 sm:h-12 sm:w-12"
                 style={{
@@ -98,13 +106,6 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
               <h3 className="min-w-0 font-display text-[19px] font-extrabold uppercase leading-[1.05] tracking-[0.04em] text-white break-words hyphens-none sm:text-[22px] sm:tracking-[0.06em]">
                 {c.label}
               </h3>
-              <span
-                aria-hidden
-                className="shrink-0 self-start font-mono text-[10px] leading-none tracking-[0.2em] text-white/45"
-              >
-                <span className="text-white/75">{String(c.index).padStart(2, "0")}</span>
-                <span className="text-white/25"> / {total}</span>
-              </span>
             </header>
 
             {/* Divider */}
