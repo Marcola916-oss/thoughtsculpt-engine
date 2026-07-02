@@ -870,7 +870,7 @@ const PT: Dict = {
     },
     b6: {
       counter: "+12.000 diagnósticos gerados em 5 países",
-      rating: "4,9 / 5 com base em avaliações de utilizadores",
+      rating: "UTILIZADORES SATISFEITOS",
       testimonials: [
         { stars: 5, quote: "Pela primeira vez percebi porque nunca conseguia poupar. Não era falta de disciplina — era o meu padrão de [PRIMARY].", author: "Adam K.", country: "Polónia", arch: "AO", hasPhoto: true },
         { stars: 5, quote: "O diagnóstico mudou a forma como falo de dinheiro com o meu parceiro. Em 15 dias deixámos de discutir.", author: "Maria C.", country: "Portugal", arch: "EA", hasPhoto: true },
@@ -1244,7 +1244,7 @@ const EN: Dict = {
         { quote: "Compass changed my relationship with my partner. I understood his archetype and we stopped fighting about money.", author: "Andrzej K.", country: "Poland" },
         { quote: "In 15 days I was already recognizing the trigger before buying. No app ever did that for me.", author: "Alexandru P.", country: "Romania" },
       ],
-      ratingText: "4.9/5 based on user reviews",
+      ratingText: "SATISFIED USERS",
     },
     faq: [
       { q: "How is this different from budgeting apps like YNAB or Mint?", a: "Completely different. Those apps teach you WHAT to do with money. MindReset reveals WHY you can't do what you already know you should. That's the difference between lasting change and abandonment in 30 days." },
@@ -1878,7 +1878,7 @@ const PL: Dict = {
     },
     b6: {
       counter: "+12 000 diagnoz wykonanych w 5 krajach",
-      rating: "4,9 / 5 na podstawie opinii użytkowników",
+      rating: "ZADOWOLENI UŻYTKOWNICY",
       testimonials: [
         { stars: 5, quote: "Po raz pierwszy zrozumiałam, dlaczego nigdy nie potrafiłam oszczędzać. To nie był brak dyscypliny — to mój wzorzec [PRIMARY].", author: "Adam K.", country: "Polska", arch: "AO", hasPhoto: true },
         { stars: 5, quote: "Diagnoza zmieniła sposób, w jaki rozmawiam z partnerem o pieniądzach. W 15 dni przestaliśmy się kłócić.", author: "Maria C.", country: "Portugalia", arch: "EA", hasPhoto: true },
@@ -2251,7 +2251,7 @@ const RO: Dict = {
     },
     b6: {
       counter: "+12.000 de diagnoze realizate în 5 țări",
-      rating: "4,9 / 5 pe baza recenziilor utilizatorilor",
+      rating: "UTILIZATORI SATISFĂCUȚI",
       testimonials: [
         { stars: 5, quote: "Pentru prima dată am înțeles de ce nu reușeam să economisesc. Nu era lipsa de disciplină — era tiparul meu [PRIMARY].", author: "Adam K.", country: "Polonia", arch: "AO", hasPhoto: true },
         { stars: 5, quote: "Diagnoza a schimbat felul în care vorbesc cu partenerul meu despre bani. În 15 zile am încetat să ne mai certăm.", author: "Maria C.", country: "Portugalia", arch: "EA", hasPhoto: true },
@@ -2625,7 +2625,7 @@ const AR: Dict = {
     },
     b6: {
       counter: "+12,000 تشخيص في 5 دول",
-      rating: "4.9 / 5 بناءً على تقييمات المستخدمين",
+      rating: "مستخدمون راضون",
       testimonials: [
         { stars: 5, quote: "لأول مرة فهمت لماذا لم أكن قادراً على الادخار. لم تكن قلة انضباط — كان نمطي [PRIMARY].", author: "Adam K.", country: "بولندا", arch: "AO", hasPhoto: true },
         { stars: 5, quote: "غيّر التشخيص طريقة حديثي مع شريكي عن المال. خلال 15 يوماً توقفنا عن الجدال.", author: "Maria C.", country: "البرتغال", arch: "EA", hasPhoto: true },
