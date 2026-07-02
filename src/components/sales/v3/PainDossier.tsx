@@ -4,9 +4,9 @@ import type { LucideIcon } from "lucide-react";
 /**
  * PainDossier — clinical "behavioral case file" grid.
  *
- * Receives the raw 8 bullets from translations ("Category: symptom") and
- * groups them into 4 dossier cards (2 symptoms each). Purely presentational
- * — copy/i18n stays in translations.ts.
+ * Receives 8 bullets ("Category: symptom") and groups them into 4 dossier
+ * cards (2 symptoms each). Purely presentational — copy stays in
+ * translations.ts. i18n-safe: all chrome uses symbols/numbers only.
  */
 
 const ICONS: LucideIcon[] = [Coins, Briefcase, Heart, User];
@@ -39,20 +39,24 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
 
   return (
     <div className="mt-10 w-full">
-      {/* Dossier header strip */}
+      {/* Dossier header strip — minimal, i18n-safe (symbols + numbers only) */}
       <div
-        className="mb-6 flex items-center justify-between gap-4 border-y py-2.5 font-mono text-[10px] uppercase tracking-[0.35em] text-white/55"
+        className="mb-8 flex items-center justify-center gap-4 border-y py-3 font-mono text-[10px] uppercase tracking-[0.4em] text-white/50"
         style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 22%, transparent)" }}
       >
-        <span className="flex items-center gap-2">
-          <span
-            className="inline-block h-1.5 w-1.5 animate-pulse rounded-full"
-            style={{ background: "var(--arch-primary)", boxShadow: "0 0 8px var(--arch-primary)" }}
-          />
-          Case File · Behavioral Pattern
+        <span
+          aria-hidden
+          className="inline-block h-1.5 w-1.5 animate-pulse rounded-full"
+          style={{ background: "var(--arch-primary)", boxShadow: "0 0 8px var(--arch-primary)" }}
+        />
+        <span className="tracking-[0.5em]">CASE&nbsp;FILE</span>
+        <span aria-hidden className="text-white/25">·</span>
+        <span>
+          <span className="text-white">04</span>
+          <span className="text-white/30"> / {total}</span>
         </span>
-        <span className="hidden sm:inline">4 áreas afetadas · confidencial</span>
-        <span>REC · 01</span>
+        <span aria-hidden className="text-white/25">·</span>
+        <span className="tracking-[0.5em]">REC</span>
       </div>
 
       {/* 2×2 grid of dossier cards */}
@@ -60,65 +64,48 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
         {cards.map((c) => (
           <article
             key={c.index}
-            className="group/dossier relative overflow-hidden rounded-2xl border p-6 sm:p-7 text-start transition-all duration-500 hover:-translate-y-1"
+            className="group/dossier relative overflow-hidden rounded-2xl border p-6 pb-7 sm:p-7 sm:pb-8 text-start transition-all duration-500 hover:-translate-y-1"
             style={{
-              borderColor: "color-mix(in oklab, var(--arch-primary) 18%, rgba(255,255,255,0.08))",
+              borderColor: "color-mix(in oklab, var(--arch-primary) 20%, rgba(255,255,255,0.08))",
               background:
-                "linear-gradient(155deg, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.35) 55%, color-mix(in oklab, var(--arch-primary) 8%, transparent) 100%)",
+                "linear-gradient(160deg, rgba(255,255,255,0.035) 0%, rgba(0,0,0,0.4) 55%, color-mix(in oklab, var(--arch-primary) 9%, transparent) 100%)",
               boxShadow:
                 "inset 0 1px 0 rgba(255,255,255,0.04), 0 20px 60px -30px color-mix(in oklab, var(--arch-primary) 45%, transparent)",
             }}
           >
-            {/* Corner brackets */}
+            {/* Subtle corner brackets — thematic, no grain */}
             <CornerBrackets />
 
-            {/* Grain overlay */}
-            <div
+            {/* Case number — floating chip, top-right */}
+            <span
               aria-hidden
-              className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay"
-              style={{
-                backgroundImage:
-                  "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
-                backgroundSize: "3px 3px",
-              }}
-            />
+              className="absolute end-4 top-4 font-mono text-[10px] tracking-[0.25em] text-white/45"
+            >
+              <span className="text-white/75">{String(c.index).padStart(2, "0")}</span>
+              <span className="text-white/25"> / {total}</span>
+            </span>
 
-            {/* Header: icon + label + case number */}
-            <header className="relative mb-5 flex items-start justify-between gap-3">
-              <div className="flex min-w-0 items-center gap-3">
-                <span
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition-transform duration-500 group-hover/dossier:scale-110"
-                  style={{
-                    borderColor: "color-mix(in oklab, var(--arch-primary) 45%, transparent)",
-                    background:
-                      "radial-gradient(circle at 30% 20%, color-mix(in oklab, var(--arch-primary) 30%, transparent), transparent 70%)",
-                    boxShadow: "0 0 24px -6px var(--arch-glow)",
-                  }}
-                >
-                  <c.Icon
-                    className="h-5 w-5"
-                    strokeWidth={2.25}
-                    style={{ color: "var(--arch-primary)" }}
-                    aria-hidden
-                  />
-                </span>
-                <div className="min-w-0">
-                  <p
-                    className="truncate font-display text-lg font-extrabold uppercase leading-none tracking-[0.08em] text-white sm:text-xl"
-                  >
-                    {c.label}
-                  </p>
-                  <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.3em] text-white/45">
-                    Área afetada
-                  </p>
-                </div>
-              </div>
+            {/* Header: icon + label (single line, clean hierarchy) */}
+            <header className="relative mb-5 flex items-center gap-3.5 pe-14">
               <span
-                className="shrink-0 font-mono text-[11px] tracking-[0.2em] text-white/50"
-                aria-hidden
+                className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border transition-all duration-500 group-hover/dossier:scale-110"
+                style={{
+                  borderColor: "color-mix(in oklab, var(--arch-primary) 45%, transparent)",
+                  background:
+                    "radial-gradient(circle at 30% 20%, color-mix(in oklab, var(--arch-primary) 32%, transparent), transparent 70%)",
+                  boxShadow: "0 0 24px -6px var(--arch-glow)",
+                }}
               >
-                {String(c.index).padStart(2, "0")}<span className="text-white/25"> / {total}</span>
+                <c.Icon
+                  className="h-[22px] w-[22px]"
+                  strokeWidth={2.25}
+                  style={{ color: "var(--arch-primary)" }}
+                  aria-hidden
+                />
               </span>
+              <h3 className="min-w-0 truncate font-display text-xl font-extrabold uppercase leading-none tracking-[0.06em] text-white sm:text-[22px]">
+                {c.label}
+              </h3>
             </header>
 
             {/* Divider */}
@@ -127,32 +114,38 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
               className="relative mb-5 h-px w-full"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--arch-primary) 55%, transparent) 20%, color-mix(in oklab, var(--arch-primary) 20%, transparent) 100%)",
+                  "linear-gradient(90deg, color-mix(in oklab, var(--arch-primary) 55%, transparent) 0%, color-mix(in oklab, var(--arch-primary) 18%, transparent) 40%, transparent 100%)",
               }}
             />
 
-            {/* Symptoms */}
-            <ul className="relative space-y-3.5">
+            {/* Symptoms — numbered chapters with scar bar */}
+            <ul className="relative space-y-4">
               {c.symptoms.map((s, i) => (
-                <li key={i} className="relative flex gap-3 ps-0.5">
+                <li key={i} className="relative flex items-start gap-3.5">
+                  {/* index chip */}
                   <span
                     aria-hidden
-                    className="mt-1.5 h-[14px] w-[2px] shrink-0 rounded-full"
+                    className="mt-[3px] grid h-5 w-5 shrink-0 place-items-center rounded-md border font-mono text-[10px] font-bold leading-none"
+                    style={{
+                      borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
+                      color: "color-mix(in oklab, var(--arch-primary) 85%, white)",
+                      background: "color-mix(in oklab, var(--arch-primary) 10%, transparent)",
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {/* scar bar */}
+                  <span
+                    aria-hidden
+                    className="mt-[6px] h-4 w-[2px] shrink-0 rounded-full"
                     style={{
                       background:
-                        "linear-gradient(180deg, var(--arch-primary) 0%, color-mix(in oklab, var(--arch-primary) 40%, transparent) 100%)",
-                      boxShadow: "0 0 10px color-mix(in oklab, var(--arch-primary) 70%, transparent)",
+                        "linear-gradient(180deg, var(--arch-primary) 0%, color-mix(in oklab, var(--arch-primary) 30%, transparent) 100%)",
+                      boxShadow:
+                        "0 0 10px color-mix(in oklab, var(--arch-primary) 70%, transparent)",
                     }}
                   />
-                  <p className="text-[15px] leading-[1.55] text-white/85">
-                    <span
-                      className="me-1.5 font-mono text-[10px] font-bold tracking-[0.15em] text-white/40"
-                      aria-hidden
-                    >
-                      0{i + 1}
-                    </span>
-                    {s}
-                  </p>
+                  <p className="text-[15px] leading-[1.6] text-white/85">{s}</p>
                 </li>
               ))}
             </ul>
@@ -174,11 +167,11 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
       {/* Verdict strip */}
       {conclusion && (
         <div
-          className="relative mt-8 overflow-hidden rounded-2xl border px-6 py-6 sm:px-8 sm:py-7"
+          className="relative mt-8 overflow-hidden rounded-2xl border ps-8 pe-6 py-6 sm:ps-10 sm:pe-8 sm:py-7"
           style={{
             borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
             background:
-              "linear-gradient(90deg, color-mix(in oklab, var(--arch-primary) 12%, transparent) 0%, rgba(0,0,0,0.35) 100%)",
+              "linear-gradient(90deg, color-mix(in oklab, var(--arch-primary) 14%, transparent) 0%, rgba(0,0,0,0.4) 100%)",
             boxShadow: "0 20px 50px -25px var(--arch-glow)",
           }}
         >
@@ -190,8 +183,15 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
               boxShadow: "0 0 20px var(--arch-primary)",
             }}
           />
-          <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.4em] text-white/55">
-            Diagnóstico
+          <p
+            className="mb-2.5 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.4em] text-white/55"
+          >
+            <span
+              aria-hidden
+              className="inline-block h-1 w-1 rounded-full"
+              style={{ background: "var(--arch-primary)", boxShadow: "0 0 6px var(--arch-primary)" }}
+            />
+            Verdict · 04 / {total}
           </p>
           <p className="font-display text-lg font-extrabold uppercase leading-[1.2] tracking-tight text-white sm:text-2xl">
             {conclusion}
@@ -204,7 +204,7 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
 
 function CornerBrackets() {
   const common =
-    "pointer-events-none absolute h-3.5 w-3.5 border-white/20 transition-all duration-500 group-hover/dossier:border-arch-primary/70 group-hover/dossier:h-5 group-hover/dossier:w-5";
+    "pointer-events-none absolute h-3 w-3 border-white/15 transition-all duration-500 group-hover/dossier:border-arch-primary/60 group-hover/dossier:h-5 group-hover/dossier:w-5";
   return (
     <>
       <span aria-hidden className={`${common} left-2 top-2 border-l-2 border-t-2`} />
