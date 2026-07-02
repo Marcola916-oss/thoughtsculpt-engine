@@ -6,7 +6,9 @@ import type { LucideIcon } from "lucide-react";
  *
  * Receives the raw 8 bullets from translations ("Category: symptom") and
  * groups them into 4 dossier cards (2 symptoms each). Purely presentational
- * — copy/i18n stays in translations.ts.
+ * — copy/i18n stays in translations.ts. Design tokens (CASE FILE, EVIDENCE,
+ * DIAGNOSIS) are intentionally in English as universal clinical labels,
+ * matching the dossier metaphor across all 5 locales.
  */
 
 const ICONS: LucideIcon[] = [Coins, Briefcase, Heart, User];
@@ -38,21 +40,24 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
   const total = String(cards.length).padStart(2, "0");
 
   return (
-    <div className="mt-10 w-full">
-      {/* Dossier header strip */}
+    <div className="mt-12 w-full">
+      {/* Dossier header strip — universal design tokens */}
       <div
-        className="mb-6 flex items-center justify-between gap-4 border-y py-2.5 font-mono text-[10px] uppercase tracking-[0.35em] text-white/55"
+        className="mb-8 flex items-center justify-between gap-4 border-y py-3 font-mono text-[10px] uppercase tracking-[0.35em] text-white/55"
         style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 22%, transparent)" }}
       >
-        <span className="flex items-center gap-2">
+        <span className="flex items-center gap-2.5">
           <span
             className="inline-block h-1.5 w-1.5 animate-pulse rounded-full"
             style={{ background: "var(--arch-primary)", boxShadow: "0 0 8px var(--arch-primary)" }}
           />
-          Case File · Behavioral Pattern
+          <span>Case File</span>
+          <span className="text-white/25">·</span>
+          <span className="hidden sm:inline">Behavioral Pattern</span>
         </span>
-        <span className="hidden sm:inline">4 áreas afetadas · confidencial</span>
-        <span>REC · 01</span>
+        <span className="font-bold text-white/70">
+          {total} <span className="font-normal text-white/40">areas mapped</span>
+        </span>
       </div>
 
       {/* 2×2 grid of dossier cards */}
@@ -84,10 +89,10 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
             />
 
             {/* Header: icon + label + case number */}
-            <header className="relative mb-5 flex items-start justify-between gap-3">
-              <div className="flex min-w-0 items-center gap-3">
+            <header className="relative mb-5 flex items-center justify-between gap-3">
+              <div className="flex min-w-0 items-center gap-3.5">
                 <span
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border transition-transform duration-500 group-hover/dossier:scale-110"
+                  className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border transition-transform duration-500 group-hover/dossier:scale-110"
                   style={{
                     borderColor: "color-mix(in oklab, var(--arch-primary) 45%, transparent)",
                     background:
@@ -96,63 +101,51 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
                   }}
                 >
                   <c.Icon
-                    className="h-5 w-5"
+                    className="h-[22px] w-[22px]"
                     strokeWidth={2.25}
                     style={{ color: "var(--arch-primary)" }}
                     aria-hidden
                   />
                 </span>
-                <div className="min-w-0">
-                  <p
-                    className="truncate font-display text-lg font-extrabold uppercase leading-none tracking-[0.08em] text-white sm:text-xl"
-                  >
-                    {c.label}
-                  </p>
-                  <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.3em] text-white/45">
-                    Área afetada
-                  </p>
-                </div>
+                <p className="truncate font-display text-xl font-extrabold uppercase leading-none tracking-[0.06em] text-white sm:text-[22px]">
+                  {c.label}
+                </p>
               </div>
               <span
-                className="shrink-0 font-mono text-[11px] tracking-[0.2em] text-white/50"
+                className="shrink-0 font-mono text-[11px] tracking-[0.18em] text-white/40"
                 aria-hidden
               >
-                {String(c.index).padStart(2, "0")}<span className="text-white/25"> / {total}</span>
+                {String(c.index).padStart(2, "0")}<span className="text-white/20"> / {total}</span>
               </span>
             </header>
 
-            {/* Divider */}
+            {/* Divider + EVIDENCE label */}
             <div
               aria-hidden
-              className="relative mb-5 h-px w-full"
+              className="relative mb-4 h-px w-full"
               style={{
                 background:
                   "linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--arch-primary) 55%, transparent) 20%, color-mix(in oklab, var(--arch-primary) 20%, transparent) 100%)",
               }}
             />
+            <p className="relative mb-4 font-mono text-[9px] uppercase tracking-[0.4em] text-white/40">
+              Evidence
+            </p>
 
             {/* Symptoms */}
-            <ul className="relative space-y-3.5">
+            <ul className="relative space-y-3">
               {c.symptoms.map((s, i) => (
-                <li key={i} className="relative flex gap-3 ps-0.5">
+                <li key={i} className="relative flex gap-3">
                   <span
                     aria-hidden
-                    className="mt-1.5 h-[14px] w-[2px] shrink-0 rounded-full"
+                    className="mt-[7px] h-4 w-[2px] shrink-0 rounded-full"
                     style={{
                       background:
                         "linear-gradient(180deg, var(--arch-primary) 0%, color-mix(in oklab, var(--arch-primary) 40%, transparent) 100%)",
                       boxShadow: "0 0 10px color-mix(in oklab, var(--arch-primary) 70%, transparent)",
                     }}
                   />
-                  <p className="text-[15px] leading-[1.55] text-white/85">
-                    <span
-                      className="me-1.5 font-mono text-[10px] font-bold tracking-[0.15em] text-white/40"
-                      aria-hidden
-                    >
-                      0{i + 1}
-                    </span>
-                    {s}
-                  </p>
+                  <p className="text-[15px] leading-[1.6] text-white/85">{s}</p>
                 </li>
               ))}
             </ul>
@@ -174,7 +167,7 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
       {/* Verdict strip */}
       {conclusion && (
         <div
-          className="relative mt-8 overflow-hidden rounded-2xl border px-6 py-6 sm:px-8 sm:py-7"
+          className="relative mt-8 overflow-hidden rounded-2xl border px-6 py-7 sm:px-9 sm:py-8"
           style={{
             borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
             background:
@@ -190,10 +183,17 @@ export function PainDossier({ bullets, conclusion }: { bullets: string[]; conclu
               boxShadow: "0 0 20px var(--arch-primary)",
             }}
           />
-          <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.4em] text-white/55">
-            Diagnóstico
-          </p>
-          <p className="font-display text-lg font-extrabold uppercase leading-[1.2] tracking-tight text-white sm:text-2xl">
+          <div className="flex items-center gap-2.5 mb-3">
+            <span
+              aria-hidden
+              className="inline-block h-1.5 w-1.5 animate-pulse rounded-full"
+              style={{ background: "var(--arch-primary)", boxShadow: "0 0 8px var(--arch-primary)" }}
+            />
+            <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/60">
+              Diagnosis
+            </p>
+          </div>
+          <p className="font-display text-xl font-extrabold uppercase leading-[1.2] tracking-tight text-white sm:text-[26px]">
             {conclusion}
           </p>
         </div>
