@@ -185,12 +185,6 @@ export default function SalesPageV2({
               cta={v2.b1.cta}
               timer={v2.b1.timer}
               onCta={() => advance("b1")}
-              proofs={[
-                { value: "+12.000", label: v2.b6.counter.replace(/[+\d.,\s]+/g, " ").trim() || "Diagnoses" },
-                { value: "4.9★", label: v2.b6.rating.replace(/[★⭐\d.,/\s]+/g, " ").trim() || "Rating" },
-                { value: "60s", label: "PDF" },
-                { value: "5", label: "Languages" },
-              ]}
             />
           </div>
 
@@ -290,6 +284,31 @@ export default function SalesPageV2({
             testimonials={v2.b6.testimonials.slice(0, 6)}
             lang={lang}
           />
+
+          {/* ProofBar — moved from Hero to sit below the 6 testimonial cards */}
+          <ul
+            className="mx-auto mt-4 grid w-full max-w-2xl grid-cols-2 gap-x-6 gap-y-6 border-t pt-8 sm:grid-cols-4 text-center"
+            style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 25%, transparent)" }}
+          >
+            {[
+              { value: "+12.000", label: v2.b6.counter.replace(/[+\d.,\s]+/g, " ").trim() || "Diagnoses" },
+              { value: "4.9★", label: v2.b6.rating.replace(/[★⭐\d.,/\s]+/g, " ").trim() || "Rating" },
+              { value: "60s", label: "PDF" },
+              { value: "5", label: "Languages" },
+            ].map((p, i) => (
+              <li key={i} className="min-w-0 text-center">
+                <p
+                  className="font-display text-xl font-extrabold tabular-nums sm:text-2xl leading-none whitespace-nowrap drop-shadow-md"
+                  style={{ color: "var(--arch-primary)" }}
+                >
+                  {p.value}
+                </p>
+                <p className="mt-2 text-[11px] uppercase tracking-wider text-white/70 font-semibold leading-snug">
+                  {p.label}
+                </p>
+              </li>
+            ))}
+          </ul>
 
           {/* B7 — Bridge card (sem preço; envia para Tela 13 de decisão) */}
           <SceneFrame sceneId="bridge" badge={badges.decision} title={tpl(v2.b7.eyebrow)}>
