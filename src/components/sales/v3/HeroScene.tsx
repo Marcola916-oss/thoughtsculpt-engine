@@ -24,8 +24,8 @@ export function HeroScene({
   proofs?: Array<{ value: string; label: string }>;
 }) {
   return (
-    <section className="relative pt-20 pb-24 sm:pt-32 sm:pb-32 w-full transition-all">
-      <Reveal>
+    <section className="relative pt-20 pb-24 sm:pt-32 sm:pb-32 w-full transition-all text-center">
+      <Reveal className="flex flex-col items-center">
         <span
           className="badge-pulse inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-arch-primary/40 bg-arch-primary/10 px-4 py-1.5 font-sans text-[11px] font-bold uppercase tracking-[0.3em] text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)]"
           style={{ color: "var(--arch-primary)" }}
@@ -37,15 +37,15 @@ export function HeroScene({
           {eyebrow}
         </span>
         <h1
-          className="mt-6 font-sans font-extrabold leading-[0.98] tracking-tight text-white drop-shadow-md [&::first-letter]:uppercase"
+          className="mt-6 font-sans font-extrabold leading-[0.98] tracking-tight text-white drop-shadow-md text-center [&::first-letter]:uppercase"
           style={{ fontSize: "clamp(2.75rem, 7.5vw, 5.5rem)" }}
         >
           {title}
         </h1>
-        <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl font-medium drop-shadow-sm">
+        <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl font-medium drop-shadow-sm text-center mx-auto">
           {promise}
         </p>
-        <div className="mt-10 flex flex-col items-start gap-3">
+        <div className="mt-10 flex flex-col items-center gap-3">
           <ButtonPress>
             <button
               type="button"
@@ -72,11 +72,11 @@ export function HeroScene({
         </div>
         {proofs && proofs.length > 0 && (
           <ul
-            className="mt-14 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-6 border-t pt-8 sm:grid-cols-4"
+            className="mt-14 grid w-full max-w-2xl grid-cols-2 gap-x-6 gap-y-6 border-t pt-8 sm:grid-cols-4 mx-auto text-center"
             style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 25%, transparent)" }}
           >
             {proofs.map((p, i) => (
-              <li key={i} className="min-w-0">
+              <li key={i} className="min-w-0 text-center">
                 <p
                   className="font-display text-xl font-extrabold tabular-nums sm:text-2xl leading-none whitespace-nowrap drop-shadow-md"
                   style={{ color: "var(--arch-primary)" }}
