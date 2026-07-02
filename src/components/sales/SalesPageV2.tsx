@@ -171,6 +171,7 @@ export default function SalesPageV2({
         <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
           <span />
         </Atmosphere>
+        <div className="sales-bg-motion" />
       </div>
       {/* ─── Layout split: copy column + sculpture column ───── */}
       <div className="mx-auto w-full max-w-4xl px-5 sm:px-8 lg:px-12 py-10 text-center">
