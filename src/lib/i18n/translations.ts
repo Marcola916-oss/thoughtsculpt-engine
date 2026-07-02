@@ -869,7 +869,7 @@ const PT: Dict = {
       note: "Acesso vitalício · Sem subscrição · Garantia incondicional de 30 dias.",
     },
     b6: {
-      counter: "+12.000 diagnósticos gerados em 5 países",
+      counter: "PESSOAS QUE UTILIZARAM O MINDRESET",
       rating: "UTILIZADORES SATISFEITOS",
       testimonials: [
         { stars: 5, quote: "Pela primeira vez percebi porque nunca conseguia poupar. Não era falta de disciplina — era o meu padrão de [PRIMARY].", author: "Adam K.", country: "Polónia", arch: "AO", hasPhoto: true },
@@ -1504,7 +1504,7 @@ const EN: Dict = {
       note: "Lifetime access · No subscription · 30-day unconditional guarantee.",
     },
     b6: {
-      counter: "+12,000 diagnoses generated across 5 countries",
+      counter: "PEOPLE WHO USED MINDRESET",
       rating: "4.9 / 5 based on user reviews",
       testimonials: [
         { stars: 5, quote: "For the first time I understood why I could never save. It wasn't lack of discipline — it was my [PRIMARY] pattern.", author: "Adam K.", country: "Poland", arch: "AO", hasPhoto: true },
