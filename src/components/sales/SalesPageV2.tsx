@@ -9,7 +9,7 @@
  * OfferMonolith; `onContinue({ bumps })` still gateway to hosted Stripe.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense, lazy } from "react";
 import { Plus } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import type { Archetype } from "@/lib/quiz/scoring";
@@ -33,6 +33,8 @@ import { SculptureParticles } from "./v3/SculptureParticles";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
+
+const Spline = lazy(() => import("@splinetool/react-spline"));
 
 type Bumps = ("bump1" | "bump2")[];
 
@@ -428,14 +430,12 @@ export default function SalesPageV2({
         {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
         <aside className="pointer-events-none relative hidden lg:block h-full">
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full overflow-hidden">
-            {/* Spline interactive portal — behind the bust, bottom-anchored */}
-            <iframe
-              src="https://my.spline.design/interactiveportal-SzlGFWdGkdLOCI9MBnxfeASH/"
-              title="Interactive portal"
-              loading="lazy"
-              className="pointer-events-auto absolute inset-x-0 bottom-0 z-0 h-[55%] w-full border-0"
-              style={{ background: "transparent" }}
-            />
+            {/* Spline interactive portal — transparent, behind the bust, bottom-anchored */}
+            <div className="pointer-events-auto absolute inset-x-0 bottom-0 z-0 h-[55%] w-full">
+              <Suspense fallback={null}>
+                <Spline scene="https://prod.spline.design/jVhHknW2GFYFpQ-L/scene.splinecode" />
+              </Suspense>
+            </div>
             <ScrollAnimationSequence
               archetype={archetype}
               targetRef={rootRef}
