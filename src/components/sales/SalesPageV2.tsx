@@ -23,7 +23,7 @@ import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 
 import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
-import { PainScar } from "./v3/PainScar";
+import { PainDossier } from "./v3/PainDossier";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
