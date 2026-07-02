@@ -329,7 +329,21 @@ export type Dict = {
     b8: { title: string; items: Array<{ q: string; a: string }> };
     b9: { title: string; subtitle: string; tagline: string; cta: string; trust: string };
     ob2: { eyebrow: string; title: string; desc: string; cta: string; decline: string };
-    exit: { title: string; body: string; cta: string; decline: string };
+    exit: {
+      title: string;
+      body: string;
+      cta: string;
+      decline: string;
+      chip: string;
+      reservedLabel: string;
+      remainingLabel: string;
+      progressAnalysis: string;
+      progressProtocol: string;
+      lossHeader: string;
+      losses: [string, string, string];
+      guarantee: string;
+      closeLabel: string;
+    };
   };
 };
 
@@ -999,7 +1013,20 @@ const PT: Dict = {
       title: "[NOME], podes mesmo sair agora?",
       body: "Cada semana em piloto automático como [PRIMARY] custa-te decisões que não vais voltar a tomar. O próximo ecrã mostra-te o protocolo completo — não há desconto, há clareza sobre o que recebes.",
       cta: "Mostra-me o protocolo →",
-      decline: "Prefiro continuar como estou",
+      decline: "Sair e perder o meu diagnóstico",
+      chip: "Encerrar caso · REC",
+      reservedLabel: "Análise reservada",
+      remainingLabel: "restantes",
+      progressAnalysis: "Análise",
+      progressProtocol: "Protocolo",
+      lossHeader: "O que fica por abrir:",
+      losses: [
+        "O teu plano de 30 dias específico para [PRIMARY]",
+        "Os gatilhos exatos identificados nas tuas 4 áreas",
+        "O relatório clínico completo — não recuperável depois",
+      ],
+      guarantee: "Acesso imediato · Garantia de 7 dias · Sem cobrança recorrente",
+      closeLabel: "Fechar",
     },
   },
 };
@@ -1671,7 +1698,20 @@ const EN: Dict = {
       title: "[NOME], can you really leave now?",
       body: "Every week on [PRIMARY] autopilot costs you decisions you won't get to make again. The next screen shows you the full protocol — no discount, just clarity on what you get.",
       cta: "Show me the protocol →",
-      decline: "I'd rather stay as I am",
+      decline: "Leave and lose my diagnosis",
+      chip: "Closing case · REC",
+      reservedLabel: "Analysis reserved",
+      remainingLabel: "remaining",
+      progressAnalysis: "Analysis",
+      progressProtocol: "Protocol",
+      lossHeader: "What stays unopened:",
+      losses: [
+        "Your 30-day plan tailored for the [PRIMARY]",
+        "The exact triggers found across your 4 areas",
+        "The full clinical report — not recoverable later",
+      ],
+      guarantee: "Instant access · 7-day guarantee · No recurring charge",
+      closeLabel: "Close",
     },
   },
 };
@@ -2081,7 +2121,20 @@ const PL: Dict = {
       title: "[NOME], naprawdę możesz teraz wyjść?",
       body: "Każdy tydzień na autopilocie [PRIMARY] kosztuje cię decyzje, których już nie podejmiesz. Następny ekran pokazuje cały protokół — bez zniżki, z jasnością co do tego, co dostajesz.",
       cta: "Pokaż mi protokół →",
-      decline: "Wolę zostać tak jak jestem",
+      decline: "Wyjdź i strać moją diagnozę",
+      chip: "Zamykanie sprawy · REC",
+      reservedLabel: "Analiza zarezerwowana",
+      remainingLabel: "pozostało",
+      progressAnalysis: "Analiza",
+      progressProtocol: "Protokół",
+      lossHeader: "Co zostaje nieotwarte:",
+      losses: [
+        "Twój 30-dniowy plan dopasowany do wzorca [PRIMARY]",
+        "Dokładne wyzwalacze wykryte w 4 obszarach",
+        "Pełny raport kliniczny — potem nie do odzyskania",
+      ],
+      guarantee: "Natychmiastowy dostęp · 7-dniowa gwarancja · Bez subskrypcji",
+      closeLabel: "Zamknij",
     },
   },
 };
@@ -2491,7 +2544,20 @@ const RO: Dict = {
       title: "[NOME], chiar poți pleca acum?",
       body: "Fiecare săptămână pe pilot automat ca [PRIMARY] te costă decizii pe care nu le mai iei o dată. Ecranul următor îți arată protocolul complet — nu există reducere, există claritate despre ce primești.",
       cta: "Arată-mi protocolul →",
-      decline: "Prefer să rămân așa cum sunt",
+      decline: "Ieși și pierde diagnoza mea",
+      chip: "Închidere caz · REC",
+      reservedLabel: "Analiză rezervată",
+      remainingLabel: "rămase",
+      progressAnalysis: "Analiză",
+      progressProtocol: "Protocol",
+      lossHeader: "Ce rămâne nedeschis:",
+      losses: [
+        "Planul tău de 30 de zile calibrat pentru [PRIMARY]",
+        "Declanșatorii exacți identificați în cele 4 arii",
+        "Raportul clinic complet — nu poate fi recuperat mai târziu",
+      ],
+      guarantee: "Acces imediat · Garanție 7 zile · Fără abonament recurent",
+      closeLabel: "Închide",
     },
   },
 };
@@ -2902,7 +2968,20 @@ const AR: Dict = {
       title: "[NOME]، هل تستطيع المغادرة الآن حقاً؟",
       body: "كل أسبوع على الطيار الآلي كـ [PRIMARY] يكلّفك قرارات لن تتاح لك مرة أخرى. الشاشة التالية تُريك البروتوكول كاملاً — لا خصم، بل وضوح حول ما ستحصل عليه.",
       cta: "أرني البروتوكول ←",
-      decline: "أفضّل أن أبقى كما أنا",
+      decline: "المغادرة وفقدان تشخيصي",
+      chip: "إغلاق الملف · تسجيل",
+      reservedLabel: "التحليل محجوز",
+      remainingLabel: "متبقية",
+      progressAnalysis: "التحليل",
+      progressProtocol: "البروتوكول",
+      lossHeader: "ما يبقى غير مفتوح:",
+      losses: [
+        "خطتك لثلاثين يوماً المُصمَّمة لـ [PRIMARY]",
+        "المحفّزات الدقيقة المرصودة في المجالات الأربعة",
+        "التقرير السريري الكامل — لا يمكن استرجاعه لاحقاً",
+      ],
+      guarantee: "وصول فوري · ضمان 7 أيام · بدون اشتراك متكرّر",
+      closeLabel: "إغلاق",
     },
   },
 };

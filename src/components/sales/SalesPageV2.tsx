@@ -464,6 +464,17 @@ export default function SalesPageV2({
         body={tpl(v2.exit.body)}
         cta={tpl(v2.exit.cta)}
         decline={v2.exit.decline}
+        copy={{
+          chip: v2.exit.chip,
+          reservedLabel: v2.exit.reservedLabel,
+          remainingLabel: v2.exit.remainingLabel,
+          progressAnalysis: v2.exit.progressAnalysis,
+          progressProtocol: v2.exit.progressProtocol,
+          lossHeader: v2.exit.lossHeader,
+          losses: v2.exit.losses.map((l) => tpl(l)),
+          guarantee: v2.exit.guarantee,
+          closeLabel: v2.exit.closeLabel,
+        }}
         onAccept={() => {
           track(EVENTS.EXIT_INTENT_CTA, { stage: "vsl" });
           track(EVENTS.EXIT_INTENT_RECOVERED, { stage: "vsl" });
