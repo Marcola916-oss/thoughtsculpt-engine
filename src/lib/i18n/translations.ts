@@ -329,7 +329,21 @@ export type Dict = {
     b8: { title: string; items: Array<{ q: string; a: string }> };
     b9: { title: string; subtitle: string; tagline: string; cta: string; trust: string };
     ob2: { eyebrow: string; title: string; desc: string; cta: string; decline: string };
-    exit: { title: string; body: string; cta: string; decline: string };
+    exit: {
+      title: string;
+      body: string;
+      cta: string;
+      decline: string;
+      chip: string;
+      reservedLabel: string;
+      remainingLabel: string;
+      progressAnalysis: string;
+      progressProtocol: string;
+      lossHeader: string;
+      losses: [string, string, string];
+      guarantee: string;
+      closeLabel: string;
+    };
   };
 };
 
