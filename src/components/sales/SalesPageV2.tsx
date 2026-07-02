@@ -25,11 +25,9 @@ import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainScar } from "./v3/PainScar";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
-import { ScrollAnimationSequence } from "./v3/ScrollAnimationSequence";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
-import { SculptureParticles } from "./v3/SculptureParticles";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
@@ -175,7 +173,7 @@ export default function SalesPageV2({
         </Atmosphere>
       </div>
       {/* ─── Layout split: copy column + sculpture column ───── */}
-      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-20 lg:px-16 py-10">
+      <div className="mx-auto w-full max-w-4xl px-5 sm:px-8 lg:px-12 py-10">
         {/* COPY COLUMN ─────────────────────────────────────── */}
         <div className="relative z-10">
           {/* B1 — Hero */}
@@ -424,37 +422,6 @@ export default function SalesPageV2({
             </div>
           )}
         </div>
-
-        {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
-        <aside className="pointer-events-none relative hidden lg:block h-full">
-          <div className="sticky top-16 h-[calc(100vh-4rem)] w-full overflow-hidden">
-            <ScrollAnimationSequence
-              archetype={archetype}
-              targetRef={rootRef}
-              canvasClassName="relative z-10"
-              canvasStyle={{
-                maskImage:
-                  "linear-gradient(to bottom, black 0%, black 84%, rgba(0,0,0,0.86) 90%, rgba(0,0,0,0.38) 96%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, black 84%, rgba(0,0,0,0.86) 90%, rgba(0,0,0,0.38) 96%, transparent 100%)",
-              }}
-            />
-            <SculptureParticles count={18} />
-          </div>
-        </aside>
-      </div>
-
-      {/* Mobile/tablet sculpture — fixed ambient behind copy */}
-      <div
-        className="pointer-events-none fixed inset-0 -z-0 lg:hidden"
-        style={{
-          opacity: 0.45,
-          mixBlendMode: "screen",
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-        }}
-      >
-        <ScrollAnimationSequence archetype={archetype} targetRef={rootRef} />
       </div>
 
       <StickyOfferBar
