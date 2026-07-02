@@ -271,7 +271,23 @@ export type Dict = {
   salesV2: {
     b1: { eyebrow: string; h1: string; promise: string; cta: string; timer: string };
     b2: { title: string; body: string; bullets: string[]; conclusion: string };
-    b3: { title: string; body: string; references: string; proofSeal: string; pivot: string; solution: string };
+    b3: {
+      title: string;
+      body: string;
+      references: string;
+      proofSeal: string;
+      pivot: string;
+      solution: string;
+      kicker?: string;
+      heroPercent?: string;
+      heroCaption?: string;
+      heroSource?: string;
+      authorityLabel?: string;
+      authors?: Array<{ name: string; credential: string; field: string }>;
+      timelineLabel?: string;
+      timeline?: Array<{ year: string; event: string }>;
+      verdictLabel?: string;
+    };
     b4: { title: string; subtitle: string; features: Array<{ title: string; description: string }> };
     b5: {
       eyebrow: string;
