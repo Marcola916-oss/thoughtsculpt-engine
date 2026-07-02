@@ -165,9 +165,9 @@ export default function SalesPageV2({
   void bump1; void bump2;
 
   return (
-    <div ref={rootRef} data-arch={archetype} className="relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
+    <div ref={rootRef} data-arch={archetype} className="sales-page-live-bg relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
       {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
-      <div aria-hidden className="pointer-events-none fixed inset-0 -z-[1]">
+      <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
           <span />
         </Atmosphere>
