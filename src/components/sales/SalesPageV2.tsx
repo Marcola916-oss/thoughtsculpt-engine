@@ -434,13 +434,7 @@ export default function SalesPageV2({
               title="Interactive portal"
               loading="lazy"
               className="pointer-events-auto absolute inset-x-0 bottom-0 z-0 h-[55%] w-full border-0"
-              style={{
-                background: "transparent",
-                maskImage:
-                  "linear-gradient(to top, black 60%, rgba(0,0,0,0.6) 85%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to top, black 60%, rgba(0,0,0,0.6) 85%, transparent 100%)",
-              }}
+              style={{ background: "transparent" }}
             />
             <ScrollAnimationSequence
               archetype={archetype}
