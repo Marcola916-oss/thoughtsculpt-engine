@@ -430,10 +430,12 @@ export default function SalesPageV2({
         {/* SCULPTURE COLUMN — desktop sticky (no halo, no mask) */}
         <aside className="pointer-events-none relative hidden lg:block h-full">
           <div className="sticky top-16 h-[calc(100vh-4rem)] w-full overflow-hidden">
-            {/* Spline interactive portal — transparent, behind the bust, bottom-anchored */}
-            <div className="pointer-events-auto absolute inset-x-0 bottom-0 z-0 h-[55%] w-full">
+            {/* Spline interactive portal — transparent, behind the bust, bottom-anchored.
+                [&_canvas]:!bg-transparent kills the WebGL clear color rectangle;
+                [&_a]:hidden hides the "Built with Spline" watermark badge. */}
+            <div className="pointer-events-auto absolute inset-x-0 bottom-0 z-0 h-[55%] w-full overflow-hidden [&_canvas]:!bg-transparent [&_a]:!hidden">
               <Suspense fallback={null}>
-                <Spline scene="https://prod.spline.design/jVhHknW2GFYFpQ-L/scene.splinecode" />
+                <Spline scene="https://prod.spline.design/jVhHknW2GFYFpQ-L/scene.splinecode" style={{ background: "transparent" }} />
               </Suspense>
             </div>
             <ScrollAnimationSequence
