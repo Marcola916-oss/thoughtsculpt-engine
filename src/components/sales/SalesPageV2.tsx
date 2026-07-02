@@ -24,6 +24,7 @@ import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 import { HeroScene } from "./v3/HeroScene";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainDossier } from "./v3/PainDossier";
+import { ScienceDossier } from "./v3/ScienceDossier";
 import { AreaPoster, type Area } from "./v3/AreaPoster";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
@@ -205,27 +206,21 @@ export default function SalesPageV2({
 
           {/* II — Scientific Breakthrough */}
           <SceneFrame sceneId="science" index={2} badge={badges.science} title={v2.b3.title}>
-            <p className="text-white/90 leading-[1.75] text-[17px]">{v2.b3.body}</p>
-            <blockquote
-              className="mt-8 border-s-2 ps-5 text-sm text-white/70"
-              style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 50%, transparent)" }}
-            >
-              {v2.b3.references}
-            </blockquote>
-            <p
-              className="mt-6 inline-flex items-center rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.25em]"
-              style={{
-                borderColor: "color-mix(in oklab, var(--arch-primary) 40%, transparent)",
-                color: "var(--arch-primary)",
-                background: "color-mix(in oklab, var(--arch-primary) 10%, transparent)",
-              }}
-            >
-              {v2.b3.proofSeal}
-            </p>
-            <p className="mt-8 text-[17px] leading-relaxed text-white">
-              <strong style={{ color: "var(--arch-primary)" }}>{v2.b3.pivot}</strong>{" "}
-              {tpl(v2.b3.solution)}
-            </p>
+            <ScienceDossier
+              body={v2.b3.body}
+              kicker={v2.b3.kicker}
+              heroPercent={v2.b3.heroPercent ?? "95"}
+              heroCaption={v2.b3.heroCaption ?? v2.b3.body}
+              heroSource={v2.b3.heroSource ?? v2.b3.references}
+              authorityLabel={v2.b3.authorityLabel ?? "Validated by"}
+              authors={v2.b3.authors ?? []}
+              timelineLabel={v2.b3.timelineLabel ?? ""}
+              timeline={v2.b3.timeline ?? []}
+              proofSeal={v2.b3.proofSeal}
+              verdictLabel={v2.b3.verdictLabel ?? "Verdict"}
+              pivot={v2.b3.pivot}
+              solution={tpl(v2.b3.solution)}
+            />
           </SceneFrame>
 
           {/* III — 4D Diagnosis */}

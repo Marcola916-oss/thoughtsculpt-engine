@@ -271,7 +271,23 @@ export type Dict = {
   salesV2: {
     b1: { eyebrow: string; h1: string; promise: string; cta: string; timer: string };
     b2: { title: string; body: string; bullets: string[]; conclusion: string };
-    b3: { title: string; body: string; references: string; proofSeal: string; pivot: string; solution: string };
+    b3: {
+      title: string;
+      body: string;
+      references: string;
+      proofSeal: string;
+      pivot: string;
+      solution: string;
+      kicker?: string;
+      heroPercent?: string;
+      heroCaption?: string;
+      heroSource?: string;
+      authorityLabel?: string;
+      authors?: Array<{ name: string; credential: string; field: string }>;
+      timelineLabel?: string;
+      timeline?: Array<{ year: string; event: string }>;
+      verdictLabel?: string;
+    };
     b4: { title: string; subtitle: string; features: Array<{ title: string; description: string }> };
     b5: {
       eyebrow: string;
@@ -843,6 +859,24 @@ const PT: Dict = {
       proofSeal: "Baseado em 3 Prémios Nobel de comportamento · +12.000 diagnósticos gerados em 5 países",
       pivot: "Folhas de Excel não resolvem um problema que não é de Excel.",
       solution: "O MindReset foi construído para trabalhar onde o problema realmente existe — na mente de quem é [PRIMARY].",
+      kicker: "Estudo #04 · Neurociência comportamental aplicada",
+      heroPercent: "95",
+      heroCaption: "das decisões financeiras são tomadas pelo sistema emocional — não pelo racional.",
+      heroSource: "Fonte: Kahneman · Thinking, Fast and Slow (2011)",
+      authorityLabel: "Validado por",
+      authors: [
+        { name: "Daniel Kahneman", credential: "Nobel 2002 · Economia", field: "Prospect Theory · Aversão à perda" },
+        { name: "Richard Thaler", credential: "Nobel 2017 · Economia", field: "Nudge Theory · Contabilidade mental" },
+        { name: "Dan Ariely", credential: "Duke University", field: "Irracionalidade previsível" },
+      ],
+      timelineLabel: "Décadas de pesquisa → aplicação",
+      timeline: [
+        { year: "1979", event: "Prospect Theory publicada" },
+        { year: "2008", event: "Nudge (Thaler & Sunstein)" },
+        { year: "2017", event: "Nobel a Richard Thaler" },
+        { year: "2026", event: "MindReset lançado" },
+      ],
+      verdictLabel: "Veredicto",
     },
     b4: {
       title: "[NOME], o teu diagnóstico [PRIMARY] em 4 dimensões.",
@@ -1478,6 +1512,24 @@ const EN: Dict = {
       proofSeal: "Grounded in 3 Nobel laureates of behavior · +12,000 diagnoses generated across 5 countries",
       pivot: "Spreadsheets don't solve a problem that isn't a spreadsheet problem.",
       solution: "MindReset was built to work where the problem actually lives — in the mind of a [PRIMARY].",
+      kicker: "Study #04 · Applied behavioral neuroscience",
+      heroPercent: "95",
+      heroCaption: "of financial decisions are made by the emotional system — not the rational one.",
+      heroSource: "Source: Kahneman · Thinking, Fast and Slow (2011)",
+      authorityLabel: "Validated by",
+      authors: [
+        { name: "Daniel Kahneman", credential: "Nobel 2002 · Economics", field: "Prospect Theory · Loss aversion" },
+        { name: "Richard Thaler", credential: "Nobel 2017 · Economics", field: "Nudge Theory · Mental accounting" },
+        { name: "Dan Ariely", credential: "Duke University", field: "Predictable irrationality" },
+      ],
+      timelineLabel: "Decades of research → application",
+      timeline: [
+        { year: "1979", event: "Prospect Theory published" },
+        { year: "2008", event: "Nudge (Thaler & Sunstein)" },
+        { year: "2017", event: "Nobel awarded to Thaler" },
+        { year: "2026", event: "MindReset launches" },
+      ],
+      verdictLabel: "Verdict",
     },
     b4: {
       title: "[NOME], your [PRIMARY] diagnosis across 4 dimensions.",
@@ -1851,6 +1903,24 @@ const PL: Dict = {
       proofSeal: "Oparte na 3 Noblach z dziedziny behawioru · +12 000 diagnoz w 5 krajach",
       pivot: "Arkusze nie rozwiązują problemu, który nie jest problemem arkusza.",
       solution: "MindReset został zbudowany, by działać tam, gdzie problem naprawdę istnieje — w umyśle osoby typu [PRIMARY].",
+      kicker: "Badanie #04 · Stosowana neuronauka behawioralna",
+      heroPercent: "95",
+      heroCaption: "decyzji finansowych podejmuje system emocjonalny — nie racjonalny.",
+      heroSource: "Źródło: Kahneman · Pułapki myślenia (2011)",
+      authorityLabel: "Potwierdzone przez",
+      authors: [
+        { name: "Daniel Kahneman", credential: "Nobel 2002 · Ekonomia", field: "Teoria perspektywy · Awersja do strat" },
+        { name: "Richard Thaler", credential: "Nobel 2017 · Ekonomia", field: "Nudge · Rachunkowość mentalna" },
+        { name: "Dan Ariely", credential: "Duke University", field: "Przewidywalna irracjonalność" },
+      ],
+      timelineLabel: "Dekady badań → zastosowanie",
+      timeline: [
+        { year: "1979", event: "Publikacja Teorii perspektywy" },
+        { year: "2008", event: "Nudge (Thaler & Sunstein)" },
+        { year: "2017", event: "Nobel dla Thalera" },
+        { year: "2026", event: "Premiera MindReset" },
+      ],
+      verdictLabel: "Werdykt",
     },
     b4: {
       title: "[NOME], twoja diagnoza [PRIMARY] w 4 wymiarach.",
@@ -2224,6 +2294,24 @@ const RO: Dict = {
       proofSeal: "Bazat pe 3 Nobel de comportament · +12.000 de diagnoze în 5 țări",
       pivot: "Tabelele nu rezolvă o problemă care nu e o problemă de tabel.",
       solution: "MindReset a fost construit ca să lucreze acolo unde problema chiar există — în mintea unui [PRIMARY].",
+      kicker: "Studiul #04 · Neuroștiință comportamentală aplicată",
+      heroPercent: "95",
+      heroCaption: "din deciziile financiare sunt luate de sistemul emoțional — nu de cel rațional.",
+      heroSource: "Sursă: Kahneman · Gândire rapidă, gândire lentă (2011)",
+      authorityLabel: "Validat de",
+      authors: [
+        { name: "Daniel Kahneman", credential: "Nobel 2002 · Economie", field: "Teoria prospectului · Aversiune la pierdere" },
+        { name: "Richard Thaler", credential: "Nobel 2017 · Economie", field: "Nudge · Contabilitate mentală" },
+        { name: "Dan Ariely", credential: "Duke University", field: "Iraționalitate previzibilă" },
+      ],
+      timelineLabel: "Decenii de cercetare → aplicație",
+      timeline: [
+        { year: "1979", event: "Publicarea Teoriei prospectului" },
+        { year: "2008", event: "Nudge (Thaler & Sunstein)" },
+        { year: "2017", event: "Nobel pentru Thaler" },
+        { year: "2026", event: "Lansare MindReset" },
+      ],
+      verdictLabel: "Verdict",
     },
     b4: {
       title: "[NOME], diagnoza ta [PRIMARY] în 4 dimensiuni.",
@@ -2598,6 +2686,24 @@ const AR: Dict = {
       proofSeal: "مبني على 3 جوائز نوبل في علم السلوك · +12,000 تشخيص في 5 دول",
       pivot: "الجداول لا تحلّ مشكلة ليست مشكلة جدول.",
       solution: "صُمّم MindReset ليعمل حيث توجد المشكلة فعلياً — في عقل [PRIMARY].",
+      kicker: "دراسة #04 · علم الأعصاب السلوكي التطبيقي",
+      heroPercent: "95",
+      heroCaption: "من القرارات المالية يتخذها الجهاز العاطفي — لا العقلاني.",
+      heroSource: "المصدر: كانمان · التفكير السريع والبطيء (2011)",
+      authorityLabel: "موثّق من قِبل",
+      authors: [
+        { name: "دانيال كانمان", credential: "نوبل 2002 · اقتصاد", field: "نظرية التوقع · النفور من الخسارة" },
+        { name: "ريتشارد ثالر", credential: "نوبل 2017 · اقتصاد", field: "نظرية التنبيه · المحاسبة الذهنية" },
+        { name: "دان أرييلي", credential: "جامعة ديوك", field: "اللاعقلانية المتوقعة" },
+      ],
+      timelineLabel: "عقود من البحث ← تطبيق",
+      timeline: [
+        { year: "1979", event: "نشر نظرية التوقع" },
+        { year: "2008", event: "كتاب Nudge (ثالر وسنستين)" },
+        { year: "2017", event: "جائزة نوبل لثالر" },
+        { year: "2026", event: "إطلاق MindReset" },
+      ],
+      verdictLabel: "الحكم",
     },
     b4: {
       title: "[NOME]، تشخيصك [PRIMARY] في 4 أبعاد.",
