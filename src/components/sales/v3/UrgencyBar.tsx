@@ -40,15 +40,15 @@ export function UrgencyBar({
   useEffect(() => {
     if (typeof window === "undefined") return;
     // Seed a stable-ish watcher count per session that jitters gently.
-    const seed = 3 + Math.floor(Math.random() * 5);
+    const seed = 8 + Math.floor(Math.random() * 10);
     setWatchers(seed);
     const id = window.setInterval(
       () => setWatchers((w) => {
         const delta = Math.random() < 0.5 ? -1 : 1;
         const next = w + delta;
-        return Math.min(7, Math.max(3, next));
+        return Math.min(17, Math.max(8, next));
       }),
-      28000 + Math.floor(Math.random() * 18000),
+      5000,
     );
     return () => window.clearInterval(id);
   }, []);
