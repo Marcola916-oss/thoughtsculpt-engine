@@ -164,12 +164,12 @@ export default function SalesPageV2({
   const tpl = (s: string) => fillTpl(s, tplVars);
   const badges = SECTION_BADGES[(lang as BadgeLang)] ?? SECTION_BADGES.en;
 
-  // Deterministic archetype rank (10.000–14.000) for the eyebrow personalization.
+  // Deterministic archetype rank (13.000–14.000) for the eyebrow personalization.
   const rank = (() => {
     const seed = `${leadId ?? ""}${displayName ?? ""}${archetype}`;
     let hash = 0;
     for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
-    const n = 10000 + (hash % 4000);
+    const n = 13000 + (hash % 1000);
     return n.toLocaleString(lang === "en" ? "en-US" : lang === "ar" ? "ar-EG" : "pt-PT");
   })();
 
