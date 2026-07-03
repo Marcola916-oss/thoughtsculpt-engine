@@ -32,7 +32,8 @@ import { DiagnosisDossier } from "./v3/DiagnosisDossier";
 import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { DeliverablesDossier } from "./v3/DeliverablesDossier";
+import { ArrowRight } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
 
@@ -288,30 +289,15 @@ export default function SalesPageV2({
           {/* B5 — "O que vais receber" (sem preço — preço fica para Tela 13) */}
           <SceneFrame sceneId="deliver" badge={badges.deliver} title={tpl(v2.b5.title)}>
             <p className="mb-8 text-white/75 text-base font-medium">{tpl(v2.b5.subtitle)}</p>
-            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {v2.b5.deliverables.map((feat, i) => (
-                <li
-                  key={i}
-                  className="group flex items-start gap-3 rounded-[2.5rem] border border-white/10 bg-black/40 p-5 sm:p-6 transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60 md:hover:-translate-y-2 shadow-2xl md:backdrop-blur-3xl overflow-hidden"
-                >
-                  <CheckCircle2
-                    size={20}
-                    className="mt-0.5 shrink-0 text-arch-primary group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div>
-                    <p className="font-display font-extrabold uppercase tracking-tight text-white">
-                      {feat.title}
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-white/70 group-hover:text-white/85 transition-colors">
-                      {tpl(feat.description)}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-6 text-center text-xs text-white/60 font-semibold">
-              {v2.b5.note}
-            </p>
+            <DeliverablesDossier
+              deliverables={v2.b5.deliverables.map((d) => ({
+                title: d.title,
+                description: tpl(d.description),
+              }))}
+              note={v2.b5.note}
+              lang={lang as "pt" | "en" | "pl" | "ro" | "ar"}
+              areaScores={areaScores}
+            />
           </SceneFrame>
 
           {/* IV — Social Proof */}
