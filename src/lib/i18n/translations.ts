@@ -269,7 +269,17 @@ export type Dict = {
    * que são interpolados em runtime por `fillTpl`.
    */
   salesV2: {
-    b1: { eyebrow: string; h1: string; promise: string; cta: string; timer: string };
+    b1: {
+      eyebrow: string;
+      h1: string;
+      promise: string;
+      cta: string;
+      timer: string;
+      h1ByArch?: { AO: string; SS: string; EA: string; HI: string };
+      eyebrowByArch?: { AO: string; SS: string; EA: string; HI: string };
+      urgency?: { reserve: string; watching: string; lastChance: string };
+      trust?: { count: string; privacy: string };
+    };
     b2: { title: string; body: string; bullets: string[]; conclusion: string };
     b3: {
       title: string;
