@@ -1,122 +1,77 @@
-# Plano — Hero (B1) da Sales: premium + conversão (revisado, com contexto real)
+# Plano — Upgrade Premium: "O QUE VAIS RECEBER"
 
-Revi a página ao vivo (quiz completo, arquétipo SS). Layout confirmado: **sem escultura à direita**, hero centralizado full-width, símbolos monetários flutuando nas margens, cor arch-primary aplicada (roxo p/ SS). Este plano não presume nada removido — só melhora o que já existe.
+## Contexto & função na página
+É o **Bloco 5** da página de vendas (`SalesPageV2`), posicionado logo após o Diagnóstico 4D e antes dos depoimentos. Sua função é **transformar promessa em objeto tangível** — o leitor precisa *ver* o que compra antes de ler prova social e chegar ao CTA final. Hoje: 6 cards uniformes com o mesmo ícone `CheckCircle2`, mesma tipografia, mesmo peso. Legível, mas **plano** — não vende, apenas lista.
 
-## Diagnóstico do hero atual (o que vi na tela)
+Objetivo do redesign: **hierarquia visual + tangibilidade + sensação de "kit premium"** sem quebrar a linguagem editorial do resto da página (SceneFrame, tokens `--arch-primary`, tipografia Syne display, superfícies pretas com blur).
 
-1. **CTA cai fora da 1ª dobra** em 1366×768 e em 1440×900. Espaçamento vertical excessivo entre subtítulo e botão.
-2. **Eyebrow genérico** ("YOUR PROTOCOL") — não fala o nome do arquétipo, não personaliza.
-3. **H1 padrão** para todos os arquétipos — perde o "isso é sobre mim" instantâneo.
-4. **Sinais de confiança inexistentes** antes do CTA. O único é a frase "Personal analysis prepared right now for you".
-5. **Sem urgência** — nada indica que a análise tem janela.
-6. **Vazio visual gigante** entre H1↔subtítulo↔CTA — parece "espaçoso", não "premium".
-7. **Símbolos monetários** não colidem hoje em 1440, mas em 768/375 eles cruzam o H1 (visto no scroll y=0 desktop e implícito por padding igual em mobile).
+## Direção criativa
+Transformar a "lista de features" num **dossier de entrega** — cada peça vira um artefato numerado com identidade própria, e o Diagnóstico 4D (o herói do produto) ganha destaque físico maior que os demais.
 
-## Nova anatomia do hero (topo → base)
+### Movimentos-chave
+1. **Bento assimétrico 6→(1 hero + 5)** — o card do "Diagnóstico 4D" ocupa 2 colunas × 2 linhas no desktop, com um mini-preview visual (mock de radar das 4 áreas em SVG animado) dentro dele. Os outros 5 ficam menores ao redor, mantendo respiração.
+2. **Numeração editorial 01–06** em Syne 900 outline, canto superior esquerdo de cada card (linguagem que já existe no SceneFrame via `index`).
+3. **Ícone específico por peça** (Lucide) em vez de check genérico:
+   - Diagnóstico → `Radar`
+   - Protocolo 30 dias → `CalendarCheck`
+   - Matriz de Decisão → `Filter`
+   - Compass diário → `Compass`
+   - Relatório final → `LineChart`
+   - 5 idiomas → `Globe2`
+4. **Metadata chip** por card (canto oposto ao número): microtag que codifica valor concreto — `PERSONALIZADO`, `30 DIAS`, `60 SEGUNDOS`, `DIÁRIO`, `DIA 30`, `5 IDIOMAS`. Fonte mono/uppercase, tracking largo, cor `--arch-primary`.
+5. **Spotlight cursor-follow** no hover (radial-gradient seguindo o mouse dentro do card, muito sutil, usando `--arch-primary` a ~8%) — sensação premium sem custo de layout. Desativado em `prefers-reduced-motion` e mobile.
+6. **Borda animada gradient conic** apenas no card herói — 1 rotação lenta (~12s), muito baixa opacidade, cria ideia de "peça ao vivo".
+7. **Rodapé "Valor total do kit"** — antes do `note` de garantia, uma faixa estreita com 3 selos em linha (`Acesso vitalício` · `Sem subscrição` · `Garantia 30 dias`) tipografados como *seal marks* em vez de texto corrido. Cada selo com ícone (`Infinity`, `Ban`, `ShieldCheck`).
 
+### Layout final (desktop, grid 12-col)
 ```text
-┌─────────────────────────────────────────────────────────┐
-│  ⏱ A tua análise fica reservada por 14:59  ·           │ ← NOVO: barra sticky
-│    3 pessoas a ver o teu arquétipo agora                │   (topo da página)
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  ● DIAGNÓSTICO · BUSCADOR DE STATUS · Nº 12.847        │ ← eyebrow enriquecido
-│                                                         │
-│    Lucas, compraste aprovação.                          │ ← H1 POR ARQUÉTIPO
-│    E ninguém reparou.                                   │   (SS mostrado; 4 variantes)
-│                                                         │
-│  ┌─ divisor 2px arch-primary/25, 48px ─┐               │
-│  │                                     │                │
-│  Não foi falta de esforço. Foi o padrão                │ ← subtítulo (palavra
-│  **Buscador de Status** a sabotar-te em silêncio…      │   arquétipo destacada)
-│                                                         │
-│        [ Ver o meu protocolo agora → ]                 │ ← CTA (halo respirando)
-│                                                         │
-│  ★★★★★ 4.9  ·  +12.847 análises  ·  🔒 100% privado  │ ← NOVO: trust bar
-│  Análise pessoal preparada agora para ti.               │ ← microtexto atual (mantido)
-│                                                         │
-│  ────────────────────────────────────────────           │
-│  12.8k       94%        48h        4.9★                │ ← proofs (mantido, refinado)
-│  Análises  Reconhecem  Entrega   Rating                 │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────┬──────────────┐
+│  01  DIAGNÓSTICO 4D      │  02  PROTOCOLO 30D │
+│  [radar preview]         │  [icon]            │
+│  (col-span-6, row-span-2)│  (col-span-6)      │
+│                          ├──────────────┐
+│                          │  03  MATRIZ  │
+│                          │  (col-span-6)│
+├──────────┬───────┬───────┴──────────────┤
+│ 04 COMPASS│ 05 RELATÓRIO │ 06 5 IDIOMAS │
+│ (col-4)   │ (col-4)      │ (col-4)      │
+└───────────┴──────────────┴──────────────┘
 ```
+Mobile: stack single-column, herói mantém preview mas com altura reduzida, chips e numeração preservados.
 
-## Mudanças detalhadas
+## Implementação
 
-### 1. Barra de urgência sticky (novo)
-- `src/components/sales/v3/UrgencyBar.tsx`, montada no `SalesPageV2` **antes** do `HeroScene`, `sticky top-0 z-50`.
-- Conteúdo: `Clock` + countdown `MM:SS` (15 min) + separador + "N pessoas a ver o teu arquétipo agora" (N ∈ 3–7, jitter suave a cada 25–45 s).
-- Persistência: `sessionStorage` (`mr_sales_timer_start`). Ao atingir 00:00, texto muda para "Última chance — reservado por mais alguns minutos" (nunca "expirou" — evita quebra de confiança). Timer nunca some.
-- Fundo: `bg-black/70 backdrop-blur-xl` + borda inferior `border-arch-primary/30`. Herda `--arch-primary`.
-- Mobile: 12 px, 1 linha compacta; desktop: 13–14 px centrado.
-- `role="status"`, `aria-live="polite"` só no minuto final. `prefers-reduced-motion` → sem pulse.
+### Arquivos
+- **Novo:** `src/components/sales/v3/DeliverablesDossier.tsx` — componente isolado (herói + grid + rodapé de selos), recebe `deliverables`, `note`, `archetype` (para adaptar preview radar) e `tpl` já resolvida.
+- **Novo:** `src/components/sales/v3/DeliverableRadarMini.tsx` — SVG puro do radar 4-áreas usado no card herói. Recebe `areaScores`. Anima os pontos entrando com `Reveal`.
+- **Edit:** `src/components/sales/SalesPageV2.tsx` — substituir o `<ul>` atual do bloco `b5` pelo `<DeliverablesDossier ... />`, mantendo `SceneFrame`, título/subtítulo, `badges.deliver` e `note` intactos. Passar `areaScores` já disponível no escopo.
+- **Edit:** `src/styles.css` — adicionar `.deliver-spotlight` (mask/radial via CSS vars `--x`/`--y` setadas por JS) e `@keyframes deliver-hero-ring`. Todos protegidos por `@media (prefers-reduced-motion: no-preference)` e `@media (hover: hover)`.
 
-### 2. H1 dinâmico por arquétipo
-- Estender `t.sales.v2.b1` com `h1ByArch: { AO, SS, EA, HI }` nos **5 idiomas** (PT-PT, EN, PL, RO, AR).
-- `SalesPageV2` seleciona pelo `archetype` prop (já disponível). Fallback: `h1` atual.
-- Copy PT-PT proposta (mesmo tom já usado na landing):
-  - **AO — Acumulador Obsessivo:** "[NOME], guardaste tudo — menos o que realmente importava."
-  - **SS — Buscador de Status:** "[NOME], compraste aprovação. E ninguém reparou."
-  - **EA — Escapista Alienado:** "[NOME], evitaste olhar. E o silêncio custou-te caro."
-  - **HI — Hedonista Impulsivo:** "[NOME], viveste o agora. E o agora cobrou a fatura."
-- Traduções culturalmente adaptadas para EN/PL/RO/AR (mesma nuance premium; sem tradução literal, sem juros/riba no AR).
-- Visual: mantém Syne extra-bold, `clamp(2.75rem, 7.5vw, 5.5rem)`. Sem mudança de fonte.
+### Copy & i18n
+**Zero mudanças em `translations.ts`** — reutiliza os 6 `deliverables` já traduzidos nos 5 idiomas. A metadata chip (`PERSONALIZADO`, `30 DIAS`, `60 SEGUNDOS`, `DIÁRIO`, `DIA 30`, `5 IDIOMAS`) é derivada por índice dentro do componente, com um mapa por idioma inline (curto, ~15 chars por chave × 5 langs = trivial). Nome dos selos do rodapé é extraído do `note` existente (split por `·`) — sem novas chaves.
 
-### 3. Eyebrow enriquecido
-- De `"O TEU PROTOCOLO"` → `"DIAGNÓSTICO · {NOME DO ARQUÉTIPO} · Nº {rank}"`.
-- `rank`: número estável 10.000–14.000 derivado do `leadId`/nome (hash determinístico, sem estado, mesmo valor em cada render).
-- Novo campo i18n: `t.sales.v2.b1.eyebrowByArch: { AO, SS, EA, HI }` (nome do arquétipo já traduzido).
-- Visual: mantém o badge/pill atual; adiciona `●` pulsante à esquerda (classe `badge-pulse` já existente).
+### Tokens & tema
+- Cores: apenas `--arch-primary` e superfícies existentes (`bg-black/40`, `border-white/10`). Nenhum hex hardcoded.
+- Tipografia: `font-display` (Syne) para número e título, corpo em Inter.
+- Sombras: reutilizar padrão do bloco B7 (`0 50px 120px -40px color-mix(...)`).
+- Motion: `Reveal` para stagger de entrada; keyframes CSS puros para o ring do herói (sem framer-motion novo).
 
-### 4. Subtítulo com hierarquia
-- Mantém `promise` atual (i18n intacto).
-- Envolve o nome do arquétipo dentro do texto em `<strong style="color: var(--arch-primary)">` via regex simples em runtime — sem duplicar copy nos 5 idiomas.
-- `line-height: 1.55`, `max-w-2xl`, e adiciona divisor sutil (2px, `arch-primary/25`, largura 48px) entre H1 e subtítulo. Substitui o vazio por um "separador editorial" premium.
+### Acessibilidade
+- Numeração `01`–`06` marcada `aria-hidden` (decorativa); título continua sendo o handle semântico.
+- Chips com `aria-label` completo ("valor: 30 dias").
+- Spotlight e ring desativados via `prefers-reduced-motion`.
+- Radar preview com `role="img"` + `aria-label` descritivo em cada idioma.
+- Contraste texto sobre superfície: mantido `text-white/90` para corpo, `text-white/60` para captions — AA garantido.
 
-### 5. Trust bar sob o CTA (novo)
-- `src/components/sales/v3/HeroTrustBar.tsx`, montada entre o botão CTA e o microtexto atual.
-- Linha inline: `★★★★★ 4.9`  ·  `+12.847 análises` (usar `AnimatedCounter` existente) · `🔒 100% privado · sem banco` (ícone `Lock` do lucide).
-- Estilo: `flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[13px] text-white/85 font-medium`. Estrelas em `var(--arch-primary)`.
-- Microtexto atual ("Análise pessoal preparada agora para ti") vira 2ª linha em `text-xs text-white/60` — mantém sem remover.
+### Verificação
+1. `npm run build` — zero novos erros.
+2. Playwright screenshot da seção em `375px` (mobile) e `1280px` (desktop) para confirmar layout.
+3. Toggle DevTools de `prefers-reduced-motion` para confirmar fallback estático.
 
-### 6. Espaçamento e hierarquia
-- Padding do `<section>`: `pt-14 pb-20 sm:pt-20 sm:pb-24` (vs. atual `pt-32 pb-32`).
-- Gaps internos: `mt-5` eyebrow→H1; `mt-6` H1→divisor; `mt-6` divisor→subtítulo; `mt-8` subtítulo→CTA; `mt-4` CTA→trust bar; `mt-2` trust bar→microtexto; `mt-10` microtexto→proofs.
-- Resultado: CTA visível na 1ª dobra em 1366×768 e 1440×900, mantendo generosidade em desktop 1920.
+### Fora do escopo
+- Alterar copy dos deliverables.
+- Mexer em outros blocos (`b4`, `b6`, `b7`).
+- Adicionar novas dependências (tudo com Lucide já instalado + SVG inline).
 
-### 7. Detalhes premium
-- **Halo respirando atrás do CTA:** camada `absolute inset-0 -z-10 blur-3xl` com `radial-gradient(var(--arch-glow) 0%, transparent 60%)` e animação `heroHaloBreath 4.5s ease-in-out infinite`. `prefers-reduced-motion` → estático.
-- **Máscara nos símbolos flutuantes:** garante que nenhum símbolo cruze o H1 em nenhum viewport. Camada dos symbols recebe `mask-image: radial-gradient(ellipse 42vw 32vh at 50% 40%, transparent 0, transparent 55%, black 100%)` — abre "buraco" no centro. Mobile: ellipse ajustada (`72vw 24vh at 50% 30%`).
-- **Grão sutil:** SVG `feTurbulence`, `opacity: 0.03`, `mix-blend-overlay`, `pointer-events-none`. Textura premium sem custo.
-- **`data-cursor` magnético** já suportado — aplicar no CTA e no eyebrow.
-
-## Arquivos afetados
-
-**Novos:**
-- `src/components/sales/v3/UrgencyBar.tsx`
-- `src/components/sales/v3/HeroTrustBar.tsx`
-
-**Editados:**
-- `src/components/sales/v3/HeroScene.tsx` — nova estrutura, halo, mask, espaçamentos, slots eyebrow/H1/trust.
-- `src/components/sales/SalesPageV2.tsx` — monta `UrgencyBar`; passa `archetype`, `h1ByArch`, `eyebrowByArch`, `rank` para o hero.
-- `src/lib/i18n/types.ts` — estende `sales.v2.b1` com `h1ByArch` e `eyebrowByArch`.
-- `src/lib/i18n/translations.ts` — 8 strings novas × 5 idiomas = 40 strings novas.
-- `src/styles.css` — keyframes `heroHaloBreath` e `urgencyPulse`; utility `.hero-symbols-mask`.
-
-**Não tocados:** VSL, atmosfera, cores de arquétipo, ExitIntentModal, blocos 2→9 da sales, ScrollSculpture (já foi removida), rota, quiz, reveal.
-
-## Ordem de execução
-1. i18n (types + 5 idiomas) — evita build vermelho.
-2. `UrgencyBar` + montagem no `SalesPageV2`.
-3. `HeroTrustBar`.
-4. Refactor do `HeroScene` (eyebrow, H1 dinâmico, subtítulo com destaque, trust slot, halo, mask, espaçamento).
-5. `styles.css` (keyframes + mask utility).
-6. Verificação: `npm run build` limpo + Playwright em 1440×900 e 375×812 → confere CTA acima do fold, timer visível, trust bar sob CTA, zero colisão símbolo↔H1, cor arch-primary correta em todos os 4 arquétipos.
-
-## Métricas-alvo (proxy conversão)
-- CTA visível sem scroll em 1366×768.
-- Densidade de trust antes do fold: 1 → 4 sinais.
-- H1 fala do gatilho do arquétipo → reconhecimento < 2 s.
-- Urgência sem linguagem scammy (usar "reservado", nunca "expira/perdes").
-
-Aprovas para eu implementar exatamente isto, sem escopo extra?
+## Resultado esperado
+Um "kit premium visual" que responde instintivamente à pergunta *"o que eu recebo?"* em 2 segundos: **um herói tangível** (radar com o teu arquétipo), **cinco peças satelitais numeradas** com valor concreto por chip, e **um rodapé de garantia com peso de selo institucional** — mantendo a linguagem editorial do resto da página e sem inflar o bundle nem quebrar i18n.
