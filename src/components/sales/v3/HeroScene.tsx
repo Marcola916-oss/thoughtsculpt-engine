@@ -53,12 +53,12 @@ export function HeroScene({
           />
           {eyebrow}
           {rank && (
-            <>
+            <span className="hidden sm:inline-flex items-center gap-2">
               <span aria-hidden className="opacity-40">·</span>
               <span className="tabular-nums opacity-90">
                 {rankLabel ? `${rankLabel} ` : ""}Nº {rank}
               </span>
-            </>
+            </span>
           )}
         </span>
 
