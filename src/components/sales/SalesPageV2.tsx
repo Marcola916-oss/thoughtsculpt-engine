@@ -22,6 +22,8 @@ import { fillTpl } from "@/lib/sales/template";
 import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 
 import { HeroScene } from "./v3/HeroScene";
+import { UrgencyBar } from "./v3/UrgencyBar";
+import { HeroTrustBar } from "./v3/HeroTrustBar";
 import { SceneFrame } from "./v3/SceneFrame";
 import { PainDossier } from "./v3/PainDossier";
 import { ScienceDossier } from "./v3/ScienceDossier";
@@ -162,12 +164,35 @@ export default function SalesPageV2({
   const tpl = (s: string) => fillTpl(s, tplVars);
   const badges = SECTION_BADGES[(lang as BadgeLang)] ?? SECTION_BADGES.en;
 
+  // Deterministic archetype rank (10.000–14.000) for the eyebrow personalization.
+  const rank = (() => {
+    const seed = `${leadId ?? ""}${displayName ?? ""}${archetype}`;
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+    const n = 10000 + (hash % 4000);
+    return n.toLocaleString(lang === "en" ? "en-US" : lang === "ar" ? "ar-EG" : "pt-PT");
+  })();
+
+  const b1Eyebrow = v2.b1.eyebrowByArch?.[archetype] ?? v2.b1.eyebrow;
+  const b1Title = tpl(v2.b1.h1ByArch?.[archetype] ?? v2.b1.h1);
+  const urgencyCopy = v2.b1.urgency ?? {
+    reserve: "Your analysis is held for",
+    watching: "people viewing your archetype now",
+    lastChance: "Last chance — held for a few more minutes",
+  };
+  const trustCopy = v2.b1.trust ?? { count: "analyses", privacy: "100% private · no bank" };
+
   // Tela 12 não exibe preço — toda a persuasão monetária migra para a Tela 13.
   void price;
   void bump1; void bump2;
 
   return (
     <div ref={rootRef} data-arch={archetype} className="sales-page-live-bg relative min-h-screen text-white/90 selection:bg-[var(--arch-primary)] selection:text-white">
+      <UrgencyBar
+        reserveLabel={urgencyCopy.reserve}
+        watchingLabel={urgencyCopy.watching}
+        lastChanceLabel={urgencyCopy.lastChance}
+      />
       {/* Subtle archetype-tinted atmosphere pinned to the whole page */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
         <Atmosphere fog="subtle" symbols="sparse" scan="off" pinned>
@@ -182,12 +207,15 @@ export default function SalesPageV2({
           {/* B1 — Hero */}
           <div ref={heroRef}>
             <HeroScene
-              eyebrow={v2.b1.eyebrow}
-              title={tpl(v2.b1.h1)}
+              eyebrow={b1Eyebrow}
+              title={b1Title}
               promise={tpl(v2.b1.promise)}
+              emphasisWord={primaryLabel}
               cta={v2.b1.cta}
               timer={v2.b1.timer}
+              rank={rank}
               onCta={() => advance("b1")}
+              trust={<HeroTrustBar countLabel={trustCopy.count} privacyLabel={trustCopy.privacy} />}
             />
           </div>
 

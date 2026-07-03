@@ -2259,3 +2259,38 @@ html body .allow-break-all {
   .badge-pulse,
   .badge-pulse::before { animation-duration: 4s !important; }
 }
+
+/* ─── Sales hero — halo breath + urgency pulse + symbols mask ───────── */
+@keyframes heroHaloBreath {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%      { opacity: 0.9;  transform: scale(1.06); }
+}
+.hero-halo { animation: heroHaloBreath 4.5s ease-in-out infinite; }
+
+@keyframes urgencyPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(1.15); }
+}
+.urgency-pulse { animation: urgencyPulse 1.1s ease-in-out infinite; }
+
+/* Opens a soft "hole" so floating currency symbols never cross the H1. */
+.hero-symbols-mask::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: transparent;
+  -webkit-mask-image: radial-gradient(ellipse 44vw 34vh at 50% 42%, black 0, black 55%, transparent 100%);
+          mask-image: radial-gradient(ellipse 44vw 34vh at 50% 42%, black 0, black 55%, transparent 100%);
+}
+@media (max-width: 640px) {
+  .hero-symbols-mask::before {
+    -webkit-mask-image: radial-gradient(ellipse 78vw 28vh at 50% 34%, black 0, black 55%, transparent 100%);
+            mask-image: radial-gradient(ellipse 78vw 28vh at 50% 34%, black 0, black 55%, transparent 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-halo, .urgency-pulse { animation: none !important; }
+}

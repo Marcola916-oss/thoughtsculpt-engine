@@ -269,7 +269,17 @@ export type Dict = {
    * que são interpolados em runtime por `fillTpl`.
    */
   salesV2: {
-    b1: { eyebrow: string; h1: string; promise: string; cta: string; timer: string };
+    b1: {
+      eyebrow: string;
+      h1: string;
+      promise: string;
+      cta: string;
+      timer: string;
+      h1ByArch?: { AO: string; SS: string; EA: string; HI: string };
+      eyebrowByArch?: { AO: string; SS: string; EA: string; HI: string };
+      urgency?: { reserve: string; watching: string; lastChance: string };
+      trust?: { count: string; privacy: string };
+    };
     b2: { title: string; body: string; bullets: string[]; conclusion: string };
     b3: {
       title: string;
@@ -873,6 +883,24 @@ const PT: Dict = {
       promise: "O padrão [PRIMARY] não te custa só dinheiro. Custa-te decisões na carreira, paz nas relações e horas de sono. Por isso a força de vontade falhou — estavas a lutar contra o mecanismo errado.",
       cta: "Ver o meu protocolo agora",
       timer: "Análise pessoal preparada agora para ti.",
+      h1ByArch: {
+        AO: "[NOME], guardaste tudo — menos o que realmente importava.",
+        SS: "[NOME], compraste aprovação. E ninguém reparou.",
+        EA: "[NOME], evitaste olhar. E o silêncio custou-te caro.",
+        HI: "[NOME], viveste o agora. E o agora cobrou a fatura.",
+      },
+      eyebrowByArch: {
+        AO: "DIAGNÓSTICO · ACUMULADOR OBSESSIVO",
+        SS: "DIAGNÓSTICO · BUSCADOR DE STATUS",
+        EA: "DIAGNÓSTICO · EVITADOR ANSIOSO",
+        HI: "DIAGNÓSTICO · HEDONISTA IMPULSIVO",
+      },
+      urgency: {
+        reserve: "A tua análise fica reservada por",
+        watching: "pessoas a ver o teu arquétipo agora",
+        lastChance: "Última chance — reservada por mais uns minutos",
+      },
+      trust: { count: "análises", privacy: "100% privado · sem banco" },
     },
     b2: {
       title: "[NOME], já tentaste de tudo, certo?",
@@ -1558,6 +1586,24 @@ const EN: Dict = {
       promise: "The [PRIMARY] pattern doesn't only cost you money. It costs you career moves, peace in your relationships and hours of sleep. That's why willpower failed — you were fighting the wrong mechanism.",
       cta: "Show me my protocol now",
       timer: "Personal analysis prepared right now for you.",
+      h1ByArch: {
+        AO: "[NOME], you saved everything — except what actually mattered.",
+        SS: "[NOME], you bought approval. And no one noticed.",
+        EA: "[NOME], you looked away. And the silence cost you everything.",
+        HI: "[NOME], you lived for now. And now sent the bill.",
+      },
+      eyebrowByArch: {
+        AO: "DIAGNOSIS · OBSESSIVE SAVER",
+        SS: "DIAGNOSIS · STATUS SEEKER",
+        EA: "DIAGNOSIS · ANXIOUS AVOIDER",
+        HI: "DIAGNOSIS · IMPULSIVE HEDONIST",
+      },
+      urgency: {
+        reserve: "Your analysis is held for",
+        watching: "people viewing your archetype now",
+        lastChance: "Last chance — held for a few more minutes",
+      },
+      trust: { count: "analyses", privacy: "100% private · no bank" },
     },
     b2: {
       title: "[NOME], you've tried everything, right?",
@@ -1981,6 +2027,24 @@ const PL: Dict = {
       promise: "Wzorzec [PRIMARY] nie kosztuje cię tylko pieniędzy. Kosztuje cię decyzji w karierze, spokoju w związkach i godzin snu. Dlatego siła woli zawiodła — walczyłeś z niewłaściwym mechanizmem.",
       cta: "Pokaż mi mój protokół teraz",
       timer: "Osobista analiza przygotowana dla ciebie teraz.",
+      h1ByArch: {
+        AO: "[NOME], oszczędzałeś wszystko — oprócz tego, co naprawdę się liczyło.",
+        SS: "[NOME], kupowałeś aprobatę. I nikt tego nie zauważył.",
+        EA: "[NOME], odwracałeś wzrok. A cisza kosztowała cię drogo.",
+        HI: "[NOME], żyłeś chwilą. A chwila przysłała rachunek.",
+      },
+      eyebrowByArch: {
+        AO: "DIAGNOZA · SKRUPULATNY OSZCZĘDNY",
+        SS: "DIAGNOZA · ŁOWCA STATUSU",
+        EA: "DIAGNOZA · LĘKOWY UNIKAJĄCY",
+        HI: "DIAGNOZA · IMPULSYWNY HEDONISTA",
+      },
+      urgency: {
+        reserve: "Twoja analiza jest zarezerwowana na",
+        watching: "osób ogląda teraz twój archetyp",
+        lastChance: "Ostatnia szansa — zarezerwowane jeszcze przez kilka minut",
+      },
+      trust: { count: "analiz", privacy: "100% prywatne · bez banku" },
     },
     b2: {
       title: "[NOME], próbowałeś już wszystkiego, prawda?",
@@ -2404,6 +2468,24 @@ const RO: Dict = {
       promise: "Tiparul [PRIMARY] nu te costă doar bani. Te costă decizii în carieră, liniște în relații și ore de somn. De aceea voința a eșuat — luptai cu mecanismul greșit.",
       cta: "Vezi-mi protocolul acum",
       timer: "Analiză personală pregătită acum pentru tine.",
+      h1ByArch: {
+        AO: "[NOME], ai economisit totul — mai puțin ce conta cu adevărat.",
+        SS: "[NOME], ai cumpărat aprobare. Și nimeni n-a observat.",
+        EA: "[NOME], ai privit în altă parte. Și tăcerea te-a costat scump.",
+        HI: "[NOME], ai trăit clipa. Și clipa ți-a trimis nota.",
+      },
+      eyebrowByArch: {
+        AO: "DIAGNOSTIC · ACUMULATOR OBSESIV",
+        SS: "DIAGNOSTIC · CĂUTĂTOR DE STATUT",
+        EA: "DIAGNOSTIC · EVITANT ANXIOS",
+        HI: "DIAGNOSTIC · HEDONIST IMPULSIV",
+      },
+      urgency: {
+        reserve: "Analiza ta este rezervată pentru",
+        watching: "persoane văd arhetipul tău acum",
+        lastChance: "Ultima șansă — rezervat pentru câteva minute",
+      },
+      trust: { count: "analize", privacy: "100% privat · fără bancă" },
     },
     b2: {
       title: "[NOME], ai încercat de toate, nu?",
@@ -2828,6 +2910,24 @@ const AR: Dict = {
       promise: "نمط [PRIMARY] لا يكلّفك المال فقط. يكلّفك قرارات في المسيرة، طمأنينة في علاقاتك، وساعات من النوم. لذلك فشلت قوة الإرادة — كنت تحارب الآلية الخاطئة.",
       cta: "أرني بروتوكولي الآن",
       timer: "تحليل شخصي مُعدّ لك الآن.",
+      h1ByArch: {
+        AO: "[NOME]، ادّخرت كل شيء — إلا ما كان يهم فعلاً.",
+        SS: "[NOME]، اشتريت القبول. ولم يلاحظ أحد.",
+        EA: "[NOME]، أشحت بنظرك. والصمت كلّفك الكثير.",
+        HI: "[NOME]، عشت اللحظة. واللحظة أرسلت الفاتورة.",
+      },
+      eyebrowByArch: {
+        AO: "التشخيص · المدّخر القهري",
+        SS: "التشخيص · الباحث عن المكانة",
+        EA: "التشخيص · المتجنّب القلق",
+        HI: "التشخيص · الهيدوني الاندفاعي",
+      },
+      urgency: {
+        reserve: "تحليلك محفوظ لمدة",
+        watching: "أشخاص يشاهدون نمطك الآن",
+        lastChance: "الفرصة الأخيرة — محفوظ لدقائق إضافية",
+      },
+      trust: { count: "تحليل", privacy: "100% خاص · بدون بنك" },
     },
     b2: {
       title: "[NOME]، لقد جرّبت كل شيء، أليس كذلك؟",
