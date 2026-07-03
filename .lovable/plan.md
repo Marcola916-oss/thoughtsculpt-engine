@@ -1,120 +1,67 @@
+## Plano — Refinamento Premium do Exit-Intent Modal
 
-# Redesign B4 — Diagnóstico 4D (Dossier Clínico Personalizado)
+Escopo: apenas `src/components/sales/v3/ExitIntentModal.tsx` (visual/UX). Sem tocar em i18n, sem tocar no call-site, sem mudar cor (segue `--arch-primary` dinâmico).
 
-## Contexto e função na página
+---
 
-B4 é a **peça mais pessoal da página de vendas**. Vem logo depois de "A CIÊNCIA" (autoridade externa: Kahneman, Thaler, 95%) e serve como **prova interna**: pega no percentual macro e traduz para *"os teus números"* nas 4 áreas (Dinheiro, Carreira, Amor, Pessoal). É a ponte entre "isto é científico" e "isto é sobre mim" — o momento em que o utilizador vê o próprio arquétipo com scores reais.
+### 1. Fonte do título → Inter
+- Trocar `font-display` (Syne) por `font-sans` (Inter) no `<h2>`.
+- Ajustar peso para `font-semibold` (600) e `tracking-tight` — Inter em 800 fica pesado demais; 600 com tracking negativo dá o ar editorial/clínico que o resto do modal pede.
+- Levemente reduzir tamanho máximo: `clamp(22px, 4.6vw, 30px)` para respirar melhor com Inter.
 
-O layout atual é fraco: título gigante + subtítulo + grid 2×2 de posters com badge de score no canto. Não parece diagnóstico, parece galeria. Não gera a sensação de "abriram uma ficha clínica sobre mim".
+### 2. Logo sem círculo, maior
+- Remover o `<span>` do anel (borda `inset-2 rounded-full`).
+- Manter o halo (glow radial) — sem ele a logo fica flutuando no vazio; posso reduzir intensidade se preferir.
+- Aumentar container: `h-[92px]→h-[120px]` mobile, `h-[108px]→h-[140px]` desktop.
+- Aumentar imagem: `72/86px → 100/120px`.
 
-## Direção visual — "Case File 4D"
+### 3. CTA centralizado
+- O botão já é `w-full`. "Centralizar" = centralizar o **conteúdo interno** (texto + seta), que hoje fica visualmente à esquerda por causa do `gap-2` + seta na direita.
+- Solução: `justify-center` já está; envolver `<span>{cta}</span><ArrowRight/>` mantém centro do grupo. Confirmar que não há padding assimétrico. Se o desejo for CTA mais estreito (não `w-full`), aplicar `max-w-xs mx-auto` — vou por esta rota, fica mais premium e menos "form-like".
 
-Continuar a linguagem de **dossier clínico** que já ancorámos em `PainDossier` e `ScienceDossier`, mas escalando para o **momento mais premium da página** (é o clímax do diagnóstico antes da oferta). Cada área é uma **página de expediente clínico** com identidade forte, não um card genérico.
+### 4. Melhorias gerais premium (conversão + acabamento)
 
-**Metáfora:** o utilizador está a folhear a sua própria ficha, marcada como *CONFIDENTIAL · SUBJECT: [NOME] · CASE 04/04*.
+**Hierarquia visual**
+- Adicionar micro-divisor entre header strip e corpo: linha 1px com gradient horizontal que fade nas bordas — separa o "sistema" do "conteúdo humano".
+- Aumentar respiro entre título e progress bars (agora `mt-5` → `mt-6`) para dar peso ao título.
 
-## Estrutura da nova seção (ScienceDossier-style)
+**Sunk cost mais tangível**
+- Nas progress bars, adicionar micro-label acima do bloco: `TEU DOSSIÊ` (mono, 9px, tracking largo) — enquadra visualmente os 2 medidores como uma unidade coesa "dossiê pessoal", não 2 barras soltas.
+- Barra "Análise 100%": adicionar um mini-tick ✓ pulsante no final (indica conclusão real, não só cor).
+- Barra "Protocolo 0%": adicionar shimmer sutil na track vazia (indica potencial não desbloqueado).
 
-```text
-┌─────────────────────────────────────────────────────────┐
-│ ● ARQUIVO PESSOAL · SUJEITO: LUCÃO · 04/04 · CONFIDENCIAL│  ← header strip
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  DIAGNÓSTICO 4D (título já existente)                   │
-│  subtítulo                                              │
-│                                                         │
-│  ┌──── HERO METRIC ─────────────────────────────────┐   │
-│  │  ÍNDICE COMPOSTO         [radial ring animated] │   │
-│  │  ██ 74 /100              (média das 4 áreas)    │   │
-│  │  "Padrão [PRIMARY] activo em 4/4 áreas críticas"│   │
-│  └──────────────────────────────────────────────────┘   │
-│                                                         │
-│  ┌────── 4 DOSSIER CARDS (2×2) ──────┐                 │
-│  │ FICHA 01/04         ⚙ MONEY       │                 │
-│  │ ─────────────────────────────      │                 │
-│  │ DINHEIRO                            │                 │
-│  │ [poster image w/ vignette]          │                 │
-│  │                                     │                 │
-│  │ ┌ SCORE ─────────────────────┐     │                 │
-│  │ │ 82 / 100                   │     │                 │
-│  │ │ ████████████░░  severity   │     │  ← barra scar   │
-│  │ └────────────────────────────┘     │                 │
-│  │                                     │                 │
-│  │ ▎ Diagnóstico                       │                 │
-│  │ "Como AO toma decisões..."          │                 │
-│  │                                     │                 │
-│  │ • Gatilho: medo de faltar           │  ← 3 metadados │
-│  │ • Frequência: diária                │                 │
-│  │ • Impacto: alto                     │                 │
-│  └────────────────────────────────────┘                 │
-│                                                         │
-│  ┌── SEAL / VERDICT ──────────────────────┐            │
-│  │ 🔴 barra lateral cor do arquétipo      │            │
-│  │ "O mesmo padrão. 4 áreas. 1 decisão."  │  ← pivot   │
-│  │ CTA opcional em texto de continuação   │            │
-│  └────────────────────────────────────────┘            │
-└─────────────────────────────────────────────────────────┘
-```
+**Losses (perdas) — impacto**
+- Trocar os `✗` por ícones `MinusCircle` (Lucide) menores em outline — mais clínico, menos "erro genérico".
+- Adicionar hover row: `hover:bg-white/[0.03]` com `transition` — micro-tátil, aumenta engagement.
 
-## Novo componente
+**CTA — força**
+- Aumentar CTA: `py-4 → py-[18px]` e `text-sm → text-[15px]`.
+- Adicionar micro-glow pulsante contínuo (2 shadows: outer soft + inner rim) — sinaliza ação primária sem virar "spam blink".
+- Seta: `ArrowRight` → `w-4 h-4` com `translate-x` de 2px no hover do botão (já tem hover lift; empilha).
+- Adicionar linha acima do CTA: 3 mini-badges inline horizontais `Acesso imediato · Garantia 7 dias · Sem recorrência` — o `guarantee` atual fica abaixo do CTA duplicando; melhor: mover microtext PARA CIMA como reassurance pré-decisão, e abaixo do CTA colocar apenas 1 linha curta tipo `Encriptação SSL · Pagamento seguro Stripe` (trust signal técnico).
 
-`src/components/sales/v3/DiagnosisDossier.tsx` — recebe `archetype`, `displayName`, `primary`, `areaScores`, `features[]`, header/pivot i18n. Substitui o grid inline no B4 do `SalesPageV2.tsx`.
+**Footer / decline**
+- Adicionar pequeno separador `·` visual + um secondary microtext: `Podes voltar mais tarde, mas o teu diagnóstico expira em 10 min.` — reforça scarcity no ponto de dismissal (última chance de fricção).
 
-### Peças-chave
+**Motion refinements**
+- Stagger na entrada: header (0ms) → logo (80ms) → chip (160ms) → título (200ms) → body (260ms) → bars (320ms) → losses (400ms) → CTA (480ms). Usar `animation-delay` em keyframes ou wrapper com `style={{animationDelay}}`.
+- Reduzir shimmer do CTA de 3.2s → 4.5s (menos frenético, mais luxo).
 
-1. **Header strip** (idêntico à `PainDossier` / `ScienceDossier`): fita fina com `● ARQUIVO PESSOAL · SUJEITO: {NOME} · 04/04 · CONFIDENCIAL` em tabular-nums + monospace.
+**Detalhes finais**
+- Aumentar border-radius do card: `rounded-3xl → rounded-[28px]` (custom, feel mais tailored).
+- Adicionar sutil ruído (noise texture) já existe — aumentar opacity de `0.05 → 0.07`.
+- Corner brackets: reduzir tamanho `w-4 h-4 → w-3 h-3` e slower pulse (2.4s → 3.6s) — menos distração, mais elegante.
 
-2. **Hero metric composto** (novo):
-   - Ring radial SVG animado (`stroke-dashoffset` triggered por `IntersectionObserver`), pinta na cor do arquétipo, mostra a **média dos 4 scores**.
-   - Ao lado: número grande serif (`font-display`, ~96px, tabular-nums), rótulo *"ÍNDICE COMPOSTO · Padrão [PRIMARY] activo em 4/4 áreas"*.
-   - Ancora o utilizador: um só número que resume tudo antes de detalhar.
+---
 
-3. **4 Dossier Cards** — refactor completo do `AreaPoster` para virarem "fichas":
-   - Chip flutuante `FICHA 0X/04` no top-right (padrão já validado em `PainDossier`).
-   - Ícone da área (Coins/Briefcase/Heart/User da lucide) no top-left.
-   - Título da área em Syne 800 uppercase, standalone (não amontoado sobre a imagem).
-   - Poster ocupa 60% da altura, com máscara de fade-to-black no bottom (masking, não gradient sobreposto).
-   - **Bloco SCORE dentro do card**: número tabular grande + barra "scar" com fill animado (`width` transition 1.2s ease-out ao entrar em viewport), rótulo `SEVERITY` calibrado por faixa (0-40 baixo, 41-70 moderado, 71-100 crítico) na cor do arquétipo.
-   - Descrição diagnóstica (`feat.description` já traduzida, `tpl()` aplicado).
-   - **3 metadados clínicos** derivados por área+arquétipo (mapa determinístico em `src/lib/sales/area-meta.ts`): `Gatilho · Frequência · Impacto`. Curto, monospace, cor `white/60`. Adiciona textura clínica sem inventar copy — todos os valores já implícitos no arquétipo.
-   - Hover: `-translate-y-1`, borda ganha glow da cor do arquétipo, chip da ficha acende, imagem sobe 1.04.
+### Arquivos a editar
+- `src/components/sales/v3/ExitIntentModal.tsx` — único arquivo alterado.
 
-4. **Verdict Seal** — card final com barra lateral vermelha (mesma linguagem do `ScienceDossier`), pega o `v2.b7.eyebrow` ou frase-pivot *"O mesmo padrão. 4 áreas. 1 decisão."* Só texto — CTA continua no B7 abaixo (não duplicar).
+### O que NÃO muda
+- Cor (segue arquétipo dinâmico)
+- i18n / copy structure
+- Call-site em `SalesPageV2.tsx`
+- Comportamento (focus trap, esc, countdown, backdrop click)
+- Estrutura de props
 
-### Detalhes de craft
-
-- **Grain texture** suave (`radial-gradient` 8% opacity) por baixo do wrapper — dá "papel de arquivo".
-- **Brackets clínicos** `⌐ ¬ ⌐ ¬` nos 4 cantos da hero metric (padrão do ScienceDossier).
-- **Divider line** com tick marks entre header strip e conteúdo (tabular-nums 001–100, 5% opacity).
-- **Border radius** consistente com resto da página: `rounded-3xl` cards, `rounded-full` chips, `rounded-2xl` seal.
-- **RTL**: usar `ms-*` / `me-*` e `start-*` / `end-*` (o resto do produto já respeita).
-- **Reduced motion**: rings pintam estático no valor final, barras de score idem, sem shimmer.
-
-## Ficheiros afectados
-
-1. **`src/components/sales/v3/DiagnosisDossier.tsx`** — NOVO componente principal (~250 linhas).
-2. **`src/components/sales/v3/AreaPoster.tsx`** — refactor: passa a ser sub-componente consumido pelo `DiagnosisDossier` (chip ficha, score bar, metadata). Preserva assinatura mas ganha props `index`, `severityLabels`, `meta`.
-3. **`src/lib/sales/area-meta.ts`** — NOVO: mapa determinístico `{ archetype, area } → { trigger, frequency, impact }` traduzido nos 5 idiomas via chaves i18n.
-4. **`src/lib/i18n/translations.ts`** — adicionar `salesV2.b4.dossier`:
-   - `caseLabel` ("ARQUIVO PESSOAL"), `subjectLabel` ("SUJEITO"), `confidential` ("CONFIDENCIAL")
-   - `indexLabel` ("ÍNDICE COMPOSTO"), `indexCaption` ("Padrão [PRIMARY] activo em 4/4 áreas críticas")
-   - `severityLabel`, `severity.low/moderate/critical`
-   - `metaLabels.trigger/frequency/impact`
-   - `metaValues.*` (16 combinações arquétipo×área × 3 metadados, mas reutilizando tokens curtos: "medo de faltar", "diário", "alto", etc.)
-   - `verdictPivot` ("O mesmo padrão. 4 áreas. 1 decisão.")
-   - Nos 5 idiomas (PT/EN/PL/RO/AR). Estrutura mínima — reutiliza o máximo de vocabulário já existente no produto.
-5. **`src/components/sales/SalesPageV2.tsx`** — substituir o bloco B4 actual (linhas 226-243) por `<DiagnosisDossier ... />` dentro do mesmo `SceneFrame`. Sem outras mudanças na página.
-
-## Verificação
-
-- Build limpo (`bun run build`), zero novos TS/lint.
-- Ring e barras de score animam correctamente ao entrar em viewport (IntersectionObserver, threshold 0.35).
-- Score `82/100` visível em todos os breakpoints (mobile 375px sem clipping, RTL AR sem sobreposição).
-- Screenshot Playwright do bloco B4 em desktop + mobile, comparação lado-a-lado com estado actual.
-- Contraste AA verificado nas cores dos metadados (`white/60` sobre `black/40`).
-
-## Não incluído (fora de escopo)
-
-- CTA dentro do dossier (mantém-se no B7 abaixo, sem duplicar).
-- Alteração dos posters (imagens actuais são fortes, ganham novo enquadramento sem reprocessing).
-- Nada fora do B4.
+Confirma que posso executar?

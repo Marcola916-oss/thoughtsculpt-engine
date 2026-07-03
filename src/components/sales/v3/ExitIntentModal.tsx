@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, Lock, X } from "lucide-react";
+import { ArrowRight, Check, Lock, MinusCircle, ShieldCheck, X } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import logoAsset from "@/assets/logo-official-transparent.webp";
 
@@ -108,7 +108,7 @@ export function ExitIntentModal({
       <div
         ref={cardRef}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-lg overflow-hidden rounded-3xl border text-start"
+        className="relative w-full max-w-lg overflow-hidden rounded-[28px] border text-start"
         style={{
           background:
             "radial-gradient(ellipse at 50% -10%, color-mix(in oklab, var(--arch-primary) 14%, rgba(0,0,0,0.92)) 0%, rgba(0,0,0,0.96) 60%)",
@@ -121,7 +121,7 @@ export function ExitIntentModal({
         {/* Grain */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay"
+          className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-overlay"
           style={{
             backgroundImage:
               "radial-gradient(circle at 20% 30%, white 1px, transparent 1px), radial-gradient(circle at 80% 70%, white 1px, transparent 1px)",
@@ -138,10 +138,10 @@ export function ExitIntentModal({
           <span
             key={i}
             aria-hidden
-            className={`pointer-events-none absolute h-4 w-4 ${b.pos} animate-pulse`}
+            className={`pointer-events-none absolute h-3 w-3 ${b.pos} animate-pulse`}
             style={{
               borderColor: "color-mix(in oklab, var(--arch-primary) 60%, transparent)",
-              animationDuration: "2.4s",
+              animationDuration: "3.6s",
             }}
           />
         ))}
@@ -185,10 +185,23 @@ export function ExitIntentModal({
           </span>
         </div>
 
+        {/* Divider */}
+        <div
+          aria-hidden
+          className="relative h-px w-full"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--arch-primary) 55%, transparent) 50%, transparent 100%)",
+          }}
+        />
+
         {/* Body */}
         <div className="relative px-6 pb-6 pt-7 sm:px-8 sm:pt-8">
-          {/* Logo with halo */}
-          <div className="relative mx-auto mb-4 flex h-[92px] w-[92px] items-center justify-center sm:h-[108px] sm:w-[108px]">
+          {/* Logo with halo (no ring) */}
+          <div
+            className="exit-stagger relative mx-auto mb-4 flex h-[120px] w-[120px] items-center justify-center sm:h-[140px] sm:w-[140px]"
+            style={{ animationDelay: "80ms" }}
+          >
             <span
               aria-hidden
               className="absolute inset-0 rounded-full blur-2xl"
@@ -198,24 +211,16 @@ export function ExitIntentModal({
                 opacity: 0.75,
               }}
             />
-            <span
-              aria-hidden
-              className="absolute inset-2 rounded-full"
-              style={{
-                border:
-                  "1px solid color-mix(in oklab, var(--arch-primary) 40%, transparent)",
-              }}
-            />
             <img
               src={logoAsset}
               alt="MindReset"
-              className="relative z-10 h-[72px] w-[72px] object-contain sm:h-[86px] sm:w-[86px]"
+              className="relative z-10 h-[100px] w-[100px] object-contain sm:h-[120px] sm:w-[120px]"
               loading="eager"
             />
           </div>
 
           {/* Chip */}
-          <div className="mb-4 flex justify-center">
+          <div className="exit-stagger mb-4 flex justify-center" style={{ animationDelay: "160ms" }}>
             <span
               className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.28em]"
               style={{
@@ -235,30 +240,50 @@ export function ExitIntentModal({
           {/* Title */}
           <h2
             id="exit-intent-title"
-            className="mx-auto max-w-md text-center font-display font-extrabold leading-[1.08] text-white"
-            style={{ fontSize: "clamp(24px, 5vw, 32px)" }}
+            className="exit-stagger mx-auto max-w-md text-center font-sans font-semibold leading-[1.12] tracking-tight text-white"
+            style={{ fontSize: "clamp(22px, 4.6vw, 30px)", animationDelay: "200ms" }}
           >
             {title}
           </h2>
 
           {/* Body */}
-          <p className="mx-auto mt-3 max-w-md text-center text-[13.5px] leading-relaxed text-white/70 sm:text-sm">
+          <p
+            className="exit-stagger mx-auto mt-3 max-w-md text-center text-[13.5px] leading-relaxed text-white/70 sm:text-sm"
+            style={{ animationDelay: "260ms" }}
+          >
             {body}
           </p>
 
           {/* Progress bars — sunk cost */}
-          <div className="mt-5 grid grid-cols-2 gap-3">
+          <div className="exit-stagger mt-6" style={{ animationDelay: "320ms" }}>
+            <p
+              className="mb-2 text-center font-mono text-[9px] font-bold uppercase tracking-[0.32em]"
+              style={{ color: "color-mix(in oklab, var(--arch-primary) 70%, white)" }}
+            >
+              — Teu Dossiê —
+            </p>
+            <div className="grid grid-cols-2 gap-3">
             {[
-              { label: copy.progressAnalysis, pct: 100 },
-              { label: copy.progressProtocol, pct: 0 },
+              { label: copy.progressAnalysis, pct: 100, done: true },
+              { label: copy.progressProtocol, pct: 0, done: false },
             ].map((row) => (
               <div key={row.label} className="min-w-0">
                 <div className="mb-1 flex items-baseline justify-between font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-white/50">
                   <span>{row.label}</span>
-                  <span className="tabular-nums text-white/70">{row.pct}%</span>
+                  <span className="flex items-center gap-1 tabular-nums text-white/70">
+                    {row.pct}%
+                    {row.done && (
+                      <Check
+                        size={10}
+                        strokeWidth={3}
+                        className="animate-pulse"
+                        style={{ color: "var(--arch-primary)" }}
+                      />
+                    )}
+                  </span>
                 </div>
                 <div
-                  className="h-1.5 w-full overflow-hidden rounded-full"
+                  className="relative h-1.5 w-full overflow-hidden rounded-full"
                   style={{
                     background:
                       "color-mix(in oklab, var(--arch-primary) 10%, rgba(255,255,255,0.05))",
@@ -274,29 +299,44 @@ export function ExitIntentModal({
                       transition: "width 1200ms cubic-bezier(0.22,1,0.36,1)",
                     }}
                   />
+                  {!row.done && (
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--arch-primary) 22%, transparent) 50%, transparent 100%)",
+                        animation: "exitTrackShimmer 2.8s ease-in-out infinite",
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             ))}
+            </div>
           </div>
 
           {/* Losses */}
-          <div className="mt-6">
+          <div className="exit-stagger mt-6" style={{ animationDelay: "400ms" }}>
             <p
               className="mb-2 font-mono text-[10px] font-bold uppercase tracking-[0.28em]"
               style={{ color: "color-mix(in oklab, var(--arch-primary) 85%, white)" }}
             >
               {copy.lossHeader}
             </p>
-            <ul className="space-y-1.5">
+            <ul className="space-y-0.5">
               {copy.losses.map((loss, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-[13px] leading-snug">
-                  <span
+                <li
+                  key={i}
+                  className="flex items-start gap-2.5 rounded-md px-2 py-1.5 text-[13px] leading-snug transition-colors hover:bg-white/[0.03]"
+                >
+                  <MinusCircle
                     aria-hidden
-                    className="mt-[3px] font-mono text-[13px] font-bold leading-none"
+                    size={13}
+                    strokeWidth={2}
+                    className="mt-[3px] shrink-0"
                     style={{ color: "var(--arch-primary)" }}
-                  >
-                    ✗
-                  </span>
+                  />
                   <span
                     className="text-white/80"
                     style={{
@@ -313,18 +353,26 @@ export function ExitIntentModal({
             </ul>
           </div>
 
+          {/* Reassurance micro-badges (pre-CTA) */}
+          <div
+            className="exit-stagger mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10.5px] font-medium uppercase tracking-[0.14em] text-white/55"
+            style={{ animationDelay: "440ms" }}
+          >
+            <span>{copy.guarantee}</span>
+          </div>
+
           {/* CTA */}
-          <div className="mt-6">
+          <div className="exit-stagger mt-3 flex justify-center" style={{ animationDelay: "480ms" }}>
             <ButtonPress>
               <button
                 ref={ctaRef}
                 type="button"
                 onClick={onAccept}
-                className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-white transition-transform duration-200 hover:-translate-y-[2px] hover:brightness-110 active:scale-[0.97]"
+                className="exit-cta group relative mx-auto inline-flex w-full max-w-sm items-center justify-center gap-2 overflow-hidden rounded-full px-8 py-[18px] text-[15px] font-extrabold uppercase tracking-[0.14em] text-white transition-transform duration-200 hover:-translate-y-[2px] hover:brightness-110 active:scale-[0.97]"
                 style={{
                   background: "var(--arch-primary)",
                   boxShadow:
-                    "0 24px 60px -14px color-mix(in oklab, var(--arch-primary) 70%, transparent), inset 0 1px 0 rgba(255,255,255,0.2)",
+                    "0 24px 60px -14px color-mix(in oklab, var(--arch-primary) 75%, transparent), 0 0 0 1px color-mix(in oklab, var(--arch-primary) 40%, transparent), inset 0 1px 0 rgba(255,255,255,0.22)",
                 }}
               >
                 <span
@@ -334,20 +382,32 @@ export function ExitIntentModal({
                     background:
                       "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%)",
                     transform: "translateX(-100%)",
-                    animation: "exitShimmer 3.2s ease-in-out infinite",
+                    animation: "exitShimmer 4.5s ease-in-out infinite",
                   }}
                 />
                 <span className="relative">{cta.replace(/\s*[→←]\s*$/, "")}</span>
-                <ArrowRight size={16} className="relative" />
+                <ArrowRight
+                  size={16}
+                  className="relative transition-transform duration-300 group-hover:translate-x-[3px]"
+                />
               </button>
             </ButtonPress>
-            <p className="mt-3 text-center text-[11px] leading-relaxed text-white/50">
-              {copy.guarantee}
-            </p>
+          </div>
+
+          {/* Trust technical strip */}
+          <div
+            className="exit-stagger mt-3 flex items-center justify-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-white/40"
+            style={{ animationDelay: "540ms" }}
+          >
+            <ShieldCheck size={11} strokeWidth={2.2} className="opacity-70" />
+            <span>SSL · Stripe · 7d</span>
           </div>
 
           {/* Decline */}
-          <div className="mt-4 text-center">
+          <div
+            className="exit-stagger mt-4 text-center"
+            style={{ animationDelay: "580ms" }}
+          >
             <button
               type="button"
               onClick={onDismiss}
@@ -367,8 +427,21 @@ export function ExitIntentModal({
             0% { transform: translateX(-100%); }
             60%, 100% { transform: translateX(100%); }
           }
+          @keyframes exitTrackShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+          }
+          @keyframes exitStaggerIn {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+          .exit-stagger {
+            opacity: 0;
+            animation: exitStaggerIn 520ms cubic-bezier(0.22,1,0.36,1) both;
+          }
           @media (prefers-reduced-motion: reduce) {
             [role="dialog"] * { animation: none !important; transition: none !important; }
+            .exit-stagger { opacity: 1 !important; transform: none !important; }
           }
         `}</style>
       </div>
