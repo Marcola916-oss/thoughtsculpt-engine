@@ -26,9 +26,12 @@ export function HeroTrustBar({
       </span>
       <span aria-hidden className="text-white/25">·</span>
       <span className="flex items-center gap-1 tabular-nums">
-        <span className="text-white/95 font-semibold">
-          +<AnimatedCounter to={12847} duration={1400} />
-        </span>
+        <AnimatedCounter
+          end={12847}
+          prefix="+"
+          duration={1.6}
+          className="text-white/95 font-semibold"
+        />
         <span className="text-white/70">{countLabel}</span>
       </span>
       <span aria-hidden className="text-white/25">·</span>
