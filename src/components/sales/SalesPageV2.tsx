@@ -334,36 +334,48 @@ export default function SalesPageV2({
           </ul>
 
           {/* B7 — Bridge card (sem preço; envia para Tela 13 de decisão) */}
-          <SceneFrame sceneId="bridge" badge={badges.decision} title={tpl(v2.b7.eyebrow)}>
-            <div
-              className="relative overflow-hidden rounded-[2.5rem] p-6 sm:p-9 text-center bg-black/55 backdrop-blur-2xl"
-              style={{
-                border: "1px solid color-mix(in oklab, var(--arch-primary) 38%, transparent)",
-                boxShadow:
-                  "0 50px 120px -40px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 25%, transparent)",
-              }}
-            >
-              <p className="text-[11px] font-bold uppercase tracking-[0.4em]" style={{ color: "var(--arch-primary)" }}>
-                {tpl(v2.b7.eyebrow)}
-              </p>
-              <h3 className="mt-3 font-display text-2xl font-extrabold uppercase leading-tight text-white sm:text-3xl">
-                {tpl(v2.b4.title)}
-              </h3>
-              <p className="mx-auto mt-3 max-w-xl text-sm text-white/70">{tpl(v2.b4.subtitle)}</p>
-              <ButtonPress>
-                <button
-                  type="button"
-                  onClick={() => advance("b7")}
-                  className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-full px-8 py-5 text-base sm:text-lg font-extrabold uppercase tracking-wide text-white transition-all hover:brightness-110"
-                  style={{ background: "#CC0000", boxShadow: "0 30px 80px -20px rgba(204,0,0,0.65)" }}
-                >
-                  {tpl(v2.b7.cta)}
-                  <ArrowRight size={20} strokeWidth={2.5} />
-                </button>
-              </ButtonPress>
-              <p className="mt-4 text-xs text-white/55">{v2.b7.trust}</p>
-            </div>
-          </SceneFrame>
+          <div ref={finalRef}>
+            <SceneFrame sceneId="bridge" badge={badges.decision} title={tpl(v2.b7.eyebrow)}>
+              <div
+                className="relative overflow-hidden rounded-[2.5rem] p-6 sm:p-9 text-center bg-black/55 backdrop-blur-2xl"
+                style={{
+                  border: "1px solid color-mix(in oklab, var(--arch-primary) 38%, transparent)",
+                  boxShadow:
+                    "0 50px 120px -40px color-mix(in oklab, var(--arch-primary) 55%, transparent), inset 0 1px 0 color-mix(in oklab, var(--arch-primary) 25%, transparent)",
+                }}
+              >
+                <p className="text-[11px] font-bold uppercase tracking-[0.4em]" style={{ color: "var(--arch-primary)" }}>
+                  {tpl(v2.b7.eyebrow)}
+                </p>
+                <h3 className="mt-3 font-display text-2xl font-extrabold uppercase leading-tight text-white sm:text-3xl">
+                  {tpl(v2.b4.title)}
+                </h3>
+                <p className="mx-auto mt-3 max-w-xl text-sm text-white/70">{tpl(v2.b4.subtitle)}</p>
+                
+                <div className="mx-auto mt-6 mb-2 max-w-xl space-y-2">
+                  <p className="text-sm font-medium text-white/90">
+                    {tpl(v2.b9.subtitle)}
+                  </p>
+                  <p className="text-xs text-white/70 tracking-wide">
+                    {tpl(v2.b9.tagline)}
+                  </p>
+                </div>
+
+                <ButtonPress>
+                  <button
+                    type="button"
+                    onClick={() => advance("b7")}
+                    className="mt-6 inline-flex w-full items-center justify-center gap-3 rounded-full px-8 py-5 text-base sm:text-lg font-extrabold uppercase tracking-wide text-white transition-all hover:brightness-110"
+                    style={{ background: "#CC0000", boxShadow: "0 30px 80px -20px rgba(204,0,0,0.65)" }}
+                  >
+                    {tpl(v2.b7.cta)}
+                    <ArrowRight size={20} strokeWidth={2.5} />
+                  </button>
+                </ButtonPress>
+                <p className="mt-4 text-xs text-white/55">{v2.b7.trust}</p>
+              </div>
+            </SceneFrame>
+          </div>
 
           {/* V — FAQ */}
           <SceneFrame sceneId="faq" index={5} badge={badges.faq} title={v2.b8.title}>
@@ -415,42 +427,7 @@ export default function SalesPageV2({
             </div>
           </SceneFrame>
 
-          {/* B9 — Final */}
-          <section ref={finalRef} className="relative py-24 text-center">
-            <Reveal>
-              <h2
-                className="font-display font-extrabold leading-[1.02] text-white drop-shadow-md"
-                style={{ fontSize: "clamp(2.25rem, 5.5vw, 4rem)" }}
-              >
-                {tpl(v2.b9.title)}
-              </h2>
-              <p className="mx-auto mt-5 max-w-xl text-white/90 text-lg font-medium">
-                {tpl(v2.b9.subtitle)}
-              </p>
-              <p className="mt-3 text-sm text-white/70 tracking-wide">{tpl(v2.b9.tagline)}</p>
-              <ButtonPress
-                type="button"
-                onClick={() => advance("b9")}
-                className="group mt-10 inline-flex min-h-20 sm:min-h-28 max-w-[min(92vw,34rem)] items-center justify-center gap-3 rounded-full bg-white px-6 py-4 sm:px-12 sm:py-5 font-sans text-sm sm:text-lg font-extrabold uppercase tracking-wide text-black text-center leading-tight transition-all hover:scale-[1.02] active:scale-[0.98] sales-final-pulse overflow-hidden relative"
-                style={{ boxShadow: "0 30px 80px -20px rgba(204,0,0,0.8)" }}
-              >
-                <span
-                  aria-hidden
-                  className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{ background: "var(--arch-primary)", borderRadius: "inherit" }}
-                />
-                <span
-                  aria-hidden
-                  className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_2s_infinite] pointer-events-none"
-                />
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-                  {v2.b9.cta}
-                </span>
-                <ArrowRight size={20} strokeWidth={2.5} className="relative z-10 transition-colors duration-300 group-hover:text-white" />
-              </ButtonPress>
-              <p className="mt-4 text-xs text-white/60 font-semibold">{v2.b9.trust}</p>
-            </Reveal>
-          </section>
+
 
           {onBack && (
             <div className="pb-16 text-center">

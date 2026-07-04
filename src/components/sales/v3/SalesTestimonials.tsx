@@ -4,8 +4,11 @@ import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 import adamPhoto from "@/assets/testimonials/adam.jpg";
 import mariaPhoto from "@/assets/testimonials/maria.jpg";
 import ramiPhoto from "@/assets/testimonials/rami.jpg";
+import ioanaPhoto from "@/assets/testimonials/ioana.webp";
+import katarzynaPhoto from "@/assets/testimonials/katarzyna.webp";
+import yousefPhoto from "@/assets/testimonials/yousef.webp";
 
-const AVATAR_PHOTOS = [adamPhoto, mariaPhoto, ramiPhoto] as const;
+const AVATAR_PHOTOS = [adamPhoto, mariaPhoto, ramiPhoto, ioanaPhoto, katarzynaPhoto, yousefPhoto] as const;
 
 type Testimonial = {
   stars: number;
@@ -33,20 +36,7 @@ function getArchLabel(arch: string, lang: string): string {
   return labels[arch]?.[lang] ?? arch;
 }
 
-function AvatarPlaceholder({ author, arch }: { author: string; arch: string }) {
-  const initial = author.charAt(0).toUpperCase();
-  return (
-    <div
-      aria-hidden
-      className="h-11 w-11 shrink-0 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg ring-1 ring-white/10"
-      style={{
-        background: `linear-gradient(135deg, var(--arch-primary), color-mix(in oklab, var(--arch-primary) 40%, black))`,
-      }}
-    >
-      {initial}
-    </div>
-  );
-}
+
 
 export function SalesTestimonials({ counter, rating, testimonials, lang }: SalesTestimonialsProps) {
   return (
@@ -89,16 +79,12 @@ export function SalesTestimonials({ counter, rating, testimonials, lang }: Sales
             </blockquote>
 
             <div className="flex items-center gap-4 border-t border-white/[0.07] pt-5">
-              {item.hasPhoto ? (
-                <img
-                  src={AVATAR_PHOTOS[i % AVATAR_PHOTOS.length]}
-                  alt={item.author}
-                  loading="lazy"
-                  className="h-11 w-11 shrink-0 rounded-full object-cover object-center shadow-lg ring-1 ring-white/10 transition-transform duration-500 group-hover:scale-110"
-                />
-              ) : (
-                <AvatarPlaceholder author={item.author} arch={item.arch} />
-              )}
+              <img
+                src={AVATAR_PHOTOS[i % AVATAR_PHOTOS.length]}
+                alt={item.author}
+                loading="lazy"
+                className="h-11 w-11 shrink-0 rounded-full object-cover object-center shadow-lg ring-1 ring-white/10 transition-transform duration-500 group-hover:scale-110"
+              />
               <div className="min-w-0 flex-1">
                 <p className="font-sans text-sm font-bold uppercase tracking-[0.12em] text-white break-words">{item.author}</p>
                 <p className="mt-0.5 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-arch-primary break-words whitespace-pre-line">
