@@ -1,11 +1,11 @@
 import { Star } from "lucide-react";
 import { useI18n } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/interaction/Reveal";
-import adamPhoto from "@/assets/testimonials/adam.jpg";
-import mariaPhoto from "@/assets/testimonials/maria.jpg";
-import ramiPhoto from "@/assets/testimonials/rami.jpg";
+import ioanaPhoto from "@/assets/testimonials/ioana.webp";
+import katarzynaPhoto from "@/assets/testimonials/katarzyna.webp";
+import yousefPhoto from "@/assets/testimonials/yousef.webp";
 
-const AVATAR_PHOTOS = [adamPhoto, mariaPhoto, ramiPhoto] as const;
+const AVATAR_PHOTOS = [ioanaPhoto, katarzynaPhoto, yousefPhoto] as const;
 
 export function Testimonials() {
   const { t } = useI18n();
