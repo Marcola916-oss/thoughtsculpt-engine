@@ -8,9 +8,6 @@
  *   • Compass / Relatório / 5 Idiomas — col-span-4 each
  *
  * Mobile: single column stack, same numbering + chips preserved.
- *
- * Zero i18n changes — reuses the 6 deliverables already translated. Metadata
- * chips and seal labels are derived per language inline.
  */
 
 import { useRef } from "react";
@@ -108,41 +105,58 @@ function DeliverCard({
       ref={ref}
       onMouseMove={onMove}
       className={[
-        "deliver-card group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-black/50 p-6 sm:p-7 backdrop-blur-xl transition-all duration-500",
-        "hover:-translate-y-1 hover:border-arch-primary/45",
+        "deliver-card group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-[#2A2A2A] bg-[#0D0D0D] p-6 sm:p-7 transition-all duration-500 ease-out",
+        "hover:scale-[0.99] hover:border-[var(--arch-primary)] hover:shadow-[0_20px_40px_-15px_color-mix(in_oklab,var(--arch-primary)_20%,transparent),inset_0_0_20px_color-mix(in_oklab,var(--arch-primary)_8%,transparent)]",
         isHero ? "deliver-card--hero sm:p-9" : "",
         className,
       ].join(" ")}
       style={{
-        boxShadow:
-          "0 30px 80px -40px color-mix(in oklab, var(--arch-primary) 45%, transparent), inset 0 1px 0 rgba(255,255,255,0.04)",
+        boxShadow: "0 10px 40px -10px rgba(0,0,0,0.8)",
       }}
     >
-      {/* spotlight layer */}
-      <div aria-hidden className="deliver-spotlight" />
-      {isHero && <div aria-hidden className="deliver-hero-ring" />}
+      {/* spotlight / ambient light layer */}
+      <div 
+        aria-hidden 
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background: "radial-gradient(600px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in oklab, var(--arch-primary) 8%, transparent), transparent 40%)"
+        }}
+      />
+
+      {/* Hero scanlines effect */}
+      {isHero && (
+        <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden rounded-[2rem] opacity-30 mix-blend-overlay">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9InRyYW5zcGFyZW50Ii8+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjAuNSIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==')] opacity-20" />
+          <div className="absolute top-0 w-full h-[10%] animate-[scan_6s_linear_infinite]" 
+               style={{ background: "linear-gradient(to bottom, transparent, color-mix(in oklab, var(--arch-primary) 20%, transparent), transparent)" }} />
+        </div>
+      )}
 
       {/* Top row: number + chip */}
       <div className="relative z-10 flex items-start justify-between gap-3">
         <span
           aria-hidden
-          className="font-display text-4xl sm:text-5xl font-black leading-none tracking-tight"
+          className="font-display text-4xl sm:text-5xl font-black leading-none tracking-tight opacity-30 transition-all duration-500 group-hover:opacity-100"
           style={{
+            background: "linear-gradient(135deg, #FFF 0%, rgba(255,255,255,0.1) 100%)",
+            WebkitBackgroundClip: "text",
             color: "transparent",
-            WebkitTextStroke: "1.5px color-mix(in oklab, var(--arch-primary) 55%, transparent)",
+            WebkitTextStroke: "1px rgba(255,255,255,0.1)",
           }}
         >
           {num}
         </span>
         <span
           aria-label={`Valor: ${chip}`}
-          className="rounded-full border px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em]"
+          className="relative rounded-full px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.18em] transition-all duration-500"
           style={{
-            borderColor: "color-mix(in oklab, var(--arch-primary) 40%, transparent)",
             color: "var(--arch-primary)",
-            background: "color-mix(in oklab, var(--arch-primary) 10%, transparent)",
+            background: "#1A1A1A",
+            border: "1px solid #2A2A2A",
+            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)"
           }}
         >
+          <span className="absolute inset-0 rounded-full bg-[var(--arch-primary)] opacity-0 group-hover:opacity-[0.15] blur-sm transition-opacity duration-500" />
           {chip}
         </span>
       </div>
@@ -150,6 +164,10 @@ function DeliverCard({
       {/* Optional visual (hero radar) */}
       {children && (
         <div className="relative z-10 mt-4 mb-3 flex flex-1 items-center justify-center min-h-[220px]">
+          {/* Subtle pulse behind radar */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+             <div className="w-48 h-48 rounded-full bg-[var(--arch-primary)] opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-700" />
+          </div>
           {children}
         </div>
       )}
@@ -158,24 +176,25 @@ function DeliverCard({
       <div className={`relative z-10 ${children ? "mt-2" : "mt-6 flex flex-1 flex-col"}`}>
         <div className="mb-3 flex items-center gap-3">
           <span
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-colors duration-500 group-hover:border-[var(--arch-primary)]"
             style={{
-              borderColor: "color-mix(in oklab, var(--arch-primary) 35%, transparent)",
-              background: "color-mix(in oklab, var(--arch-primary) 8%, transparent)",
+              borderColor: "#2A2A2A",
+              background: "#1A1A1A",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)"
             }}
           >
-            <Icon size={18} strokeWidth={2} style={{ color: "var(--arch-primary)" }} />
+            <Icon size={18} strokeWidth={2} style={{ color: "var(--arch-primary)" }} className="transition-transform duration-500 group-hover:scale-110" />
           </span>
           <h4
-            className={`font-display font-extrabold uppercase leading-tight text-white ${
-              isHero ? "text-xl sm:text-2xl" : "text-base sm:text-lg"
+            className={`font-display font-extrabold uppercase leading-tight text-white transition-colors duration-500 group-hover:text-white ${
+              isHero ? "text-xl sm:text-2xl" : "text-[15px] sm:text-base tracking-tight"
             }`}
           >
             {title}
           </h4>
         </div>
         <p
-          className={`text-white/70 leading-relaxed ${
+          className={`text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-500 ${
             isHero ? "text-[15px] sm:text-base" : "text-sm"
           }`}
         >
@@ -279,25 +298,26 @@ export function DeliverablesDossier({ deliverables, note, lang, areaScores }: Pr
       {seals.length > 0 && (
         <Reveal variant="fade-up" delay={0.1}>
           <div
-            className="mt-8 grid grid-cols-1 gap-3 rounded-2xl border border-white/10 bg-black/40 p-4 backdrop-blur-md sm:grid-cols-3 sm:gap-2 sm:p-5"
-            style={{
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
-            }}
+            className="mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-8 rounded-[2rem] border border-[#2A2A2A] bg-[#0D0D0D] p-5 sm:p-6 relative overflow-hidden group transition-all duration-500 hover:border-[#3A3A3A] hover:shadow-[0_15px_30px_-15px_rgba(0,0,0,0.8)]"
           >
+            {/* Ambient glow inside the seal bar */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--arch-primary)] to-transparent opacity-0 group-hover:opacity-[0.03] blur-2xl transition-opacity duration-700 pointer-events-none" />
+            
             {seals.map((label, i) => {
               const Icon = SEAL_ICONS[i] ?? ShieldCheck;
               return (
                 <div
                   key={i}
-                  className="flex items-center justify-center gap-2.5 px-2 py-1 text-center"
+                  className="flex items-center justify-center gap-3 px-3 py-2 text-center"
                 >
                   <Icon
-                    size={16}
+                    size={20}
                     strokeWidth={2}
-                    style={{ color: "var(--arch-primary)" }}
+                    className="transition-transform duration-500 group-hover:scale-110"
+                    style={{ color: "var(--arch-primary)", filter: "drop-shadow(0 0 8px color-mix(in oklab, var(--arch-primary) 50%, transparent))" }}
                     aria-hidden
                   />
-                  <span className="font-display text-[11px] font-bold uppercase tracking-[0.22em] text-white/85">
+                  <span className="font-sans text-xs font-bold uppercase tracking-wider text-white/80 group-hover:text-white transition-colors duration-500">
                     {label}
                   </span>
                 </div>

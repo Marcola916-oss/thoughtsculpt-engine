@@ -12,9 +12,9 @@ type Props = {
   ariaLabel: string;
 };
 
-const SIZE = 220;
+const SIZE = 320;
 const CENTER = SIZE / 2;
-const RADIUS = 84;
+const RADIUS = 88;
 
 // Axis order: top=money, right=career, bottom=love, left=personal
 const AXES: Array<{ key: keyof AreaScores; angle: number }> = [
