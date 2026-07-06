@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Star, Sparkles, ShieldCheck, Globe2 } from "lucide-react";
 import { Reveal } from "@/components/interaction/Reveal";
 import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 import adamPhoto from "@/assets/testimonials/adam.jpg";
@@ -95,6 +95,60 @@ export function SalesTestimonials({ counter, rating, testimonials, lang }: Sales
           </Reveal>
         ))}
       </Reveal.Group>
+
+      {/* Trust Dock */}
+      <div 
+        className="relative mt-12 md:mt-16 w-full rounded-[2.5rem] bg-black/40 md:backdrop-blur-3xl shadow-2xl overflow-hidden group/dock transition-all duration-500 hover:bg-black/60" 
+        style={{ border: "1px solid color-mix(in oklab, var(--arch-primary) 20%, transparent)" }}
+      >
+        <div 
+          className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x" 
+          style={{ borderColor: "color-mix(in oklab, var(--arch-primary) 10%, transparent)" }}
+        >
+          {[
+            { value: "+12.000", label: counter.replace(/[+\d.,\s]+/g, " ").trim() || "Diagnoses", Icon: Sparkles },
+            { value: "4.9★", label: rating.replace(/[★⭐\d.,/\s]+/g, " ").trim() || "Rating", Icon: Star },
+            { value: "60s", label: "PDF", Icon: ShieldCheck },
+            { value: "5", label: "Languages", Icon: Globe2 },
+          ].map((item, i) => (
+            <Reveal
+              key={i}
+              variant="fade-up"
+              delay={i * 0.05}
+              className="group/stat flex flex-col items-center text-center gap-3 py-6 px-2 md:py-8 md:px-4 transition-colors hover:bg-white/[0.02]"
+            >
+              <span
+                aria-hidden
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border transition-all duration-500 group-hover/stat:scale-110 group-hover/stat:rotate-3 group-hover/stat:text-white mb-1"
+                style={{ 
+                  color: "var(--arch-primary)",
+                  borderColor: "color-mix(in oklab, var(--arch-primary) 30%, transparent)",
+                  backgroundColor: "color-mix(in oklab, var(--arch-primary) 10%, transparent)",
+                  boxShadow: "0 0 20px -4px color-mix(in oklab, var(--arch-primary) 50%, transparent)"
+                }}
+              >
+                <item.Icon className="h-5 w-5" />
+              </span>
+              <div className="min-w-0 w-full transition-transform duration-500 group-hover/stat:-translate-y-1">
+                <div 
+                  className="font-display font-extrabold tracking-tight leading-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] text-[clamp(1.25rem,2.5vw,1.75rem)]" 
+                  style={{ color: "var(--arch-primary)" }}
+                >
+                  {item.value}
+                </div>
+                <div className="mt-2 mx-auto w-full px-1 font-sans text-[10px] md:text-[11px] font-bold uppercase tracking-[0.1em] leading-[1.4] text-balance">
+                  <span 
+                    className="text-white/60 transition-colors"
+                    style={{ "--hover-color": "var(--arch-primary)" } as any}
+                  >
+                    {item.label}
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

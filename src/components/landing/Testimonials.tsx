@@ -4,6 +4,7 @@ import { Reveal } from "@/components/interaction/Reveal";
 import ioanaPhoto from "@/assets/testimonials/ioana.webp";
 import katarzynaPhoto from "@/assets/testimonials/katarzyna.webp";
 import yousefPhoto from "@/assets/testimonials/yousef.webp";
+import { ProofBar } from "./ProofBar";
 
 const AVATAR_PHOTOS = [ioanaPhoto, katarzynaPhoto, yousefPhoto] as const;
 
@@ -69,6 +70,8 @@ export function Testimonials() {
           </Reveal>
         ))}
       </Reveal.Group>
+
+      <ProofBar />
     </section>
   );
 }

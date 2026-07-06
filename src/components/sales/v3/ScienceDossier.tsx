@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import kahnemanPhoto from "@/assets/experts/Daniel Kahneman Nobel 2002.webp";
+import thalerPhoto from "@/assets/experts/Richard Thaler Nobel 2017.webp";
+import arielyPhoto from "@/assets/experts/Dan Ariely Duke University.webp";
 
 type Author = { name: string; credential: string; field: string };
 type TL = { year: string; event: string };
@@ -81,23 +84,49 @@ function Monogram({ name }: { name: string }) {
     .map((w) => w[0])
     .join("")
     .toUpperCase();
+
+  let photoSrc = undefined;
+  if (name.includes("Kahneman")) photoSrc = kahnemanPhoto;
+  else if (name.includes("Thaler")) photoSrc = thalerPhoto;
+  else if (name.includes("Ariely")) photoSrc = arielyPhoto;
+
   return (
     <div
       className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full overflow-hidden"
       style={{
-        background:
-          "radial-gradient(circle at 30% 25%, color-mix(in oklab, var(--arch-primary) 30%, #0a0a0f) 0%, #050507 70%)",
-        boxShadow:
-          "inset 0 0 0 1px color-mix(in oklab, var(--arch-primary) 50%, transparent), inset 0 -18px 30px rgba(0,0,0,0.55)",
+        background: photoSrc ? "#050507" : "radial-gradient(circle at 30% 25%, color-mix(in oklab, var(--arch-primary) 30%, #0a0a0f) 0%, #050507 70%)",
       }}
       aria-hidden
     >
-      <span
-        className="font-serif text-[26px] font-bold tracking-wider text-white/95"
-        style={{ textShadow: "0 2px 6px rgba(0,0,0,0.55)" }}
-      >
-        {initials}
-      </span>
+      {photoSrc ? (
+        <>
+          <img 
+            src={photoSrc} 
+            alt={name} 
+            className="h-full w-full object-cover grayscale-[30%] brightness-[0.85] contrast-[1.1] transition-all duration-500 group-hover:grayscale-0 group-hover:brightness-110 group-hover:scale-110" 
+          />
+          <div 
+            className="absolute inset-0 rounded-full pointer-events-none" 
+            style={{ 
+              boxShadow: "inset 0 0 0 1px color-mix(in oklab, var(--arch-primary) 40%, transparent), inset 0 -12px 20px rgba(0,0,0,0.7)" 
+            }} 
+          />
+        </>
+      ) : (
+        <div 
+          className="absolute inset-0 rounded-full flex items-center justify-center pointer-events-none"
+          style={{
+            boxShadow: "inset 0 0 0 1px color-mix(in oklab, var(--arch-primary) 50%, transparent), inset 0 -18px 30px rgba(0,0,0,0.55)",
+          }}
+        >
+          <span
+            className="font-serif text-[26px] font-bold tracking-wider text-white/95"
+            style={{ textShadow: "0 2px 6px rgba(0,0,0,0.55)" }}
+          >
+            {initials}
+          </span>
+        </div>
+      )}
       {/* nobel micro-badge */}
       <span
         className="absolute -bottom-0.5 right-0.5 rounded-full px-1.5 py-[2px] text-[8px] font-bold tracking-[0.15em]"
@@ -105,6 +134,7 @@ function Monogram({ name }: { name: string }) {
           background: "linear-gradient(135deg, #d4b26a, #8a6a2c)",
           color: "#1a1204",
           boxShadow: "0 0 0 1px rgba(0,0,0,0.35)",
+          zIndex: 10,
         }}
       >
         ★

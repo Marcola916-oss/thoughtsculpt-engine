@@ -102,32 +102,31 @@ export function ProofBar() {
   ];
 
   return (
-    <aside
+    <div
       aria-label={`MindReset — ${t.landing.proofBar.ariaLabel}`}
-      className="relative w-full border-y border-white/[0.1] bg-black/40 md:backdrop-blur-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+      className="relative mt-8 md:mt-12 w-full rounded-[2.5rem] border border-white/10 bg-black/40 md:backdrop-blur-3xl shadow-2xl overflow-hidden group/dock transition-all duration-500 hover:border-arch-primary/40 hover:bg-black/60"
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-2 lg:divide-x divide-white/[0.1] px-4 md:grid-cols-4 md:px-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/[0.05]">
         {items.map((item, i) => {
           const Icon = ICONS[i];
           return (
             <Reveal
               key={i}
               variant="fade-up"
-              delay={i * 0.08}
-              className="group flex items-center gap-4 px-4 py-7 md:px-8 transition-colors hover:bg-white/[0.02] text-left"
+              delay={i * 0.05}
+              className="group/stat flex flex-col items-center text-center gap-2 p-6 md:p-8 transition-colors hover:bg-white/[0.02]"
             >
               <span
                 aria-hidden
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-arch-primary/20 bg-arch-primary/10 text-arch-primary shadow-[0_0_18px_-4px_var(--arch-glow)] transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:bg-arch-primary group-hover:text-primary-foreground"
-                style={{ marginLeft: "0px" }}
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-arch-primary/20 bg-arch-primary/10 text-arch-primary shadow-[0_0_20px_-4px_var(--arch-glow)] transition-all duration-500 group-hover/stat:scale-110 group-hover/stat:rotate-3 group-hover/stat:bg-arch-primary group-hover/stat:text-primary-foreground mb-1"
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-5 w-5" />
               </span>
-              <div className="min-w-0 transition-transform duration-500 group-hover:translate-x-1">
-                <div className="font-display font-extrabold leading-none text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] text-[clamp(1.375rem,4vw,1.6875rem)]">
+              <div className="min-w-0 transition-transform duration-500 group-hover/stat:-translate-y-1">
+                <div className="font-display font-extrabold leading-none text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] text-[clamp(1.5rem,4vw,2rem)]">
                   <AnimatedValue value={item.value} />
                 </div>
-                <div className="mt-1.5 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 group-hover:text-arch-primary transition-colors drop-shadow-sm">
+                <div className="mt-2 mx-auto max-w-[160px] font-sans text-[10px] font-bold uppercase tracking-[0.15em] leading-[1.4] text-white/60 group-hover/stat:text-arch-primary transition-colors drop-shadow-sm text-balance">
                   {item.label}
                 </div>
               </div>
@@ -135,6 +134,6 @@ export function ProofBar() {
           );
         })}
       </div>
-    </aside>
+    </div>
   );
 }
