@@ -20,6 +20,24 @@ import { Reveal } from "@/components/interaction/Reveal";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
 import { track, EVENTS } from "@/lib/analytics";
+import { motion, AnimatePresence } from "framer-motion";
+import adamPhoto from "@/assets/testimonials/adam.jpg";
+import mariaPhoto from "@/assets/testimonials/maria.jpg";
+import ramiPhoto from "@/assets/testimonials/rami.jpg";
+import ioanaPhoto from "@/assets/testimonials/ioana.webp";
+import katarzynaPhoto from "@/assets/testimonials/katarzyna.webp";
+import yousefPhoto from "@/assets/testimonials/yousef.webp";
+
+function getPhotoForName(name: string) {
+  const n = (name || "").toLowerCase();
+  if (n.includes("adam")) return adamPhoto;
+  if (n.includes("maria")) return mariaPhoto;
+  if (n.includes("rami")) return ramiPhoto;
+  if (n.includes("ioana")) return ioanaPhoto;
+  if (n.includes("katarzyna")) return katarzynaPhoto;
+  if (n.includes("yousef") || n.includes("youssef")) return yousefPhoto;
+  return ioanaPhoto;
+}
 
 /**
  * Tela 13 — Decision Page (PR3 redesign).
@@ -547,8 +565,8 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
             </section>
 
             {/* CTA */}
-            <ButtonPress>
-              <button
+            <div className="mt-8 flex w-full justify-center">
+              <ButtonPress
                 ref={ctaRef}
                 type="button"
                 onClick={handleClick}
@@ -556,7 +574,7 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
                 style={{
                   animation: shake ? "checkout-cta-shake 0.7s ease-in-out" : undefined,
                 }}
-                className="group relative mt-7 flex h-20 w-full items-center justify-center gap-3 overflow-hidden rounded-[1.5rem] bg-arch-primary px-6 font-sans text-base font-extrabold uppercase tracking-wide text-primary-foreground shadow-[0_0_60px_-6px_var(--arch-glow)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-arch-primary/95 disabled:opacity-60 md:h-28 md:text-lg"
+                className="group relative flex h-20 w-full items-center justify-center gap-3 overflow-hidden rounded-[1.5rem] bg-arch-primary px-6 font-sans text-base font-extrabold uppercase tracking-wide text-primary-foreground shadow-[0_0_60px_-6px_var(--arch-glow)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-arch-primary/95 disabled:opacity-60 md:h-28 md:text-lg"
               >
                 <span
                   aria-hidden
@@ -567,8 +585,8 @@ export function CheckoutStub({ email, name, leadId, initialBumps }: Props) {
                 {!submitting && (
                   <ArrowRight className="relative z-10 h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden />
                 )}
-              </button>
-            </ButtonPress>
+              </ButtonPress>
+            </div>
 
             <p className="mt-3 text-center text-xs text-foreground/55">
               {copy.ctaSubcopy(copy.paymentMethods)}
@@ -691,52 +709,49 @@ function BumpCard({
       type="button"
       onClick={onToggle}
       aria-pressed={active}
-      className={`group relative flex h-full w-full flex-col items-start gap-3 rounded-[2rem] border p-5 sm:p-6 text-start backdrop-blur-3xl shadow-2xl transition-all duration-500 hover:-translate-y-1 ${
+      className={`group relative flex h-full w-full flex-col items-start gap-4 rounded-[1.5rem] border p-5 text-start transition-all duration-300 hover:-translate-y-1 ${
         active
-          ? "border-arch-primary shadow-[0_20px_60px_-16px_var(--arch-glow)]"
-          : "border-arch-primary/22 hover:border-arch-primary/50"
+          ? "border-arch-primary bg-arch-primary/10 shadow-[0_15px_40px_-15px_var(--arch-glow)]"
+          : "border-white/10 bg-black/40 hover:border-white/20 hover:bg-black/60"
       }`}
-      style={{
-        background: active
-          ? "color-mix(in oklab, var(--arch-primary) 14%, rgba(0,0,0,0.45))"
-          : "color-mix(in oklab, var(--arch-primary) 4%, rgba(0,0,0,0.35))",
-      }}
     >
-      <div className="flex w-full items-start justify-between gap-3">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <span
-            aria-hidden
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300"
-            style={{
-              borderColor: active
-                ? "transparent"
-                : "color-mix(in oklab, var(--arch-primary) 50%, transparent)",
-              background: active ? "var(--arch-primary)" : "transparent",
-              color: active ? "white" : "var(--arch-primary)",
-            }}
-          >
-            {active ? <Check size={15} strokeWidth={3} /> : <Plus size={15} strokeWidth={2.5} />}
-          </span>
-          <span className="font-display text-base font-extrabold uppercase tracking-tight">
-            {title}
-          </span>
+      <div className="flex w-full items-start gap-4">
+        {/* Checkbox */}
+        <div className="pt-0.5 shrink-0">
+           <div className={`flex h-6 w-6 items-center justify-center rounded-md border transition-all duration-300 ${
+             active 
+               ? "border-arch-primary bg-arch-primary text-white shadow-[0_0_12px_var(--arch-glow)]" 
+               : "border-white/20 bg-black/50 text-transparent group-hover:border-white/40"
+           }`}>
+             <Check strokeWidth={3} className="h-4 w-4" />
+           </div>
         </div>
+        
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <div className="flex justify-between items-start gap-2">
+            <span className="font-sans text-sm font-bold uppercase tracking-wide text-white leading-snug">
+              {title}
+            </span>
+            <span className="shrink-0 rounded-full bg-arch-primary/15 px-2.5 py-0.5 font-mono text-xs font-bold text-arch-primary whitespace-nowrap">
+              +{price}
+            </span>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-foreground/70">{desc}</p>
+        </div>
+      </div>
+      
+      {/* Badge / Indicator */}
+      <div className="mt-auto pt-2 flex w-full items-center justify-end">
         <span
-          className="shrink-0 font-mono text-sm font-bold tabular-nums"
-          style={{ color: "var(--arch-primary)" }}
+          className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.15em] transition-colors ${
+            active ? "bg-arch-primary/20 text-arch-primary" : "bg-foreground/5 text-foreground/45 group-hover:bg-foreground/10"
+          }`}
         >
-          +{price}
+          {active ? <Check className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
+          {plus}
         </span>
       </div>
-      <p className="text-sm leading-relaxed text-foreground/70">{desc}</p>
-      <span
-        className={`mt-auto inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.15em] transition-colors ${
-          active ? "bg-arch-primary/20 text-arch-primary" : "bg-foreground/5 text-foreground/45"
-        }`}
-      >
-        {active ? <Check className="h-3 w-3" /> : <Plus className="h-3 w-3" />}
-        {plus}
-      </span>
     </button>
   );
 }
@@ -823,33 +838,53 @@ function RollingTestimonials({
   starAriaLabel: string;
 }) {
   const [idx, setIdx] = useState(0);
+  
   useEffect(() => {
-    const reduced =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
-    const id = setInterval(() => setIdx((i) => (i + 1) % items.length), 5000);
+    // Garante que o carrossel gira automaticamente, independente de configurações de SO
+    const id = setInterval(() => setIdx((i) => (i + 1) % items.length), 6000); 
     return () => clearInterval(id);
   }, [items.length]);
 
   const cur = items[idx];
   if (!cur) return null;
 
+  const curPhoto = getPhotoForName(cur.name);
+
   return (
-    <div className="mx-auto max-w-2xl rounded-[2rem] border border-arch-primary/25 bg-black/50 p-6 sm:p-8 backdrop-blur-3xl shadow-2xl">
-      <div className="mb-2 flex gap-0.5 text-arch-primary" role="img" aria-label={starAriaLabel}>
-        {Array.from({ length: cur.stars || 5 }).map((_, i) => (
-          <Star key={i} className="h-4 w-4 fill-current" />
-        ))}
-      </div>
-      <p className="text-[15px] font-semibold italic leading-relaxed text-foreground/85 md:text-base">
-        &ldquo;{cur.quote}&rdquo;
-      </p>
-      <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em] text-foreground/55">
-        {cur.name} · {archByline(cur.arch)}
-      </p>
+    <div className="mx-auto max-w-2xl rounded-[2rem] border border-arch-primary/25 bg-black/50 p-6 sm:p-8 backdrop-blur-3xl shadow-2xl overflow-hidden relative">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="flex flex-col"
+        >
+          <div className="mb-3 flex gap-0.5 text-arch-primary" role="img" aria-label={starAriaLabel}>
+            {Array.from({ length: cur.stars || 5 }).map((_, i) => (
+              <Star key={i} className="h-4 w-4 fill-current" />
+            ))}
+          </div>
+          <p className="text-[15px] font-semibold italic leading-relaxed text-foreground/85 md:text-base">
+            &ldquo;{cur.quote}&rdquo;
+          </p>
+          <div className="mt-5 flex items-center gap-3">
+            <img
+              src={curPhoto}
+              alt={cur.name}
+              loading="lazy"
+              className="h-10 w-10 shrink-0 rounded-full object-cover object-center shadow-sm ring-1 ring-arch-primary/30"
+            />
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-foreground/55">
+              <span className="text-foreground">{cur.name}</span> <span className="mx-1 opacity-40">·</span> {archByline(cur.arch)}
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
       {/* dots */}
-      <div className="mt-3 flex justify-center gap-1.5" aria-hidden>
+      <div className="mt-5 flex justify-center gap-1.5" aria-hidden>
         {items.map((_, i) => (
           <span
             key={i}
