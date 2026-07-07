@@ -125,13 +125,20 @@ Todos em `src/styles.css` `:root`:
 }
 ```
 
+> ⚠️ **CORES OFICIAIS DOS ARQUÉTIPOS — NÃO ALTERAR**
+> Definidas em `src/styles.css` nos seletores `[data-arch]`. São as ÚNICAS cores corretas.
+> Qualquer IA que mexer em UI de arquétipo DEVE usar exatamente estes valores:
+
 **Cores por Arquétipo (override `--arch-primary`):**
-| Arquétipo | Cor | Valor |
-|-----------|-----|-------|
-| AO (Accumulator) | Azul | `oklch(0.64 0.12 210)` |
-| SS (Status Seeker) | Dourado | `oklch(0.75 0.12 85)` |
-| EA (Essentialist) | Roxo | `oklch(0.7 0.05 280)` |
-| HI (Hedonist) | Laranja | `oklch(0.65 0.25 35)` |
+| Arquétipo | Nome | Cor primária | Gradient |`--arch-primary` |
+|-----------|------|-------------|----------|------------------|
+| **AO** | Acumulador Obsessivo | Azul Petróleo | `#1E6B82 → #0F4C5C` | `#1E6B82` |
+| **SS** | Status Seeker | Roxo Imperial | `#7C3AED → #4C1D95` | `#7C3AED` |
+| **EA** | Evasivo/Alienado | Cinza Ardósia | `#64748B → #334155` | `#64748B` |
+| **HI** | Hedonista Impulsivo | Laranja Âmbar | `#F97316 → #C2410C` | `#F97316` |
+
+> ❌ ERROS COMUNS a evitar: AO ≠ âmbar, AO ≠ verde, HI ≠ vermelho (#CC0000 é brand, não HI), SS ≠ dourado, EA ≠ roxo.
+> O vermelho `#CC0000` é EXCLUSIVO do brand global — nunca atribuir a um arquétipo específico.
 
 ### Tipografia
 - Display/Hero: Inter ou Syne, 48-64px, weight 800

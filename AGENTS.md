@@ -51,6 +51,20 @@
 - **Atmosphere (VolumetricFog + FloatingSymbols + ScanLines) só no hero** — nunca em sections de conteúdo
 - **Cada animação deve ter duração 200-500ms com easing `ease-out`** — suave, não brusco
 
+> ⚠️ **CORES OFICIAIS DOS ARQUÉTIPOS — NÃO ALTERAR**
+> Definidas em `src/styles.css` nos seletores `[data-arch]`. São as ÚNICAS cores corretas.
+> Qualquer IA que mexer em UI de arquétipo DEVE usar exatamente estes valores:
+
+| Arquétipo | Nome | Cor primária | Gradient |`--arch-primary` |
+|-----------|------|-------------|----------|------------------|
+| **AO** | Acumulador Obsessivo | Azul Petróleo | `#1E6B82 → #0F4C5C` | `#1E6B82` |
+| **SS** | Status Seeker | Roxo Imperial | `#7C3AED → #4C1D95` | `#7C3AED` |
+| **EA** | Evasivo/Alienado | Cinza Ardósia | `#64748B → #334155` | `#64748B` |
+| **HI** | Hedonista Impulsivo | Laranja Âmbar | `#F97316 → #C2410C` | `#F97316` |
+
+> ❌ ERROS COMUNS a evitar: AO ≠ âmbar, AO ≠ verde, HI ≠ vermelho (#CC0000 é brand, não HI), SS ≠ dourado, EA ≠ roxo.
+> O vermelho `#CC0000` é EXCLUSIVO do brand global — nunca atribuir a um arquétipo específico.
+
 ### Micro-interações obrigatórias
 
 | Componente | Default | Hover | Pressed | Disabled |
