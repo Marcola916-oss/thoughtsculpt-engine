@@ -1461,10 +1461,26 @@ function Reveal({
             }}
           />
           <div className="relative flex flex-col items-center text-center">
-            <div className="font-display text-6xl md:text-8xl font-black leading-none text-arch-primary tabular-nums">
-              73<span className="text-3xl md:text-5xl align-top">%</span>
+            <div
+              className="mb-3 inline-flex items-center gap-2 rounded-full border border-arch-primary/30 bg-arch-primary/10 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-arch-primary/90"
+              aria-hidden="true"
+            >
+              <span
+                className="inline-block h-1.5 w-1.5 rounded-full bg-arch-primary"
+                style={{ boxShadow: "0 0 6px var(--arch-primary)" }}
+              />
+              n = 12.847
             </div>
-            <p className="mt-6 max-w-xl text-base md:text-lg text-foreground/80 leading-relaxed">
+            <div
+              className="font-mono text-7xl md:text-9xl font-black leading-none tabular-nums tracking-tight"
+              style={{
+                color: "var(--arch-primary)",
+                textShadow: "0 0 40px color-mix(in oklab, var(--arch-primary) 45%, transparent)",
+              }}
+            >
+              73<span className="text-4xl md:text-6xl align-top opacity-70 ms-1">%</span>
+            </div>
+            <p className="mt-6 max-w-xl text-base md:text-lg text-foreground/85 leading-relaxed">
               {t.reveal.anchor(a.name)}
             </p>
           </div>
@@ -1549,7 +1565,16 @@ function Reveal({
             {t.reveal.share}
           </button>
         </div>
-        <p className="mt-6 text-xs md:text-sm text-foreground/55">{t.reveal.guarantee}</p>
+        <div className="mt-8 mx-auto inline-flex max-w-xl items-center justify-center gap-3 rounded-2xl border border-arch-primary/25 bg-arch-primary/[0.04] px-5 py-3 backdrop-blur-sm">
+          <ShieldCheck
+            className="h-5 w-5 shrink-0 text-arch-primary"
+            style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--arch-primary) 50%, transparent))" }}
+            aria-hidden="true"
+          />
+          <p className="text-left text-sm md:text-[15px] font-medium text-foreground/85 leading-snug">
+            {t.reveal.guarantee}
+          </p>
+        </div>
       </div>
       </ArchetypeRevealStage>
       {/* Sticky bottom CTA — reveals on scroll once the second row of area cards appears */}
