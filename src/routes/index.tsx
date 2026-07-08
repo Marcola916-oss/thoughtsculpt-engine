@@ -607,7 +607,7 @@ function LandingAndQuiz() {
                 name={name}
                 arch={archCode}
                 timeLeft={timerLeft}
-                onContinue={() => setStage({ kind: "plans" })}
+                onContinue={() => setStage({ kind: "checkout" })}
               />
             </div>
           )}
@@ -622,7 +622,7 @@ function LandingAndQuiz() {
         
       </main>
 
-      {stage.kind === "sales" && <StickyCTA onClick={() => setStage({ kind: "plans" })} />}
+      {stage.kind === "sales" && <StickyCTA onClick={() => setStage({ kind: "checkout" })} />}
       <Footer />
     </div>
   );
@@ -890,6 +890,11 @@ function Identity(props: {
             value={props.name}
             onChange={(e) => props.setName(e.target.value)}
             placeholder={t.common.yourNamePlaceholder}
+            type="text"
+            autoComplete="given-name"
+            autoCapitalize="words"
+            inputMode="text"
+            enterKeyHint="next"
             className="w-full rounded-2xl border border-border bg-card/50 px-5 py-4 text-xl outline-none transition-all focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-lg"
           />
         </div>
@@ -1035,6 +1040,12 @@ function EmailCapture(props: {
             value={props.email}
             onChange={(e) => props.setEmail(e.target.value)}
             placeholder={t.common.emailPlaceholder}
+            autoComplete="email"
+            inputMode="email"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            enterKeyHint="go"
             className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-lg outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10 shadow-md"
           />
         </div>
