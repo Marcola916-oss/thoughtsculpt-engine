@@ -452,3 +452,40 @@ export default function SalesPageV2({
     </div>
   );
 }
+
+/** Trust bar rendered under the final CTA — parses the "✓ a · ✓ b · ✓ c · ✓ d"
+ *  i18n string and maps each item to an icon chip. Falls back to plain text
+ *  if the string isn't in the expected format. */
+function TrustBar({ trustLine }: { trustLine: string }) {
+  const items = trustLine
+    .split("·")
+    .map((s) => s.replace(/^\s*[✓✔]?\s*/, "").trim())
+    .filter(Boolean);
+
+  if (items.length < 2) {
+    return <p className="mt-5 text-center text-xs text-white/70">{trustLine}</p>;
+  }
+
+  const icons = [ShieldCheck, CreditCard, Lock, RefreshCw];
+
+  return (
+    <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-white/[0.06] pt-5">
+      {items.slice(0, 4).map((label, i) => {
+        const Icon = icons[i] ?? ShieldCheck;
+        return (
+          <span
+            key={i}
+            className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.08em] text-white/80"
+          >
+            <Icon
+              className="h-3.5 w-3.5 shrink-0"
+              style={{ color: "var(--arch-primary)" }}
+              aria-hidden="true"
+            />
+            {label}
+          </span>
+        );
+      })}
+    </div>
+  );
+}
