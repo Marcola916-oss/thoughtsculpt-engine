@@ -354,6 +354,44 @@
   [dir="rtl"] body { font-family: 'Noto Naskh Arabic', var(--font-sans); }
 }
 
+/* ─── RTL sweep (Onda 4) ───────────────────────────────────
+ * Auto-corrige padrões físicos herdados de utilitários LTR-only,
+ * sem exigir refactor tag-a-tag. Só se aplica quando <html dir="rtl">. */
+[dir="rtl"] {
+  /* Setas Lucide direcionais viram para o lado natural de leitura árabe.
+   * Cobre ArrowRight, ChevronRight, MoveRight, ArrowUpRight, etc.
+   * ArrowLeft/ChevronLeft também flipam para manter semântica "voltar". */
+  & svg.lucide-arrow-right,
+  & svg.lucide-chevron-right,
+  & svg.lucide-chevrons-right,
+  & svg.lucide-move-right,
+  & svg.lucide-arrow-up-right,
+  & svg.lucide-arrow-right-circle,
+  & svg.lucide-arrow-left,
+  & svg.lucide-chevron-left,
+  & svg.lucide-chevrons-left,
+  & svg.lucide-move-left,
+  & svg.lucide-arrow-left-circle {
+    transform: scaleX(-1);
+  }
+
+  /* Hover slides usados nos CTAs (ArrowRight anima para direita em LTR).
+   * Em RTL, "avançar" = esquerda, então invertemos o deslocamento. */
+  & .group:hover .group-hover\:translate-x-1 { transform: translateX(-0.25rem); }
+  & .group:hover .group-hover\:translate-x-2 { transform: translateX(-0.5rem); }
+  & .group:hover .group-hover\:-translate-x-1 { transform: translateX(0.25rem); }
+
+  /* Reset explícito da classe `mr-2`/`ml-2` mais comum em ícones-em-botão.
+   * Tailwind v4 não converte automaticamente margin-left/right para logical. */
+  & .ml-auto { margin-left: 0; margin-right: auto; }
+  & .mr-auto { margin-right: 0; margin-left: auto; }
+}
+
+/* Opt-in: `.rtl-flip` para casos onde queremos flip manual (ex. gráficos). */
+[dir="rtl"] .rtl-flip { transform: scaleX(-1); }
+/* Opt-out: `.rtl-no-flip` para logos, números e SVGs que devem manter orientação. */
+[dir="rtl"] .rtl-no-flip { transform: none !important; }
+
 /* ─── Spinner / glow / cursor ────────────────────────────── */
 .mr-ring {
   width: 64px; height: 64px;
