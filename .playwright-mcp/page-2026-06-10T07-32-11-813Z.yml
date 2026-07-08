@@ -1,9 +1,0 @@
-- generic [ref=e4]:
-  - link "MindReset" [ref=e5] [cursor=pointer]:
-    - /url: /
-  - heading "Entrar" [level=1] [ref=e6]
-  - generic [ref=e7]:
-    - textbox "tuemail@exemplo.com" [ref=e8]
-    - textbox "••••••••" [ref=e9]
-    - button "Entrar" [ref=e10]
-  - button "Esqueceste-te da password?" [ref=e11]
