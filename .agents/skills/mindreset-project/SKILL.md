@@ -6,7 +6,7 @@ description: >
   Use ao construir, modificar, debugar ou expandir qualquer parte do MindReset SaaS.
   Stack: React + TypeScript + Tailwind (Lovable), Supabase, Stripe, OpenAI API.
   NÃO usar para projetos não relacionados.
-when_to_use: "Ao trabalhar no MindReset: quiz funnel, onboarding, dashboard, Supabase schema, Stripe billing, OpenAI integration, gamificação, retenção, design system, localização, deployment ou qualquer componente. NÃO para tarefas genéricas."
+when_to_use: "Ao trabalhar no MindReset: quiz funnel, identidade, VSL, checkout (funil estrito de 15 telas), Supabase schema, Stripe billing, OpenAI integration, design system, localização e deployment. NÃO para tarefas genéricas."
 allowed-tools: [Read, Write, Edit, Grep, Glob, Bash, Skill]
 effort: medium
 ---
@@ -27,11 +27,8 @@ effort: medium
 - EA (Escapist/Alienated) — evita tema dinheiro, usa gastos como fuga
 - HI (Hedonist Impulsive) — vive o agora, decisões por impulso emocional
 
-**4 Áreas do App:**
-1. **Meu Diagnóstico** — análise psicológica 4 dimensões gerada por IA (financeira, profissional, romântica, pessoal)
-2. **Matriz de Ação** — calendário diário personalizado gerado por IA (30d / 6m / 1y)
-3. **Compass** — ferramenta para analisar arquétipos de outras pessoas e obter estratégias de relacionamento
-4. **Progresso** — dashboard gamificado (pontos, streak, achievements, relatórios mensais)
+**A Estrutura do App (Funil Estrito):**
+O produto é um funil linear (Landing -> Quiz -> Reveal -> VSL -> Checkout -> Stripe -> Obrigado). O produto NÃO possui mais dashboard, login ou área logada de retenção no escopo atual.
 
 **Mercados-alvo:** Poland (PLN) • Romania (RON) • Saudi Arabia (SAR) • Global (USD/EUR)
 
@@ -72,15 +69,13 @@ src/
 ├── routes/
 │   ├── __root.tsx          # Root layout, favicon, SEO meta, LD+JSON
 │   ├── index.tsx           # Landing + Quiz + Sales (stage machine)
-│   ├── obrigado.tsx        # Página de resultado / thank you
-│   └── _authenticated/     # Rotas do dashboard (onboarding, dashboard, settings, etc.)
+│   └── obrigado.tsx        # Página de resultado / thank you
 ├── components/
 │   ├── landing/            # ProofBar, ArchetypeShowcase, HowItWorks, FeaturesGrid, Testimonials, FAQ, FinalCTA
 │   ├── quiz/               # QuizOption, NeuralLoader
 │   ├── identity/           # MarbleBust, BustLoader, IdentitySymbol, BustMini, BustEmptyState
 │   ├── atmosphere/         # VolumetricFog, FloatingSymbols, ScanLines, Atmosphere
-│   ├── interaction/        # ArchetypeHover, MagneticCursor, Reveal, ButtonPress
-│   └── dashboard/          # Sidebar, charts, etc.
+│   └── interaction/        # ArchetypeHover, MagneticCursor, Reveal, ButtonPress
 ├── lib/
 │   ├── i18n/
 │   │   ├── LanguageProvider.tsx  # Language context + <html lang> + dir="rtl" para AR
@@ -146,11 +141,8 @@ Todos em `src/styles.css` `:root`:
 - **Checkbox de tarefa:** ao marcar → bounce verde + confete 0.5s
 - **Barra de progresso:** `transition: width 0.8s ease-out`
 - **Achievement unlock:** scale(0)→scale(1.1)→scale(1) + partículas douradas 1.5s
-- **Streak counter:** animação roll-up (translateY(-100%)→0)
-- **Dashboard cards:** hover → borda vira vermelho + translateY(-4px)
 - **Quiz loader:** anel vermelho girando + textos fade a cada 0.7s
 - **Reveal do diagnóstico:** nome do arquétipo typewriter (1 char/50ms)
-- **Link ativo na sidebar:** bg vermelho translúcido + borda esquerda vermelho sólido (3px)
 
 ### Estados dos Componentes
 | Componente | Default | Hover | Pressed | Disabled |
@@ -531,27 +523,11 @@ Webhook URL: `https://[project].supabase.co/functions/v1/stripe-webhook`
 |------|------|-----------|
 | / | Pública | Quiz completo (telas 0-13) + sales page embutida |
 | /share/[token] | Pública | Página viral de compartilhamento de arquétipo |
-| /login | Pública | Email + senha APENAS. Sem botões de signup. |
-| /reset-password | Pública | Recuperação de senha |
-| /dashboard | Privada | Hub: 3 cards + notificações |
-| /dashboard/diagnosis | Privada | Diagnóstico IA em 4 abas + PDF + share |
-| /dashboard/calendar | Privada | Matriz de ação com drip unlock |
-| /dashboard/compass | Privada | Analisar arquétipos de outras pessoas |
-| /dashboard/progress | Privada | Dashboard de gamificação |
-| /dashboard/settings | Privada | Idioma, tema, plano, cancelamento |
-| /onboarding | Privada | 7 perguntas de calibração (apenas no primeiro login) |
+| /obrigado | Pública | Tela final de agradecimento e next steps |
 
 ### Lógica do Route Guard
-```
-1. Verificar sessão Supabase → null = redirecionar /login
-2. Verificar users.access_level:
-   'active'  → acesso normal
-   'grace'   → mostrar banner de aviso
-   'locked'  → congelar interface + mostrar overlay de upgrade
-   'revoked' → logout + redirecionar /login
-3. onboarding_completed = false → redirecionar /onboarding
-4. features_expires_at < NOW()+3dias → barra de aviso vermelha
-   features_expires_at < NOW()      → pointer-events: none no conteúdo
+(O produto atual é estritamente um funil linear, não possui sistema de contas, login ou dashboard).
+
 ```
 
 ---
@@ -692,7 +668,7 @@ Return JSON: { "consistency_score": 0-100, "performance_badge": "Iniciante|Em Pr
 ### 5 Locales
 `src/lib/i18n/translations.ts` — PT (linhas 215-274), EN (517-623), PL (851-970), RO (995-1066), AR (1090-1163)
 
-**Namespaces de chaves:** `landing.*` | `quiz.*` | `dashboard.*`
+**Namespaces de chaves:** `landing.*` | `quiz.*`
 
 ### Detecção de Idioma
 ```typescript
@@ -776,9 +752,8 @@ const currencyMap = {
 
 ## PROBLEMAS CONHECIDOS
 
-- 2 erros TS pré-existentes: `onboarding.tsx:192` e `obrigado.tsx:329` — `"/dashboard/"` vs `"/dashboard"` (type mismatch, não bloqueia o build)
-- Build passa: `npm run build` (~2.5s)
-- `npx tsc --noEmit` mostra apenas esses 2 erros pré-existentes
+- Build passa limpo: `npm run build` (~2.5s)
+- `npx tsc --noEmit` passa limpo sem erros de typescript
 
 ---
 

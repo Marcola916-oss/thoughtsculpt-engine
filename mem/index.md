@@ -2,8 +2,8 @@
 
 ## Core
 REGRA PERMANENTE: nunca alterar o projeto sem autorização explícita do usuário. Explicar o que será feito e perguntar "posso começar?" antes de editar/criar/apagar arquivos, rodar comandos, instalar deps ou migrations. Permitido sem autorização: leitura de arquivos/logs/console e perguntas.
-PIVOT (jun/2026): produto one-shot $9.90 (BRL R$49,90 / SAR 37 / PLN 39 / RON 45) — diagnóstico PDF de arquétipo (dinheiro+amor+carreira+pessoal). Order bumps: $4.99 (Guia de Relações) + $7.99 (Protocolo 30d). Sem dashboard, sem auth, sem planos recorrentes.
-Stack: TanStack Start + Supabase (só storage de leads/orders/PDFs, sem auth) + i18n 5 idiomas (PT/EN/PL/RO/AR, AR=RTL). Stripe Brasil multi-moeda. Nunca localStorage (iframe).
+ESTRUTURA ATUAL (jul/2026): O produto é estritamente um funil linear de 15 telas (Landing -> Quiz -> Reveal -> VSL -> Checkout -> Stripe -> Obrigado). Absolutamente nenhum sistema de dashboard, gamificação ou área logada.
+Stack: React + TypeScript + Tailwind (Lovable) + Supabase + Stripe + OpenAI API. i18n em 5 idiomas (PT/EN/PL/RO/AR, AR=RTL). Stripe Brasil multi-moeda. Nunca localStorage (iframe).
 Identidade: preto #000, accent #CC0000, Syne 800 display + Inter body, Noto Naskh AR. MarbleBust é símbolo central.
 IA: chain Groq (Llama 3.3 70B) → Gemini 2.0 Flash (especialmente AR) → Cerebras → OpenRouter. PDF via @react-pdf/renderer server-side (não jsPDF).
 Cache PDFs pré-gerados por arquétipo×idioma; personalizar só com nome+scores. Salvar em Supabase Storage, enviar por email (Brevo).

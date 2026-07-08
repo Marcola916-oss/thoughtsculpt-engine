@@ -6,7 +6,7 @@ description: >
   Use ao construir, modificar, debugar ou expandir qualquer parte do MindReset SaaS.
   Stack: React + TypeScript + Tailwind (Lovable), Supabase, Stripe, OpenAI API.
   NÃO usar para projetos não relacionados.
-when_to_use: "Ao trabalhar no MindReset: quiz funnel, onboarding, dashboard, Supabase schema, Stripe billing, OpenAI integration, gamificação, retenção, design system, localização, deployment ou qualquer componente. NÃO para tarefas genéricas."
+when_to_use: "Ao trabalhar no MindReset: quiz funnel, Supabase schema, Stripe billing, OpenAI integration, design system, localização, deployment ou qualquer componente. NÃO para tarefas genéricas."
 allowed-tools: [Read, Write, Edit, Grep, Glob, Bash, Skill]
 effort: medium
 ---
@@ -28,10 +28,9 @@ effort: medium
 - HI (Hedonist Impulsive) — vive o agora, decisões por impulso emocional
 
 **4 Áreas do App:**
-1. **Meu Diagnóstico** — análise psicológica 4 dimensões gerada por IA (financeira, profissional, romântica, pessoal)
-2. **Matriz de Ação** — calendário diário personalizado gerado por IA (30d / 6m / 1y)
-3. **Compass** — ferramenta para analisar arquétipos de outras pessoas e obter estratégias de relacionamento
-4. **Progresso** — dashboard gamificado (pontos, streak, achievements, relatórios mensais)
+1. **Identidade / Quiz** — Diagnóstico comportamental e captura de e-mail.
+2. **Revelação e VSL** — Apresentação do arquétipo gerado por IA e oferta do protocolo.
+3. **Checkout** — Checkout integrado com precificação local (Stripe).
 
 **Mercados-alvo:** Poland (PLN) • Romania (RON) • Saudi Arabia (SAR) • Global (USD/EUR)
 
@@ -73,14 +72,12 @@ src/
 │   ├── __root.tsx          # Root layout, favicon, SEO meta, LD+JSON
 │   ├── index.tsx           # Landing + Quiz + Sales (stage machine)
 │   ├── obrigado.tsx        # Página de resultado / thank you
-│   └── _authenticated/     # Rotas do dashboard (onboarding, dashboard, settings, etc.)
 ├── components/
 │   ├── landing/            # ProofBar, ArchetypeShowcase, HowItWorks, FeaturesGrid, Testimonials, FAQ, FinalCTA
 │   ├── quiz/               # QuizOption, NeuralLoader
 │   ├── identity/           # MarbleBust, BustLoader, IdentitySymbol, BustMini, BustEmptyState
 │   ├── atmosphere/         # VolumetricFog, FloatingSymbols, ScanLines, Atmosphere
-│   ├── interaction/        # ArchetypeHover, MagneticCursor, Reveal, ButtonPress
-│   └── dashboard/          # Sidebar, charts, etc.
+│   └── interaction/        # ArchetypeHover, MagneticCursor, Reveal, ButtonPress
 ├── lib/
 │   ├── i18n/
 │   │   ├── LanguageProvider.tsx  # Language context + <html lang> + dir="rtl" para AR
@@ -154,10 +151,8 @@ Todos em `src/styles.css` `:root`:
 - **Barra de progresso:** `transition: width 0.8s ease-out`
 - **Achievement unlock:** scale(0)→scale(1.1)→scale(1) + partículas douradas 1.5s
 - **Streak counter:** animação roll-up (translateY(-100%)→0)
-- **Dashboard cards:** hover → borda vira vermelho + translateY(-4px)
 - **Quiz loader:** anel vermelho girando + textos fade a cada 0.7s
 - **Reveal do diagnóstico:** nome do arquétipo typewriter (1 char/50ms)
-- **Link ativo na sidebar:** bg vermelho translúcido + borda esquerda vermelho sólido (3px)
 
 ### Estados dos Componentes
 | Componente | Default | Hover | Pressed | Disabled |
@@ -247,218 +242,7 @@ ALTER TABLE quiz_leads ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "service_only" ON quiz_leads USING (false);
 ```
 
-### users — tabela principal de usuários
-```sql
-CREATE TABLE users (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  auth_user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE UNIQUE,
-  email TEXT UNIQUE NOT NULL,
-  name TEXT,
-  gender TEXT CHECK (gender IN ('m','f','n')),
-  archetype TEXT CHECK (archetype IN ('AO','SS','EA','HI')),
-  quiz_scores JSONB DEFAULT '{}',
-  language TEXT DEFAULT 'en',
-  theme TEXT DEFAULT 'dark' CHECK (theme IN ('dark','light')),
-  plan_type TEXT CHECK (plan_type IN ('30d','6m','1y')),
-  plan_started_at TIMESTAMPTZ,
-  features_expires_at TIMESTAMPTZ,
-  account_expires_at TIMESTAMPTZ,
-  access_level TEXT DEFAULT 'active' CHECK (access_level IN ('active','grace','locked','revoked')),
-  stripe_customer_id TEXT UNIQUE,
-  stripe_subscription_id TEXT UNIQUE,
-  stripe_price_id TEXT,
-  subscription_status TEXT,
-  onboarding_completed BOOLEAN DEFAULT FALSE,
-  total_extra_days INTEGER DEFAULT 0,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-ALTER TABLE users ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_data" ON users FOR ALL USING (auth_user_id = auth.uid());
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_users_stripe_customer ON users(stripe_customer_id);
-CREATE INDEX idx_users_auth_id ON users(auth_user_id);
-```
-
-### diagnoses — diagnósticos gerados por IA
-```sql
-CREATE TABLE diagnoses (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  archetype TEXT NOT NULL,
-  financial_analysis TEXT,
-  professional_analysis TEXT,
-  romantic_analysis TEXT,
-  personal_analysis TEXT,
-  generation_prompt TEXT,
-  model_used TEXT DEFAULT 'gpt-4o',
-  tokens_used INTEGER,
-  version INTEGER DEFAULT 1,
-  generated_at TIMESTAMPTZ DEFAULT NOW()
-);
-ALTER TABLE diagnoses ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_diagnoses" ON diagnoses
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-CREATE INDEX idx_diagnoses_user_id ON diagnoses(user_id);
-```
-
-### onboarding_answers — 7 perguntas de calibração
-```sql
-CREATE TABLE onboarding_answers (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE UNIQUE,
-  wake_time TEXT, sleep_time TEXT,
-  daily_minutes INTEGER, emotional_trigger TEXT,
-  financial_goal TEXT, discipline_style TEXT,
-  mobile_os TEXT CHECK (mobile_os IN ('ios','android','none')),
-  completed_at TIMESTAMPTZ DEFAULT NOW()
-);
-ALTER TABLE onboarding_answers ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_onboarding" ON onboarding_answers
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-```
-
-### calendar_tasks — tarefas diárias personalizadas
-```sql
-CREATE TABLE calendar_tasks (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  day_number INTEGER NOT NULL,
-  scheduled_date DATE,
-  reflective_task TEXT, action_task TEXT,
-  is_unlocked BOOLEAN DEFAULT FALSE,
-  is_completed BOOLEAN DEFAULT FALSE,
-  completed_at TIMESTAMPTZ,
-  is_milestone BOOLEAN DEFAULT FALSE,
-  notes TEXT,
-  UNIQUE(user_id, day_number)
-);
-ALTER TABLE calendar_tasks ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_tasks" ON calendar_tasks
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-CREATE INDEX idx_tasks_user_day ON calendar_tasks(user_id, day_number);
-CREATE INDEX idx_tasks_unlocked ON calendar_tasks(user_id, is_unlocked);
-```
-
-### compass_analyses — análises de arquétipo de relacionamento
-```sql
-CREATE TABLE compass_analyses (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  target_name TEXT NOT NULL,
-  relationship_type TEXT CHECK (relationship_type IN ('professional','romantic','family','general')),
-  context TEXT, observations TEXT,
-  probable_archetype TEXT CHECK (probable_archetype IN ('AO','SS','EA','HI')),
-  analysis_content JSONB,
-  has_relationship_calendar BOOLEAN DEFAULT FALSE,
-  rel_calendar_tasks JSONB,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-ALTER TABLE compass_analyses ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_compass" ON compass_analyses
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-CREATE INDEX idx_compass_user ON compass_analyses(user_id);
-```
-
-### user_progress — estado de gamificação
-```sql
-CREATE TABLE user_progress (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE UNIQUE,
-  total_points INTEGER DEFAULT 0,
-  streak_days INTEGER DEFAULT 0,
-  longest_streak INTEGER DEFAULT 0,
-  last_checkin_date DATE,
-  tasks_completed INTEGER DEFAULT 0,
-  compass_used INTEGER DEFAULT 0,
-  calendar_exported BOOLEAN DEFAULT FALSE,
-  extra_days_earned INTEGER DEFAULT 0,
-  last_activity_at TIMESTAMPTZ
-);
-ALTER TABLE user_progress ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_progress" ON user_progress
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-```
-
-### achievements — achievements desbloqueados
-```sql
-CREATE TABLE achievements (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  achievement_code TEXT NOT NULL,
-  reward_type TEXT CHECK (reward_type IN ('extra_days','extra_compass','extra_report','discount_coupon','temp_premium','extended_limit')),
-  reward_value TEXT,
-  reward_expires_at TIMESTAMPTZ,
-  unlocked_at TIMESTAMPTZ DEFAULT NOW(),
-  is_claimed BOOLEAN DEFAULT FALSE,
-  UNIQUE(user_id, achievement_code)
-);
-ALTER TABLE achievements ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_achievements" ON achievements
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-```
-
-### daily_limits — anti-abuso para plano de 1 ano
-```sql
-CREATE TABLE daily_limits (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  date DATE DEFAULT CURRENT_DATE,
-  generations_count INTEGER DEFAULT 0,
-  calendars_count INTEGER DEFAULT 0,
-  pdfs_count INTEGER DEFAULT 0,
-  UNIQUE(user_id, date)
-);
-ALTER TABLE daily_limits ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_limits" ON daily_limits
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-```
-
-### notifications — sistema de notificações in-app
-```sql
-CREATE TABLE notifications (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  type TEXT NOT NULL, title TEXT NOT NULL, body TEXT NOT NULL,
-  icon TEXT, action_url TEXT,
-  is_read BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-ALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_notifications" ON notifications
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-CREATE INDEX idx_notif_user_unread ON notifications(user_id, is_read);
-```
-
-### monthly_reports — relatórios mensais auto-gerados
-```sql
-CREATE TABLE monthly_reports (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  month_number INTEGER NOT NULL,
-  consistency_score INTEGER, summary TEXT, pattern_observed TEXT,
-  next_focus TEXT, motivational_close TEXT, raw_data JSONB,
-  generated_at TIMESTAMPTZ DEFAULT NOW(),
-  UNIQUE(user_id, month_number)
-);
-ALTER TABLE monthly_reports ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "user_own_reports" ON monthly_reports
-  FOR ALL USING (user_id IN (SELECT id FROM users WHERE auth_user_id = auth.uid()));
-```
-
-### viral_shares — páginas públicas compartilháveis de arquétipo
-```sql
-CREATE TABLE viral_shares (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  share_token TEXT UNIQUE DEFAULT encode(gen_random_bytes(16), 'hex'),
-  email TEXT NOT NULL, name TEXT NOT NULL, archetype TEXT NOT NULL,
-  language TEXT DEFAULT 'en', views_count INTEGER DEFAULT 0,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-ALTER TABLE viral_shares ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "public_read_by_token" ON viral_shares FOR SELECT USING (true);
-CREATE POLICY "service_insert" ON viral_shares FOR INSERT WITH CHECK (true);
-```
+[OBSOLETE DB SCHEMAS REMOVED IN STRICT FUNNEL CLEANUP. ONLY quiz_leads and orders REMAIN ACTIVE.]
 
 ---
 
@@ -512,54 +296,17 @@ Deno.serve(async (req) => {
 Todos os planos = assinaturas recorrentes. Smart Retries: 7 dias. Habilitar Stripe Customer Portal.
 Webhook URL: `https://[project].supabase.co/functions/v1/stripe-webhook`
 
-### Eventos do Webhook
-| Evento | Ação no Supabase |
-|--------|-----------------|
-| customer.subscription.created | Criar usuário, definir plan_type + datas de expiração, criar auth.user |
-| invoice.payment_succeeded | Renovar datas, definir status='active', inserir notificação |
-| invoice.payment_failed | Definir status='past_due', inserir notificação, NÃO bloquear ainda |
-| customer.subscription.deleted | Manual → 'revoked'. Não-pagamento → 'locked' |
-| charge.refunded | access_level='revoked' imediatamente, invalidar sessão |
-| customer.subscription.updated | Atualizar plan_type, recalcular datas |
-
-### Lógica de Datas de Acesso
-| Plano | features_expires_at | account_expires_at |
-|-------|--------------------|--------------------|
-| 30d | compra + 30 dias | compra + 37 dias |
-| 6m | compra + 180 dias | compra + 187 dias |
-| 1y | compra + 365 dias | compra + 372 dias |
+[OBSOLETE STRIPE LOGIC REMOVED IN STRICT FUNNEL CLEANUP]
 
 ---
 
-## AUTH & ROTEAMENTO
+## ROTEAMENTO (STRICT FUNNEL)
 
 ### Mapa de Rotas
 | Rota | Auth | Descrição |
 |------|------|-----------|
-| / | Pública | Quiz completo (telas 0-13) + sales page embutida |
-| /share/[token] | Pública | Página viral de compartilhamento de arquétipo |
-| /login | Pública | Email + senha APENAS. Sem botões de signup. |
-| /reset-password | Pública | Recuperação de senha |
-| /dashboard | Privada | Hub: 3 cards + notificações |
-| /dashboard/diagnosis | Privada | Diagnóstico IA em 4 abas + PDF + share |
-| /dashboard/calendar | Privada | Matriz de ação com drip unlock |
-| /dashboard/compass | Privada | Analisar arquétipos de outras pessoas |
-| /dashboard/progress | Privada | Dashboard de gamificação |
-| /dashboard/settings | Privada | Idioma, tema, plano, cancelamento |
-| /onboarding | Privada | 7 perguntas de calibração (apenas no primeiro login) |
-
-### Lógica do Route Guard
-```
-1. Verificar sessão Supabase → null = redirecionar /login
-2. Verificar users.access_level:
-   'active'  → acesso normal
-   'grace'   → mostrar banner de aviso
-   'locked'  → congelar interface + mostrar overlay de upgrade
-   'revoked' → logout + redirecionar /login
-3. onboarding_completed = false → redirecionar /onboarding
-4. features_expires_at < NOW()+3dias → barra de aviso vermelha
-   features_expires_at < NOW()      → pointer-events: none no conteúdo
-```
+| / | Pública | Quiz completo + sales page embutida |
+| /obrigado | Pública | Página de thank you pós-checkout |
 
 ---
 
@@ -576,121 +323,7 @@ USER: Generate complete diagnosis for:
 Return JSON: { "financial_analysis": "4 paragraphs", "professional_analysis": "3 paragraphs", "romantic_analysis": "3 paragraphs (gender-adapted)", "personal_analysis": "3 paragraphs" }
 ```
 
-### Prompt 2: Calendário de Ação (gpt-4o-mini — gerar uma vez, nunca regenerar)
-```
-SYSTEM: Behavioral calendar engine of MindReset. Create personalized daily plans based on behavioral psychology and stoicism. Respond ONLY as valid JSON array.
-
-USER: Generate {plan_days}-day calendar for {name} | Archetype: {archetype_name} | Language: {language}
-Minutes/day: {daily_minutes} | Wake: {wake_time} | Sleep: {sleep_time}
-Trigger: {emotional_trigger} | Goal: {financial_goal} | Style: {discipline_style}
-
-PHASES: Days 1-7=Recognition, 8-14=Interruption, 15-21=Substitution, 22-30=Consolidation
-MILESTONES (is_milestone:true): Days 7,14,21,30,60,90,120,150,180
-
-Return: [{"day":1,"reflective_task":"...","action_task":"...","is_milestone":false,"phase":"recognition"}]
-```
-
-### Prompt 3: Análise Compass (gpt-4o-mini)
-```
-SYSTEM: COMPASS — behavioral profile analysis based on interpersonal perception. ALWAYS note analysis is based on user's perception, not clinical diagnosis.
-
-USER: Analyze archetype of: {target_name} | Relationship: {relationship_type}
-Analyst: {user_name} ({user_archetype}) | Goal: {context} | Observations: {observations} | Language: {language}
-
-Return JSON: { "probable_archetype": "AO|SS|EA|HI", "confidence_level": "high|medium|low", "perception_disclaimer": "...", "archetype_in_context": "2 paragraphs", "dynamic_analysis": "archetype combination tensions/synergies", "interaction_strategies": ["5 strategies"], "communication_script": "example phrase", "what_to_avoid": ["3 traps"] }
-```
-
-### Prompt 4: Relatório Mensal (gpt-4o-mini — 1x por mês, servir do DB depois)
-```
-SYSTEM: Evolutionary report engine of MindReset. Generate reports that make the user feel measurable growth.
-
-USER: Month {month_number} report for {name} | {archetype_name} | {language}
-Reflective: {reflective_completed}/{total} | Action: {action_completed}/{total}
-Streak max: {longest_streak}d | Current: {current_streak}d | Points: {total_points}
-Compass uses: {compass_count} | Milestones: {milestones_hit}
-
-Return JSON: { "consistency_score": 0-100, "performance_badge": "Iniciante|Em Progresso|Consistente|Avançado|Mestre", "month_headline": "...", "month_summary": "3 paragraphs", "behavioral_insight": "...", "next_month_challenge": "...", "motivational_close": "..." }
-```
-
----
-
-## SISTEMA DE DRIP UNLOCK
-
-| Plano | Mês 1 (Dias 1-30) | Após Mês 1 |
-|-------|-------------------|------------|
-| 30 dias | +5 dias desbloqueados a cada 24h | Plano encerra no Dia 30 |
-| 6 meses | +5 dias desbloqueados a cada 24h | Dia 31: todos desbloqueados instantaneamente |
-| 1 ano | +5 dias desbloqueados a cada 24h | Dia 31: todos desbloqueados instantaneamente |
-| Upgrade | Drip recomeça para o Mês 1 | Mês 2+: todos desbloqueados |
-
----
-
-## RETENÇÃO & UPSELL
-
-**Fase 1 (Dias 27-30):** Banner dismissível: "Your protocol expires in {X} days. Upgrade to keep your progress."
-
-**Fase 2 (após features_expires_at, até 7 dias — Stripe retrying):** Banner vermelho não-dismissível: "Payment failed. Update payment method." → botão do Stripe Customer Portal.
-
-**Fase 3 (access_level='locked'):** pointer-events:none em TODO o conteúdo + overlay semi-transparente. ÚNICO clicável: botão "Reactivate My MindReset →" → abre grade de planos acima do atual.
-
-**Oferta de Salvamento no Cancelamento (antes do Portal Stripe):**
-- Opção 1 (destacada): "Pause for 30 days"
-- Opção 2: "Change to smaller plan"
-- Opção 3 (sutil): "Continue cancellation" → Stripe Portal
-
----
-
-## GAMIFICAÇÃO
-
-### Sistema de Pontos
-| Ação | Pontos | Frequência |
-|------|--------|------------|
-| Completar tarefa reflexiva | +10 | 1x/dia |
-| Completar tarefa de ação | +10 | 1x/dia |
-| Ambas as tarefas no mesmo dia | +5 bônus | 1x/dia |
-| Dia de milestone (7,14,21,30…) | +30 | por milestone |
-| Usar Compass | +15 | por análise |
-| Gerar diagnóstico | +20 | 1x/mês |
-| Exportar calendário (primeira vez) | +25 | 1x total |
-| Streak de 7 dias | +50 | por achievement |
-| Streak de 30 dias | +200 | por achievement |
-
-### Achievements (planos 30d e 6m)
-| Código | Nome | Gatilho | Recompensa |
-|--------|------|---------|------------|
-| ACH_001 | Primeiro Passo | Dia 1 completo | +50 pts |
-| ACH_002 | 7 Dias de Reset | 7 dias consecutivos | +1 Compass |
-| ACH_003 | Exportador | Exportar calendário | +1 Relatório Mensal |
-| ACH_004 | 15 Dias Imparável | 15 dias consecutivos | +1 Calendário de Relacionamento |
-| ACH_005 | Meio Caminho | Dia 15 completo | +2 dias extras |
-| ACH_006 | 30 Days Complete | Dia 30 completo | +5 dias extras + cupom 15% |
-| ACH_007 | Explorador | Compass 3x | +2 análises Compass |
-| ACH_008 | 100 Dias (6m) | 100 dias completos | +10 dias extras |
-
-### Resgate de Pontos
-| Pontos | Recompensa |
-|--------|------------|
-| 500 | Cupom de upgrade 10% (30 dias) |
-| 800 | +2 dias extras |
-| 1.200 | +5 dias extras |
-| 1.500 | 1 semana de acesso ao próximo tier |
-| 2.000 | +10 dias extras |
-
----
-
-## LIMITES DOS PLANOS
-
-| Feature | 30 Dias | 6 Meses | 1 Ano |
-|---------|---------|---------|-------|
-| Diagnóstico | 1x + 1 refazer/mês | 1x + 1 refazer/mês | Ilimitado* |
-| Calendário | 1x (30d) | 1x (6m) | 1x (1y) |
-| Análises Compass | 2 | 10 | Ilimitado* |
-| Calendários de relacionamento | Não | 3 | Ilimitado* |
-| PDF do Diagnóstico | Sim | Sim | Sim |
-| PDF do Calendário | Não | Sim | Sim |
-| Relatório mensal | Via achievement | Incluído | Incluído |
-
-*Caps anti-abuso (invisíveis): 10 gerações de IA/dia, 15 calendários/mês, 15 PDFs/mês.
+[OBSOLETE GAMIFICATION, DRIP, AND PROMPTS REMOVED IN STRICT FUNNEL CLEANUP]
 
 ---
 
@@ -699,7 +332,7 @@ Return JSON: { "consistency_score": 0-100, "performance_badge": "Iniciante|Em Pr
 ### 5 Locales
 `src/lib/i18n/translations.ts` — PT (linhas 215-274), EN (517-623), PL (851-970), RO (995-1066), AR (1090-1163)
 
-**Namespaces de chaves:** `landing.*` | `quiz.*` | `dashboard.*`
+**Namespaces de chaves:** `landing.*` | `quiz.*`
 
 ### Detecção de Idioma
 ```typescript
@@ -783,9 +416,8 @@ const currencyMap = {
 
 ## PROBLEMAS CONHECIDOS
 
-- 2 erros TS pré-existentes: `onboarding.tsx:192` e `obrigado.tsx:329` — `"/dashboard/"` vs `"/dashboard"` (type mismatch, não bloqueia o build)
-- Build passa: `npm run build` (~2.5s)
-- `npx tsc --noEmit` mostra apenas esses 2 erros pré-existentes
+- Build passa limpo: `npm run build` (~2.5s)
+- `npx tsc --noEmit` passa limpo sem erros de typescript
 
 ---
 

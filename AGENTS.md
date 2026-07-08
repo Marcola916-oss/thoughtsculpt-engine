@@ -76,14 +76,9 @@
 
 Lista completa:
 - **Botão CTA:** hover=translateY(-2px)+glow, click=scale(0.97) 100ms
-- **Checkbox de tarefa:** ao marcar → bounce verde + confete 0.5s
 - **Barra de progresso:** `transition: width 0.8s ease-out`
-- **Achievement unlock:** scale(0)→scale(1.1)→scale(1) + partículas douradas 1.5s
-- **Streak counter:** animação roll-up (translateY(-100%)→0)
-- **Dashboard cards:** hover → borda vira vermelho + translateY(-4px)
 - **Quiz loader:** anel vermelho girando + textos fade a cada 0.7s
 - **Reveal do diagnóstico:** nome do arquétipo typewriter (1 char/50ms)
-- **Link ativo na sidebar:** bg vermelho translúcido + borda esquerda vermelho sólido (3px)
 
 ### Quando chamar cada agente
 
@@ -95,7 +90,8 @@ Lista completa:
 ### Contexto do produto para interpretar pedidos
 
 - MindReset NÃO é app de orçamento — é psicologia comportamental financeira
-- Funil: YouTube → Landing page (grátis) → Quiz → Reveal do arquétipo → Compra → Dashboard
+- Estrutura estrita do produto (Linear): Landing page → Identidade → Quiz → Captura de E-mail → Loader → Reveal do arquétipo → VSL → Checkout Produto → Checkout Stripe → Thank You
+- O produto **não possui sistema de login nem dashboard**. Tudo ocorre no funil.
 - Conversão acontece na landing page e na página de reveal
 - Cada elemento visual deve transmitir: "empresa de 1000 pessoas construiu isso"
 - Usuário final não é técnico — ele vê resultados, não código
@@ -185,7 +181,7 @@ As Fases 1-4 entregaram a camada visual premium do SaaS: identidade de marca, at
 1. **Otimizar vendor bundle:** `index-*.js` está em 781.81 kB / 241.70 kB gzipped (React + Framer Motion + Radix UI). Considerar code-splitting mais agressivo ou tree-shaking de Radix sub-pacotes
 2. **Tree-shake MarbleBust:** variants `full`/`loader`/`mini`/`empty` são todos importados juntos. Lazy-load variants não usados por página
 3. **Auto-fix CRLF:** 11066 erros `prettier/prettier` (CRLF) pré-existentes. Rodar `npx prettier --write .` em momento de baixa atividade (vai reformatar ~11k linhas)
-4. **Resolver TS pré-existentes:** anteriores já resolvidos (verificação 2026-06-09). Monitorar novos erros em `dashboard/Sidebar` e `dashboard.index`
+4. **Resolver TS pré-existentes:** anteriores já resolvidos (verificação 2026-06-09). Monitorar novos erros de typescript.
 5. **Automatizar Lighthouse em CI:** GitHub Actions rodando `npx lighthouse` em PRs (requer Chrome headless configurado)
 6. ~~**Dev server cleanup:**~~ ✅ resolvido (documentado)
 
