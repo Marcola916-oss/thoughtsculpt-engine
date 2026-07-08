@@ -95,3 +95,9 @@ python3 /tmp/browser/mindreset/tail.py       # exit-intent + Stripe + obrigado
 ```
 
 Os scripts assumem servidor em `http://localhost:8080` (Vite dev já rodando).
+
+---
+
+## 📱 Snapshot mobile low-end + multi-língua
+
+Ver `mobile-low/README.md` — cobertura completa do funil em **375×667** nos idiomas **AR (RTL) / PL / RO**, separados por pasta. Script: `capture-mobile-multilang.py`.
