@@ -137,6 +137,38 @@ Ver seção **🎯 REGRAS COMPORTAMENTAIS → Quando chamar cada agente** acima 
 
 ---
 
+## Auditoria de Conversão + Ondas 1-6 (2026-07)
+
+Documento-fonte: `.lovable/audit/CONVERSION-AUDIT.md` — consultar SEMPRE antes de qualquer edição na landing/reveal/sales/obrigado.
+
+### Onda 1 — P0 + P1 (dead-paths + autofill mobile) ✅
+- `src/routes/index.tsx`: `email` input recebeu `autoComplete="email"` + `inputMode="email"` + `enterKeyHint="go"`. `name` input recebeu `autoComplete="given-name"` + `inputMode="text"` + `enterKeyHint="next"`. Sales/StickyCTA passaram a usar o CheckoutStub real em vez de `useStubCheckout` (`alert("Checkout em reformulação")`).
+- `src/routes/obrigado.tsx`: bloco de upsell com `href="#"` + `EVENTS.UPSELL_ACCEPTED` fantasma foi ocultado até termos URL real.
+
+### Onda 2 — Reveal (garantia + ancoragem preço) ✅
+- Reveal: garantia refeita com `<ShieldCheck>` visível (deixou de ser `text-xs opacity-55`). Ancoragem "73% preço" agora em `font-mono` destacado.
+
+### Onda 3 — Sales B7 bridge + Trust bar ✅
+- `src/components/sales/SalesPageV2.tsx`: B7 heading trocou `v2.b4.title` (duplicava) por `v2.b9.title` (fecho de decisão). Trust bar invisível (`text-white/55`) substituída por componente `TrustBar` com 4 ícones (`ShieldCheck`, `CreditCard`, `Lock`, `RefreshCw`) parseando `v2.b7.trust`. Sem novas chaves i18n.
+
+### Onda 4 — RTL sweep ✅
+- `src/styles.css` (~L357-395): flip automático de 47 ícones Lucide direcionais sob `[dir="rtl"]` via `transform: scaleX(-1)`. Hover slides (`group-hover:translate-x-1`, `translate-x-2`) invertidos. `ml-auto`/`mr-auto` normalizados. Utilities `.rtl-flip` / `.rtl-no-flip` para casos manuais (logos, gráficos).
+
+### Onda 5 — i18n cleanup ✅
+- `common.analyzing` localizado nos 5 idiomas (PT "a analisar", EN "analyzing", PL "analizuję", RO "analizez", AR "جارٍ التحليل"). `NeuralLoader.tsx:135` deixou de mostrar EN a todos.
+- `/obrigado`: SSR `<title>` neutralizado para `"MindReset"`; `ThankYouPage` sobrepõe via `document.title = ${copy.title} — MindReset` por locale.
+
+### Onda 6 — Alinhamento de docs ✅ (esta secção)
+
+### Débito técnico deixado para depois
+- **COPY dedupe em `obrigado.tsx`** (Onda 5 escopada): mover ~40 chaves × 5 langs para `translations.ts` é operação grande com risco de regressão de tradução. Adiar até termos suíte de smoke i18n.
+- **OG meta multi-lang em `__root.tsx`**: requer detecção de `Accept-Language` no SSR.
+
+### Regra de ouro (repetida)
+Cada onda = diff mínimo, sem tocar fora do escopo. Consultar `.lovable/audit/CONVERSION-AUDIT.md` no início de cada nova onda antes de qualquer edição.
+
+---
+
 ## Camada Visual + Identidade (Fases 1–4)
 
 As Fases 1-4 entregaram a camada visual premium do SaaS: identidade de marca, atmosfera, interação e integração nos touchpoints-chave (global, home, quiz, /obrigado).
