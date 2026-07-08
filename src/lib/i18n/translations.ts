@@ -13,7 +13,7 @@ export type Dict = {
     yourName: string; yourNamePlaceholder: string; selectGender: string;
     male: string; female: string; neutral: string;
     gdpr: string; privacy: string; terms: string; login: string; logout: string;
-    securePayment: string; processing: string;
+    securePayment: string; processing: string; analyzing: string;
     nav: { home: string; diagnosis: string; actionMatrix: string; compass: string; progress: string; settings: string; notifications: string };
     success: { loading: string; errorTitle: string };
   };
