@@ -33,7 +33,7 @@ import { StickyOfferBar } from "./v3/StickyOfferBar";
 import { ExitIntentModal } from "./v3/ExitIntentModal";
 import { SalesTestimonials } from "./v3/SalesTestimonials";
 import { DeliverablesDossier } from "./v3/DeliverablesDossier";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, Lock, RefreshCw, CreditCard } from "lucide-react";
 import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
 
@@ -323,19 +323,15 @@ export default function SalesPageV2({
                 <p className="text-[11px] font-bold uppercase tracking-[0.4em]" style={{ color: "var(--arch-primary)" }}>
                   {tpl(v2.b7.eyebrow)}
                 </p>
-                <h3 className="mt-3 font-display text-2xl font-extrabold uppercase leading-tight text-white sm:text-3xl">
-                  {tpl(v2.b4.title)}
+                <h3 className="mt-3 font-display text-2xl font-extrabold uppercase leading-tight text-white sm:text-3xl text-balance">
+                  {tpl(v2.b9.title)}
                 </h3>
-                <p className="mx-auto mt-3 max-w-xl text-sm text-white/70">{tpl(v2.b4.subtitle)}</p>
-                
-                <div className="mx-auto mt-6 mb-2 max-w-xl space-y-2">
-                  <p className="text-sm font-medium text-white/90">
-                    {tpl(v2.b9.subtitle)}
-                  </p>
-                  <p className="text-xs text-white/70 tracking-wide">
-                    {tpl(v2.b9.tagline)}
-                  </p>
-                </div>
+                <p className="mx-auto mt-4 max-w-xl text-sm sm:text-base font-medium text-white/85 leading-relaxed">
+                  {tpl(v2.b9.subtitle)}
+                </p>
+                <p className="mx-auto mt-2 max-w-xl text-xs sm:text-sm text-white/65 leading-relaxed">
+                  {tpl(v2.b9.tagline)}
+                </p>
 
                 <ButtonPress>
                   <button
@@ -348,7 +344,7 @@ export default function SalesPageV2({
                     <ArrowRight size={20} strokeWidth={2.5} />
                   </button>
                 </ButtonPress>
-                <p className="mt-4 text-xs text-white/55">{v2.b7.trust}</p>
+                <TrustBar trustLine={v2.b7.trust} />
               </div>
             </SceneFrame>
           </div>
