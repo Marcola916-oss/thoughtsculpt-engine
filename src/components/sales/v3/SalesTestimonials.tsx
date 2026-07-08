@@ -1,9 +1,9 @@
 import { Star, Sparkles, ShieldCheck, Globe2 } from "lucide-react";
 import { Reveal } from "@/components/interaction/Reveal";
 import { AnimatedCounter } from "@/components/sales/AnimatedCounter";
-import adamPhoto from "@/assets/testimonials/adam.jpg";
-import mariaPhoto from "@/assets/testimonials/maria.jpg";
-import ramiPhoto from "@/assets/testimonials/rami.jpg";
+import adamPhoto from "@/assets/testimonials/adam.webp";
+import mariaPhoto from "@/assets/testimonials/maria.webp";
+import ramiPhoto from "@/assets/testimonials/rami.webp";
 import ioanaPhoto from "@/assets/testimonials/ioana.webp";
 import katarzynaPhoto from "@/assets/testimonials/katarzyna.webp";
 import yousefPhoto from "@/assets/testimonials/yousef.webp";
