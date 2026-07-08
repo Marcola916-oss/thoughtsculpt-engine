@@ -509,8 +509,9 @@ function ReadyView({
         </div>
       </div>
 
-      {/* Upsell — appears 2s after purchase confirmation */}
-      {showUpsell && !upsellDismissed && (
+      {/* Upsell — hidden until real destination URL is wired (Onda 2+).
+          Previously fired UPSELL_ACCEPTED with href="#" → phantom conversions. */}
+      {false && showUpsell && !upsellDismissed && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
