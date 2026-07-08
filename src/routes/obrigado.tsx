@@ -13,7 +13,8 @@ import { motion } from "framer-motion";
 import { Check, Mail, FileText, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/obrigado")({
-  head: () => ({ meta: [{ title: "Obrigado — MindReset" }] }),
+  // Título neutro no SSR; ThankYouPage sobrepõe via document.title conforme locale.
+  head: () => ({ meta: [{ title: "MindReset" }] }),
   component: ThankYouPage,
   validateSearch: (
     search: Record<string, unknown>,
@@ -245,6 +246,13 @@ function ThankYouPage() {
   const generate = useServerFn(generateDiagnosisPdf);
   const sendEmail = useServerFn(sendDiagnosisEmail);
   const verify = useServerFn(verifyOrderStatus);
+
+  // Localiza <title> no cliente conforme idioma do utilizador (era fixo "Obrigado" PT).
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.title = `${copy.title} — MindReset`;
+    }
+  }, [copy.title]);
 
   const [state, setState] = useState<
     | { kind: "idle" }
