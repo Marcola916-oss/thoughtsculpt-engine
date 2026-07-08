@@ -25,6 +25,7 @@ interface NeuralLoaderProps {
 }
 
 export function NeuralLoader({ onComplete, durationMs = 6000, messages, analysisLogs, userName }: NeuralLoaderProps) {
+  // useI18n lazy-imported at top of file would be cleaner; using inline require to keep diff surgical.
   const { t } = useI18n();
   const [progress, setProgress] = useState(0);
   const [msgIndex, setMsgIndex] = useState(0);
