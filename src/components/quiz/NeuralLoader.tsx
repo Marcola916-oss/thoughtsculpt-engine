@@ -132,7 +132,7 @@ export function NeuralLoader({ onComplete, durationMs = 6000, messages, analysis
               style={{ background: "var(--accent)", boxShadow: "0 0 8px var(--accent)" }}
               aria-hidden="true"
             />
-            analyzing
+            {t.common.analyzing}
           </span>
           <span
             className="tabular-nums text-sm font-semibold tracking-normal"
