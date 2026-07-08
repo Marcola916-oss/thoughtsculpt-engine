@@ -52,12 +52,12 @@ Documento-fonte para todas as ondas de execução (1-6). Consultar antes de inic
 | Onda | Escopo | Ficheiros | Estado |
 |---|---|---|---|
 | 0 | Auditoria (este doc) | — | ✅ |
-| 1 | P0 + P1 (dead-paths + autofill mobile) | `index.tsx`, `obrigado.tsx` | 🔄 em execução |
-| 2 | Reveal — garantia + ancoragem preço | `Reveal`/`ArchetypeRevealStage` | pendente |
-| 3 | Sales — B7 bridge + trust bar + CTA final | `Sales` blocks, `StickyCTA` | pendente |
-| 4 | RTL sweep completo AR | vários + `styles.css` | pendente |
-| 5 | i18n cleanup (analyzing, obrigado head, COPY dedupe) | `translations.ts`, `NeuralLoader`, `obrigado.tsx` | pendente |
-| 6 | Alinhamento SKILL.md + AGENTS.md | docs | pendente |
+| 1 | P0 + P1 (dead-paths + autofill mobile) | `index.tsx`, `obrigado.tsx` | ✅ |
+| 2 | Reveal — garantia + ancoragem preço | `Reveal`/`ArchetypeRevealStage` | ✅ |
+| 3 | Sales — B7 bridge + trust bar | `SalesPageV2.tsx` | ✅ |
+| 4 | RTL sweep completo AR | `styles.css` | ✅ |
+| 5 | i18n cleanup (analyzing, obrigado head) — COPY dedupe adiada | `translations.ts`, `NeuralLoader`, `obrigado.tsx` | ✅ |
+| 6 | Alinhamento AGENTS.md | `AGENTS.md` | ✅ |
 
 ## Regra de ouro
 
