@@ -1884,10 +1884,14 @@ const PL: Dict = {
   plans: { ...EN.plans, title: "Potwierdź swój dostęp", sub: "Płatność jednorazowa · Dostęp dożywotni · Bez subskrypcji.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan",     guarantee: "30 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
   archetypes: {
-    AO: { ...EN.archetypes.AO, name: "KOMPULSYWNY\nCIUŁACZ" },
-    SS: { ...EN.archetypes.SS, name: "ŁOWCA\nSTATUSU" },
-    EA: { ...EN.archetypes.EA, name: "UNIKAJĄCY\nUCIEKINIER" },
-    HI: { ...EN.archetypes.HI, name: "IMPULSYWNY\nHEDONISTA" },
+    AO: { name: "KOMPULSYWNY\nCIUŁACZ", tagline: "Żyjesz w trybie niedoboru — nawet gdy masz w bród.",
+      hooks: ["Oszczędzasz, ale nigdy nie czujesz się bezpiecznie","Czujesz winę, wydając na siebie","Poświęcasz dziś dla przyszłości, która nigdy nie nadchodzi"] },
+    SS: { name: "ŁOWCA\nSTATUSU", tagline: "Kupujesz wersję siebie, którą chcesz, żeby inni widzieli.",
+      hooks: ["Wydajesz, żeby pokazać przynależność","Boisz się wyglądać na mniejszego","Poświęcasz równowagę dla akceptacji"] },
+    EA: { name: "UNIKAJĄCY\nUCIEKINIER", tagline: "Pieniądze istnieją — ty wybierasz, żeby nie patrzeć.",
+      hooks: ["Nie otwierasz wyciągów","Decydujesz szybko, żeby zakończyć dyskomfort","Płacisz za spokój niewidzialnymi odsetkami"] },
+    HI: { name: "IMPULSYWNY\nHEDONISTA", tagline: "Żyjesz teraz — a teraz zawsze jest drogie.",
+      hooks: ["Kupujesz z emocji, usprawiedliwiasz później","Odłożenie na później czujesz jak stratę","Masz wszystko oprócz marginesu"] },
   },
   // Onda C — tagline + hooks nativos para PL (antes vazavam de EN)
   // (bloco imediatamente acima só sobrescrevia name)
