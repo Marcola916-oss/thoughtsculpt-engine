@@ -172,7 +172,7 @@ export function BustLoader({
       <div className="bg-card/40 border border-border/60 rounded-2xl p-5 w-full text-left font-mono text-xs text-muted-foreground/80 shadow-inner relative overflow-hidden backdrop-blur-md">
         <div className="flex items-center justify-between mb-3 border-b border-border/40 pb-2">
           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/80">
-            Cognitive Analyzer
+            {t.loader.analyzerTag}
           </span>
           <span className="text-[9px] opacity-50">v3.0.0</span>
         </div>
