@@ -1,0 +1,268 @@
+{
+  "ar": {
+    "mobile": [
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Portugu"
+        ],
+        "text": "Português",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:English"
+        ],
+        "text": "English",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Polski"
+        ],
+        "text": "Polski",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Daniel,Kahneman"
+        ],
+        "text": "Daniel Kahneman",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Nobel"
+        ],
+        "text": "Nobel",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-[10px]"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Richard,Thaler"
+        ],
+        "text": "Richard Thaler",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Ariely"
+        ],
+        "text": "Dan Ariely",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/privacy",
+        "reasons": [
+          "EN/Latin-in-AR:privacy"
+        ],
+        "text": "يجمع MindReset الاسم والبريد الإلكتروني وإجابات الاختبار والموقع التقريبي (الدولة) لتخصيص تشخيصك. لا نبيع بياناتك أبدًا. طلبات التصدير والحذف: privacy@mindreset.app. مدة الاحتفاظ: ٢٤ شهرًا من آخر تسجي",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "[loader/reveal]",
+        "reasons": [
+          "EN/Latin-in-AR:Cognitive,Analyzer"
+        ],
+        "text": "MindReset Cognitive Analyzer",
+        "path": "div.relative.mt-12 > div.flex.items-center > div.flex.items-center > span.text-[10px].font-semibold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:Alto,impacto"
+        ],
+        "text": "Alto impacto",
+        "path": "header.flex.items-center > div.flex.items-center > div.flex.flex-col > span.text-[10px].font-bold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:Impacto"
+        ],
+        "text": "Impacto médio",
+        "path": "header.flex.items-center > div.flex.items-center > div.flex.flex-col > span.text-[10px].font-bold"
+      }
+    ],
+    "desktop": [
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Portugu"
+        ],
+        "text": "Português",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:English"
+        ],
+        "text": "English",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Polski"
+        ],
+        "text": "Polski",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Daniel,Kahneman"
+        ],
+        "text": "Daniel Kahneman",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Nobel"
+        ],
+        "text": "Nobel",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-[10px]"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Richard,Thaler"
+        ],
+        "text": "Richard Thaler",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Ariely"
+        ],
+        "text": "Dan Ariely",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/privacy",
+        "reasons": [
+          "EN/Latin-in-AR:privacy"
+        ],
+        "text": "يجمع MindReset الاسم والبريد الإلكتروني وإجابات الاختبار والموقع التقريبي (الدولة) لتخصيص تشخيصك. لا نبيع بياناتك أبدًا. طلبات التصدير والحذف: privacy@mindreset.app. مدة الاحتفاظ: ٢٤ شهرًا من آخر تسجي",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "[loader/reveal]",
+        "reasons": [
+          "EN/Latin-in-AR:Cognitive,Analyzer"
+        ],
+        "text": "MindReset Cognitive Analyzer",
+        "path": "div.relative.mt-12 > div.flex.items-center > div.flex.items-center > span.text-[10px].font-semibold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:Alto,impacto"
+        ],
+        "text": "Alto impacto",
+        "path": "header.flex.items-center > div.flex.items-center > div.flex.flex-col > span.text-[10px].font-bold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:Impacto"
+        ],
+        "text": "Impacto médio",
+        "path": "header.flex.items-center > div.flex.items-center > div.flex.flex-col > span.text-[10px].font-bold"
+      }
+    ]
+  },
+  "pl": {
+    "mobile": [
+      {
+        "route": "/",
+        "reasons": [
+          "AR-in-latin-page"
+        ],
+        "text": "العربية",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "Impulsywny Hedonista",
+        "path": "section.relative.mx-auto > div.reveal-group.grid > div.reveal.group > h3.relative.z-10"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "Archetyp: Impulsywny Hedonista",
+        "path": "div.reveal.group > div.flex.items-center > div.min-w-0.flex-1 > p.mt-0.5.font-sans"
+      }
+    ],
+    "desktop": [
+      {
+        "route": "/",
+        "reasons": [
+          "AR-in-latin-page"
+        ],
+        "text": "العربية",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "IMPULSYWNY\nHEDONISTA",
+        "path": "div > div.relative.z-10 > section.relative.pt-20 > div.flex.items-center"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "Impulsywny Hedonista",
+        "path": "section.relative.mx-auto > div.reveal-group.grid > div.reveal.group > h3.relative.z-10"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "Archetyp: Impulsywny Hedonista",
+        "path": "div.reveal.group > div.flex.items-center > div.min-w-0.flex-1 > p.mt-0.5.font-sans"
+      }
+    ]
+  },
+  "ro": {
+    "mobile": [
+      {
+        "route": "/",
+        "reasons": [
+          "AR-in-latin-page"
+        ],
+        "text": "العربية",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      }
+    ],
+    "desktop": [
+      {
+        "route": "/",
+        "reasons": [
+          "AR-in-latin-page"
+        ],
+        "text": "العربية",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      }
+    ]
+  }
+}
