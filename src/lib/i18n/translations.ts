@@ -1801,7 +1801,7 @@ const PL: Dict = {
   questions: { title: (n, total) => `Pytanie ${n} z ${total}`, intro: (name) => `${name}, wybierz odpowiedź najbliższą Tobie — nie ma złych.` },
   emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp teraz", blurHint: "Wpisz e-mail, aby odblokować" },
   quizProgress: { identity: "Identyfikacja", email: "Finalizacja" },
-  loader: { ...EN.loader, title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…","Prawie gotowe, [NOME]… Twój wynik jest gotowy!"] },
+  // loader completo (com `analysis`) definido mais abaixo neste bloco PL
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}, Twój archetyp to:`,
@@ -1884,10 +1884,50 @@ const PL: Dict = {
   plans: { ...EN.plans, title: "Potwierdź swój dostęp", sub: "Płatność jednorazowa · Dostęp dożywotni · Bez subskrypcji.", mostPopular: "NAJPOPULARNIEJSZE", p30: "30 dni", p6m: "6 miesięcy", p1y: "1 rok", chooseCta: "Chcę ten plan",     guarantee: "30 dni pełnego zwrotu — bez pytań." },
   cookies: { body: "Używamy technologii lokalizacyjnych do personalizacji Twojego doświadczenia. Kontynuując zgadzasz się z naszą Polityką Prywatności." },
   archetypes: {
-    AO: { ...EN.archetypes.AO, name: "KOMPULSYWNY\nCIUŁACZ" },
-    SS: { ...EN.archetypes.SS, name: "ŁOWCA\nSTATUSU" },
-    EA: { ...EN.archetypes.EA, name: "UNIKAJĄCY\nUCIEKINIER" },
-    HI: { ...EN.archetypes.HI, name: "IMPULSYWNY\nHEDONISTA" },
+    AO: { name: "KOMPULSYWNY\nCIUŁACZ", tagline: "Żyjesz w trybie niedoboru — nawet gdy masz w bród.",
+      hooks: ["Oszczędzasz, ale nigdy nie czujesz się bezpiecznie","Czujesz winę, wydając na siebie","Poświęcasz dziś dla przyszłości, która nigdy nie nadchodzi"] },
+    SS: { name: "ŁOWCA\nSTATUSU", tagline: "Kupujesz wersję siebie, którą chcesz, żeby inni widzieli.",
+      hooks: ["Wydajesz, żeby pokazać przynależność","Boisz się wyglądać na mniejszego","Poświęcasz równowagę dla akceptacji"] },
+    EA: { name: "UNIKAJĄCY\nUCIEKINIER", tagline: "Pieniądze istnieją — ty wybierasz, żeby nie patrzeć.",
+      hooks: ["Nie otwierasz wyciągów","Decydujesz szybko, żeby zakończyć dyskomfort","Płacisz za spokój niewidzialnymi odsetkami"] },
+    HI: { name: "IMPULSYWNY\nHEDONISTA", tagline: "Żyjesz teraz — a teraz zawsze jest drogie.",
+      hooks: ["Kupujesz z emocji, usprawiedliwiasz później","Odłożenie na później czujesz jak stratę","Masz wszystko oprócz marginesu"] },
+  },
+  // Onda C — tagline + hooks nativos para PL (antes vazavam de EN)
+  // (bloco imediatamente acima só sobrescrevia name)
+  q: [
+    { q: "Otrzymujesz nieoczekiwaną kwotę równą Twojej pensji. Pierwszy impuls?",
+      options: ["Odłóż prawie wszystko — najpierw bezpieczeństwo","Wydaj na coś, co zaimponuje otoczeniu","Zostaw na koncie i staraj się o tym nie myśleć","Kup to, o czym zawsze marzyłeś — żyj teraz, planuj później"] },
+    { q: "Kiedy przesadzasz z wydatkami, zwykle wyzwalaczem jest:",
+      options: ["Strach, że pieniądze się skończą (i wydajesz, żeby kontrolować)","Presja społeczna lub potrzeba przynależności","Zmęczenie — chęć nie myślenia o pieniądzach","Chwila uniesienia — widzę, chcę, biorę"] },
+    { q: "Myśląc o swojej przyszłości finansowej, najczęściej czujesz:",
+      options: ["Niepokój — potrzebuję więcej, zawsze","Troskę o wizerunek, który muszę utrzymać","Blokadę — wolę o tym nie myśleć","Optymizm — jakoś to będzie"] },
+    { q: "Pod koniec miesiąca Twoje konto zazwyczaj jest:",
+      options: ["Wyższe niż oczekiwałeś — zaoszczędziłeś za dużo","Puste po subskrypcjach, kolacjach, markach","Nie wiem — nie sprawdzam","Puste, ale każda chwila była tego warta"] },
+    { q: "Przed dużym zakupem:",
+      options: ["Analizujesz tygodniami, porównujesz wszystko","Zastanawiasz się, co pomyślą inni","Kupujesz szybko, żeby mieć to z głowy","Decydujesz impulsywnie, sercem"] },
+    { q: "Słowo, które najlepiej opisuje Twoją relację z pieniędzmi to:",
+      options: ["Kontrola","Status","Ucieczka","Wolność"] },
+    { q: "Twoja największa aspiracja finansowa to:",
+      options: ["Zbudować rezerwę, która nigdy się nie skończy","Pokazać widoczne rezultaty właściwym ludziom","Zapomnieć o pieniądzach i żyć w spokoju","Doświadczyć wszystkiego, co życie oferuje"] },
+    { q: "Gdybyś mógł zmienić JEDNĄ rzecz w swoim podejściu do pieniędzy, byłoby to:",
+      options: ["Przestać żyć w trybie niedoboru","Kupować dla siebie, nie dla innych","Patrzeć na rachunki bez uciekania","Odłożyć jeden zakup o 24h"] },
+  ],
+  loader: {
+    ...EN.loader,
+    title: "Przetwarzam Twoje odpowiedzi",
+    steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…","Prawie gotowe, [NOME]… Twój wynik jest gotowy!"],
+    analysis: [
+      "Analiza wzorców impulsywności...",
+      "Mapowanie wyzwalaczy bezpieczeństwa...",
+      "Porównanie z ponad 12 000 diagnoz...",
+      "Obliczanie prawdopodobieństwa nawrotu...",
+      "Budowanie 30-dniowego protokołu..."
+    ]
+  },
+  legal: {
+    privacyBody: "MindReset zbiera imię, e-mail, odpowiedzi z quizu oraz przybliżoną lokalizację (kraj) w celu personalizacji Twojej diagnozy. Nigdy nie sprzedajemy Twoich danych. Wnioski o eksport i usunięcie: privacy@mindreset.app. Okres przechowywania: 24 miesiące od ostatniego logowania.",
+    termsBody: "MindReset udostępnia edukacyjną analizę behawioralną. NIE zastępuje profesjonalnej porady medycznej, psychologicznej ani finansowej. Subskrypcje odnawiają się automatycznie. Pełny zwrot w ciągu 7 dni od pierwszego zakupu. Anuluj w dowolnej chwili z portalu klienta.",
   },
   landing: {
     proofBar: {
@@ -2243,7 +2283,40 @@ const RO: Dict = {
   questions: { title: (n, total) => `Întrebarea ${n} din ${total}`, intro: (name) => `${name}, alege opțiunea care îți seamănă cel mai mult — nu există răspunsuri greșite.` },
   emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul acum", blurHint: "Introdu e-mailul pentru a debloca" },
   quizProgress: { identity: "Identificare", email: "Finalizare" },
-  loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…","Gata, [NOME]… rezultatul tău este gata!"] },
+  loader: {
+    ...EN.loader,
+    title: "Procesez răspunsurile tale",
+    steps: ["Verific încrucișat 8 răspunsuri cu 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…","Gata, [NOME]… rezultatul tău este aici!"],
+    analysis: [
+      "Analizez fluxurile de impulsivitate...",
+      "Cartografiez declanșatorii de siguranță...",
+      "Compar cu peste 12.000 de diagnostice...",
+      "Calculez probabilitatea de recădere...",
+      "Construiesc protocolul de 30 de zile..."
+    ]
+  },
+  q: [
+    { q: "Primești o sumă neașteptată egală cu salariul tău. Primul impuls?",
+      options: ["Economisesc aproape tot — siguranța pe primul loc","Cheltui pe ceva ce va impresiona cei din jur","O las în cont și încerc să nu mă gândesc","Cumpăr ce mi-am dorit mereu — trăiesc acum, planific mai târziu"] },
+    { q: "Când cheltui în exces, declanșatorul este de obicei:",
+      options: ["Frica că banii nu vor ține (și cheltui ca să controlez)","Presiunea socială sau dorința de apartenență","Oboseala — evit să mă gândesc la bani","Momentul — o văd, o vreau, o iau"] },
+    { q: "Gândindu-te la viitorul tău financiar, în general simți:",
+      options: ["Anxietate — am nevoie de mai mult, mereu","Îngrijorare pentru imaginea pe care trebuie să o mențin","Blocaj — prefer să nu mă gândesc","Optimism — se va rezolva"] },
+    { q: "La sfârșitul lunii contul tău este de obicei:",
+      options: ["Mai plin decât te așteptai — ai economisit prea mult","Gol după abonamente, cine, branduri","Nu sunt sigur — nu verific","Gol, dar a meritat fiecare moment"] },
+    { q: "Înainte de o achiziție importantă:",
+      options: ["Cercetezi săptămâni, compari totul","Te gândești ce vor observa alții","Cumperi rapid ca să treci peste","Decizi impulsiv, cu inima"] },
+    { q: "Cuvântul care descrie cel mai bine relația ta cu banii este:",
+      options: ["Control","Statut","Evadare","Libertate"] },
+    { q: "Cea mai mare aspirație financiară a ta este:",
+      options: ["Să construiesc o rezervă care nu se termină","Să arăt rezultate vizibile oamenilor potriviți","Să uit de bani și să trăiesc în pace","Să experimentez tot ce oferă viața"] },
+    { q: "Dacă ai putea schimba UN SINGUR lucru la comportamentul tău cu banii, ar fi:",
+      options: ["Să nu mai trăiesc în modul lipsă","Să cumpăr pentru mine, nu pentru alții","Să-mi privesc facturile fără să fug","Să amân o achiziție cu 24h"] },
+  ],
+  legal: {
+    privacyBody: "MindReset colectează numele, e-mailul, răspunsurile din test și localizarea aproximativă (țara) pentru a-ți personaliza diagnosticul. Nu vindem niciodată datele tale. Cereri de export și ștergere: privacy@mindreset.app. Perioada de păstrare: 24 de luni de la ultima autentificare.",
+    termsBody: "MindReset oferă analiză comportamentală educațională. NU înlocuiește sfatul profesional medical, psihologic sau financiar. Abonamentele se reînnoiesc automat. Rambursare integrală în termen de 7 zile de la prima achiziție. Poți anula oricând din portalul clientului.",
+  },
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}, arhetipul tău este:`,
@@ -2326,10 +2399,14 @@ const RO: Dict = {
   plans: { ...EN.plans, title: "Confirmă-ți accesul", sub: "Plată unică · Acces pe viață · Fără abonament.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan",     guarantee: "30 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
   archetypes: {
-    AO: { ...EN.archetypes.AO, name: "ACUMULATOR\nOBSESIV" },
-    SS: { ...EN.archetypes.SS, name: "CĂUTĂTOR\nDE STATUT" },
-    EA: { ...EN.archetypes.EA, name: "EVAZIV\nALIENAT" },
-    HI: { ...EN.archetypes.HI, name: "HEDONIST\nIMPULSIV" },
+    AO: { name: "ACUMULATOR\nOBSESIV", tagline: "Trăiești în modul lipsă — chiar și când ai destul.",
+      hooks: ["Economisești, dar nu te simți niciodată în siguranță","Simți vinovăție când cheltui pe tine","Sacrifici prezentul pentru un viitor care nu vine niciodată"] },
+    SS: { name: "CĂUTĂTOR\nDE STATUT", tagline: "Cumperi versiunea de tine pe care vrei să o vadă ceilalți.",
+      hooks: ["Cheltui ca să semnalezi apartenență","Ți-e frică să pari mic","Sacrifici echilibrul pentru validare"] },
+    EA: { name: "EVAZIV\nALIENAT", tagline: "Banii există — tu alegi să nu privești.",
+      hooks: ["Nu deschizi extrasele","Decizi rapid ca să închei disconfortul","Plătești pentru liniște cu dobânzi invizibile"] },
+    HI: { name: "HEDONIST\nIMPULSIV", tagline: "Trăiești pentru acum — și acum este mereu scump.",
+      hooks: ["Cumperi din emoție, justifici după","Amânarea îți pare pierdere","Ai tot, mai puțin marja"] },
   },
   landing: {
     proofBar: {
@@ -2686,7 +2763,40 @@ const AR: Dict = {
   questions: { title: (n, total) => `السؤال ${n} من ${total}`, intro: (name) => `${name}، اختر الإجابة الأقرب لك — لا توجد إجابة خاطئة.` },
   emailCapture: { title: (name) => `${name}، تشخيصك جاهز.`, sub: "أدخل بريدك لاستلام التقرير الكامل وفتح صفحة نمطك.", cta: "اعرض نمطي الآن", blurHint: "أدخل بريدك الإلكتروني للفتح" },
   quizProgress: { identity: "التعرف", email: "الإنجاز" },
-  loader: { ...EN.loader, title: "جارٍ معالجة إجاباتك", steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…","اقتربنا، [NOME]… نتيجتك جاهزة!"] },
+  loader: {
+    ...EN.loader,
+    title: "جارٍ معالجة إجاباتك",
+    steps: ["مقارنة ٨ إجابات بـ٤ أنماط…","تحديد النمط المهيمن…","تجهيز النتيجة…","اقتربنا، [NOME]… نتيجتك جاهزة!"],
+    analysis: [
+      "تحليل مسارات الاندفاع...",
+      "رسم خرائط محفزات الأمان...",
+      "المقارنة مع أكثر من 12,000 تشخيص...",
+      "حساب احتمال الانتكاسة...",
+      "بناء بروتوكول الثلاثين يومًا..."
+    ]
+  },
+  q: [
+    { q: "تصلك فجأة مبلغًا يعادل راتبك. أول ما تفكر فيه؟",
+      options: ["أدّخر معظمه — الأمان أولًا","أنفقه على شيء يُبهر من حولي","أتركه في الحساب وأحاول ألا أفكر فيه","أشتري ما تمنيته دومًا — عش الآن، خطّط لاحقًا"] },
+    { q: "حين تُفرِط في الإنفاق، المحرّك عادةً هو:",
+      options: ["الخوف من نفاد المال (فتُنفق للسيطرة)","الضغط الاجتماعي أو الرغبة في الانتماء","الإرهاق — تجنّب التفكير في المال","لحظة اندفاع — أراه، أريده، آخذه"] },
+    { q: "حين تفكر في مستقبلك المالي تشعر غالبًا بـ:",
+      options: ["القلق — أحتاج المزيد دائمًا","الانشغال بالصورة التي عليّ الحفاظ عليها","الانسداد — أفضّل ألا أفكر","التفاؤل — الأمور ستنجح"] },
+    { q: "في نهاية الشهر، حسابك عادةً:",
+      options: ["أكثر مما توقعت — ادّخرت أكثر من اللازم","فارغ بعد الاشتراكات والعشاءات والماركات","لست متأكدًا — لا أتحقق","فارغ، لكن كل لحظة استحقت"] },
+    { q: "قبل شراء كبير أنت:",
+      options: ["تبحث لأسابيع وتقارن كل شيء","تفكر فيما سيلاحظه الآخرون","تشتري بسرعة لتنتهي من الأمر","تقرر باندفاع، من القلب"] },
+    { q: "الكلمة التي تصف علاقتك بالمال أكثر شيء هي:",
+      options: ["التحكم","المكانة","الهروب","الحرية"] },
+    { q: "أكبر طموح مالي لديك هو:",
+      options: ["بناء احتياطي لا ينفد","إظهار نتائج مرئية للأشخاص المناسبين","نسيان المال والعيش بسلام","تجربة كل ما تقدّمه الحياة"] },
+    { q: "إن استطعت تغيير شيء واحد في سلوكك المالي، فسيكون:",
+      options: ["أن أتوقف عن العيش بذهنية النُدرة","أن أشتري لنفسي، لا للآخرين","أن أنظر إلى فواتيري دون هروب","أن أؤجّل عملية شراء واحدة ٢٤ ساعة"] },
+  ],
+  legal: {
+    privacyBody: "يجمع MindReset الاسم والبريد الإلكتروني وإجابات الاختبار والموقع التقريبي (الدولة) لتخصيص تشخيصك. لا نبيع بياناتك أبدًا. طلبات التصدير والحذف: privacy@mindreset.app. مدة الاحتفاظ: ٢٤ شهرًا من آخر تسجيل دخول.",
+    termsBody: "يوفّر MindReset تحليلًا سلوكيًا تعليميًا. وهو لا يحلّ محلّ الاستشارة الطبية أو النفسية أو المالية المهنية. تُجدَّد الاشتراكات تلقائيًا. استرداد كامل خلال ٧ أيام من أول عملية شراء. يمكنك الإلغاء في أي وقت من بوابة العميل.",
+  },
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}، نمطك هو:`,
@@ -2769,10 +2879,14 @@ const AR: Dict = {
   plans: { ...EN.plans, title: "أكّد وصولك", sub: "دفعة واحدة · وصول مدى الحياة · بدون اشتراك.", mostPopular: "الأكثر شعبية", p30: "٣٠ يوماً", p6m: "٦ أشهر", p1y: "سنة", chooseCta: "أريد الوصول",     guarantee: "استرداد كامل خلال ٣٠ يوماً — بدون أسئلة." },
   cookies: { body: "نستخدم تقنيات الموقع لتخصيص تجربتك. بالمتابعة فإنك توافق على سياسة الخصوصية." },
   archetypes: {
-    AO: { ...EN.archetypes.AO, name: "المُكدِّس\nالقهري" },
-    SS: { ...EN.archetypes.SS, name: "الباحث\nعن المكانة" },
-    EA: { ...EN.archetypes.EA, name: "الهارب\nالمُتجنِّب" },
-    HI: { ...EN.archetypes.HI, name: "المُتَنَعِّم\nالاندفاعي" },
+    AO: { name: "المُكدِّس\nالقهري", tagline: "تعيش في وضع النُدرة — حتى حين يكون لديك الكثير.",
+      hooks: ["تدّخر لكن لا تشعر بالأمان أبدًا","تشعر بالذنب حين تنفق على نفسك","تفدي اليوم من أجل مستقبل لا يأتي أبدًا"] },
+    SS: { name: "الباحث\nعن المكانة", tagline: "تشتري النسخة التي تريد أن يراها الآخرون منك.",
+      hooks: ["تنفق لتُظهر انتماءك","تخشى أن تبدو صغيرًا","تفدي التوازن مقابل التقدير"] },
+    EA: { name: "الهارب\nالمُتجنِّب", tagline: "المال موجود — لكنك تختار ألا تنظر.",
+      hooks: ["لا تفتح كشوف حسابك","تقرر بسرعة لتنهي الانزعاج","تدفع ثمن السكينة بفوائد خفية"] },
+    HI: { name: "المُتَنَعِّم\nالاندفاعي", tagline: "تعيش من أجل الآن — والآن دائمًا مكلف.",
+      hooks: ["تشتري بالعاطفة وتبرر لاحقًا","التأجيل يشعرك بالخسارة","تملك كل شيء ما عدا الهامش"] },
   },
   landing: {
     proofBar: {
