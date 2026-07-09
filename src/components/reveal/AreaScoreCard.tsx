@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Coins, Briefcase, Heart, Sparkles, type LucideIcon } from "lucide-react";
 import type { LifeArea } from "@/lib/funnel/area-scores";
+import { useI18n } from "@/lib/i18n/LanguageProvider";
 
 const ICONS: Record<LifeArea, LucideIcon> = {
   money: Coins,
@@ -25,6 +26,7 @@ interface Props {
 export function AreaScoreCard({ area, label, description, score, delayMs = 0 }: Props) {
   const Icon = ICONS[area];
   const [animated, setAnimated] = useState(0);
+  const { t } = useI18n();
 
   useEffect(() => {
     const id = window.setTimeout(() => setAnimated(score), delayMs + 80);
@@ -33,7 +35,7 @@ export function AreaScoreCard({ area, label, description, score, delayMs = 0 }: 
 
   const severity = score >= 75 ? "critical" : score >= 55 ? "warn" : "watch";
   const severityLabel =
-    severity === "critical" ? "Alto impacto" : severity === "warn" ? "Impacto médio" : "Em observação";
+    severity === "critical" ? t.loader.impact.high : severity === "warn" ? t.loader.impact.medium : t.loader.impact.watch;
 
   return (
     <article
