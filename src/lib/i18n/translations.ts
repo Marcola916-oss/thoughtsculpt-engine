@@ -69,7 +69,13 @@ export type Dict = {
   q: Array<{ q: string; options: string[] }>;
   emailCapture: { title: (name: string) => string; sub: string; cta: string; blurHint: string };
   quizProgress: { identity: string; email: string };
-  loader: { title: string; steps: string[]; analysis: string[] };
+  loader: {
+    title: string;
+    steps: string[];
+    analysis: string[];
+    analyzerTag: string;
+    impact: { high: string; medium: string; watch: string };
+  };
   archetypes: Record<"AO" | "SS" | "EA" | "HI", { name: string; tagline: string; hooks: string[] }>;
   reveal: {
     kicker: (name: string) => string; sub: string; cta: string; share: string;
