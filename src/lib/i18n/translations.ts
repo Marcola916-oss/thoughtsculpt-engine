@@ -1801,7 +1801,7 @@ const PL: Dict = {
   questions: { title: (n, total) => `Pytanie ${n} z ${total}`, intro: (name) => `${name}, wybierz odpowiedź najbliższą Tobie — nie ma złych.` },
   emailCapture: { title: (name) => `${name}, Twoja diagnoza jest gotowa.`, sub: "Podaj e-mail, aby otrzymać pełny raport i odblokować stronę archetypu.", cta: "Pokaż mój archetyp teraz", blurHint: "Wpisz e-mail, aby odblokować" },
   quizProgress: { identity: "Identyfikacja", email: "Finalizacja" },
-  loader: { ...EN.loader, title: "Przetwarzam Twoje odpowiedzi", steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…","Prawie gotowe, [NOME]… Twój wynik jest gotowy!"] },
+  // loader completo (com `analysis`) definido mais abaixo neste bloco PL
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}, Twój archetyp to:`,
