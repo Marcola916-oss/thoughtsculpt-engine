@@ -1011,7 +1011,7 @@ function EmailCapture(props: {
         <div className="relative mb-8 mx-auto max-w-sm">
           <div className="blur-sm opacity-60 pointer-events-none select-none">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-foreground/50 mb-2">
-              {props.name}, o teu arquétipo é:
+              {t.reveal.kicker(props.name)}
             </p>
             <div className="h-12 rounded-xl bg-arch-primary/20 border border-arch-primary/30 flex items-center justify-center">
               <span className="font-display text-2xl font-black uppercase italic text-arch-primary">
