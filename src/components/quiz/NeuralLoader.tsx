@@ -153,7 +153,7 @@ export function NeuralLoader({ onComplete, durationMs = 6000, messages, analysis
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full" style={{ background: "var(--accent)" }} />
             </span>
             <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-foreground/60">
-              MindReset Cognitive Analyzer
+              {t.loader.analyzerTag}
             </span>
           </div>
           <span className="text-[9px] opacity-40">v3.0.0</span>

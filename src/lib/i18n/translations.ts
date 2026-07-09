@@ -69,7 +69,13 @@ export type Dict = {
   q: Array<{ q: string; options: string[] }>;
   emailCapture: { title: (name: string) => string; sub: string; cta: string; blurHint: string };
   quizProgress: { identity: string; email: string };
-  loader: { title: string; steps: string[]; analysis: string[] };
+  loader: {
+    title: string;
+    steps: string[];
+    analysis: string[];
+    analyzerTag: string;
+    impact: { high: string; medium: string; watch: string };
+  };
   archetypes: Record<"AO" | "SS" | "EA" | "HI", { name: string; tagline: string; hooks: string[] }>;
   reveal: {
     kicker: (name: string) => string; sub: string; cta: string; share: string;
@@ -526,7 +532,9 @@ const PT: Dict = {
       "A cruzar dados com 12.000 diagnósticos...",
       "A calcular probabilidade de recidiva...",
       "A construir protocolo de 30 dias..."
-    ]
+    ],
+    analyzerTag: "MindReset Analisador Cognitivo",
+    impact: { high: "Alto impacto", medium: "Impacto médio", watch: "Em observação" },
   },
   archetypes: {
     AO: { name: "ACUMULADOR\nOBSESSIVO", tagline: "Vives em modo escassez — mesmo quando há.",
@@ -1230,7 +1238,9 @@ const EN: Dict = {
       "Cross-referencing with 12,000+ diagnoses...",
       "Calculating relapse probability...",
       "Building 30-day protocol..."
-    ]
+    ],
+    analyzerTag: "MindReset Cognitive Analyzer",
+    impact: { high: "High impact", medium: "Medium impact", watch: "Under watch" },
   },
   archetypes: {
     AO: { name: "OBSESSIVE\nACCUMULATOR", tagline: "You live in scarcity mode — even when there's plenty.",
@@ -1923,7 +1933,9 @@ const PL: Dict = {
       "Porównanie z ponad 12 000 diagnoz...",
       "Obliczanie prawdopodobieństwa nawrotu...",
       "Budowanie 30-dniowego protokołu..."
-    ]
+    ],
+    analyzerTag: "MindReset Analizator Poznawczy",
+    impact: { high: "Wysoki wpływ", medium: "Średni wpływ", watch: "Pod obserwacją" },
   },
   legal: {
     privacyBody: "MindReset zbiera imię, e-mail, odpowiedzi z quizu oraz przybliżoną lokalizację (kraj) w celu personalizacji Twojej diagnozy. Nigdy nie sprzedajemy Twoich danych. Wnioski o eksport i usunięcie: privacy@mindreset.app. Okres przechowywania: 24 miesiące od ostatniego logowania.",
@@ -2293,7 +2305,9 @@ const RO: Dict = {
       "Compar cu peste 12.000 de diagnostice...",
       "Calculez probabilitatea de recădere...",
       "Construiesc protocolul de 30 de zile..."
-    ]
+    ],
+    analyzerTag: "MindReset Analizor Cognitiv",
+    impact: { high: "Impact ridicat", medium: "Impact mediu", watch: "În observație" },
   },
   q: [
     { q: "Primești o sumă neașteptată egală cu salariul tău. Primul impuls?",
@@ -2773,7 +2787,9 @@ const AR: Dict = {
       "المقارنة مع أكثر من 12,000 تشخيص...",
       "حساب احتمال الانتكاسة...",
       "بناء بروتوكول الثلاثين يومًا..."
-    ]
+    ],
+    analyzerTag: "المحلّل المعرفي MindReset",
+    impact: { high: "تأثير مرتفع", medium: "تأثير متوسط", watch: "قيد المراقبة" },
   },
   q: [
     { q: "تصلك فجأة مبلغًا يعادل راتبك. أول ما تفكر فيه؟",
