@@ -1,0 +1,1486 @@
+{
+  "ar": {
+    "mobile": [
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Portugu"
+        ],
+        "text": "Português",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:English"
+        ],
+        "text": "English",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Polski"
+        ],
+        "text": "Polski",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Daniel,Kahneman"
+        ],
+        "text": "Daniel Kahneman",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Nobel"
+        ],
+        "text": "Nobel",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-[10px]"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Richard,Thaler"
+        ],
+        "text": "Richard Thaler",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Ariely"
+        ],
+        "text": "Dan Ariely",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/privacy",
+        "reasons": [
+          "EN/Latin-in-AR:collects,name,quiz,answers"
+        ],
+        "text": "MindReset collects name, email, quiz answers and approximate geolocation (country) to personalize your diagnosis. We never sell your data. Export and deletion requests: privacy@mindreset.app. Retentio",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "/terms",
+        "reasons": [
+          "EN/Latin-in-AR:provides,educational,behavioral,analysis"
+        ],
+        "text": "MindReset provides educational behavioral analysis. It does NOT replace professional medical, psychological or financial advice. Subscriptions auto-renew. Full refund within 7 days of first purchase. ",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:receive,unexpected,equal,your"
+        ],
+        "text": "You receive an unexpected sum equal to your salary. First impulse?",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Save,almost,safety,first"
+        ],
+        "text": "Save almost all of it — safety first",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Spend,something,that,will"
+        ],
+        "text": "Spend on something that will impress those around me",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Leave,account,think,about"
+        ],
+        "text": "Leave it in the account and try not to think about it",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:what,always,wanted,live"
+        ],
+        "text": "Buy what I've always wanted — live now, plan later",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:When,overspend,trigger,usually"
+        ],
+        "text": "When you overspend, the trigger is usually:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Fear,money,last,spend"
+        ],
+        "text": "Fear money won't last (and I spend to control)",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Social,pressure,wanting,belong"
+        ],
+        "text": "Social pressure or wanting to belong",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Tiredness,avoiding,thinking,about"
+        ],
+        "text": "Tiredness — avoiding thinking about money",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Heat,moment,want,take"
+        ],
+        "text": "Heat of the moment — see it, want it, take it",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Thinking,about,your,financial"
+        ],
+        "text": "Thinking about your financial future you mostly feel:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Anxious,need,more,always"
+        ],
+        "text": "Anxious — I need more, always",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Worried,about,image,keep"
+        ],
+        "text": "Worried about the image I can keep up",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Blocked,rather,think"
+        ],
+        "text": "Blocked — I'd rather not think",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Optimistic,work"
+        ],
+        "text": "Optimistic — it'll work out",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:month,your,account,usually"
+        ],
+        "text": "At month's end your account is usually:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:More,than,expected,saved"
+        ],
+        "text": "More than expected — you saved too much",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Empty,after,subscriptions,dinners"
+        ],
+        "text": "Empty after subscriptions, dinners, brands",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:sure,check"
+        ],
+        "text": "Not sure — I don't check",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Empty,worth,every,moment"
+        ],
+        "text": "Empty, but worth every moment",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Before,major,purchase"
+        ],
+        "text": "Before a major purchase you:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Research,weeks,compare,everything"
+        ],
+        "text": "Research for weeks, compare everything",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Think,about,what,others"
+        ],
+        "text": "Think about what others will notice",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:fast,over,with"
+        ],
+        "text": "Buy fast to get it over with",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Decide,impulse,with,your"
+        ],
+        "text": "Decide on impulse, with your heart",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:word,that,best,describes"
+        ],
+        "text": "The word that best describes your relationship with money is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Control"
+        ],
+        "text": "Control",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Status"
+        ],
+        "text": "Status",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Escape"
+        ],
+        "text": "Escape",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Freedom"
+        ],
+        "text": "Freedom",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Your,biggest,financial,aspiration"
+        ],
+        "text": "Your biggest financial aspiration is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Build,reserve,that,never"
+        ],
+        "text": "Build a reserve that never ends",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Show,visible,results,right"
+        ],
+        "text": "Show visible results to the right people",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Forget,money,live,peace"
+        ],
+        "text": "Forget money and live in peace",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Experience,everything,life,offers"
+        ],
+        "text": "Experience everything life offers",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:could,change,thing,your"
+        ],
+        "text": "If you could change ONE thing in your money behavior it would be:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Stop,living,scarcity,mode"
+        ],
+        "text": "Stop living in scarcity mode",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:others"
+        ],
+        "text": "Buy for me, not for others",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Look,bills,without,running"
+        ],
+        "text": "Look at my bills without running",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Delay,purchase"
+        ],
+        "text": "Delay one purchase by 24h",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "PT-leak:arquétipo,teu",
+          "EN/Latin-in-AR:arqu,tipo"
+        ],
+        "text": ", o teu arquétipo é:",
+        "path": "div.w-full.text-center > div.relative.mb-8 > div.blur-sm.opacity-60 > p.text-sm.font-bold"
+      },
+      {
+        "route": "[loader/reveal]",
+        "reasons": [
+          "EN/Latin-in-AR:Cognitive,Analyzer"
+        ],
+        "text": "MindReset Cognitive Analyzer",
+        "path": "div.relative.mt-12 > div.flex.items-center > div.flex.items-center > span.text-[10px].font-semibold"
+      },
+      {
+        "route": "[loader/reveal]",
+        "reasons": [
+          "EN/Latin-in-AR:Analyzing,impulsivity,flows"
+        ],
+        "text": "Analyzing impulsivity flows...",
+        "path": "div.h-10.overflow-hidden > div.loader-log-enter.space-y-1 > div.flex.items-center > span.text-foreground/75"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:live,scarcity,mode,even"
+        ],
+        "text": "You live in scarcity mode — even when there's plenty.",
+        "path": "div.relative.overflow-hidden > div.relative.z-10 > div.relative.mt-8 > p.relative.mt-5"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:Alto,impacto"
+        ],
+        "text": "Alto impacto",
+        "path": "header.flex.items-center > div.flex.items-center > div.flex.flex-col > span.text-[10px].font-bold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:Impacto"
+        ],
+        "text": "Impacto médio",
+        "path": "header.flex.items-center > div.flex.items-center > div.flex.flex-col > span.text-[10px].font-bold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:save,never,feel,safe"
+        ],
+        "text": "You save but never feel safe",
+        "path": "div.relative.z-10 > div.grid.gap-4 > div.reveal.flex > p.text-base.md:text-lg"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:feel,guilty,spending,yourself"
+        ],
+        "text": "You feel guilty spending on yourself",
+        "path": "div.relative.z-10 > div.grid.gap-4 > div.reveal.flex > p.text-base.md:text-lg"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:trade,today,future,that"
+        ],
+        "text": "You trade today for a future that never arrives",
+        "path": "div.relative.z-10 > div.grid.gap-4 > div.reveal.flex > p.text-base.md:text-lg"
+      }
+    ],
+    "desktop": [
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Portugu"
+        ],
+        "text": "Português",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:English"
+        ],
+        "text": "English",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Polski"
+        ],
+        "text": "Polski",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Daniel,Kahneman"
+        ],
+        "text": "Daniel Kahneman",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Nobel"
+        ],
+        "text": "Nobel",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-[10px]"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Richard,Thaler"
+        ],
+        "text": "Richard Thaler",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "EN/Latin-in-AR:Ariely"
+        ],
+        "text": "Dan Ariely",
+        "path": "div.flex.flex-col > div.reveal.group > div.flex.items-baseline > span.font-sans.text-sm"
+      },
+      {
+        "route": "/privacy",
+        "reasons": [
+          "EN/Latin-in-AR:collects,name,quiz,answers"
+        ],
+        "text": "MindReset collects name, email, quiz answers and approximate geolocation (country) to personalize your diagnosis. We never sell your data. Export and deletion requests: privacy@mindreset.app. Retentio",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "/terms",
+        "reasons": [
+          "EN/Latin-in-AR:provides,educational,behavioral,analysis"
+        ],
+        "text": "MindReset provides educational behavioral analysis. It does NOT replace professional medical, psychological or financial advice. Subscriptions auto-renew. Full refund within 7 days of first purchase. ",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:receive,unexpected,equal,your"
+        ],
+        "text": "You receive an unexpected sum equal to your salary. First impulse?",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Save,almost,safety,first"
+        ],
+        "text": "Save almost all of it — safety first",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Spend,something,that,will"
+        ],
+        "text": "Spend on something that will impress those around me",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Leave,account,think,about"
+        ],
+        "text": "Leave it in the account and try not to think about it",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:what,always,wanted,live"
+        ],
+        "text": "Buy what I've always wanted — live now, plan later",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:When,overspend,trigger,usually"
+        ],
+        "text": "When you overspend, the trigger is usually:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Fear,money,last,spend"
+        ],
+        "text": "Fear money won't last (and I spend to control)",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Social,pressure,wanting,belong"
+        ],
+        "text": "Social pressure or wanting to belong",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Tiredness,avoiding,thinking,about"
+        ],
+        "text": "Tiredness — avoiding thinking about money",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Heat,moment,want,take"
+        ],
+        "text": "Heat of the moment — see it, want it, take it",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Thinking,about,your,financial"
+        ],
+        "text": "Thinking about your financial future you mostly feel:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Anxious,need,more,always"
+        ],
+        "text": "Anxious — I need more, always",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Worried,about,image,keep"
+        ],
+        "text": "Worried about the image I can keep up",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Blocked,rather,think"
+        ],
+        "text": "Blocked — I'd rather not think",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Optimistic,work"
+        ],
+        "text": "Optimistic — it'll work out",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:month,your,account,usually"
+        ],
+        "text": "At month's end your account is usually:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:More,than,expected,saved"
+        ],
+        "text": "More than expected — you saved too much",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Empty,after,subscriptions,dinners"
+        ],
+        "text": "Empty after subscriptions, dinners, brands",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:sure,check"
+        ],
+        "text": "Not sure — I don't check",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Empty,worth,every,moment"
+        ],
+        "text": "Empty, but worth every moment",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Before,major,purchase"
+        ],
+        "text": "Before a major purchase you:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Research,weeks,compare,everything"
+        ],
+        "text": "Research for weeks, compare everything",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Think,about,what,others"
+        ],
+        "text": "Think about what others will notice",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:fast,over,with"
+        ],
+        "text": "Buy fast to get it over with",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Decide,impulse,with,your"
+        ],
+        "text": "Decide on impulse, with your heart",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:word,that,best,describes"
+        ],
+        "text": "The word that best describes your relationship with money is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Control"
+        ],
+        "text": "Control",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Status"
+        ],
+        "text": "Status",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Escape"
+        ],
+        "text": "Escape",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Freedom"
+        ],
+        "text": "Freedom",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Your,biggest,financial,aspiration"
+        ],
+        "text": "Your biggest financial aspiration is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Build,reserve,that,never"
+        ],
+        "text": "Build a reserve that never ends",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Show,visible,results,right"
+        ],
+        "text": "Show visible results to the right people",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Forget,money,live,peace"
+        ],
+        "text": "Forget money and live in peace",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Experience,everything,life,offers"
+        ],
+        "text": "Experience everything life offers",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:could,change,thing,your"
+        ],
+        "text": "If you could change ONE thing in your money behavior it would be:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Stop,living,scarcity,mode"
+        ],
+        "text": "Stop living in scarcity mode",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:others"
+        ],
+        "text": "Buy for me, not for others",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Look,bills,without,running"
+        ],
+        "text": "Look at my bills without running",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN/Latin-in-AR:Delay,purchase"
+        ],
+        "text": "Delay one purchase by 24h",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "PT-leak:arquétipo,teu",
+          "EN/Latin-in-AR:arqu,tipo"
+        ],
+        "text": ", o teu arquétipo é:",
+        "path": "div.w-full.text-center > div.relative.mb-8 > div.blur-sm.opacity-60 > p.text-sm.font-bold"
+      },
+      {
+        "route": "[loader/reveal]",
+        "reasons": [
+          "EN/Latin-in-AR:Cognitive,Analyzer"
+        ],
+        "text": "MindReset Cognitive Analyzer",
+        "path": "div.relative.mt-12 > div.flex.items-center > div.flex.items-center > span.text-[10px].font-semibold"
+      },
+      {
+        "route": "[loader/reveal]",
+        "reasons": [
+          "EN/Latin-in-AR:Mapping,security,triggers"
+        ],
+        "text": "Mapping security triggers...",
+        "path": "div.h-10.overflow-hidden > div.loader-log-enter.space-y-1 > div.flex.items-center > span.text-foreground/75"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:live,scarcity,mode,even"
+        ],
+        "text": "You live in scarcity mode — even when there's plenty.",
+        "path": "div.relative.overflow-hidden > div.relative.z-10 > div.relative.mt-8 > p.relative.mt-5"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:Alto,impacto"
+        ],
+        "text": "Alto impacto",
+        "path": "header.flex.items-center > div.flex.items-center > div.flex.flex-col > span.text-[10px].font-bold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:Impacto"
+        ],
+        "text": "Impacto médio",
+        "path": "header.flex.items-center > div.flex.items-center > div.flex.flex-col > span.text-[10px].font-bold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:save,never,feel,safe"
+        ],
+        "text": "You save but never feel safe",
+        "path": "div.relative.z-10 > div.grid.gap-4 > div.reveal.flex > p.text-base.md:text-lg"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:feel,guilty,spending,yourself"
+        ],
+        "text": "You feel guilty spending on yourself",
+        "path": "div.relative.z-10 > div.grid.gap-4 > div.reveal.flex > p.text-base.md:text-lg"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN/Latin-in-AR:trade,today,future,that"
+        ],
+        "text": "You trade today for a future that never arrives",
+        "path": "div.relative.z-10 > div.grid.gap-4 > div.reveal.flex > p.text-base.md:text-lg"
+      }
+    ]
+  },
+  "pl": {
+    "mobile": [
+      {
+        "route": "/",
+        "reasons": [
+          "AR-in-latin-page"
+        ],
+        "text": "العربية",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "Impulsywny Hedonista",
+        "path": "section.relative.mx-auto > div.reveal-group.grid > div.reveal.group > h3.relative.z-10"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "Archetyp: Impulsywny Hedonista",
+        "path": "div.reveal.group > div.flex.items-center > div.min-w-0.flex-1 > p.mt-0.5.font-sans"
+      },
+      {
+        "route": "/privacy",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "MindReset collects name, email, quiz answers and approximate geolocation (country) to personalize your diagnosis. We never sell your data. Export and deletion requests: privacy@mindreset.app. Retentio",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "/terms",
+        "reasons": [
+          "EN-leak:days,purchase,refund"
+        ],
+        "text": "MindReset provides educational behavioral analysis. It does NOT replace professional medical, psychological or financial advice. Subscriptions auto-renew. Full refund within 7 days of first purchase. ",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "You receive an unexpected sum equal to your salary. First impulse?",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Thinking about your financial future you mostly feel:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "At month's end your account is usually:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:purchase"
+        ],
+        "text": "Before a major purchase you:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Decide on impulse, with your heart",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "The word that best describes your relationship with money is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Your biggest financial aspiration is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "If you could change ONE thing in your money behavior it would be:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:scarcity"
+        ],
+        "text": "Stop living in scarcity mode",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:purchase"
+        ],
+        "text": "Delay one purchase by 24h",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "PT-leak:arquétipo,teu"
+        ],
+        "text": ", o teu arquétipo é:",
+        "path": "div.w-full.text-center > div.relative.mb-8 > div.blur-sm.opacity-60 > p.text-sm.font-bold"
+      },
+      {
+        "route": "[loader/reveal]",
+        "reasons": [
+          "EN-leak:analyzing"
+        ],
+        "text": "Analyzing impulsivity flows...",
+        "path": "div.h-10.overflow-hidden > div.loader-log-enter.space-y-1 > div.flex.items-center > span.text-foreground/75"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN-leak:scarcity"
+        ],
+        "text": "You live in scarcity mode — even when there's plenty.",
+        "path": "div.relative.overflow-hidden > div.relative.z-10 > div.relative.mt-8 > p.relative.mt-5"
+      }
+    ],
+    "desktop": [
+      {
+        "route": "/",
+        "reasons": [
+          "AR-in-latin-page"
+        ],
+        "text": "العربية",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "IMPULSYWNY\nHEDONISTA",
+        "path": "div > div.relative.z-10 > section.relative.pt-20 > div.flex.items-center"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "Impulsywny Hedonista",
+        "path": "section.relative.mx-auto > div.reveal-group.grid > div.reveal.group > h3.relative.z-10"
+      },
+      {
+        "route": "/",
+        "reasons": [
+          "PT-leak:hedonista"
+        ],
+        "text": "Archetyp: Impulsywny Hedonista",
+        "path": "div.reveal.group > div.flex.items-center > div.min-w-0.flex-1 > p.mt-0.5.font-sans"
+      },
+      {
+        "route": "/privacy",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "MindReset collects name, email, quiz answers and approximate geolocation (country) to personalize your diagnosis. We never sell your data. Export and deletion requests: privacy@mindreset.app. Retentio",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "/terms",
+        "reasons": [
+          "EN-leak:days,purchase,refund"
+        ],
+        "text": "MindReset provides educational behavioral analysis. It does NOT replace professional medical, psychological or financial advice. Subscriptions auto-renew. Full refund within 7 days of first purchase. ",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "You receive an unexpected sum equal to your salary. First impulse?",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Thinking about your financial future you mostly feel:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "At month's end your account is usually:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:purchase"
+        ],
+        "text": "Before a major purchase you:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Decide on impulse, with your heart",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "The word that best describes your relationship with money is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Your biggest financial aspiration is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "If you could change ONE thing in your money behavior it would be:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:scarcity"
+        ],
+        "text": "Stop living in scarcity mode",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:purchase"
+        ],
+        "text": "Delay one purchase by 24h",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "PT-leak:arquétipo,teu"
+        ],
+        "text": ", o teu arquétipo é:",
+        "path": "div.w-full.text-center > div.relative.mb-8 > div.blur-sm.opacity-60 > p.text-sm.font-bold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN-leak:scarcity"
+        ],
+        "text": "You live in scarcity mode — even when there's plenty.",
+        "path": "div.relative.overflow-hidden > div.relative.z-10 > div.relative.mt-8 > p.relative.mt-5"
+      }
+    ]
+  },
+  "ro": {
+    "mobile": [
+      {
+        "route": "/",
+        "reasons": [
+          "AR-in-latin-page"
+        ],
+        "text": "العربية",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/privacy",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "MindReset collects name, email, quiz answers and approximate geolocation (country) to personalize your diagnosis. We never sell your data. Export and deletion requests: privacy@mindreset.app. Retentio",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "/terms",
+        "reasons": [
+          "EN-leak:days,purchase,refund"
+        ],
+        "text": "MindReset provides educational behavioral analysis. It does NOT replace professional medical, psychological or financial advice. Subscriptions auto-renew. Full refund within 7 days of first purchase. ",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "You receive an unexpected sum equal to your salary. First impulse?",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Thinking about your financial future you mostly feel:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "At month's end your account is usually:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:purchase"
+        ],
+        "text": "Before a major purchase you:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Decide on impulse, with your heart",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "The word that best describes your relationship with money is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Your biggest financial aspiration is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "If you could change ONE thing in your money behavior it would be:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:scarcity"
+        ],
+        "text": "Stop living in scarcity mode",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:purchase"
+        ],
+        "text": "Delay one purchase by 24h",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "PT-leak:arquétipo,teu"
+        ],
+        "text": ", o teu arquétipo é:",
+        "path": "div.w-full.text-center > div.relative.mb-8 > div.blur-sm.opacity-60 > p.text-sm.font-bold"
+      },
+      {
+        "route": "[loader/reveal]",
+        "reasons": [
+          "EN-leak:analyzing"
+        ],
+        "text": "Analyzing impulsivity flows...",
+        "path": "div.h-10.overflow-hidden > div.loader-log-enter.space-y-1 > div.flex.items-center > span.text-foreground/75"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN-leak:scarcity"
+        ],
+        "text": "You live in scarcity mode — even when there's plenty.",
+        "path": "div.relative.overflow-hidden > div.relative.z-10 > div.relative.mt-8 > p.relative.mt-5"
+      }
+    ],
+    "desktop": [
+      {
+        "route": "/",
+        "reasons": [
+          "AR-in-latin-page"
+        ],
+        "text": "العربية",
+        "path": "div.mx-auto.flex > div.flex.items-center > select.bg-card/50.md:backdrop-blur-md > option"
+      },
+      {
+        "route": "/privacy",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "MindReset collects name, email, quiz answers and approximate geolocation (country) to personalize your diagnosis. We never sell your data. Export and deletion requests: privacy@mindreset.app. Retentio",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "/terms",
+        "reasons": [
+          "EN-leak:days,purchase,refund"
+        ],
+        "text": "MindReset provides educational behavioral analysis. It does NOT replace professional medical, psychological or financial advice. Subscriptions auto-renew. Full refund within 7 days of first purchase. ",
+        "path": "div > div.relative.min-h-screen > div.mx-auto.max-w-3xl > p.mt-8.whitespace-pre-line"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "You receive an unexpected sum equal to your salary. First impulse?",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Thinking about your financial future you mostly feel:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "At month's end your account is usually:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:purchase"
+        ],
+        "text": "Before a major purchase you:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Decide on impulse, with your heart",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "The word that best describes your relationship with money is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "Your biggest financial aspiration is:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:your"
+        ],
+        "text": "If you could change ONE thing in your money behavior it would be:",
+        "path": "div.quiz-stage-enter.w-full > div.w-full > div.mb-12.md:mb-10 > h2.quiz-question-title.font-sans"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:scarcity"
+        ],
+        "text": "Stop living in scarcity mode",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "EN-leak:purchase"
+        ],
+        "text": "Delay one purchase by 24h",
+        "path": "div.w-full > div.grid.gap-3.5 > button.w-full.text-left > span.flex-1.text-[15px]"
+      },
+      {
+        "route": "[quiz-walk]",
+        "reasons": [
+          "PT-leak:arquétipo,teu"
+        ],
+        "text": ", o teu arquétipo é:",
+        "path": "div.w-full.text-center > div.relative.mb-8 > div.blur-sm.opacity-60 > p.text-sm.font-bold"
+      },
+      {
+        "route": "[sales]",
+        "reasons": [
+          "EN-leak:scarcity"
+        ],
+        "text": "You live in scarcity mode — even when there's plenty.",
+        "path": "div.relative.overflow-hidden > div.relative.z-10 > div.relative.mt-8 > p.relative.mt-5"
+      }
+    ]
+  }
+}
