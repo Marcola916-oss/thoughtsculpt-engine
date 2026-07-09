@@ -1933,7 +1933,9 @@ const PL: Dict = {
       "Porównanie z ponad 12 000 diagnoz...",
       "Obliczanie prawdopodobieństwa nawrotu...",
       "Budowanie 30-dniowego protokołu..."
-    ]
+    ],
+    analyzerTag: "MindReset Analizator Poznawczy",
+    impact: { high: "Wysoki wpływ", medium: "Średni wpływ", watch: "Pod obserwacją" },
   },
   legal: {
     privacyBody: "MindReset zbiera imię, e-mail, odpowiedzi z quizu oraz przybliżoną lokalizację (kraj) w celu personalizacji Twojej diagnozy. Nigdy nie sprzedajemy Twoich danych. Wnioski o eksport i usunięcie: privacy@mindreset.app. Okres przechowywania: 24 miesiące od ostatniego logowania.",
@@ -2303,7 +2305,9 @@ const RO: Dict = {
       "Compar cu peste 12.000 de diagnostice...",
       "Calculez probabilitatea de recădere...",
       "Construiesc protocolul de 30 de zile..."
-    ]
+    ],
+    analyzerTag: "MindReset Analizor Cognitiv",
+    impact: { high: "Impact ridicat", medium: "Impact mediu", watch: "În observație" },
   },
   q: [
     { q: "Primești o sumă neașteptată egală cu salariul tău. Primul impuls?",
@@ -2783,7 +2787,9 @@ const AR: Dict = {
       "المقارنة مع أكثر من 12,000 تشخيص...",
       "حساب احتمال الانتكاسة...",
       "بناء بروتوكول الثلاثين يومًا..."
-    ]
+    ],
+    analyzerTag: "المحلّل المعرفي MindReset",
+    impact: { high: "تأثير مرتفع", medium: "تأثير متوسط", watch: "قيد المراقبة" },
   },
   q: [
     { q: "تصلك فجأة مبلغًا يعادل راتبك. أول ما تفكر فيه؟",
