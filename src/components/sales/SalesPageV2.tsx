@@ -102,6 +102,7 @@ export default function SalesPageV2({
   const heroRef = useRef<HTMLDivElement | null>(null);
   const finalRef = useRef<HTMLDivElement | null>(null);
   const maxScrollRef = useRef(0);
+  const firedSceneRef = useRef(false);
 
   // VSL_SCROLL_DEPTH: track max scroll % and fire on unmount
   useEffect(() => {
@@ -124,10 +125,17 @@ export default function SalesPageV2({
   }, [archetype, leadId]);
 
   // Sticky CTA: aparece quando hero sai de viewport e some quando final entra.
+  // vsl_scene_view: dispara a primeira vez que o hero (B1) entra no viewport.
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined") return;
     const obsHero = new IntersectionObserver(
-      ([e]) => setShowSticky(!e.isIntersecting),
+      ([e]) => {
+        setShowSticky(!e.isIntersecting);
+        if (e.isIntersecting && !firedSceneRef.current) {
+          firedSceneRef.current = true;
+          track(EVENTS.VSL_SCENE_VIEW, { arch: archetype, stage: "hero" });
+        }
+      },
       { threshold: 0.1 },
     );
     const obsFinal = new IntersectionObserver(
@@ -305,7 +313,12 @@ export default function SalesPageV2({
             counter={v2.b6.counter}
             rating={v2.b6.rating}
             testimonials={v2.b6.testimonials.slice(0, 6)}
-            lang={lang}
+            archLabels={{
+              AO: ARCH_PRIMARY.AO[lang as "pt" | "en" | "pl" | "ro" | "ar"],
+              SS: ARCH_PRIMARY.SS[lang as "pt" | "en" | "pl" | "ro" | "ar"],
+              EA: ARCH_PRIMARY.EA[lang as "pt" | "en" | "pl" | "ro" | "ar"],
+              HI: ARCH_PRIMARY.HI[lang as "pt" | "en" | "pl" | "ro" | "ar"],
+            }}
           />
 
 
@@ -431,6 +444,7 @@ export default function SalesPageV2({
           chip: v2.exit.chip,
           reservedLabel: v2.exit.reservedLabel,
           remainingLabel: v2.exit.remainingLabel,
+          dossierLabel: v2.exit.dossierLabel,
           progressAnalysis: v2.exit.progressAnalysis,
           progressProtocol: v2.exit.progressProtocol,
           lossHeader: v2.exit.lossHeader,

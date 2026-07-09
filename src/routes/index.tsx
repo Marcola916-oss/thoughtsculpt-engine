@@ -246,6 +246,18 @@ function LandingAndQuiz() {
       url.searchParams.delete("recover");
       window.history.replaceState({}, "", url.pathname + url.search + url.hash);
     }
+
+    // YT Arrival tracking
+    if (params.get("utm_source")?.toLowerCase() === "youtube") {
+      const ytFiredKey = "mindreset_yt_fired";
+      if (!sessionStorage.getItem(ytFiredKey)) {
+        sessionStorage.setItem(ytFiredKey, "1");
+        track(EVENTS.YT_ARRIVAL, {
+          utm_medium: params.get("utm_medium"),
+          utm_campaign: params.get("utm_campaign"),
+        });
+      }
+    }
   }, []);
 
   // Fase 3 — Quiz draft persistence (sessionStorage, TTL 30min).
@@ -1009,7 +1021,8 @@ function EmailCapture(props: {
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
             <p className="text-xs text-foreground/40 bg-background/80 px-3 py-1.5 rounded-full backdrop-blur-sm">
-              {t.emailCapture.blurHint || "Insere o teu email para desbloquear"}
+              {/* P0.4: sem fallback PT — chave i18n deve estar preenchida em translations.ts */}
+              {t.emailCapture.blurHint ?? ""}
             </p>
           </div>
         </div>

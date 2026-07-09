@@ -9,6 +9,8 @@ type CopyBundle = {
   remainingLabel: string;
   progressAnalysis: string;
   progressProtocol: string;
+  /** P0.5: era "— Teu Dossiê —" hardcoded PT. Agora vem via i18n. */
+  dossierLabel: string;
   lossHeader: string;
   losses: string[];
   guarantee: string;
@@ -260,7 +262,8 @@ export function ExitIntentModal({
               className="mb-2 text-center font-mono text-[9px] font-bold uppercase tracking-[0.32em]"
               style={{ color: "color-mix(in oklab, var(--arch-primary) 70%, white)" }}
             >
-              — Teu Dossiê —
+              {/* P0.5: dossierLabel agora vem via copy bundle i18n */}
+              {copy.dossierLabel}
             </p>
             <div className="grid grid-cols-2 gap-3">
             {[

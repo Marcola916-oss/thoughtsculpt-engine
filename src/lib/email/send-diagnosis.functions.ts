@@ -47,10 +47,21 @@ const COPY: Record<Lang, { subject: (n: string) => string; intro: string; cta: s
   },
 };
 
+// P0.7 — Greeting por locale. Antes: "Olá" para PT e para todos os outros
+// exceto AR. Agora: cada idioma tem seu cumprimento correto.
+const GREETING: Record<Lang, string> = {
+  pt: "Olá",
+  en: "Hello",
+  pl: "Cześć",
+  ro: "Salut",
+  ar: "السلام عليكم",
+};
+
 function renderHtml(opts: { name: string; url: string; lang: Lang }) {
   const c = COPY[opts.lang];
   const dir = opts.lang === "ar" ? "rtl" : "ltr";
-  const hi = opts.name ? `${opts.lang === "ar" ? "مرحبًا" : "Olá"} ${opts.name},` : "";
+  const greeting = GREETING[opts.lang] ?? GREETING.en;
+  const hi = opts.name ? `${greeting} ${opts.name},` : "";
   return `<!doctype html>
 <html dir="${dir}" lang="${opts.lang}">
 <body style="margin:0;padding:0;background:#000;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,sans-serif;color:#F5F5F7">

@@ -349,6 +349,7 @@ export type Dict = {
       remainingLabel: string;
       progressAnalysis: string;
       progressProtocol: string;
+      dossierLabel: string;
       lossHeader: string;
       losses: [string, string, string];
       guarantee: string;
@@ -1047,6 +1048,7 @@ const PT: Dict = {
       remainingLabel: "restantes",
       progressAnalysis: "Análise",
       progressProtocol: "Protocolo",
+      dossierLabel: "— Teu Dossiê —",
       lossHeader: "O que fica por abrir:",
       losses: [
         "O teu plano de 30 dias específico para [PRIMARY]",
@@ -1750,6 +1752,7 @@ const EN: Dict = {
       remainingLabel: "remaining",
       progressAnalysis: "Analysis",
       progressProtocol: "Protocol",
+      dossierLabel: "— Your Dossier —",
       lossHeader: "What stays unopened:",
       losses: [
         "Your 30-day plan tailored for the [PRIMARY]",
@@ -2191,6 +2194,7 @@ const PL: Dict = {
       remainingLabel: "pozostało",
       progressAnalysis: "Analiza",
       progressProtocol: "Protokół",
+      dossierLabel: "— Twoja Dokumentacja —",
       lossHeader: "Co zostaje nieotwarte:",
       losses: [
         "Twój 30-dniowy plan dopasowany do wzorca [PRIMARY]",
@@ -2632,6 +2636,7 @@ const RO: Dict = {
       remainingLabel: "rămase",
       progressAnalysis: "Analiză",
       progressProtocol: "Protocol",
+      dossierLabel: "— Dosarul Tău —",
       lossHeader: "Ce rămâne nedeschis:",
       losses: [
         "Planul tău de 30 de zile calibrat pentru [PRIMARY]",
@@ -3074,6 +3079,7 @@ const AR: Dict = {
       remainingLabel: "متبقية",
       progressAnalysis: "التحليل",
       progressProtocol: "البروتوكول",
+      dossierLabel: "— ملفك —",
       lossHeader: "ما يبقى غير مفتوح:",
       losses: [
         "خطتك لثلاثين يوماً المُصمَّمة لـ [PRIMARY]",

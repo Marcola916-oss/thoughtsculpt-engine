@@ -11,6 +11,7 @@ import { ButtonPress } from "@/components/interaction/ButtonPress";
 import { Atmosphere } from "@/components/atmosphere";
 import { motion } from "framer-motion";
 import { Check, Mail, FileText, MessageCircle } from "lucide-react";
+import { getPricing } from "@/lib/funnel/pricing-stub";
 
 export const Route = createFileRoute("/obrigado")({
   // Título neutro no SSR; ThankYouPage sobrepõe via document.title conforme locale.
@@ -57,9 +58,9 @@ const COPY: Record<string, {
   step4: string;
   supportTitle: string;
   supportEmail: string;
-  upsellTitle: string;
+  upsellTitle: (price: string) => string;
   upsellDesc: string;
-  upsellCta: string;
+  upsellCta: (price: string) => string;
   upsellDecline: string;
 }> = {
   pt: {
@@ -92,9 +93,9 @@ const COPY: Record<string, {
     step4: "Aplica 1 micro-acção por semana. Sem pressa.",
     supportTitle: "Dúvidas?",
     supportEmail: "suporte@mindreset.app",
-    upsellTitle: "Protocolo de 30 Dias — Apenas +$14",
+    upsellTitle: (price) => `Protocolo de 30 Dias — Apenas +${price}`,
     upsellDesc: "Recebe um plano diário personalizado com tarefas reflexivas e de ação para os próximos 30 dias.",
-    upsellCta: "Adicionar Protocolo +$14",
+    upsellCta: (price) => `Adicionar Protocolo +${price}`,
     upsellDecline: "Agora não, obrigado",
   },
   en: {
@@ -127,9 +128,9 @@ const COPY: Record<string, {
     step4: "Apply 1 micro-action per week. No rush.",
     supportTitle: "Questions?",
     supportEmail: "support@mindreset.app",
-    upsellTitle: "30-Day Protocol — Just +$14",
+    upsellTitle: (price) => `30-Day Protocol — Just +${price}`,
     upsellDesc: "Get a personalized daily plan with reflective and action tasks for the next 30 days.",
-    upsellCta: "Add Protocol +$14",
+    upsellCta: (price) => `Add Protocol +${price}`,
     upsellDecline: "Not now, thanks",
   },
   pl: {
@@ -162,9 +163,9 @@ const COPY: Record<string, {
     step4: "Wprowadzaj 1 mikro-działanie tygodniowo. Bez pośpiechu.",
     supportTitle: "Pytania?",
     supportEmail: "support@mindreset.app",
-    upsellTitle: "Protokół 30-dniowy — Tylko +$14",
+    upsellTitle: (price) => `Protokół 30-dniowy — Tylko +${price}`,
     upsellDesc: "Otrzymaj spersonalizowany dzienny plan z zadaniami refleksyjnymi i akcji na kolejne 30 dni.",
-    upsellCta: "Dodaj protokół +$14",
+    upsellCta: (price) => `Dodaj protokół +${price}`,
     upsellDecline: "Nie teraz, dziękuję",
   },
   ro: {
@@ -197,9 +198,9 @@ const COPY: Record<string, {
     step4: "Aplică 1 micro-acțiune pe săptămână. Fără grabă.",
     supportTitle: "Întrebări?",
     supportEmail: "support@mindreset.app",
-    upsellTitle: "Protocol de 30 de zile — Doar +$14",
+    upsellTitle: (price) => `Protocol de 30 de zile — Doar +${price}`,
     upsellDesc: "Primește un plan zilnic personalizat cu sarcini reflective și de acțiune pentru următoarele 30 de zile.",
-    upsellCta: "Adaugă Protocol +$14",
+    upsellCta: (price) => `Adaugă Protocol +${price}`,
     upsellDecline: "Nu acum, mulțumesc",
   },
   ar: {
@@ -232,9 +233,9 @@ const COPY: Record<string, {
     step4: "طبّق إجراءً صغيرًا واحدًا كل أسبوع. دون استعجال.",
     supportTitle: "أسئلة؟",
     supportEmail: "support@mindreset.app",
-    upsellTitle: "بروتوكول 30 يومًا — فقط +$14",
+    upsellTitle: (price) => `بروتوكول 30 يومًا — فقط +${price}`,
     upsellDesc: "احصل على خطة يومية مخصصة مع مهام تأملية وإجرائية للأيام الثلاثين المقبلة.",
-    upsellCta: "أضف البروتوكول +$14",
+    upsellCta: (price) => `أضف البروتوكول +${price}`,
     upsellDecline: "ليس الآن، شكراً",
   },
 };
@@ -444,6 +445,7 @@ function ReadyView({
   email: string | null;
   fromCache: boolean;
 }) {
+  const { lang, currency } = useI18n();
   const [showUpsell, setShowUpsell] = useState(false);
   const [upsellDismissed, setUpsellDismissed] = useState(false);
 
@@ -456,6 +458,8 @@ function ReadyView({
   }, []);
 
   const displayName = (name || "").trim() || "—";
+  const price = getPricing(lang, currency).bump2;
+
   return (
     <div className="mt-2 flex flex-col items-center gap-10 text-left">
       {/* Animated checkmark */}
@@ -526,7 +530,7 @@ function ReadyView({
           transition={{ duration: 0.5 }}
           className="w-full rounded-2xl border border-[#CC0000]/40 bg-[#CC0000]/5 p-6"
         >
-          <h3 className="font-display text-lg font-bold text-white">{copy.upsellTitle}</h3>
+          <h3 className="font-display text-lg font-bold text-white">{copy.upsellTitle(price)}</h3>
           <p className="mt-2 text-sm text-foreground/70 leading-relaxed">{copy.upsellDesc}</p>
           <div className="mt-4 flex flex-col sm:flex-row gap-3">
             <ButtonPress>
@@ -535,7 +539,7 @@ function ReadyView({
                 onClick={() => track(EVENTS.UPSELL_ACCEPTED)}
                 className="inline-flex items-center justify-center rounded-full bg-[#CC0000] px-6 py-3 text-sm font-bold text-white transition hover:scale-[1.03]"
               >
-                {copy.upsellCta}
+                {copy.upsellCta(price)}
               </a>
             </ButtonPress>
             <button

@@ -23,22 +23,10 @@ interface SalesTestimonialsProps {
   counter: string;
   rating: string;
   testimonials: Testimonial[];
-  lang: string;
+  archLabels: Record<string, string>;
 }
 
-function getArchLabel(arch: string, lang: string): string {
-  const labels: Record<string, Record<string, string>> = {
-    AO: { pt: "Guardião Obsessivo", en: "Obsessive Saver", pl: "Obsesyjna Oszczędna", ro: "Econom Obsesiv", ar: "المدخر القهري" },
-    SS: { pt: "Caçador de Status", en: "Status Seeker", pl: "Poszukiwacz Statusu", ro: "Căutător de Statut", ar: "باحث عن المكانة" },
-    EA: { pt: "Fantasma Evasivo", en: "Avoidant Ghost", pl: "Unikający Duch", ro: "Fantasmă Evazionistă", ar: "الشبح المتجنب" },
-    HI: { pt: "Hedonista Impulsivo", en: "Impulsive Hedonist", pl: "Impulsywny Hedonista", ro: "Hedonist Impulsiv", ar: "الملذّ المندفع" },
-  };
-  return labels[arch]?.[lang] ?? arch;
-}
-
-
-
-export function SalesTestimonials({ counter, rating, testimonials, lang }: SalesTestimonialsProps) {
+export function SalesTestimonials({ counter, rating, testimonials, archLabels }: SalesTestimonialsProps) {
   return (
     <section aria-labelledby="testimonials-heading" className="relative mx-auto w-full max-w-7xl px-4 py-24 md:px-8 md:py-32">
       <Reveal variant="fade-up" className="mx-auto mb-14 max-w-2xl text-center md:mb-20">
@@ -88,7 +76,7 @@ export function SalesTestimonials({ counter, rating, testimonials, lang }: Sales
               <div className="min-w-0 flex-1">
                 <p className="font-sans text-sm font-bold uppercase tracking-[0.12em] text-white break-words">{item.author}</p>
                 <p className="mt-0.5 font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-arch-primary break-words whitespace-pre-line">
-                  {item.country} · {getArchLabel(item.arch, lang)}
+                  {item.country} · {archLabels[item.arch] ?? item.arch}
                 </p>
               </div>
             </div>

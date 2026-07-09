@@ -42,6 +42,7 @@ export const EVENTS = {
   EXIT_INTENT_RECOVERED: "exit_intent_recovered",
   EXIT_INTENT_CTA: "exit_intent_cta",
   EXIT_INTENT_DISMISS: "exit_intent_dismiss",
+  YT_ARRIVAL: "yt_arrival",
 } as const;
 
 export type EventName = (typeof EVENTS)[keyof typeof EVENTS] | string;

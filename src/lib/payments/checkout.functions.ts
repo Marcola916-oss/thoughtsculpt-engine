@@ -127,6 +127,20 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       .update({ stripe_session_id: session.id })
       .eq("id", order.id);
 
+    // Track server-side event (PostHog)
+    if (process.env.VITE_POSTHOG_KEY) {
+      fetch(`${process.env.VITE_POSTHOG_HOST || "https://us.i.posthog.com"}/capture/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          api_key: process.env.VITE_POSTHOG_KEY,
+          event: "stripe_session_created",
+          distinct_id: lead.id,
+          properties: { lang, order_id: order.id, source: "server" },
+        }),
+      }).catch((e) => console.error("[checkout] PostHog SS error", e));
+    }
+
     return { url: session.url, orderId: order.id };
   });
 
