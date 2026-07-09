@@ -1889,6 +1889,42 @@ const PL: Dict = {
     EA: { ...EN.archetypes.EA, name: "UNIKAJĄCY\nUCIEKINIER" },
     HI: { ...EN.archetypes.HI, name: "IMPULSYWNY\nHEDONISTA" },
   },
+  // Onda C — tagline + hooks nativos para PL (antes vazavam de EN)
+  // (bloco imediatamente acima só sobrescrevia name)
+  q: [
+    { q: "Otrzymujesz nieoczekiwaną kwotę równą Twojej pensji. Pierwszy impuls?",
+      options: ["Odłóż prawie wszystko — najpierw bezpieczeństwo","Wydaj na coś, co zaimponuje otoczeniu","Zostaw na koncie i staraj się o tym nie myśleć","Kup to, o czym zawsze marzyłeś — żyj teraz, planuj później"] },
+    { q: "Kiedy przesadzasz z wydatkami, zwykle wyzwalaczem jest:",
+      options: ["Strach, że pieniądze się skończą (i wydajesz, żeby kontrolować)","Presja społeczna lub potrzeba przynależności","Zmęczenie — chęć nie myślenia o pieniądzach","Chwila uniesienia — widzę, chcę, biorę"] },
+    { q: "Myśląc o swojej przyszłości finansowej, najczęściej czujesz:",
+      options: ["Niepokój — potrzebuję więcej, zawsze","Troskę o wizerunek, który muszę utrzymać","Blokadę — wolę o tym nie myśleć","Optymizm — jakoś to będzie"] },
+    { q: "Pod koniec miesiąca Twoje konto zazwyczaj jest:",
+      options: ["Wyższe niż oczekiwałeś — zaoszczędziłeś za dużo","Puste po subskrypcjach, kolacjach, markach","Nie wiem — nie sprawdzam","Puste, ale każda chwila była tego warta"] },
+    { q: "Przed dużym zakupem:",
+      options: ["Analizujesz tygodniami, porównujesz wszystko","Zastanawiasz się, co pomyślą inni","Kupujesz szybko, żeby mieć to z głowy","Decydujesz impulsywnie, sercem"] },
+    { q: "Słowo, które najlepiej opisuje Twoją relację z pieniędzmi to:",
+      options: ["Kontrola","Status","Ucieczka","Wolność"] },
+    { q: "Twoja największa aspiracja finansowa to:",
+      options: ["Zbudować rezerwę, która nigdy się nie skończy","Pokazać widoczne rezultaty właściwym ludziom","Zapomnieć o pieniądzach i żyć w spokoju","Doświadczyć wszystkiego, co życie oferuje"] },
+    { q: "Gdybyś mógł zmienić JEDNĄ rzecz w swoim podejściu do pieniędzy, byłoby to:",
+      options: ["Przestać żyć w trybie niedoboru","Kupować dla siebie, nie dla innych","Patrzeć na rachunki bez uciekania","Odłożyć jeden zakup o 24h"] },
+  ],
+  loader: {
+    ...EN.loader,
+    title: "Przetwarzam Twoje odpowiedzi",
+    steps: ["Krzyżuję 8 odpowiedzi z 4 archetypami…","Identyfikuję dominujący wzorzec…","Przygotowuję wynik…","Prawie gotowe, [NOME]… Twój wynik jest gotowy!"],
+    analysis: [
+      "Analiza wzorców impulsywności...",
+      "Mapowanie wyzwalaczy bezpieczeństwa...",
+      "Porównanie z ponad 12 000 diagnoz...",
+      "Obliczanie prawdopodobieństwa nawrotu...",
+      "Budowanie 30-dniowego protokołu..."
+    ]
+  },
+  legal: {
+    privacyBody: "MindReset zbiera imię, e-mail, odpowiedzi z quizu oraz przybliżoną lokalizację (kraj) w celu personalizacji Twojej diagnozy. Nigdy nie sprzedajemy Twoich danych. Wnioski o eksport i usunięcie: privacy@mindreset.app. Okres przechowywania: 24 miesiące od ostatniego logowania.",
+    termsBody: "MindReset udostępnia edukacyjną analizę behawioralną. NIE zastępuje profesjonalnej porady medycznej, psychologicznej ani finansowej. Subskrypcje odnawiają się automatycznie. Pełny zwrot w ciągu 7 dni od pierwszego zakupu. Anuluj w dowolnej chwili z portalu klienta.",
+  },
   landing: {
     proofBar: {
       ariaLabel: "Wskaźniki zaufania",
