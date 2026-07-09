@@ -532,7 +532,9 @@ const PT: Dict = {
       "A cruzar dados com 12.000 diagnósticos...",
       "A calcular probabilidade de recidiva...",
       "A construir protocolo de 30 dias..."
-    ]
+    ],
+    analyzerTag: "MindReset Analisador Cognitivo",
+    impact: { high: "Alto impacto", medium: "Impacto médio", watch: "Em observação" },
   },
   archetypes: {
     AO: { name: "ACUMULADOR\nOBSESSIVO", tagline: "Vives em modo escassez — mesmo quando há.",
@@ -1236,7 +1238,9 @@ const EN: Dict = {
       "Cross-referencing with 12,000+ diagnoses...",
       "Calculating relapse probability...",
       "Building 30-day protocol..."
-    ]
+    ],
+    analyzerTag: "MindReset Cognitive Analyzer",
+    impact: { high: "High impact", medium: "Medium impact", watch: "Under watch" },
   },
   archetypes: {
     AO: { name: "OBSESSIVE\nACCUMULATOR", tagline: "You live in scarcity mode — even when there's plenty.",
