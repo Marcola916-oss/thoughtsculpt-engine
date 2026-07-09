@@ -2366,10 +2366,14 @@ const RO: Dict = {
   plans: { ...EN.plans, title: "Confirmă-ți accesul", sub: "Plată unică · Acces pe viață · Fără abonament.", mostPopular: "CEL MAI ALES", p30: "30 zile", p6m: "6 luni", p1y: "1 an", chooseCta: "Vreau acest plan",     guarantee: "30 zile rambursare integrală — fără întrebări." },
   cookies: { body: "Folosim tehnologii de localizare pentru a-ți personaliza experiența. Continuând ești de acord cu Politica noastră de Confidențialitate." },
   archetypes: {
-    AO: { ...EN.archetypes.AO, name: "ACUMULATOR\nOBSESIV" },
-    SS: { ...EN.archetypes.SS, name: "CĂUTĂTOR\nDE STATUT" },
-    EA: { ...EN.archetypes.EA, name: "EVAZIV\nALIENAT" },
-    HI: { ...EN.archetypes.HI, name: "HEDONIST\nIMPULSIV" },
+    AO: { name: "ACUMULATOR\nOBSESIV", tagline: "Trăiești în modul lipsă — chiar și când ai destul.",
+      hooks: ["Economisești, dar nu te simți niciodată în siguranță","Simți vinovăție când cheltui pe tine","Sacrifici prezentul pentru un viitor care nu vine niciodată"] },
+    SS: { name: "CĂUTĂTOR\nDE STATUT", tagline: "Cumperi versiunea de tine pe care vrei să o vadă ceilalți.",
+      hooks: ["Cheltui ca să semnalezi apartenență","Ți-e frică să pari mic","Sacrifici echilibrul pentru validare"] },
+    EA: { name: "EVAZIV\nALIENAT", tagline: "Banii există — tu alegi să nu privești.",
+      hooks: ["Nu deschizi extrasele","Decizi rapid ca să închei disconfortul","Plătești pentru liniște cu dobânzi invizibile"] },
+    HI: { name: "HEDONIST\nIMPULSIV", tagline: "Trăiești pentru acum — și acum este mereu scump.",
+      hooks: ["Cumperi din emoție, justifici după","Amânarea îți pare pierdere","Ai tot, mai puțin marja"] },
   },
   landing: {
     proofBar: {
