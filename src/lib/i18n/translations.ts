@@ -2283,7 +2283,40 @@ const RO: Dict = {
   questions: { title: (n, total) => `Întrebarea ${n} din ${total}`, intro: (name) => `${name}, alege opțiunea care îți seamănă cel mai mult — nu există răspunsuri greșite.` },
   emailCapture: { title: (name) => `${name}, diagnoza ta este gata.`, sub: "Lasă e-mailul pentru a primi raportul complet și a-ți debloca pagina arhetipului.", cta: "Vezi-mi arhetipul acum", blurHint: "Introdu e-mailul pentru a debloca" },
   quizProgress: { identity: "Identificare", email: "Finalizare" },
-  loader: { ...EN.loader, title: "Procesez răspunsurile tale", steps: ["Cross-check pe 8 răspunsuri și 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…","Gata, [NOME]… rezultatul tău este gata!"] },
+  loader: {
+    ...EN.loader,
+    title: "Procesez răspunsurile tale",
+    steps: ["Verific încrucișat 8 răspunsuri cu 4 arhetipuri…","Identific tiparul dominant…","Pregătesc revelația…","Gata, [NOME]… rezultatul tău este aici!"],
+    analysis: [
+      "Analizez fluxurile de impulsivitate...",
+      "Cartografiez declanșatorii de siguranță...",
+      "Compar cu peste 12.000 de diagnostice...",
+      "Calculez probabilitatea de recădere...",
+      "Construiesc protocolul de 30 de zile..."
+    ]
+  },
+  q: [
+    { q: "Primești o sumă neașteptată egală cu salariul tău. Primul impuls?",
+      options: ["Economisesc aproape tot — siguranța pe primul loc","Cheltui pe ceva ce va impresiona cei din jur","O las în cont și încerc să nu mă gândesc","Cumpăr ce mi-am dorit mereu — trăiesc acum, planific mai târziu"] },
+    { q: "Când cheltui în exces, declanșatorul este de obicei:",
+      options: ["Frica că banii nu vor ține (și cheltui ca să controlez)","Presiunea socială sau dorința de apartenență","Oboseala — evit să mă gândesc la bani","Momentul — o văd, o vreau, o iau"] },
+    { q: "Gândindu-te la viitorul tău financiar, în general simți:",
+      options: ["Anxietate — am nevoie de mai mult, mereu","Îngrijorare pentru imaginea pe care trebuie să o mențin","Blocaj — prefer să nu mă gândesc","Optimism — se va rezolva"] },
+    { q: "La sfârșitul lunii contul tău este de obicei:",
+      options: ["Mai plin decât te așteptai — ai economisit prea mult","Gol după abonamente, cine, branduri","Nu sunt sigur — nu verific","Gol, dar a meritat fiecare moment"] },
+    { q: "Înainte de o achiziție importantă:",
+      options: ["Cercetezi săptămâni, compari totul","Te gândești ce vor observa alții","Cumperi rapid ca să treci peste","Decizi impulsiv, cu inima"] },
+    { q: "Cuvântul care descrie cel mai bine relația ta cu banii este:",
+      options: ["Control","Statut","Evadare","Libertate"] },
+    { q: "Cea mai mare aspirație financiară a ta este:",
+      options: ["Să construiesc o rezervă care nu se termină","Să arăt rezultate vizibile oamenilor potriviți","Să uit de bani și să trăiesc în pace","Să experimentez tot ce oferă viața"] },
+    { q: "Dacă ai putea schimba UN SINGUR lucru la comportamentul tău cu banii, ar fi:",
+      options: ["Să nu mai trăiesc în modul lipsă","Să cumpăr pentru mine, nu pentru alții","Să-mi privesc facturile fără să fug","Să amân o achiziție cu 24h"] },
+  ],
+  legal: {
+    privacyBody: "MindReset colectează numele, e-mailul, răspunsurile din test și localizarea aproximativă (țara) pentru a-ți personaliza diagnosticul. Nu vindem niciodată datele tale. Cereri de export și ștergere: privacy@mindreset.app. Perioada de păstrare: 24 de luni de la ultima autentificare.",
+    termsBody: "MindReset oferă analiză comportamentală educațională. NU înlocuiește sfatul profesional medical, psihologic sau financiar. Abonamentele se reînnoiesc automat. Rambursare integrală în termen de 7 zile de la prima achiziție. Poți anula oricând din portalul clientului.",
+  },
   reveal: {
     ...EN.reveal,
     kicker: (name) => `${name}, arhetipul tău este:`,
